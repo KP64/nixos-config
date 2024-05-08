@@ -47,10 +47,10 @@
   programs = {
     home-manager.enable = true;
 
-    #waybar = {
-    #  enable = true;
-    #  systemd.enable = true;
-    #};
+    waybar = {
+      enable = false;
+      systemd.enable = false;
+    };
     
     bottom.enable = true;
     
