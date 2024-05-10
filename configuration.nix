@@ -2,11 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ 
+{
   # config, 
-  pkgs, 
+  pkgs,
   # inputs,
-  ... 
+  ...
 }:
 
 {
@@ -18,21 +18,27 @@
   nix = {
     gc = {
       automatic = true;
-      dates = "weekly";
+      dates = "daily";
       options = "--delete-older-than 3d";
     };
-    
+
     optimise.automatic = true;
     settings.auto-optimise-store = true;
   };
-  
+
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
+    DIRENV_LOG_FORMAT = "";
   };
 
   hardware = {
     opengl.enable = true;
     nvidia.modesetting.enable = true;
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
 
   nix.settings = {
@@ -40,14 +46,23 @@
       "nix-command"
       "flakes"
     ];
-    trusted-users = [ "root" "kg" ];
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    trusted-users = [
+      "root"
+      "kg"
+    ];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
+  };
+
+  security.tpm2 = {
+    enable = true;
+    pkcs11.enable = true;
+    tctiEnvironment.enable = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -59,6 +74,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -96,6 +113,8 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "audio"
+      "tss"
     ];
     packages = [ ];
   };
@@ -122,6 +141,18 @@
   programs = {
     nh.enable = true;
     bandwhich.enable = true;
+  };
+
+  sound.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    pulse.enable = true;
+    jack.enable = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
