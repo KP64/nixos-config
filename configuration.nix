@@ -75,7 +75,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  services.blueman.enable = true;
+  services = {
+    blueman.enable = true;
+    udisks2.enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -143,7 +146,6 @@
     bandwhich.enable = true;
   };
 
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

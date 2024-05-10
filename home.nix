@@ -8,40 +8,54 @@
 {
   nix.gc.automatic = true;
 
+  home.file = {
+    ".config/hypr/hyprlock.conf".source = ./hyprlock.conf;
+    ".config/hypr/hypridle.conf".source = ./hypridle.conf;
+  };
+
   home = {
     stateVersion = "24.05";
     username = "kg";
     homeDirectory = "/home/kg";
-    packages = with pkgs; [
-      asciinema
-      ani-cli
-      tokei
-      sshx
-      just
-      lychee
-      gping
-      hexyl
-      
-      discord
-      
-      onefetch
-      hyperfine
-      hurl
-      gitoxide
+    packages =
+      (with inputs; [
+        hyprpicker.packages."${pkgs.system}".hyprpicker
+        hypridle.packages."${pkgs.system}".hypridle
+        hyprlock.packages."${pkgs.system}".hyprlock
+      ])
+      ++ (with pkgs; [
+        asciinema
+        ani-cli
+        tokei
+        sshx
+        just
+        lychee
+        gping
+        hexyl
 
-      dust
-      procs
-      sd
-      xcp
-      jnv
-      glow
-      kondo
+        discord
+        whatsapp-for-linux
 
-      swww
-      rofi-wayland
-    ];
+        onefetch
+        hyperfine
+        hurl
+        gitoxide
+
+        dust
+        procs
+        sd
+        xcp
+        jnv
+        glow
+        kondo
+
+        swww
+        rofi-wayland
+      ]);
   };
   services = {
+    copyq.enable = true;
+    udiskie.enable = true;
     dunst.enable = true;
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
