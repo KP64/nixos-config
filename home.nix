@@ -8,20 +8,27 @@
 {
   nix.gc.automatic = true;
 
-  home.file = {
-    ".config/hypr/hyprlock.conf".source = ./hyprlock.conf;
-    ".config/hypr/hypridle.conf".source = ./hypridle.conf;
-  };
-
   home = {
     stateVersion = "24.05";
     username = "kg";
     homeDirectory = "/home/kg";
+    pointerCursor = {
+      gtk.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 16;
+    };
+
+    file = {
+      ".config/hypr/hyprlock.conf".source = ./hyprlock.conf;
+      ".config/hypr/hypridle.conf".source = ./hypridle.conf;
+    };
+
     packages =
       (with inputs; [
-        hyprpicker.packages."${pkgs.system}".hyprpicker
-        hypridle.packages."${pkgs.system}".hypridle
-        hyprlock.packages."${pkgs.system}".hyprlock
+        hyprpicker.packages.${pkgs.system}.hyprpicker
+        hypridle.packages.${pkgs.system}.hypridle
+        hyprlock.packages.${pkgs.system}.hyprlock
       ])
       ++ (with pkgs; [
         asciinema
@@ -35,6 +42,7 @@
 
         discord
         whatsapp-for-linux
+        protonup
 
         onefetch
         hyperfine
@@ -53,6 +61,24 @@
         rofi-wayland
       ]);
   };
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.flat-remix-gtk;
+      name = "Flat-Remix-GTK-Grey-Darkest";
+    };
+
+    iconTheme = {
+      package = pkgs.gnome.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+
+    font = {
+      name = "Sans";
+      size = 11;
+    };
+  };
+
   services = {
     copyq.enable = true;
     udiskie.enable = true;
@@ -63,11 +89,22 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     extraConfig = builtins.readFile ./hyprland.conf;
   };
 
   programs = {
     home-manager.enable = true;
+
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-pipewire-audio-capture
+      ];
+    };
+
+    mangohud.enable = true;
 
     waybar = {
       enable = true;
@@ -130,7 +167,12 @@
       lfs.enable = true;
       userName = "KP64";
       userEmail = "karamalsadeh@hotmail.com";
-      delta.enable = true;
+      delta = {
+        enable = true;
+        options = {
+          line-numbers = true;
+        };
+      };
       extraConfig = {
         init.defaultBranch = "master";
         safe.directory = "/etc/nixos";

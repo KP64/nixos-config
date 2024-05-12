@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  # config, 
+  config,
   pkgs,
   # inputs,
   ...
@@ -21,9 +21,21 @@
       dates = "daily";
       options = "--delete-older-than 3d";
     };
-
+    channel.enable = false;
     optimise.automatic = true;
-    settings.auto-optimise-store = true;
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [
+        "root"
+        "kg"
+      ];
+      auto-optimise-store = true;
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    };
   };
 
   environment.sessionVariables = {
@@ -32,7 +44,12 @@
   };
 
   hardware = {
-    opengl.enable = true;
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+
     nvidia.modesetting.enable = true;
 
     bluetooth = {
@@ -41,28 +58,27 @@
     };
   };
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    trusted-users = [
-      "root"
-      "kg"
-    ];
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "v4l2loopback" ];
+    extraModprobeConfig = ''
+      options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+    '';
   };
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
-
-  security.tpm2 = {
-    enable = true;
-    pkcs11.enable = true;
-    tctiEnvironment.enable = true;
+  security = {
+    polkit.enable = true;
+    rtkit.enable = true;
+    tpm2 = {
+      enable = true;
+      pkcs11.enable = true;
+      tctiEnvironment.enable = true;
+    };
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -80,22 +96,21 @@
     udisks2.enable = true;
   };
 
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+      LC_NAME = "de_DE.UTF-8";
+      LC_NUMERIC = "de_DE.UTF-8";
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
+    };
   };
 
   # Configure keymap in X11
@@ -104,6 +119,7 @@
       layout = "de";
       variant = "";
     };
+    videoDrivers = [ "nvidia" ];
   };
 
   # Configure console keymap
@@ -117,12 +133,15 @@
       "networkmanager"
       "wheel"
       "audio"
+      "video"
       "tss"
     ];
-    packages = [ ];
   };
 
-  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  fonts = {
+    enableDefaultPackages = false;
+    packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -141,12 +160,6 @@
     nix-output-monitor
   ];
 
-  programs = {
-    nh.enable = true;
-    bandwhich.enable = true;
-  };
-
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa = {
@@ -155,6 +168,20 @@
     };
     pulse.enable = true;
     jack.enable = true;
+  };
+
+  programs = {
+    dconf.enable = true;
+    nh = {
+      enable = true;
+      flake = "/etc/nixos";
+    };
+    bandwhich.enable = true;
+    gamemode.enable = true;
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
