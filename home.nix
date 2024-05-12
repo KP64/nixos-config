@@ -8,6 +8,12 @@
 {
   nix.gc.automatic = true;
 
+  imports = [
+    ./hypr/hyprland.nix
+    ./hypr/hypridle.nix
+    ./hypr/hyprlock.nix
+  ];
+
   home = {
     stateVersion = "24.05";
     username = "kg";
@@ -19,17 +25,8 @@
       size = 16;
     };
 
-    file = {
-      ".config/hypr/hyprlock.conf".source = ./hyprlock.conf;
-      ".config/hypr/hypridle.conf".source = ./hypridle.conf;
-    };
-
     packages =
-      (with inputs; [
-        hyprpicker.packages.${pkgs.system}.hyprpicker
-        hypridle.packages.${pkgs.system}.hypridle
-        hyprlock.packages.${pkgs.system}.hyprlock
-      ])
+      [ inputs.hyprpicker.packages.${pkgs.system}.hyprpicker ]
       ++ (with pkgs; [
         asciinema
         ani-cli
@@ -85,12 +82,6 @@
     dunst.enable = true;
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    extraConfig = builtins.readFile ./hyprland.conf;
   };
 
   programs = {
