@@ -133,6 +133,29 @@
           show_banner: false
         }
       '';
+      extraEnv = ''
+        def --env fcd [dir = "."] {
+          let selected_dir = (fd . $dir -t d | fzf --reverse)
+          if $selected_dir == "" {
+            return null;
+          }
+          cd $selected_dir
+          $selected_dir
+        }
+
+        def --env fhx [dir = "."] {
+          let selected_dir = fcd $dir
+          if $selected_dir == null {
+            return;
+          }
+          let selected_file = (fd . $dir -t f | fzf --reverse)
+          if $selected_file == "" {
+            cd -
+          } else {
+            hx $selected_file
+          }
+        }
+      '';
     };
 
     zellij = {
