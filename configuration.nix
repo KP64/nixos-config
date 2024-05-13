@@ -21,7 +21,7 @@
       dates = "daily";
       options = "--delete-older-than 3d";
     };
-    channel.enable = false;
+    channel.enable = true;
     optimise.automatic = true;
     settings = {
       experimental-features = [
@@ -38,9 +38,15 @@
     };
   };
 
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    DIRENV_LOG_FORMAT = "";
+  environment = {
+    pathsToLink = [
+      "/share/xdg-desktop-portal"
+      "/share/applications"
+    ];
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      DIRENV_LOG_FORMAT = "";
+    };
   };
 
   hardware = {
@@ -166,6 +172,7 @@
       enable = true;
       support32Bit = true;
     };
+    wireplumber.enable = true;
     pulse.enable = true;
     jack.enable = true;
   };
