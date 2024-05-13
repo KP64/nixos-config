@@ -17,7 +17,8 @@
       ];
 
       "$terminal" = "kitty";
-      "$fileManager" = "dolphin";
+      "$fileManager" = "yazi";
+      "$browser" = "firefox";
       "$menu" = "rofi -show drun -show-icons";
       "$mainMod" = "SUPER";
 
@@ -114,7 +115,7 @@
           "$mainMod, Q, exec, $terminal"
           "$mainMod, C, killactive,"
           "$mainMod, M, exit,"
-          "$mainMod, F, exec, firefox"
+          "$mainMod, F, exec, $browser"
           "$mainMod, E, exec, $fileManager"
           "$mainMod, V, togglefloating,"
           "$mainMod, R, exec, $menu"

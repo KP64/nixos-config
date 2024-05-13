@@ -36,7 +36,8 @@
     };
 
     packages =
-      [ inputs.hyprpicker.packages.${pkgs.system}.hyprpicker ]
+      with inputs;
+      [ hyprpicker.packages.${pkgs.system}.hyprpicker ]
       ++ (with pkgs; [
         asciinema
         ani-cli
@@ -146,37 +147,37 @@
         }
       '';
       extraEnv = ''
-        def --env fcd [dir = "."] {
-          let selected_dir = (fd . $dir -t d | fzf --reverse)
-          if $selected_dir == "" {
-            return null;
-          }
-          cd $selected_dir
-          $selected_dir
-        }
+                def --env fcd [dir = "."] {
+                  let selected_dir = (fd . $dir -t d | fzf --reverse)
+                  if $selected_dir == "" {
+                    return null;
+                  }
+                  cd $selected_dir
+                  $selected_dir
+                }
 
-        def --env fhx [dir = "."] {
-          let selected_dir = fcd $dir
-          if $selected_dir == null {
-            return;
-          }
-          let selected_file = (fd . $dir -t f | fzf --reverse)
-          if $selected_file == "" {
-            cd -
-          } else {
-            hx $selected_file
-          }
-        }
+                def --env fhx [dir = "."] {
+                  let selected_dir = fcd $dir
+                  if $selected_dir == null {
+                    return;
+                  }
+                  let selected_file = (fd . $dir -t f | fzf --reverse)
+                  if $selected_file == "" {
+                    cd -
+                  } else {
+                    hx $selected_file
+                  }
+                }
 
-        def --env yy [...args] {
-	        let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-	        yazi ...$args --cwd-file $tmp
-	        let cwd = (open $tmp)
-	        if $cwd != "" and $cwd != $env.PWD {
-		        cd $cwd
-	        }
-	        rm -fp $tmp
-        }
+                def --env yy [...args] {
+        	        let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+        	        yazi ...$args --cwd-file $tmp
+        	        let cwd = (open $tmp)
+        	        if $cwd != "" and $cwd != $env.PWD {
+        		        cd $cwd
+        	        }
+        	        rm -fp $tmp
+                }
       '';
     };
 
@@ -245,7 +246,6 @@
 
     starship.enable = true;
 
-    
     firefox = {
       enable = true;
       profiles.kg = {
@@ -270,6 +270,5 @@
         ];
       };
     };
-
-      };
+  };
 }
