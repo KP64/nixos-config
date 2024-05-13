@@ -103,6 +103,11 @@
       ];
     };
 
+    yazi = {
+      enable = true;
+      settings.manager.show_hidden = true;
+    };
+
     mangohud.enable = true;
 
     waybar = {
@@ -123,7 +128,13 @@
       nix-direnv.enable = true;
     };
 
-    tealdeer.enable = true;
+    tealdeer = {
+      enable = true;
+      settings = {
+        updates.auto_update = true;
+        display.use_pager = true;
+      };
+    };
 
     nushell = {
       enable = true;
@@ -153,6 +164,16 @@
           } else {
             hx $selected_file
           }
+        }
+
+        def --env yy [...args] {
+	        let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+	        yazi ...$args --cwd-file $tmp
+	        let cwd = (open $tmp)
+	        if $cwd != "" and $cwd != $env.PWD {
+		        cd $cwd
+	        }
+	        rm -fp $tmp
         }
       '';
     };
