@@ -106,6 +106,13 @@
   services = {
     blueman.enable = true;
     udisks2.enable = true;
+    xserver = {
+      xkb = {
+        layout = "de";
+        variant = "";
+      };
+      videoDrivers = [ "nvidia" ];
+    };
     greetd = {
       enable = true;
       settings = {
@@ -132,15 +139,6 @@
       LC_TELEPHONE = "de_DE.UTF-8";
       LC_TIME = "de_DE.UTF-8";
     };
-  };
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb = {
-      layout = "de";
-      variant = "";
-    };
-    videoDrivers = [ "nvidia" ];
   };
 
   # Configure console keymap
