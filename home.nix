@@ -54,6 +54,7 @@
         hexyl
 
         discord
+        spotify
         whatsapp-for-linux
         protonup
 
