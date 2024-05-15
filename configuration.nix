@@ -157,19 +157,17 @@
     ];
   };
 
-  fonts = {
-    packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "JetBrainsMono"
-          "Noto"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
-    ];
-  };
-  
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "JetBrainsMono"
+        "Noto"
+        "NerdFontsSymbolsOnly"
+      ];
+    })
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
