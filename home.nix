@@ -1,5 +1,4 @@
-{
-  # config, 
+{ 
   pkgs,
   inputs,
   ...
@@ -56,7 +55,7 @@
 
         neofetch
         cpufetch
-        # gpufetch # Not available on nixpkgs
+        # gpufetch # Not available on nixpkgs yet
 
         discord
         spicetify-cli

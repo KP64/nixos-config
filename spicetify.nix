@@ -10,10 +10,10 @@ let
   spicePkgs = spicetify.packages.${pkgs.system}.default;
 in
 {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkgs) [ "spotify" ];
-  
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
+
   imports = [ spicetify.homeManagerModule ];
-  
+
   programs.spicetify = {
     enable = true;
     theme = spicePkgs.themes.catppuccin;
