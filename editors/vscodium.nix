@@ -77,6 +77,7 @@
       "workbench.startupEditor" = "none";
       "files.autoSave" = "afterDelay";
       "editor.fontFamily" = "JetBrainsMono Nerd Font";
+      "editor.fontLigatures" = true;
       "workbench.colorTheme" = "Catppuccin Mocha";
       "editor.bracketPairColorization.independentColorPoolPerBracketType" = true;
       "editor.guides.bracketPairs" = "active";
