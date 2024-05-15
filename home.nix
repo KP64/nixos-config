@@ -14,6 +14,7 @@
     ./hypr/hyprlock.nix
     ./editors/helix.nix
     ./editors/vscodium.nix
+    ./spicetify.nix
   ];
 
   xdg.portal = {
@@ -53,8 +54,12 @@
         gping
         hexyl
 
+        neofetch
+        cpufetch
+        # gpufetch # Not available on nixpkgs
+
         discord
-        spotify
+        spicetify-cli
         whatsapp-for-linux
         protonup
 
