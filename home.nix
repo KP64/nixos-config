@@ -90,7 +90,7 @@ in
 
   gtk = {
     enable = true;
-    inherit catppuccin; # TODO: Check wether works
+    inherit catppuccin;
   };
 
   services = {
