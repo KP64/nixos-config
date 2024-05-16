@@ -31,6 +31,10 @@
         miguelsolorio.fluent-icons
         jscearcy.rust-doc-viewer
         serayuzgur.crates
+
+        # Icons weren't included in pack for whatever reason
+        catppuccin.catppuccin-vsc-icons
+        catppuccin.catppuccin-vsc-pack
       ]);
     languageSnippets = {
       toml = {
@@ -72,7 +76,7 @@
     ];
 
     userSettings = {
-      "workbench.iconTheme" = "vscode-icons";
+      "workbench.iconTheme" = "catppuccin-mocha";
       "workbench.productIconTheme" = "fluent-icons";
       "workbench.startupEditor" = "none";
       "files.autoSave" = "afterDelay";
@@ -87,6 +91,12 @@
       "files.trimTrailingWhitespace" = true;
       "rust-analyzer.check.command" = "clippy";
       "git.autofetch" = true;
+      "[javascript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[json]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
     };
   };
 }

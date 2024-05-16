@@ -1,87 +1,30 @@
 { inputs, pkgs, ... }:
 
+# Catppuccin doesn't support catppuccin option for hyprlock yet.
+# TODO: Replace manual fetching to options
+# FIXME: Catppuccin color may not match flavour. Fixed by above todo or workaround
+let
+  catlock_repo = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "hyprlock";
+    rev = "d5a6767000409334be8413f19bfd1cf5b6bb5cc6";
+    sha256 = "sha256-pjMFPaonq3h3e9fvifCneZ8oxxb1sufFQd7hsFe6/i4=";
+  };
+  catland_repo = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "hyprland";
+    rev = "b57375545f5da1f7790341905d1049b1873a8bb3";
+    sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
+  };
+in
 {
+  # TODO: Try not to fetch to use local files for Backgrounds etc.
+  home.file = {
+    ".config/hypr/hyprlock.conf".source = catlock_repo + "/hyprlock.conf";
+    ".config/hypr/mocha.conf".source = catland_repo + "/themes/mocha.conf";
+  };
   programs.hyprlock = {
     enable = true;
     package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
-    settings = {
-      general = {
-        hide_cursor = true;
-      };
-
-      background = [
-        {
-          monitor = "";
-          path = "/etc/nixos/wallpapers/default.jpg";
-        }
-      ];
-
-      image = [
-        {
-          monitor = "";
-          path = "/etc/nixos/wallpapers/default.jpg";
-          size = 150;
-          rounding = -1;
-          border_color = "rgb(255, 255, 255)";
-        }
-      ];
-
-      input-field = [
-        {
-          monitor = "";
-          size = "200, 50";
-          outline_thickness = 3;
-          dots_size = 0.33;
-          dots_spacing = 0.15;
-          dots_center = true;
-          dots_rounding = -1;
-          outer_color = "rgb(151515)";
-          inner_color = "rgb(FFFFFF)";
-          font_color = "rgb(10, 10, 10)";
-          fade_on_empty = true;
-          fade_timeout = 1000;
-          placeholder_text = "";
-          hide_input = false;
-          rounding = -1;
-          check_color = "rgb(204, 136, 34)";
-          fail_color = "rgb(204, 34, 34)";
-          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-          fail_transition = 300;
-          capslock_color = -1;
-          numlock_color = -1;
-          bothlock_color = -1;
-          invert_numlock = false;
-          swap_font_color = false;
-          position = "0, -20";
-          halign = "center";
-          valign = "center";
-        }
-      ];
-
-      label = [
-        {
-          monitor = "";
-          text = ''cmd[update:1000] echo "$TIME"'';
-          color = "rgb(0, 0, 0)";
-          font_size = 55;
-          halign = "right";
-          valign = "bottom";
-          position = "-100, 100";
-          shadow_passes = 5;
-          shadow_size = 10;
-        }
-        {
-          monitor = "";
-          text = "$USER";
-          color = "rgb(0, 0, 0)";
-          font_size = 55;
-          halign = "right";
-          valign = "bottom";
-          position = "-100, 200";
-          shadow_passes = 5;
-          shadow_size = 10;
-        }
-      ];
-    };
   };
 }

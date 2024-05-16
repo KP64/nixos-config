@@ -1,32 +1,41 @@
-{ 
-  pkgs,
-  inputs,
-  ...
-}:
+{ pkgs, inputs, ... }:
+
+let
+  catppuccin = {
+    enable = true;
+    flavour = "mocha";
+  };
+in
 
 {
   nix.gc.automatic = true;
 
   imports = [
-    ./hypr/hyprland.nix
+    (import ./hypr/hyprland.nix catppuccin)
+    ./hypr/hyprpaper.nix
     ./hypr/hypridle.nix
     ./hypr/hyprlock.nix
-    ./editors/helix.nix
+    (import ./editors/helix.nix catppuccin)
     ./editors/vscodium.nix
     ./spicetify.nix
+    ./obs.nix
+    inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
-  xdg.portal = {
+  xdg = {
     enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = [
-      inputs.xdg-desktop-portal-hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    config.common.default = [
-      "hyprland"
-      "gtk"
-    ];
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      extraPortals = [
+        inputs.xdg-desktop-portal-hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-gtk
+      ];
+      config.common.default = [
+        "hyprland"
+        "gtk"
+      ];
+    };
   };
 
   home = {
@@ -35,9 +44,9 @@
     homeDirectory = "/home/kg";
     pointerCursor = {
       gtk.enable = true;
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Classic";
-      size = 16;
+      package = pkgs.catppuccin-cursors.mochaDark;
+      name = "Catppuccin-Mocha-Dark-Cursors";
+      size = 24; # catppuccin cursor sizes: 24, 32, 48, 64
     };
 
     packages =
@@ -75,32 +84,22 @@
         glow
         kondo
 
-        swww
         rofi-wayland
       ]);
   };
+
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Grey-Darkest";
-    };
-
-    iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-
-    font = {
-      name = "Sans";
-      size = 11;
-    };
+    inherit catppuccin; # TODO: Check wether works
   };
 
   services = {
     copyq.enable = true;
     udiskie.enable = true;
-    dunst.enable = true;
+    dunst = {
+      enable = true;
+      inherit catppuccin;
+    };
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
   };
@@ -108,16 +107,9 @@
   programs = {
     home-manager.enable = true;
 
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-pipewire-audio-capture
-      ];
-    };
-
     yazi = {
       enable = true;
+      inherit catppuccin;
       settings.manager.show_hidden = true;
     };
 
@@ -125,16 +117,26 @@
 
     waybar = {
       enable = true;
+      inherit catppuccin;
       systemd.enable = true;
     };
 
-    bottom.enable = true;
+    bottom = {
+      enable = true;
+      inherit catppuccin;
+    };
 
-    btop.enable = true;
+    btop = {
+      enable = true;
+      inherit catppuccin;
+    };
 
     thefuck.enable = true;
 
-    fzf.enable = true;
+    fzf = {
+      enable = true;
+      inherit catppuccin;
+    };
 
     direnv = {
       enable = true;
@@ -193,10 +195,13 @@
 
     zellij = {
       enable = true;
-      settings = { };
+      inherit catppuccin;
     };
 
-    bat.enable = true;
+    bat = {
+      enable = true;
+      inherit catppuccin;
+    };
 
     lsd = {
       enable = true;
@@ -216,7 +221,10 @@
 
     xplr.enable = true;
 
-    gitui.enable = true;
+    gitui = {
+      enable = true;
+      inherit catppuccin;
+    };
 
     git = {
       enable = true;
@@ -225,6 +233,7 @@
       userEmail = "karamalsadeh@hotmail.com";
       delta = {
         enable = true;
+        inherit catppuccin;
         options = {
           line-numbers = true;
         };
@@ -247,6 +256,7 @@
 
     kitty = {
       enable = true;
+      inherit catppuccin;
       font.name = "JetBrainsMono Nerd Font";
       settings = {
         shell = "nu";
@@ -254,7 +264,13 @@
       };
     };
 
-    starship.enable = true;
+    starship = {
+      enable = true;
+      inherit catppuccin;
+      settings = {
+        format = "$all";
+      } // builtins.fromTOML (builtins.readFile ./starship_preset.toml);
+    };
 
     firefox = {
       enable = true;
@@ -269,6 +285,7 @@
           simple-translate
           # enhancer-for-youtube # FIXME: Needs unfree even though enabled
           facebook-container
+          firefox-color
           multi-account-containers
           return-youtube-dislikes
           privacy-badger

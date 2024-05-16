@@ -1,8 +1,10 @@
+catppuccin:
 { inputs, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland = {
     enable = true;
+    inherit catppuccin;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.variables = [ "--all" ];
     settings = {
@@ -21,11 +23,11 @@
       "$menu" = "rofi -show drun -show-icons";
       "$mainMod" = "SUPER";
 
-      "exec-once" = "copyq --start-server & udiskie & hypridle & swww-daemon & swww img ./wallpapers/default.jpg";
+      "exec-once" = "copyq --start-server & udiskie & hypridle";
 
       env = [
-        "XCURSOR_SIZE, 11"
-        "HYPRCURSOR, 11"
+        "XCURSOR_SIZE, 24"
+        "HYPRCURSOR, 24"
       ];
 
       general = {
