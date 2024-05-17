@@ -36,22 +36,18 @@
         catppuccin.catppuccin-vsc-icons
         catppuccin.catppuccin-vsc-pack
       ]);
-    languageSnippets = {
-      toml = {
-        lint = {
-          body = [
-            "[lints.rust]"
-            ''unsafe-code = "forbid"''
-            ""
-            "[lints.clippy]"
-            ''pedantic = "warn"''
-            ''nursery = "warn"''
-            ''cargo = "warn"''
-          ];
-          description = "Lint your Rust Project to the Max";
-          prefix = [ "lint" ];
-        };
-      };
+    languageSnippets.toml.lint = {
+      body = [
+        "[lints.rust]"
+        ''unsafe-code = "forbid"''
+        ""
+        "[lints.clippy]"
+        ''pedantic = "warn"''
+        ''nursery = "warn"''
+        ''cargo = "warn"''
+      ];
+      description = "Lint your Rust Project to the Max";
+      prefix = [ "lint" ];
     };
     # VScode uses US Layout (z and y are swapped)
     # Remove keybindings when using US Layout Keyboards
