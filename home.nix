@@ -69,6 +69,9 @@ in
         discord
         spicetify-cli
         whatsapp-for-linux
+
+        wineWowPackages.waylandFull
+        heroic
         protonup
 
         onefetch
