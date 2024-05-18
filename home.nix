@@ -76,11 +76,15 @@ in
         whatsapp-for-linux
 
         wineWowPackages.waylandFull
-        heroic
-        lutris
         protonup
+        heroic
+        
+        dolphin-emu
+        ryujinx
+        xemu
 
         aseprite
+        unzip
 
         onefetch
         hyperfine
