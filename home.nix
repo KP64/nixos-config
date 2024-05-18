@@ -48,6 +48,9 @@ in
       name = "Catppuccin-Mocha-Dark-Cursors";
       size = 24; # catppuccin cursor sizes: 24, 32, 48, 64
     };
+    sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "~/.steam/root/compatibilitytools.d";
+    };
 
     packages =
       with inputs;
@@ -62,6 +65,8 @@ in
         gping
         hexyl
 
+        libnotify
+
         neofetch
         cpufetch
         # gpufetch # Not available on nixpkgs yet
@@ -72,7 +77,10 @@ in
 
         wineWowPackages.waylandFull
         heroic
+        lutris
         protonup
+
+        aseprite
 
         onefetch
         hyperfine
@@ -99,7 +107,7 @@ in
   services = {
     copyq.enable = true;
     udiskie.enable = true;
-    dunst = {
+    mako = {
       enable = true;
       inherit catppuccin;
     };
