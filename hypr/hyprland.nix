@@ -23,7 +23,7 @@ catppuccin:
       "$menu" = "rofi -show drun -show-icons";
       "$mainMod" = "SUPER";
 
-      "exec-once" = "copyq --start-server & udiskie & hypridle";
+      "exec-once" = "copyq --start-server & mako & udiskie & hypridle";
 
       env = [
         "XCURSOR_SIZE, 24"
