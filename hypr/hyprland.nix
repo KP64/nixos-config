@@ -9,7 +9,7 @@ catppuccin:
     systemd.variables = [ "--all" ];
     settings = {
       monitor = [
-        "desc:Dell Inc. AW2521HF CVTLL03, highrr, 0x0, auto"
+        "desc:Dell Inc. AW2521HF CVTLL03, highrr, 0x0, auto, vrr, 2"
         "desc:Dell Inc. DELL SE2216H 2V32398VA14I, preferred, 1920x500, auto"
       ];
 
@@ -41,6 +41,7 @@ catppuccin:
 
         resize_on_border = false;
 
+        # Tearing causes Blackscreen in Games
         allow_tearing = false;
 
         layout = "dwindle";
@@ -90,6 +91,8 @@ catppuccin:
       misc = {
         force_default_wallpaper = -1;
         disable_hyprland_logo = false;
+        # Direct Scanout == Less Input Delay
+        no_direct_scanout = false;
       };
 
       input = {
@@ -158,7 +161,12 @@ catppuccin:
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      windowrulev2 = "suppressevent maximize, class:.*";
+      windowrulev2 = [
+        "suppressevent maximize, class:.*"
+
+        # TODO: Activate when Screen Tearing is fixed. See Above.
+        # "immediate, title:^(Rocket League \\(64-bit, DX11, Cooked\\))$" # Capture all nums?: ^(steam_app)(.*)$
+      ];
     };
   };
 }
