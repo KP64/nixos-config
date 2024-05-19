@@ -67,7 +67,7 @@ in
 
         libnotify
 
-        neofetch
+        fastfetch
         cpufetch
         # gpufetch # Not available on nixpkgs yet
 
