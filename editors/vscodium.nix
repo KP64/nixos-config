@@ -25,6 +25,7 @@
         bradlc.vscode-tailwindcss
         bbenoist.nix
         aaron-bond.better-comments
+        gruntfuggly.todo-tree
       ]
       ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
         rust-lang.rust-analyzer
