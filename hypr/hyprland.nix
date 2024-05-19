@@ -125,7 +125,7 @@ catppuccin:
           "$mainMod, P, pseudo,"
           "$mainMod, J, togglesplit,"
           "$mainMod SHIFT, R, exec, systemctl --user restart waybar.service"
-          "$mainMod SHIFT, S, exec, grimblast copysave area"
+          "$mainMod SHIFT, S, exec, grimblast --freeze --notify copysave area"
 
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
