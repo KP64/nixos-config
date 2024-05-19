@@ -72,6 +72,7 @@ in
         # gpufetch # Not available on nixpkgs yet
 
         discord
+        webcord
         spicetify-cli
         whatsapp-for-linux
 
@@ -99,11 +100,6 @@ in
         glow
         kondo
       ]);
-  };
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi-wayland;
-    inherit catppuccin;
   };
 
   gtk = {
@@ -137,6 +133,12 @@ in
       enable = true;
       inherit catppuccin;
       systemd.enable = true;
+    };
+
+    rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+      inherit catppuccin;
     };
 
     bottom = {
