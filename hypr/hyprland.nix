@@ -124,14 +124,16 @@ catppuccin:
           "$mainMod, R, exec, $menu"
           "$mainMod, P, pseudo,"
           "$mainMod, J, togglesplit,"
+          "$mainMod SHIFT, R, exec, systemctl --user restart waybar.service"
+          "$mainMod SHIFT, S, exec, grimblast copysave area"
 
           "$mainMod, left, movefocus, l"
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
           "$mainMod, down, movefocus, d"
 
-          "$mainMod, S, togglespecialworkspace, magic"
-          "$mainMod SHIFT, S, movetoworkspace, special:magic"
+          "$mainMod, H, togglespecialworkspace, magic"
+          "$mainMod SHIFT, H, movetoworkspace, special:magic"
 
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"

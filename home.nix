@@ -54,7 +54,10 @@ in
 
     packages =
       with inputs;
-      [ hyprpicker.packages.${pkgs.system}.hyprpicker ]
+      [
+        hyprpicker.packages.${pkgs.system}.hyprpicker
+        hyprland-contrib.packages.${pkgs.system}.grimblast
+      ]
       ++ (with pkgs; [
         asciinema
         ani-cli
@@ -79,13 +82,16 @@ in
         wineWowPackages.waylandFull
         protonup
         heroic
-        
+
         dolphin-emu
         ryujinx
         xemu
 
         aseprite
         unzip
+        wl-clipboard
+        grim
+        slurp
 
         onefetch
         hyperfine

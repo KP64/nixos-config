@@ -14,7 +14,7 @@
       "$accent" = "$mauve";
       "$accentAlpha" = "$mauveAlpha";
       "$font" = "JetBrainsMono Nerd Font";
-      
+
       general = {
         disable_loading_bar = true;
         hide_cursor = true;
