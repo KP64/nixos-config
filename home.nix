@@ -98,9 +98,12 @@ in
         jnv
         glow
         kondo
-
-        rofi-wayland
       ]);
+  };
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    inherit catppuccin;
   };
 
   gtk = {
