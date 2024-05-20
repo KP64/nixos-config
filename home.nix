@@ -20,7 +20,12 @@ in
     ./spicetify.nix
     ./obs.nix
     inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.nix-index-database.hmModules.nix-index
   ];
+  xdg.configFile = {
+    "eww/eww.yuck".source = ./eww.yuck;
+    "eww/eww.scss".source = ./eww.scss;
+  };
 
   xdg = {
     enable = true;
@@ -61,6 +66,8 @@ in
       [
         hyprpicker.packages.${pkgs.system}.hyprpicker
         hyprland-contrib.packages.${pkgs.system}.grimblast
+        eww.packages.${pkgs.system}.eww
+        nix-alien.packages.${pkgs.system}.nix-alien
       ]
       ++ (with pkgs; [
         asciinema
@@ -92,6 +99,8 @@ in
         xemu
 
         aseprite
+        mpv
+
         unzip
         wl-clipboard
         grim
@@ -109,6 +118,10 @@ in
         jnv
         glow
         kondo
+
+        atlauncher
+        prismlauncher
+        steam-run
       ]);
   };
 
@@ -120,6 +133,7 @@ in
   services = {
     copyq.enable = true;
     udiskie.enable = true;
+    pueue.enable = true;
     mako = {
       enable = true;
       inherit catppuccin;
@@ -130,6 +144,9 @@ in
 
   programs = {
     home-manager.enable = true;
+
+    nix-index.enable = true;
+    nix-index-database.comma.enable = true;
 
     yazi = {
       enable = true;

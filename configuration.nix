@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -77,6 +77,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    tmp.cleanOnBoot = true;
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "v4l2loopback" ];
@@ -172,6 +173,7 @@
     nurl
     deadnix
     nil
+    nixpkgs-lint-community
     nix-melt
     nix-output-monitor
   ];
@@ -198,6 +200,11 @@
     steam = {
       enable = true;
       gamescopeSession.enable = true;
+    };
+    nix-ld = {
+      enable = true;
+      package = inputs.nix-ld-rs.packages.${pkgs.system}.nix-ld-rs;
+      libraries = [ ];
     };
   };
 
