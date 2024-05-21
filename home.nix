@@ -120,7 +120,6 @@ in
         kondo
 
         atlauncher
-        prismlauncher
         steam-run
       ]);
   };
