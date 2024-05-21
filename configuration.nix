@@ -62,10 +62,7 @@
       driSupport32Bit = true;
     };
 
-    nvidia = {
-      modesetting.enable = true;
-      open = true;
-    };
+    nvidia.modesetting.enable = true;
 
     bluetooth = {
       enable = true;

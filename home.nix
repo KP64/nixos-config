@@ -113,6 +113,7 @@ in
         hyperfine
         hurl
         gitoxide
+        igrep
 
         dust
         procs
@@ -124,6 +125,7 @@ in
 
         atlauncher
         steam-run
+        pavucontrol
       ]);
   };
 
