@@ -16,12 +16,7 @@
   ];
 
   nix = {
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 3d";
-    };
-    channel.enable = true;
+    channel.enable = false;
     optimise.automatic = true;
     settings = {
       experimental-features = [
@@ -60,9 +55,14 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [ nvidia-vaapi-driver ];
     };
 
-    nvidia.modesetting.enable = true;
+    nvidia = {
+      powerManagement.enable = true;
+      modesetting.enable = true;
+    };
+    nvidia-container-toolkit.enable = true;
 
     bluetooth = {
       enable = true;
@@ -147,13 +147,30 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "input"
+      "docker"
+      "kvm"
+      "libvirtd"
       "audio"
       "video"
       "tss"
     ];
   };
 
+  virtualisation = {
+    docker.rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+    libvirtd.enable = true;
+  };
+
   fonts.packages = with pkgs; [
+    dejavu_fonts
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    font-awesome
     (nerdfonts.override {
       fonts = [
         "FiraCode"
@@ -195,7 +212,11 @@
     dconf.enable = true;
     nh = {
       enable = true;
-      flake = "/etc/nixos";
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+      flake = "/home/kg/Desktop/nixos-config";
     };
     bandwhich.enable = true;
     gamemode.enable = true;

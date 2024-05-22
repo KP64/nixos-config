@@ -1,6 +1,7 @@
 { pkgs, inputs, ... }:
 
 {
+  services.gnome-keyring.enable = true;
   programs.vscode = {
     enable = true;
     extensions =

@@ -141,6 +141,7 @@ in
     mako = {
       enable = true;
       inherit catppuccin;
+      defaultTimeout = 5000;
     };
     network-manager-applet.enable = true;
     blueman-applet.enable = true;

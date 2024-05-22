@@ -11,6 +11,7 @@ catppuccin:
       monitor = [
         "desc:Dell Inc. AW2521HF CVTLL03, highrr, 0x0, auto, vrr, 2"
         "desc:Dell Inc. DELL SE2216H 2V32398VA14I, preferred, 1920x500, auto"
+        "Unknown-1, disable" # TODO: Is Unknown a bug from Hyprland itself?
       ];
 
       workspace = [
@@ -23,7 +24,7 @@ catppuccin:
       "$menu" = "rofi -show drun -show-icons";
       "$mainMod" = "SUPER";
 
-      "exec-once" = "copyq --start-server & mako & udiskie & hypridle";
+      exec-once = "copyq --start-server & mako & udiskie & hypridle";
 
       env = [
         "XCURSOR_SIZE, 24"
