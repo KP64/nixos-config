@@ -3,7 +3,6 @@
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
     extensions =
       with pkgs.vscode-extensions;
       [
@@ -26,6 +25,7 @@
         bbenoist.nix
         aaron-bond.better-comments
         gruntfuggly.todo-tree
+        ms-vscode.cmake-tools
       ]
       ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
         rust-lang.rust-analyzer
@@ -50,28 +50,7 @@
       description = "Lint your Rust Project to the Max";
       prefix = [ "lint" ];
     };
-    # VScode uses US Layout (z and y are swapped)
-    # Remove keybindings when using US Layout Keyboards
-    keybindings = [
-      {
-        key = "ctrl+shift+z";
-        command = "redo";
-      }
-      {
-        key = "crtl+z";
-        command = "undo";
-      }
-      {
-        key = "ctrl+y";
-        command = "redo";
-      }
-      {
-        key = "ctrl+y";
-        command = "workbench.debug.action.toggleRepl";
-        when = "workbench.panel.repl.view.active";
-      }
-    ];
-
+    
     userSettings = {
       "workbench.iconTheme" = "catppuccin-mocha";
       "workbench.productIconTheme" = "fluent-icons";
@@ -88,6 +67,7 @@
       "files.trimTrailingWhitespace" = true;
       "rust-analyzer.check.command" = "clippy";
       "git.autofetch" = true;
+      "telemetry.telemetryLevel" = "off";
       "[javascript]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };

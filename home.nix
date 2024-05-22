@@ -16,7 +16,7 @@ in
     ./hypr/hypridle.nix
     ./hypr/hyprlock.nix
     (import ./editors/helix.nix catppuccin)
-    ./editors/vscodium.nix
+    ./editors/vscode.nix
     ./spicetify.nix
     ./obs.nix
     inputs.catppuccin.homeManagerModules.catppuccin
