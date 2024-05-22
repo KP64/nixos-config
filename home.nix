@@ -182,6 +182,8 @@ in
       inherit catppuccin;
     };
 
+    cava.enable = true;
+
     thefuck.enable = true;
 
     fzf = {
