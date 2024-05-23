@@ -192,6 +192,7 @@
     nurl
     deadnix
     nil
+    nvd
     nixpkgs-lint-community
     nix-melt
     nix-output-monitor

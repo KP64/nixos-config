@@ -69,7 +69,7 @@ in
       [
         hyprpicker.packages.${pkgs.system}.hyprpicker
         hyprland-contrib.packages.${pkgs.system}.grimblast
-        eww.packages.${pkgs.system}.eww
+        # eww.packages.${pkgs.system}.eww
         nix-alien.packages.${pkgs.system}.nix-alien
       ]
       ++ (with pkgs; [
