@@ -37,6 +37,8 @@
         # Icons weren't included in pack for whatever reason
         catppuccin.catppuccin-vsc-icons
         catppuccin.catppuccin-vsc-pack
+
+        vivaxy.vscode-conventional-commits
       ]);
     languageSnippets.toml.lint = {
       body = [
@@ -51,7 +53,7 @@
       description = "Lint your Rust Project to the Max";
       prefix = [ "lint" ];
     };
-    
+
     userSettings = {
       "workbench.iconTheme" = "catppuccin-mocha";
       "workbench.productIconTheme" = "fluent-icons";
