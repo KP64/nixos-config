@@ -16,7 +16,7 @@
   ];
 
   nix = {
-    channel.enable = false;
+    channel.enable = true; # rust-analyzer in vscode depends on it
     optimise.automatic = true;
     settings = {
       experimental-features = [
