@@ -117,7 +117,7 @@ catppuccin:
 
       bind =
         [
-          "$mainMod, Q, exec, $terminal"
+          "$mainMod, T, exec, $terminal"
           "$mainMod, C, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, F, exec, $browser"
