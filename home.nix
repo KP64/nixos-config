@@ -321,9 +321,7 @@ in
     starship = {
       enable = true;
       inherit catppuccin;
-      settings = {
-        format = "$all";
-      } // builtins.fromTOML (builtins.readFile ./starship_preset.toml);
+      settings = builtins.fromTOML (builtins.readFile ./starship_preset.toml);
     };
 
     firefox = {
