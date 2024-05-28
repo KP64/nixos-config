@@ -6,7 +6,6 @@ let
     flavour = "mocha";
   };
 in
-
 {
   nix.gc.automatic = true;
 
@@ -21,7 +20,7 @@ in
     ./obs.nix
     inputs.catppuccin.homeManagerModules.catppuccin
     inputs.nix-index-database.hmModules.nix-index
-  ];
+    ];
   xdg.configFile = {
     "eww/eww.yuck".source = ./eww.yuck;
     "eww/eww.scss".source = ./eww.scss;
@@ -84,7 +83,6 @@ in
 
         libnotify
 
-        fastfetch
         cpufetch
         # gpufetch # Not available on nixpkgs yet
 
@@ -102,7 +100,6 @@ in
         xemu
 
         aseprite
-        mpv
 
         unzip
         wl-clipboard
@@ -185,6 +182,8 @@ in
 
     cava.enable = true;
 
+    mpv.enable = true;
+
     thefuck.enable = true;
 
     fzf = {
@@ -205,6 +204,10 @@ in
       };
     };
 
+    bacon.enable = true;
+
+    fastfetch.enable = true;
+    
     nushell = {
       enable = true;
       configFile.text = ''
@@ -298,6 +301,8 @@ in
       };
     };
 
+    git-cliff.enable = true;
+
     atuin = {
       enable = true;
       settings = {
@@ -324,11 +329,24 @@ in
       settings = builtins.fromTOML (builtins.readFile ./starship_preset.toml);
     };
 
+    thunderbird = {
+      enable = true;
+      profiles.kg = {
+        isDefault = true;
+        settings = {
+          "privacy.donottrackheader.enabled" = true;
+        };
+      };
+    };
+
     firefox = {
       enable = true;
       profiles.kg = {
         settings = {
+          "extensions.autoDisableScopes" = 0;
           "dom.security.https_only_mode" = true;
+          "policies.DisableFirefoxStudies" = true;
+          "policies.DisableTelemetry" = true;
         };
 
         extensions = with inputs.firefox-addons.packages."${pkgs.system}"; [
