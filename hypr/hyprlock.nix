@@ -1,8 +1,5 @@
 { inputs, pkgs, ... }:
 
-# Catppuccin doesn't support catppuccin option for hyprlock yet.
-# TODO: Replace downloaded files with catppuccin options
-# FIXME: Catppuccin color may not match flavour. Fixed by above todo or workaround
 {
   programs.hyprlock = {
     enable = true;
