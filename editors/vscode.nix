@@ -13,6 +13,7 @@
         visualstudioexptteam.vscodeintellicode
         visualstudioexptteam.intellicode-api-usage-examples
         vadimcn.vscode-lldb
+        ms-vscode.cpptools-extension-pack
         usernamehw.errorlens
         thenuprojectcontributors.vscode-nushell-lang
         tamasfe.even-better-toml
@@ -21,23 +22,22 @@
         mkhl.direnv
         esbenp.prettier-vscode
         eamodio.gitlens
+        mhutchie.git-graph
+        donjayamanne.githistory
         catppuccin.catppuccin-vsc
         bradlc.vscode-tailwindcss
-        bbenoist.nix
+        jnoortheen.nix-ide
         aaron-bond.better-comments
         gruntfuggly.todo-tree
-        ms-vscode.cmake-tools
+        serayuzgur.crates
+        rust-lang.rust-analyzer
+        christian-kohler.path-intellisense
+        catppuccin.catppuccin-vsc
+        catppuccin.catppuccin-vsc-icons
       ]
       ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-        rust-lang.rust-analyzer
         miguelsolorio.fluent-icons
         jscearcy.rust-doc-viewer
-        serayuzgur.crates
-
-        # Icons weren't included in pack for whatever reason
-        catppuccin.catppuccin-vsc-icons
-        catppuccin.catppuccin-vsc-pack
-
         vivaxy.vscode-conventional-commits
       ]);
     languageSnippets.toml.lint = {
