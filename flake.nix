@@ -144,7 +144,7 @@
         };
         modules = [
           ./configuration.nix
-
+          inputs.catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.default
           {
             home-manager = {
@@ -153,7 +153,13 @@
               };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.kg = import ./home.nix;
+              users.kg = {
+                imports = [
+                  ./home.nix
+                  inputs.nix-index-database.hmModules.nix-index
+                  inputs.catppuccin.homeManagerModules.catppuccin
+                ];
+              };
             };
           }
         ];

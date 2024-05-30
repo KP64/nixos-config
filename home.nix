@@ -12,8 +12,6 @@
     ./editors/vscode.nix
     ./spicetify.nix
     ./obs.nix
-    inputs.catppuccin.homeManagerModules.catppuccin
-    inputs.nix-index-database.hmModules.nix-index
   ];
 
   catppuccin = {
@@ -125,7 +123,11 @@
       ]);
   };
 
-  gtk.enable = true;
+  gtk = {
+    enable = true;
+    # Catppuccin cursor is mauve by default
+    catppuccin.cursor.accent = "dark";
+  };
 
   services = {
     copyq.enable = true;
