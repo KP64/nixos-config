@@ -1,10 +1,8 @@
-catppuccin:
 { inputs, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    inherit catppuccin;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.variables = [ "--all" ];
     settings = {
@@ -137,7 +135,10 @@ catppuccin:
           "$mainMod SHIFT, H, movetoworkspace, special:magic"
 
           "$mainMod, mouse_down, workspace, e+1"
+          "$mainMod SHIFT, right, movetoworkspace, e+1"
+
           "$mainMod, mouse_up, workspace, e-1"
+          "$mainMod SHIFT, left, movetoworkspace, e-1"
         ]
         ++ (
           # binds $mainMod + [shift +] (0, {1..9}) to [move to] workspace (10, {1..9})

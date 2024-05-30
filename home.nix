@@ -1,29 +1,24 @@
 { pkgs, inputs, ... }:
 
-let
-  catppuccin = {
-    enable = true;
-    flavour = "mocha";
-  };
-in
 {
   nix.gc.automatic = true;
 
   imports = [
-    (import ./hypr/hyprland.nix catppuccin)
+    ./hypr/hyprland.nix
     ./hypr/hyprpaper.nix
     ./hypr/hypridle.nix
     ./hypr/hyprlock.nix
-    (import ./editors/helix.nix catppuccin)
+    ./editors/helix.nix
     ./editors/vscode.nix
     ./spicetify.nix
     ./obs.nix
     inputs.catppuccin.homeManagerModules.catppuccin
     inputs.nix-index-database.hmModules.nix-index
-    ];
-  xdg.configFile = {
-    "eww/eww.yuck".source = ./eww.yuck;
-    "eww/eww.scss".source = ./eww.scss;
+  ];
+
+  catppuccin = {
+    enable = true;
+    flavour = "mocha";
   };
 
   xdg = {
@@ -31,6 +26,10 @@ in
     userDirs = {
       enable = true;
       createDirectories = true;
+    };
+    configFile = {
+      "eww/eww.yuck".source = ./eww.yuck;
+      "eww/eww.scss".source = ./eww.scss;
     };
     portal = {
       enable = true;
@@ -126,10 +125,7 @@ in
       ]);
   };
 
-  gtk = {
-    enable = true;
-    inherit catppuccin;
-  };
+  gtk.enable = true;
 
   services = {
     copyq.enable = true;
@@ -137,7 +133,6 @@ in
     pueue.enable = true;
     mako = {
       enable = true;
-      inherit catppuccin;
       defaultTimeout = 5000;
     };
     network-manager-applet.enable = true;
@@ -152,7 +147,6 @@ in
 
     yazi = {
       enable = true;
-      inherit catppuccin;
       settings.manager.show_hidden = true;
     };
 
@@ -160,25 +154,17 @@ in
 
     waybar = {
       enable = true;
-      inherit catppuccin;
       systemd.enable = true;
     };
 
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      inherit catppuccin;
     };
 
-    bottom = {
-      enable = true;
-      inherit catppuccin;
-    };
+    bottom.enable = true;
 
-    btop = {
-      enable = true;
-      inherit catppuccin;
-    };
+    btop.enable = true;
 
     cava.enable = true;
 
@@ -186,10 +172,7 @@ in
 
     thefuck.enable = true;
 
-    fzf = {
-      enable = true;
-      inherit catppuccin;
-    };
+    fzf.enable = true;
 
     direnv = {
       enable = true;
@@ -207,7 +190,7 @@ in
     bacon.enable = true;
 
     fastfetch.enable = true;
-    
+
     nushell = {
       enable = true;
       configFile.text = ''
@@ -250,15 +233,9 @@ in
       '';
     };
 
-    zellij = {
-      enable = true;
-      inherit catppuccin;
-    };
+    zellij.enable = true;
 
-    bat = {
-      enable = true;
-      inherit catppuccin;
-    };
+    bat.enable = true;
 
     lsd = {
       enable = true;
@@ -278,10 +255,7 @@ in
 
     xplr.enable = true;
 
-    gitui = {
-      enable = true;
-      inherit catppuccin;
-    };
+    gitui.enable = true;
 
     git = {
       enable = true;
@@ -290,10 +264,7 @@ in
       userEmail = "karamalsadeh@hotmail.com";
       delta = {
         enable = true;
-        inherit catppuccin;
-        options = {
-          line-numbers = true;
-        };
+        options.line-numbers = true;
       };
       extraConfig = {
         init.defaultBranch = "master";
@@ -315,7 +286,6 @@ in
 
     kitty = {
       enable = true;
-      inherit catppuccin;
       font.name = "JetBrainsMono Nerd Font";
       settings = {
         shell = "nu";
@@ -325,7 +295,6 @@ in
 
     starship = {
       enable = true;
-      inherit catppuccin;
       settings = builtins.fromTOML (builtins.readFile ./starship_preset.toml);
     };
 
