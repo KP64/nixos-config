@@ -78,6 +78,9 @@
       "[json]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
+      "[jsonc]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
     };
   };
 }
