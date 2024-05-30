@@ -71,6 +71,7 @@
       "rust-analyzer.check.command" = "clippy";
       "git.autofetch" = true;
       "telemetry.telemetryLevel" = "off";
+      "terminal.integrated.defaultProfile.linux" = "Nushell";
       "[javascript]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
