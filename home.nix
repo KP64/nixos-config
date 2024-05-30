@@ -69,6 +69,8 @@
         nix-alien.packages.${pkgs.system}.nix-alien
       ]
       ++ (with pkgs; [
+        xdg-utils
+
         asciinema
         ani-cli
         tokei
