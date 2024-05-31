@@ -81,6 +81,15 @@
       "[jsonc]" = {
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
+      "[css]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[html]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+      "[svelte]" = {
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
     };
   };
 }
