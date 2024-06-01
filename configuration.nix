@@ -39,6 +39,12 @@
     };
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = true;
+    flake = "github:KP64/nixos-config";
+  };
+
   environment = {
     pathsToLink = [
       "/share/xdg-desktop-portal"
@@ -228,7 +234,6 @@
     nix-ld = {
       enable = true;
       package = inputs.nix-ld-rs.packages.${pkgs.system}.nix-ld-rs;
-      libraries = [ ];
     };
   };
 
