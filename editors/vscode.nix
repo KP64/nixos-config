@@ -88,7 +88,7 @@
         "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
       "[svelte]" = {
-      "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
       };
     };
   };
