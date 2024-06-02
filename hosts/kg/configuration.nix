@@ -52,6 +52,7 @@
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
+      DIRENV_LOG_FORMAT = "";
     };
   };
 
