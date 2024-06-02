@@ -70,7 +70,8 @@
       ]
       ++ (with pkgs; [
         xdg-utils
-
+        libnotify
+        
         asciinema
         ani-cli
         tokei
@@ -80,8 +81,7 @@
         gping
         hexyl
 
-        libnotify
-
+        onefetch
         cpufetch
         # gpufetch # Not available on nixpkgs yet
 
@@ -105,7 +105,8 @@
         grim
         slurp
 
-        onefetch
+        exiftool
+
         hyperfine
         hurl
         gitoxide
@@ -114,7 +115,6 @@
         dust
         procs
         sd
-        xcp
         jnv
         glow
         kondo
@@ -130,6 +130,8 @@
     # Catppuccin cursor is mauve by default
     catppuccin.cursor.accent = "dark";
   };
+
+  qt.enable = true;
 
   services = {
     copyq.enable = true;
@@ -203,37 +205,15 @@
         }
       '';
       extraEnv = ''
-                def --env fcd [dir = "."] {
-                  let selected_dir = (fd . $dir -t d | fzf --reverse)
-                  if $selected_dir == "" {
-                    return null;
-                  }
-                  cd $selected_dir
-                  $selected_dir
-                }
-
-                def --env fhx [dir = "."] {
-                  let selected_dir = fcd $dir
-                  if $selected_dir == null {
-                    return;
-                  }
-                  let selected_file = (fd . $dir -t f | fzf --reverse)
-                  if $selected_file == "" {
-                    cd -
-                  } else {
-                    hx $selected_file
-                  }
-                }
-
-                def --env yy [...args] {
-        	        let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-        	        yazi ...$args --cwd-file $tmp
-        	        let cwd = (open $tmp)
-        	        if $cwd != "" and $cwd != $env.PWD {
-        		        cd $cwd
-        	        }
-        	        rm -fp $tmp
-                }
+        def --env yy [...args] {
+        	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
+        	yazi ...$args --cwd-file $tmp
+        	let cwd = (open $tmp)
+        	if $cwd != "" and $cwd != $env.PWD {
+        		cd $cwd
+          }
+          rm -fp $tmp
+        }
       '';
     };
 
@@ -257,7 +237,8 @@
       options = [ "--cmd cd" ];
     };
 
-    xplr.enable = true;
+    # TODO: Change Colors to Catppuccin
+    broot.enable = true;
 
     gitui.enable = true;
 
