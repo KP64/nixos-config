@@ -20,7 +20,7 @@
       background = [
         {
           monitor = "";
-          path = builtins.toString ../wallpapers/nixos-wallpaper-catppuccin-mocha.png;
+          path = builtins.toString ../../wallpapers/nixos-wallpaper-catppuccin-mocha.png;
           blur_passes = 0;
           color = "$base";
         }

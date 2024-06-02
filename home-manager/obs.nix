@@ -9,7 +9,7 @@ let
   };
 in
 {
-  home.file.".config/obs-studio/themes" = {
+  xdg.configFile."obs-studio/themes" = {
     source = catppuccin_repo + "/themes/";
     recursive = true;
   };

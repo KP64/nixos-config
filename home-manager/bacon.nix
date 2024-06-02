@@ -1,0 +1,3 @@
+{
+  programs.bacon.enable = true;
+}

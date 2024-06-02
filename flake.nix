@@ -143,7 +143,7 @@
           inherit inputs;
         };
         modules = [
-          ./configuration.nix
+          ./hosts/kg/configuration.nix
           inputs.catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.default
           {
@@ -155,7 +155,7 @@
               useUserPackages = true;
               users.kg = {
                 imports = [
-                  ./home.nix
+                  ./hosts/kg/home.nix
                   inputs.nix-index-database.hmModules.nix-index
                   inputs.catppuccin.homeManagerModules.catppuccin
                 ];

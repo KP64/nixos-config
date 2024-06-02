@@ -2,8 +2,8 @@
 
 let
   absolute_wallpapers = map (x: builtins.toString x) [
-    ../wallpapers/nix-wallpaper-nineish-dark-gray.png
-    ../wallpapers/nixos-wallpaper-catppuccin-mocha.png
+    ../../wallpapers/nix-wallpaper-nineish-dark-gray.png
+    ../../wallpapers/nixos-wallpaper-catppuccin-mocha.png
   ];
 
   active_wallpaper = builtins.elemAt absolute_wallpapers 1;
