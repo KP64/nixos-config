@@ -202,6 +202,7 @@
     nixpkgs-lint-community
     nix-melt
     nix-output-monitor
+    nix-health
   ];
 
   services.pipewire = {
