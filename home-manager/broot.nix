@@ -1,4 +1,16 @@
 {
   # TODO: Change Colors to Catppuccin
-  programs.broot.enable = true;
+  programs.broot = {
+    enable = true;
+    settings.verbs = [
+      {
+        invocation = "edit";
+        key = "F2";
+        shortcut = "e";
+        apply_to = "file";
+        external = "hx {file}";
+        leave_broot = false;
+      }
+    ];
+  };
 }
