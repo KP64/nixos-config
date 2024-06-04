@@ -3,9 +3,7 @@
 {
   nix.gc.automatic = true;
 
-  imports = [
-    ../../home-manager
-  ];
+  imports = [ ../../home-manager ];
 
   catppuccin = {
     enable = true;

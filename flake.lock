@@ -37,31 +37,6 @@
         "type": "github"
       }
     },
-    "firefox-addons": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "pkgs/firefox-addons",
-        "lastModified": 1715745804,
-        "narHash": "sha256-icHowawJTeJ+5m4VnSbUICosUkQsGg/TcuVNJdySGqU=",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "rev": "2c3918e617647325fe41cb5324e4b4b61287b601",
-        "type": "gitlab"
-      },
-      "original": {
-        "dir": "pkgs/firefox-addons",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "type": "gitlab"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -578,11 +553,25 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1717452470,
+        "narHash": "sha256-8sbx/PhdKokC7FzogVk/fDVaKlJp9RNhE53tmSpZJyg=",
+        "owner": "nix-community",
+        "repo": "nur",
+        "rev": "c4f24fd0d45f73f969e58dfccfea5e5fa068d872",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nur",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
         "eww": "eww",
-        "firefox-addons": "firefox-addons",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "hypridle": "hypridle",
@@ -598,6 +587,7 @@
         "nix-systems": "nix-systems",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
+        "nur": "nur",
         "spicetify-nix": "spicetify-nix",
         "xdg-desktop-portal-hyprland": "xdg-desktop-portal-hyprland"
       }

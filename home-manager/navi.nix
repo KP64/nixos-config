@@ -1,3 +1,1 @@
-{
-  programs.navi.enable = true;
-}
+{ programs.navi.enable = true; }

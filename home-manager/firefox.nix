@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -10,11 +10,11 @@
         "policies.DisableTelemetry" = true;
       };
 
-      extensions = with inputs.firefox-addons.packages."${pkgs.system}"; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         ublock-origin
         darkreader
         simple-translate
-        # enhancer-for-youtube # FIXME: Needs unfree even though enabled
+        enhancer-for-youtube
         facebook-container
         firefox-color
         multi-account-containers
@@ -22,7 +22,7 @@
         privacy-badger
         greasemonkey
         i-dont-care-about-cookies
-        # languagetool # See above
+        languagetool
         private-relay
         videospeed
       ];

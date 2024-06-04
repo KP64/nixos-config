@@ -1,3 +1,1 @@
-{
-  programs.bacon.enable = true;
-}
+{ programs.bacon.enable = true; }

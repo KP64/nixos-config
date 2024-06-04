@@ -48,13 +48,7 @@
       };
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
+    nur.url = "github:nix-community/nur";
 
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
@@ -144,6 +138,8 @@
         };
         modules = [
           ./hosts/kg/configuration.nix
+          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+
           inputs.catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.default
           {
