@@ -19,6 +19,7 @@
     ./git-cliff.nix
     ./git.nix
     ./gitui.nix
+    ./heroic.nix
     ./kitty.nix
     ./lsd.nix
     ./mangohud.nix

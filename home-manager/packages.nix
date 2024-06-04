@@ -32,7 +32,6 @@
 
       wineWowPackages.waylandFull
       protonup
-      heroic
 
       dolphin-emu
       ryujinx
