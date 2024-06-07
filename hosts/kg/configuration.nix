@@ -203,6 +203,7 @@
     nix-melt
     nix-output-monitor
     nix-health
+    nix-tree
   ];
 
   services.pipewire = {
