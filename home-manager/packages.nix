@@ -39,7 +39,7 @@
 
       aseprite
 
-      unzip
+      ouch
       wl-clipboard
       grim
       slurp
