@@ -25,6 +25,7 @@
         languagetool
         private-relay
         videospeed
+        stylus
       ];
     };
   };
