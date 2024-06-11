@@ -9,7 +9,6 @@
       monitor = [
         "desc:Dell Inc. AW2521HF CVTLL03, highrr, 0x0, auto, vrr, 2"
         "desc:Dell Inc. DELL SE2216H 2V32398VA14I, preferred, 1920x500, auto"
-        "Unknown-1, disable" # TODO: Is Unknown a bug from Hyprland itself?
       ];
 
       workspace = [
@@ -31,7 +30,7 @@
 
       env = [
         "XCURSOR_SIZE, 24"
-        "HYPRCURSOR, 24"
+        "HYPRCURSOR_SIZE, 24"
       ];
 
       general = {
@@ -167,7 +166,7 @@
 
       bindm = [
         "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
+        "$mainMod, mouse:273, resizewindow, 2"
       ];
 
       windowrulev2 = [

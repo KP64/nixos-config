@@ -38,7 +38,18 @@
       };
     };
 
+    # TODO: Move on from catppuccin as it is a pain.
     catppuccin.url = "github:catppuccin/nix";
+
+    obs-catppuccin = {
+      url = "github:catppuccin/obs";
+      flake = false;
+    };
+    
+    heroic-catppuccin = {
+      url = "github:catppuccin/heroic";
+      flake = false;
+    };
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";

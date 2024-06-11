@@ -5,11 +5,7 @@
 
   imports = [ ../../home-manager ];
 
-  catppuccin = {
-    enable = true;
-    flavour = "mocha";
-  };
-
+  catppuccin.enable = true;
   xdg = {
     enable = true;
     userDirs = {
@@ -38,21 +34,21 @@
     username = "kg";
     homeDirectory = "/home/kg";
     pointerCursor = {
-      gtk.enable = true;
       package = pkgs.catppuccin-cursors.mochaDark;
-      name = "Catppuccin-Mocha-Dark-Cursors";
-      size = 24; # catppuccin cursor sizes: 24, 32, 48, 64
+      name = "catppuccin-mocha-dark-cursors";
+      x11 = {
+        enable = true;
+        defaultCursor = "catppuccin-mocha-dark-cursors";
+      };
+      size = 24;
     };
     sessionVariables = {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "~/.steam/root/compatibilitytools.d";
     };
   };
 
-  gtk = {
-    enable = true;
-    # Catppuccin cursor is mauve by default
-    catppuccin.cursor.accent = "dark";
-  };
+  # FIXME: Default is light mode?
+  gtk.enable = true;
 
   qt.enable = true;
 

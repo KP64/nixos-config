@@ -15,6 +15,8 @@
     ./hardware-configuration.nix
   ];
 
+  catppuccin.enable = true;
+
   nix = {
     channel.enable = true; # rust-analyzer in vscode depends on it
     optimise.automatic = true;
@@ -87,7 +89,7 @@
     };
     tmp.cleanOnBoot = true;
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
     kernelModules = [ "v4l2loopback" ];
     extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
