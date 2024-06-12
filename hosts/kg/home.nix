@@ -6,6 +6,7 @@
   imports = [ ../../home-manager ];
 
   catppuccin.enable = true;
+
   xdg = {
     enable = true;
     userDirs = {
@@ -34,6 +35,7 @@
     username = "kg";
     homeDirectory = "/home/kg";
     pointerCursor = {
+      gtk.enable = true;
       package = pkgs.catppuccin-cursors.mochaDark;
       name = "catppuccin-mocha-dark-cursors";
       x11 = {
@@ -47,8 +49,18 @@
     };
   };
 
-  # FIXME: Default is light mode?
-  gtk.enable = true;
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
+  gtk = {
+    enable = true;
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+
+  };
 
   qt.enable = true;
 
