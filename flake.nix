@@ -45,7 +45,7 @@
       url = "github:catppuccin/obs";
       flake = false;
     };
-    
+
     heroic-catppuccin = {
       url = "github:catppuccin/heroic";
       flake = false;
