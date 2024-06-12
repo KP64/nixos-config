@@ -25,6 +25,7 @@
         "copyq --start-server"
         "mako"
         "udiskie"
+        "hyprpaper"
         "hypridle"
       ];
 
