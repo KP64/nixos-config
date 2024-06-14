@@ -60,6 +60,7 @@
 
       atlauncher
       steam-run
+
       pavucontrol
     ]);
 }
