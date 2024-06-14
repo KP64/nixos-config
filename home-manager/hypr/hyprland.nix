@@ -40,8 +40,9 @@
 
         border_size = 2;
 
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        # TODO: Make a gradient to my liking
+        "col.active_border" = " $rosewater $sapphire $green 45deg";
+        "col.inactive_border" = "$surface0";
 
         resize_on_border = false;
 
@@ -60,7 +61,7 @@
         drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        "col.shadow" = "$mantle";
         blur = {
           enabled = true;
           size = 3;

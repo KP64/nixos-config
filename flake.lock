@@ -263,6 +263,22 @@
         "url": "https://github.com/hyprwm/Hyprland"
       }
     },
+    "hyprland-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717975788,
+        "narHash": "sha256-MIkjmXXGzSG+RKSCBfSdFrn2XVGPm+OEZzdGzAdoIaM=",
+        "owner": "catppuccin",
+        "repo": "hyprland",
+        "rev": "249e262af51022e6c4acaf2da48fc3c7bdac8d76",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "hyprland",
+        "type": "github"
+      }
+    },
     "hyprland-contrib": {
       "inputs": {
         "nixpkgs": [
@@ -687,6 +703,7 @@
         "home-manager": "home-manager",
         "hypridle": "hypridle",
         "hyprland": "hyprland",
+        "hyprland-catppuccin": "hyprland-catppuccin",
         "hyprland-contrib": "hyprland-contrib",
         "hyprlang": "hyprlang",
         "hyprlock": "hyprlock",

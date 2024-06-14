@@ -1,15 +1,18 @@
 { inputs, pkgs, ... }:
 
+let
+  mocha_source = inputs.hyprland-catppuccin + "/themes/mocha.conf";
+in
 {
   programs.hyprlock = {
     enable = true;
     package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
 
     settings = {
-      source = builtins.toString ./mocha.conf;
+      source = mocha_source;
 
-      "$accent" = "$mauve";
-      "$accentAlpha" = "$mauveAlpha";
+      "$accent" = "$lavender";
+      "$accentAlpha" = "$lavenderAlpha";
       "$font" = "JetBrainsMono Nerd Font";
 
       general = {
