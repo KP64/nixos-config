@@ -38,6 +38,7 @@
       xemu
 
       aseprite
+      figma-linux
 
       ouch
       wl-clipboard
