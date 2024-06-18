@@ -21,6 +21,12 @@
       gping
       hexyl
 
+      gimp
+
+      libreoffice-qt6-fresh
+      hunspell
+      hunspellDicts.en_US
+
       onefetch
       cpufetch
       # gpufetch # Not available on nixpkgs yet
