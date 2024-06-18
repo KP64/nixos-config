@@ -89,10 +89,6 @@
         preserve_split = true;
       };
 
-      master = {
-        new_is_master = true;
-      };
-
       misc = {
         force_default_wallpaper = -1;
         disable_hyprland_logo = false;
@@ -127,7 +123,7 @@
       bind =
         [
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-          
+
           "$mainMod, T, exec, $terminal"
           "$mainMod, C, killactive,"
           "$mainMod, M, exit,"

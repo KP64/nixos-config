@@ -165,6 +165,7 @@
               };
               useGlobalPkgs = true;
               useUserPackages = true;
+              # TODO: Username changing is tedious. Make it one global variable 
               users.kg = {
                 imports = [
                   ./hosts/kg/home.nix
