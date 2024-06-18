@@ -130,6 +130,13 @@
       videoDrivers = [ "nvidia" ];
       digimend.enable = true;
     };
+    greetd = {
+      enable = true;
+      settings.default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd hyprland";
+        user = "kg";
+      };
+    };
     # FIXME: Only logins to Steam instead of Hyprland
     # displayManager.sddm = {
     #   enable = true;
