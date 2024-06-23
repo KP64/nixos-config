@@ -132,6 +132,8 @@
           "$mainMod, R, exec, $menu"
           "$mainMod, P, pseudo,"
           "$mainMod, J, togglesplit,"
+
+          "$mainMod SHIFT, C, exec, hyprpicker --no-fancy --autocopy"
           "$mainMod SHIFT, R, exec, systemctl --user restart waybar.service"
           "$mainMod SHIFT, S, exec, grimblast --freeze --notify copysave area"
 
@@ -173,6 +175,7 @@
 
       windowrulev2 = [
         "suppressevent maximize, class:.*"
+        "fullscreen, title:^(DOOMEternal)$"
 
         # TODO: Activate when Screen Tearing is fixed. See Above.
         # "immediate, title:^(Rocket League \\(64-bit, DX11, Cooked\\))$" # Capture all nums?: ^(steam_app)(.*)$
