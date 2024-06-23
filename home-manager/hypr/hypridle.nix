@@ -13,26 +13,16 @@
 
       listener = [
         {
-          timeout = 150;
-          on-timeout = "brightnessctl -s set 10";
-          on-resume = "brightnessctl -r";
-        }
-        {
-          timeout = 150;
-          on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
-          on-resume = "brightnessctl -rd rgb:kbd_backlight";
-        }
-        {
-          timeout = 300;
+          timeout = 300; # 5 min
           on-timeout = "loginctl lock-session";
         }
         {
-          timeout = 1800;
+          timeout = 1800; # 30 min
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = 3600;
+          timeout = 3600; # 1 h
           on-timeout = "systemctl suspend";
         }
       ];
