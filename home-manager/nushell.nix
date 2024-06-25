@@ -1,12 +1,12 @@
 {
   programs.nushell = {
     enable = true;
-    configFile.text = ''
+    configFile.text = /*nu*/ ''
       $env.config = {
         show_banner: false
       }
     '';
-    extraEnv = ''
+    extraEnv = /*nu*/ ''
       def --env yy [...args] {
       	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
       	yazi ...$args --cwd-file $tmp

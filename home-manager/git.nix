@@ -8,9 +8,6 @@
       enable = true;
       options.line-numbers = true;
     };
-    extraConfig = {
-      init.defaultBranch = "master";
-      safe.directory = "/etc/nixos";
-    };
+    extraConfig.init.defaultBranch = "master";
   };
 }
