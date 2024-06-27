@@ -56,6 +56,7 @@
       hyperfine
       hurl
       gitoxide
+      gitleaks
       igrep
 
       dust
