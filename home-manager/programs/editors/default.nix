@@ -1,6 +1,6 @@
 {
   imports = [
-    ./vscode.nix
     ./helix.nix
+    ./vscode.nix
   ];
 }

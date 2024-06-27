@@ -1,6 +1,7 @@
 {
   imports = [
     ./starship
+
     ./atuin.nix
     ./bacon.nix
     ./bash.nix
