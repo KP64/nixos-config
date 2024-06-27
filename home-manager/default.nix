@@ -1,43 +1,6 @@
 {
   imports = [
-    ./editors
-    ./eww
-    ./hypr
-    ./starship
-    ./atuin.nix
-    ./bacon.nix
-    ./bash.nix
-    ./bat.nix
-    ./broot.nix
-    ./btop.nix
-    ./cava.nix
-    ./direnv.nix
-    ./fastfetch.nix
-    ./fd.nix
-    ./firefox.nix
-    ./fzf.nix
-    ./git-cliff.nix
-    ./git.nix
-    ./gitui.nix
-    ./heroic.nix
-    ./kitty.nix
-    ./lsd.nix
-    ./mangohud.nix
-    ./mpv.nix
-    ./navi.nix
-    ./nix-index.nix
-    ./nushell.nix
-    ./obs.nix
-    ./packages.nix
-    ./ripgrep.nix
-    ./rofi.nix
-    ./spicetify.nix
-    ./tealdeer.nix
-    ./thefuck.nix
-    ./thunderbird.nix
-    ./waybar.nix
-    ./yazi.nix
-    ./zellij.nix
-    ./zoxide.nix
+    ./desktop
+    ./programs
   ];
 }

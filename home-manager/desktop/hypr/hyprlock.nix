@@ -78,11 +78,13 @@ in
           font_color = "$text";
           fade_on_empty = false;
           # Multiline HTML doesn't work for watever reason
-          placeholder_text = /*html*/ ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##${accentAlpha}">$USER</span></span>'';
+          placeholder_text = # html
+            ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##${accentAlpha}">$USER</span></span>'';
           hide_input = false;
           check_color = accent;
           fail_color = "$red";
-          fail_text = /*html*/ ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
+          fail_text = # html
+            ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
           capslock_color = "$yellow";
           position = "0, -35";
           halign = "center";
