@@ -147,7 +147,7 @@
   outputs =
     inputs@{ nixpkgs, home-manager, ... }:
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.kg = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
