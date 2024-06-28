@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -10,5 +10,6 @@
     xemu
     atlauncher
     steam-run
+    openarena
   ];
 }
