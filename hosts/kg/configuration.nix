@@ -167,20 +167,24 @@
   console.keyMap = "de";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kg = {
-    isNormalUser = true;
-    description = "kg";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "input"
-      "docker"
-      "kvm"
-      "libvirtd"
-      "audio"
-      "video"
-      "tss"
-    ];
+  users = {
+    mutableUsers = false;
+    users.kg = {
+      isNormalUser = true;
+      description = "kg";
+      hashedPassword = "$6$iLbwJ.7EhqTOe/Zf$ZOD4llDEoR/HaYM34Mf/ZMmLyTDw6CPwRi4jOlK3Z5b1aza9W9jls0crvTJG5rTo85luxzD9xywHslxeqITG30";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "input"
+        "docker"
+        "kvm"
+        "libvirtd"
+        "audio"
+        "video"
+        "tss"
+      ];
+    };
   };
 
   virtualisation = {
