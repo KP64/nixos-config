@@ -4,22 +4,32 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-systems.url = "github:nix-systems/default";
+
+    # TODO: If something goes south. Consider this a possible problem
+    # This exists i guess
+    flake-compat.url = "github:edolstra/flake-compat";
+
+    musnix = {
+      url = "github:musnix/musnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "nix-systems";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-ld-rs = {
       url = "github:nix-community/nix-ld-rs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -33,12 +43,20 @@
       url = "github:thiagokokada/nix-alien";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nix-index-database.follows = "nix-index-database";
       };
     };
 
-    # TODO: Move on from catppuccin as it is a pain.
+    treefmt = {
+      url = "github:numtide/treefmt";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     catppuccin.url = "github:catppuccin/nix";
 
     obs-catppuccin = {
@@ -60,6 +78,7 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -76,7 +95,10 @@
 
     eww = {
       url = "github:elkowar/eww";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
     };
 
     hyprlang = {
@@ -157,6 +179,7 @@
           { nixpkgs.overlays = [ inputs.nur.overlay ]; }
 
           inputs.catppuccin.nixosModules.catppuccin
+          inputs.musnix.nixosModules.musnix
           home-manager.nixosModules.default
           {
             home-manager = {

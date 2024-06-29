@@ -3,7 +3,10 @@
 {
   home.packages =
     with inputs;
-    [ nix-alien.packages.${pkgs.system}.nix-alien ]
+    [
+      nix-alien.packages.${pkgs.system}.nix-alien
+      treefmt.packages.${pkgs.system}.treefmt
+    ]
     ++ (with pkgs; [
       asciinema
       ani-cli

@@ -166,6 +166,11 @@
   # Configure console keymap
   console.keyMap = "de";
 
+  musnix = {
+    enable = true;
+    rtcqs.enable = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     mutableUsers = false;
@@ -239,13 +244,6 @@
     wireplumber.enable = true;
     pulse.enable = true;
     jack.enable = true;
-    # TODO: Change values to prevent underruns in games
-    extraConfig.pipewire."92-low-latency".context.properties.default.clock = {
-      rate = 48000;
-      quantum = 256; # default: 32
-      min-quantum = 128; # default: 32
-      max-quantum = 512; # default: 32
-    };
   };
 
   programs = {
