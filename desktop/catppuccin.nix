@@ -13,7 +13,10 @@
     catppuccin.enable = true;
     home-manager.users.${username} = {
       imports = with inputs; [ catppuccin.homeManagerModules.catppuccin ];
-      catppuccin.enable = true;
+      catppuccin = {
+        enable = true;
+        pointerCursor.accent = "dark";
+    };
 
       # TODO: Refactor Them out?
       gtk = {
