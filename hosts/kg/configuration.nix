@@ -61,6 +61,7 @@
     eww.enable = true;
     rofi.enable = true;
     waybar.enable = true;
+    login.tuigreet.enable = true;
     hypr = {
       hypridle.enable = true;
       hyprlock.enable = true;
@@ -78,27 +79,17 @@
 
   networking.hostName = username;
 
-  services = {
-    xserver.xkb = {
-      layout = "de";
-      variant = "";
-    };
-    # TODO: Refactor to "Desktop Login Module"
-    greetd = {
-      enable = true;
-      settings.default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd hyprland";
-        user = "kg";
-      };
-    };
-    # FIXME: Only logins to Steam instead of Hyprland
-    # displayManager.sddm = {
-    #   enable = true;
-    #   wayland.enable = true;
-    #   catppuccin.background = builtins.toString ../../wallpapers/nixos-wallpaper-catppuccin-mocha.png;
-    #   package = pkgs.kdePackages.sddm;
-    # };
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "";
   };
+  # FIXME: Only logins to Steam instead of Hyprland
+  # displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  #   catppuccin.background = builtins.toString ../../wallpapers/nixos-wallpaper-catppuccin-mocha.png;
+  #   package = pkgs.kdePackages.sddm;
+  # };
 
   time.timeZone = "Europe/Berlin";
 
