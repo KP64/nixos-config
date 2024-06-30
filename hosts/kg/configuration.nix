@@ -115,9 +115,9 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     mutableUsers = false;
-    users.kg = {
+    users.${username} = {
       isNormalUser = true;
-      description = "kg";
+      description = username;
       hashedPassword = "$6$iLbwJ.7EhqTOe/Zf$ZOD4llDEoR/HaYM34Mf/ZMmLyTDw6CPwRi4jOlK3Z5b1aza9W9jls0crvTJG5rTo85luxzD9xywHslxeqITG30";
       # TODO: Define extraGroups in their respective Module?
       extraGroups = [
