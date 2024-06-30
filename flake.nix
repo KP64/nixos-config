@@ -11,7 +11,7 @@
 
     nix-systems.url = "github:nix-systems/default";
 
-    # TODO: If something goes south. Consider this a possible problem
+    # If something goes south. Consider this a possible problem
     # This exists i guess
     flake-compat.url = "github:edolstra/flake-compat";
 

@@ -11,13 +11,11 @@ let
   spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
 in
 {
-  imports = with inputs; [ spicetify-nix.homeManagerModule ];
   options.apps.spicetify.enable = lib.mkEnableOption "Enables Spicetify";
 
   config = lib.mkIf config.apps.spicetify.enable {
-    # TODO: This doesn't work for whatever reason.
-    # ? Leaving it out and import from HM works though.
     home-manager.users.${username} = {
+      imports = with inputs; [ spicetify-nix.homeManagerModule ];
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
       programs.spicetify = {
         enable = true;

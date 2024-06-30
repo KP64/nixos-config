@@ -31,7 +31,7 @@ in
         # TODO: look at this
         trusted-users = [
           "root"
-          username
+          "${username}"
         ]; # ++ cfg.extra-trusted-users;
       };
     };
@@ -53,9 +53,19 @@ in
       nix-tree
     ];
 
-    programs.nix-ld = {
-      enable = true;
-      package = inputs.nix-ld-rs.packages.${pkgs.system}.nix-ld-rs;
+    programs = {
+      nh = {
+        enable = true;
+        clean = {
+          enable = true;
+          extraArgs = "--keep-since 4d --keep 3";
+        };
+        flake = "/home/${username}/Desktop/nixos-config";
+      };
+      nix-ld = {
+        enable = true;
+        package = inputs.nix-ld-rs.packages.${pkgs.system}.nix-ld-rs;
+      };
     };
   };
 }

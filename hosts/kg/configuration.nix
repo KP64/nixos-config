@@ -36,7 +36,7 @@
 
   apps = {
     enable = true;
-    #spicetify.enable = true;
+    spicetify.enable = true;
     obs.enable = true;
     mpv.enable = true;
     thunderbird.enable = true;

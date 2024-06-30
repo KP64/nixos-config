@@ -86,7 +86,6 @@
 
             border_size = 2;
 
-            # TODO: Make a gradient to my liking
             "col.active_border" = " $rosewater $sapphire $green 45deg";
             "col.inactive_border" = "$surface0";
 
@@ -223,7 +222,6 @@
             "suppressevent maximize, class:.*"
             "fullscreen, title:^(DOOMEternal)$"
 
-            # TODO: Activate when Screen Tearing is fixed. See Above.
             # "immediate, title:^(Rocket League \\(64-bit, DX11, Cooked\\))$" # Capture all nums?: ^(steam_app)(.*)$
           ];
         };

@@ -8,8 +8,7 @@
     ./mpv.nix
     ./obs.nix
     ./packages.nix
-    # FIXME: For whatever Reason this HAS to be imported by home manager
-    #./spicetify.nix
+    ./spicetify.nix
     ./thunderbird.nix
   ];
 }

@@ -16,7 +16,7 @@
       catppuccin = {
         enable = true;
         pointerCursor.accent = "dark";
-    };
+      };
 
       # TODO: Refactor Them out?
       gtk = {

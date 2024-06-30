@@ -21,7 +21,6 @@
     ./kitty.nix
     ./lsd.nix
     ./navi.nix
-    ./nh.nix
     ./nix-index.nix
     ./nushell.nix
     ./packages.nix
