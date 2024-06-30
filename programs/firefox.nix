@@ -11,7 +11,7 @@
   config = lib.mkIf config.apps.firefox.enable {
     home-manager.users.${username}.programs.firefox = {
       enable = true;
-      profiles.kg = {
+      profiles.${username} = {
         settings = {
           "general.autoScroll" = true;
 
