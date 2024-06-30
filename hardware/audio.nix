@@ -1,0 +1,34 @@
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
+
+{
+  imports = with inputs; [ musnix.nixosModules.musnix ];
+
+  options.hardware.audio.enable = lib.mkEnableOption "Enable Audio";
+
+  config = lib.mkIf config.hardware.audio.enable {
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      wireplumber.enable = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+
+    musnix = {
+      enable = true;
+      rtcqs.enable = true;
+    };
+
+    environment.systemPackages = with pkgs; [ pavucontrol ];
+  };
+}

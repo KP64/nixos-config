@@ -1,0 +1,61 @@
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  username,
+  ...
+}:
+let
+  cfg = config.system.nix;
+in
+{
+  options.system.nix = {
+    enable = lib.mkEnableOption "Manage nix configuration";
+    # TODO: Make this work
+    # extra-trusted-users = lib.mkOption (lib.attrs) [ ] "Extra Users to trust.";
+  };
+
+  config = lib.mkIf cfg.enable {
+    home-manager.users.${username}.nix.gc.automatic = true;
+
+    nix = {
+      channel.enable = true; # ? Rust-Analyzer Needs it
+      optimise.automatic = true;
+      settings = {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        auto-optimise-store = true;
+        # TODO: look at this
+        trusted-users = [
+          "root"
+          username
+        ]; # ++ cfg.extra-trusted-users;
+      };
+    };
+
+    environment.systemPackages = with pkgs; [
+      cachix
+      nixfmt-rfc-style
+      devenv
+      fh
+      statix
+      nurl
+      deadnix
+      nil
+      nvd
+      nixpkgs-lint-community
+      nix-melt
+      nix-output-monitor
+      nix-health
+      nix-tree
+    ];
+
+    programs.nix-ld = {
+      enable = true;
+      package = inputs.nix-ld-rs.packages.${pkgs.system}.nix-ld-rs;
+    };
+  };
+}

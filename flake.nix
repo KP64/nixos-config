@@ -167,38 +167,43 @@
   };
 
   outputs =
-    inputs@{ nixpkgs, home-manager, ... }:
+    inputs@{ nixpkgs, ... }:
+
+    let
+      username = "kg";
+      stateVersion = "24.05";
+    in
     {
-      nixosConfigurations.kg = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${username} = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
-          inherit inputs;
+          inherit inputs username stateVersion;
         };
-        modules = [
-          ./hosts/kg/configuration.nix
-          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+        modules =
+          with inputs;
+          [ home-manager.nixosModules.default ]
+          ++ [
+            ./hosts/${username}/configuration.nix
+            ./desktop
+            ./hardware
+            ./programs
+            ./system
 
-          inputs.catppuccin.nixosModules.catppuccin
-          inputs.musnix.nixosModules.musnix
-          home-manager.nixosModules.default
-          {
-            home-manager = {
-              extraSpecialArgs = {
-                inherit inputs;
+            { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+
+            {
+              home-manager = {
+                extraSpecialArgs = {
+                  inherit inputs username stateVersion;
+                };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = {
+                  imports = [ ./hosts/${username}/home.nix ];
+                };
               };
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              # TODO: Username changing is tedious. Make it one global variable 
-              users.kg = {
-                imports = [
-                  ./hosts/kg/home.nix
-                  inputs.nix-index-database.hmModules.nix-index
-                  inputs.catppuccin.homeManagerModules.catppuccin
-                ];
-              };
-            };
-          }
-        ];
+            }
+          ];
       };
     };
 }

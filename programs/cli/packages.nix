@@ -1,0 +1,48 @@
+{
+  inputs,
+  pkgs,
+  username,
+  ...
+}:
+
+{
+  home-manager.users.${username}.home.packages =
+    with inputs;
+    [
+      nix-alien.packages.${pkgs.system}.nix-alien
+      treefmt.packages.${pkgs.system}.treefmt
+    ]
+    ++ (with pkgs; [
+      asciinema
+      ani-cli
+      tokei
+      sshx
+      just
+      lychee
+      gping
+      hexyl
+
+      onefetch
+      cpufetch
+      # gpufetch # Not available on nixpkgs yet
+
+      ouch
+      grim
+      slurp
+
+      exiftool
+
+      hyperfine
+      hurl
+      gitoxide
+      gitleaks
+      igrep
+
+      dust
+      procs
+      sd
+      jnv
+      glow
+      kondo
+    ]);
+}

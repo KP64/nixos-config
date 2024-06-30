@@ -1,0 +1,17 @@
+{
+  pkgs,
+  lib,
+  config,
+  username,
+  ...
+}:
+{
+  options.desktop.rofi.enable = lib.mkEnableOption "Enables rofi";
+
+  config = lib.mkIf config.desktop.rofi.enable {
+    home-manager.users.${username}.programs.rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+    };
+  };
+}
