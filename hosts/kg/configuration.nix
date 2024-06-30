@@ -128,6 +128,7 @@
       isNormalUser = true;
       description = "kg";
       hashedPassword = "$6$iLbwJ.7EhqTOe/Zf$ZOD4llDEoR/HaYM34Mf/ZMmLyTDw6CPwRi4jOlK3Z5b1aza9W9jls0crvTJG5rTo85luxzD9xywHslxeqITG30";
+      # TODO: Define extraGroups in their respective Module?
       extraGroups = [
         "networkmanager"
         "wheel"
