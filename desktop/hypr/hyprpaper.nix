@@ -24,7 +24,6 @@ in
       package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
       settings = {
         preload = absolute_wallpapers;
-
         wallpaper = [ ", ${active_wallpaper}" ];
       };
     };
