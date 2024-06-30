@@ -16,7 +16,6 @@ in
   config = lib.mkIf config.apps.spicetify.enable {
     home-manager.users.${username} = {
       imports = with inputs; [ spicetify-nix.homeManagerModule ];
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
       programs.spicetify = {
         enable = true;
         theme = spicePkgs.themes.catppuccin;
