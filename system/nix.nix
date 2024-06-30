@@ -58,7 +58,7 @@ in
         enable = true;
         clean = {
           enable = true;
-          extraArgs = "--keep-since 4d --keep 3";
+          extraArgs = "--keep 5";
         };
         flake = "/home/${username}/Desktop/nixos-config";
       };
