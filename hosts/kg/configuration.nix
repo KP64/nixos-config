@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  config,
   pkgs,
   username,
   stateVersion,
@@ -29,7 +28,7 @@
 
   hardware = {
     audio.enable = true;
-    blue.enable = true;
+    bluetoothctl.enable = true;
     networking.enable = true;
     nvidia.enable = true;
   };

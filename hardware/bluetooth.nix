@@ -1,9 +1,9 @@
 { lib, config, ... }:
 
 {
-  options.hardware.blue.enable = lib.mkEnableOption "Enable Bluetooth";
+  options.hardware.bluetoothctl.enable = lib.mkEnableOption "Enable Bluetooth";
 
-  config = lib.mkIf config.hardware.blue.enable {
+  config = lib.mkIf config.hardware.bluetoothctl.enable {
     hardware.bluetooth = {
       enable = true;
       settings.General.Experimental = true;
