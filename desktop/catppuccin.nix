@@ -15,7 +15,10 @@
       imports = with inputs; [ catppuccin.homeManagerModules.catppuccin ];
       catppuccin = {
         enable = true;
-        pointerCursor.accent = "dark";
+        pointerCursor = {
+          enable = true;
+          accent = "dark";
+        };
       };
 
       # TODO: Refactor Them out?
