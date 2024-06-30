@@ -4,6 +4,7 @@
     ./hypr
     ./services
     ./login
+
     ./catppuccin.nix
     ./packages.nix
     ./rofi.nix

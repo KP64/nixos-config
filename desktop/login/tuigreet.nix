@@ -8,6 +8,7 @@
 {
   options.desktop.login.tuigreet.enable = lib.mkEnableOption "Enables TuiGreet";
 
+  # TODO: The cmd is wrong when hyprland is not enabled
   config = lib.mkIf config.desktop.login.tuigreet.enable {
     services.greetd = {
       enable = true;

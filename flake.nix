@@ -168,7 +168,6 @@
 
   outputs =
     inputs@{ nixpkgs, ... }:
-
     {
       nixosConfigurations = {
         kg =

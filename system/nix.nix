@@ -28,10 +28,9 @@ in
           "flakes"
         ];
         auto-optimise-store = true;
-        # TODO: look at this
         trusted-users = [
           "root"
-          "${username}"
+          username
         ]; # ++ cfg.extra-trusted-users;
       };
     };
