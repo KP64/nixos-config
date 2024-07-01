@@ -12,8 +12,11 @@ in
 {
   options.system.nix = {
     enable = lib.mkEnableOption "Manage nix configuration";
-    # TODO: Make this work
-    # extra-trusted-users = lib.mkOption (lib.attrs) [ ] "Extra Users to trust.";
+    extraTrustedUsers = lib.mkOption {
+      default = [ ];
+      description = "Extra Users to Trust.";
+      type = with lib.types; listOf str;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -31,7 +34,7 @@ in
         trusted-users = [
           "root"
           username
-        ]; # ++ cfg.extra-trusted-users;
+        ] ++ cfg.extraTrustedUsers;
       };
     };
 
