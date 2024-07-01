@@ -10,7 +10,7 @@
 let
   mocha_source = inputs.hyprland-catppuccin + "/themes/mocha.conf";
 
-  active_wallpaper = builtins.toString ./wallpapers/nixos-wallpaper-catppuccin-mocha.png;
+  active_wallpaper = builtins.toString ./wallpapers/nix-wp-cat-mocha.png;
   accent = "$lavender";
   accentAlpha = "$lavenderAlpha";
   font = "JetBrainsMono Nerd Font";
