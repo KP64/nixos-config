@@ -8,10 +8,7 @@
 {
   home-manager.users.${username}.home.packages =
     with inputs;
-    [
-      nix-alien.packages.${pkgs.system}.nix-alien
-      treefmt.packages.${pkgs.system}.treefmt
-    ]
+    [ treefmt.packages.${pkgs.system}.treefmt ]
     ++ (with pkgs; [
       asciinema
       ani-cli
@@ -24,19 +21,12 @@
 
       onefetch
       cpufetch
-      # gpufetch # Not available on nixpkgs yet
+      # gpufetch # Not available on nixpkgs
 
       ouch
-      grim
-      slurp
-
-      exiftool
 
       hyperfine
       hurl
-      gitoxide
-      gitleaks
-      igrep
 
       dust
       procs

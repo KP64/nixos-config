@@ -1,6 +1,7 @@
 # TODO: Change Colors to Catppuccin
 { username, ... }:
 {
+  # TODO: Helix may not be enabled. Use Default Editor?
   home-manager.users.${username}.programs.broot = {
     enable = true;
     settings.verbs = [

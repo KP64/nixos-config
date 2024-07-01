@@ -38,22 +38,25 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      cachix
-      nixfmt-rfc-style
-      devenv
-      fh
-      statix
-      nurl
-      deadnix
-      nil
-      nvd
-      nixpkgs-lint-community
-      nix-melt
-      nix-output-monitor
-      nix-health
-      nix-tree
-    ];
+    environment.systemPackages =
+      with inputs;
+      [ nix-alien.packages.${pkgs.system}.nix-alien ]
+      ++ (with pkgs; [
+        cachix
+        nixfmt-rfc-style
+        devenv
+        fh
+        statix
+        nurl
+        deadnix
+        nil
+        nvd
+        nixpkgs-lint-community
+        nix-melt
+        nix-output-monitor
+        nix-health
+        nix-tree
+      ]);
 
     programs = {
       nh = {

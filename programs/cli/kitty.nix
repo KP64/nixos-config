@@ -1,5 +1,6 @@
 { username, ... }:
 {
+  # TODO: NuShell may be not enabled
   home-manager.users.${username}.programs.kitty = {
     enable = true;
     font.name = "JetBrainsMono Nerd Font";

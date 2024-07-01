@@ -91,7 +91,7 @@
 
             resize_on_border = false;
 
-            # Tearing causes Blackscreen in Games
+            # TODO: Allow Tearing? Tearing causes Blackscreen in Games?
             allow_tearing = false;
 
             layout = "dwindle";
@@ -178,6 +178,7 @@
               "$mainMod, P, pseudo,"
               "$mainMod, J, togglesplit,"
 
+              # TODO: What happens when executing commands when not enabled?
               "$mainMod SHIFT, C, exec, hyprpicker --no-fancy --autocopy"
               "$mainMod SHIFT, R, exec, systemctl --user restart waybar.service"
               "$mainMod SHIFT, S, exec, grimblast --freeze --notify copysave area"

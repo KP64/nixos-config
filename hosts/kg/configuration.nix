@@ -62,6 +62,8 @@
       hyprlock.enable = true;
       hyprland.enable = true;
       hyprpaper.enable = true;
+      hyprpicker.enable = true;
+      contrib.grimblast.enable = true;
     };
     services = {
       blueman-app.enable = true;
