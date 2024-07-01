@@ -5,6 +5,8 @@
   username,
   ...
 }:
+
+# FIXME: When disabling catppuccin => home.pointerCursor.name is used but not defined.
 {
   imports = with inputs; [ catppuccin.nixosModules.catppuccin ];
   options.desktop.catppuccin.enable = lib.mkEnableOption "Enables Catppuccin";
@@ -21,7 +23,7 @@
         };
       };
 
-      # TODO: Refactor Them out?
+      # TODO: Refactor Them out
       gtk = {
         enable = true;
         gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
