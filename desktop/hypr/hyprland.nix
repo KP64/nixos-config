@@ -75,43 +75,18 @@
             "hypridle"
           ];
 
-          env = [
-            "XCURSOR_SIZE, 24"
-            "HYPRCURSOR_SIZE, 24"
-          ];
-
           general = {
-            gaps_in = 5;
-            gaps_out = 20;
-
-            border_size = 2;
-
-            "col.active_border" = " $rosewater $sapphire $green 45deg";
+            "col.active_border" = "$rosewater $sapphire $green 45deg";
             "col.inactive_border" = "$surface0";
-
-            resize_on_border = false;
-
-            # TODO: Allow Tearing? Tearing causes Blackscreen in Games?
-            allow_tearing = false;
-
-            layout = "dwindle";
           };
 
           decoration = {
             rounding = 10;
 
-            active_opacity = 1.0;
-            inactive_opacity = 1.0;
-
-            drop_shadow = true;
-            shadow_range = 4;
-            shadow_render_power = 3;
             "col.shadow" = "$mantle";
             blur = {
               enabled = true;
-              size = 3;
-              passes = 1;
-              vibrancy = 0.1696;
+              size = 2;
             };
           };
 
@@ -131,33 +106,23 @@
 
           dwindle = {
             pseudotile = true;
-            preserve_split = true;
+            smart_split = true;
           };
 
           misc = {
             force_default_wallpaper = -1;
-            disable_hyprland_logo = false;
+            disable_hyprland_logo = true;
             # Direct Scanout == Less Input Delay
+            # Could produce graphical glitches though
             no_direct_scanout = false;
+
+            mouse_move_enables_dpms = true;
+            key_press_enables_dpms = true;
           };
 
           input = {
             kb_layout = "de";
-            kb_variant = "";
-            kb_model = "";
-            kb_options = "";
-            kb_rules = "";
-
             follow_mouse = 1;
-
-            sensitivity = 0;
-            touchpad = {
-              natural_scroll = false;
-            };
-          };
-
-          gestures = {
-            workspace_swipe = false;
           };
 
           binde = [
@@ -176,7 +141,9 @@
               "$mainMod, V, togglefloating,"
               "$mainMod, R, exec, $menu"
               "$mainMod, P, pseudo,"
+
               "$mainMod, J, togglesplit,"
+              "$mainMod SHIFT, J, swapsplit"
 
               # TODO: What happens when executing commands when not enabled?
               "$mainMod SHIFT, C, exec, hyprpicker --no-fancy --autocopy"
@@ -222,8 +189,6 @@
           windowrulev2 = [
             "suppressevent maximize, class:.*"
             "fullscreen, title:^(DOOMEternal)$"
-
-            # "immediate, title:^(Rocket League \\(64-bit, DX11, Cooked\\))$" # Capture all nums?: ^(steam_app)(.*)$
           ];
         };
       };
