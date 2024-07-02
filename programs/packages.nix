@@ -11,14 +11,15 @@
   config = lib.mkIf config.apps.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
       gimp
-      libreoffice
+      figma-linux
 
+      libreoffice
       hunspell
       hunspellDicts.en_US
       hunspellDicts.de_DE
 
+      anki-bin
       whatsapp-for-linux
-      figma-linux
     ];
   };
 }
