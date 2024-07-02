@@ -33,7 +33,6 @@
           eamodio.gitlens
           mhutchie.git-graph
           donjayamanne.githistory
-          catppuccin.catppuccin-vsc
           bradlc.vscode-tailwindcss
           jnoortheen.nix-ide
           aaron-bond.better-comments
