@@ -25,6 +25,15 @@
       inputs.systems.follows = "nix-systems";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     nix-ld-rs = {
       url = "github:nix-community/nix-ld-rs";
       inputs = {

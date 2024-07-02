@@ -17,6 +17,7 @@
     security = {
       polkit.enable = true;
       tpm.enable = true;
+      secure-boot.enable = true;
     };
     autoupgrade.enable = true;
   };
