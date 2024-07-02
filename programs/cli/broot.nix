@@ -1,7 +1,6 @@
-# TODO: Change Colors to Catppuccin
 { username, ... }:
 {
-  # TODO: Helix may not be enabled. Use Default Editor?
+  # TODO: Change Colors to Catppuccin
   home-manager.users.${username}.programs.broot = {
     enable = true;
     settings.verbs = [
@@ -10,7 +9,7 @@
         key = "F2";
         shortcut = "e";
         apply_to = "file";
-        external = "hx {file}";
+        external = "$EDITOR {file}";
         leave_broot = false;
       }
     ];
