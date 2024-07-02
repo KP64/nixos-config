@@ -11,6 +11,7 @@ let
   mocha_source = inputs.hyprland-catppuccin + "/themes/mocha.conf";
 
   active_wallpaper = builtins.toString ./wallpapers/nix-wp-cat-mocha.png;
+  active_profile_pic = builtins.toString ./pfps/kp.jpg;
   accent = "$lavender";
   accentAlpha = "$lavenderAlpha";
   font = "JetBrainsMono Nerd Font";
@@ -63,18 +64,17 @@ in
           }
         ];
 
-        # image = [
-        #   {
-        #     monitor = "";
-        #     path = "~/.face"; # TODO: Add IMG
-        #     size = 100;
-        #     border_color = accent;
-
-        #     position = "0, 75";
-        #     halign = "center";
-        #     valign = "center";
-        #   }
-        # ];
+        image = [
+          {
+            monitor = "";
+            path = active_profile_pic;
+            size = 100;
+            border_color = accent;
+            position = "0, 75";
+            halign = "center";
+            valign = "center";
+          }
+        ];
 
         input-field = [
           {
