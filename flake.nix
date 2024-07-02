@@ -69,6 +69,11 @@
       flake = false;
     };
 
+    aseprite-catppuccin = {
+      url = "github:catppuccin/aseprite";
+      flake = false;
+    };
+
     hyprland-catppuccin = {
       url = "github:catppuccin/hyprland";
       flake = false;

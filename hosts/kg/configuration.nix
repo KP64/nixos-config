@@ -53,6 +53,7 @@
   };
 
   editors = {
+    aseprite.enable = true;
     helix.enable = true;
     vscode.enable = true;
   };

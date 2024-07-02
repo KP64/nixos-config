@@ -18,7 +18,6 @@
       hunspellDicts.de_DE
 
       whatsapp-for-linux
-      aseprite
       figma-linux
     ];
   };

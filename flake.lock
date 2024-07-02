@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "aseprite-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718189151,
+        "narHash": "sha256-eRl9RiGfsA8o7wfIE//HMVIvkZCU73NJ6xyrXFnUUW0=",
+        "owner": "catppuccin",
+        "repo": "aseprite",
+        "rev": "606ce0037bedecd7f2a9d936ab4b0de9927141af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "aseprite",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "locked": {
         "lastModified": 1719758387,
@@ -799,6 +815,7 @@
     },
     "root": {
       "inputs": {
+        "aseprite-catppuccin": "aseprite-catppuccin",
         "catppuccin": "catppuccin",
         "eww": "eww",
         "flake-compat": "flake-compat",
