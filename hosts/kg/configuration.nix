@@ -28,28 +28,6 @@
     nvidia.enable = true;
   };
 
-  apps = {
-    enable = true;
-    spicetify.enable = true;
-    obs.enable = true;
-    mpv.enable = true;
-    thunderbird.enable = true;
-    firefox.enable = true;
-  };
-
-  editors = {
-    helix.enable = true;
-    vscode.enable = true;
-  };
-
-  gaming = {
-    enable = true;
-    heroic.enable = true;
-    mangohud.enable = true;
-    gamemode.enable = true;
-    steam.enable = true;
-  };
-
   desktop = {
     enable = true;
     catppuccin.enable = true;
@@ -74,7 +52,29 @@
     };
   };
 
-  networking.hostName = username;
+  editors = {
+    helix.enable = true;
+    vscode.enable = true;
+  };
+
+  apps = {
+    enable = true;
+    spicetify.enable = true;
+    obs.enable = true;
+    mpv.enable = true;
+    thunderbird.enable = true;
+    firefox.enable = true;
+  };
+
+  gaming = {
+    enable = true;
+    heroic.enable = true;
+    mangohud.enable = true;
+    gamemode.enable = true;
+    steam.enable = true;
+  };
+
+  networking.hostName = "Desktop";
 
   services.xserver.xkb = {
     layout = "de";
@@ -131,6 +131,7 @@
     };
   };
 
+  # TODO: Virtualisation in its own module
   virtualisation = {
     docker.rootless = {
       enable = true;

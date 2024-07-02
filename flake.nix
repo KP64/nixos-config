@@ -168,41 +168,15 @@
 
   outputs =
     inputs@{ nixpkgs, ... }:
+    let
+      customLib = import ./lib.nix { inherit nixpkgs inputs; };
+    in
     {
       nixosConfigurations = {
-        kg =
-          let
-            username = "kg";
-            stateVersion = "24.05";
-          in
-          nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = {
-              inherit inputs username stateVersion;
-            };
-            modules =
-              with inputs;
-              [ home-manager.nixosModules.default ]
-              ++ [
-                ./hosts/${username}/configuration.nix
-                ./desktop
-                ./hardware
-                ./programs
-                ./system
-
-                {
-                  nixpkgs.overlays = with inputs; [ nur.overlay ];
-                  home-manager = {
-                    extraSpecialArgs = {
-                      inherit inputs username stateVersion;
-                    };
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    users.${username}.imports = [ ./hosts/${username}/home.nix ];
-                  };
-                }
-              ];
-          };
+        kg = customLib.mkSystem {
+          username = "kg";
+          system = "x86_64-linux";
+        };
       };
     };
 }
