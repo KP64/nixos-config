@@ -20,8 +20,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${username}.nix.gc.automatic = true;
-
     nix = {
       channel.enable = true; # ? Rust-Analyzer Needs it
       optimise.automatic = true;
@@ -57,6 +55,20 @@ in
         nix-health
         nix-tree
       ]);
+
+    home-manager.users.${username} = {
+      imports = with inputs; [ nix-index-database.hmModules.nix-index ];
+      nix.gc.automatic = true;
+      home.sessionVariables.DIRENV_LOG_FORMAT = "";
+      programs = {
+        nix-index.enable = true;
+        nix-index-database.comma.enable = true;
+        direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+      };
+    };
 
     programs = {
       nh = {

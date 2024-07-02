@@ -11,7 +11,6 @@
     ./btop.nix
     ./cava.nix
     ./dconf.nix
-    ./direnv.nix
     ./fastfetch.nix
     ./fd.nix
     ./fzf.nix
@@ -21,7 +20,6 @@
     ./kitty.nix
     ./lsd.nix
     ./navi.nix
-    ./nix-index.nix
     ./nushell.nix
     ./packages.nix
     ./ripgrep.nix
