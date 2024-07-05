@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
 {
   options.system.autoupgrade.enable = lib.mkEnableOption "Enable System Auto Upgrading";
 
@@ -6,7 +11,13 @@
     system.autoUpgrade = {
       enable = true;
       allowReboot = true;
-      flake = "github:KP64/nixos-config";
+      flake = inputs.self.outPath;
+      flags = [
+        "--update-input"
+        "nixpkgs"
+        "--commit-lock-file"
+        "-L"
+      ];
     };
   };
 }
