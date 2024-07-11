@@ -73,6 +73,7 @@
             "udiskie"
             "hyprpaper"
             "hypridle"
+            "eww daemon"
           ];
 
           general = {
@@ -81,7 +82,7 @@
           };
 
           decoration = {
-            rounding = 10;
+            rounding = 8;
 
             "col.shadow" = "$mantle";
             blur = {
@@ -189,6 +190,9 @@
           windowrulev2 = [
             "suppressevent maximize, class:.*"
             "fullscreen, title:^(DOOMEternal)$"
+            "fullscreen, class:^(lt-love)$"
+            "fullscreen, title:^(Need for Speed™ Most Wanted)"
+            "fullscreen, title:^(METAL GEAR RISING: REVENGEANCE)$"
           ];
         };
       };
