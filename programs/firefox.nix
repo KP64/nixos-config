@@ -27,6 +27,7 @@
 
           "extensions.autoDisableScopes" = 0;
           "extensions.webcompat-reporter.enabled" = false;
+          "extensions.pocket.enabled" = false;
 
           "media.ffmpeg.vaapi.enabled" = true;
 
