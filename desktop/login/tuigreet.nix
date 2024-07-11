@@ -5,6 +5,10 @@
   username,
   ...
 }:
+
+let
+  tuigreet = lib.meta.getExe pkgs.greetd.tuigreet;
+in
 {
   options.desktop.login.tuigreet.enable = lib.mkEnableOption "Enables TuiGreet";
 
@@ -13,7 +17,7 @@
     services.greetd = {
       enable = true;
       settings.default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd hyprland";
+        command = "${tuigreet} --time --cmd hyprland";
         user = username;
       };
     };
