@@ -32,10 +32,14 @@
   desktop = {
     enable = true;
     catppuccin.enable = true;
+
     eww.enable = true;
+    waybar.enable = false;
+
     rofi.enable = true;
-    waybar.enable = true;
+
     login.tuigreet.enable = true;
+
     hypr = {
       hypridle.enable = true;
       hyprlock.enable = true;
@@ -44,6 +48,7 @@
       hyprpicker.enable = true;
       contrib.grimblast.enable = true;
     };
+
     services = {
       blueman-app.enable = true;
       copyq.enable = true;
@@ -76,7 +81,7 @@
     steam.enable = true;
   };
 
-  networking.hostName = "Desktop";
+  networking.hostName = username;
 
   services.xserver.xkb = {
     layout = "de";
