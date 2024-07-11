@@ -1,5 +1,4 @@
 {
-  # pkgs,
   lib,
   config,
   inputs,
@@ -29,10 +28,6 @@
         gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
 
         catppuccin.icon.enable = true;
-        # iconTheme = {
-        #   name = "Papirus-Dark";
-        #   package = pkgs.catppuccin-papirus-folders;
-        # };
       };
 
       qt = {
