@@ -19,6 +19,8 @@
       gping
       hexyl
 
+      sherlock
+
       onefetch
       cpufetch
       # gpufetch # Not available on nixpkgs
@@ -34,5 +36,6 @@
       jnv
       glow
       kondo
+
     ]);
 }
