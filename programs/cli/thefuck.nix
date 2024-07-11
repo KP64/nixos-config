@@ -1,4 +1,5 @@
 { username, ... }:
 {
-  home-manager.users.${username}.programs.thefuck.enable = true;
+  # TODO: Building fails
+  home-manager.users.${username}.programs.thefuck.enable = false;
 }
