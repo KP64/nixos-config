@@ -80,13 +80,6 @@
     layout = "de";
     variant = "";
   };
-  # FIXME: Only logins to Steam instead of Hyprland
-  # displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  #   catppuccin.background = builtins.toString ../../wallpapers/nixos-wallpaper-catppuccin-mocha.png;
-  #   package = pkgs.kdePackages.sddm;
-  # };
 
   time.timeZone = "Europe/Berlin";
 

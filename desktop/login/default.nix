@@ -1,1 +1,6 @@
-{ imports = [ ./tuigreet.nix ]; }
+{
+  imports = [
+    ./tuigreet.nix
+    ./sddm.nix
+  ];
+}
