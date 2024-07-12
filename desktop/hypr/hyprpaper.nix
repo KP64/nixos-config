@@ -9,8 +9,8 @@
 
 let
   absolute_wallpapers = map (x: builtins.toString x) [
-    ../assets/wallpapers/nix-wp-dg.png
-    ../assets/wallpapers/nix-wp-cat-mocha.png
+    ../wallpapers/nix-wp-dg.png
+    ../wallpapers/nix-wp-cat-mocha.png
   ];
 
   active_wallpaper = builtins.elemAt absolute_wallpapers 1;
