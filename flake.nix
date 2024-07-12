@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -115,11 +116,20 @@
       };
     };
 
+    hyprutils = {
+      url = "github:hyprwm/hyprutils";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "nix-systems";
+      };
+    };
+
     hyprlang = {
       url = "github:hyprwm/hyprlang";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
+        hyprutils.follows = "hyprutils";
       };
     };
 
@@ -129,11 +139,12 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
         hyprlang.follows = "hyprlang";
-        xdph.follows = "xdg-desktop-portal-hyprland";
+        hyprutils.follows = "hyprutils";
+        xdph.follows = "xdph";
       };
     };
 
-    xdg-desktop-portal-hyprland = {
+    xdph = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -171,6 +182,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
         hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
       };
     };
 
