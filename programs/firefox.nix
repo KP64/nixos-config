@@ -35,7 +35,6 @@
           "findbar.highlightAll" = true;
 
           "dom.security.https_only_mode" = true;
-          "dom.security.https_only_mode_ever_enabled" = true;
           "dom.push.enabled" = false;
           "dom.push.connection.enabled" = false;
           "dom.battery.enabled" = false;
