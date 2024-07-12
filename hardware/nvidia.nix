@@ -14,8 +14,6 @@
       nvidia = {
         powerManagement.enable = true;
         modesetting.enable = true;
-        # TODO: Revert to Stable by 555 release
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
       };
       nvidia-container-toolkit.enable = true;
       graphics = {
