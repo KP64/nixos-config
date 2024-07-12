@@ -1,7 +1,6 @@
 { pkgs, username, ... }:
 {
   # TODO: Get name and email out. (Maybe through sops-nix?)
-  # TODO: Refactor to git related modules (includes gitui too)
   home-manager.users.${username} = {
     home.packages = with pkgs; [
       gitoxide
