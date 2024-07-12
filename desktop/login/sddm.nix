@@ -14,7 +14,7 @@
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
-      catppuccin.background = builtins.toString ../hypr/wallpapers/nix-wp-cat-mocha.png;
+      catppuccin.background = builtins.toString ../assets/wallpapers/nix-wp-cat-mocha.png;
       package = pkgs.kdePackages.sddm;
     };
   };

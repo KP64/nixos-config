@@ -10,8 +10,9 @@
 let
   mocha_source = inputs.hyprland-catppuccin + "/themes/mocha.conf";
 
-  active_wallpaper = builtins.toString ./wallpapers/nix-wp-cat-mocha.png;
-  active_profile_pic = builtins.toString ./pfps/kp.jpg;
+  active_wallpaper = builtins.toString ../assets/wallpapers/nix-wp-cat-mocha.png;
+  # TODO: Make this user agnostic
+  active_profile_pic = builtins.toString ../assets/pfps/kg.jpg;
   accent = "$lavender";
   accentAlpha = "$lavenderAlpha";
   font = "JetBrainsMono Nerd Font";
