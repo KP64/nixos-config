@@ -11,6 +11,7 @@
     ./cli
     ./editors
     ./gaming
+    ./virtualisation
 
     ./firefox.nix
     ./mpv.nix

@@ -64,6 +64,8 @@
     mpv.enable = true;
     thunderbird.enable = true;
     firefox.enable = true;
+
+    virtualisation.docker.enable = true;
   };
 
   gaming = {
@@ -121,15 +123,6 @@
         "tss"
       ];
     };
-  };
-
-  # TODO: Virtualisation in its own module
-  virtualisation = {
-    docker.rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-    libvirtd.enable = true;
   };
 
   system.stateVersion = stateVersion;
