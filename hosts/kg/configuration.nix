@@ -1,14 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { username, stateVersion, ... }:
 
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   system = {
     boot.efi.enable = true;
@@ -112,7 +105,6 @@
     };
   };
 
-  # Configure console keymap
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
@@ -147,5 +139,5 @@
     libvirtd.enable = true;
   };
 
-  system.stateVersion = stateVersion; # Did you read the comment?
+  system.stateVersion = stateVersion;
 }
