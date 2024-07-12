@@ -7,16 +7,20 @@
       gitoxide
       gitleaks
     ];
-    programs.git = {
-      enable = true;
-      lfs.enable = true;
-      userName = "KP64";
-      userEmail = "karamalsadeh@hotmail.com";
-      delta = {
+    programs = {
+      gitui.enable = true;
+      git-cliff.enable = true;
+      git = {
         enable = true;
-        options.line-numbers = true;
+        lfs.enable = true;
+        userName = "KP64";
+        userEmail = "karamalsadeh@hotmail.com";
+        delta = {
+          enable = true;
+          options.line-numbers = true;
+        };
+        extraConfig.init.defaultBranch = "master";
       };
-      extraConfig.init.defaultBranch = "master";
     };
   };
 }

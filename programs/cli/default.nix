@@ -14,9 +14,7 @@
     ./fastfetch.nix
     ./fd.nix
     ./fzf.nix
-    ./git-cliff.nix
     ./git.nix
-    ./gitui.nix
     ./kitty.nix
     ./lsd.nix
     ./navi.nix
