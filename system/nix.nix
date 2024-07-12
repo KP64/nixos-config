@@ -77,6 +77,7 @@ in
           enable = true;
           extraArgs = "--keep 5";
         };
+        # TODO: Use 'self.outPath' or './..' ?
         flake = "/home/${username}/Desktop/nixos-config";
       };
       nix-ld = {
