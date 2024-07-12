@@ -2,24 +2,36 @@
   pkgs,
   lib,
   config,
+  inputs,
   username,
   ...
 }:
+
+let
+  stable-pkgs = inputs.stable-nixpkgs.legacyPackages.${pkgs.system};
+in
 {
   options.gaming.enable = lib.mkEnableOption "Enables Some gaming Apps";
 
   config = lib.mkIf config.gaming.enable {
-    home-manager.users.${username}.home.packages = with pkgs; [
-      discord
+    # TODO: Check wether opening for dolphin is really needed
+    networking.firewall = {
+      allowedTCPPorts = [ 5000 ];
+      allowedUDPPorts = [ 5000 ];
+    };
+    home-manager.users.${username}.home.packages =
+      with pkgs;
+      [
+        discord
 
-      wineWowPackages.waylandFull
-      dolphin-emu
-      ryujinx
-      xemu
+        wineWowPackages.waylandFull
+        ryujinx
+        xemu
 
-      atlauncher
-      steam-run
-      openarena
-    ];
+        atlauncher
+        steam-run
+        openarena
+      ]
+      ++ [ stable-pkgs.dolphin-emu ];
   };
 }
