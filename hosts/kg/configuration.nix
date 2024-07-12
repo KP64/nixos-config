@@ -19,7 +19,7 @@
       tpm.enable = true;
       secure-boot.enable = true;
     };
-    autoupgrade.enable = true;
+    autoupgrade.enable = false;
   };
 
   hardware = {
