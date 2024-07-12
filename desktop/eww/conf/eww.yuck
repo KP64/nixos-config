@@ -1,0 +1,94 @@
+(defwindow sidebar
+          :monitor 1
+          :geometry (geometry :x "1%"
+                              :y "0%"
+                              :width "2%"
+                              :height "90%"
+                              :anchor "left center")
+          :stacking "bg"
+          :exclusive true
+  (centerbox :orientation "v"
+        (stats)
+        (clock)
+        (power)))
+
+
+; Clock
+(defpoll time :interval "1s"
+  `date +'{ "hour": "%H", "min": "%M" }'`)
+(defwidget clock []
+  (box :orientation "v"
+       :class "time-box"
+    (label :text {time.hour})
+    (label :text {time.min})))
+
+
+; Power options
+(defvar show_options false)
+(defwidget power []
+  (eventbox :onhover "${EWW_CMD} update show_options=true"
+            :onhoverlost "${EWW_CMD} update show_options=false"
+            :valign "end"
+    (box :orientation "v"
+         :space-evenly "false"
+         :class "powermenu"
+      (revealer	:transition "slideup"
+                :reveal show_options
+        (box :orientation "v"
+             :space-evenly "false"
+
+          (button :class "button-bspres"
+                  :tooltip "Hyprland Restart"
+                  :onclick "bspc wm -r" "⟳" )
+
+          (button	:class "button-reb"
+                  :tooltip "Reboot"
+                  :onclick "reboot"	"↺")
+
+          (button	:class "button-quit"
+                  :tooltip "Logout"
+                  :onclick "killall hyprland" "🚪")
+
+          (button	:class "button-lock"
+                  :tooltip "Lock Screen"
+                  :onclick "loginctl lock-session"	"🔒")))
+
+      (button	:class "button-off"
+              :tooltip "Shutdown"
+              :onclick "shutdown now"	"⏼"))))
+
+; Stats
+(defwidget stats []
+  (box 
+       :space-evenly "false"
+       :class "stats"
+    (volume)))
+
+
+; volume
+(defvar show_vol false)
+(defpoll vol :interval "1s"
+             :run-while show_vol 
+  "scripts/getvol.sh")
+(defwidget volume []
+  (eventbox :orientation "v"
+            :onhover "${EWW_CMD} update show_vol=true"
+            :onhoverlost "${EWW_CMD} update show_vol=false"
+            :valign "end"
+            
+    (box :orientation "v"
+      (revealer :transition "slideup"
+                :reveal show_vol
+        (scale :class "mem-bar"
+               :min 0
+               :max 100
+               :flipped true
+               :tooltip "Volume: ${vol}%"
+               :value vol
+               :onchange "notify-send 'Hi' '{}'"))
+
+                
+      (button :class "button-volume"
+              :tooltip "mute" 
+              :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        (label :text "M")))))
