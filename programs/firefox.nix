@@ -13,6 +13,7 @@
       enable = true;
       profiles.${username} = {
         settings = {
+          "middlemouse.paste" = false;
           "general.autoScroll" = true;
 
           "browser.tabs.crashReporting.sendReport" = false;
