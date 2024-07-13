@@ -41,19 +41,20 @@ in
       [ nix-alien.packages.${pkgs.system}.nix-alien ]
       ++ (with pkgs; [
         cachix
-        nixfmt-rfc-style
+        deadnix
         devenv
         fh
-        statix
-        nurl
-        deadnix
         nil
-        nvd
-        nixpkgs-lint-community
+        nix-health
+        nix-init
         nix-melt
         nix-output-monitor
-        nix-health
         nix-tree
+        nixfmt-rfc-style
+        nixpkgs-lint-community
+        nurl
+        nvd
+        statix
       ]);
 
     home-manager.users.${username} = {
