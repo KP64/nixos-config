@@ -8,6 +8,7 @@
     fonts.enable = true;
     nix.enable = true;
     security = {
+      uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
       secure-boot.enable = true;
