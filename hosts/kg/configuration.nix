@@ -11,6 +11,7 @@
       polkit.enable = true;
       tpm.enable = true;
       secure-boot.enable = true;
+      sudo-rs.enable = true;
     };
     autoupgrade.enable = false;
   };
