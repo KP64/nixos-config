@@ -39,14 +39,23 @@
     [ treefmt.packages.${pkgs.system}.treefmt ]
     ++ (with pkgs; [
       asciinema
-      ani-cli
-      tokei
-      sshx
-      just
-      lychee
+      dust
+      glow
       gping
       hexyl
+      hurl
+      hyperfine
+      jnv
+      just
+      kondo
+      lychee
+      procs
+      sd
+      sshx
+      tailspin
+      tokei
 
+      ani-cli
       sherlock
 
       onefetch
@@ -54,16 +63,5 @@
       # gpufetch # Not available on nixpkgs
 
       ouch
-
-      hyperfine
-      hurl
-
-      dust
-      procs
-      sd
-      jnv
-      glow
-      kondo
-
     ]);
 }
