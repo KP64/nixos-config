@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   options.system.security.uutils-coreutils.enable = lib.mkEnableOption "Enable Rust rewrite of GNU Coreutils";
 
@@ -11,4 +16,3 @@
     environment.systemPackages = with pkgs; [ uutils-coreutils-noprefix ];
   };
 }
-
