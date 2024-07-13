@@ -31,8 +31,10 @@ in
       [
         discord
 
-        wineWowPackages.waylandFull
         ryujinx
+        cemu
+
+        wineWowPackages.waylandFull
         xemu
 
         atlauncher
