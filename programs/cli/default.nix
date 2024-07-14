@@ -39,6 +39,7 @@
     [ treefmt.packages.${pkgs.system}.treefmt ]
     ++ (with pkgs; [
       asciinema
+      cbonsai
       dust
       glow
       gping
@@ -49,6 +50,7 @@
       just
       kondo
       lychee
+      pipes-rs
       procs
       sd
       sshx
