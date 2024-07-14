@@ -22,6 +22,8 @@
       sessionVariables.NIXOS_OZONE_WL = "1";
     };
 
+    # System wide install needed for e.g. SDDM
+    programs.hyprland.enable = true; 
     home-manager.users.${username} = {
       # TODO: Refactor them Out of Hyprland?
       xdg = {

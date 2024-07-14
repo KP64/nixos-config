@@ -5,9 +5,25 @@
   username,
   ...
 }:
+
+let
+  browser = {
+    tabs.crashReporting.sendReport = false;
+    contentblocking.category = "strict";
+    discovery.enabled = false;
+    translations.neverTranslateLanguages = "de";
+    uitour.enabled = false;
+    newtabpage.activity-stream = {
+      showSponsored = false;
+      showSponsoredTopSites = false;
+    };
+    places.speculativeConnect.enabled = false;
+    urlbar.speculativeConnect.enabled = false;
+  };
+in
 {
   options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
-
+  # TODO: Add custom Startup Page
   config = lib.mkIf config.apps.firefox.enable {
     home-manager.users.${username}.programs.firefox = {
       enable = true;

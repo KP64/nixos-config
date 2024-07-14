@@ -33,7 +33,7 @@
 
     rofi.enable = true;
 
-    login.tuigreet.enable = true;
+    login.sddm.enable = true;
 
     hypr = {
       hypridle.enable = true;
