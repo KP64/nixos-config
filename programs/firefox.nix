@@ -3,24 +3,11 @@
   lib,
   config,
   username,
+  collectLastEntries,
+  replaceLastWithFullPath,
   ...
 }:
 
-let
-  browser = {
-    tabs.crashReporting.sendReport = false;
-    contentblocking.category = "strict";
-    discovery.enabled = false;
-    translations.neverTranslateLanguages = "de";
-    uitour.enabled = false;
-    newtabpage.activity-stream = {
-      showSponsored = false;
-      showSponsoredTopSites = false;
-    };
-    places.speculativeConnect.enabled = false;
-    urlbar.speculativeConnect.enabled = false;
-  };
-in
 {
   options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
   # TODO: Add custom Startup Page
@@ -28,60 +15,85 @@ in
     home-manager.users.${username}.programs.firefox = {
       enable = true;
       profiles.${username} = {
-        settings = {
-          "middlemouse.paste" = false;
-          "general.autoScroll" = true;
+        settings = collectLastEntries (replaceLastWithFullPath {
+          browser = {
+            aboutConfig.showWarning = false;
+            tabs.crashReporting.sendReport = false;
+            contentblocking.category = "strict";
+            discovery.enabled = false;
+            translations.neverTranslateLanguages = "ar,de"; # Comma Seperated
+            uitour.enabled = false;
+            newtabpage.activity-stream = {
+              showSponsored = false;
+              showSponsoredTopSites = false;
+            };
+            places.speculativeConnect.enabled = false;
+            urlbar.speculativeConnect.enabled = false;
+          };
 
-          "browser.tabs.crashReporting.sendReport" = false;
-          "browser.contentblocking.category" = "strict";
-          "browser.discovery.enabled" = false;
-          "browser.translations.neverTranslateLanguages" = "de"; # Comma Seperated
-          "browser.uitour.enabled" = false;
-          "browser.newtabpage.activity-stream.showSponsored" = false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-          "browser.places.speculativeConnect.enabled" = false;
-          "browser.urlbar.speculativeConnect.enabled" = false;
+          middlemouse.paste = false;
+          general.autoScroll = true;
 
-          "extensions.autoDisableScopes" = 0;
-          "extensions.webcompat-reporter.enabled" = false;
-          "extensions.pocket.enabled" = false;
+          extensions = {
+            autoDisableScopes = 0;
+            webcompat-reporter.enabled = false;
+            pocket.enabled = false;
+          };
 
-          "media.ffmpeg.vaapi.enabled" = true;
+          media.ffmpeg.vaapi.enabled = true;
 
-          "findbar.highlightAll" = true;
+          findbar.highlightAll = true;
 
-          "dom.security.https_only_mode" = true;
-          "dom.push.enabled" = false;
-          "dom.push.connection.enabled" = false;
-          "dom.battery.enabled" = false;
+          dom = {
+            security.https_only_mode = true;
+            battery.enabled = false;
+            push = {
+              enabled = false;
+              connection.enabled = false;
+            };
+          };
 
-          "policies.DisableFirefoxStudies" = true;
-          "policies.DisableTelemetry" = true;
+          policies = {
+            DisableFirefoxStudies = true;
+            DisableTelemetry = true;
+          };
 
-          "privacy.globalprivacycontrol.enabled" = true;
-          "privacy.donottrackheader.enabled" = true;
-          "privacy.fingerprintingProtection" = true;
-          "privacy.trackingprotection.enabled" = true;
-          "privacy.trackingprotection.socialtracking.enabled" = true;
-          "privacy.userContext.enabled" = true;
-          "privacy.userContext.ui.enabled" = true;
+          privacy = {
+            globalprivacycontrol.enabled = true;
+            donottrackheader.enabled = true;
+            fingerprintingProtection = true;
+            trackingprotection = {
+              enabled = true;
+              socialtracking.enabled = true;
+            };
+            userContext = {
+              enabled = true;
+              ui.enabled = true;
+            };
+          };
 
-          "app.normandy.enabled" = false;
-          "app.shield.optoutstudies.enabled" = false;
+          app = {
+            normandy.enabled = false;
+            shield.optoutstudies.enabled = false;
+          };
 
-          "beacon.enabled" = false;
-          "device.sensors.enabled" = false;
-          "geo.enabled" = false;
+          beacon.enabled = false;
+          device.sensors.enabled = false;
+          geo.enabled = false;
 
-          "network.predictor.enabled" = false;
+          network.predictor.enabled = false;
 
-          "toolkit.telemetry.archive.enabled" = false;
-          "toolkit.telemetry.server" = "";
-          "toolkit.telemetry.unified" = false;
+          toolkit.telemetry = {
+            archive.enabled = false;
+            server = "";
+            unified = false;
+          };
 
-          "datareporting.policy.dataSubmissionEnabled" = false;
-          "datareporting.healthreport.uploadEnabled" = false;
-        };
+          datareporting = {
+            policy.dataSubmissionEnabled = false;
+            healthreport.uploadEnabled = false;
+          };
+        });
 
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           ublock-origin

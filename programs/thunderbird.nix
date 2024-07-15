@@ -2,6 +2,8 @@
   lib,
   config,
   username,
+  collectLastEntries,
+  replaceLastWithFullPath,
   ...
 }:
 {
@@ -12,50 +14,59 @@
       enable = true;
       profiles.${username} = {
         isDefault = true;
-        settings = {
-          "middlemouse.paste" = false;
-          "general.autoScroll" = true;
+        settings = collectLastEntries (replaceLastWithFullPath {
+          middlemouse.paste = false;
+          general.autoScroll = true;
 
-          "browser.translations.neverTranslateLanguages" = "de"; # Comma Seperated
+          browser.translations.neverTranslateLanguages = "ar,de"; # Comma Seperated
 
-          "extensions.webcompat-reporter.enabled" = false;
+          extensions.webcompat-reporter.enabled = false;
 
-          "media.ffmpeg.vaapi.enabled" = true;
+          media.ffmpeg.vaapi.enabled = true;
 
-          "findbar.highlightAll" = true;
+          findbar.highlightAll = true;
 
-          "dom.security.https_only_mode" = true;
-          "dom.push.connection.enabled" = false;
-          "dom.battery.enabled" = false;
+          dom = {
+            security.https_only_mode = true;
+            push.connection.enabled = false;
+            battery.enabled = false;
+          };
 
-          "privacy.globalprivacycontrol.enabled" = true;
-          "privacy.clearOnShutdown.cache" = true;
-          "privacy.fingerprintingProtection" = true;
-          "privacy.donottrackheader.enabled" = true;
-          "privacy.trackingprotection.enabled" = true;
-          "privacy.trackingprotection.fingerprinting.enabled" = true;
-          "privacy.trackingprotection.socialtracking.enabled" = true;
-          "privacy.trackingprotection.cryptomining.enabled" = true;
-          "privacy.trackingprotection.emailtracking.enabled" = true;
+          privacy = {
+            globalprivacycontrol.enabled = true;
+            clearOnShutdwon.cache = true;
+            fingerprintingProtection = true;
+            donottrackheader.enabled = true;
+            trackingprotection = {
+              fingerprinting.enabled = true;
+              socialtracking.enabled = true;
+              cryptomining.enabled = true;
+              emailtracking.enabled = true;
+            };
 
-          "beacon.enabled" = false;
-          "device.sensors.enabled" = false;
-          "geo.enabled" = false;
+            beacon.enabled = false;
+            device.sensors.enabled = false;
+            geo.enabled = false;
 
-          "network.predictor.enabled" = false;
+            network.predictor.enabled = false;
 
-          "toolkit.telemetry.unified" = false;
-          "toolkit.telemetry.newProfilePing.enabled" = false;
-          "toolkit.telemetry.updatePing.enabled" = false;
-          "toolkit.telemetry.shutdownPingSender.enabled" = false;
-          "toolkit.telemetry.archive.enabled" = false;
-          "toolkit.telemetry.bhrPing.enabled" = false;
-          "toolkit.telemetry.server" = "";
-          "toolkit.telemetry.owner" = "";
+            toolkit.telemetry = {
+              unified = false;
+              server = "";
+              owner = "";
+              newProfilePing.enabled = false;
+              updatePing.enabled = false;
+              shutdownPingSender.enabled = false;
+              archive.enabled = false;
+              bhrPing.enabled = false;
+            };
 
-          "datareporting.policy.dataSubmissionEnabled" = false;
-          "datareporting.healthreport.uploadEnabled" = false;
-        };
+            datareporting = {
+              policy.dataSubmissionEnabled = false;
+              healthreport.uploadEnabled = false;
+            };
+          };
+        });
       };
     };
   };

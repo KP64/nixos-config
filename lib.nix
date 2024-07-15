@@ -1,4 +1,44 @@
 { nixpkgs, inputs }:
+
+let
+  # -- DESC --
+  # Recurses the attrsets until the name-value-pair is not an attrset
+  # Then appends on it the concatenated paths (names)
+  # -- CODE --
+  # browser.discovery.enabled = false;
+  # turns to
+  # browser.discovery.enabled."browser.discovery.enabled" = false;
+  replaceLastWithFullPath =
+    attrs:
+    nixpkgs.lib.attrsets.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
+      ${builtins.concatStringsSep "." name} = value;
+    }) attrs;
+
+  # -- DESC --
+  # Takes the last entry of each (nested) attrset and 
+  # collects them into a new set
+  # -- CODE --
+  # browser.discovery.enabled."browser.discovery.enabled" = false;
+  # turns to
+  # { "browser.discovery.enabled" = false; }
+  collectLastEntries =
+    attrs:
+    rec {
+      flatten =
+        set:
+        let
+          processAttr = name: value: if builtins.isAttrs value then flatten value else { "${name}" = value; };
+        in
+        nixpkgs.lib.attrsets.foldlAttrs (
+          acc: name: value:
+          acc // processAttr name value
+        ) { } set;
+
+      result = flatten attrs;
+    }
+    .result;
+
+in
 {
   mkSystem =
     { username, system }:
@@ -8,7 +48,13 @@
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
-        inherit inputs username stateVersion;
+        inherit
+          inputs
+          username
+          stateVersion
+          replaceLastWithFullPath
+          collectLastEntries
+          ;
       };
       modules =
         with inputs;
@@ -23,7 +69,13 @@
             nixpkgs.overlays = with inputs; [ nur.overlay ];
             home-manager = {
               extraSpecialArgs = {
-                inherit inputs username stateVersion;
+                inherit
+                  inputs
+                  username
+                  stateVersion
+                  replaceLastWithFullPath
+                  collectLastEntries
+                  ;
               };
               useGlobalPkgs = true;
               useUserPackages = true;
