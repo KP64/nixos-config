@@ -69,13 +69,7 @@ in
             nixpkgs.overlays = with inputs; [ nur.overlay ];
             home-manager = {
               extraSpecialArgs = {
-                inherit
-                  inputs
-                  username
-                  stateVersion
-                  replaceLastWithFullPath
-                  collectLastEntries
-                  ;
+                inherit username stateVersion;
               };
               useGlobalPkgs = true;
               useUserPackages = true;
