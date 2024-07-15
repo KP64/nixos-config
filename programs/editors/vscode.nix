@@ -77,6 +77,7 @@
         "files.autoSaveWhenNoErrors" = true;
         "files.trimTrailingWhitespace" = true;
         "rust-analyzer.check.command" = "clippy";
+        "svelte.enable-ts-plugin" = true;
         "git.autofetch" = true;
         "telemetry.telemetryLevel" = "off";
         "terminal.integrated.defaultProfile.linux" = "Nushell";
