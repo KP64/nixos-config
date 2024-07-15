@@ -10,7 +10,7 @@
 
 {
   options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
-  # TODO: Add custom Startup Page
+
   config = lib.mkIf config.apps.firefox.enable {
     home-manager.users.${username}.programs.firefox = {
       enable = true;
