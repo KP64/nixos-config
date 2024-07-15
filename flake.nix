@@ -35,8 +35,8 @@
       };
     };
 
-    nix-ld-rs = {
-      url = "github:nix-community/nix-ld-rs";
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";

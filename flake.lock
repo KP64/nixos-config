@@ -727,7 +727,7 @@
         "type": "github"
       }
     },
-    "nix-ld-rs": {
+    "nix-ld": {
       "inputs": {
         "flake-compat": [
           "flake-compat"
@@ -740,16 +740,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1720518322,
-        "narHash": "sha256-isTUoKDWTeDBN1fPuMTyPdYcTn1823LMr+Uy1wODe/0=",
-        "owner": "nix-community",
-        "repo": "nix-ld-rs",
-        "rev": "ce02bc08397af64ba2487e229f3b67498581a884",
+        "lastModified": 1721034844,
+        "narHash": "sha256-RkX9MB0s/KWYHeZOHzkVPU5gs8YePkQxAH+3Bl3IH/Q=",
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "rev": "c95668aafd76080bd1e4d107741029a73552a983",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "nix-ld-rs",
+        "owner": "Mic92",
+        "repo": "nix-ld",
         "type": "github"
       }
     },
@@ -906,7 +906,7 @@
         "musnix": "musnix",
         "nix-alien": "nix-alien",
         "nix-index-database": "nix-index-database",
-        "nix-ld-rs": "nix-ld-rs",
+        "nix-ld": "nix-ld",
         "nix-systems": "nix-systems",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
