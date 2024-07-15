@@ -100,6 +100,7 @@
           darkreader
           simple-translate
           enhancer-for-youtube
+          new-tab-override
           facebook-container
           firefox-color
           multi-account-containers
