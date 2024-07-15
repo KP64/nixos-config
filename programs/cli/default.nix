@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  username,
-  ...
-}:
+{ pkgs, username, ... }:
 
 {
   imports = [
@@ -34,36 +29,34 @@
     ./zoxide.nix
   ];
 
-  home-manager.users.${username}.home.packages =
-    with inputs;
-    [ treefmt.packages.${pkgs.system}.treefmt ]
-    ++ (with pkgs; [
-      asciinema
-      cbonsai
-      dust
-      glow
-      gping
-      hexyl
-      hurl
-      hyperfine
-      jnv
-      just
-      kondo
-      lychee
-      pipes-rs
-      procs
-      sd
-      sshx
-      tailspin
-      tokei
+  home-manager.users.${username}.home.packages = with pkgs; [
+    asciinema
+    cbonsai
+    dust
+    glow
+    gping
+    hexyl
+    hurl
+    hyperfine
+    jnv
+    just
+    kondo
+    lychee
+    pipes-rs
+    procs
+    sd
+    sshx
+    tailspin
+    tokei
+    treefmt2
 
-      ani-cli
-      sherlock
+    ani-cli
+    sherlock
 
-      onefetch
-      cpufetch
-      # gpufetch # Not available on nixpkgs
+    onefetch
+    cpufetch
+    # gpufetch # Not available on nixpkgs
 
-      ouch
-    ]);
+    ouch
+  ];
 }

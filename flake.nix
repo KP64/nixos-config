@@ -35,6 +35,7 @@
       };
     };
 
+    # TODO: Remove once nixpkgs updates to the Rust-rewrite-version
     nix-ld = {
       url = "github:Mic92/nix-ld";
       inputs = {
@@ -56,14 +57,6 @@
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nix-index-database.follows = "nix-index-database";
-      };
-    };
-
-    treefmt = {
-      url = "github:numtide/treefmt";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
       };
     };
 
@@ -140,16 +133,6 @@
         systems.follows = "nix-systems";
         hyprlang.follows = "hyprlang";
         hyprutils.follows = "hyprutils";
-        xdph.follows = "xdph";
-      };
-    };
-
-    xdph = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
-        hyprlang.follows = "hyprlang";
       };
     };
 
@@ -160,11 +143,6 @@
         systems.follows = "nix-systems";
         hyprlang.follows = "hyprlang";
       };
-    };
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hypridle = {

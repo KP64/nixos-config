@@ -23,7 +23,7 @@
     };
 
     # System wide install needed for e.g. SDDM
-    programs.hyprland.enable = true; 
+    programs.hyprland.enable = true;
     home-manager.users.${username} = {
       # TODO: Refactor them Out of Hyprland?
       xdg = {
@@ -35,15 +35,12 @@
         portal = {
           enable = true;
           xdgOpenUsePortal = true;
-          extraPortals = [
-            inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland
-            pkgs.xdg-desktop-portal-gtk
-          ];
+          extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
           config = {
             common.default = [ "gtk" ];
             hyprland.default = [
-              "gtk"
               "hyprland"
+              "gtk"
             ];
           };
         };
