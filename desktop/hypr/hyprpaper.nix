@@ -8,12 +8,16 @@
 }:
 
 let
-  absolute_wallpapers = map (x: builtins.toString x) [
+wallpapers = map (x: builtins.toString x) [
+    ../wallpapers/cat_pacman.png
+    ../wallpapers/doggocat.png
+    ../wallpapers/gradient-synth-cat.png
+    ../wallpapers/nix-black-4k.png
     ../wallpapers/nix-wp-dg.png
     ../wallpapers/nix-wp-cat-mocha.png
+    ../wallpapers/windows-error.jpg
   ];
-
-  active_wallpaper = builtins.elemAt absolute_wallpapers 1;
+  active_wallpaper = builtins.elemAt wallpapers 6;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
@@ -23,7 +27,7 @@ in
       enable = true;
       package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
       settings = {
-        preload = absolute_wallpapers;
+        preload = wallpapers;
         wallpaper = [ ", ${active_wallpaper}" ];
       };
     };
