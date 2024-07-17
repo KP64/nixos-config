@@ -10,10 +10,10 @@
   imports = [
     ./cli
     ./editors
+    ./firefox
     ./gaming
     ./virtualisation
 
-    ./firefox.nix
     ./mpv.nix
     ./obs.nix
     ./spicetify.nix
