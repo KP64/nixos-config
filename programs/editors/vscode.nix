@@ -4,6 +4,8 @@
   config,
   inputs,
   username,
+  collectLastEntries,
+  replaceLastWithFullPath,
   ...
 }:
 
@@ -62,47 +64,57 @@
         prefix = [ "lint" ];
       };
 
-      userSettings = {
-        "workbench.iconTheme" = "catppuccin-mocha";
-        "workbench.productIconTheme" = "fluent-icons";
-        "workbench.startupEditor" = "none";
-        "files.autoSave" = "afterDelay";
-        "editor.fontFamily" = "JetBrainsMono Nerd Font";
-        "editor.fontLigatures" = true;
-        "workbench.colorTheme" = "Catppuccin Mocha";
-        "editor.bracketPairColorization.independentColorPoolPerBracketType" = true;
-        "editor.guides.bracketPairs" = "active";
-        "editor.formatOnSave" = true;
-        "editor.minimap.autohide" = true;
-        "files.autoSaveWhenNoErrors" = true;
-        "files.trimTrailingWhitespace" = true;
-        "rust-analyzer.check.command" = "clippy";
-        "svelte.enable-ts-plugin" = true;
-        "git.autofetch" = true;
-        "telemetry.telemetryLevel" = "off";
-        "terminal.integrated.defaultProfile.linux" = "Nushell";
-        "[javascript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      userSettings =
+        (collectLastEntries (replaceLastWithFullPath {
+          workbench = {
+            iconTheme = "catppuccin-mocha";
+            colorTheme = "Catppuccin Mocha";
+            productIconTheme = "fluent-icons";
+            startupEditor = "none";
+          };
+
+          files = {
+            autoSave = "afterDelay";
+            trimTrailingWhitespace = true;
+          };
+
+          editor = {
+            fontFamily = "JetBrainsMono Nerd Font";
+            fontLigatures = true;
+            guides.bracketPairs = "active";
+            formatOnSave = true;
+            minimap.autohide = true;
+          };
+
+          rust-analyzer.check.command = "clippy";
+          svelte.enable-ts-plugin = true;
+          git.autofetch = true;
+          telemetry.telemetryLevel = "off";
+          terminal.integrated.defaultProfile.linux = "Nushell";
+        }))
+        // {
+          "[javascript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[typescript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[json]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[jsonc]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[css]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[html]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+          "[svelte]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
         };
-        "[typescript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[json]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[jsonc]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[css]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[html]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[svelte]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-      };
     };
   };
 }
