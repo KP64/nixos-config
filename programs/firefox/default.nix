@@ -164,7 +164,7 @@ in
             darkreader
             simple-translate
             enhancer-for-youtube
-            # new-tab-override
+            decentraleyes
             facebook-container
             firefox-color
             return-youtube-dislikes
@@ -175,6 +175,7 @@ in
             private-relay
             videospeed
             stylus
+            libredirect
           ]);
       };
     };
