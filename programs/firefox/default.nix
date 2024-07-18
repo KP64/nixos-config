@@ -32,7 +32,6 @@ in
 {
   options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
 
-  # TODO: Find out how to coexist firefox & shizofox
   config = lib.mkIf config.apps.firefox.enable {
     home-manager.users.${username}.programs.firefox = {
       enable = true;
