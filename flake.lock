@@ -539,6 +539,70 @@
         "type": "github"
       }
     },
+    "navi-denis-cheats": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682557612,
+        "narHash": "sha256-wPsAazAGKPhu0MZfZbZ0POUBEMg95frClAQERTDFXUg=",
+        "owner": "denisidoro",
+        "repo": "cheats",
+        "rev": "1339965e9615ce00174cc308a41279d9c59aa75f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denisidoro",
+        "repo": "cheats",
+        "type": "github"
+      }
+    },
+    "navi-denis-dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674126038,
+        "narHash": "sha256-uKr/614zPbLcWDr24uunRlsoeyBMvqt7NJJPPWgs4yo=",
+        "owner": "denisidoro",
+        "repo": "dotfiles",
+        "rev": "0e7324f801ebb209650e1bae6f0bf30d9a5c7a37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denisidoro",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
+    "navi-denis-tldr-pages": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720918332,
+        "narHash": "sha256-4NPobCCbXcZbaItUZfiU7EE8rffQA9ul+RMHV1fkbsk=",
+        "owner": "denisidoro",
+        "repo": "navi-tldr-pages",
+        "rev": "59459556a3f63fe84ecf046744ea6c90a6510d99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denisidoro",
+        "repo": "navi-tldr-pages",
+        "type": "github"
+      }
+    },
+    "navi-papanito-cheats": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720763551,
+        "narHash": "sha256-Ne1KQRBQZ9vk0Jh92CUAMnkrVqlXYtQvLGdVfdUUG0k=",
+        "owner": "papanito",
+        "repo": "cheats",
+        "rev": "5357c298df4d5799eecdabffe3ba129b125f683e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "papanito",
+        "repo": "cheats",
+        "type": "github"
+      }
+    },
     "nix-alien": {
       "inputs": {
         "flake-compat": [
@@ -780,6 +844,10 @@
         "hyprutils": "hyprutils",
         "lanzaboote": "lanzaboote",
         "musnix": "musnix",
+        "navi-denis-cheats": "navi-denis-cheats",
+        "navi-denis-dotfiles": "navi-denis-dotfiles",
+        "navi-denis-tldr-pages": "navi-denis-tldr-pages",
+        "navi-papanito-cheats": "navi-papanito-cheats",
         "nix-alien": "nix-alien",
         "nix-index-database": "nix-index-database",
         "nix-ld": "nix-ld",

@@ -176,6 +176,26 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    navi-papanito-cheats = {
+      url = "github:papanito/cheats";
+      flake = false;
+    };
+
+    navi-denis-cheats = {
+      url = "github:denisidoro/cheats";
+      flake = false;
+    };
+
+    navi-denis-dotfiles = {
+      url = "github:denisidoro/dotfiles";
+      flake = false;
+    };
+
+    navi-denis-tldr-pages = {
+      url = "github:denisidoro/navi-tldr-pages";
+      flake = false;
+    };
   };
 
   outputs =

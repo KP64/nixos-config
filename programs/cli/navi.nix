@@ -1,5 +1,16 @@
-{ username, ... }:
+{ inputs, username, ... }:
 {
-  # TODO: Add some cheatsheets!
-  home-manager.users.${username}.programs.navi.enable = true;
+  home-manager.users.${username}.programs.navi = {
+    enable = true;
+    settings = {
+      cheats = {
+        paths = with inputs; [
+          navi-papanito-cheats
+          navi-denis-cheats
+          navi-denis-dotfiles
+          navi-denis-tldr-pages
+        ];
+      };
+    };
+  };
 }
