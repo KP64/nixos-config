@@ -23,7 +23,6 @@
     ./nushell.nix
     ./ripgrep.nix
     ./tealdeer.nix
-    ./thefuck.nix
     ./yazi.nix
     ./zellij.nix
     ./zoxide.nix
