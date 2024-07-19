@@ -145,7 +145,6 @@
               "$mainMod, J, togglesplit,"
               "$mainMod SHIFT, J, swapsplit"
 
-              # TODO: What happens when executing commands when not enabled?
               "$mainMod SHIFT, C, exec, hyprpicker --no-fancy --autocopy"
               "$mainMod SHIFT, R, exec, systemctl --user restart waybar.service"
               "$mainMod SHIFT, S, exec, grimblast --freeze --notify copysave area"
