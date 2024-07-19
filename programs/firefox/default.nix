@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   username,
   collectLastEntries,
   replaceLastWithFullPath,
@@ -11,23 +10,6 @@
 
 let
   nixos-icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
-
-  # Flashbang when opening new Tab.
-  # Seems like the project is dead
-  # TODO: Fork and republish the extension?
-  new-tab = inputs.rycee-nurpkgs.lib.${pkgs.system}.buildFirefoxXpiAddon rec {
-    pname = "custom-new-tab-page";
-    version = "1.0.0";
-    addonId = "${pname}@mint.as";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3669474/${pname}-${version}.xpi";
-    sha256 = "sha256-C5GBsK9RYo8cjk8MKL8fNCseDR5d4Fweeqqzu0dPSBQ=";
-    meta = with lib; {
-      homepage = "https://github.com/methodgrab/firefox-custom-new-tab-page";
-      description = "A Firefox extension that allows you to specify a custom URL to be shown when opening a tab.";
-      license = licenses.isc;
-      platforms = platforms.all;
-    };
-  };
 in
 {
   options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
@@ -157,8 +139,8 @@ in
         });
 
         extensions =
-          [ new-tab ]
-          ++ (with pkgs.nur.repos.rycee.firefox-addons; [
+
+          with pkgs.nur.repos.rycee.firefox-addons; [
             ublock-origin
             darkreader
             simple-translate
@@ -175,7 +157,8 @@ in
             videospeed
             stylus
             libredirect
-          ]);
+            new-tab-override
+          ];
       };
     };
   };

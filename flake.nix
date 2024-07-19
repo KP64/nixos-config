@@ -91,14 +91,6 @@
       };
     };
 
-    rycee-nurpkgs = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     nur.url = "github:nix-community/nur";
 
     spicetify-nix = {

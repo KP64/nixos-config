@@ -856,7 +856,6 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "obs-catppuccin": "obs-catppuccin",
-        "rycee-nurpkgs": "rycee-nurpkgs",
         "spicetify-nix": "spicetify-nix",
         "stable-nixpkgs": "stable-nixpkgs"
       }
@@ -906,31 +905,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
-      }
-    },
-    "rycee-nurpkgs": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "pkgs/firefox-addons",
-        "lastModified": 1721188984,
-        "narHash": "sha256-muLvm4TcNtZtbC71vWpJT84do8xxcX2JDbwZ/GBCbIM=",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "rev": "fe4e311097bb57450231e603d7a99f96d147e456",
-        "type": "gitlab"
-      },
-      "original": {
-        "dir": "pkgs/firefox-addons",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "type": "gitlab"
       }
     },
     "spicetify-nix": {
