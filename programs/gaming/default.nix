@@ -21,11 +21,6 @@ in
   options.gaming.enable = lib.mkEnableOption "Enables Some gaming Apps";
 
   config = lib.mkIf config.gaming.enable {
-    # TODO: Check wether opening for dolphin is really needed
-    networking.firewall = {
-      allowedTCPPorts = [ 5000 ];
-      allowedUDPPorts = [ 5000 ];
-    };
     home-manager.users.${username}.home.packages =
       with pkgs;
       [
