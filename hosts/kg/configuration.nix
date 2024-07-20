@@ -5,8 +5,6 @@
 
   system = {
     boot.efi.enable = true;
-    fonts.enable = true;
-    nix.enable = true;
     security = {
       uutils-coreutils.enable = true;
       polkit.enable = true;
@@ -26,7 +24,6 @@
 
   desktop = {
     enable = true;
-    catppuccin.enable = true;
 
     eww.enable = true;
     waybar.enable = false;

@@ -10,16 +10,13 @@ let
   cfg = config.system.nix;
 in
 {
-  options.system.nix = {
-    enable = lib.mkEnableOption "Manage nix configuration";
-    extraTrustedUsers = lib.mkOption {
-      default = [ ];
-      description = "Extra Users to Trust.";
-      type = with lib.types; listOf str;
-    };
+  options.system.nix.extraTrustedUsers = lib.mkOption {
+    default = [ ];
+    description = "Extra Users to Trust.";
+    type = with lib.types; listOf str;
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     nix = {
       channel.enable = true; # ? Rust-Analyzer Needs it
       optimise.automatic = true;

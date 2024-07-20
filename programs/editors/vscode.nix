@@ -92,8 +92,8 @@
           telemetry.telemetryLevel = "off";
           terminal.integrated.defaultProfile.linux = "Nushell";
         }))
-        // lib.genAttrs (map (lang: "[${lang}]")
-          [
+        // lib.genAttrs
+          (map (lang: "[${lang}]") [
             "javascript"
             "typescript"
             "json"
@@ -102,7 +102,7 @@
             "html"
             "svelte"
           ])
-          (name: {
+          (_: {
             "editor.defaultFormatter" = "esbenp.prettier-vscode";
           });
     };
