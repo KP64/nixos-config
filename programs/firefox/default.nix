@@ -12,7 +12,11 @@
 let
   nixos-icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
 
-  hideEngines = list: lib.genAttrs list (_: { metaData.hidden = true; });
+  hideEngines =
+    list:
+    lib.genAttrs list (_: {
+      metaData.hidden = true;
+    });
 in
 {
   options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
@@ -31,48 +35,53 @@ in
             force = true;
             default = "SearXNG";
             privateDefault = "SearXNG";
-            engines = hideEngines [ "Bing" "Google" ] // {
-              SearXNG = {
-                urls = [
-                  {
-                    template = "https://search.sapti.me/search";
-                    params = [
-                      {
-                        name = "q";
-                        value = "{searchTerms}";
-                      }
-                    ];
-                  }
-                ];
-                icon = ./searxng.svg;
-                definedAliases = [ "@sx" ];
+            engines =
+              hideEngines [
+                "Bing"
+                "Google"
+              ]
+              // {
+                SearXNG = {
+                  urls = [
+                    {
+                      template = "https://search.sapti.me/search";
+                      params = [
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = ./searxng.svg;
+                  definedAliases = [ "@sx" ];
+                };
+                "Nix Pkgs" = {
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/packages";
+                      params = [
+                        {
+                          name = "type";
+                          value = "packages";
+                        }
+                        {
+                          name = "query";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
+                  icon = "${nixos-icons}/nix-snowflake.svg";
+                  definedAliases = [ "@np" ];
+                };
+                "NixOS Wiki" = {
+                  urls = [ { template = "https://nixos.wiki/wiki/{searchTerms}"; } ];
+                  updateInterval = 24 * 60 * 60 * 1000; # every day
+                  icon = "${nixos-icons}/nix-snowflake.svg";
+                  definedAliases = [ "@nw" ];
+                };
               };
-              "Nix Pkgs" = {
-                urls = [
-                  {
-                    template = "https://search.nixos.org/packages";
-                    params = [
-                      {
-                        name = "type";
-                        value = "packages";
-                      }
-                      {
-                        name = "query";
-                        value = "{searchTerms}";
-                      }
-                    ];
-                  }
-                ];
-                icon = "${nixos-icons}/nix-snowflake.svg";
-                definedAliases = [ "@np" ];
-              };
-              "NixOS Wiki" = {
-                urls = [ { template = "https://nixos.wiki/wiki/{searchTerms}"; } ];
-                updateInterval = 24 * 60 * 60 * 1000; # every day
-                icon = "${nixos-icons}/nix-snowflake.svg";
-                definedAliases = [ "@nw" ];
-              };
-            };
           };
           settings = collectLastEntries (replaceLastWithFullPath {
             browser = {
