@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.desktop.services.copyq.enable {
     home-manager.users.${username} = {
-      home.packages = with pkgs; [ wl-clipboard ];
+      home.packages = [ pkgs.wl-clipboard ];
       services.copyq.enable = true;
     };
   };

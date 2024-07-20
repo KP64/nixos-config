@@ -37,8 +37,7 @@ in
     };
 
     environment.systemPackages =
-      with inputs;
-      [ nix-alien.packages.${pkgs.system}.nix-alien ]
+      [ inputs.nix-alien.packages.${pkgs.system}.nix-alien ]
       ++ (with pkgs; [
         cachix
         deadnix
@@ -58,7 +57,7 @@ in
       ]);
 
     home-manager.users.${username} = {
-      imports = with inputs; [ nix-index-database.hmModules.nix-index ];
+      imports = [ inputs.nix-index-database.hmModules.nix-index ];
       nix.gc.automatic = true;
       home.sessionVariables.DIRENV_LOG_FORMAT = "";
       programs = {

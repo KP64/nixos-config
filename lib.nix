@@ -10,7 +10,7 @@ let
   # browser.discovery.enabled."browser.discovery.enabled" = false;
   replaceLastWithFullPath =
     attrs:
-    nixpkgs.lib.attrsets.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
+    nixpkgs.lib.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
       ${builtins.concatStringsSep "." name} = value;
     }) attrs;
 
@@ -29,7 +29,7 @@ let
         let
           processAttr = name: value: if builtins.isAttrs value then flatten value else { "${name}" = value; };
         in
-        nixpkgs.lib.attrsets.foldlAttrs (
+        nixpkgs.lib.foldlAttrs (
           acc: name: value:
           acc // processAttr name value
         ) { } set;
@@ -57,8 +57,7 @@ in
           ;
       };
       modules =
-        with inputs;
-        [ home-manager.nixosModules.default ]
+        [ inputs.home-manager.nixosModules.default ]
         ++ [
           ./hosts/${username}/configuration.nix
           ./desktop
@@ -66,7 +65,7 @@ in
           ./programs
           ./system
           {
-            nixpkgs.overlays = with inputs; [ nur.overlay ];
+            nixpkgs.overlays = [ inputs.nur.overlay ];
             home-manager = {
               extraSpecialArgs = {
                 inherit username stateVersion;

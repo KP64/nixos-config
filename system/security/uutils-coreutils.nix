@@ -13,6 +13,6 @@
     # e.g.:
     # with    prefix: uutils-mv
     # without prefix: mv 
-    environment.systemPackages = with pkgs; [ uutils-coreutils-noprefix ];
+    environment.systemPackages = [ pkgs.uutils-coreutils-noprefix ];
   };
 }

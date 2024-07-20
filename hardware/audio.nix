@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = with inputs; [ musnix.nixosModules.musnix ];
+  imports = [ inputs.musnix.nixosModules.musnix ];
 
   options.hardware.audio.enable = lib.mkEnableOption "Enable Audio";
 
@@ -29,6 +29,6 @@
       rtcqs.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [ pavucontrol ];
+    environment.systemPackages = [ pkgs.pavucontrol ];
   };
 }

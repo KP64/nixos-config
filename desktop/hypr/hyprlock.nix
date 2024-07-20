@@ -10,8 +10,8 @@
 let
   mocha_source = inputs.hyprland-catppuccin + "/themes/mocha.conf";
 
-  active_wallpaper = builtins.toString ../wallpapers/doggocat.png;
-  active_profile_pic = builtins.toString ../../hosts/${username}/pfp.jpg;
+  active_wallpaper = toString ../wallpapers/doggocat.png;
+  active_profile_pic = toString ../../hosts/${username}/pfp.jpg;
   accent = "$lavender";
   accentAlpha = "$lavenderAlpha";
   font = "JetBrainsMono Nerd Font";

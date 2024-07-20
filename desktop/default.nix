@@ -26,6 +26,7 @@
         xdg-utils
         libnotify
       ];
+
       xdg = {
         enable = true;
         userDirs = {

@@ -9,9 +9,9 @@
 {
   options.system.security.secure-boot.enable = lib.mkEnableOption "Enable Lanzaboote for Secure Boot";
 
-  imports = with inputs; [ lanzaboote.nixosModules.lanzaboote ];
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
   config = lib.mkIf config.system.security.secure-boot.enable {
-    environment.systemPackages = with pkgs; [ sbctl ];
+    environment.systemPackages = [ pkgs.sbctl ];
     boot = {
       # Lanzaboote currently replaces the systemd-boot module.
       # This setting is usually set to true in configuration.nix

@@ -6,6 +6,7 @@
       gitoxide
       gitleaks
     ];
+
     programs = {
       gitui.enable = true;
       git-cliff.enable = true;

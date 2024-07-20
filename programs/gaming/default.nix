@@ -22,8 +22,8 @@ in
 
   config = lib.mkIf config.gaming.enable {
     home-manager.users.${username}.home.packages =
-      with pkgs;
-      [
+      [ stable-pkgs.dolphin-emu ]
+      ++ (with pkgs; [
         discord
 
         ryujinx
@@ -35,7 +35,6 @@ in
         atlauncher
         steam-run
         openarena
-      ]
-      ++ [ stable-pkgs.dolphin-emu ];
+      ]);
   };
 }

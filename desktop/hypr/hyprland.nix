@@ -148,11 +148,11 @@
                 x:
                 let
                   c = (x + 1) / 10;
-                  ws = builtins.toString (x + 1 - (c * 10));
+                  ws = toString (x + 1 - (c * 10));
                 in
                 [
-                  "$mainMod, ${ws}, workspace, ${builtins.toString (x + 1)}"
-                  "$mainMod SHIFT, ${ws}, movetoworkspace, ${builtins.toString (x + 1)}"
+                  "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+                  "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
                 ]
               ) 10
             )

@@ -8,13 +8,13 @@
 
 # FIXME: When disabling catppuccin => home.pointerCursor.name is used but not defined.
 {
-  imports = with inputs; [ catppuccin.nixosModules.catppuccin ];
+  imports = [ inputs.catppuccin.nixosModules.catppuccin ];
   options.desktop.catppuccin.enable = lib.mkEnableOption "Enables Catppuccin";
 
   config = lib.mkIf config.desktop.catppuccin.enable {
     catppuccin.enable = true;
     home-manager.users.${username} = {
-      imports = with inputs; [ catppuccin.homeManagerModules.catppuccin ];
+      imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
       catppuccin = {
         enable = true;
         pointerCursor = {

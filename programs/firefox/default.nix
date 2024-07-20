@@ -138,27 +138,25 @@ in
           };
         });
 
-        extensions =
-
-          with pkgs.nur.repos.rycee.firefox-addons; [
-            ublock-origin
-            darkreader
-            simple-translate
-            enhancer-for-youtube
-            decentraleyes
-            facebook-container
-            firefox-color
-            return-youtube-dislikes
-            privacy-badger
-            greasemonkey
-            i-dont-care-about-cookies
-            languagetool
-            private-relay
-            videospeed
-            stylus
-            libredirect
-            new-tab-override
-          ];
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          ublock-origin
+          darkreader
+          simple-translate
+          enhancer-for-youtube
+          decentraleyes
+          facebook-container
+          firefox-color
+          return-youtube-dislikes
+          privacy-badger
+          greasemonkey
+          i-dont-care-about-cookies
+          languagetool
+          private-relay
+          videospeed
+          stylus
+          libredirect
+          new-tab-override
+        ];
       };
     };
   };

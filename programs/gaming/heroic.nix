@@ -11,7 +11,7 @@
 
   config = lib.mkIf config.gaming.heroic.enable {
     home-manager.users.${username} = {
-      home.packages = with pkgs; [ heroic ];
+      home.packages = [ pkgs.heroic ];
 
       xdg.configFile."heroic/themes" = {
         source = inputs.heroic-catppuccin + "/themes/";

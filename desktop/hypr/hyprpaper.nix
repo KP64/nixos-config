@@ -8,7 +8,7 @@
 }:
 
 let
-  wallpapers = map (x: builtins.toString x) [
+  wallpapers = map toString [
     ../wallpapers/cat_pacman.png
     ../wallpapers/doggocat.png
     ../wallpapers/gradient-synth-cat.png

@@ -15,7 +15,7 @@ in
 
   config = lib.mkIf config.apps.spicetify.enable {
     home-manager.users.${username} = {
-      imports = with inputs; [ spicetify-nix.homeManagerModule ];
+      imports = [ inputs.spicetify-nix.homeManagerModule ];
       programs.spicetify = {
         enable = true;
         theme = spicePkgs.themes.catppuccin;
