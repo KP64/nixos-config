@@ -91,6 +91,11 @@
 
     nur.url = "github:nix-community/nur";
 
+    potato-fox = {
+      url = "git+https://codeberg.org/awwpotato/PotatoFox.git";
+      flake = false;
+    };
+
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
       inputs = {

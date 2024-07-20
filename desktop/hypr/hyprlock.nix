@@ -8,7 +8,7 @@
 }:
 
 let
-  mocha_source = inputs.hyprland-catppuccin + "/themes/mocha.conf";
+  mocha_source = "${inputs.hyprland-catppuccin}/themes/mocha.conf";
 
   active_wallpaper = toString ../wallpapers/doggocat.png;
   active_profile_pic = toString ../../hosts/${username}/pfp.jpg;

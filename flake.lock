@@ -769,11 +769,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1720521897,
-        "narHash": "sha256-k/lSErCNGvHj/vI+TXHLuQI9pmEnQBVcKbV3yB3I8NQ=",
+        "lastModified": 1721486692,
+        "narHash": "sha256-fmZoTQpuq01eCtQKnRKx/KDtHzaN4WHVCMUs3pVmkzE=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "4cb066aae41593df9901910e45f9dfd1af5aa743",
+        "rev": "d3bcf854a30dabaeaa31c888eb4e0e90410ab4b1",
         "type": "github"
       },
       "original": {
@@ -796,6 +796,22 @@
         "owner": "catppuccin",
         "repo": "obs",
         "type": "github"
+      }
+    },
+    "potato-fox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721443154,
+        "narHash": "sha256-R5ii70xmabYe70NtBEwlG5WWX2GUxnk5BzkWgnMFWI4=",
+        "ref": "refs/heads/main",
+        "rev": "f2817982835658544c1f99cdfa985b3ba5f329f1",
+        "revCount": 144,
+        "type": "git",
+        "url": "https://codeberg.org/awwpotato/PotatoFox.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/awwpotato/PotatoFox.git"
       }
     },
     "pre-commit-hooks-nix": {
@@ -856,6 +872,7 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "obs-catppuccin": "obs-catppuccin",
+        "potato-fox": "potato-fox",
         "spicetify-nix": "spicetify-nix",
         "stable-nixpkgs": "stable-nixpkgs"
       }

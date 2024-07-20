@@ -13,7 +13,7 @@
     home-manager.users.${username} = {
       home.packages = [ pkgs.aseprite ];
       xdg.configFile."aseprite/extensions/catppuccin-theme-mocha" = {
-        source = inputs.aseprite-catppuccin + "/themes/mocha/catppuccin-theme-mocha";
+        source = "${inputs.aseprite-catppuccin}/themes/mocha/catppuccin-theme-mocha";
         recursive = true;
       };
     };

@@ -20,7 +20,7 @@
 
     home-manager.users.${username} = {
       xdg.configFile."obs-studio/themes" = {
-        source = inputs.obs-catppuccin + "/themes/";
+        source = "${inputs.obs-catppuccin}/themes/";
         recursive = true;
       };
 
