@@ -15,6 +15,14 @@
     autoupgrade.enable = false;
   };
 
+  programs.cli.git = {
+    enable = true;
+    user = {
+      name = "KP64";
+      email = "karamalsadeh@hotmail.com";
+    };
+  };
+
   hardware = {
     audio.enable = true;
     bluetoothctl.enable = true;
