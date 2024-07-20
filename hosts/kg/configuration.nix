@@ -102,7 +102,10 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
+  # Don't forget to replace the hashedPassword below with your own.
+  # To get the hashedPasword run:
+  # $ mkpasswd -m sha-512 {your_password}
   users = {
     mutableUsers = false;
     users.${username} = {
