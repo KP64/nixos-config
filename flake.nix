@@ -91,6 +91,7 @@
 
     nur.url = "github:nix-community/nur";
 
+    # TODO: Implement Sops-nix with the keys for ssh Download?
     potato-fox = {
       url = "git+https://codeberg.org/awwpotato/PotatoFox.git";
       flake = false;
