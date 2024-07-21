@@ -176,7 +176,6 @@ in
             ublock-origin
             userchrome-toggle-extended
             videospeed
-            vimium
           ];
         };
       };
