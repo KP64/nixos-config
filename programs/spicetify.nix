@@ -20,10 +20,15 @@ in
         enable = true;
         theme = spicePkgs.themes.catppuccin;
         colorScheme = "mocha";
+        enabledCustomApps = with spicePkgs.apps; [
+          marketplace
+        ];
         enabledExtensions = with spicePkgs.extensions; [
           adblock
           autoSkipVideo
+          fullAlbumDate
           fullAppDisplay
+          groupSession
           hidePodcasts
           history
           keyboardShortcut
@@ -31,6 +36,9 @@ in
           playlistIcons
           popupLyrics
           shuffle
+          songStats
+          trashbin
+          volumePercentage
         ];
       };
     };
