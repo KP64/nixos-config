@@ -43,11 +43,13 @@
     lychee
     pipes-rs
     procs
+    rustscan
     sd
     sshx
     tailspin
     tokei
     treefmt2
+    xh
 
     ani-cli
     sherlock
