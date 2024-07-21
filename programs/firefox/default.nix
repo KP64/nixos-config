@@ -157,25 +157,26 @@ in
           });
 
           extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            ublock-origin
             darkreader
-            simple-translate
-            enhancer-for-youtube
             decentraleyes
+            enhancer-for-youtube
             facebook-container
             firefox-color
-            return-youtube-dislikes
-            privacy-badger
             greasemonkey
             i-dont-care-about-cookies
             languagetool
-            private-relay
-            videospeed
-            stylus
             libredirect
             new-tab-override
+            privacy-badger
+            private-relay
+            return-youtube-dislikes
             sidebery
+            simple-translate
+            stylus
+            ublock-origin
             userchrome-toggle-extended
+            videospeed
+            vimium
           ];
         };
       };
