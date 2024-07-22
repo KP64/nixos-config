@@ -10,17 +10,17 @@ let
   cfg = config.programs.cli.git;
 in
 {
-  options.programs.cli.git = {
-    enable = lib.mkEnableOption "Enables Git & helper Utils";
+  options.programs.cli.git = with lib; {
+    enable = mkEnableOption "Enables Git & helper Utils";
     user = {
-      name = lib.mkOption {
+      name = mkOption {
         description = "Your Git Username";
-        type = lib.types.str;
+        type = types.str;
         readOnly = true;
       };
-      email = lib.mkOption {
+      email = mkOption {
         description = "Your Git Email";
-        type = lib.types.str;
+        type = types.str;
         readOnly = true;
       };
     };

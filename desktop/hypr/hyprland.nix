@@ -6,10 +6,80 @@
   username,
   ...
 }:
-{
-  options.desktop.hypr.hyprland.enable = lib.mkEnableOption "Enables Hyprland";
 
-  config = lib.mkIf config.desktop.hypr.hyprland.enable {
+let
+  cfg = config.desktop.hypr.hyprland;
+in
+{
+  options.desktop.hypr.hyprland = with lib; {
+    enable = mkEnableOption "Enables Hyprland";
+    monitors = mkOption {
+      readOnly = true;
+      type = types.listOf (
+        types.submodule {
+          options = {
+            enabled = mkOption {
+              type = types.bool;
+              default = true;
+            };
+            name = mkOption {
+              type = types.str;
+              example = "DP-1";
+            };
+            resolution = mkOption {
+              type = types.enum [
+                "preferred"
+                "highres"
+                "highrr"
+              ];
+              default = "preferred";
+              example = "highres";
+            };
+            x = mkOption {
+              type = types.int;
+              default = 0;
+              example = 1920;
+            };
+            y = mkOption {
+              type = types.int;
+              default = 0;
+              example = 1080;
+            };
+            vrr = mkOption {
+              type = types.ints.between 0 2;
+              default = 0;
+              example = 1;
+            };
+          };
+        }
+      );
+    };
+
+    workspaces = mkOption {
+      readOnly = true;
+      type = types.listOf (
+        types.submodule {
+          options = {
+            id = mkOption {
+              type = types.ints.between 0 9;
+              example = 1;
+            };
+            monitorName = mkOption {
+              type = types.str;
+              example = "DP-1";
+            };
+            default = mkOption {
+              type = types.bool;
+              default = false;
+              example = true;
+            };
+          };
+        }
+      );
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     nix.settings = {
       substituters = [ "https://hyprland.cachix.org" ];
       trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
@@ -29,15 +99,19 @@
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       systemd.variables = [ "--all" ];
       settings = {
-        monitor = [
-          "desc:Dell Inc. AW2521HF CVTLL03, highrr, 0x0, auto, vrr, 2"
-          "desc:Dell Inc. DELL SE2216H 2V32398VA14I, preferred, 1920x500, auto"
-        ];
+        monitor = map (
+          m:
+          let
+            position = "${toString m.x}x${toString m.y}";
+          in
+          "${m.name}, ${
+            if m.enabled then "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}" else "disable"
+          }"
+        ) cfg.monitors;
 
-        workspace = [
-          "1, monitor:desc:Dell Inc. AW2521HF CVTLL03, default:true"
-          "2, monitor:desc:Dell Inc. DELL SE2216H 2V32398VA14I, default:true"
-        ];
+        workspace = map (
+          w: "${toString w.id}, monitor:${w.monitorName}, default:${lib.boolToString w.default}"
+        ) cfg.workspaces;
 
         "$terminal" = "kitty";
         "$browser" = "firefox";

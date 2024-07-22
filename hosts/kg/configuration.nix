@@ -43,10 +43,36 @@
     hypr = {
       hypridle.enable = true;
       hyprlock.enable = true;
-      hyprland.enable = true;
       hyprpaper.enable = true;
       hyprpicker.enable = true;
       contrib.grimblast.enable = true;
+      hyprland = {
+        enable = true;
+        monitors = [
+          {
+            name = "DP-3";
+            resolution = "highrr";
+            vrr = 2;
+          }
+          {
+            name = "HDMI-A-1";
+            x = 1920;
+            y = 500;
+          }
+        ];
+        workspaces = [
+          {
+            id = 1;
+            monitorName = "DP-3";
+            default = true;
+          }
+          {
+            id = 2;
+            monitorName = "HDMI-A-1";
+            default = true;
+          }
+        ];
+      };
     };
 
     services = {
