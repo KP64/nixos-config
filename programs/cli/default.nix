@@ -20,7 +20,7 @@
     ./lsd.nix
     ./navi.nix
     ./nushell.nix
-    ./ripgrep.nix
+    ./greps.nix
     ./tealdeer.nix
     ./yazi.nix
     ./zellij.nix
