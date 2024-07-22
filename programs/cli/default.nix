@@ -3,12 +3,12 @@
 {
   imports = [
     ./ricing
+    ./shells
     ./starship
 
     ./atuin.nix
     ./bacon.nix
     ./bandwhich.nix
-    ./bash.nix
     ./bat.nix
     ./broot.nix
     ./btop.nix
@@ -19,7 +19,6 @@
     ./kitty.nix
     ./lsd.nix
     ./navi.nix
-    ./nushell.nix
     ./greps.nix
     ./tealdeer.nix
     ./yazi.nix
