@@ -20,9 +20,7 @@ in
         enable = true;
         theme = spicePkgs.themes.catppuccin;
         colorScheme = "mocha";
-        enabledCustomApps = with spicePkgs.apps; [
-          marketplace
-        ];
+        enabledCustomApps = with spicePkgs.apps; [ marketplace ];
         enabledExtensions = with spicePkgs.extensions; [
           adblock
           autoSkipVideo
