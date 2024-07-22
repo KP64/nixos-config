@@ -61,7 +61,7 @@ in
         types.submodule {
           options = {
             id = mkOption {
-              type = types.ints.between 0 9;
+              type = types.ints.between 1 10;
               example = 1;
             };
             monitorName = mkOption {
