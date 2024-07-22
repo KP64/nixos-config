@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./file-managers
     ./ricing
     ./shells
     ./starship
@@ -10,7 +11,6 @@
     ./bacon.nix
     ./bandwhich.nix
     ./bat.nix
-    ./broot.nix
     ./btop.nix
     ./dconf.nix
     ./fd.nix
@@ -21,7 +21,6 @@
     ./navi.nix
     ./greps.nix
     ./tealdeer.nix
-    ./yazi.nix
     ./zellij.nix
     ./zoxide.nix
   ];
