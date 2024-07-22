@@ -162,16 +162,12 @@ in
 
           extensions = with pkgs.nur.repos.rycee.firefox-addons; [
             darkreader
-            decentraleyes
             enhancer-for-youtube
             facebook-container
             firefox-color
-            greasemonkey
             i-dont-care-about-cookies
             languagetool
             libredirect
-            new-tab-override
-            privacy-badger
             private-relay
             return-youtube-dislikes
             sidebery
