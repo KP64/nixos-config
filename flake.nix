@@ -29,7 +29,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -98,10 +97,10 @@
     };
 
     spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
+      url = "github:Gerg-L/spicetify-nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
       };
     };
 
@@ -146,6 +145,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
         hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
       };
     };
 
@@ -155,6 +155,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
         hyprlang.follows = "hyprlang";
+        hyprutils.follows = "hyprutils";
       };
     };
 

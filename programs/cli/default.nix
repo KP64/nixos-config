@@ -30,6 +30,7 @@
     dust
     glow
     gping
+    grex
     hexyl
     hurl
     hyperfine
