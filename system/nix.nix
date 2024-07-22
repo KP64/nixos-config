@@ -72,7 +72,7 @@ in
         enable = true;
         clean = {
           enable = true;
-          extraArgs = "--keep 5";
+          extraArgs = "--keep 5 --keep-since 1w";
         };
         flake = "/home/${username}/nixos-config";
       };
