@@ -15,7 +15,7 @@ let
     }) attrs;
 
   # -- DESC --
-  # Takes the last entry of each (nested) attrset and 
+  # Takes the last entry of each (nested) attrset and
   # collects them into a new set
   # -- CODE --
   # browser.discovery.enabled."browser.discovery.enabled" = false;

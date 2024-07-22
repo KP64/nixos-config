@@ -8,10 +8,6 @@
 }:
 
 let
-  mocha_source = "${inputs.hyprland-catppuccin}/themes/mocha.conf";
-
-  active_wallpaper = toString ../wallpapers/doggocat.png;
-  active_profile_pic = toString ../../hosts/${username}/pfp.jpg;
   accent = "$lavender";
   accentAlpha = "$lavenderAlpha";
   font = "JetBrainsMono Nerd Font";
@@ -25,7 +21,7 @@ in
       package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
 
       settings = {
-        source = mocha_source;
+        source = "${inputs.hyprland-catppuccin}/themes/mocha.conf";
 
         general = {
           disable_loading_bar = true;
@@ -35,7 +31,7 @@ in
         background = [
           {
             monitor = "";
-            path = active_wallpaper;
+            path = toString ../wallpapers/doggocat.png;
             blur_passes = 0;
             color = "$base";
           }
@@ -67,7 +63,7 @@ in
         image = [
           {
             monitor = "";
-            path = active_profile_pic;
+            path = toString ../../hosts/${username}/pfp.jpg;
             size = 100;
             border_color = accent;
             position = "0, 75";
