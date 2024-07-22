@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./ricing
     ./starship
 
     ./atuin.nix
@@ -11,9 +12,7 @@
     ./bat.nix
     ./broot.nix
     ./btop.nix
-    ./cava.nix
     ./dconf.nix
-    ./fastfetch.nix
     ./fd.nix
     ./fzf.nix
     ./git.nix
@@ -30,7 +29,6 @@
 
   home-manager.users.${username}.home.packages = with pkgs; [
     asciinema
-    cbonsai
     dust
     glow
     gping
@@ -41,7 +39,6 @@
     just
     kondo
     lychee
-    pipes-rs
     procs
     rustscan
     sd
@@ -53,10 +50,6 @@
 
     ani-cli
     sherlock
-
-    onefetch
-    cpufetch
-    # gpufetch # Not available on nixpkgs
 
     ouch
   ];
