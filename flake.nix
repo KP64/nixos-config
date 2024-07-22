@@ -206,5 +206,24 @@
           system = "x86_64-linux";
         };
       };
-    };
+    }
+    // inputs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            deadnix
+            nil
+            nix-health
+            nix-melt
+            nixfmt-rfc-style
+            nurl
+            statix
+          ];
+        };
+      }
+    );
 }
