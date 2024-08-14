@@ -11,10 +11,13 @@
     home-manager.users.${username}.programs.helix = {
       enable = true;
       defaultEditor = true;
-      settings.editor.cursor-shape = {
-        insert = "bar";
-        normal = "block";
-        select = "underline";
+      settings.editor = {
+        true-color = true;
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
       };
     };
   };

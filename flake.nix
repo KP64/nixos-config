@@ -5,6 +5,15 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stable-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -204,6 +213,11 @@
         kg = customLib.mkSystem {
           username = "kg";
           system = "x86_64-linux";
+        };
+        ws = customLib.mkSystem {
+          username = "ws";
+          system = "x86_64-linux";
+          wsl = true;
         };
       };
     }

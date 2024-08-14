@@ -41,7 +41,11 @@ let
 in
 {
   mkSystem =
-    { username, system }:
+    {
+      username,
+      system,
+      wsl ? false,
+    }:
     let
       stateVersion = "24.05";
     in
@@ -57,7 +61,11 @@ in
           ;
       };
       modules =
-        [ inputs.home-manager.nixosModules.default ]
+        with inputs;
+        [
+          nixos-wsl.nixosModules.default
+          home-manager.nixosModules.default
+        ]
         ++ [
           ./hosts/${username}/configuration.nix
           ./desktop
@@ -66,6 +74,10 @@ in
           ./system
           {
             nixpkgs.overlays = [ inputs.nur.overlay ];
+            wsl = {
+              enable = wsl;
+              defaultUser = username;
+            };
             home-manager = {
               extraSpecialArgs = {
                 inherit username stateVersion;
