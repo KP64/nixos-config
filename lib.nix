@@ -77,6 +77,7 @@ in
             wsl = {
               enable = wsl;
               defaultUser = username;
+              useWindowsDriver = true;
             };
             home-manager = {
               extraSpecialArgs = {
