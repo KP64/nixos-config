@@ -85,7 +85,7 @@ in
               };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${username}.imports = [ ./hosts/${username}/home.nix ];
+              users.${username}.imports = [ ./system/home-manager.nix ];
             };
           }
         ];
