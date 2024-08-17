@@ -12,7 +12,6 @@
       secure-boot.enable = true;
       sudo-rs.enable = true;
     };
-    autoupgrade.enable = false;
   };
 
   programs.cli.git = {
