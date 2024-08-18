@@ -61,11 +61,7 @@ in
           ;
       };
       modules =
-        with inputs;
-        [
-          nixos-wsl.nixosModules.default
-          home-manager.nixosModules.default
-        ]
+        [ inputs.nixos-wsl.nixosModules.default ]
         ++ [
           ./hosts/${username}/configuration.nix
           ./desktop
@@ -78,14 +74,6 @@ in
               enable = wsl;
               defaultUser = username;
               useWindowsDriver = true;
-            };
-            home-manager = {
-              extraSpecialArgs = {
-                inherit username stateVersion;
-              };
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username}.imports = [ ./system/home-manager.nix ];
             };
           }
         ];
