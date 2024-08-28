@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  inputs,
   username,
   ...
 }:
@@ -25,7 +23,6 @@ in
   config = lib.mkIf config.desktop.hypr.hyprpaper.enable {
     home-manager.users.${username}.services.hyprpaper = {
       enable = true;
-      package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
       settings = {
         preload = wallpapers;
         wallpaper = [ ", ${active_wallpaper}" ];

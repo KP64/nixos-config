@@ -41,16 +41,6 @@
       };
     };
 
-    # TODO: Remove once nixpkgs updates to the Rust-rewrite-version
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -112,58 +102,11 @@
       };
     };
 
-    eww = {
-      url = "github:elkowar/eww";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
-    hyprutils = {
-      url = "github:hyprwm/hyprutils";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
-      };
-    };
-
-    hyprlang = {
-      url = "github:hyprwm/hyprlang";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
-        hyprutils.follows = "hyprutils";
-      };
-    };
-
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
-        hyprlang.follows = "hyprlang";
-        hyprutils.follows = "hyprutils";
-      };
-    };
-
-    hyprpaper = {
-      url = "github:hyprwm/hyprpaper";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
-        hyprlang.follows = "hyprlang";
-        hyprutils.follows = "hyprutils";
-      };
-    };
-
     hypridle = {
       url = "github:hyprwm/hypridle";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
-        hyprlang.follows = "hyprlang";
-        hyprutils.follows = "hyprutils";
       };
     };
 
@@ -172,8 +115,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "nix-systems";
-        hyprlang.follows = "hyprlang";
-        hyprutils.follows = "hyprutils";
       };
     };
 
@@ -224,7 +165,7 @@
     // inputs.flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = inputs.stable-nixpkgs.legacyPackages.${system};
       in
       {
         devShells.default = pkgs.mkShell {

@@ -48,6 +48,7 @@ in
     }:
     let
       stateVersion = "24.05";
+      stable-pkgs = inputs.stable-nixpkgs.legacyPackages.${system};
     in
     nixpkgs.lib.nixosSystem {
       inherit system;
@@ -55,6 +56,7 @@ in
         inherit
           inputs
           username
+          stable-pkgs
           stateVersion
           replaceLastWithFullPath
           collectLastEntries

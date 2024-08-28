@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  inputs,
   username,
   ...
 }:
@@ -96,7 +94,6 @@ in
     programs.hyprland.enable = true;
     home-manager.users.${username}.wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       systemd.variables = [ "--all" ];
       settings = {
         monitor = map (
@@ -161,13 +158,11 @@ in
           smart_split = true;
         };
 
+        render.direct_scanout = true;
+
         misc = {
           force_default_wallpaper = -1;
           disable_hyprland_logo = true;
-          # Direct Scanout == Less Input Delay
-          # Could produce graphical glitches though
-          no_direct_scanout = false;
-
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
         };

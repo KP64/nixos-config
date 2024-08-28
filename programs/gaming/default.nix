@@ -2,14 +2,11 @@
   pkgs,
   lib,
   config,
-  inputs,
+  stable-pkgs,
   username,
   ...
 }:
 
-let
-  stable-pkgs = inputs.stable-nixpkgs.legacyPackages.${pkgs.system};
-in
 {
   imports = [
     ./gamemode.nix

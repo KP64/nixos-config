@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  inputs,
   username,
   ...
 }:
@@ -13,7 +11,6 @@
     services.playerctld.enable = true;
     home-manager.users.${username}.programs.eww = {
       enable = true;
-      package = inputs.eww.packages.${pkgs.system}.eww;
       configDir = ./conf;
     };
   };

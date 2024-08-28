@@ -3,6 +3,7 @@
   lib,
   config,
   inputs,
+  stable-pkgs,
   username,
   ...
 }:
@@ -35,6 +36,7 @@ in
 
     environment.systemPackages =
       [ inputs.nix-alien.packages.${pkgs.system}.nix-alien ]
+      ++ [ stable-pkgs.nix-melt ]
       ++ (with pkgs; [
         cachix
         deadnix
@@ -43,7 +45,6 @@ in
         nil
         nix-health
         nix-init
-        nix-melt
         nix-output-monitor
         nix-tree
         nixfmt-rfc-style
@@ -76,10 +77,7 @@ in
         };
         flake = "/home/${username}/nixos-config";
       };
-      nix-ld = {
-        enable = true;
-        package = inputs.nix-ld.packages.${pkgs.system}.nix-ld;
-      };
+      nix-ld.enable = true;
     };
   };
 }
