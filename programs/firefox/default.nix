@@ -169,6 +169,7 @@ in
             languagetool
             libredirect
             private-relay
+            refined-github
             return-youtube-dislikes
             sidebery
             simple-translate
