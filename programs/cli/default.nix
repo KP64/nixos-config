@@ -45,6 +45,7 @@
     tailspin
     tokei
     treefmt2
+    typst
     xh
 
     ani-cli
