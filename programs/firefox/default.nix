@@ -39,6 +39,8 @@ in
               hideEngines [
                 "Bing"
                 "Google"
+                "DuckDuckGo"
+                "Wikipedia (en)"
               ]
               // {
                 SearXNG = {
