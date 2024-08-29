@@ -102,6 +102,8 @@
       };
     };
 
+    nixcord.url = "github:kaylorben/nixcord";
+
     hypridle = {
       url = "github:hyprwm/hypridle";
       inputs = {

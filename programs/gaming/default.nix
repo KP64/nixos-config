@@ -9,6 +9,7 @@
 
 {
   imports = [
+    ./discord.nix
     ./gamemode.nix
     ./heroic.nix
     ./mangohud.nix
@@ -21,8 +22,6 @@
     home-manager.users.${username}.home.packages =
       [ stable-pkgs.dolphin-emu ]
       ++ (with pkgs; [
-        discord
-
         ryujinx
         cemu
 
