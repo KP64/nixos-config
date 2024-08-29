@@ -113,6 +113,7 @@ in
         "$terminal" = "kitty";
         "$browser" = "firefox";
         "$menu" = "rofi -show drun -show-icons";
+        "$emenu" = "rofi -modi emoji -show emoji";
         "$mainMod" = "SUPER";
 
         exec-once = [
@@ -187,6 +188,7 @@ in
             "$mainMod, F, exec, $browser"
             "$mainMod, V, togglefloating,"
             "$mainMod, R, exec, $menu"
+            "$mainMod, E, exec, $emenu"
             "$mainMod, P, pseudo,"
 
             "$mainMod, J, togglesplit,"
