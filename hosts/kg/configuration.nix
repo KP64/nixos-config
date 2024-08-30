@@ -33,7 +33,7 @@
     enable = true;
 
     eww.enable = true;
-    waybar.enable = false;
+    waybar.enable = true;
 
     rofi.enable = true;
 
