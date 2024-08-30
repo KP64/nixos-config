@@ -669,11 +669,11 @@
     "obs-catppuccin": {
       "flake": false,
       "locked": {
-        "lastModified": 1712105857,
-        "narHash": "sha256-dZcgIPMa1AUFXcMPT99YUUhvxHbniv0Anbh9/DB00NY=",
+        "lastModified": 1725040763,
+        "narHash": "sha256-1Stlcfcl/DZMPPqsShst849Ns0Lgk9D2SekMhTy7zZY=",
         "owner": "catppuccin",
         "repo": "obs",
-        "rev": "e7c4fcf387415a20cb747121bc0416c4c8ae3362",
+        "rev": "b17939991545bdd6232e688ec5004b6dfae46f69",
         "type": "github"
       },
       "original": {
