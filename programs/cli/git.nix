@@ -77,7 +77,14 @@ in
 
         programs = {
           gitui.enable = true;
+
           git-cliff.enable = true;
+
+          jujutsu = {
+            enable = true;
+            settings = { inherit (cfg) user; }; 
+          };
+
           git = {
             enable = true;
             lfs.enable = true;
