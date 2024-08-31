@@ -52,10 +52,17 @@
           reverseImageSearch.enable = true;
           showConnections.enable = true;
           showMeYourName.enable = true;
-          silentTyping.enable = true;
+          silentTyping = {
+            enable = true;
+            showIcon = true;
+          };
           streamerModeOnStream.enable = true;
           superReactionTweaks.enable = true;
-          typingIndicator.enable = true;
+          typingIndicator = {
+            enable = true;
+            includeMutedChannels = true;
+            includeBlockedUsers = true;
+          };
           typingTweaks.enable = true;
           userVoiceShow.enable = true;
           USRBG.enable = true;
