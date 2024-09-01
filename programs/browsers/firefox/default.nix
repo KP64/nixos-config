@@ -19,9 +19,9 @@ let
     });
 in
 {
-  options.apps.firefox.enable = lib.mkEnableOption "Enables Firefox";
+  options.apps.browsers.firefox.enable = lib.mkEnableOption "Enables Firefox";
 
-  config = lib.mkIf config.apps.firefox.enable {
+  config = lib.mkIf config.apps.browsers.firefox.enable {
     home-manager.users.${username} = {
       home.file.".mozilla/firefox/${username}/chrome" = {
         source = "${inputs.potato-fox}/chrome/";

@@ -96,7 +96,10 @@
     obs.enable = true;
     mpv.enable = true;
     thunderbird.enable = true;
-    firefox.enable = true;
+    browsers = {
+      firefox.enable = true;
+      tor.enable = true;
+    };
   };
 
   virt.docker.enable = true;

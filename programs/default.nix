@@ -8,9 +8,9 @@
 
 {
   imports = [
+    ./browsers
     ./cli
     ./editors
-    ./firefox
     ./gaming
     ./virtualisation
 
