@@ -1,4 +1,9 @@
-{ inputs, username, ... }:
+{
+  lib,
+  inputs,
+  username,
+  ...
+}:
 
 {
   imports = [ inputs.catppuccin.nixosModules.catppuccin ];
@@ -13,19 +18,37 @@
         accent = "dark";
       };
     };
-    gtk = {
-      enable = true;
-      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-      gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk =
+      {
+        enable = true;
+        catppuccin.icon.enable = true;
+      }
+      // lib.genAttrs
+        [
+          "gtk3"
+          "gtk4"
+        ]
+        (
+          _:
+          lib.setAttrByPath [
+            "extraConfig"
+            "gtk-application-prefer-dark-theme"
+          ] 1
+        );
 
-      catppuccin.icon.enable = true;
-    };
-
-    qt = {
-      enable = true;
-      style.name = "kvantum";
-      platformTheme.name = "kvantum";
-    };
+    qt =
+      let
+        name = "kvantum";
+      in
+      {
+        enable = true;
+        style = {
+          inherit name;
+        };
+        platformTheme = {
+          inherit name;
+        };
+      };
   };
 
 }

@@ -83,9 +83,9 @@ in
       trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
     environment = {
-      pathsToLink = [
-        "/share/xdg-desktop-portal"
-        "/share/applications"
+      pathsToLink = map (p: "/share/${p}") [
+        "xdg-desktop-portal"
+        "applications"
       ];
       sessionVariables.NIXOS_OZONE_WL = "1";
     };

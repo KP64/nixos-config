@@ -1,12 +1,14 @@
 { username, stateVersion, ... }:
 
 {
-  system.security = {
-    uutils-coreutils.enable = true;
-    polkit.enable = true;
-    sudo-rs.enable = true;
+  system = {
+    inherit stateVersion;
+    security = {
+      uutils-coreutils.enable = true;
+      polkit.enable = true;
+      sudo-rs.enable = true;
+    };
   };
-
   programs.cli.git = {
     enable = true;
     user = {
@@ -69,6 +71,4 @@
       ];
     };
   };
-
-  system.stateVersion = stateVersion;
 }

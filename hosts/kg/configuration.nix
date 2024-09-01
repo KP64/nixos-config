@@ -4,6 +4,7 @@
   imports = [ ./hardware-configuration.nix ];
 
   system = {
+    inherit stateVersion;
     boot.efi.enable = true;
     security = {
       uutils-coreutils.enable = true;
@@ -96,9 +97,9 @@
     mpv.enable = true;
     thunderbird.enable = true;
     firefox.enable = true;
-
-    virtualisation.docker.enable = true;
   };
+
+  virt.docker.enable = true;
 
   gaming = {
     enable = true;
@@ -158,6 +159,4 @@
       ];
     };
   };
-
-  system.stateVersion = stateVersion;
 }
