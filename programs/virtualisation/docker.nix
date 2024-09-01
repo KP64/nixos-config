@@ -1,8 +1,8 @@
 { lib, config, ... }:
 {
-  options.apps.virtualisation.docker.enable = lib.mkEnableOption "Enables Docker";
+  options.virt.docker.enable = lib.mkEnableOption "Enables Docker";
 
-  config = lib.mkIf config.apps.virtualisation.docker.enable {
+  config = lib.mkIf config.virt.docker.enable {
     virtualisation.docker.rootless = {
       enable = true;
       setSocketVariable = true;
