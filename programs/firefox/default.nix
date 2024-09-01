@@ -36,6 +36,19 @@ in
             default = "SearXNG";
             privateDefault = "SearXNG";
             engines =
+              let
+                nix-snowflake-icon = "${nixos-icons}/nix-snowflake.svg";
+                nix-search-params = [
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              in
               hideEngines [
                 "Bing"
                 "Google"
@@ -62,29 +75,26 @@ in
                   urls = [
                     {
                       template = "https://search.nixos.org/packages";
-                      params = [
-                        {
-                          name = "channel";
-                          value = "unstable";
-                        }
-                        {
-                          name = "type";
-                          value = "packages";
-                        }
-                        {
-                          name = "query";
-                          value = "{searchTerms}";
-                        }
-                      ];
+                      params = nix-search-params;
                     }
                   ];
-                  icon = "${nixos-icons}/nix-snowflake.svg";
+                  icon = nix-snowflake-icon;
                   definedAliases = [ "@np" ];
+                };
+                "Nix Optns" = {
+                  urls = [
+                    {
+                      template = "https://search.nixos.org/options";
+                      params = nix-search-params;
+                    }
+                  ];
+                  icon = nix-snowflake-icon;
+                  definedAliases = [ "@no" ];
                 };
                 "NixOS Wiki" = {
                   urls = [ { template = "https://nixos.wiki/wiki/{searchTerms}"; } ];
                   updateInterval = 24 * 60 * 60 * 1000; # every day
-                  icon = "${nixos-icons}/nix-snowflake.svg";
+                  icon = nix-snowflake-icon;
                   definedAliases = [ "@nw" ];
                 };
               };
