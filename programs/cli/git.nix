@@ -82,7 +82,9 @@ in
 
           jujutsu = {
             enable = true;
-            settings = { inherit (cfg) user; }; 
+            settings = {
+              inherit (cfg) user;
+            };
           };
 
           git = {

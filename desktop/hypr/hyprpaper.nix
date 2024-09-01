@@ -15,7 +15,7 @@ let
     ../wallpapers/nix-wp-cat-mocha.png
     ../wallpapers/windows-error.jpg
   ];
-  active_wallpaper = builtins.elemAt wallpapers 6;
+  active_wallpaper = builtins.elemAt wallpapers 0;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
