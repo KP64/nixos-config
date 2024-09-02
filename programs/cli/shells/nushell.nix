@@ -2,6 +2,11 @@
 {
   home-manager.users.${username}.programs.nushell = {
     enable = true;
+    shellAliases = {
+      ll = "ls -l";
+      la = "ls -a";
+      lla = "ls -l -a";
+    };
     configFile.text = # nu
       ''
         $env.config = {
