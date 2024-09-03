@@ -14,6 +14,7 @@
       nvidia = {
         powerManagement.enable = true;
         modesetting.enable = true;
+        open = false;
       };
       nvidia-container-toolkit.enable = true;
       graphics = {
