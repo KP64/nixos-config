@@ -1,4 +1,8 @@
-{ username, stateVersion, ... }:
+{
+  username,
+  stateVersion,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -15,7 +19,7 @@
     };
   };
 
-  programs.cli.git = {
+  cli.git = {
     enable = true;
     user = {
       name = "KP64";

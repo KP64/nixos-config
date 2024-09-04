@@ -9,7 +9,8 @@
       sudo-rs.enable = true;
     };
   };
-  programs.cli.git = {
+
+  cli.git = {
     enable = true;
     user = {
       name = "KP64";

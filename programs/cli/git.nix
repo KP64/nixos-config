@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.programs.cli.git;
+  cfg = config.cli.git;
   aliases = {
     cl = "clone";
     i = "init";
@@ -38,7 +38,7 @@ let
   };
 in
 {
-  options.programs.cli.git = with lib; {
+  options.cli.git = with lib; {
     enable = mkEnableOption "Enables Git & helper Utils";
     user = {
       name = mkOption {
