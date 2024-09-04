@@ -43,6 +43,7 @@
           gameActivityToggle.enable = true;
           imageZoom.enable = true;
           mentionAvatars.enable = true;
+          noRPC.enable = true;
           nsfwGateBypass.enable = true;
           pictureInPicture.enable = true;
           pinDMs.enable = true;
@@ -50,14 +51,21 @@
           readAllNotificationsButton.enable = true;
           relationshipNotifier.enable = true;
           reverseImageSearch.enable = true;
+          shikiCodeblocks = {
+            enable = true;
+            # TODO: When nixcord moves to new Shiki Versions use the Catppuccin theme by Shiki
+            theme = "https://raw.githubusercontent.com/shikijs/shiki/v0/packages/shiki/themes/material-theme-ocean.json";
+          };
           showConnections.enable = true;
           showMeYourName.enable = true;
           silentTyping = {
             enable = true;
             showIcon = true;
           };
+          spotifyShareCommands.enable = true;
           streamerModeOnStream.enable = true;
           superReactionTweaks.enable = true;
+          themeAttributes.enable = true;
           typingIndicator = {
             enable = true;
             includeMutedChannels = true;
