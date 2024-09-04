@@ -5,16 +5,20 @@
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    # ./disko-config.nix # TODO: Remove when Trying Disko out
+    ./hardware-configuration.nix
+  ];
 
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
+    impermanence.enable = false;
     security = {
       uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
-      secure-boot.enable = true;
+      secure-boot.enable = false;
       sudo-rs.enable = true;
     };
   };
