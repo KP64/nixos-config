@@ -39,7 +39,7 @@
           jnoortheen.nix-ide
           aaron-bond.better-comments
           gruntfuggly.todo-tree
-          serayuzgur.crates
+          fill-labs.dependi
           rust-lang.rust-analyzer
           christian-kohler.path-intellisense
           catppuccin.catppuccin-vsc
