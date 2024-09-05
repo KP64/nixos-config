@@ -10,7 +10,7 @@
       uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
-      secure-boot.enable = false;
+      secure-boot.enable = true;
       sudo-rs.enable = true;
     };
   };
