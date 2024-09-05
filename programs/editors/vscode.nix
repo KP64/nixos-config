@@ -53,8 +53,7 @@ in
             wix.vscode-import-cost
           ]
           ++ (with ms-python; [
-            flake8
-            pylint
+            black-formatter
             python
           ])
           ++ (with catppuccin; [
@@ -112,19 +111,25 @@ in
           telemetry.telemetryLevel = "off";
           terminal.integrated.defaultProfile.linux = "Nushell";
         }))
-        // lib.genAttrs
-          (map (lang: "[${lang}]") [
-            "javascript"
-            "typescript"
-            "json"
-            "jsonc"
-            "css"
-            "html"
-            "svelte"
-          ])
-          (_: {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          });
+        // {
+          "[python]" = {
+            "editor.defaultFormatter" = "ms-python.black-formatter";
+          };
+        }
+        //
+          lib.genAttrs
+            (map (lang: "[${lang}]") [
+              "javascript"
+              "typescript"
+              "json"
+              "jsonc"
+              "css"
+              "html"
+              "svelte"
+            ])
+            (_: {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            });
     };
   };
 }
