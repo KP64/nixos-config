@@ -5,15 +5,11 @@
 }:
 
 {
-  imports = [
-    # ./disko-config.nix # TODO: Remove when Trying Disko out
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
-    impermanence.enable = false;
     security = {
       uutils-coreutils.enable = true;
       polkit.enable = true;

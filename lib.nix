@@ -63,11 +63,7 @@ in
           ;
       };
       modules =
-        with inputs;
-        [
-          nixos-wsl.nixosModules.default
-          disko.nixosModules.disko
-        ]
+        [ inputs.nixos-wsl.nixosModules.default ]
         ++ [
           ./hosts/${username}/configuration.nix
           ./desktop
