@@ -1,8 +1,4 @@
-{
-  username,
-  stateVersion,
-  ...
-}:
+{ username, stateVersion, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
