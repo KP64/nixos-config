@@ -9,6 +9,9 @@
   ...
 }:
 
+let
+  inherit (inputs.nix-vscode-extensions.extensions.${pkgs.system}) vscode-marketplace;
+in
 {
   options.editors.vscode.enable = lib.mkEnableOption "Enable Vscode Editor";
 
@@ -16,40 +19,57 @@
     home-manager.users.${username}.programs.vscode = {
       enable = true;
       extensions =
-        with pkgs.vscode-extensions;
+        with vscode-marketplace;
         [
-          wix.vscode-import-cost
-          waderyan.gitblame
-          vscode-icons-team.vscode-icons
-          visualstudioexptteam.vscodeintellicode
-          visualstudioexptteam.intellicode-api-usage-examples
-          vadimcn.vscode-lldb
-          ms-vscode.cpptools-extension-pack
-          usernamehw.errorlens
-          thenuprojectcontributors.vscode-nushell-lang
-          tamasfe.even-better-toml
-          svelte.svelte-vscode
-          ms-azuretools.vscode-docker
-          mkhl.direnv
-          esbenp.prettier-vscode
-          eamodio.gitlens
-          mhutchie.git-graph
-          donjayamanne.githistory
-          bradlc.vscode-tailwindcss
-          jnoortheen.nix-ide
-          aaron-bond.better-comments
-          gruntfuggly.todo-tree
-          fill-labs.dependi
-          rust-lang.rust-analyzer
-          christian-kohler.path-intellisense
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
-        ]
-        ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-          miguelsolorio.fluent-icons
           jscearcy.rust-doc-viewer
+          miguelsolorio.fluent-icons
           vivaxy.vscode-conventional-commits
-        ]);
+        ]
+        ++ (
+          with pkgs.vscode-extensions;
+          [
+            aaron-bond.better-comments
+            bradlc.vscode-tailwindcss
+            charliermarsh.ruff
+            christian-kohler.path-intellisense
+            donjayamanne.githistory
+            eamodio.gitlens
+            esbenp.prettier-vscode
+            fill-labs.dependi
+            github.vscode-pull-request-github
+            gruntfuggly.todo-tree
+            jnoortheen.nix-ide
+            mhutchie.git-graph
+            mkhl.direnv
+            ms-azuretools.vscode-docker
+            rust-lang.rust-analyzer
+            svelte.svelte-vscode
+            tamasfe.even-better-toml
+            thenuprojectcontributors.vscode-nushell-lang
+            usernamehw.errorlens
+            vadimcn.vscode-lldb
+            vscode-icons-team.vscode-icons
+            waderyan.gitblame
+            wix.vscode-import-cost
+          ]
+          ++ (with ms-python; [
+            flake8
+            pylint
+            python
+          ])
+          ++ (with catppuccin; [
+            catppuccin-vsc
+            catppuccin-vsc-icons
+          ])
+          ++ (with ms-vscode; [
+            cpptools-extension-pack
+            makefile-tools
+          ])
+          ++ (with visualstudioexptteam; [
+            intellicode-api-usage-examples
+            vscodeintellicode
+          ])
+        );
       languageSnippets.toml.lint = {
         body = [
           "[lints.rust]"
