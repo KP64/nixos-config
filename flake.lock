@@ -360,6 +360,22 @@
         "type": "github"
       }
     },
+    "imhex-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717073335,
+        "narHash": "sha256-hdJWvuOCWUNoWwYNXVycwZIjgVOCcKNtyXaDOivKfg8=",
+        "owner": "catppuccin",
+        "repo": "imhex",
+        "rev": "cbac7a79c9ef707efdcc9acfa65e30ca09a61b39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "imhex",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -737,6 +753,7 @@
         "hyprland-catppuccin": "hyprland-catppuccin",
         "hyprland-contrib": "hyprland-contrib",
         "hyprlock": "hyprlock",
+        "imhex-catppuccin": "imhex-catppuccin",
         "lanzaboote": "lanzaboote",
         "musnix": "musnix",
         "navi-denis-cheats": "navi-denis-cheats",
