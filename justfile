@@ -20,5 +20,5 @@ show system="x86_64-linux": (build-topology system)
   'Generates and Shows Network in Terminal.
 Requires a kitty Terminal.'
 )]
-show-network system="x86_64-linux": (build-topology system)
+net system="x86_64-linux": (build-topology system)
   kitten icat result/network.svg
