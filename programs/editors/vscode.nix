@@ -39,9 +39,11 @@ in
             github.vscode-pull-request-github
             gruntfuggly.todo-tree
             jnoortheen.nix-ide
+            jock.svg
             mhutchie.git-graph
             mkhl.direnv
             ms-azuretools.vscode-docker
+            nefrob.vscode-just-syntax
             rust-lang.rust-analyzer
             svelte.svelte-vscode
             tamasfe.even-better-toml

@@ -41,6 +41,14 @@
       };
     };
 
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -151,8 +159,9 @@
     };
   };
 
+  # TODO: Add Raspberry Pi Host
   outputs =
-    inputs@{ nixpkgs, ... }:
+    inputs@{ self, nixpkgs, ... }:
     let
       customLib = import ./lib.nix { inherit nixpkgs inputs; };
     in
@@ -172,12 +181,22 @@
     // inputs.flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = inputs.stable-nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ inputs.nix-topology.overlays.default ];
+        };
       in
       {
+        # TODO: Fill out Topology
+        topology = import inputs.nix-topology {
+          inherit pkgs;
+          modules = [ { inherit (self) nixosConfigurations; } ];
+        };
+
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             deadnix
+            just
             nil
             nix-health
             nix-melt

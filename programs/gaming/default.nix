@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  stable-pkgs,
   username,
   ...
 }:
@@ -19,18 +18,17 @@
   options.gaming.enable = lib.mkEnableOption "Enables Some gaming Apps";
 
   config = lib.mkIf config.gaming.enable {
-    home-manager.users.${username}.home.packages =
-      [ stable-pkgs.dolphin-emu ]
-      ++ (with pkgs; [
-        ryujinx
-        cemu
+    home-manager.users.${username}.home.packages = with pkgs; [
+      dolphin-emu
+      cemu
+      ryujinx
 
-        wineWowPackages.waylandFull
-        xemu
+      wineWowPackages.waylandFull
+      xemu
 
-        atlauncher
-        steam-run
-        openarena
-      ]);
+      atlauncher
+      steam-run
+      openarena
+    ];
   };
 }
