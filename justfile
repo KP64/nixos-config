@@ -22,3 +22,6 @@ Requires a kitty Terminal.'
 )]
 net system="x86_64-linux": (build-topology system)
   kitten icat result/network.svg
+
+pi:
+  nix build .{{ "#" }}nixosConfigurations.nixos-pi-installer.config.system.build.sdImage --show-trace -L -v

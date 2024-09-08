@@ -8,6 +8,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   system = {
     inherit stateVersion;
     boot.efi.enable = true;

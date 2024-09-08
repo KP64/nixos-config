@@ -157,9 +157,10 @@
       url = "github:denisidoro/navi-tldr-pages";
       flake = false;
     };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  # TODO: Add Raspberry Pi Host
   outputs =
     inputs@{ self, nixpkgs, ... }:
     let
@@ -175,6 +176,14 @@
           username = "ws";
           system = "x86_64-linux";
           wsl = true;
+        };
+
+        nix-pi-img = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            inherit (self) outputs;
+          };
+          modules = [ ./hosts/nix-pi-img/configuration.nix ];
         };
       };
     }
