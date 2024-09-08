@@ -1,5 +1,8 @@
-{ inputs, username, ... }:
+{ lib, config, inputs, username, ... }:
 {
+  options.gaming.discord.enable = lib.mkEnableOption "Enable Discord";
+
+  config = lib.mkIf config.gaming.discord.enable {
   home-manager.users.${username} = {
     imports = [ inputs.nixcord.homeManagerModules.nixcord ];
 
@@ -82,4 +85,4 @@
       };
     };
   };
-}
+};}

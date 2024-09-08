@@ -172,12 +172,19 @@
           username = "kg";
           system = "x86_64-linux";
         };
+
         ws = customLib.mkSystem {
           username = "ws";
           system = "x86_64-linux";
           wsl = true;
         };
 
+        nix-pi = customLib.mkSystem {
+          username = "nix-pi";
+          system = "aarch64-linux";
+        };
+
+        # Refer to: https://blog.krishu.moe/posts/nixos-raspberry-pi/
         nix-pi-img = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;

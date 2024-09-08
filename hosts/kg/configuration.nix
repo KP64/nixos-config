@@ -22,11 +22,38 @@
     };
   };
 
-  cli.git = {
+  cli = {
     enable = true;
-    user = {
-      name = "KP64";
-      email = "karamalsadeh@hotmail.com";
+
+    git = {
+      enable = true;
+      user = {
+        name = "KP64";
+        email = "karamalsadeh@hotmail.com";
+      };
+    };
+
+    shells = {
+      bash.enable = true;
+      nushell.enable = true;
+    };
+
+    file-managers = {
+      yazi.enable = true;
+      broot.enable = true;
+    };
+
+    ricing = {
+      enable = true;
+      cava.enable = true;
+      fetchers.enable = true;
+    };
+
+    terminals.kitty.enable = true;
+
+    monitors = {
+      btop.enable = true;
+      bandwhich.enable = true;
     };
   };
 
@@ -114,6 +141,7 @@
 
   gaming = {
     enable = true;
+    discord.enable = true;
     heroic.enable = true;
     mangohud.enable = true;
     gamemode.enable = true;
