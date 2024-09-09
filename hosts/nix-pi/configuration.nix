@@ -14,6 +14,8 @@
 
   system.stateVersion = "24.11";
 
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+
   hardware = {
     raspberry-pi."4".apply-overlays-dtmerge.enable = true;
     deviceTree = {
@@ -43,7 +45,10 @@
       };
     };
 
-    shells.bash.enable = true;
+    shells = {
+      bash.enable = true;
+      nushell.enable = true;
+    };
 
     file-managers.yazi.enable = true;
   };
