@@ -104,9 +104,9 @@
         "libvirtd"
         "tss"
       ];
-     openssh.authorizedKeys.keys = [
-      # TODO: Add Public SSH Key
-    ];
+      openssh.authorizedKeys.keys = [
+        # TODO: Add Public SSH Key
+      ];
     };
   };
 }
