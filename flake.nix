@@ -185,12 +185,15 @@
         };
 
         # Refer to: https://blog.krishu.moe/posts/nixos-raspberry-pi/
-        nix-pi-img = nixpkgs.lib.nixosSystem {
+        nixos-pi-installer = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs;
             inherit (self) outputs;
           };
-          modules = [ ./hosts/nix-pi-img/configuration.nix ];
+          modules = [
+            inputs.nix-topology.nixosModules.default
+            ./nixos-pi-installer.nix
+          ];
         };
       };
     }

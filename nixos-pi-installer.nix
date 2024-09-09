@@ -13,7 +13,7 @@
   ];
 
   nixpkgs.overlays = [
-    (final: super: {
+    (_: super: {
       makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];
@@ -33,6 +33,7 @@
 
   services.openssh.enable = true;
   security.sudo.wheelNeedsPassword = false;
+
   users.users.nix-pi = {
     isNormalUser = true;
     initialPassword = ""; # TODO: Add Password to be able to log in.

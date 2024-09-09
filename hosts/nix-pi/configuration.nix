@@ -21,7 +21,12 @@
       filter = "*rpi-4-*.dtb";
     };
   };
-  console.enable = false;
+
+  console = {
+    enable = false;
+    keyMap = "de";
+  };
+
   environment.systemPackages = with pkgs; [
     libraspberrypi
     raspberrypi-eeprom
@@ -38,28 +43,9 @@
       };
     };
 
-    shells = {
-      bash.enable = true;
-      nushell.enable = false;
-    };
+    shells.bash.enable = true;
 
-    file-managers = {
-      yazi.enable = true;
-      broot.enable = false;
-    };
-
-    ricing = {
-      enable = false;
-      cava.enable = false;
-      fetchers.enable = false;
-    };
-
-    terminals.kitty.enable = false;
-
-    monitors = {
-      btop.enable = false;
-      bandwhich.enable = false;
-    };
+    file-managers.yazi.enable = true;
   };
 
   editors.helix.enable = true;
@@ -81,7 +67,6 @@
     };
   };
 
-  console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
   services.openssh.enable = true;
