@@ -18,6 +18,7 @@ in
 
   config = {
     nix = {
+      package = pkgs.nixVersions.latest;
       channel.enable = true; # ? Rust-Analyzer Needs it
       optimise.automatic = true;
       settings = {
