@@ -27,10 +27,7 @@ in
           "flakes"
         ];
         auto-optimise-store = true;
-        trusted-users = [
-          "root"
-          username
-        ] ++ cfg.extraTrustedUsers;
+        trusted-users = [ username ] ++ cfg.extraTrustedUsers;
       };
     };
 
