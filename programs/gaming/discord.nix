@@ -22,10 +22,18 @@
             betterFolders = {
               enable = true;
               sidebar = false;
+              closeAllFolders = true;
+              closeAllHomeButton = true;
+              closeOthers = true;
+              forceOpen = true;
             };
             betterGifAltText.enable = true;
             betterRoleContext.enable = true;
-            betterRoleDot.enable = true;
+            betterRoleDot = {
+              enable = true;
+              bothStyles = true;
+              copyRoleColorInProfilePopout = true;
+            };
             betterSessions.enable = true;
             betterSettings.enable = true;
             betterUploadButton.enable = true;
@@ -36,6 +44,7 @@
               enable = true;
               disableNoisyLoggers = true;
             };
+            copyFileContents.enable = true;
             copyUserURLs.enable = true;
             customIdle.enable = true;
             dearrow.enable = true;
@@ -44,13 +53,17 @@
             dontRoundMyTimestamps.enable = true;
             emoteCloner.enable = true;
             fakeNitro.enable = true;
+            fakeProfileThemes.enable = true;
             favoriteEmojiFirst.enable = true;
             fixCodeblockGap.enable = true;
             fixSpotifyEmbeds.enable = true;
             fixYoutubeEmbeds.enable = true;
+            friendInvites.enable = true;
             friendsSince.enable = true;
             gameActivityToggle.enable = true;
+            greetStickerPicker.enable = true;
             imageZoom.enable = true;
+            implicitRelationships.enable = true;
             mentionAvatars.enable = true;
             noRPC.enable = true;
             nsfwGateBypass.enable = true;
