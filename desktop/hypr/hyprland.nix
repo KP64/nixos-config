@@ -126,7 +126,7 @@ in
         ];
 
         general = {
-          "col.active_border" = "$rosewater $sapphire $green 45deg";
+          "col.active_border" = "$lavender";
           "col.inactive_border" = "$surface0";
         };
 
