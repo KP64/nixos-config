@@ -57,11 +57,9 @@
 
   users.users.nix-pi = {
     isNormalUser = true;
-    initialPassword = ""; # TODO: Add Password to be able to log in.
+    initialPassword = "";
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [
-      # TODO: Add Public SSH Key
-    ];
+    openssh.authorizedKeys.keys = [ ];
   };
 
   system.stateVersion = "24.11";
