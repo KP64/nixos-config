@@ -112,6 +112,7 @@ in
           git.autofetch = true;
           telemetry.telemetryLevel = "off";
           terminal.integrated.defaultProfile.linux = "Nushell";
+          update.showReleaseNotes = false;
         }))
         // {
           "[python]" = {

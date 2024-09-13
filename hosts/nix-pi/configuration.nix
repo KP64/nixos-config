@@ -14,7 +14,9 @@
 
   system.stateVersion = "24.11";
 
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  # Qemu is buggy as hell
+  # it rarely works
+  # boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
   hardware = {
     raspberry-pi."4".apply-overlays-dtmerge.enable = true;

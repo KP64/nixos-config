@@ -6,16 +6,44 @@
 }:
 
 let
-  wallpapers = map toString [
-    ../wallpapers/cat_pacman.png
-    ../wallpapers/doggocat.png
-    ../wallpapers/gradient-synth-cat.png
-    ../wallpapers/nix-black-4k.png
-    ../wallpapers/nix-wp-dg.png
-    ../wallpapers/nix-wp-cat-mocha.png
-    ../wallpapers/windows-error.jpg
+  files = map toString (lib.filesystem.listFilesRecursive ../wallpapers);
+
+  extensions = map (x: ".${x}") [
+    "png"
+    "jpg"
   ];
-  active_wallpaper = builtins.elemAt wallpapers 0;
+
+  # -- DESC --
+  # Will generate a list with and without extension.
+  # -- CODE --
+  # "xxx.png"
+  # turns to
+  # [ "xxx" "xxx.png" ]
+  removeExt = name: map (ext: lib.removeSuffix ext name) extensions;
+
+  # -- DESC --
+  # Removes the Keys where the extension wasn't filtered.
+  # -- CODE --
+  # [ "xxx" "xxx.png" ]
+  # turns to
+  # [ "xxx" ]
+  removeKeysWithExt =
+    list: builtins.filter (name: !(builtins.all (ext: lib.hasSuffix ext name) extensions)) list;
+
+  wallpapers = builtins.listToAttrs (
+    map (
+      name:
+      let
+        dedupped = removeKeysWithExt (removeExt (baseNameOf name));
+        # removeKeysWithExt guarantees exactly one entry.
+        # The entry where the key has no extension.
+        stripped = builtins.elemAt dedupped 0;
+      in
+      lib.nameValuePair stripped name
+    ) files
+  );
+
+  active_wallpaper = wallpapers.nixos-waves;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
@@ -24,7 +52,7 @@ in
     home-manager.users.${username}.services.hyprpaper = {
       enable = true;
       settings = {
-        preload = wallpapers;
+        preload = files;
         wallpaper = [ ", ${active_wallpaper}" ];
       };
     };
