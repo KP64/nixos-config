@@ -43,7 +43,7 @@ let
     ) files
   );
 
-  active_wallpaper = wallpapers.nixos-waves;
+  active_wallpaper = wallpapers.cat-leaves;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
