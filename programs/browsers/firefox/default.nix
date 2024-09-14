@@ -208,6 +208,7 @@ in
           });
 
           extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+            catppuccin-gh-file-explorer
             darkreader
             enhancer-for-youtube
             facebook-container
