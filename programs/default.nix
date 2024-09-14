@@ -35,6 +35,8 @@
       anki-bin
       whatsapp-for-linux
       simplex-chat-desktop
+
+      czkawka
     ];
   };
 }
