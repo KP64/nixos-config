@@ -37,7 +37,6 @@ let
       result = flatten attrs;
     }
     .result;
-
 in
 {
   mkSystem =
