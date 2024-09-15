@@ -36,6 +36,7 @@
 
     home-manager.users.${username}.home.packages = with pkgs; [
       asciinema
+      binsider
       dust
       glow
       gping

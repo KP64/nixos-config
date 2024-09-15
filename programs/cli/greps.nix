@@ -1,7 +1,7 @@
-{ stable-pkgs, username, ... }:
+{ pkgs, username, ... }:
 {
   home-manager.users.${username} = {
-    home.packages = [ stable-pkgs.igrep ];
+    home.packages = [ pkgs.igrep ];
     programs.ripgrep.enable = true;
   };
 }
