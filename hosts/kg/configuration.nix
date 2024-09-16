@@ -120,6 +120,7 @@
 
   editors = {
     aseprite.enable = true;
+    blender.enable = true;
     helix.enable = true;
     imhex.enable = true;
     vscode.enable = true;

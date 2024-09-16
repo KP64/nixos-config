@@ -90,6 +90,11 @@
       flake = false;
     };
 
+    blender-catppuccin = {
+      url = "github:Dalibor-P/blender";
+      flake = false;
+    };
+
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {

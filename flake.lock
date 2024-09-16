@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "blender-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688048888,
+        "narHash": "sha256-BHlSjtr8+5+kgjIoVIUwiJ6iyEPMR2G+9x2vWgMNoew=",
+        "owner": "Dalibor-P",
+        "repo": "blender",
+        "rev": "13581d8296249a62368e14ee66868f9100f19b5a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Dalibor-P",
+        "repo": "blender",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "locked": {
         "lastModified": 1725509983,
@@ -907,6 +923,7 @@
     "root": {
       "inputs": {
         "aseprite-catppuccin": "aseprite-catppuccin",
+        "blender-catppuccin": "blender-catppuccin",
         "catppuccin": "catppuccin",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
