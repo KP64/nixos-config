@@ -13,6 +13,7 @@
       defaultEditor = true;
       settings.editor = {
         true-color = true;
+        file-picker.hidden = false;
         cursor-shape = {
           insert = "bar";
           normal = "block";
