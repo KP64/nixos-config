@@ -33,8 +33,10 @@
       hunspellDicts.de_DE
 
       anki-bin
+
       whatsapp-for-linux
       simplex-chat-desktop
+      signal-desktop
 
       czkawka
     ];
