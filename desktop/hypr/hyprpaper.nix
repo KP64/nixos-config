@@ -43,7 +43,7 @@ let
     ) files
   );
 
-  active_wallpaper = wallpapers.cat-leaves;
+  active_wallpaper = wallpapers.shiny-colors;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
@@ -52,7 +52,7 @@ in
     home-manager.users.${username}.services.hyprpaper = {
       enable = true;
       settings = {
-        preload = files;
+        preload = active_wallpaper;
         wallpaper = [ ", ${active_wallpaper}" ];
       };
     };
