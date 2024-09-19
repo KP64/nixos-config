@@ -11,9 +11,9 @@
     ./fetchers.nix
   ];
 
-  options.cli.ricing.enable = lib.mkEnableOption "Enable Default Ricing Apps";
+  options.cli.ricing.defaults.enable = lib.mkEnableOption "Enable Default Ricing Apps";
 
-  config = lib.mkIf config.cli.ricing.enable {
+  config = lib.mkIf config.cli.ricing.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
       cbonsai
       pipes-rs

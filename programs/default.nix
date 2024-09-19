@@ -20,9 +20,9 @@
     ./thunderbird.nix
   ];
 
-  options.apps.enable = lib.mkEnableOption "Enables Some Apps";
+  options.apps.defaults.enable = lib.mkEnableOption "Enables Some Graphical Apps";
 
-  config = lib.mkIf config.apps.enable {
+  config = lib.mkIf config.apps.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
       gimp
       figma-linux

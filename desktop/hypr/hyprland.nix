@@ -181,36 +181,37 @@ in
         bind =
           [
             ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ]
+          ++ map (s: "$mainMod, ${s}") [
+            "T, exec, $terminal"
+            "C, killactive,"
+            "M, exit,"
+            "F, exec, $browser"
+            "V, togglefloating,"
+            "R, exec, $menu"
+            "E, exec, $emenu"
+            "P, pseudo,"
 
-            "$mainMod, T, exec, $terminal"
-            "$mainMod, C, killactive,"
-            "$mainMod, M, exit,"
-            "$mainMod, F, exec, $browser"
-            "$mainMod, V, togglefloating,"
-            "$mainMod, R, exec, $menu"
-            "$mainMod, E, exec, $emenu"
-            "$mainMod, P, pseudo,"
+            "J, togglesplit,"
 
-            "$mainMod, J, togglesplit,"
-            "$mainMod SHIFT, J, swapsplit"
+            "left, movefocus, l"
+            "right, movefocus, r"
+            "up, movefocus, u"
+            "down, movefocus, d"
 
-            "$mainMod SHIFT, C, exec, hyprpicker --no-fancy --autocopy"
-            "$mainMod SHIFT, R, exec, systemctl --user restart waybar.service"
-            "$mainMod SHIFT, S, exec, grimblast --freeze --notify copysave area"
+            "H, togglespecialworkspace, magic"
 
-            "$mainMod, left, movefocus, l"
-            "$mainMod, right, movefocus, r"
-            "$mainMod, up, movefocus, u"
-            "$mainMod, down, movefocus, d"
-
-            "$mainMod, H, togglespecialworkspace, magic"
-            "$mainMod SHIFT, H, movetoworkspace, special:magic"
-
-            "$mainMod, mouse_down, workspace, e+1"
-            "$mainMod SHIFT, right, movetoworkspace, e+1"
-
-            "$mainMod, mouse_up, workspace, e-1"
-            "$mainMod SHIFT, left, movetoworkspace, e-1"
+            "mouse_down, workspace, e+1"
+            "mouse_up, workspace, e-1"
+          ]
+          ++ map (s: "$mainMod SHIFT, ${s}") [
+            "J, swapsplit"
+            "C, exec, hyprpicker --no-fancy --autocopy"
+            "R, exec, systemctl --user restart waybar.service"
+            "S, exec, grimblast --freeze --notify copysave area"
+            "H, movetoworkspace, special:magic"
+            "right, movetoworkspace, e+1"
+            "left, movetoworkspace, e-1"
           ]
           ++ (
             # binds $mainMod + [shift +] (0, {1..9}) to [move to] workspace (10, {1..9})
@@ -229,18 +230,19 @@ in
             )
           );
 
-        bindm = [
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
+        bindm = map (s: "$mainMod, ${s}") [
+          "mouse:272, movewindow"
+          "mouse:273, resizewindow"
         ];
 
-        windowrulev2 = [
-          "suppressevent maximize, class:.*"
-          "fullscreen, title:^(DOOMEternal)$"
-          "fullscreen, class:^(lt-love)$"
-          "fullscreen, title:^(Need for Speed™ Most Wanted)"
-          "fullscreen, title:^(METAL GEAR RISING: REVENGEANCE)$"
-        ];
+        windowrulev2 =
+          [ "suppressevent maximize, class:.*" ]
+          ++ map (s: "fullscreen, ${s}") [
+            "class:^(lt-love)$"
+            "title:^(DOOMEternal)$"
+            "title:^(Need for Speed™ Most Wanted)$"
+            "title:^(METAL GEAR RISING: REVENGEANCE)$"
+          ];
       };
     };
   };

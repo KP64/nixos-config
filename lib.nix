@@ -45,16 +45,13 @@ in
       system,
       wsl ? false,
     }:
-    let
-      stateVersion = "24.05";
-    in
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
+        stateVersion = "24.05";
         inherit
           inputs
           username
-          stateVersion
           replaceLastWithFullPath
           collectLastEntries
           ;

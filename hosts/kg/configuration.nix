@@ -23,7 +23,7 @@
   };
 
   cli = {
-    enable = true;
+    defaults.enable = true;
 
     git = {
       enable = true;
@@ -44,7 +44,7 @@
     };
 
     ricing = {
-      enable = true;
+      defaults.enable = true;
       cava.enable = true;
       fetchers.enable = true;
     };
@@ -65,7 +65,7 @@
   };
 
   desktop = {
-    enable = true;
+    defaults.enable = true;
 
     eww.enable = true;
     waybar.enable = true;
@@ -127,7 +127,7 @@
   };
 
   apps = {
-    enable = true;
+    defaults.enable = true;
     spicetify.enable = true;
     obs.enable = true;
     mpv.enable = true;
@@ -141,8 +141,9 @@
   virt.docker.enable = true;
 
   gaming = {
-    enable = true;
+    defaults.enable = true;
     discord.enable = true;
+    emulators.enable = true;
     heroic.enable = true;
     mangohud.enable = true;
     gamemode.enable = true;

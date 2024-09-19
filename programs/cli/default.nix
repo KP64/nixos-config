@@ -30,10 +30,9 @@
     ./zoxide.nix
   ];
 
-  options.cli.enable = lib.mkEnableOption "Enable Default Cli Apps";
+  options.cli.defaults.enable = lib.mkEnableOption "Enable Default Cli Apps";
 
-  config = lib.mkIf config.cli.enable {
-
+  config = lib.mkIf config.cli.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
       asciinema
       binsider

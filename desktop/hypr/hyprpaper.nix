@@ -36,7 +36,7 @@ let
       let
         dedupped = removeKeysWithExt (removeExt (baseNameOf name));
         # removeKeysWithExt guarantees exactly one entry.
-        # The entry where the key has no extension.
+        # Namely the entry with key without extension.
         stripped = builtins.elemAt dedupped 0;
       in
       lib.nameValuePair stripped name

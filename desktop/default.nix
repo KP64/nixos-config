@@ -18,9 +18,9 @@
     ./waybar.nix
   ];
 
-  options.desktop.enable = lib.mkEnableOption "Enables Desktop Utilities";
+  options.desktop.defaults.enable = lib.mkEnableOption "Enables Desktop Utilities";
 
-  config = lib.mkIf config.desktop.enable {
+  config = lib.mkIf config.desktop.defaults.enable {
     home-manager.users.${username} = {
       home.packages = with pkgs; [
         xdg-utils

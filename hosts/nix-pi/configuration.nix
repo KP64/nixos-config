@@ -37,8 +37,6 @@
   ];
 
   cli = {
-    enable = false;
-
     git = {
       enable = true;
       user = {
