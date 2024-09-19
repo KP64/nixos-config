@@ -44,8 +44,10 @@ in
         nix-melt
         nix-output-monitor
         nix-tree
+        nix-update
         nixfmt-rfc-style
         nixpkgs-lint-community
+        nixpkgs-review
         nurl
         nvd
         statix
