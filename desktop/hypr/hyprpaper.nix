@@ -28,7 +28,7 @@ let
   # turns to
   # [ "xxx" ]
   removeKeysWithExt =
-    list: builtins.filter (name: !(builtins.all (ext: lib.hasSuffix ext name) extensions)) list;
+    list: builtins.filter (name: !(builtins.any (ext: lib.hasSuffix ext name) extensions)) list;
 
   wallpapers = builtins.listToAttrs (
     map (
@@ -43,7 +43,7 @@ let
     ) files
   );
 
-  active_wallpaper = wallpapers.shiny-colors;
+  active_wallpaper = wallpapers.colorful-planets;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
