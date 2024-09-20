@@ -44,11 +44,11 @@ in
       username,
       system,
       wsl ? false,
+      android ? false,
     }:
-    nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        stateVersion = "24.05";
+    let
+      args = {
+        stateVersion = "24.11";
         inherit
           inputs
           username
@@ -69,13 +69,27 @@ in
           ./programs
           ./system
           {
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = with inputs; [
+              nur.overlay
+              nix-on-droid.overlays.default
+            ];
             wsl = {
-              enable = wsl;
+              enable = if (android && wsl) then throw "You can't activate wsl on android" else wsl;
               defaultUser = username;
               useWindowsDriver = true;
             };
           }
         ];
-    };
+    in
+    if android then
+      inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+        inherit system modules;
+        extraSpecialArgs = args;
+        home-manager-path = inputs.hm.outPath;
+      }
+    else
+      nixpkgs.lib.nixosSystem {
+        inherit system modules;
+        specialArgs = args;
+      };
 }
