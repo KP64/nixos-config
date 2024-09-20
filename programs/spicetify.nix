@@ -20,23 +20,17 @@ in
         enable = true;
         theme = spicePkgs.themes.catppuccin;
         colorScheme = "mocha";
-        enabledCustomApps = with spicePkgs.apps; [
-          lyricsPlus
-          marketplace
-        ];
+        enabledCustomApps = [ spicePkgs.apps.lyricsPlus ];
         enabledExtensions = with spicePkgs.extensions; [
           adblock
           autoSkipVideo
           betterGenres
           bookmark
           fullAlbumDate
-          fullAppDisplay
-          groupSession
           hidePodcasts
           history
           keyboardShortcut
           loopyLoop
-          phraseToPlaylist
           popupLyrics
           sectionMarker
           shuffle

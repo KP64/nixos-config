@@ -236,13 +236,20 @@ in
         ];
 
         windowrulev2 =
+          let
+            games = map (game: "title:^(${game})$") [
+              "DOOMEternal"
+              "Need for Speed™ Most Wanted"
+              "METAL GEAR RISING: REVENGEANCE"
+            ];
+          in
           [ "suppressevent maximize, class:.*" ]
-          ++ map (s: "fullscreen, ${s}") [
-            "class:^(lt-love)$"
-            "title:^(DOOMEternal)$"
-            "title:^(Need for Speed™ Most Wanted)$"
-            "title:^(METAL GEAR RISING: REVENGEANCE)$"
-          ];
+          ++ map (s: "fullscreen, ${s}") (
+            lib.flatten [
+              "class:^(lt-love)$"
+              games
+            ]
+          );
       };
     };
   };

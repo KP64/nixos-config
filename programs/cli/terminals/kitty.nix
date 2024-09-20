@@ -9,7 +9,6 @@
   options.cli.terminals.kitty.enable = lib.mkEnableOption "Enables Kitty";
 
   config = lib.mkIf config.cli.terminals.kitty.enable {
-
     home-manager.users.${username}.programs.kitty = {
       enable = true;
       font.name = "JetBrainsMono Nerd Font";

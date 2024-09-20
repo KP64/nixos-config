@@ -6,7 +6,7 @@
 }:
 
 let
-  files = map toString (lib.filesystem.listFilesRecursive ../wallpapers);
+  files = lib.filesystem.listFilesRecursive ../wallpapers;
 
   extensions = map (x: ".${x}") [
     "png"
@@ -43,7 +43,9 @@ let
     ) files
   );
 
-  active_wallpaper = wallpapers.colorful-planets;
+  # FIXME: japanese-neon doesn't work for whatever reason.
+  # TODO: Use Hyprpaper alternative since highly unstable.
+  active_wallpaper = toString wallpapers.night;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
@@ -52,7 +54,7 @@ in
     home-manager.users.${username}.services.hyprpaper = {
       enable = true;
       settings = {
-        preload = active_wallpaper;
+        preload = [ active_wallpaper ];
         wallpaper = [ ", ${active_wallpaper}" ];
       };
     };

@@ -13,7 +13,7 @@
       enable = true;
       wayland.enable = true;
       catppuccin = {
-        background = toString ../wallpapers/nix-wp-cat-mocha.png;
+        background = ../wallpapers/cat-nix.png;
         font = "JetBrainsMono Nerd Font";
       };
       package = pkgs.kdePackages.sddm;

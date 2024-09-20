@@ -6,6 +6,9 @@
   username,
   ...
 }:
+let
+ dispatch_dpms = cmd: "hyprctl dispatch dpms ${cmd}";
+in
 {
   options.desktop.hypr.hypridle.enable = lib.mkEnableOption "Enables Hypridle";
 
@@ -17,7 +20,7 @@
         general = {
           lock_cmd = "pidof hyprlock || hyprlock";
           before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on";
+          after_sleep_cmd = dispatch_dpms "on";
         };
 
         listener = [
@@ -27,8 +30,8 @@
           }
           {
             timeout = 1800; # 30 min
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            on-timeout = dispatch_dpms "off";
+            on-resume = dispatch_dpms "on";
           }
           {
             timeout = 3600; # 1 h
