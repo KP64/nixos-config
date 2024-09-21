@@ -163,6 +163,8 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
   };
 
   outputs =
@@ -181,6 +183,12 @@
           username = "ws";
           system = "x86_64-linux";
           wsl = true;
+        };
+
+        rs = customLib.mkSystem {
+          username = "rs";
+          system = "aarch64-linux";
+          pi = true;
         };
 
         nix-pi = customLib.mkSystem {

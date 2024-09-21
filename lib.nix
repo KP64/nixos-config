@@ -44,11 +44,12 @@ in
       username,
       system,
       wsl ? false,
+      pi ? false,
     }:
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
-        stateVersion = "24.05";
+        stateVersion = "24.11";
         inherit
           inputs
           username
@@ -57,11 +58,11 @@ in
           ;
       };
       modules =
-        with inputs;
-        [
-          nixos-wsl.nixosModules.default
+        (with inputs; [
           nix-topology.nixosModules.default
-        ]
+          nixos-wsl.nixosModules.default
+        ])
+        ++ nixpkgs.lib.optional pi inputs.raspberry-pi-nix.nixosModules.raspberry-pi
         ++ [
           ./hosts/${username}/configuration.nix
           ./desktop
