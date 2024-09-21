@@ -7,7 +7,7 @@
   ...
 }:
 let
- dispatch_dpms = cmd: "hyprctl dispatch dpms ${cmd}";
+  dispatch_dpms = cmd: "hyprctl dispatch dpms ${cmd}";
 in
 {
   options.desktop.hypr.hypridle.enable = lib.mkEnableOption "Enables Hypridle";

@@ -83,9 +83,11 @@ in
     in
     if android then
       inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        inherit system modules;
-        extraSpecialArgs = args;
+        pkgs = nixpkgs.legacyPackages.${system};
         home-manager-path = inputs.hm.outPath;
+
+        inherit modules;
+        extraSpecialArgs = args;
       }
     else
       nixpkgs.lib.nixosSystem {

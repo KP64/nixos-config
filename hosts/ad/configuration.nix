@@ -5,7 +5,9 @@
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";
 
-  system = { inherit stateVersion; };
+  system = {
+    inherit stateVersion;
+  };
 
   time.timeZone = "Europe/Berlin";
 
