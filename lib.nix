@@ -83,7 +83,7 @@ in
     in
     if android then
       inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = nixpkgs;
         home-manager-path = inputs.hm.outPath;
 
         inherit modules;
