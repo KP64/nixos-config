@@ -180,10 +180,9 @@
     in
     {
       nixOnDroidConfigurations = {
-        ad = customLib.mkSystem {
-          username = "ad";
-          system = "aarch64-linux";
-          android = true;
+        ad = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+          pkgs = import nixpkgs { system = "aarch64-linux"; };
+          modules = [ ./nix-on-droid.nix ];
         };
       };
 
