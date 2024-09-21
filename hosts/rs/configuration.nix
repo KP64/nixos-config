@@ -17,7 +17,7 @@
   home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
 
   cli = {
-    defaults.enable = false;
+    defaults.enable = true;
 
     git = {
       enable = true;
@@ -52,7 +52,7 @@
   raspberry-pi-nix.board = "bcm2711";
 
   networking = {
-    hostName = "raspberry";
+    hostName = username;
     useDHCP = false;
     interfaces = {
       wlan0.useDHCP = true;
@@ -110,7 +110,9 @@
         isNormalUser = true;
         description = username;
         initialPassword = "12345";
-        openssh.authorizedKeys.keys = [ ];
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAprQ6/cB+MxEK5IorzJ1+/HoYqyc5ZItGG4HzYwTO3S karamalsadeh@hotmail.com"
+        ];
         extraGroups = [
           "networkmanager"
           "wheel"

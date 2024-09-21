@@ -162,8 +162,6 @@
       flake = false;
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
   };
 
@@ -189,23 +187,6 @@
           username = "rs";
           system = "aarch64-linux";
           pi = true;
-        };
-
-        nix-pi = customLib.mkSystem {
-          username = "nix-pi";
-          system = "aarch64-linux";
-        };
-
-        # Refer to: https://blog.krishu.moe/posts/nixos-raspberry-pi/
-        nixos-pi-installer = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit (self) outputs;
-          };
-          modules = [
-            inputs.nix-topology.nixosModules.default
-            ./nixos-pi-installer.nix
-          ];
         };
       };
     }
