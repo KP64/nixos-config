@@ -18,14 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "hm";
-      };
-    };
-
     nix-systems.url = "github:nix-systems/default";
 
     flake-compat.url = "github:edolstra/flake-compat";
@@ -179,13 +171,6 @@
       customLib = import ./lib.nix { inherit nixpkgs inputs; };
     in
     {
-      nixOnDroidConfigurations = {
-        ad = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-          pkgs = import nixpkgs { system = "aarch64-linux"; };
-          modules = [ ./nix-on-droid.nix ];
-        };
-      };
-
       nixosConfigurations = {
         kg = customLib.mkSystem {
           username = "kg";
