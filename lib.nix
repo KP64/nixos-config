@@ -61,6 +61,7 @@ in
         (with inputs; [
           nix-topology.nixosModules.default
           nixos-wsl.nixosModules.default
+          nix-minecraft.nixosModules.minecraft-servers
         ])
         ++ nixpkgs.lib.optional pi inputs.raspberry-pi-nix.nixosModules.raspberry-pi
         ++ [
@@ -70,7 +71,10 @@ in
           ./programs
           ./system
           {
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = with inputs; [
+              nur.overlay
+              nix-minecraft.overlay
+            ];
             wsl = {
               enable = wsl;
               defaultUser = username;

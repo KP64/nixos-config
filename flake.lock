@@ -680,6 +680,32 @@
         "type": "github"
       }
     },
+    "nix-minecraft": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1726796580,
+        "narHash": "sha256-IerPdcNQSzEQ14xCKnjoAtrulwWmDXy+6NLvyOPbw4o=",
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "rev": "8c470536da0d4ca1cba92cfee7989a99d9a2b4eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Infinidoge",
+        "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
     "nix-systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -1003,6 +1029,7 @@
         "navi-papanito-cheats": "navi-papanito-cheats",
         "nix-alien": "nix-alien",
         "nix-index-database": "nix-index-database",
+        "nix-minecraft": "nix-minecraft",
         "nix-systems": "nix-systems",
         "nix-topology": "nix-topology",
         "nix-vscode-extensions": "nix-vscode-extensions",

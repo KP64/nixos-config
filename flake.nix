@@ -63,6 +63,15 @@
       };
     };
 
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     catppuccin.url = "github:catppuccin/nix";
 
     obs-catppuccin = {
