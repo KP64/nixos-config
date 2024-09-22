@@ -4,15 +4,21 @@
   username,
   ...
 }:
-
+let
+  accent = "lavender";
+in
 {
   imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
-  catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    inherit accent;
+  };
   home-manager.users.${username} = {
     imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
     catppuccin = {
       enable = true;
+      inherit accent;
       pointerCursor = {
         enable = true;
         accent = "dark";
