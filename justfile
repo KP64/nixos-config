@@ -15,11 +15,15 @@ Requires a kitty Terminal.')]
 show system=default_system: (build-topology system)
     kitten icat result/main.svg
 
-[doc('Generates and Shows Network in Terminal.
+[doc('Generates and Shows Network 🛜 in Terminal.
 Requires a kitty Terminal.')]
 net system=default_system: (build-topology system)
     kitten icat result/network.svg
 
-# Builds an sd-Image for nixos on a raspberry pi
+# Builds an sd-Image for nixos on a raspberry 🥧
 pi:
-    nix build .{{ "#" }}nixosConfigurations.nixos-pi-installer.config.system.build.sdImage --show-trace -L -v
+    nix build .{{ "#" }}nixosConfigurations.rs.config.system.build.sdImage
+
+# Show the 🥧 boot config
+config:
+    nix build .{{ "#" }}nixosConfigurations.rs.config.hardware.raspberry-pi.config-output
