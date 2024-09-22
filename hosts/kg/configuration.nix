@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   username,
   stateVersion,
   ...
@@ -20,6 +21,12 @@
       secure-boot.enable = true;
       sudo-rs.enable = true;
     };
+    fonts.extraFonts = with pkgs; [
+      cascadia-code
+      iosevka
+      siji
+      weather-icons
+    ];
   };
 
   cli = {

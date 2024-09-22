@@ -20,8 +20,8 @@ in
     [
       dejavu_fonts
       noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
       font-awesome
       (nerdfonts.override {
         fonts = [
