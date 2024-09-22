@@ -74,11 +74,6 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    obs-catppuccin = {
-      url = "github:catppuccin/obs";
-      flake = false;
-    };
-
     heroic-catppuccin = {
       url = "github:catppuccin/heroic";
       flake = false;
@@ -91,11 +86,6 @@
 
     imhex-catppuccin = {
       url = "github:catppuccin/imhex";
-      flake = false;
-    };
-
-    hyprland-catppuccin = {
-      url = "github:catppuccin/hyprland";
       flake = false;
     };
 

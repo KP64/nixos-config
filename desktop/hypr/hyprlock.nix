@@ -21,8 +21,6 @@ in
       package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
 
       settings = {
-        source = "${inputs.hyprland-catppuccin}/themes/mocha.conf";
-
         general = {
           disable_loading_bar = true;
           hide_cursor = true;
