@@ -100,15 +100,15 @@
       # TODO: Factor out minecraft servers to own customizable module with sensible defaults
       # TODO: Find a way to improve these abominations
       servers.cool-server1 = {
-        enable = false;
+        enable = true;
         package = pkgs.fabricServers.fabric-1_21_1;
         serverProperties = {
           server-port = 42069;
           max-players = 2;
           difficulty = "hard";
           motd = "NixOS MC Server";
-          simulation-distance = 12;
-          view-distance = 12;
+          simulation-distance = 8;
+          view-distance = 8;
         };
         jvmOpts = builtins.concatStringsSep " " [
           "-Xms2G"
@@ -219,24 +219,21 @@
 
   users = {
     mutableUsers = false;
-    users = {
-      root.initialPassword = "root";
-      ${username} = {
-        isNormalUser = true;
-        description = username;
-        initialPassword = "12345";
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAprQ6/cB+MxEK5IorzJ1+/HoYqyc5ZItGG4HzYwTO3S karamalsadeh@hotmail.com"
-        ];
-        extraGroups = [
-          "networkmanager"
-          "wheel"
-          "input"
-          "docker"
-          "libvirtd"
-          "tss"
-        ];
-      };
+    users.${username} = {
+      isNormalUser = true;
+      description = username;
+      hashedPassword = "$6$6pBc2nWaHAgS58.g$z0i6UxRA5AujL24HM3BRLTAm/.yiSo7nZs/rhz1jHfPqHe6dvMYmnLVPx1TO9Orsb9.JuvnQKTnw8Ae3lhBB5.";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAprQ6/cB+MxEK5IorzJ1+/HoYqyc5ZItGG4HzYwTO3S karamalsadeh@hotmail.com"
+      ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "input"
+        "docker"
+        "libvirtd"
+        "tss"
+      ];
     };
   };
 }
