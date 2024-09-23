@@ -61,7 +61,6 @@ in
         (with inputs; [
           nix-topology.nixosModules.default
           nixos-wsl.nixosModules.default
-          nix-minecraft.nixosModules.minecraft-servers
         ])
         ++ nixpkgs.lib.optional pi inputs.raspberry-pi-nix.nixosModules.raspberry-pi
         ++ [
