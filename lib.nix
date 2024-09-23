@@ -68,6 +68,7 @@ in
           ./desktop
           ./hardware
           ./programs
+          ./services
           ./system
           {
             nixpkgs.overlays = with inputs; [
