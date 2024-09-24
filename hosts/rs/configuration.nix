@@ -106,6 +106,7 @@
       };
     };
 
+    # TODO: Factor out to own module.
     adguardhome = {
       enable = true;
       allowDHCP = false;
@@ -225,7 +226,6 @@
           enabled = true;
         };
         filters = [
-          # TODO: More Filters
           {
             enabled = true;
             url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
@@ -278,7 +278,6 @@
           blocking_ipv6 = "";
           blocked_services = {
             schedule.time_zone = "Local";
-            # TODO: Check restrictiveness and adjust
             ids = [
               "4chan"
               "500px"

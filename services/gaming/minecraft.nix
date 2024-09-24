@@ -12,6 +12,12 @@ in
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
+  # TODO: Overhaul Options
+  # Ability to: 
+  #   - specify multiple servers
+  #   - specify server versions
+  #   - add jvmOpts
+  #   - add mods
   options.services.gaming.minecraft = {
     enable = lib.mkEnableOption "Enable Minecraft Service";
     ram = lib.mkOption {
@@ -22,7 +28,7 @@ in
     };
     serverProperties = lib.mkOption {
       default = { };
-      type = lib.types.submodule;
+      type = lib.types.attrs;
       example = {
         server-port = 25565;
         max-players = 16;
@@ -45,58 +51,66 @@ in
         package = pkgs.fabricServers.fabric-1_21_1;
         inherit (cfg) serverProperties;
         # TODO: Find out a better way for this
-        jvmOpts = builtins.concatStringsSep " " [
-          "-Xms${toString cfg.ram}G"
-          "-Xmx${toString cfg.ram}G"
-          "-XX:+UseG1GC"
-          "-XX:+ParallelRefProcEnabled"
-          "-XX:MaxGCPauseMillis=200"
-          "-XX:+UnlockExperimentalVMOptions"
-          "-XX:+UnlockDiagnosticVMOptions"
-          "-XX:+DisableExplicitGC"
-          "-XX:+AlwaysPreTouch"
-          "-XX:G1HeapWastePercent=5"
-          "-XX:G1MixedGCCountTarget=4"
-          "-XX:G1MixedGCLiveThresholdPercent=90"
-          "-XX:G1RSetUpdatingPauseTimePercent=5"
-          "-XX:SurvivorRatio=32"
-          "-XX:+PerfDisableSharedMem"
-          "-XX:MaxTenuringThreshold=1"
-          "-XX:+UseStringDeduplication"
-          "-XX:+UseFastUnorderedTimeStamps"
-          "-XX:+UseAES"
-          "-XX:+UseAESIntrinsics"
-          "-XX:+UseFMA"
-          "-XX:AllocatePrefetchStyle=1"
-          "-XX:+UseLoopPredicate"
-          "-XX:+RangeCheckElimination"
-          "-XX:+EliminateLocks"
-          "-XX:+DoEscapeAnalysis"
-          "-XX:+UseCodeCacheFlushing"
-          "-XX:+SegmentedCodeCache"
-          "-XX:+UseFastJNIAccessors"
-          "-XX:+OptimizeStringConcat"
-          "-XX:+UseCompressedOops"
-          "-XX:+UseThreadPriorities"
-          "-XX:+OmitStackTraceInFastThrow"
-          "-XX:+TrustFinalNonStaticFields"
-          "-XX:ThreadPriorityPolicy=1"
-          "-XX:+UseInlineCaches"
-          "-XX:+RewriteBytecodes"
-          "-XX:+RewriteFrequentPairs"
-          "-XX:+UseNUMA"
-          "-XX:-DontCompileHugeMethods"
-          "-XX:+UseFPUForSpilling"
-          "-XX:+UseVectorCmov"
-          "-XX:+UseXMMForArrayCopy"
-          "-Xlog:async"
-          "-Djava.security.egd=file:/dev/urandom"
-          "-XX:G1NewSizePercent=30"
-          "-XX:G1MaxNewSizePercent=40"
-          "-XX:G1HeapRegionSize=8M"
-          "-XX:G1ReservePercent=20"
-          "-XX:InitiatingHeapOccupancyPercent=15"
-        ];
+        jvmOpts =
+          let
+            ram = toString cfg.ram;
+          in
+          builtins.concatStringsSep " " (
+            lib.flatten [
+              "-Xms${ram}G"
+              "-Xmx${ram}G"
+              "-Xlog:async"
+              "-Djava.security.egd=file:/dev/urandom"
+              (map (o: "-XX:${o}") [
+                "+UseG1GC"
+                "+ParallelRefProcEnabled"
+                "MaxGCPauseMillis=200"
+                "+UnlockExperimentalVMOptions"
+                "+UnlockDiagnosticVMOptions"
+                "+DisableExplicitGC"
+                "+AlwaysPreTouch"
+                "G1HeapWastePercent=5"
+                "G1MixedGCCountTarget=4"
+                "G1MixedGCLiveThresholdPercent=90"
+                "G1RSetUpdatingPauseTimePercent=5"
+                "SurvivorRatio=32"
+                "+PerfDisableSharedMem"
+                "MaxTenuringThreshold=1"
+                "+UseStringDeduplication"
+                "+UseFastUnorderedTimeStamps"
+                "+UseAES"
+                "+UseAESIntrinsics"
+                "+UseFMA"
+                "AllocatePrefetchStyle=1"
+                "+UseLoopPredicate"
+                "+RangeCheckElimination"
+                "+EliminateLocks"
+                "+DoEscapeAnalysis"
+                "+UseCodeCacheFlushing"
+                "+SegmentedCodeCache"
+                "+UseFastJNIAccessors"
+                "+OptimizeStringConcat"
+                "+UseCompressedOops"
+                "+UseThreadPriorities"
+                "+OmitStackTraceInFastThrow"
+                "+TrustFinalNonStaticFields"
+                "ThreadPriorityPolicy=1"
+                "+UseInlineCaches"
+                "+RewriteBytecodes"
+                "+RewriteFrequentPairs"
+                "+UseNUMA"
+                "-DontCompileHugeMethods"
+                "+UseFPUForSpilling"
+                "+UseVectorCmov"
+                "+UseXMMForArrayCopy"
+                "G1NewSizePercent=30"
+                "G1MaxNewSizePercent=40"
+                "G1HeapRegionSize=8M"
+                "G1ReservePercent=20"
+                "InitiatingHeapOccupancyPercent=15"
+              ])
+            ]
+          );
         symlinks.mods = pkgs.linkFarmFromDrvs "mods" (
           builtins.attrValues {
             c2m = pkgs.fetchurl {
