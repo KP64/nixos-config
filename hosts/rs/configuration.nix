@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   pkgs,
   username,
   stateVersion,
@@ -52,7 +53,27 @@
   # https://www.raspberrypi.com/documentation/computers/linux_kernel.html#native-build-configuration
   raspberry-pi-nix.board = "bcm2711";
 
-  networking.hostName = username;
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    secrets."wg_key" = { };
+  };
+
+  networking = {
+    hostName = username;
+    wg-quick.interfaces.wg0 = {
+      address = [ "10.2.0.2/32" ];
+      dns = [ "10.2.0.1" ];
+      privateKeyFile = config.sops.secrets."wg_key".path;
+      peers = [
+        {
+          publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "185.177.124.219:51820";
+        }
+      ];
+    };
+  };
 
   hardware = {
     bluetoothctl.enable = true;

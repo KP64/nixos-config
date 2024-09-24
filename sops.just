@@ -1,8 +1,8 @@
-# Create a 'secrets.yaml' File for the specified user
-create host:
-    sops hosts/{{ host }}/secrets.yaml
+# Create/Edit 'secrets.yaml' for a user
+edit host:
+    @- sops hosts/{{ host }}/secrets.yaml
 
 
-# Update the secrets.yaml File for the specified user
+# Update 'secrets.yaml' for a user
 update host:
-    sops updatekeys hosts/{{ host }}/secrets.yaml
+    @sops updatekeys hosts/{{ host }}/secrets.yaml
