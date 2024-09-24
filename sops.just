@@ -5,4 +5,4 @@ edit host:
 
 # Update 'secrets.yaml' for a user
 update host:
-    @sops updatekeys hosts/{{ host }}/secrets.yaml
+    @- sops updatekeys hosts/{{ host }}/secrets.yaml
