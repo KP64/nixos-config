@@ -10,15 +10,35 @@
     };
   };
 
-  cli.git = {
-    enable = true;
-    user = {
-      name = "KP64";
-      email = "karamalsadeh@hotmail.com";
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  cli = {
+    defaults.enable = true;
+    git = {
+      enable = true;
+      user = {
+        name = "KP64";
+        email = "karamalsadeh@hotmail.com";
+      };
+    };
+    shells = {
+      bash.enable = true;
+      nushell.enable = true;
+    };
+    file-managers = {
+      yazi.enable = true;
+      broot.enable = true;
+    };
+    ricing = {
+      defaults.enable = true;
+      cava.enable = true;
+      fetchers.enable = true;
+    };
+    monitors = {
+      btop.enable = true;
+      bandwhich.enable = true;
     };
   };
-
-  home-manager.users.${username}.programs.bash.initExtra = "nu";
 
   editors.helix.enable = true;
 
@@ -49,16 +69,12 @@
   console.keyMap = "en";
   nixpkgs.config.allowUnfree = true;
 
-  # Define a user account.
-  # Don't forget to replace the hashedPassword below with your own.
-  # To get the hashedPasword run:
-  # $ mkpasswd -m sha-512 {your_password}
   users = {
     mutableUsers = false;
     users.${username} = {
       isNormalUser = true;
       description = username;
-      hashedPassword = "$6$3CmmZdMdGfo6GcA9$wlFmrSL5KW9TI6sVUunn.CpFz5OJJNQSlYNgh83lPcSyni7LiaSljW5lnX6Lprj/MP4QN9KFhHEN/Blea00P7.";
+      hashedPassword = "$y$j9T$0ZijTZLgU2EOG2ZZnz5380$2iq1Y0r2JIJ1GhAiz96CIw4b26T6Jt.6kJFQlYmhx5/";
       extraGroups = [
         "networkmanager"
         "wheel"
