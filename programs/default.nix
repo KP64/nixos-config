@@ -39,6 +39,7 @@
       signal-desktop
 
       czkawka
+      lmms
     ];
   };
 }
