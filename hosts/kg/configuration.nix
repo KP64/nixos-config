@@ -11,6 +11,8 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  programs.noisetorch.enable = true;
+
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
