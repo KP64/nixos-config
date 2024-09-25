@@ -10,6 +10,8 @@
     };
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   cli = {
     defaults.enable = true;
     git = {
