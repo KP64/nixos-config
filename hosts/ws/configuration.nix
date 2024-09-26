@@ -69,9 +69,7 @@
   console.keyMap = "en";
   nixpkgs.config.allowUnfree = true;
 
-  users = {
-    mutableUsers = false;
-    users.${username} = {
+  users.users.${username} = {
       isNormalUser = true;
       description = username;
       hashedPassword = "$y$j9T$0ZijTZLgU2EOG2ZZnz5380$2iq1Y0r2JIJ1GhAiz96CIw4b26T6Jt.6kJFQlYmhx5/";
@@ -87,5 +85,4 @@
         "tss"
       ];
     };
-  };
 }

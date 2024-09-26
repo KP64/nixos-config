@@ -541,12 +541,7 @@
     };
   };
 
-  # TODO: Harden Security
-  # - Set sane user defaults
-  # - Move extraGroups to specific modules?
-  users = {
-    mutableUsers = false;
-    users.${username} = {
+  users.users.${username} = {
       isNormalUser = true;
       description = username;
       hashedPassword = "$y$j9T$zXtGTjyR6OGyGReHOLHzf1$9gn1xpefo7U22AcFXItP3DxWkNOTwUjJCp8f00vsIV0";
@@ -561,6 +556,5 @@
         "libvirtd"
         "tss"
       ];
-    };
   };
 }

@@ -79,6 +79,7 @@ in
               nur.overlay
               nix-minecraft.overlay
             ];
+            users.mutableUsers = false;
             wsl = {
               enable = wsl;
               defaultUser = username;
