@@ -177,6 +177,7 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
+  # TODO: Move with adguard
   environment.systemPackages = [ pkgs.adguardian ];
   services = {
     openssh.enable = true;
@@ -193,6 +194,7 @@
       };
     };
 
+    # TODO: Change the default port
     adguardhome = {
       enable = true;
       openFirewall = true;
