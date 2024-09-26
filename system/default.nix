@@ -1,6 +1,7 @@
 {
   imports = [
     ./security
+    ./services
     ./boot
 
     ./fonts.nix

@@ -14,6 +14,7 @@
       polkit.enable = true;
       sudo-rs.enable = true;
     };
+    services.ssh.enable = true;
   };
 
   home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
@@ -58,13 +59,11 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-    # TODO: Update structure
-    # e.g. wg/keys/client & wg/keys/preshared/lap
     secrets = {
-      "wg/client_key" = { };
-      "wg/server_key" = { };
-      "wg/preshared/lap" = { };
-      "wg/preshared/hon" = { };
+      "wg/keys/client" = { };
+      "wg/keys/server" = { };
+      "wg/keys/preshared/lap" = { };
+      "wg/keys/preshared/hon" = { };
     };
   };
 
@@ -101,7 +100,7 @@
           wg0 = {
             address = [ "172.31.0.1/32" ];
             listenPort = port;
-            privateKeyFile = secrets."wg/server_key".path;
+            privateKeyFile = secrets."wg/keys/server".path;
 
             postUp = ''
               ${ipv4tables} -A FORWARD -i wg0 -j ACCEPT
@@ -117,19 +116,19 @@
               {
                 publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
                 allowedIPs = [ "172.31.0.2/32" ];
-                presharedKeyFile = secrets."wg/preshared/lap".path;
+                presharedKeyFile = secrets."wg/keys/preshared/lap".path;
               }
               {
                 publicKey = "8Ms2xhDzF3xlAqe88FEKtGJWjZ7TPtvLX+yhM6ZL6m4=";
                 allowedIPs = [ "172.31.0.3/32" ];
-                presharedKeyFile = secrets."wg/preshared/hon".path;
+                presharedKeyFile = secrets."wg/keys/preshared/hon".path;
               }
             ];
           };
           # wg1 = {
           #   address = [ "10.2.0.2/32" ];
           #   dns = [ "10.2.0.1" ];
-          #   privateKeyFile = secrets."wg/client_key".path;
+          #   privateKeyFile = secrets."wg/keys/client".path;
           #   peers = [
           #     {
           #       publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
@@ -180,8 +179,6 @@
   # TODO: Move with adguard
   environment.systemPackages = [ pkgs.adguardian ];
   services = {
-    openssh.enable = true;
-
     gaming.minecraft = {
       enable = false;
       ram = 2;
@@ -194,10 +191,10 @@
       };
     };
 
-    # TODO: Change the default port
     adguardhome = {
       enable = true;
       openFirewall = true;
+      port = 3520;
       mutableSettings = false;
       settings = {
         http = {
@@ -356,6 +353,12 @@
             url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.tiktok.extended.txt";
             name = "Hagezi Native Tracker Tiktok (Aggressive)";
             id = 8;
+          }
+          {
+            enabled = true;
+            url = "https://nsfw.oisd.nl/";
+            name = "oisd NSFW";
+            id = 9;
           }
         ];
         whitelist_filters = [ ];
@@ -539,8 +542,6 @@
   };
 
   # TODO: Harden Security
-  # - Remove Password ssh auth (Allow only with generated keys)
-  # - Update password
   # - Set sane user defaults
   # - Move extraGroups to specific modules?
   users = {
@@ -548,7 +549,7 @@
     users.${username} = {
       isNormalUser = true;
       description = username;
-      hashedPassword = "$6$6pBc2nWaHAgS58.g$z0i6UxRA5AujL24HM3BRLTAm/.yiSo7nZs/rhz1jHfPqHe6dvMYmnLVPx1TO9Orsb9.JuvnQKTnw8Ae3lhBB5.";
+      hashedPassword = "$y$j9T$zXtGTjyR6OGyGReHOLHzf1$9gn1xpefo7U22AcFXItP3DxWkNOTwUjJCp8f00vsIV0";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAprQ6/cB+MxEK5IorzJ1+/HoYqyc5ZItGG4HzYwTO3S karamalsadeh@hotmail.com"
       ];
