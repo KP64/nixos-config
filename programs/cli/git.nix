@@ -56,10 +56,6 @@ in
 
   config =
     let
-      # 'home.shellAliases' claims it works for every shell.
-      # However it only works for bash, zsh & fish.
-      # Nushell & ion aren't included.
-      # TODO: Research why & maybe open Issue
       shellAliases = lib.mapAttrs' (name: value: lib.nameValuePair "g${name}" "git ${value}") aliases;
     in
     lib.mkIf cfg.enable {
