@@ -56,24 +56,84 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-    secrets."wg_key" = { };
-  };
-
-  networking = {
-    hostName = username;
-    wg-quick.interfaces.wg0 = {
-      address = [ "10.2.0.2/32" ];
-      dns = [ "10.2.0.1" ];
-      privateKeyFile = config.sops.secrets."wg_key".path;
-      peers = [
-        {
-          publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
-          allowedIPs = [ "0.0.0.0/0" ];
-          endpoint = "185.177.124.219:51820";
-        }
-      ];
+    secrets = {
+      "wg/client_key" = { };
+      "wg/server_key" = { };
+      "wg/preshared/lap" = { };
+      "wg/preshared/hon" = { };
     };
   };
+
+  networking =
+    let
+      port = 58008;
+    in
+    {
+      hostName = username;
+
+      nat = {
+        enable = true;
+        # TODO: Enable IPv6
+        enableIPv6 = false;
+        externalInterface = "end0";
+        internalInterfaces = [ "wg0" ];
+      };
+      firewall = {
+        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [
+          53
+          port
+        ];
+      };
+
+      wg-quick.interfaces =
+        let
+          inherit (config.sops) secrets;
+          ipv4tables = "${pkgs.iptables}/bin/iptables";
+        in
+        {
+          wg0 = {
+            address = [ "172.31.0.1/32" ];
+            listenPort = port;
+            privateKeyFile = secrets."wg/server_key".path;
+
+            postUp = ''
+              ${ipv4tables} -A FORWARD -i wg0 -j ACCEPT
+              ${ipv4tables} -t nat -A POSTROUTING -s 172.31.0.1/32 -o end0 -j MASQUERADE
+            '';
+
+            postDown = ''
+              ${ipv4tables} -D FORWARD -i wg0 -j ACCEPT
+              ${ipv4tables} -t nat -D POSTROUTING -s 172.31.0.1/32 -o end0 -j MASQUERADE
+            '';
+
+            peers = [
+              {
+                publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
+                allowedIPs = [ "172.31.0.2/32" ];
+                presharedKeyFile = secrets."wg/preshared/lap".path;
+              }
+              {
+                publicKey = "8Ms2xhDzF3xlAqe88FEKtGJWjZ7TPtvLX+yhM6ZL6m4=";
+                allowedIPs = [ "172.31.0.3/32" ];
+                presharedKeyFile = secrets."wg/preshared/hon".path;
+              }
+            ];
+          };
+          # wg1 = {
+          #   address = [ "10.2.0.2/32" ];
+          #   dns = [ "10.2.0.1" ];
+          #   privateKeyFile = secrets."wg/client_key".path;
+          #   peers = [
+          #     {
+          #       publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
+          #       allowedIPs = [ "0.0.0.0/0" ];
+          #       endpoint = "185.177.124.219:51820";
+          #     }
+          #   ];
+          # };
+        };
+    };
 
   hardware = {
     bluetoothctl.enable = true;
@@ -116,7 +176,7 @@
     openssh.enable = true;
 
     gaming.minecraft = {
-      enable = true;
+      enable = false;
       ram = 2;
       serverProperties = {
         server-port = 42069;
@@ -127,10 +187,8 @@
       };
     };
 
-    # TODO: Factor out to own module.
     adguardhome = {
       enable = true;
-      allowDHCP = false;
       openFirewall = true;
       mutableSettings = false;
       settings = {
@@ -161,11 +219,7 @@
           ratelimit_subnet_len_ipv6 = 56;
           ratelimit_whitelist = [ ];
           refuse_any = true;
-          upstream_dns = [
-            "https://dns10.quad9.net/dns-query"
-            # EDNS & DNSSEC Support
-            "https://dns11.quad9.net/dns-query"
-          ];
+          upstream_dns = [ "https://dns10.quad9.net/dns-query" ];
           upstream_dns_file = "";
           bootstrap_dns = [
             "9.9.9.10"
@@ -208,10 +262,10 @@
           private_networks = [ ];
           use_private_ptr_resolvers = true;
           local_ptr_upstreams = [ ];
-          use_dns64 = false; # TODO
+          use_dns64 = false;
           dns64_prefixes = [ ];
-          serve_http3 = false; # TODO
-          use_http3_upstreams = false; # TODO
+          serve_http3 = true;
+          use_http3_upstreams = true;
           # Never false unless one or more encrypted protocols enabled
           serve_plain_dns = true;
           hostsfile_enabled = true;
@@ -255,21 +309,45 @@
           }
           {
             enabled = true;
-            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/multi.txt";
-            name = "Hagezi Normal Blocklist";
+            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/pro.txt";
+            name = "Hagezi Pro";
             id = 2;
           }
           {
             enabled = true;
             url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/tif.txt";
-            name = "Hagezi TIF Blocklist";
+            name = "Hagezi TIFs";
             id = 3;
+          }
+          {
+            enabled = true;
+            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/hoster.txt";
+            name = "Hagezi Badware Hoster";
+            id = 4;
           }
           {
             enabled = true;
             url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/spam-tlds.txt";
             name = "Hagezi Most Abused TLDs";
-            id = 4;
+            id = 5;
+          }
+          {
+            enabled = true;
+            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/gambling.txt";
+            name = "Hagezi Gambling";
+            id = 6;
+          }
+          {
+            enabled = true;
+            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.winoffice.txt";
+            name = "Hagezi Native Tracker Windows";
+            id = 7;
+          }
+          {
+            enabled = true;
+            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.tiktok.extended.txt";
+            name = "Hagezi Native Tracker Tiktok (Aggressive)";
+            id = 8;
           }
         ];
         whitelist_filters = [ ];
@@ -410,7 +488,7 @@
           blocking_mode = "default";
           parental_block_host = "family-block.dns.adguard.com";
           safebrowsing_block_host = "standard-block.dns.adguard.com";
-          rewrites = [ ]; # TODO: implement?
+          rewrites = [ ];
           safebrowsing_cache_size = 1048576;
           safesearch_cache_size = 1048576;
           parental_cache_size = 1048576;
