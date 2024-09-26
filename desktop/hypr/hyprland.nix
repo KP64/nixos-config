@@ -237,19 +237,17 @@ in
 
         windowrulev2 =
           let
-            games = map (game: "title:^(${game})$") [
+            titles = map (game: "title:^(${game})$") [
               "DOOMEternal"
               "Need for Speed™ Most Wanted"
               "METAL GEAR RISING: REVENGEANCE"
             ];
+            classes = map (engine: "class:^(${engine})$") [
+              "lt-love"
+              "dolphin-emu"
+            ];
           in
-          [ "suppressevent maximize, class:.*" ]
-          ++ map (s: "fullscreen, ${s}") (
-            lib.flatten [
-              "class:^(lt-love)$"
-              games
-            ]
-          );
+          [ "suppressevent maximize, class:.*" ] ++ map (s: "fullscreen, ${s}") (titles ++ classes);
       };
     };
   };

@@ -14,7 +14,7 @@
       home.packages = [ pkgs.heroic ];
 
       xdg.configFile."heroic/themes" = {
-        source = "${inputs.heroic-catppuccin}/themes/";
+        source = "${inputs.catppuccin-heroic}/themes/";
         recursive = true;
       };
     };

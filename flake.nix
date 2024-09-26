@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -34,7 +35,10 @@
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+      };
     };
 
     lanzaboote = {
@@ -79,22 +83,22 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    heroic-catppuccin = {
+    catppuccin-heroic = {
       url = "github:catppuccin/heroic";
       flake = false;
     };
 
-    aseprite-catppuccin = {
+    catppuccin-aseprite = {
       url = "github:catppuccin/aseprite";
       flake = false;
     };
 
-    imhex-catppuccin = {
+    catppuccin-imhex = {
       url = "github:catppuccin/imhex";
       flake = false;
     };
 
-    blender-catppuccin = {
+    catppuccin-blender = {
       url = "github:Dalibor-P/blender";
       flake = false;
     };

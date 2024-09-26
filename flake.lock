@@ -1,6 +1,21 @@
 {
   "nodes": {
-    "aseprite-catppuccin": {
+    "catppuccin": {
+      "locked": {
+        "lastModified": 1726952185,
+        "narHash": "sha256-l/HbsQjJMT6tlf8KCooFYi3J6wjIips3n6/aWAoLY4g=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "630b559cc1cb4c0bdd525af506935323e4ccd5d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
+    "catppuccin-aseprite": {
       "flake": false,
       "locked": {
         "lastModified": 1718189151,
@@ -16,7 +31,7 @@
         "type": "github"
       }
     },
-    "blender-catppuccin": {
+    "catppuccin-blender": {
       "flake": false,
       "locked": {
         "lastModified": 1688048888,
@@ -32,18 +47,35 @@
         "type": "github"
       }
     },
-    "catppuccin": {
+    "catppuccin-heroic": {
+      "flake": false,
       "locked": {
-        "lastModified": 1726952185,
-        "narHash": "sha256-l/HbsQjJMT6tlf8KCooFYi3J6wjIips3n6/aWAoLY4g=",
+        "lastModified": 1712168040,
+        "narHash": "sha256-JpQtZAxx+GdB3oVk1uFTidO3sykhQxea9nDFcCrcyQI=",
         "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "630b559cc1cb4c0bdd525af506935323e4ccd5d1",
+        "repo": "heroic",
+        "rev": "8f32fd139320a8d85d9d5176090538cbf05f3c0f",
         "type": "github"
       },
       "original": {
         "owner": "catppuccin",
-        "repo": "nix",
+        "repo": "heroic",
+        "type": "github"
+      }
+    },
+    "catppuccin-imhex": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1717073335,
+        "narHash": "sha256-hdJWvuOCWUNoWwYNXVycwZIjgVOCcKNtyXaDOivKfg8=",
+        "owner": "catppuccin",
+        "repo": "imhex",
+        "rev": "cbac7a79c9ef707efdcc9acfa65e30ca09a61b39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "imhex",
         "type": "github"
       }
     },
@@ -221,22 +253,6 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
-    "heroic-catppuccin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1712168040,
-        "narHash": "sha256-JpQtZAxx+GdB3oVk1uFTidO3sykhQxea9nDFcCrcyQI=",
-        "owner": "catppuccin",
-        "repo": "heroic",
-        "rev": "8f32fd139320a8d85d9d5176090538cbf05f3c0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "heroic",
         "type": "github"
       }
     },
@@ -435,22 +451,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "hyprutils",
-        "type": "github"
-      }
-    },
-    "imhex-catppuccin": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1717073335,
-        "narHash": "sha256-hdJWvuOCWUNoWwYNXVycwZIjgVOCcKNtyXaDOivKfg8=",
-        "owner": "catppuccin",
-        "repo": "imhex",
-        "rev": "cbac7a79c9ef707efdcc9acfa65e30ca09a61b39",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "imhex",
         "type": "github"
       }
     },
@@ -848,16 +848,16 @@
     },
     "nixpkgs-stable_3": {
       "locked": {
-        "lastModified": 1725762081,
-        "narHash": "sha256-vNv+aJUW5/YurRy1ocfvs4q/48yVESwlC/yHzjkZSP8=",
-        "owner": "NixOS",
+        "lastModified": 1727129439,
+        "narHash": "sha256-nPyrcFm6FSk7CxzVW4x2hu62aLDghNcv9dX6DF3dXw8=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "dc454045f5b5d814e5862a6d057e7bb5c29edc05",
+        "rev": "babc25a577c3310cce57c72d5bed70f4c3c3843a",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "release-24.05",
+        "owner": "nixos",
+        "ref": "nixos-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -993,17 +993,17 @@
     },
     "root": {
       "inputs": {
-        "aseprite-catppuccin": "aseprite-catppuccin",
-        "blender-catppuccin": "blender-catppuccin",
         "catppuccin": "catppuccin",
+        "catppuccin-aseprite": "catppuccin-aseprite",
+        "catppuccin-blender": "catppuccin-blender",
+        "catppuccin-heroic": "catppuccin-heroic",
+        "catppuccin-imhex": "catppuccin-imhex",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "heroic-catppuccin": "heroic-catppuccin",
         "hm": "hm",
         "hypridle": "hypridle",
         "hyprland-contrib": "hyprland-contrib",
         "hyprlock": "hyprlock",
-        "imhex-catppuccin": "imhex-catppuccin",
         "lanzaboote": "lanzaboote",
         "musnix": "musnix",
         "navi-denis-cheats": "navi-denis-cheats",
@@ -1019,6 +1019,7 @@
         "nixcord": "nixcord",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-stable": "nixpkgs-stable_3",
         "nur": "nur",
         "potato-fox": "potato-fox",
         "raspberry-pi-nix": "raspberry-pi-nix",
@@ -1154,7 +1155,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-stable": "nixpkgs-stable_3"
+        "nixpkgs-stable": [
+          "nixpkgs-stable"
+        ]
       },
       "locked": {
         "lastModified": 1726524647,

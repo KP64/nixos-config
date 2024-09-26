@@ -46,12 +46,16 @@ in
       wsl ? false,
       pi ? false,
     }:
+    let
+      stable-pkgs = inputs.nixpkgs-stable.legacyPackages.${system};
+    in
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
         stateVersion = "24.11";
         inherit
           inputs
+          stable-pkgs
           username
           replaceLastWithFullPath
           collectLastEntries

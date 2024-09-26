@@ -20,7 +20,7 @@ in
     home-manager.users.${username} = {
       home.packages = [ blender ];
       xdg.configFile."blender/${version}/scripts/presets/interface_theme/mocha_lavender.xml" = {
-        source = "${inputs.blender-catppuccin}/themes/mocha_lavender.xml";
+        source = "${inputs.catppuccin-blender}/themes/mocha_lavender.xml";
       };
     };
   };
