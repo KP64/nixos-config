@@ -36,6 +36,8 @@
 
     file-managers.yazi.enable = true;
 
+    ricing.fetchers.enable = true;
+
     monitors = {
       btop.enable = true;
       bandwhich.enable = true;
