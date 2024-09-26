@@ -58,6 +58,8 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    # TODO: Update structure
+    # e.g. wg/keys/client & wg/keys/preshared/lap
     secrets = {
       "wg/client_key" = { };
       "wg/server_key" = { };
@@ -73,6 +75,7 @@
     {
       hostName = username;
 
+      # TODO: Move with wireguard to own module
       nat = {
         enable = true;
         # TODO: Enable IPv6
@@ -88,6 +91,7 @@
         ];
       };
 
+      # TODO: rs as server and client at the same time?
       wg-quick.interfaces =
         let
           inherit (config.sops) secrets;
@@ -532,6 +536,11 @@
     };
   };
 
+  # TODO: Harden Security
+  # - Remove Password ssh auth (Allow only with generated keys)
+  # - Update password
+  # - Set sane user defaults
+  # - Move extraGroups to specific modules?
   users = {
     mutableUsers = false;
     users.${username} = {
