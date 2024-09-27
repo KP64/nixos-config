@@ -1,5 +1,24 @@
 {
   "nodes": {
+    "blender-bin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727370305,
+        "narHash": "sha256-oaQ5xCDV7qYv8A5oHoazcwPhVTXNoP3Uet7ZJtbQbkI=",
+        "rev": "4636732553fdace34e5511e50fbba0568f0227a0",
+        "revCount": 123,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/edolstra/blender-bin/1.0.9/01922f4c-43e5-7c77-a03a-00cdaf9f8393/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/edolstra/blender-bin/%2A.tar.gz"
+      }
+    },
     "catppuccin": {
       "locked": {
         "lastModified": 1726952185,
@@ -993,6 +1012,7 @@
     },
     "root": {
       "inputs": {
+        "blender-bin": "blender-bin",
         "catppuccin": "catppuccin",
         "catppuccin-aseprite": "catppuccin-aseprite",
         "catppuccin-blender": "catppuccin-blender",

@@ -78,6 +78,7 @@ in
             nixpkgs.overlays = with inputs; [
               nur.overlay
               nix-minecraft.overlay
+              blender-bin.overlays.default
             ];
             users.mutableUsers = false;
             wsl = {

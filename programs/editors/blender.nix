@@ -8,7 +8,7 @@
 }:
 
 let
-  inherit (pkgs) blender;
+  blender = pkgs.blender_4_2;
 
   firstTwoSigs = lib.take 2 (builtins.splitVersion blender.version);
   version = lib.concatStringsSep "." firstTwoSigs;
