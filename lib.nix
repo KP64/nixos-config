@@ -85,6 +85,9 @@ in
               enable = wsl;
               defaultUser = username;
               useWindowsDriver = true;
+              interop.register = true;
+              startMenuLaunchers = true;
+              usbip.enable = true;
             };
           }
         ];
