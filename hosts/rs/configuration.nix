@@ -443,7 +443,6 @@
               "looke"
               "mercado_libre"
               "nebula"
-              "nvidia"
               "nintendo"
               "netflix"
               "ok"
