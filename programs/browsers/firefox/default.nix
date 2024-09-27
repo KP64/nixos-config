@@ -193,6 +193,7 @@ in
                 disablePrefetchFromHTTPS = true;
               };
               predictor.enabled = false;
+              security.esni.enabled = true;
             };
 
             toolkit.telemetry = {
