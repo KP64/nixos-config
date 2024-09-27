@@ -350,15 +350,9 @@
           }
           {
             enabled = true;
-            url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.tiktok.extended.txt";
-            name = "Hagezi Native Tracker Tiktok (Aggressive)";
-            id = 8;
-          }
-          {
-            enabled = true;
             url = "https://nsfw.oisd.nl/";
             name = "oisd NSFW";
-            id = 9;
+            id = 8;
           }
         ];
         whitelist_filters = [ ];
