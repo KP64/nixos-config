@@ -57,15 +57,13 @@ in
           inputs
           stable-pkgs
           username
+          wsl
           replaceLastWithFullPath
           collectLastEntries
           ;
       };
       modules =
-        (with inputs; [
-          nix-topology.nixosModules.default
-          nixos-wsl.nixosModules.default
-        ])
+        [ inputs.nix-topology.nixosModules.default ]
         ++ nixpkgs.lib.optional pi inputs.raspberry-pi-nix.nixosModules.raspberry-pi
         ++ [
           ./hosts/${username}/configuration.nix
@@ -81,14 +79,6 @@ in
               blender-bin.overlays.default
             ];
             users.mutableUsers = false;
-            wsl = {
-              enable = wsl;
-              defaultUser = username;
-              useWindowsDriver = true;
-              interop.register = true;
-              startMenuLaunchers = true;
-              usbip.enable = true;
-            };
           }
         ];
     };

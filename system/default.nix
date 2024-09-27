@@ -8,5 +8,6 @@
     ./hm.nix
     ./nix.nix
     ./sops.nix
+    ./wsl.nix
   ];
 }
