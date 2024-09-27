@@ -65,6 +65,10 @@ in
                           name = "q";
                           value = "{searchTerms}";
                         }
+                        {
+                          name = "language";
+                          value = "all";
+                        }
                       ];
                     }
                   ];
