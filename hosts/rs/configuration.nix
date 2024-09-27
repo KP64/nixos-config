@@ -540,6 +540,7 @@
     hashedPassword = "$y$j9T$zXtGTjyR6OGyGReHOLHzf1$9gn1xpefo7U22AcFXItP3DxWkNOTwUjJCp8f00vsIV0";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAprQ6/cB+MxEK5IorzJ1+/HoYqyc5ZItGG4HzYwTO3S karamalsadeh@hotmail.com"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICbBxsi/h7D+X+g3v2pXxwuQ6/TXLs2+Tb8R2Vl4ilLn kg@LapT"
     ];
     extraGroups = [
       "networkmanager"
