@@ -218,8 +218,14 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    secrets.hashed_password.neededForUsers = true;
+  };
+
   users.users.${username} = {
-    hashedPassword = "$6$iLbwJ.7EhqTOe/Zf$ZOD4llDEoR/HaYM34Mf/ZMmLyTDw6CPwRi4jOlK3Z5b1aza9W9jls0crvTJG5rTo85luxzD9xywHslxeqITG30";
+    hashedPasswordFile = config.sops.secrets.hashed_password.path;
     extraGroups = [
       "networkmanager"
       "wheel"
