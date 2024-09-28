@@ -99,6 +99,7 @@
         in
         {
           wg0 = {
+            autostart = false;
             address = [ "172.31.0.1/32" ];
             listenPort = port;
             privateKeyFile = secrets."wg/keys/server".path;
@@ -126,18 +127,18 @@
               }
             ];
           };
-          # wg1 = {
-          #   address = [ "10.2.0.2/32" ];
-          #   dns = [ "10.2.0.1" ];
-          #   privateKeyFile = secrets."wg/keys/client".path;
-          #   peers = [
-          #     {
-          #       publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
-          #       allowedIPs = [ "0.0.0.0/0" ];
-          #       endpoint = "185.177.124.219:51820";
-          #     }
-          #   ];
-          # };
+          wg1 = {
+            address = [ "10.2.0.2/32" ];
+            dns = [ "10.2.0.1" ];
+            privateKeyFile = secrets."wg/keys/client".path;
+            peers = [
+              {
+                publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
+                allowedIPs = [ "0.0.0.0/0" ];
+                endpoint = "185.177.124.219:51820";
+              }
+            ];
+          };
         };
     };
 
