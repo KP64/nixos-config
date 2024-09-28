@@ -78,7 +78,13 @@ in
               nix-minecraft.overlay
               blender-bin.overlays.default
             ];
-            users.mutableUsers = false;
+            users = {
+              mutableUsers = false;
+              users.${username} = {
+                isNormalUser = true;
+                description = username;
+              };
+            };
           }
         ];
     };

@@ -219,8 +219,6 @@
   nixpkgs.config.allowUnfree = true;
 
   users.users.${username} = {
-    isNormalUser = true;
-    description = username;
     hashedPassword = "$6$iLbwJ.7EhqTOe/Zf$ZOD4llDEoR/HaYM34Mf/ZMmLyTDw6CPwRi4jOlK3Z5b1aza9W9jls0crvTJG5rTo85luxzD9xywHslxeqITG30";
     extraGroups = [
       "networkmanager"
