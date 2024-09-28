@@ -24,7 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-systems.url = "github:nix-systems/default";
+    systems.url = "github:nix-systems/default";
 
     flake-compat.url = "github:edolstra/flake-compat";
 
@@ -35,7 +35,7 @@
 
     flake-utils = {
       url = "github:numtide/flake-utils";
-      inputs.systems.follows = "nix-systems";
+      inputs.systems.follows = "systems";
     };
 
     sops-nix = {
@@ -138,7 +138,7 @@
       url = "github:hyprwm/hypridle";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
+        systems.follows = "systems";
       };
     };
 
@@ -146,7 +146,7 @@
       url = "github:hyprwm/hyprlock";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "nix-systems";
+        systems.follows = "systems";
       };
     };
 
@@ -176,10 +176,21 @@
     };
 
     raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{
+      self,
+      nixpkgs,
+      treefmt-nix,
+      flake-utils,
+      ...
+    }:
     let
       customLib = import ./lib.nix { inherit nixpkgs inputs; };
     in
@@ -203,15 +214,21 @@
         };
       };
     }
-    // inputs.flake-utils.lib.eachDefaultSystem (
+    // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ inputs.nix-topology.overlays.default ];
         };
+
+        treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        treefmtBuild = treefmtEval.config.build;
       in
       {
+        formatter = treefmtBuild.wrapper;
+        checks.formatting = treefmtBuild.check self;
+
         # TODO: Fill out Topology
         topology = import inputs.nix-topology {
           inherit pkgs;
