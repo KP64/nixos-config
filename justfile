@@ -8,7 +8,7 @@ default:
     @just --choose
 
 check:
-    @- nix flake check --all-systems
+    @- nix flake check
 
 fmt:
     @nix fmt
