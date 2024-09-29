@@ -147,8 +147,9 @@ in
 
       servers = builtins.listToAttrs (
         map (
-          s: let
-           ver = builtins.replaceStrings [ "." ] [ "_" ] s.version; 
+          s:
+          let
+            ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
           in
           lib.nameValuePair s.name {
             inherit (s) enable serverProperties;
