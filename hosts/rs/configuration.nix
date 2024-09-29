@@ -182,8 +182,10 @@
   # TODO: Move with adguard
   environment.systemPackages = [ pkgs.adguardian ];
   services = {
-    gaming.minecraft = {
+    gaming.minecraft.servers = [{
+      name = "myServer";
       enable = false;
+      version = "1.21.1";
       ram = 2;
       serverProperties = {
         server-port = 42069;
@@ -192,7 +194,7 @@
         simulation-distance = 8;
         view-distance = 8;
       };
-    };
+    }];
 
     adguardhome = {
       enable = true;
