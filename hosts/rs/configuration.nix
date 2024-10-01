@@ -17,6 +17,9 @@
     services.ssh.enable = true;
   };
 
+  # https://github.com/NixOS/nixpkgs/issues/344963
+  boot.initrd.systemd.tpm2.enable = false;
+
   home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
 
   cli = {
@@ -422,7 +425,6 @@
               "douban"
               "dropbox"
               "espn"
-              "facebook"
               "fifa"
               "flickr"
               "globoplay"
