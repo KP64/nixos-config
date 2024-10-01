@@ -8,11 +8,21 @@
 
   config = lib.mkIf config.system.services.ssh.enable {
     programs.ssh.startAgent = true;
-
-    services.openssh = {
-      enable = true;
-      startWhenNeeded = true;
-      settings.PasswordAuthentication = false;
+    services = {
+      openssh = {
+        enable = true;
+        startWhenNeeded = true;
+        settings.PasswordAuthentication = false;
+      };
+      fail2ban = {
+        enable = true;
+        bantime-increment = {
+          enable = true;
+          maxtime = "48h";
+          overalljails = true;
+          rndtime = "8m";
+        };
+      };
     };
   };
 }
