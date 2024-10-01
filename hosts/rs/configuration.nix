@@ -363,7 +363,10 @@
           }
         ];
         whitelist_filters = [ ];
-        user_rules = [ ];
+        user_rules = map (toAllow: "@@||${toAllow}") [
+          "flakehub.com^"
+          "cloudfront.net^"
+        ];
         dhcp = {
           enabled = false;
           interface_name = "";
@@ -408,7 +411,6 @@
               "box"
               "canais_globo"
               "claro"
-              "cloudflare"
               "clubhouse"
               "coolapk"
               "crunchyroll"
@@ -463,9 +465,6 @@
               "shopee"
               "soundcloud"
               "skype"
-              "snapchat"
-              "telegram"
-              "tiktok"
               "tidal"
               "temu"
               "tinder"
