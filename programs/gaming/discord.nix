@@ -46,7 +46,7 @@
             };
             copyFileContents.enable = true;
             copyUserURLs.enable = true;
-            customIdle.enable = true;
+            # customIdle.enable = true; # FIXME: breaks calling and Friends
             dearrow.enable = true;
             decor.enable = true;
             disableCallIdle.enable = true;
