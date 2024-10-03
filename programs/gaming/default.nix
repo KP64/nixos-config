@@ -22,7 +22,7 @@
   config = lib.mkIf config.gaming.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
       wineWowPackages.waylandFull
-
+      bottles
       atlauncher
       steam-run
       openarena

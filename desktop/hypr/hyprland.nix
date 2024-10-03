@@ -241,6 +241,7 @@ in
               "DOOMEternal"
               "Need for Speed™ Most Wanted"
               "METAL GEAR RISING: REVENGEANCE"
+              "Monopoly Plus"
             ];
             classes = map (engine: "class:^(${engine})$") [
               "lt-love"
