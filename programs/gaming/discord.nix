@@ -16,6 +16,7 @@
         enable = true;
         config = {
           themeLinks = [ "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css" ];
+          frameless = true;
           plugins = {
             alwaysAnimate.enable = true;
             anonymiseFileNames.enable = true;
@@ -40,13 +41,10 @@
             blurNSFW.enable = true;
             callTimer.enable = true;
             clearURLs.enable = true;
-            consoleJanitor = {
-              enable = true;
-              disableNoisyLoggers = true;
-            };
+            consoleJanitor.enable = true;
             copyFileContents.enable = true;
             copyUserURLs.enable = true;
-            # customIdle.enable = true; # FIXME: breaks calling and Friends
+            customIdle.enable = true;
             dearrow.enable = true;
             decor.enable = true;
             disableCallIdle.enable = true;
@@ -59,8 +57,10 @@
             fixSpotifyEmbeds.enable = true;
             fixYoutubeEmbeds.enable = true;
             friendInvites.enable = true;
+            fullSearchContext.enable = true;
             friendsSince.enable = true;
             gameActivityToggle.enable = true;
+            gifPaste.enable = true;
             greetStickerPicker.enable = true;
             imageZoom.enable = true;
             implicitRelationships.enable = true;
