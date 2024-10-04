@@ -75,8 +75,7 @@
             reverseImageSearch.enable = true;
             shikiCodeblocks = {
               enable = true;
-              # TODO: When nixcord moves to new Shiki Versions use the Catppuccin theme by Shiki
-              theme = "https://raw.githubusercontent.com/shikijs/shiki/v0/packages/shiki/themes/material-theme-ocean.json";
+              theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
             };
             showConnections.enable = true;
             showMeYourName.enable = true;
