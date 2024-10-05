@@ -77,6 +77,7 @@ in
               nur.overlay
               nix-minecraft.overlay
               blender-bin.overlays.default
+              hyprpanel.overlay
             ];
             users = {
               mutableUsers = false;

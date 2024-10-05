@@ -77,7 +77,6 @@
     defaults.enable = true;
 
     eww.enable = true;
-    waybar.enable = true;
 
     rofi.enable = true;
 
@@ -87,8 +86,6 @@
       hypridle.enable = true;
       hyprlock.enable = true;
       hyprpaper.enable = true;
-      hyprpicker.enable = true;
-      contrib.grimblast.enable = true;
       hyprland = {
         enable = true;
         monitors = [
@@ -121,7 +118,6 @@
     services = {
       blueman-app.enable = true;
       copyq.enable = true;
-      mako.enable = true;
       ntwrk-mgr-app.enable = true;
       udiskie.enable = true;
     };
