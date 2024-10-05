@@ -8,7 +8,7 @@ let
   # browser.discovery.enabled = false;
   # turns to
   # browser.discovery.enabled."browser.discovery.enabled" = false;
-  replaceLastWithFullPath =
+  appendLastWithFullPath =
     attrs:
     nixpkgs.lib.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
       ${builtins.concatStringsSep "." name} = value;
@@ -58,7 +58,7 @@ in
           stable-pkgs
           username
           wsl
-          replaceLastWithFullPath
+          appendLastWithFullPath
           collectLastEntries
           ;
       };

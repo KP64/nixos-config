@@ -3,7 +3,7 @@
   config,
   username,
   collectLastEntries,
-  replaceLastWithFullPath,
+  appendLastWithFullPath,
   ...
 }:
 {
@@ -14,7 +14,7 @@
       enable = true;
       profiles.${username} = {
         isDefault = true;
-        settings = collectLastEntries (replaceLastWithFullPath {
+        settings = collectLastEntries (appendLastWithFullPath {
           middlemouse.paste = false;
           general.autoScroll = true;
 

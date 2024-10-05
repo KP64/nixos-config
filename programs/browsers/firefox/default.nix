@@ -5,7 +5,7 @@
   inputs,
   username,
   collectLastEntries,
-  replaceLastWithFullPath,
+  appendLastWithFullPath,
   ...
 }:
 
@@ -103,7 +103,7 @@ in
                 };
               };
           };
-          settings = collectLastEntries (replaceLastWithFullPath {
+          settings = collectLastEntries (appendLastWithFullPath {
             browser = {
               aboutConfig.showWarning = false;
               aboutwelcome.enabled = false;

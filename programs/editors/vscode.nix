@@ -5,7 +5,7 @@
   inputs,
   username,
   collectLastEntries,
-  replaceLastWithFullPath,
+  appendLastWithFullPath,
   ...
 }:
 
@@ -18,13 +18,13 @@ in
   config = lib.mkIf config.editors.vscode.enable {
     home-manager.users.${username}.programs.vscode = {
       enable = true;
+      package = pkgs.vscodium;
       extensions =
-        with vscode-marketplace;
-        [
+        (with vscode-marketplace; [
           jscearcy.rust-doc-viewer
           miguelsolorio.fluent-icons
           vivaxy.vscode-conventional-commits
-        ]
+        ])
         ++ (
           with pkgs.vscode-extensions;
           [
@@ -50,7 +50,6 @@ in
             thenuprojectcontributors.vscode-nushell-lang
             usernamehw.errorlens
             vadimcn.vscode-lldb
-            vscode-icons-team.vscode-icons
             waderyan.gitblame
             wix.vscode-import-cost
           ]
@@ -86,7 +85,7 @@ in
       };
 
       userSettings =
-        (collectLastEntries (replaceLastWithFullPath {
+        (collectLastEntries (appendLastWithFullPath {
           workbench = {
             iconTheme = "catppuccin-mocha";
             colorTheme = "Catppuccin Mocha";
@@ -111,6 +110,7 @@ in
           svelte.enable-ts-plugin = true;
           git.autofetch = true;
           telemetry.telemetryLevel = "off";
+          gitlens.telemetry.enabled = false;
           terminal.integrated.defaultProfile.linux = "Nushell";
           update.showReleaseNotes = false;
         }))
