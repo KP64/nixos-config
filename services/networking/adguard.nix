@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -11,11 +12,14 @@ let
     "4chan"
     "500px"
     "9gag"
+    "activision_blizzard"
     "aliexpress"
     "amazon"
     "amazon_streaming"
     "amino"
     "apple_streaming"
+    "battle_net"
+    "blizzard_entertainment"
     "betano"
     "betfair"
     "betway"
@@ -26,6 +30,7 @@ let
     "box"
     "canais_globo"
     "claro"
+    "cloudflare"
     "clubhouse"
     "coolapk"
     "crunchyroll"
@@ -37,6 +42,8 @@ let
     "disneyplus"
     "douban"
     "dropbox"
+    "ebay"
+    "electronic_arts"
     "epic_games"
     "espn"
     "facebook"
@@ -71,7 +78,9 @@ let
     "ok"
     "olvid"
     "onlyfans"
+    "origin"
     "pinterest"
+    "playstation"
     "paramountplus"
     "plenty_of_fish"
     "plex"
@@ -82,6 +91,7 @@ let
     "reddit"
     "riot_games"
     "roblox"
+    "rockstar_games"
     "samsung_tv_plus"
     "shein"
     "shopee"
@@ -120,7 +130,7 @@ in
 {
   options.services.networking.adguard = {
     enable = lib.mkEnableOption "Enable Adguard";
-    allowServices = lib.mkOption {
+    allowedServices = lib.mkOption {
       default = [ ];
       type = with lib.types; listOf str;
       example = [
@@ -128,9 +138,27 @@ in
         "youtube"
       ];
     };
+    users = lib.mkOption {
+      default = [ ];
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              readOnly = true;
+              type = lib.types.str;
+            };
+            password = lib.mkOption {
+              readOnly = true;
+              type = lib.types.str;
+            };
+          };
+        }
+      );
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.adguardian ];
     services.adguardhome = {
       enable = true;
       openFirewall = true;
@@ -144,12 +172,7 @@ in
           };
           session_ttl = "720h";
         };
-        users = [
-          {
-            name = "ka64";
-            password = "$2a$10$47XJ6KSFE4uXqACmYQQDaeDA4u6PVbCe8qD3xkcxel8TpwWBApawe";
-          }
-        ];
+        inherit (cfg) users;
         auth_attempts = 5;
         block_auth_min = 15;
         http_proxy = "";
@@ -326,7 +349,8 @@ in
           blocked_services = {
             schedule.time_zone = "Local";
             ids =
-              (lib.partition (allowed: lib.any allowed blockedServices) (lib.unique cfg.allowedServices)).wrong;
+              (lib.partition (toAllow: lib.any (toBlock: toAllow == toBlock) cfg.allowedServices) blockedServices)
+              .wrong;
           };
           protection_disabled_until = null;
           safe_search = {

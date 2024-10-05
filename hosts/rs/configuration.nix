@@ -182,8 +182,6 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
-  # TODO: Move with adguard
-  environment.systemPackages = [ pkgs.adguardian ];
   services = {
     gaming.minecraft.servers = [
       {
@@ -203,7 +201,14 @@
 
     networking.adguard = {
       enable = true;
-      allowedServers = [
+      users = [
+        {
+          name = "ka64";
+          password = "$2a$10$47XJ6KSFE4uXqACmYQQDaeDA4u6PVbCe8qD3xkcxel8TpwWBApawe";
+        }
+      ];
+      allowedServices = [
+        "cloudflare"
         "discord"
         "epic_games"
         "facebook"
