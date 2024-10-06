@@ -12,7 +12,10 @@
       openssh = {
         enable = true;
         startWhenNeeded = true;
-        settings.PasswordAuthentication = false;
+        settings = {
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
       };
       fail2ban = {
         enable = true;

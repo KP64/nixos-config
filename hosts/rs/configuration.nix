@@ -102,7 +102,7 @@
         in
         {
           wg0 = {
-            autostart = false;
+            autostart = true;
             address = [ "172.31.0.1/32" ];
             listenPort = port;
             privateKeyFile = secrets."wg/keys/server".path;
@@ -234,7 +234,7 @@
     hashedPasswordFile = config.sops.secrets.hashed_password.path;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAprQ6/cB+MxEK5IorzJ1+/HoYqyc5ZItGG4HzYwTO3S karamalsadeh@hotmail.com"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICbBxsi/h7D+X+g3v2pXxwuQ6/TXLs2+Tb8R2Vl4ilLn kg@LapT"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
     ];
     extraGroups = [
       "networkmanager"
