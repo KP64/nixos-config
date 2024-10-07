@@ -98,6 +98,7 @@ in
       home.packages =
         [ inputs.hyprland-contrib.packages.${pkgs.system}.grimblast ]
         ++ (with pkgs; [
+          kdePackages.dolphin
           hyprpanel
           hyprpicker
         ]);
