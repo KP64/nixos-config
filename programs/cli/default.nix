@@ -53,7 +53,6 @@
         sd
         sshx
         tailspin
-        timg
         tokei
         treefmt2
         typst

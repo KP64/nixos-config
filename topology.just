@@ -11,10 +11,10 @@ build:
 [doc('Generates and shows main Topology in Terminal.
 Requires a kitty Terminal.')]
 show: build
-    @timg result/main.svg
+    @nom shell nixpkgs#timg --command timg result/main.svg
 
 
 [doc('Generates and Shows Network 🛜 in Terminal.
 Requires a kitty Terminal.')]
 net: build
-    @timg result/network.svg
+    @nom shell nixpkgs#timg --command timg result/network.svg
