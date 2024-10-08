@@ -256,6 +256,7 @@
             nixfmt-rfc-style
             nurl
             statix
+            timg
           ];
         };
       }
