@@ -86,6 +86,11 @@ in
 
       userSettings =
         (collectLastEntries (appendLastWithFullPath {
+          extensions = {
+            autoCheckUpdates = false;
+            autoUpdate = false;
+          };
+
           workbench = {
             iconTheme = "catppuccin-mocha";
             colorTheme = "Catppuccin Mocha";
