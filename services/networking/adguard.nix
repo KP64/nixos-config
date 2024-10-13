@@ -226,7 +226,7 @@ in
           ratelimit_subnet_len_ipv6 = 56;
           ratelimit_whitelist = [ ];
           refuse_any = true;
-          upstream_dns = [ "https://dns10.quad9.net/dns-query" ];
+          upstream_dns = [ "https://dns.quad9.net/dns-query" ];
           upstream_dns_file = "";
           bootstrap_dns = [
             "9.9.9.10"
