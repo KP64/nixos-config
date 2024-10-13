@@ -1,4 +1,4 @@
-{
+  {
   lib,
   config,
   pkgs,
@@ -16,9 +16,6 @@
     };
     services.ssh.enable = true;
   };
-
-  # https://github.com/NixOS/nixpkgs/issues/344963
-  boot.initrd.systemd.tpm2.enable = false;
 
   home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
 
@@ -183,6 +180,14 @@
   nixpkgs.config.allowUnfree = true;
 
   services = {
+    immich = {
+      enable = true;
+      host = "192.168.2.204";
+      openFirewall = true;
+      # ? Machine Learning is broken on aarch64
+      machine-learning.enable = false;
+    };
+
     gaming.minecraft.servers = [
       {
         name = "myServer";
