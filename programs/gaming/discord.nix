@@ -46,7 +46,6 @@
             copyUserURLs.enable = true;
             customIdle.enable = true;
             dearrow.enable = true;
-            decor.enable = true;
             disableCallIdle.enable = true;
             dontRoundMyTimestamps.enable = true;
             emoteCloner.enable = true;
