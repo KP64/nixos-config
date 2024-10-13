@@ -19,20 +19,24 @@ in
         types.submodule {
           options = {
             enabled = mkOption {
-              type = types.bool;
               default = true;
+              type = types.bool;
+              description = "Whether the monitor is enabled.";
+              example = false;
             };
             name = mkOption {
+              readOnly = true;
               type = types.str;
+              description = "The descriptor of the Monitor.";
               example = "DP-1";
             };
             resolution = mkOption {
+              default = "preferred";
               type = types.enum [
                 "preferred"
                 "highres"
                 "highrr"
               ];
-              default = "preferred";
               example = "highres";
             };
             x = mkOption {
@@ -50,28 +54,26 @@ in
               default = 0;
               example = 1;
             };
-          };
-        }
-      );
-    };
-
-    workspaces = mkOption {
-      readOnly = true;
-      type = types.listOf (
-        types.submodule {
-          options = {
-            id = mkOption {
-              type = types.ints.between 1 10;
-              example = 1;
-            };
-            monitorName = mkOption {
-              type = types.str;
-              example = "DP-1";
-            };
-            default = mkOption {
-              type = types.bool;
-              default = false;
-              example = true;
+            workspaces = mkOption {
+              default = [ ];
+              description = "The workspaces to be assigned to the monitor.";
+              type = types.listOf (
+                types.submodule {
+                  options = {
+                    id = mkOption {
+                      readOnly = true;
+                      type = types.ints.between 1 10;
+                      example = 1;
+                    };
+                    default = mkOption {
+                      default = false;
+                      type = types.bool;
+                      description = "Whether this workspace should always appear on this monitor.";
+                      example = true;
+                    };
+                  };
+                }
+              );
             };
           };
         }
@@ -116,9 +118,12 @@ in
             }"
           ) cfg.monitors;
 
-          workspace = map (
-            w: "${toString w.id}, monitor:${w.monitorName}, default:${lib.boolToString w.default}"
-          ) cfg.workspaces;
+          workspace = lib.flatten (
+            map (
+              m:
+              map (w: "${toString w.id}, monitor:${m.name}, default:${lib.boolToString w.default}") m.workspaces
+            ) cfg.monitors
+          );
 
           "$terminal" = "kitty";
           "$browser" = "firefox";
@@ -260,7 +265,6 @@ in
             in
             [
               "suppressevent maximize, class:.*"
-              # "workspace 1, class:^(Monopoly Plus)$"
               "fullscreenstate 3, class:^(Monopoly Plus)$"
             ]
             ++ map (s: "fullscreen, ${s}") (titles ++ classes);

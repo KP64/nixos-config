@@ -85,61 +85,59 @@ in
   # TODO: Overhaul Options
   # Ability to:
   #   - add mods
-  options.services.gaming.minecraft = {
-    servers = lib.mkOption {
-      default = [ ];
-      type = lib.types.listOf (
-        lib.types.submodule {
-          options = {
-            name = lib.mkOption {
-              readOnly = true;
-              type = lib.types.strMatching "([a-zA-Z0-9])+";
-              description = "The name of the Server";
-              example = "MyServer";
-            };
+  options.services.gaming.minecraft.servers = lib.mkOption {
+    default = [ ];
+    type = lib.types.listOf (
+      lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            readOnly = true;
+            type = lib.types.strMatching "([a-zA-Z0-9])+";
+            description = "The name of the Server";
+            example = "MyServer";
+          };
 
-            enable = lib.mkEnableOption "Enable the Server";
+          enable = lib.mkEnableOption "Enable the Server";
 
-            version = lib.mkOption {
-              readOnly = true;
-              type = lib.types.strMatching "[0-9]\\.[0-9]{1,2}(\\.[0-9])?";
-              description = "The version of the Server";
-              example = "1.21.1";
-            };
+          version = lib.mkOption {
+            readOnly = true;
+            type = lib.types.strMatching "[0-9]\\.[0-9]{1,2}(\\.[0-9])?";
+            description = "The version of the Server";
+            example = "1.21.1";
+          };
 
-            ram = lib.mkOption {
-              readOnly = true;
-              type = lib.types.ints.positive;
-              description = "The amount of ram to allocate in GB";
-              example = 4;
-            };
+          ram = lib.mkOption {
+            readOnly = true;
+            type = lib.types.ints.positive;
+            description = "The amount of ram to allocate in GB";
+            example = 4;
+          };
 
-            serverProperties = lib.mkOption {
-              default = { };
-              type = lib.types.attrs;
-              example = {
-                server-port = 25565;
-                max-players = 16;
-                difficulty = "hard";
-                motd = "A NixOS MC Server";
-                simulation-distance = 16;
-                view-distance = 16;
-              };
-            };
-
-            jvmOpts = lib.mkOption {
-              default = [ ];
-              type = lib.types.listOf lib.types.str;
-            };
-
-            symlinks = lib.mkOption {
-              default = { };
-              type = lib.types.attrs;
+          serverProperties = lib.mkOption {
+            default = { };
+            type = lib.types.attrs;
+            example = {
+              server-port = 25565;
+              max-players = 16;
+              difficulty = "hard";
+              motd = "A NixOS MC Server";
+              simulation-distance = 16;
+              view-distance = 16;
             };
           };
-        }
-      );
-    };
+
+          jvmOpts = lib.mkOption {
+            default = [ ];
+            type = lib.types.listOf lib.types.str;
+          };
+
+          symlinks = lib.mkOption {
+            default = { };
+            type = lib.types.attrs;
+          };
+        };
+      }
+    );
   };
   config = lib.mkIf (cfg.servers != [ ]) {
     services.minecraft-servers = {
