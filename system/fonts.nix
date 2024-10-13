@@ -13,6 +13,12 @@ in
     default = [ ];
     description = "Custom font packages to install.";
     type = with lib.types; listOf package;
+    example = [
+      pkgs.noto-fonts
+      (pkgs.nerdfonts.override {
+        fonts = [ "JetBrainsMono" ];
+      })
+    ];
   };
 
   config.fonts.packages =

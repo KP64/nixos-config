@@ -14,6 +14,10 @@ in
     default = [ ];
     description = "Extra Users to Trust.";
     type = with lib.types; listOf str;
+    example = [
+      "alice"
+      "bob"
+    ];
   };
 
   config = {

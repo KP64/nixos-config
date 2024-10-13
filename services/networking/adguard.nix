@@ -133,23 +133,62 @@ in
     allowedServices = lib.mkOption {
       default = [ ];
       type = with lib.types; listOf str;
+      description = "The Services that shouldn't be blocked by adguard.";
       example = [
         "blizzard_activision"
         "youtube"
       ];
     };
+    rewrites = lib.mkOption {
+      default = [ ];
+      description = ''
+        The DNS rewrites.
+        NOTE: If it doesn't work check that your router is not using some kind of rebind protection.
+      '';
+      example = [
+        {
+          domain = "pi.local";
+          answer = "192.168.2.204";
+        }
+      ];
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            domain = lib.mkOption {
+              readOnly = true;
+              type = lib.types.str;
+              description = "The domain which points to the IP.";
+            };
+            answer = lib.mkOption {
+              readOnly = true;
+              type = lib.types.str;
+              description = "The IP to be pointed by the domain.";
+            };
+          };
+        }
+      );
+    };
     users = lib.mkOption {
       default = [ ];
+      description = "The users that are able to log in.";
+      example = [
+        {
+          name = "admin";
+          password = "12345";
+        }
+      ];
       type = lib.types.listOf (
         lib.types.submodule {
           options = {
             name = lib.mkOption {
               readOnly = true;
               type = lib.types.str;
+              example = "admin";
             };
             password = lib.mkOption {
               readOnly = true;
               type = lib.types.str;
+              example = "12345";
             };
           };
         }
@@ -365,7 +404,7 @@ in
           blocking_mode = "default";
           parental_block_host = "family-block.dns.adguard.com";
           safebrowsing_block_host = "standard-block.dns.adguard.com";
-          rewrites = [ ];
+          inherit (cfg) rewrites;
           safebrowsing_cache_size = 1048576;
           safesearch_cache_size = 1048576;
           parental_cache_size = 1048576;

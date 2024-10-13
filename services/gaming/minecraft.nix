@@ -95,7 +95,7 @@ in
               readOnly = true;
               type = lib.types.strMatching "([a-zA-Z0-9])+";
               description = "The name of the Server";
-              example = "My Cool Server";
+              example = "MyServer";
             };
 
             enable = lib.mkEnableOption "Enable the Server";
@@ -104,6 +104,7 @@ in
               readOnly = true;
               type = lib.types.strMatching "[0-9]\\.[0-9]{1,2}(\\.[0-9])?";
               description = "The version of the Server";
+              example = "1.21.1";
             };
 
             ram = lib.mkOption {

@@ -1,4 +1,4 @@
-  {
+{
   lib,
   config,
   pkgs,
@@ -210,6 +210,12 @@
         {
           name = "ka64";
           password = "$2a$10$47XJ6KSFE4uXqACmYQQDaeDA4u6PVbCe8qD3xkcxel8TpwWBApawe";
+        }
+      ];
+      rewrites = [
+        {
+          domain = "pi.local";
+          answer = "192.168.2.204";
         }
       ];
       allowedServices = [

@@ -42,14 +42,16 @@ in
     enable = mkEnableOption "Enables Git & helper Utils";
     user = {
       name = mkOption {
+        readOnly = true;
         description = "Your Git Username";
         type = types.str;
-        readOnly = true;
+        example = "alice";
       };
       email = mkOption {
+        readOnly = true;
         description = "Your Git Email";
         type = types.str;
-        readOnly = true;
+        example = "example@gmail.com";
       };
     };
   };
