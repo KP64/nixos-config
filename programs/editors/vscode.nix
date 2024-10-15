@@ -53,6 +53,11 @@ in
             waderyan.gitblame
             wix.vscode-import-cost
           ]
+          ++ (with ms-toolsai; [
+            jupyter-renderers
+            jupyter-keymap
+            jupyter
+          ])
           ++ (with ms-python; [
             black-formatter
             python
