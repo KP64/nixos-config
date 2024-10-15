@@ -70,6 +70,7 @@
 
   networking =
     let
+      dnsPort = 53;
       port = 58008;
     in
     {
@@ -81,12 +82,13 @@
         # TODO: Enable IPv6
         enableIPv6 = false;
         externalInterface = "end0";
+        # TODO: when moving to module get interfaces automatically through options.
         internalInterfaces = [ "wg0" ];
       };
       firewall = {
-        allowedTCPPorts = [ 53 ];
+        allowedTCPPorts = [ dnsPort ];
         allowedUDPPorts = [
-          53
+          dnsPort
           port
         ];
       };
@@ -114,6 +116,8 @@
               ${ipv4tables} -t nat -D POSTROUTING -s 172.31.0.1/32 -o end0 -j MASQUERADE
             '';
 
+            # TODO: Increment automatically?
+            # TODO: require presharedKeyFile and route it to secret path automatically
             peers = [
               {
                 publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
@@ -127,6 +131,7 @@
               }
             ];
           };
+          # TODO: Mark external interfaces to diff with wich to include in firewall.
           wg1 = {
             autostart = false;
             address = [ "10.2.0.2/32" ];
