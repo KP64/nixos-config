@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   username,
   stateVersion,
   ...
@@ -68,85 +67,9 @@
     };
   };
 
-  networking =
-    let
-      dnsPort = 53;
-      port = 58008;
-    in
-    {
-      hostName = username;
-
-      # TODO: Move with wireguard to own module
-      nat = {
-        enable = true;
-        # TODO: Enable IPv6
-        enableIPv6 = false;
-        externalInterface = "end0";
-        # TODO: when moving to module get interfaces automatically through options.
-        internalInterfaces = [ "wg0" ];
-      };
-      firewall = {
-        allowedTCPPorts = [ dnsPort ];
-        allowedUDPPorts = [
-          dnsPort
-          port
-        ];
-      };
-
-      # TODO: rs as server and client at the same time?
-      wg-quick.interfaces =
-        let
-          inherit (config.sops) secrets;
-          ipv4tables = "${pkgs.iptables}/bin/iptables";
-        in
-        {
-          wg0 = {
-            autostart = true;
-            address = [ "172.31.0.1/32" ];
-            listenPort = port;
-            privateKeyFile = secrets."wg/keys/server".path;
-
-            postUp = ''
-              ${ipv4tables} -A FORWARD -i wg0 -j ACCEPT
-              ${ipv4tables} -t nat -A POSTROUTING -s 172.31.0.1/32 -o end0 -j MASQUERADE
-            '';
-
-            postDown = ''
-              ${ipv4tables} -D FORWARD -i wg0 -j ACCEPT
-              ${ipv4tables} -t nat -D POSTROUTING -s 172.31.0.1/32 -o end0 -j MASQUERADE
-            '';
-
-            # TODO: Increment automatically?
-            # TODO: require presharedKeyFile and route it to secret path automatically
-            peers = [
-              {
-                publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
-                allowedIPs = [ "172.31.0.2/32" ];
-                presharedKeyFile = secrets."wg/keys/preshared/lap".path;
-              }
-              {
-                publicKey = "8Ms2xhDzF3xlAqe88FEKtGJWjZ7TPtvLX+yhM6ZL6m4=";
-                allowedIPs = [ "172.31.0.3/32" ];
-                presharedKeyFile = secrets."wg/keys/preshared/hon".path;
-              }
-            ];
-          };
-          # TODO: Mark external interfaces to diff with wich to include in firewall.
-          wg1 = {
-            autostart = false;
-            address = [ "10.2.0.2/32" ];
-            dns = [ "10.2.0.1" ];
-            privateKeyFile = secrets."wg/keys/client".path;
-            peers = [
-              {
-                publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
-                allowedIPs = [ "0.0.0.0/0" ];
-                endpoint = "185.177.124.219:51820";
-              }
-            ];
-          };
-        };
-    };
+  networking = {
+    hostName = username;
+  };
 
   hardware = {
     bluetoothctl.enable = true;
@@ -208,6 +131,45 @@
         };
       }
     ];
+
+    networking.wireguard =
+      let
+        inherit (config.sops) secrets;
+      in
+      {
+        serverInterfaces.wg0 = {
+          autostart = true;
+          address = [ "172.31.0.1/32" ];
+          listenPort = 58008;
+          privateKeyFile = secrets."wg/keys/server".path;
+          peers = [
+            {
+              publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
+              allowedIPs = [ "172.31.0.2/32" ];
+              presharedKeyFile = secrets."wg/keys/preshared/lap".path;
+            }
+            {
+              publicKey = "8Ms2xhDzF3xlAqe88FEKtGJWjZ7TPtvLX+yhM6ZL6m4=";
+              allowedIPs = [ "172.31.0.3/32" ];
+              presharedKeyFile = secrets."wg/keys/preshared/hon".path;
+            }
+          ];
+        };
+
+        clientInterfaces.wg1 = {
+          autostart = false;
+          address = [ "10.2.0.2/32" ];
+          dns = [ "10.2.0.1" ];
+          privateKeyFile = secrets."wg/keys/client".path;
+          peers = [
+            {
+              publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
+              allowedIPs = [ "0.0.0.0/0" ];
+              endpoint = "185.177.124.219:51820";
+            }
+          ];
+        };
+      };
 
     networking.adguard = {
       enable = true;
