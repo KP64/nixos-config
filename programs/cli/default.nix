@@ -37,6 +37,7 @@
       lib.optional (pkgs.system != "aarch64-linux") pkgs.binsider
       ++ (with pkgs; [
         asciinema
+        dipc
         dust
         glow
         gping

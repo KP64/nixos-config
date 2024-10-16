@@ -13,5 +13,5 @@ config host=default_host:
 
 
 [confirm("Are you sure you want to build and flash the img?")]
-flash device: build
+flash device host=default_host: (build host)
     sudo dd if=result/sd-image/kernel.img of=/dev/{{ device }} status=progress

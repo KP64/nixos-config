@@ -43,8 +43,6 @@ let
     ) files
   );
 
-  # FIXME: japanese-neon doesn't work for whatever reason.
-  # TODO: Use Hyprpaper alternative since highly unstable.
   active_wallpaper = toString wallpapers.night;
 in
 {
