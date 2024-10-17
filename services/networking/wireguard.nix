@@ -141,21 +141,20 @@ in
           );
 
         serverInterfaces = lib.mapAttrs' (name: value: {
-            inherit name;
-            value = value // {
-              postUp =
-                ''
-                  ${ipv4tables} -A FORWARD -i ${name} -j ACCEPT
-                ''
-                + (setNAT "A" value.address);
-              postDown =
-                ''
-                  ${ipv4tables} -D FORWARD -i ${name} -j ACCEPT
-                ''
-                + (setNAT "D" value.address);
-            };
-          }) cfg.serverInterfaces;
-
+          inherit name;
+          value = value // {
+            postUp =
+              ''
+                ${ipv4tables} -A FORWARD -i ${name} -j ACCEPT
+              ''
+              + (setNAT "A" value.address);
+            postDown =
+              ''
+                ${ipv4tables} -D FORWARD -i ${name} -j ACCEPT
+              ''
+              + (setNAT "D" value.address);
+          };
+        }) cfg.serverInterfaces;
       in
       {
         nat = {

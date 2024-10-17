@@ -132,82 +132,83 @@
       }
     ];
 
-    networking.wireguard =
-      let
-        inherit (config.sops) secrets;
-      in
-      {
-        serverInterfaces.wg0 = {
-          autostart = true;
-          address = [ "172.31.0.1/32" ];
-          listenPort = 58008;
-          privateKeyFile = secrets."wg/keys/server".path;
-          peers = [
-            {
-              publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
-              allowedIPs = [ "172.31.0.2/32" ];
-              presharedKeyFile = secrets."wg/keys/preshared/lap".path;
-            }
-            {
-              publicKey = "8Ms2xhDzF3xlAqe88FEKtGJWjZ7TPtvLX+yhM6ZL6m4=";
-              allowedIPs = [ "172.31.0.3/32" ];
-              presharedKeyFile = secrets."wg/keys/preshared/hon".path;
-            }
-          ];
+    networking = {
+      wireguard =
+        let
+          inherit (config.sops) secrets;
+        in
+        {
+          serverInterfaces.wg0 = {
+            autostart = true;
+            address = [ "172.31.0.1/32" ];
+            listenPort = 58008;
+            privateKeyFile = secrets."wg/keys/server".path;
+            peers = [
+              {
+                publicKey = "lWc5hzembujk45Zxnhjcx/vE2b6sZLaagGdkMgpZs0o=";
+                allowedIPs = [ "172.31.0.2/32" ];
+                presharedKeyFile = secrets."wg/keys/preshared/lap".path;
+              }
+              {
+                publicKey = "8Ms2xhDzF3xlAqe88FEKtGJWjZ7TPtvLX+yhM6ZL6m4=";
+                allowedIPs = [ "172.31.0.3/32" ];
+                presharedKeyFile = secrets."wg/keys/preshared/hon".path;
+              }
+            ];
+          };
+
+          clientInterfaces.wg1 = {
+            autostart = false;
+            address = [ "10.2.0.2/32" ];
+            dns = [ "10.2.0.1" ];
+            privateKeyFile = secrets."wg/keys/client".path;
+            peers = [
+              {
+                publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
+                allowedIPs = [ "0.0.0.0/0" ];
+                endpoint = "185.177.124.219:51820";
+              }
+            ];
+          };
         };
 
-        clientInterfaces.wg1 = {
-          autostart = false;
-          address = [ "10.2.0.2/32" ];
-          dns = [ "10.2.0.1" ];
-          privateKeyFile = secrets."wg/keys/client".path;
-          peers = [
-            {
-              publicKey = "GqrhIyCiFfxq4hRI46+//Qtevp2D+gqzAIZrMAL//XM=";
-              allowedIPs = [ "0.0.0.0/0" ];
-              endpoint = "185.177.124.219:51820";
-            }
-          ];
-        };
+      adguard = {
+        enable = true;
+        users = [
+          {
+            name = "ka64";
+            password = "$2a$10$47XJ6KSFE4uXqACmYQQDaeDA4u6PVbCe8qD3xkcxel8TpwWBApawe";
+          }
+        ];
+        rewrites = [
+          {
+            domain = "pi.local";
+            answer = "192.168.2.204";
+          }
+        ];
+        allowedServices = [
+          "cloudflare"
+          "discord"
+          "epic_games"
+          "facebook"
+          "minecraft"
+          "nvidia"
+          "reddit"
+          "samsung_tv_plus"
+          "signal"
+          "spotify"
+          "steam"
+          "telegram"
+          "tiktok"
+          "twitch"
+          "ubisoft"
+          "whatsapp"
+          "xbox_live"
+          "youtube"
+        ];
       };
-
-    networking.adguard = {
-      enable = true;
-      users = [
-        {
-          name = "ka64";
-          password = "$2a$10$47XJ6KSFE4uXqACmYQQDaeDA4u6PVbCe8qD3xkcxel8TpwWBApawe";
-        }
-      ];
-      rewrites = [
-        {
-          domain = "pi.local";
-          answer = "192.168.2.204";
-        }
-      ];
-      allowedServices = [
-        "cloudflare"
-        "discord"
-        "epic_games"
-        "facebook"
-        "minecraft"
-        "nvidia"
-        "reddit"
-        "samsung_tv_plus"
-        "signal"
-        "spotify"
-        "steam"
-        "telegram"
-        "tiktok"
-        "twitch"
-        "ubisoft"
-        "whatsapp"
-        "xbox_live"
-        "youtube"
-      ];
     };
   };
-
   users.users.${username} = {
     hashedPasswordFile = config.sops.secrets.hashed_password.path;
     openssh.authorizedKeys.keys = [
