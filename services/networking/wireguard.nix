@@ -112,12 +112,11 @@ in
     assertions =
       let
         autoStartCount = interfaces: (lib.count (val: val.autostart) (lib.attrValues interfaces));
-        autoClients = (autoStartCount cfg.clientInterfaces);
+        autoClients = autoStartCount cfg.clientInterfaces;
       in
       [
         {
-          assertion =
-            !(((autoStartCount cfg.serverInterfaces) > 0) && (autoClients > 0));
+          assertion = !(((autoStartCount cfg.serverInterfaces) > 0) && (autoClients > 0));
           message = "You can't have wireguard running the device as a 'Server' and 'Client' simultaneously!";
         }
         {
@@ -141,8 +140,7 @@ in
             ) addresses
           );
 
-        serverInterfaces = (
-          lib.mapAttrs' (name: value: {
+        serverInterfaces = lib.mapAttrs' (name: value: {
             inherit name;
             value = value // {
               postUp =
@@ -156,8 +154,7 @@ in
                 ''
                 + (setNAT "D" value.address);
             };
-          }) cfg.serverInterfaces
-        );
+          }) cfg.serverInterfaces;
 
       in
       {
