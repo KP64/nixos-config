@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   username,
   stateVersion,
   ...
@@ -16,6 +17,8 @@
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
 
   cli = {
     defaults.enable = true;
