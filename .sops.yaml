@@ -1,6 +1,6 @@
 keys:
   - &kg age1lr7rp9ufur2vr5uy3q9hl6wkypzdk0h0ztvfx2fmf3lsw2fk33rs8jwqmv
-  - &rs age1l55yvuyrga0d549ms4t305w92n28g8q0xwwhy53qt2289rskf9mszfh5z8
+  - &rs age1xqj62rfr60nr62ynfuayjq0lca8avsxgrxmm4p272a79tt00n3ksqfh434
   - &ws age1rrds73cgd2nmd6py7j6cvpk28kwgu6kw30mhr0y4nz2crw9hf9cs6df32k
 creation_rules:
   - path_regex: hosts\/.+\/secrets\.(yaml|json|env|ini)$
