@@ -67,9 +67,7 @@
     };
   };
 
-  networking = {
-    hostName = username;
-  };
+  networking.hostName = username;
 
   hardware = {
     bluetoothctl.enable = true;
