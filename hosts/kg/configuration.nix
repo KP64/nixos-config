@@ -129,6 +129,7 @@
     helix.enable = true;
     imhex.enable = true;
     vscode.enable = true;
+    zed.enable = true;
   };
 
   apps = {

@@ -5,5 +5,6 @@
     ./helix.nix
     ./imhex.nix
     ./vscode.nix
+    ./zed.nix
   ];
 }

@@ -48,6 +48,7 @@ in
             rust-lang.rust-analyzer
             svelte.svelte-vscode
             tamasfe.even-better-toml
+            tauri-apps.tauri-vscode
             thenuprojectcontributors.vscode-nushell-lang
             usernamehw.errorlens
             vadimcn.vscode-lldb
