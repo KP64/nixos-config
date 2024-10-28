@@ -21,6 +21,11 @@
   options.desktop.defaults.enable = lib.mkEnableOption "Enables Desktop Utilities";
 
   config = lib.mkIf config.desktop.defaults.enable {
+    environment.pathsToLink = map (p: "/share/${p}") [
+      "xdg-desktop-portal"
+      "applications"
+    ];
+
     home-manager.users.${username} = {
       home.packages = with pkgs; [
         xdg-utils
@@ -32,18 +37,6 @@
         userDirs = {
           enable = true;
           createDirectories = true;
-        };
-        portal = {
-          enable = true;
-          xdgOpenUsePortal = true;
-          extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-          config = {
-            common.default = [ "gtk" ];
-            hyprland.default = [
-              "hyprland"
-              "gtk"
-            ];
-          };
         };
       };
     };

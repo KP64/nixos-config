@@ -86,13 +86,7 @@ in
       substituters = [ "https://hyprland.cachix.org" ];
       trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
-    environment = {
-      pathsToLink = map (p: "/share/${p}") [
-        "xdg-desktop-portal"
-        "applications"
-      ];
-      sessionVariables.NIXOS_OZONE_WL = "1";
-    };
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     # System wide install needed for e.g. SDDM
     programs.hyprland.enable = true;
@@ -114,7 +108,10 @@ in
               position = "${toString m.x}x${toString m.y}";
             in
             "${m.name}, ${
-              if m.enabled then "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}" else "disable"
+              if m.enabled then
+                "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}"
+              else
+                "disable"
             }"
           ) cfg.monitors;
 
