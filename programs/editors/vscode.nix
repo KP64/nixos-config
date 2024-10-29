@@ -24,6 +24,7 @@ in
           elijah-potter.harper
           jscearcy.rust-doc-viewer
           miguelsolorio.fluent-icons
+          rangav.vscode-thunder-client
           vivaxy.vscode-conventional-commits
         ])
         ++ (
