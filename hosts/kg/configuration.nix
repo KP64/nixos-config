@@ -11,7 +11,13 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  programs.noisetorch.enable = true;
+  programs = {
+    noisetorch.enable = true;
+    localsend = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
 
   system = {
     inherit stateVersion;
