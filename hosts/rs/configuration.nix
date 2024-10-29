@@ -172,7 +172,6 @@
         in
         {
           serverInterfaces.wg0 = {
-            autostart = true;
             address = [ "172.31.0.1/32" ];
             listenPort = 58008;
             privateKeyFile = secrets."wg/keys/server".path;

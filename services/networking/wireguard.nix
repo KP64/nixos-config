@@ -16,25 +16,22 @@ in
       example = "wlan0";
     };
 
-    # TODO: replace freestyle attrs?
     clientInterfaces = lib.mkOption {
       default = { };
       type = lib.types.attrs;
       description = "The interfaces to connect to others";
-      example = {
-        wg1 = {
-          autostart = false;
-          address = [ "10.0.0.0/32" ];
-          dns = [ "1.1.1.1" ];
-          privateKeyFile = "Path to your key";
-          peers = [
-            {
-              publicKey = "Your public Key";
-              allowedIPs = [ "0.0.0.0/0" ];
-              endpoint = "ip:port (of the server)";
-            }
-          ];
-        };
+      example.wg1 = {
+        autostart = false;
+        address = [ "10.0.0.0/32" ];
+        dns = [ "1.1.1.1" ];
+        privateKeyFile = "Path to your key";
+        peers = [
+          {
+            publicKey = "Your public Key";
+            allowedIPs = [ "0.0.0.0/0" ];
+            endpoint = "ip:port (of the server)";
+          }
+        ];
       };
     };
 
@@ -47,6 +44,7 @@ in
           options = {
             autostart = lib.mkOption {
               default = true;
+              type = lib.types.bool;
               example = false;
               description = "Wether to start this interface.";
             };
@@ -60,15 +58,15 @@ in
             };
 
             listenPort = lib.mkOption {
-              readOnly = true;
+              default = 51820;
               type = lib.types.port;
-              example = 51820;
+              example = 50000;
               description = "The port the interface listens on.";
             };
 
             privateKeyFile = lib.mkOption {
               readOnly = true;
-              type = lib.types.str;
+              type = lib.types.path;
               description = "The path to the file containing the privateKey.";
             };
 
