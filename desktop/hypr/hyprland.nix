@@ -108,10 +108,7 @@ in
               position = "${toString m.x}x${toString m.y}";
             in
             "${m.name}, ${
-              if m.enabled then
-                "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}"
-              else
-                "disable"
+              if m.enabled then "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}" else "disable"
             }"
           ) cfg.monitors;
 
