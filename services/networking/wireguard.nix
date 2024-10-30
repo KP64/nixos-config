@@ -136,6 +136,28 @@ in
         }
       ];
 
+    # TODO: Add clinetInterfaces in Topology
+    # TODO: Check whether CIDRv is correct
+    topology = {
+      networks = lib.mapAttrs (
+        name: value:
+        let
+          getCIDRv = addresses: if addresses == [ ] then null else builtins.elemAt addresses 0;
+        in
+        {
+          name = "Wireguard Net ${name}";
+          cidrv4 = getCIDRv value.address.ipv4;
+          cidrv6 = getCIDRv value.address.ipv6;
+        }
+      ) cfg.serverInterfaces;
+
+      self.interfaces = lib.mapAttrs (name: value: {
+        addresses = with value.address; ipv4 ++ ipv6;
+        network = name;
+        type = "wireguard";
+      }) cfg.serverInterfaces;
+    };
+
     networking =
       let
         serverInterfaces = lib.mapAttrs' (name: value: {

@@ -164,36 +164,13 @@
 
   networking.hostName = username;
 
-  topology =
+  topology.self.interfaces.wlp6s0 =
     let
-      inherit (config.lib.topology)
-        mkRouter
-        mkConnection
-        mkConnectionRev
-        mkInternet
-        ;
+      inherit (config.lib) topology;
     in
     {
-      self.interfaces.wlan.physicalConnections = [ (mkConnectionRev "router" "wlan") ];
-      nodes = {
-        internet = mkInternet {
-          connections = mkConnection "router" "wan1";
-        };
-        router = mkRouter "Router" {
-          info = "Speedport Smart 4";
-          # wan1 is the external DSL connection
-          interfaceGroups = [
-            [ "wlan" ]
-            [ "wan1" ]
-            [
-              "eth1"
-              "eth2"
-              "eth3"
-              "eth4"
-            ]
-          ];
-        };
-      };
+      network = "home";
+      physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
     };
 
   services.xserver.xkb = {

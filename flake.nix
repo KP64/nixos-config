@@ -240,10 +240,12 @@
         formatter = treefmtBuild.wrapper;
         checks.formatting = treefmtBuild.check self;
 
-        # TODO: Fill out Topology
         topology = import inputs.nix-topology {
           inherit pkgs;
-          modules = [ { inherit (self) nixosConfigurations; } ];
+          modules = [
+            ./topology
+            { inherit (self) nixosConfigurations; }
+          ];
         };
 
         devShells.default = pkgs.mkShell {

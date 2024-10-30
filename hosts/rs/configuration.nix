@@ -106,6 +106,21 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
+  topology.self =
+    let
+      inherit (config.lib) topology;
+    in
+    {
+      hardware = {
+        info = "Raspberry Pi 400";
+        image = ../../topology/rpi_400.png;
+      };
+      interfaces.end0 = {
+        network = "home";
+        physicalConnections = [ (topology.mkConnectionRev "router" "eth1") ];
+      };
+    };
+
   services = {
     immich = {
       enable = true;
