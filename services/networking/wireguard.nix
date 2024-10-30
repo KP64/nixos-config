@@ -49,12 +49,25 @@ in
               description = "Wether to start this interface.";
             };
 
-            # TODO: Add ipv6 versions
             address = lib.mkOption {
               readOnly = true;
-              type = with lib.types; listOf str;
-              example = [ "170.29.0.1/30" ];
-              description = "The addresses interface listens on.";
+              type = lib.types.submodule {
+                options = {
+                  ipv4 = lib.mkOption {
+                    default = [ ];
+                    type = with lib.types; listOf str;
+                    example = [ "10.0.0.1/24" ];
+                    description = "The IPv4 addresses interface listens on.";
+                  };
+
+                  ipv6 = lib.mkOption {
+                    default = [ ];
+                    type = with lib.types; listOf str;
+                    example = [ "fdc9:281f:04d7:9ee9::1/64" ];
+                    description = "The IPv4 addresses interface listens on.";
+                  };
+                };
+              };
             };
 
             listenPort = lib.mkOption {
@@ -125,48 +138,50 @@ in
 
     networking =
       let
-        dnsPort = 53;
-
-        ipv4tables = "${pkgs.iptables}/bin/iptables";
-
-        setNAT =
-          mode: addresses:
-          lib.concatLines (
-            map (
-              addr:
-              "${ipv4tables} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
-            ) addresses
-          );
-
         serverInterfaces = lib.mapAttrs' (name: value: {
           inherit name;
-          value = value // {
-            postUp =
-              ''
-                ${ipv4tables} -A FORWARD -i ${name} -j ACCEPT
-              ''
-              + (setNAT "A" value.address);
-            postDown =
-              ''
-                ${ipv4tables} -D FORWARD -i ${name} -j ACCEPT
-              ''
-              + (setNAT "D" value.address);
-          };
+          value =
+            let
+              setNAT =
+                ipv: mode:
+                let
+                  addresses = if (ipv == "iptables") then value.address.ipv4 else value.address.ipv6;
+                in
+                lib.concatLines (
+                  (lib.optional ((builtins.length addresses) != 0) "${ipv} -${mode} FORWARD -i ${name} -j ACCEPT")
+                  ++ (map (
+                    addr:
+                    "${pkgs.iptables}/bin/${ipv} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
+                  ) addresses)
+                );
+
+              setIPv4NAT = setNAT "iptables";
+              setIPv6NAT = setNAT "ip6tables";
+            in
+            value
+            // {
+              address = with value.address; ipv4 ++ ipv6;
+              postUp = (setIPv4NAT "A") + (setIPv6NAT "A");
+              postDown = (setIPv4NAT "D") + (setIPv6NAT "D");
+            };
         }) cfg.serverInterfaces;
       in
       {
         nat = {
           enable = true;
-          # TODO: Enable IPv6
-          enableIPv6 = false;
+          enableIPv6 = true;
           inherit (cfg) externalInterface;
           internalInterfaces = builtins.attrNames cfg.serverInterfaces;
         };
 
-        firewall = {
-          allowedTCPPorts = [ dnsPort ];
-          allowedUDPPorts = [ dnsPort ] ++ (map (i: i.listenPort) (builtins.attrValues cfg.serverInterfaces));
-        };
+        firewall =
+          let
+            dnsPort = 53;
+          in
+          {
+            allowedTCPPorts = [ dnsPort ];
+            allowedUDPPorts = [ dnsPort ] ++ (map (i: i.listenPort) (builtins.attrValues cfg.serverInterfaces));
+          };
 
         wg-quick.interfaces = serverInterfaces // cfg.clientInterfaces;
       };

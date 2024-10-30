@@ -11,63 +11,63 @@ let
   cfg = config.desktop.hypr.hyprland;
 in
 {
-  options.desktop.hypr.hyprland = with lib; {
-    enable = mkEnableOption "Enables Hyprland";
-    monitors = mkOption {
+  options.desktop.hypr.hyprland = {
+    enable = lib.mkEnableOption "Enables Hyprland";
+    monitors = lib.mkOption {
       readOnly = true;
-      type = types.listOf (
-        types.submodule {
+      type = lib.types.listOf (
+        lib.types.submodule {
           options = {
-            enabled = mkOption {
+            enabled = lib.mkOption {
               default = true;
-              type = types.bool;
+              type = lib.types.bool;
               description = "Whether the monitor is enabled.";
               example = false;
             };
-            name = mkOption {
+            name = lib.mkOption {
               readOnly = true;
-              type = types.str;
+              type = lib.types.str;
               description = "The descriptor of the Monitor.";
               example = "DP-1";
             };
-            resolution = mkOption {
+            resolution = lib.mkOption {
               default = "preferred";
-              type = types.enum [
+              type = lib.types.enum [
                 "preferred"
                 "highres"
                 "highrr"
               ];
               example = "highres";
             };
-            x = mkOption {
-              type = types.int;
+            x = lib.mkOption {
+              type = lib.types.int;
               default = 0;
               example = 1920;
             };
-            y = mkOption {
-              type = types.int;
+            y = lib.mkOption {
+              type = lib.types.int;
               default = 0;
               example = 1080;
             };
-            vrr = mkOption {
-              type = types.ints.between 0 2;
+            vrr = lib.mkOption {
+              type = lib.types.ints.between 0 2;
               default = 0;
               example = 1;
             };
-            workspaces = mkOption {
+            workspaces = lib.mkOption {
               default = [ ];
               description = "The workspaces to be assigned to the monitor.";
-              type = types.listOf (
-                types.submodule {
+              type = lib.types.listOf (
+                lib.types.submodule {
                   options = {
-                    id = mkOption {
+                    id = lib.mkOption {
                       readOnly = true;
-                      type = types.ints.between 1 10;
+                      type = lib.types.ints.between 1 10;
                       example = 1;
                     };
-                    default = mkOption {
+                    default = lib.mkOption {
                       default = false;
-                      type = types.bool;
+                      type = lib.types.bool;
                       description = "Whether this workspace should always appear on this monitor.";
                       example = true;
                     };

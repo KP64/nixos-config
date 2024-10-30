@@ -172,8 +172,8 @@
         in
         {
           serverInterfaces.wg0 = {
-            address = [ "172.31.0.1/32" ];
             listenPort = 58008;
+            address.ipv4 = [ "172.31.0.1/32" ];
             privateKeyFile = secrets."wg/keys/server".path;
             peers = [
               {
