@@ -73,12 +73,7 @@ in
           ./services
           ./system
           {
-            nixpkgs.overlays = with inputs; [
-              nur.overlay
-              nix-minecraft.overlay
-              blender-bin.overlays.default
-              hyprpanel.overlay
-            ];
+            nixpkgs.overlays = [ inputs.nur.overlay ];
             users = {
               mutableUsers = false;
               users.${username} = {

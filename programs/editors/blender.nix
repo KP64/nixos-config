@@ -8,7 +8,7 @@
 }:
 
 let
-  blender = pkgs.blender_4_2;
+  blender = inputs.blender-bin.packages.${pkgs.system}.default;
 
   firstTwoSigs = lib.take 2 (builtins.splitVersion blender.version);
   version = lib.concatStringsSep "." firstTwoSigs;

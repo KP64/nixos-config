@@ -92,10 +92,12 @@ in
     programs.hyprland.enable = true;
     home-manager.users.${username} = {
       home.packages =
-        [ inputs.hyprland-contrib.packages.${pkgs.system}.grimblast ]
+        (with inputs; [
+          hyprland-contrib.packages.${pkgs.system}.grimblast
+          hyprpanel.packages.${pkgs.system}.default
+        ])
         ++ (with pkgs; [
           kdePackages.dolphin
-          hyprpanel
           hyprpicker
         ]);
       wayland.windowManager.hyprland = {
