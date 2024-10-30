@@ -160,33 +160,32 @@ in
 
     networking =
       let
-        serverInterfaces = lib.mapAttrs' (name: value: {
-          inherit name;
-          value =
-            let
-              setNAT =
-                ipv: mode:
-                let
-                  addresses = if (ipv == "iptables") then value.address.ipv4 else value.address.ipv6;
-                in
-                lib.concatLines (
-                  (lib.optional ((builtins.length addresses) != 0) "${ipv} -${mode} FORWARD -i ${name} -j ACCEPT")
-                  ++ (map (
-                    addr:
-                    "${pkgs.iptables}/bin/${ipv} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
-                  ) addresses)
-                );
+        serverInterfaces = lib.mapAttrs (
+          name: value:
+          let
+            setNAT =
+              ipv: mode:
+              let
+                addresses = if (ipv == "iptables") then value.address.ipv4 else value.address.ipv6;
+              in
+              lib.concatLines (
+                (lib.optional ((builtins.length addresses) != 0) "${ipv} -${mode} FORWARD -i ${name} -j ACCEPT")
+                ++ (map (
+                  addr:
+                  "${pkgs.iptables}/bin/${ipv} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
+                ) addresses)
+              );
 
-              setIPv4NAT = setNAT "iptables";
-              setIPv6NAT = setNAT "ip6tables";
-            in
-            value
-            // {
-              address = with value.address; ipv4 ++ ipv6;
-              postUp = (setIPv4NAT "A") + (setIPv6NAT "A");
-              postDown = (setIPv4NAT "D") + (setIPv6NAT "D");
-            };
-        }) cfg.serverInterfaces;
+            setIPv4NAT = setNAT "iptables";
+            setIPv6NAT = setNAT "ip6tables";
+          in
+          value
+          // {
+            address = with value.address; ipv4 ++ ipv6;
+            postUp = (setIPv4NAT "A") + (setIPv6NAT "A");
+            postDown = (setIPv4NAT "D") + (setIPv6NAT "D");
+          }
+        ) cfg.serverInterfaces;
       in
       {
         nat = {
