@@ -1,11 +1,15 @@
 {
   disko.devices.disk.main = {
-    imageName = "nixos-x86-64-linux-kg";
     device = "/dev/sda";
     type = "disk";
     content = {
       type = "gpt";
       partitions = {
+        MBR = {
+          type = "EF02"; # for grub MBR
+          size = "1M";
+          priority = 1; # Needs to be first partition
+        };
         ESP = {
           type = "EF00";
           size = "512M";
