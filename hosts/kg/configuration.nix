@@ -7,7 +7,10 @@
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./disko-config.nix
+    ./hardware-configuration.nix
+  ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -23,7 +26,7 @@
       uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
-      secure-boot.enable = true;
+      # secure-boot.enable = true;
       sudo-rs.enable = true;
     };
     services.ssh.enable = true;
@@ -196,27 +199,34 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-    secrets.hashed_password.neededForUsers = true;
-  };
+  # sops = {
+  #   defaultSopsFile = ./secrets.yaml;
+  #   age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  #   secrets.hashed_password.neededForUsers = true;
+  # };
 
-  users.users.${username} = {
-    hashedPasswordFile = config.sops.secrets.hashed_password.path;
-    openssh.authorizedKeys.keys = [
+  users.users = {
+    root.openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKT7xeLXtNnAv4OqKRRVH3OZggXJJUxSz6kA7v6+Tlo karamalsadeh@hotmail.com"
     ];
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "input"
-      "docker"
-      "kvm"
-      "libvirtd"
-      "audio"
-      "video"
-      "tss"
-    ];
+
+    ${username} = {
+      # hashedPasswordFile = config.sops.secrets.hashed_password.path;
+      initialPassword = "12345";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKT7xeLXtNnAv4OqKRRVH3OZggXJJUxSz6kA7v6+Tlo karamalsadeh@hotmail.com"
+      ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "input"
+        "docker"
+        "kvm"
+        "libvirtd"
+        "audio"
+        "video"
+        "tss"
+      ];
+    };
   };
 }

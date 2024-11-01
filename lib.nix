@@ -63,7 +63,10 @@ in
           ;
       };
       modules =
-        [ inputs.nix-topology.nixosModules.default ]
+        (with inputs; [
+          nix-topology.nixosModules.default
+          disko.nixosModules.disko
+        ])
         ++ nixpkgs.lib.optional pi inputs.raspberry-pi-nix.nixosModules.raspberry-pi
         ++ [
           ./hosts/${username}/configuration.nix
