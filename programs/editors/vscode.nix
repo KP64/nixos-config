@@ -25,6 +25,7 @@ in
           jscearcy.rust-doc-viewer
           miguelsolorio.fluent-icons
           rangav.vscode-thunder-client
+          rszyma.vscode-kanata
           vivaxy.vscode-conventional-commits
         ])
         ++ (
