@@ -26,6 +26,7 @@
       secure-boot.enable = true;
       sudo-rs.enable = true;
     };
+    services.ssh.enable = true;
     fonts.extraFonts = with pkgs; [
       cascadia-code
       iosevka
@@ -203,6 +204,9 @@
 
   users.users.${username} = {
     hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKT7xeLXtNnAv4OqKRRVH3OZggXJJUxSz6kA7v6+Tlo karamalsadeh@hotmail.com"
+    ];
     extraGroups = [
       "networkmanager"
       "wheel"
