@@ -207,21 +207,21 @@
 
   # TODO: Figure out nixos-anywhere with sops-nix
   users.users.${username} = {
-      # hashedPasswordFile = config.sops.secrets.hashed_password.path;
-      initialPassword = "12345";
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKT7xeLXtNnAv4OqKRRVH3OZggXJJUxSz6kA7v6+Tlo karamalsadeh@hotmail.com"
-      ];
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "input"
-        "docker"
-        "kvm"
-        "libvirtd"
-        "audio"
-        "video"
-        "tss"
-      ];
+    # hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    initialPassword = "12345";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKT7xeLXtNnAv4OqKRRVH3OZggXJJUxSz6kA7v6+Tlo karamalsadeh@hotmail.com"
+    ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "input"
+      "docker"
+      "kvm"
+      "libvirtd"
+      "audio"
+      "video"
+      "tss"
+    ];
   };
 }
