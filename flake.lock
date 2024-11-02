@@ -154,6 +154,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730190761,
+        "narHash": "sha256-o5m5WzvY6cGIDupuOvjgNSS8AN6yP2iI9MtUC6q/uos=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "3979285062d6781525cded0f6c4ff92e71376b55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -1061,6 +1081,7 @@
         "catppuccin-blender": "catppuccin-blender",
         "catppuccin-heroic": "catppuccin-heroic",
         "catppuccin-imhex": "catppuccin-imhex",
+        "disko": "disko",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "hm": "hm",
