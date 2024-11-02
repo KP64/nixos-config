@@ -10,20 +10,14 @@
   config = lib.mkIf config.system.boot.efi.enable {
     boot = {
       kernelPackages = pkgs.linuxPackages_zen;
-      supportedFilesystems = [ "btrfs" ];
-      # tmp.cleanOnBoot = true;
+      tmp.cleanOnBoot = true;
       loader = {
         efi.canTouchEfiVariables = true;
-        grub = {
+        systemd-boot = {
           enable = true;
-          efiSupport = true;
-          # efiInstallAsRemovable = true;
+          editor = false;
+          configurationLimit = 15;
         };
-        # systemd-boot = {
-        #   enable = true;
-        #   editor = false;
-        #   configurationLimit = 15;
-        # };
       };
     };
   };
