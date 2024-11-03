@@ -18,9 +18,22 @@
         root = {
           size = "100%";
           content = {
-            type = "filesystem";
-            format = "ext4";
-            mountpoint = "/";
+            type = "btrfs";
+            extraArgs = [ "-f" ];
+            subvolumes = {
+              "/" = {
+                mountpoint = "/";
+                mountOptions = [ "subvol=root" ];
+              };
+              "/persist" = {
+                mountpoint = "/persist";
+                mountOptions = [ "subvol=persist" ];
+              };
+              "/nix" = {
+                mountpoint = "/nix";
+                mountOptions = [ "subvol=nix" ];
+              };
+            };
           };
         };
       };

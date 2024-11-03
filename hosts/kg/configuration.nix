@@ -14,32 +14,45 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  programs.localsend = {
-    enable = true;
-    openFirewall = true;
+  # programs.localsend = {
+  #   enable = true;
+  #   openFirewall = true;
+  # };
+
+  environment.persistence."/persist/system" = {
+    hideMounts = true;
+    directories = [
+      "/etc/nixos"
+      "/var/log"
+      "/var/lib/bluetooth"
+      "/var/lib/nixos"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
+    ];
   };
 
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
+    impermanence.enable = true;
     security = {
-      uutils-coreutils.enable = true;
+      # uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
       # secure-boot.enable = true;
-      sudo-rs.enable = true;
+      # sudo-rs.enable = true;
     };
     services.ssh.enable = true;
-    fonts.extraFonts = with pkgs; [
-      cascadia-code
-      iosevka
-      siji
-      weather-icons
-    ];
+    # fonts.extraFonts = with pkgs; [
+    #   cascadia-code
+    #   iosevka
+    #   siji
+    #   weather-icons
+    # ];
   };
 
   cli = {
-    defaults.enable = true;
+    # defaults.enable = true;
 
     git = {
       enable = true;
@@ -56,20 +69,20 @@
 
     file-managers = {
       yazi.enable = true;
-      broot.enable = true;
+      # broot.enable = true;
     };
 
-    ricing = {
-      defaults.enable = true;
-      cava.enable = true;
-      fetchers.enable = true;
-    };
+    # ricing = {
+    #   defaults.enable = true;
+    #   cava.enable = true;
+    #   fetchers.enable = true;
+    # };
 
     terminals.kitty.enable = true;
 
     monitors = {
       btop.enable = true;
-      bandwhich.enable = true;
+      # bandwhich.enable = true;
     };
   };
 
@@ -83,7 +96,7 @@
   desktop = {
     defaults.enable = true;
 
-    eww.enable = true;
+    # eww.enable = true;
 
     rofi.enable = true;
 
@@ -131,37 +144,37 @@
   };
 
   editors = {
-    aseprite.enable = true;
-    blender.enable = true;
+    # aseprite.enable = true;
+    # blender.enable = true;
     helix.enable = true;
-    imhex.enable = true;
-    vscode.enable = true;
-    zed.enable = true;
+    # imhex.enable = true;
+    # vscode.enable = true;
+    # zed.enable = true;
   };
 
   apps = {
-    defaults.enable = true;
-    spicetify.enable = true;
-    obs.enable = true;
-    mpv.enable = true;
-    thunderbird.enable = true;
-    browsers = {
-      firefox.enable = true;
-      tor.enable = true;
-    };
+    # defaults.enable = true;
+    # spicetify.enable = true;
+    # obs.enable = true;
+    # mpv.enable = true;
+    # thunderbird.enable = true;
+    # browsers = {
+    #   firefox.enable = true;
+    #   tor.enable = true;
+    # };
   };
 
-  virt.docker.enable = true;
+  # virt.docker.enable = true;
 
-  gaming = {
-    defaults.enable = true;
-    discord.enable = true;
-    emulators.enable = true;
-    heroic.enable = true;
-    mangohud.enable = true;
-    gamemode.enable = true;
-    steam.enable = true;
-  };
+  # gaming = {
+  #   defaults.enable = true;
+  #   discord.enable = true;
+  #   emulators.enable = true;
+  #   heroic.enable = true;
+  #   mangohud.enable = true;
+  #   gamemode.enable = true;
+  #   steam.enable = true;
+  # };
 
   networking.hostName = username;
 
