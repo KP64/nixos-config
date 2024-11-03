@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  username,
   ...
 }:
 {
@@ -11,9 +12,26 @@
 
   config = lib.mkIf config.system.impermanence.enable {
     programs.fuse.userAllowOther = true;
-    # services.btrfs.autoScrub.enable = true;
+
+    services.btrfs.autoScrub.enable = true;
+
     fileSystems."/persist".neededForBoot = true;
-    # TODO: Is it needed to Allow Btrfs???
+
+    environment.persistence."/persist" = {
+      hideMounts = true;
+      directories = [
+        "/etc/nixos"
+        "/var/log"
+        "/var/lib/bluetooth"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+        "/etc/NetworkManager/system-connections"
+      ];
+      users.${username}.directories = [
+        "nixos-config"
+        ".ssh"
+      ];
+    };
 
     # TODO: Use writers instead of multiline string?
     boot.initrd.postDeviceCommands =
