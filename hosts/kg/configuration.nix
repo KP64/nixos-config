@@ -14,10 +14,10 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  # programs.localsend = {
-  #   enable = true;
-  #   openFirewall = true;
-  # };
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 
   environment.persistence."/persist/system" = {
     hideMounts = true;
@@ -36,23 +36,23 @@
     boot.efi.enable = true;
     impermanence.enable = true;
     security = {
-      # uutils-coreutils.enable = true;
+      uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
       # secure-boot.enable = true;
-      # sudo-rs.enable = true;
+      sudo-rs.enable = true;
     };
     services.ssh.enable = true;
-    # fonts.extraFonts = with pkgs; [
-    #   cascadia-code
-    #   iosevka
-    #   siji
-    #   weather-icons
-    # ];
+    fonts.extraFonts = with pkgs; [
+      cascadia-code
+      iosevka
+      siji
+      weather-icons
+    ];
   };
 
   cli = {
-    # defaults.enable = true;
+    defaults.enable = true;
 
     git = {
       enable = true;
@@ -69,20 +69,20 @@
 
     file-managers = {
       yazi.enable = true;
-      # broot.enable = true;
+      broot.enable = true;
     };
 
-    # ricing = {
-    #   defaults.enable = true;
-    #   cava.enable = true;
-    #   fetchers.enable = true;
-    # };
+    ricing = {
+      defaults.enable = true;
+      cava.enable = true;
+      fetchers.enable = true;
+    };
 
     terminals.kitty.enable = true;
 
     monitors = {
       btop.enable = true;
-      # bandwhich.enable = true;
+      bandwhich.enable = true;
     };
   };
 
@@ -96,7 +96,7 @@
   desktop = {
     defaults.enable = true;
 
-    # eww.enable = true;
+    eww.enable = true;
 
     rofi.enable = true;
 
