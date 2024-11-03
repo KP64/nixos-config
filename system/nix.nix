@@ -29,6 +29,7 @@ in
         experimental-features = [
           "nix-command"
           "flakes"
+          "no-url-literals"
         ];
         auto-optimise-store = true;
         trusted-users = [ username ] ++ cfg.extraTrustedUsers;
