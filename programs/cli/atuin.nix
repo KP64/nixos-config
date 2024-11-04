@@ -7,7 +7,7 @@
       filter_mode_shell_up_key_binding = "directory";
     };
   };
-  environment.persistence."/persist".users.${username}.directories = [ 
+  environment.persistence."/persist".users.${username}.directories = [
     ".local/share/atuin"
   ];
 }

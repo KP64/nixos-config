@@ -27,7 +27,7 @@
       steam-run
       openarena
     ];
-    environment.persistence."/persist".users.${username}.directories = [ 
+    environment.persistence."/persist".users.${username}.directories = [
       ".local/share/ATLauncher"
       ".local/share/bottles"
     ];

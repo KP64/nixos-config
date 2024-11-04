@@ -41,7 +41,7 @@
       czkawka
       lmms
     ];
-    environment.persistence."/persist".users.${username}.directories = [ 
+    environment.persistence."/persist".users.${username}.directories = [
       ".config/Signal"
       ".config/simplex"
       ".local/share/simplex"

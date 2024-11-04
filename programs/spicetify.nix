@@ -14,7 +14,7 @@ in
   options.apps.spicetify.enable = lib.mkEnableOption "Enables Spicetify";
 
   config = lib.mkIf config.apps.spicetify.enable {
-    environment.persistence."/persist".users.${username}.directories = [ 
+    environment.persistence."/persist".users.${username}.directories = [
       ".config/spotify"
       ".cache/spotify"
     ];

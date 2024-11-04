@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.gaming.emulators.cemu.enable {
     home-manager.users.${username}.home.packages = [ pkgs.cemu ];
-    environment.persistence."/persist".users.${username}.directories = [ 
+    environment.persistence."/persist".users.${username}.directories = [
       ".config/Cemu"
     ];
   };
