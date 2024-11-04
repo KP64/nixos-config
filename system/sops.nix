@@ -18,7 +18,7 @@
       ssh-to-age
     ];
     persistence."/persist".users.${username}.directories = [
-      ".config/sops/age/keys.txt"
+      ".config/sops/age"
     ];
   };
 }
