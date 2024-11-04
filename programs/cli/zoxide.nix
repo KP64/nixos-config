@@ -4,4 +4,8 @@
     enable = true;
     options = [ "--cmd cd" ];
   };
+
+  environment.persistence."/persist".users.${username}.directories = [
+    ".local/share/zoxide"
+  ];
 }

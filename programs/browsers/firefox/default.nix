@@ -22,6 +22,9 @@ in
   options.apps.browsers.firefox.enable = lib.mkEnableOption "Enables Firefox";
 
   config = lib.mkIf config.apps.browsers.firefox.enable {
+    environment.persistence."/persist".users.${username}.directories = [ 
+      ".mozilla/firefox"
+    ];
     home-manager.users.${username} = {
       home.file.".mozilla/firefox/${username}/chrome" = {
         source = "${inputs.potato-fox}/chrome/";

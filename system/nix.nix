@@ -58,6 +58,10 @@ in
         statix
       ]);
 
+    environment.persistence."/persist".users.${username}.directories = [
+      ".local/share/direnv"
+    ];
+
     home-manager.users.${username} = {
       imports = [ inputs.nix-index-database.hmModules.nix-index ];
       nix.gc.automatic = true;

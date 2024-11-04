@@ -17,6 +17,9 @@
 
     fileSystems."/persist".neededForBoot = true;
 
+    # TODO: Group them mounts together
+    # TODO: More granular persistence across the board
+    # If it doesn't break without it, its not needed ;)
     environment.persistence."/persist" = {
       hideMounts = true;
       directories = [

@@ -17,5 +17,8 @@
         recursive = true;
       };
     };
+    environment.persistence."/persist".users.${username}.directories = [ 
+      ".config/aseprite/aseprite.ini"
+    ];
   };
 }

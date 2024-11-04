@@ -132,37 +132,37 @@
   };
 
   editors = {
-    # aseprite.enable = true;
-    # blender.enable = true;
+    aseprite.enable = true;
+    blender.enable = true;
     helix.enable = true;
-    # imhex.enable = true;
-    # vscode.enable = true;
-    # zed.enable = true;
+    imhex.enable = true;
+    vscode.enable = true;
+    zed.enable = true;
   };
 
   apps = {
-    # defaults.enable = true;
-    # spicetify.enable = true;
-    # obs.enable = true;
-    # mpv.enable = true;
-    # thunderbird.enable = true;
-    # browsers = {
-    #   firefox.enable = true;
-    #   tor.enable = true;
-    # };
+    defaults.enable = true;
+    spicetify.enable = true;
+    obs.enable = true;
+    mpv.enable = true;
+    thunderbird.enable = true;
+    browsers = {
+      firefox.enable = true;
+      tor.enable = true;
+    };
   };
 
-  # virt.docker.enable = true;
+  virt.docker.enable = true;
 
-  # gaming = {
-  #   defaults.enable = true;
-  #   discord.enable = true;
-  #   emulators.enable = true;
-  #   heroic.enable = true;
-  #   mangohud.enable = true;
-  #   gamemode.enable = true;
-  #   steam.enable = true;
-  # };
+  gaming = {
+    defaults.enable = true;
+    discord.enable = true;
+    emulators.enable = true;
+    heroic.enable = true;
+    mangohud.enable = true;
+    gamemode.enable = true;
+    steam.enable = true;
+  };
 
   networking.hostName = username;
 
