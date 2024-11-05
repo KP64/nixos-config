@@ -199,15 +199,20 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-    secrets.hashed_password.neededForUsers = true;
-  };
+  # sops = {
+  #   defaultSopsFile = ./secrets.yaml;
+  #   age = {
+  #     keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  #     sshKeyPaths = [ ];
+  #     generateKey = true;
+  #   };
+  #   secrets.hashed_password.neededForUsers = true;
+  # };
 
   # TODO: Figure out nixos-anywhere with sops-nix
   users.users.${username} = {
-    hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    # hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    initialPassword = "12345";
     extraGroups = [
       "networkmanager"
       "wheel"
