@@ -164,6 +164,15 @@
   };
 
   networking.hostName = username;
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age = {
+      keyFile = "/home/${username}/.config/sops/age/keys.txt";
+      sshKeyPaths = [ "/home/${username}/.ssh/id_ed25519" ];
+      generateKey = true;
+    };
+    secrets.hashed_password.neededForUsers = true;
+  };
 
   topology.self.interfaces.wlp6s0 =
     let
@@ -198,16 +207,6 @@
 
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
-
-  # sops = {
-  #   defaultSopsFile = ./secrets.yaml;
-  #   age = {
-  #     keyFile = "/home/${username}/.config/sops/age/keys.txt";
-  #     sshKeyPaths = [ ];
-  #     generateKey = true;
-  #   };
-  #   secrets.hashed_password.neededForUsers = true;
-  # };
 
   # TODO: Figure out nixos-anywhere with sops-nix
   users.users.${username} = {
