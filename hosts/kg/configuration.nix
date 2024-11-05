@@ -167,7 +167,7 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age = {
-      keyFile = "/home/${username}/.config/sops/age/keys.txt";
+      keyFile = "/persist/home/${username}/.config/sops/age/keys.txt";
       sshKeyPaths = [ "/home/${username}/.ssh/id_ed25519" ];
     };
     secrets.hashed_password.neededForUsers = true;
@@ -209,8 +209,7 @@
 
   # TODO: Figure out nixos-anywhere with sops-nix
   users.users.${username} = {
-    # hashedPasswordFile = config.sops.secrets.hashed_password.path;
-    initialPassword = "12345";
+    hashedPasswordFile = config.sops.secrets.hashed_password.path;
     extraGroups = [
       "networkmanager"
       "wheel"
