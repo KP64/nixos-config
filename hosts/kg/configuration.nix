@@ -156,7 +156,7 @@
   gaming = {
     defaults.enable = true;
     discord.enable = true;
-    emulators.enable = true;
+    # emulators.enable = true;
     heroic.enable = true;
     mangohud.enable = true;
     gamemode.enable = true;

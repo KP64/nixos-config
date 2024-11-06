@@ -45,6 +45,10 @@
       ".config/Signal"
       ".config/simplex"
       ".local/share/simplex"
+
+      ".config/whatsapp-for-linux"
+      ".cache/whatsapp-for-linux"
+      ".local/share/whatsapp-for-linux"
     ];
   };
 }

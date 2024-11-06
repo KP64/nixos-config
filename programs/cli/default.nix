@@ -53,7 +53,7 @@
         rustscan
         sd
         sshx
-        tailspin
+        # tailspin
         tokei
         treefmt2
         typst
