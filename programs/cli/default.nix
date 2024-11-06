@@ -59,7 +59,7 @@
         typst
         xh
 
-        # ani-cli
+        ani-cli
         sherlock
 
         ouch
