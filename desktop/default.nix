@@ -26,6 +26,17 @@
       "applications"
     ];
 
+    environment.persistence."/persist".users.${username}.directories = [
+      "Desktop"
+      "Documents"
+      "Downloads"
+      "Music"
+      "Pictures"
+      "Public"
+      "Templates"
+      "Videos"
+    ];
+
     home-manager.users.${username} = {
       home.packages = with pkgs; [
         xdg-utils

@@ -41,14 +41,18 @@
       czkawka
       lmms
     ];
-    environment.persistence."/persist".users.${username}.directories = [
-      ".config/Signal"
-      ".config/simplex"
-      ".local/share/simplex"
 
-      ".config/whatsapp-for-linux"
-      ".cache/whatsapp-for-linux"
-      ".local/share/whatsapp-for-linux"
-    ];
+    environment.persistence."/persist".users.${username}.directories =
+      [ ".cache/whatsapp-for-linux" ]
+      ++ (map (p: ".local/share/${p}") [
+        "simplex"
+        "whatsapp-for-linux"
+      ])
+      ++ (map (p: ".config/${p}") [
+        "libreoffice"
+        "Signal"
+        "simplex"
+        "whatsapp-for-linux"
+      ]);
   };
 }

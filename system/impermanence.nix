@@ -11,6 +11,11 @@
   options.system.impermanence.enable = lib.mkEnableOption "Enable Impermanence.";
 
   config = lib.mkIf config.system.impermanence.enable {
+    home-manager.users.${username} = {
+      imports = [ inputs.impermanence.homeManagerModules.impermanence ];
+      home.persistence."/persist".allowOther = true;
+    };
+
     programs.fuse.userAllowOther = true;
 
     services.btrfs.autoScrub.enable = true;
@@ -22,17 +27,25 @@
     # If it doesn't break without it, its not needed ;)
     environment.persistence."/persist" = {
       hideMounts = true;
-      directories = [
-        "/var/log"
-        "/var/lib/bluetooth"
-        "/var/lib/nixos"
-        "/var/lib/systemd/coredump"
-        "/etc/NetworkManager/system-connections"
-      ];
+      directories =
+        [
+          "/etc/NetworkManager/system-connections"
+          "/var/log"
+        ]
+        ++ (map (x: "/var/lib/${x}") [
+          "bluetooth"
+          "nixos"
+          "btrfs" # records fs scrubbing status: https://btrfs.readthedocs.io/en/latest/Scrub.html
+          "systemd/coredump"
+        ]);
+
       users.${username}.directories = [
         "nixos-config"
+        ".local/share/gnupg"
+        ".gnupg"
         ".ssh"
       ];
+
     };
 
     # TODO: Use writers instead of multiline string?

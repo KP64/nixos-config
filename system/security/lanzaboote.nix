@@ -11,7 +11,10 @@
 
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
   config = lib.mkIf config.system.security.secure-boot.enable {
-    environment.systemPackages = [ pkgs.sbctl ];
+    environment = {
+      systemPackages = [ pkgs.sbctl ];
+      persistence."/persist".directories = [ config.boot.lanzaboote.pkiBundle ];
+    };
     boot = {
       # Lanzaboote currently replaces the systemd-boot module.
       # This setting is usually set to true in configuration.nix

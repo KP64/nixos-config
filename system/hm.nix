@@ -14,6 +14,7 @@
     };
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "backup";
 
     users.${username} = {
       programs.home-manager.enable = true;

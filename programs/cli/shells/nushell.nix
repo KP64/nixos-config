@@ -31,6 +31,7 @@ in
   options.cli.shells.nushell.enable = lib.mkEnableOption "Enable nushell";
 
   config = lib.mkIf config.cli.shells.nushell.enable {
+    environment.persistence."/persist".users.${username}.files = [ ".config/nushell/history.txt" ];
     home-manager.users.${username} = {
       xdg.configFile."nushell/plugin.msgpackz".source = "${msgPackz}/plugin.msgpackz";
       programs.nushell = {
