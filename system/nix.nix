@@ -23,7 +23,8 @@ in
   config = {
     nix = {
       package = pkgs.nixVersions.latest;
-      channel.enable = true; # ? Rust-Analyzer Needs it
+      channel.enable = false;
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ]; # import <nixpkgs>
       optimise.automatic = true;
       settings = {
         experimental-features = [
