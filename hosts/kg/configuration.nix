@@ -207,7 +207,6 @@
   console.keyMap = "de";
   nixpkgs.config.allowUnfree = true;
 
-  # TODO: Figure out nixos-anywhere with sops-nix
   users.users.${username} = {
     hashedPasswordFile = config.sops.secrets.hashed_password.path;
     extraGroups = [

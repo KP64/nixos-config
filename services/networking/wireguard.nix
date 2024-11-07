@@ -136,7 +136,7 @@ in
         }
       ];
 
-    # TODO: Add clinetInterfaces in Topology
+    # TODO: Add clientInterfaces in Topology
     # TODO: Check whether CIDRv is correct
     topology = {
       networks = lib.mapAttrs (
