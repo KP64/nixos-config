@@ -142,7 +142,7 @@ in
       networks = lib.mapAttrs (
         name: value:
         let
-          getCIDRv = addresses: if addresses == [ ] then null else builtins.elemAt addresses 0;
+          getCIDRv = addresses: if addresses == [ ] then null else builtins.head addresses;
         in
         {
           name = "Wireguard Net ${name}";
