@@ -27,9 +27,9 @@
       steam-run
       openarena
     ];
-    environment.persistence."/persist".users.${username}.directories = [
-      ".local/share/ATLauncher"
-      ".local/share/bottles"
+    environment.persistence."/persist".users.${username}.directories = map (p: ".local/share/${p}") [
+      "ATLauncher"
+      "bottles"
     ];
   };
 }
