@@ -130,6 +130,8 @@
       machine-learning.enable = false;
     };
 
+    stirling-pdf.enable = true;
+
     gaming.minecraft.servers = [
       {
         name = "myServer";
