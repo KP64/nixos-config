@@ -32,6 +32,7 @@ in
         enable = true;
         defaultCursor = "catppuccin-mocha-dark-cursors";
       };
+      size = 24;
     };
 
     gtk =
