@@ -16,6 +16,7 @@ in
   };
   home-manager.users.${username} = {
     imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+
     catppuccin = {
       enable = true;
       inherit accent;
@@ -24,6 +25,15 @@ in
         accent = "dark";
       };
     };
+
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11 = {
+        enable = true;
+        defaultCursor = "catppuccin-mocha-dark-cursors";
+      };
+    };
+
     gtk =
       {
         enable = true;

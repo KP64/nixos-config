@@ -21,14 +21,6 @@
       home = {
         inherit username stateVersion;
         homeDirectory = "/home/${username}";
-        pointerCursor = {
-          gtk.enable = true;
-          x11 = {
-            enable = true;
-            defaultCursor = "catppuccin-mocha-dark-cursors";
-          };
-          size = 24;
-        };
       };
     };
   };
