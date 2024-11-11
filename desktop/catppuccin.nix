@@ -26,14 +26,21 @@ in
       };
     };
 
-    home.pointerCursor = {
-      gtk.enable = true;
-      x11 = {
-        enable = true;
-        defaultCursor = "catppuccin-mocha-dark-cursors";
+    home =
+      let
+        size = 24;
+      in
+      {
+        sessionVariables.XCURSOR_SIZE = size;
+        pointerCursor = {
+          gtk.enable = true;
+          x11 = {
+            enable = true;
+            defaultCursor = "catppuccin-mocha-dark-cursors";
+          };
+          inherit size;
+        };
       };
-      size = 24;
-    };
 
     gtk =
       {
