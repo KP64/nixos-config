@@ -1,6 +1,7 @@
 {
   imports = [
     ./bash.nix
-    ./nushell.nix
+
+    ./nushell
   ];
 }
