@@ -68,12 +68,13 @@ in
     home-manager.users.${username} = {
       imports = [ inputs.nix-index-database.hmModules.nix-index ];
       nix.gc.automatic = true;
-      home.sessionVariables.DIRENV_LOG_FORMAT = "";
+
       programs = {
         nix-index.enable = true;
         nix-index-database.comma.enable = true;
         direnv = {
           enable = true;
+          silent = true;
           nix-direnv.enable = true;
         };
       };
