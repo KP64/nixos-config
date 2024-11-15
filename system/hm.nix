@@ -9,9 +9,6 @@
   imports = [ inputs.hm.nixosModules.default ];
 
   home-manager = {
-    extraSpecialArgs = {
-      inherit username stateVersion;
-    };
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
