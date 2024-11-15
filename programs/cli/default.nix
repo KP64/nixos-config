@@ -26,6 +26,7 @@
     ./navi.nix
     ./greps.nix
     ./tealdeer.nix
+    ./thefuck.nix
     ./zellij.nix
     ./zoxide.nix
   ];
