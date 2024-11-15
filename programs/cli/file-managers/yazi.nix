@@ -2,11 +2,12 @@
   pkgs,
   lib,
   config,
+  inputs,
   username,
   ...
 }:
 {
-  options.cli.file-managers.yazi.enable = lib.mkEnableOption "Enables Broot";
+  options.cli.file-managers.yazi.enable = lib.mkEnableOption "Enables Yazi";
 
   config = lib.mkIf config.cli.file-managers.yazi.enable {
     nix.settings = {
@@ -17,6 +18,7 @@
       home.packages = [ pkgs.exiftool ];
       programs.yazi = {
         enable = true;
+        package = inputs.yazi.packages.${pkgs.system}.default;
         settings.manager.show_hidden = true;
       };
     };

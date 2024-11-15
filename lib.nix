@@ -67,7 +67,13 @@ in
           nix-topology.nixosModules.default
           disko.nixosModules.disko
         ])
-        ++ nixpkgs.lib.optional pi inputs.raspberry-pi-nix.nixosModules.raspberry-pi
+        ++ nixpkgs.lib.optionals pi (
+          with inputs.raspberry-pi-nix.nixosModules;
+          [
+            raspberry-pi
+            sd-image
+          ]
+        )
         ++ [
           ./hosts/${username}/configuration.nix
           ./desktop

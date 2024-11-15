@@ -102,6 +102,7 @@ in
         ]);
       wayland.windowManager.hyprland = {
         enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         systemd.variables = [ "--all" ];
         settings = {
           monitor = map (
@@ -145,7 +146,8 @@ in
           decoration = {
             rounding = 8;
 
-            "col.shadow" = "$mantle";
+            shadow.color = "$mantle";
+
             blur = {
               enabled = true;
               size = 2;

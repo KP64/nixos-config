@@ -34,6 +34,7 @@
 
   config = lib.mkIf config.cli.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
+      ani-cli
       asciinema
       binsider
       dipc
@@ -48,20 +49,15 @@
       just
       kondo
       lychee
+      ouch
       procs
       rustscan
       sd
+      sherlock
       sshx
-      # tailspin
       tokei
-      treefmt2
       typst
       xh
-
-      ani-cli
-      sherlock
-
-      ouch
     ];
   };
 }
