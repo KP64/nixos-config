@@ -21,7 +21,6 @@ in
       package = pkgs.vscodium;
       extensions =
         (with vscode-marketplace; [
-          elijah-potter.harper
           jscearcy.rust-doc-viewer
           miguelsolorio.fluent-icons
           rangav.vscode-thunder-client
