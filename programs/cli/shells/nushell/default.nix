@@ -14,17 +14,17 @@ let
     skim
   ];
 
-  activateNuPluginsScript = pkgs.writers.writeNu "activateNuPlugins" (
-    lib.concatLines (
-      map (
-        plugin:
-        let
-          plugin_name = builtins.replaceStrings [ "nushell" ] [ "nu" ] (lib.getName plugin);
-        in
-        "plugin add ${plugin}/bin/${plugin_name}"
-      ) plugins
-    )
-  );
+  activateNuPluginsScript =
+    plugins
+    |> (map (
+      plugin:
+      let
+        plugin_name = builtins.replaceStrings [ "nushell" ] [ "nu" ] (lib.getName plugin);
+      in
+      "plugin add ${plugin}/bin/${plugin_name}"
+    ))
+    |> lib.concatLines
+    |> pkgs.writers.writeNu "activateNuPlugins";
 
   msgPackz = pkgs.runCommand "nushellMsgPackz" { } ''
     mkdir -p "$out"

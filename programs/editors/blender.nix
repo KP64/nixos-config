@@ -10,8 +10,7 @@
 let
   blender = inputs.blender-bin.packages.${pkgs.system}.default;
 
-  firstTwoSigs = lib.take 2 (builtins.splitVersion blender.version);
-  version = lib.concatStringsSep "." firstTwoSigs;
+  version = blender.version |> builtins.splitVersion |> lib.take 2 |> lib.concatStringsSep ".";
 in
 {
   options.editors.blender.enable = lib.mkEnableOption "Enable Blender";

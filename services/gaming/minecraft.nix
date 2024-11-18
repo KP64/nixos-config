@@ -103,8 +103,9 @@ in
       enable = true;
       eula = true;
 
-      servers = builtins.listToAttrs (
-        map (
+      servers =
+        cfg.servers
+        |> map (
           s:
           let
             ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
@@ -115,8 +116,8 @@ in
             jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
             package = pkgs.minecraftServers."fabric-${ver}";
           }
-        ) cfg.servers
-      );
+        )
+        |> builtins.listToAttrs;
     };
   };
 }

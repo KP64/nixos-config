@@ -68,7 +68,10 @@
     };
   };
 
-  networking.hostName = username;
+  networking = {
+    hostName = username;
+    firewall.allowPing = false;
+  };
 
   hardware = {
     bluetoothctl.enable = true;
@@ -123,7 +126,7 @@
 
   services = {
     immich = {
-      enable = true;
+      enable = false;
       host = "192.168.2.204";
       openFirewall = true;
       # ? Machine Learning is broken on aarch64
@@ -269,7 +272,10 @@
       "wheel"
       "input"
       "docker"
+      "kvm"
       "libvirtd"
+      "audio"
+      "video"
       "tss"
     ];
   };

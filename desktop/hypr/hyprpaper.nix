@@ -30,18 +30,18 @@ let
   removeKeysWithExt =
     list: builtins.filter (name: !(builtins.any (ext: lib.hasSuffix ext name) extensions)) list;
 
-  wallpapers = builtins.listToAttrs (
-    map (
+  wallpapers =
+    files
+    |> map (
       name:
       let
-        dedupped = removeKeysWithExt (removeExt (baseNameOf name));
         # removeKeysWithExt guarantees exactly one entry.
         # Namely the entry with key without extension.
-        stripped = builtins.head dedupped;
+        stripped = name |> baseNameOf |> removeExt |> removeKeysWithExt |> builtins.head;
       in
       lib.nameValuePair stripped name
-    ) files
-  );
+    )
+    |> builtins.listToAttrs;
 
   active_wallpaper = toString wallpapers.night;
 in

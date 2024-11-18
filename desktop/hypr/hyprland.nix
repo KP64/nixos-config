@@ -105,22 +105,26 @@ in
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         systemd.variables = [ "--all" ];
         settings = {
-          monitor = map (
-            m:
-            let
-              position = "${toString m.x}x${toString m.y}";
-            in
-            "${m.name}, ${
-              if m.enabled then "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}" else "disable"
-            }"
-          ) cfg.monitors;
-
-          workspace = lib.flatten (
-            map (
+          monitor =
+            cfg.monitors
+            |> map (
               m:
-              map (w: "${toString w.id}, monitor:${m.name}, default:${lib.boolToString w.default}") m.workspaces
-            ) cfg.monitors
-          );
+              let
+                position = "${toString m.x}x${toString m.y}";
+              in
+              "${m.name}, ${
+                if m.enabled then "${m.resolution}, ${position}, auto, vrr, ${toString m.vrr}" else "disable"
+              }"
+            );
+
+          workspace =
+            cfg.monitors
+            |> map (
+              m:
+              m.workspaces
+              |> map (w: "${toString w.id}, monitor:${m.name}, default:${lib.boolToString w.default}")
+            )
+            |> lib.flatten;
 
           "$terminal" = "kitty";
           "$browser" = "firefox";
@@ -229,19 +233,19 @@ in
             ]
             ++ (
               # binds $mainMod + [shift +] (0, {1..9}) to [move to] workspace (10, {1..9})
-              builtins.concatLists (
-                builtins.genList (
-                  x:
-                  let
-                    c = (x + 1) / 10;
-                    ws = toString (x + 1 - (c * 10));
-                  in
-                  [
-                    "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-                    "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-                  ]
-                ) 10
+              10
+              |> builtins.genList (
+                x:
+                let
+                  c = (x + 1) / 10;
+                  ws = toString (x + 1 - (c * 10));
+                in
+                [
+                  "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
+                  "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                ]
               )
+              |> builtins.concatLists
             );
 
           bindm = map (s: "$mainMod, ${s}") [

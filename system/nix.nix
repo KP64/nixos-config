@@ -31,6 +31,7 @@ in
           "nix-command"
           "flakes"
           "no-url-literals"
+          "pipe-operators"
         ];
         auto-optimise-store = true;
         trusted-users = [ username ] ++ cfg.extraTrustedUsers;

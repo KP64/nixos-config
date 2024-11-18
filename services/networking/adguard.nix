@@ -388,8 +388,10 @@ in
           blocked_services = {
             schedule.time_zone = "Local";
             ids =
-              (lib.partition (toBlock: lib.any (toAllow: toAllow == toBlock) cfg.allowedServices) blockedServices)
-              .wrong;
+              (
+                blockedServices
+                |> lib.partition (toBlock: cfg.allowedServices |> lib.any (toAllow: toAllow == toBlock))
+              ).wrong;
           };
           protection_disabled_until = null;
           safe_search = {

@@ -122,7 +122,7 @@ in
   config = lib.mkIf (cfg.serverInterfaces != { } || cfg.clientInterfaces != { }) {
     assertions =
       let
-        autoStartCount = interfaces: (lib.count (val: val.autostart) (lib.attrValues interfaces));
+        autoStartCount = interfaces: interfaces |> lib.attrValues |> lib.count (val: val.autostart);
         autoClients = autoStartCount cfg.clientInterfaces;
       in
       [
@@ -201,7 +201,9 @@ in
           in
           {
             allowedTCPPorts = [ dnsPort ];
-            allowedUDPPorts = [ dnsPort ] ++ (map (i: i.listenPort) (builtins.attrValues cfg.serverInterfaces));
+            allowedUDPPorts = [
+              dnsPort
+            ] ++ (serverInterfaces |> builtins.attrValues |> map (i: i.listenPort));
           };
 
         wg-quick.interfaces = serverInterfaces // cfg.clientInterfaces;
