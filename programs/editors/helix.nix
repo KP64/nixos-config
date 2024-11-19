@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   username,
   ...
 }:
@@ -20,6 +21,20 @@
           normal = "block";
           select = "underline";
         };
+      };
+      languages = {
+        language-server.nixd.command = "nixd";
+        language = [
+          {
+            name = "nix";
+            language-servers = [
+              "nixd"
+              "nil"
+            ];
+            auto-format = true;
+            formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+          }
+        ];
       };
     };
   };

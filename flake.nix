@@ -263,7 +263,7 @@
           packages = with pkgs; [
             deadnix
             just
-            nil
+            nixd
             nix-health
             nix-melt
             nixfmt-rfc-style

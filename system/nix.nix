@@ -47,7 +47,6 @@ in
         deadnix
         devenv
         fh
-        nil
         nix-health
         nix-init
         nix-melt
