@@ -15,7 +15,7 @@ in
     enable = lib.mkEnableOption "Enables Hyprland";
     monitors = lib.mkOption {
       readOnly = true;
-      type = lib.types.listOf (
+      type = lib.types.nonEmptyListOf (
         lib.types.submodule {
           options = {
             enabled = lib.mkOption {
@@ -26,7 +26,7 @@ in
             };
             name = lib.mkOption {
               readOnly = true;
-              type = lib.types.str;
+              type = lib.types.nonEmptyStr;
               description = "The descriptor of the Monitor.";
               example = "DP-1";
             };
@@ -65,12 +65,7 @@ in
                       type = lib.types.ints.between 1 10;
                       example = 1;
                     };
-                    default = lib.mkOption {
-                      default = false;
-                      type = lib.types.bool;
-                      description = "Whether this workspace should always appear on this monitor.";
-                      example = true;
-                    };
+                    default = lib.mkEnableOption "Whether this workspace should always appear on this monitor.";
                   };
                 }
               );

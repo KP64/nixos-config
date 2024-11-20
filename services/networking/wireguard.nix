@@ -12,7 +12,7 @@ in
   options.services.networking.wireguard = {
     externalInterface = lib.mkOption {
       default = "end0";
-      type = lib.types.str;
+      type = lib.types.nonEmptyStr;
       example = "wlan0";
     };
 
@@ -55,14 +55,14 @@ in
                 options = {
                   ipv4 = lib.mkOption {
                     default = [ ];
-                    type = with lib.types; listOf str;
+                    type = with lib.types; listOf nonEmptyStr;
                     example = [ "10.0.0.1/24" ];
                     description = "The IPv4 addresses interface listens on.";
                   };
 
                   ipv6 = lib.mkOption {
                     default = [ ];
-                    type = with lib.types; listOf str;
+                    type = with lib.types; listOf nonEmptyStr;
                     example = [ "fdc9:281f:04d7:9ee9::1/64" ];
                     description = "The IPv4 addresses interface listens on.";
                   };
@@ -90,13 +90,13 @@ in
                   options = {
                     publicKey = lib.mkOption {
                       readOnly = true;
-                      type = lib.types.str;
+                      type = lib.types.nonEmptyStr;
                       description = "The public Key of the 'Client'.";
                     };
 
                     allowedIPs = lib.mkOption {
                       readOnly = true;
-                      type = with lib.types; listOf str;
+                      type = with lib.types; listOf nonEmptyStr;
                       example = [ "172.29.0.2" ];
                       description = "The Addresses of the 'Client'.";
                     };
@@ -106,7 +106,7 @@ in
                     # ? Security is key ;D
                     presharedKeyFile = lib.mkOption {
                       readOnly = true;
-                      type = lib.types.str;
+                      type = lib.types.nonEmptyStr;
                       description = "The path to the File containing the preshared key.";
                     };
                   };

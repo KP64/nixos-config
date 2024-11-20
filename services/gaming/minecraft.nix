@@ -50,7 +50,7 @@ in
         options = {
           name = lib.mkOption {
             readOnly = true;
-            type = lib.types.strMatching "([a-zA-Z0-9])+";
+            type = lib.types.nonEmptyStr;
             description = "The name of the Server";
             example = "MyServer";
           };
@@ -86,7 +86,7 @@ in
 
           jvmOpts = lib.mkOption {
             default = [ ];
-            type = lib.types.listOf lib.types.str;
+            type = with lib.types; listOf nonEmptyStr;
           };
 
           symlinks = lib.mkOption {

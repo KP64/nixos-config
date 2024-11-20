@@ -13,7 +13,7 @@ in
   options.system.nix.extraTrustedUsers = lib.mkOption {
     default = [ ];
     description = "Extra Users to Trust.";
-    type = with lib.types; listOf str;
+    type = with lib.types; listOf nonEmptyStr;
     example = [
       "alice"
       "bob"

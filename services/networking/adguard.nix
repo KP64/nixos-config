@@ -132,7 +132,7 @@ in
     enable = lib.mkEnableOption "Enable Adguard";
     allowedServices = lib.mkOption {
       default = [ ];
-      type = with lib.types; listOf str;
+      type = with lib.types; listOf nonEmptyStr;
       description = "The Services that shouldn't be blocked by adguard.";
       example = [
         "blizzard_activision"
@@ -156,12 +156,12 @@ in
           options = {
             domain = lib.mkOption {
               readOnly = true;
-              type = lib.types.str;
+              type = lib.types.nonEmptyStr;
               description = "The domain which points to the IP.";
             };
             answer = lib.mkOption {
               readOnly = true;
-              type = lib.types.str;
+              type = lib.types.nonEmptyStr;
               description = "The IP to be pointed by the domain.";
             };
           };
@@ -182,12 +182,12 @@ in
           options = {
             name = lib.mkOption {
               readOnly = true;
-              type = lib.types.str;
+              type = lib.types.nonEmptyStr;
               example = "admin";
             };
             password = lib.mkOption {
               readOnly = true;
-              type = lib.types.str;
+              type = lib.types.nonEmptyStr;
               example = "12345";
             };
           };

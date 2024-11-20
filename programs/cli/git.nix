@@ -16,13 +16,13 @@ in
       name = mkOption {
         readOnly = true;
         description = "Your Git Username";
-        type = types.str;
+        type = types.nonEmptyStr;
         example = "alice";
       };
       email = mkOption {
         readOnly = true;
         description = "Your Git Email";
-        type = types.str;
+        type = types.nonEmptyStr;
         example = "example@gmail.com";
       };
     };
