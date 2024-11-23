@@ -35,7 +35,7 @@
 
   config = lib.mkIf config.cli.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
-      ani-cli
+      # ani-cli
       asciinema
       binsider
       dipc

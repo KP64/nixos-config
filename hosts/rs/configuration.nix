@@ -35,7 +35,7 @@
       nushell.enable = true;
     };
 
-    file-managers.yazi.enable = true;
+    file-managers.yazi.enable = false;
 
     ricing.fetchers.enable = true;
 
@@ -133,7 +133,7 @@
       machine-learning.enable = false;
     };
 
-    stirling-pdf.enable = true;
+    stirling-pdf.enable = false;
 
     gaming.minecraft.servers = [
       {
@@ -262,7 +262,8 @@
     };
   };
   users.users.${username} = {
-    hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    # hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    initialPassword = "12345";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgE5a4Wn4S/to9Z3QbQSDMyCOG/NAOWYJDEvAy4OdFf kg@kg"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"

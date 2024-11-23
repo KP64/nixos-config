@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  stable-pkgs,
   username,
   ...
 }:
@@ -20,10 +21,10 @@ in
     catppuccin = {
       enable = true;
       inherit accent;
-      pointerCursor = {
-        enable = true;
-        accent = "dark";
-      };
+      # pointerCursor = {
+      #   enable = true;
+      #   accent = "dark";
+      # };
     };
 
     home =
@@ -34,11 +35,9 @@ in
         sessionVariables.XCURSOR_SIZE = size;
         pointerCursor = {
           gtk.enable = true;
-          x11 = {
-            enable = true;
-            defaultCursor = "catppuccin-mocha-dark-cursors";
-          };
           inherit size;
+          package = stable-pkgs.catppuccin-cursors.mochaDark;
+          name = "catppuccin-mocha-dark-cursors";
         };
       };
 

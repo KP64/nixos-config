@@ -11,7 +11,10 @@ let
     dbus
     formats
     gstat
-    skim
+    # highlight
+    polars
+    query
+    # skim
   ];
 
   activateNuPluginsScript =
