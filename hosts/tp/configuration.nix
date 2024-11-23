@@ -12,21 +12,31 @@
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
-    initrd.kernelModules = [ "ideapad_laptop" ];
-    # energy savings
-    kernelParams = [
-      "mem_sleep_default=deep"
-      "pcie_aspm.policy=powersupersave"
-    ];
-    # Fix for unstable wifi connection on Lenovo laptops
-    extraModprobeConfig = ''
-      options rtw89_pci disable_clkreq=y disable_aspm_l1=y disable_aspm_l1ss=y
-    '';
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
   };
-
-  services.thinkfan.enable = true;
+  services = {
+    thermald.enable = true;
+    auto-cpufreq = {
+      enable = true;
+      settings = {
+        battery = {
+          governor = "powersave";
+          turbo = "never";
+        };
+        charger = {
+          governor = "powersave";
+          turbo = "never";
+        };
+      };
+    };
+    thinkfan = {
+      enable = true;
+      smartSupport = true;
+    };
+  };
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   hardware = {
     intel-gpu-tools.enable = true;
