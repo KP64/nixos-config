@@ -227,6 +227,11 @@
           system = "x86_64-linux";
         };
 
+        tp = customLib.mkSystem {
+          username = "tp";
+          system = "x86_64-linux";
+        };
+
         ws = customLib.mkSystem {
           username = "ws";
           system = "x86_64-linux";
