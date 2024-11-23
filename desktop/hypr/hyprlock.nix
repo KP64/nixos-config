@@ -13,7 +13,7 @@ let
   font = "JetBrainsMono Nerd Font";
 in
 {
-  options.desktop.hypr.hyprlock.enable = lib.mkEnableOption "Enables Hyprlock";
+  options.desktop.hypr.hyprlock.enable = lib.mkEnableOption "Hyprlock";
 
   config = lib.mkIf config.desktop.hypr.hyprlock.enable {
     home-manager.users.${username}.programs.hyprlock = {

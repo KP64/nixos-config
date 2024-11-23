@@ -36,7 +36,7 @@ let
 in
 {
 
-  options.cli.shells.nushell.enable = lib.mkEnableOption "Enable nushell";
+  options.cli.shells.nushell.enable = lib.mkEnableOption "Nushell";
 
   config = lib.mkIf config.cli.shells.nushell.enable {
     environment.persistence."/persist".users.${username}.files = [ ".config/nushell/history.txt" ];

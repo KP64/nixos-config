@@ -1,6 +1,6 @@
 { lib, config, ... }:
 {
-  options.system.security.sudo-rs.enable = lib.mkEnableOption "Enable Mem Safe Sudo";
+  options.system.security.sudo-rs.enable = lib.mkEnableOption "Sudo-rs";
 
   config = lib.mkIf config.system.security.sudo-rs.enable {
     security.sudo-rs = {

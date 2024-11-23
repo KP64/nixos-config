@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.system.security.uutils-coreutils.enable = lib.mkEnableOption "Enable Rust rewrite of GNU Coreutils";
+  options.system.security.uutils-coreutils.enable = lib.mkEnableOption "Rust rewrite of GNU Coreutils";
 
   config = lib.mkIf config.system.security.uutils-coreutils.enable {
     # commands are uutils-{command} by default

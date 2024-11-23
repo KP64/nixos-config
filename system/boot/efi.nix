@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.system.boot.efi.enable = lib.mkEnableOption "Enable efi booting.";
+  options.system.boot.efi.enable = lib.mkEnableOption "EFI booting";
 
   config = lib.mkIf config.system.boot.efi.enable {
     boot = {

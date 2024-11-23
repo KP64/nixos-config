@@ -7,7 +7,7 @@
     ./xemu.nix
   ];
 
-  options.gaming.emulators.enable = lib.mkEnableOption "Enables All Gaming Emulators";
+  options.gaming.emulators.enable = lib.mkEnableOption "All Gaming Emulators";
 
   config = lib.mkIf config.gaming.emulators.enable {
     gaming.emulators = {

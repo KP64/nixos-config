@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.desktop.services.blueman-app.enable = lib.mkEnableOption "Enables Blueman Applet";
+  options.desktop.services.blueman-app.enable = lib.mkEnableOption "Blueman Applet";
 
   config = lib.mkIf config.desktop.services.blueman-app.enable {
     services.blueman.enable = true;

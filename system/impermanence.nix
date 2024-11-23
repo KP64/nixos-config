@@ -8,7 +8,7 @@
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.system.impermanence.enable = lib.mkEnableOption "Enable Impermanence.";
+  options.system.impermanence.enable = lib.mkEnableOption "Impermanence";
 
   config = lib.mkIf config.system.impermanence.enable {
     home-manager.users.${username} = {

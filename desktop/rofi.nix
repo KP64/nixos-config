@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.desktop.rofi.enable = lib.mkEnableOption "Enables rofi";
+  options.desktop.rofi.enable = lib.mkEnableOption "Rofi";
 
   config = lib.mkIf config.desktop.rofi.enable {
     home-manager.users.${username}.programs.rofi = {

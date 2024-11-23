@@ -20,7 +20,7 @@
     ./thunderbird.nix
   ];
 
-  options.apps.defaults.enable = lib.mkEnableOption "Enables Some Graphical Apps";
+  options.apps.defaults.enable = lib.mkEnableOption "Some Graphical Apps";
 
   config = lib.mkIf config.apps.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [

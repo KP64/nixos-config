@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.cli.shells.bash.enable = lib.mkEnableOption "Enable Bash";
+  options.cli.shells.bash.enable = lib.mkEnableOption "Bash";
 
   config = lib.mkIf config.desktop.rofi.enable {
     environment.pathsToLink = [ "/share/bash-completion" ];

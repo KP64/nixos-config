@@ -7,7 +7,7 @@
   ...
 }:
 {
-  options.gaming.heroic.enable = lib.mkEnableOption "Enables The Heroic Game Launcher";
+  options.gaming.heroic.enable = lib.mkEnableOption "Heroic";
 
   config = lib.mkIf config.gaming.heroic.enable {
     home-manager.users.${username} = {

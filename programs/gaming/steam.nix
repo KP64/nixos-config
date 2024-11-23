@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.gaming.steam.enable = lib.mkEnableOption "Enables steam";
+  options.gaming.steam.enable = lib.mkEnableOption "Steam";
 
   config = lib.mkIf config.gaming.steam.enable {
     programs.steam = {

@@ -11,7 +11,7 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
-  options.apps.spicetify.enable = lib.mkEnableOption "Enables Spicetify";
+  options.apps.spicetify.enable = lib.mkEnableOption "Spicetify";
 
   config = lib.mkIf config.apps.spicetify.enable {
     environment.persistence."/persist".users.${username}.directories = [

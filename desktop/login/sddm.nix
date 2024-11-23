@@ -6,7 +6,7 @@
 }:
 
 {
-  options.desktop.login.sddm.enable = lib.mkEnableOption "Enables sddm";
+  options.desktop.login.sddm.enable = lib.mkEnableOption "SDDM";
 
   config = lib.mkIf config.desktop.login.sddm.enable {
     services.displayManager.sddm = {

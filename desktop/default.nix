@@ -18,7 +18,7 @@
     ./waybar.nix
   ];
 
-  options.desktop.defaults.enable = lib.mkEnableOption "Enables Desktop Utilities";
+  options.desktop.defaults.enable = lib.mkEnableOption "Desktop Utils";
 
   config = lib.mkIf config.desktop.defaults.enable {
     environment.pathsToLink = map (p: "/share/${p}") [

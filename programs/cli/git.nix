@@ -11,7 +11,7 @@ let
 in
 {
   options.cli.git = with lib; {
-    enable = mkEnableOption "Enables Git & helper Utils";
+    enable = mkEnableOption "Git & helper Utils";
     user = {
       name = mkOption {
         readOnly = true;

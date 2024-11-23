@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.editors.helix.enable = lib.mkEnableOption "Enable Helix Editor";
+  options.editors.helix.enable = lib.mkEnableOption "Helix";
 
   config = lib.mkIf config.editors.helix.enable {
     home-manager.users.${username}.programs.helix = {

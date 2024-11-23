@@ -17,7 +17,7 @@
     ./steam.nix
   ];
 
-  options.gaming.defaults.enable = lib.mkEnableOption "Enables Some gaming Apps";
+  options.gaming.defaults.enable = lib.mkEnableOption "Some gaming Apps";
 
   config = lib.mkIf config.gaming.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [

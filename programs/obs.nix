@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.apps.obs.enable = lib.mkEnableOption "Enables OBS";
+  options.apps.obs.enable = lib.mkEnableOption "OBS";
 
   config = lib.mkIf config.apps.obs.enable {
     boot = {

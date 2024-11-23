@@ -1,6 +1,6 @@
 { lib, config, ... }:
 {
-  options.hardware.networking.enable = lib.mkEnableOption "Enable networkmanager";
+  options.hardware.networking.enable = lib.mkEnableOption "Networkmanager";
 
   config = lib.mkIf config.hardware.networking.enable {
     networking.networkmanager = {

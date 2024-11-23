@@ -13,7 +13,7 @@ let
   version = blender.version |> builtins.splitVersion |> lib.take 2 |> lib.concatStringsSep ".";
 in
 {
-  options.editors.blender.enable = lib.mkEnableOption "Enable Blender";
+  options.editors.blender.enable = lib.mkEnableOption "Blender";
 
   config = lib.mkIf config.editors.blender.enable {
     home-manager.users.${username} = {

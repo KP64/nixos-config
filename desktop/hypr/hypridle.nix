@@ -11,7 +11,7 @@ let
   minutes = mins: 60 * mins;
 in
 {
-  options.desktop.hypr.hypridle.enable = lib.mkEnableOption "Enables Hypridle";
+  options.desktop.hypr.hypridle.enable = lib.mkEnableOption "Hypridle";
 
   config = lib.mkIf config.desktop.hypr.hypridle.enable {
     home-manager.users.${username}.services.hypridle = {

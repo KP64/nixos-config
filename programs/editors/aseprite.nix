@@ -7,7 +7,7 @@
   ...
 }:
 {
-  options.editors.aseprite.enable = lib.mkEnableOption "Enable Aseprite";
+  options.editors.aseprite.enable = lib.mkEnableOption "Aseprite";
 
   config = lib.mkIf config.editors.aseprite.enable {
     home-manager.users.${username} = {

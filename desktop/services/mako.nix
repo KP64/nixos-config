@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.desktop.services.mako.enable = lib.mkEnableOption "Enables Mako";
+  options.desktop.services.mako.enable = lib.mkEnableOption "Mako";
 
   config = lib.mkIf config.desktop.services.mako.enable {
     home-manager.users.${username}.services.mako = {

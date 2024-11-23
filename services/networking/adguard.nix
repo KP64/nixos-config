@@ -129,7 +129,7 @@ let
 in
 {
   options.services.networking.adguard = {
-    enable = lib.mkEnableOption "Enable Adguard";
+    enable = lib.mkEnableOption "AdguardHome";
     allowedServices = lib.mkOption {
       default = [ ];
       type = with lib.types; listOf nonEmptyStr;

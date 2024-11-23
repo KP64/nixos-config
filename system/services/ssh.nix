@@ -4,7 +4,7 @@
   ...
 }:
 {
-  options.system.services.ssh.enable = lib.mkEnableOption "Enabled Openssh";
+  options.system.services.ssh.enable = lib.mkEnableOption "Openssh";
 
   config = lib.mkIf config.system.services.ssh.enable {
     programs.ssh.startAgent = true;

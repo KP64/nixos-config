@@ -10,7 +10,7 @@ let
   tuigreet = lib.getExe pkgs.greetd.tuigreet;
 in
 {
-  options.desktop.login.tuigreet.enable = lib.mkEnableOption "Enables TuiGreet";
+  options.desktop.login.tuigreet.enable = lib.mkEnableOption "TuiGreet";
 
   config = lib.mkIf config.desktop.login.tuigreet.enable {
     services.greetd = {

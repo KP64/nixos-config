@@ -19,7 +19,7 @@ let
     });
 in
 {
-  options.apps.browsers.firefox.enable = lib.mkEnableOption "Enables Firefox";
+  options.apps.browsers.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf config.apps.browsers.firefox.enable {
     environment.persistence."/persist".users.${username}.directories = [

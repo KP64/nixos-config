@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.desktop.services.udiskie.enable = lib.mkEnableOption "Enables Udiskie";
+  options.desktop.services.udiskie.enable = lib.mkEnableOption "Udiskie";
 
   config = lib.mkIf config.desktop.services.udiskie.enable {
     services.udisks2.enable = true;

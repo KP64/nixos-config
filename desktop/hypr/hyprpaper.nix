@@ -46,7 +46,7 @@ let
   active_wallpaper = toString wallpapers.night;
 in
 {
-  options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Enables Hyprpaper";
+  options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Hyprpaper";
 
   config = lib.mkIf config.desktop.hypr.hyprpaper.enable {
     home-manager.users.${username}.services.hyprpaper = {

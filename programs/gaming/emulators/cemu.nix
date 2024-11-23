@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.gaming.emulators.cemu.enable = lib.mkEnableOption "Enables Cemu";
+  options.gaming.emulators.cemu.enable = lib.mkEnableOption "Cemu";
 
   config = lib.mkIf config.gaming.emulators.cemu.enable {
     home-manager.users.${username}.home.packages = [ pkgs.cemu ];

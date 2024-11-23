@@ -9,7 +9,7 @@
 {
   imports = [ inputs.musnix.nixosModules.musnix ];
 
-  options.hardware.audio.enable = lib.mkEnableOption "Enable Audio";
+  options.hardware.audio.enable = lib.mkEnableOption "Audio";
 
   config = lib.mkIf config.hardware.audio.enable {
     security.rtkit.enable = true;

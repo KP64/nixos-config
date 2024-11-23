@@ -7,7 +7,7 @@
   ...
 }:
 {
-  options.cli.file-managers.yazi.enable = lib.mkEnableOption "Enables Yazi";
+  options.cli.file-managers.yazi.enable = lib.mkEnableOption "Yazi";
 
   config = lib.mkIf config.cli.file-managers.yazi.enable {
     nix.settings = {

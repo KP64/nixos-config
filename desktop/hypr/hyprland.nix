@@ -12,7 +12,7 @@ let
 in
 {
   options.desktop.hypr.hyprland = {
-    enable = lib.mkEnableOption "Enables Hyprland";
+    enable = lib.mkEnableOption "Hyprland";
     monitors = lib.mkOption {
       readOnly = true;
       type = lib.types.nonEmptyListOf (
@@ -65,7 +65,7 @@ in
                       type = lib.types.ints.between 1 10;
                       example = 1;
                     };
-                    default = lib.mkEnableOption "Whether this workspace should always appear on this monitor.";
+                    default = lib.mkEnableOption "this workspace always on this monitor";
                   };
                 }
               );

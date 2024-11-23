@@ -31,7 +31,7 @@
     ./zoxide.nix
   ];
 
-  options.cli.defaults.enable = lib.mkEnableOption "Enable Default Cli Apps";
+  options.cli.defaults.enable = lib.mkEnableOption "Default Cli Apps";
 
   config = lib.mkIf config.cli.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [

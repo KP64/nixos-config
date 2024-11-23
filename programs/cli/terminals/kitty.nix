@@ -6,7 +6,7 @@
 }:
 {
 
-  options.cli.terminals.kitty.enable = lib.mkEnableOption "Enables Kitty";
+  options.cli.terminals.kitty.enable = lib.mkEnableOption "Kitty";
 
   config = lib.mkIf config.cli.terminals.kitty.enable {
     home-manager.users.${username}.programs.kitty = {

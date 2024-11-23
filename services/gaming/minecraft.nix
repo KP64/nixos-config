@@ -55,7 +55,7 @@ in
             example = "MyServer";
           };
 
-          enable = lib.mkEnableOption "Enable the Server";
+          enable = lib.mkEnableOption "Server";
 
           version = lib.mkOption {
             readOnly = true;

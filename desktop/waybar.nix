@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.desktop.waybar.enable = lib.mkEnableOption "Enables Waybar";
+  options.desktop.waybar.enable = lib.mkEnableOption "Waybar";
 
   config = lib.mkIf config.desktop.waybar.enable {
     home-manager.users.${username}.programs.waybar = {

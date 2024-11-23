@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.gaming.discord.enable = lib.mkEnableOption "Enable Discord";
+  options.gaming.discord.enable = lib.mkEnableOption "Discord";
 
   config = lib.mkIf config.gaming.discord.enable {
     environment.persistence."/persist".users.${username}.directories = [

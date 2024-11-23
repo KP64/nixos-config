@@ -6,7 +6,7 @@
 }:
 
 {
-  options.editors.zed.enable = lib.mkEnableOption "Enable Zed Editor";
+  options.editors.zed.enable = lib.mkEnableOption "Zed";
   config = lib.mkIf config.editors.zed.enable {
     home-manager.users.${username}.programs.zed-editor = {
       enable = true;

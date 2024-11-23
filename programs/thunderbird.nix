@@ -7,7 +7,7 @@
   ...
 }:
 {
-  options.apps.thunderbird.enable = lib.mkEnableOption "Enables Thunderbird";
+  options.apps.thunderbird.enable = lib.mkEnableOption "Thunderbird";
 
   config = lib.mkIf config.apps.thunderbird.enable {
     home-manager.users.${username}.programs.thunderbird = {

@@ -8,7 +8,7 @@
 }:
 
 {
-  options.editors.imhex.enable = lib.mkEnableOption "Enable ImHex";
+  options.editors.imhex.enable = lib.mkEnableOption "ImHex";
 
   config = lib.mkIf config.editors.imhex.enable {
     home-manager.users.${username}.home = {

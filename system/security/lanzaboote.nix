@@ -7,7 +7,7 @@
 }:
 
 {
-  options.system.security.secure-boot.enable = lib.mkEnableOption "Enable Lanzaboote for Secure Boot";
+  options.system.security.secure-boot.enable = lib.mkEnableOption "Lanzaboote";
 
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
   config = lib.mkIf config.system.security.secure-boot.enable {

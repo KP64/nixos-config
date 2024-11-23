@@ -13,7 +13,7 @@ let
   inherit (inputs.nix-vscode-extensions.extensions.${pkgs.system}) vscode-marketplace;
 in
 {
-  options.editors.vscode.enable = lib.mkEnableOption "Enable Vscode Editor";
+  options.editors.vscode.enable = lib.mkEnableOption "Vscode";
 
   config = lib.mkIf config.editors.vscode.enable {
     home-manager.users.${username}.programs.vscode = {

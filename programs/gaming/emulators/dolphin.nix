@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.gaming.emulators.dolphin.enable = lib.mkEnableOption "Enables dolphin";
+  options.gaming.emulators.dolphin.enable = lib.mkEnableOption "Dolphin";
 
   config = lib.mkIf config.gaming.emulators.dolphin.enable {
     home-manager.users.${username}.home.packages = [ stable-pkgs.dolphin-emu ];

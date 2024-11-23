@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.desktop.eww.enable = lib.mkEnableOption "Enables eww";
+  options.desktop.eww.enable = lib.mkEnableOption "EWW";
 
   config = lib.mkIf config.desktop.eww.enable {
     services.playerctld.enable = true;
