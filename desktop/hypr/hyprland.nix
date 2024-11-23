@@ -99,7 +99,23 @@ in
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         systemd.variables = [ "--all" ];
+        plugins = with inputs.hyprland-plugins.packages.${pkgs.system}; [
+          hyprexpo
+        ];
         settings = {
+          plugin.hyprexpo = {
+            columns = 3;
+            gap_size = 5;
+            bg_col = "$base";
+            # [center/first] [workspace] e.g. first 1 or center m+1
+            workspace_method = "first 1";
+
+            enable_gesture = true;
+            gesture_fingers = 3;
+            gesture_distance = 300; # how far is the "max"
+            gesture_positive = true; # positive = swipe down. Negative = swipe up.
+          };
+
           monitor =
             cfg.monitors
             |> map (
@@ -197,15 +213,17 @@ in
             ]
             ++ map (s: "$mainMod, ${s}") [
               "T, exec, $terminal"
-              "C, killactive,"
-              "M, exit,"
               "F, exec, $browser"
-              "V, togglefloating,"
               "R, exec, $menu"
               "E, exec, $emenu"
-              "P, pseudo,"
 
+              "C, killactive,"
+              "M, exit,"
+              "V, togglefloating,"
+              "P, pseudo,"
               "J, togglesplit,"
+
+              "W, hyprexpo:expo, toggle"
 
               "left, movefocus, l"
               "right, movefocus, r"
@@ -227,17 +245,16 @@ in
               "left, movetoworkspace, e-1"
             ]
             ++ (
-              # binds $mainMod + [shift +] (0, {1..9}) to [move to] workspace (10, {1..9})
-              10
+              # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+              9
               |> builtins.genList (
-                x:
+                i:
                 let
-                  c = (x + 1) / 10;
-                  ws = toString (x + 1 - (c * 10));
+                  ws = i + 1;
                 in
                 [
-                  "$mainMod, ${ws}, workspace, ${toString (x + 1)}"
-                  "$mainMod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                  "$mainMod, code:1${toString i}, workspace, ${toString ws}"
+                  "$mainMod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
                 ]
               )
               |> builtins.concatLists
