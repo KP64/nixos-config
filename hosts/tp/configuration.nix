@@ -79,7 +79,7 @@
 
     rofi.enable = true;
 
-    login.sddm.enable = false;
+    login.sddm.enable = true;
 
     hypr = {
       hypridle.enable = true;
@@ -88,17 +88,10 @@
       hyprland = {
         enable = true;
         monitors = [
-          # TODO: Fix
           {
-            name = "DP-3";
+            name = "eDP-1";
             resolution = "highrr";
             vrr = 2;
-            workspaces = [
-              {
-                id = 1;
-                default = true;
-              }
-            ];
           }
         ];
       };
