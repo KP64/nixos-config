@@ -12,6 +12,8 @@
     ./hardware-configuration.nix
   ];
 
+  environment.systemPackages = [ pkgs.openboard ];
+
   powerManagement = {
     enable = true;
     powertop.enable = true;
@@ -138,7 +140,7 @@
   #   secrets.hashed_password.neededForUsers = true;
   # };
 
-  topology.self.interfaces.wlp6s0 =
+  topology.self.interfaces.wlp4s0 =
     let
       inherit (config.lib) topology;
     in
