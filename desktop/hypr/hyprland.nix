@@ -9,6 +9,7 @@
 
 let
   cfg = config.desktop.hypr.hyprland;
+  max_workspace_count = 9;
 in
 {
   options.desktop.hypr.hyprland = {
@@ -62,7 +63,7 @@ in
                   options = {
                     id = lib.mkOption {
                       readOnly = true;
-                      type = lib.types.ints.between 1 10;
+                      type = lib.types.ints.between 1 max_workspace_count;
                       example = 1;
                     };
                     default = lib.mkEnableOption "this workspace always on this monitor";
@@ -99,21 +100,45 @@ in
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         systemd.variables = [ "--all" ];
-        plugins = with inputs.hyprland-plugins.packages.${pkgs.system}; [
-          hyprexpo
+        plugins = with inputs; [
+          hyprland-plugins.packages.${pkgs.system}.hyprexpo
+          hyprgrass.packages.${pkgs.system}.default
         ];
         settings = {
-          plugin.hyprexpo = {
-            columns = 3;
-            gap_size = 5;
-            bg_col = "$base";
-            # [center/first] [workspace] e.g. first 1 or center m+1
-            workspace_method = "first 1";
+          plugin = {
+            hyprexpo = {
+              columns = 3;
+              gap_size = 5;
+              bg_col = "$base";
+              # [center/first] [workspace] e.g. first 1 or center m+1
+              workspace_method = "first 1";
 
-            enable_gesture = true;
-            gesture_fingers = 3;
-            gesture_distance = 300; # how far is the "max"
-            gesture_positive = true; # positive = swipe down. Negative = swipe up.
+              enable_gesture = true;
+              gesture_fingers = 3;
+              gesture_distance = 300; # how far is the "max"
+              gesture_positive = true; # positive = swipe down. Negative = swipe up.
+            };
+            touch_gestures = {
+              sensitivity = 4.0;
+
+              workspace_swipe_fingers = 3;
+              workspace_swipe_cancel_ratio = 0.1;
+
+              workspace_swipe_edge = "u";
+
+              hyprgrass-bind = [ ", swipe:3:d, hyprexpo:expo, toggle" ];
+
+              hyprgrass-bindm = [
+                ", longpress:2, movewindow"
+                ", longpress:3, resizewindow"
+              ];
+
+              long_press_delay = 400;
+
+              resize_on_boder_long_press = true;
+
+              edge_margin = 10;
+            };
           };
 
           monitor =
@@ -246,7 +271,7 @@ in
             ]
             ++ (
               # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-              9
+              max_workspace_count
               |> builtins.genList (
                 i:
                 let
