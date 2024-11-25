@@ -26,8 +26,7 @@
         obs-pipewire-audio-capture
       ];
     };
-    environment.persistence."/persist".users.${username}.directories = [
-      ".config/obs-studio"
-    ];
+
+    environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".config/obs-studio";
   };
 }

@@ -18,6 +18,6 @@
       };
       package = pkgs.kdePackages.sddm;
     };
-    environment.persistence."/persist".directories = [ "/var/lib/sddm" ];
+    environment.persistence."/persist".directories = lib.optional config.system.impermanence.enable "/var/lib/sddm";
   };
 }

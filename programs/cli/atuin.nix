@@ -1,4 +1,9 @@
-{ username, ... }:
+{
+  config,
+  lib,
+  username,
+  ...
+}:
 {
   home-manager.users.${username}.programs.atuin = {
     enable = true;
@@ -7,7 +12,5 @@
       filter_mode_shell_up_key_binding = "directory";
     };
   };
-  environment.persistence."/persist".users.${username}.directories = [
-    ".local/share/atuin"
-  ];
+  environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".local/share/atuin";
 }

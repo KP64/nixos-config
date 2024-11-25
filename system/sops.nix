@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   inputs,
   username,
@@ -17,8 +19,6 @@
       ssh-to-pgp
       ssh-to-age
     ];
-    persistence."/persist".users.${username}.directories = [
-      ".config/sops/age"
-    ];
+    persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".config/sops/age";
   };
 }

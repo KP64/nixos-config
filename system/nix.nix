@@ -61,9 +61,7 @@ in
         statix
       ]);
 
-    environment.persistence."/persist".users.${username}.directories = [
-      ".local/share/direnv"
-    ];
+    environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".local/share/direnv";
 
     home-manager.users.${username} = {
       imports = [ inputs.nix-index-database.hmModules.nix-index ];

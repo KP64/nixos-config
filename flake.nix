@@ -258,12 +258,11 @@
           overlays = [ inputs.nix-topology.overlays.default ];
         };
 
-        treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-        treefmtBuild = treefmtEval.config.build;
+        treefmt = (treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build;
       in
       {
-        formatter = treefmtBuild.wrapper;
-        checks.formatting = treefmtBuild.check self;
+        formatter = treefmt.wrapper;
+        checks.formatting = treefmt.check self;
 
         topology = import inputs.nix-topology {
           inherit pkgs;

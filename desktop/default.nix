@@ -21,21 +21,25 @@
   options.desktop.defaults.enable = lib.mkEnableOption "Desktop Utils";
 
   config = lib.mkIf config.desktop.defaults.enable {
-    environment.pathsToLink = map (p: "/share/${p}") [
-      "xdg-desktop-portal"
-      "applications"
-    ];
+    environment = {
+      pathsToLink = map (p: "/share/${p}") [
+        "xdg-desktop-portal"
+        "applications"
+      ];
 
-    environment.persistence."/persist".users.${username}.directories = [
-      "Desktop"
-      "Documents"
-      "Downloads"
-      "Music"
-      "Pictures"
-      "Public"
-      "Templates"
-      "Videos"
-    ];
+      persistence."/persist".users.${username}.directories =
+        lib.optionals config.system.impermanence.enable
+          [
+            "Desktop"
+            "Documents"
+            "Downloads"
+            "Music"
+            "Pictures"
+            "Public"
+            "Templates"
+            "Videos"
+          ];
+    };
 
     home-manager.users.${username} = {
       home.packages = with pkgs; [

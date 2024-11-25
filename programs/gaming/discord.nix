@@ -9,9 +9,8 @@
   options.gaming.discord.enable = lib.mkEnableOption "Discord";
 
   config = lib.mkIf config.gaming.discord.enable {
-    environment.persistence."/persist".users.${username}.directories = [
-      ".config/vesktop"
-    ];
+    environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".config/vesktop";
+
     home-manager.users.${username} = {
       imports = [ inputs.nixcord.homeManagerModules.nixcord ];
 

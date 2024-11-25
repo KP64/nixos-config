@@ -14,10 +14,12 @@ in
   options.apps.spicetify.enable = lib.mkEnableOption "Spicetify";
 
   config = lib.mkIf config.apps.spicetify.enable {
-    environment.persistence."/persist".users.${username}.directories = [
-      ".config/spotify"
-      ".cache/spotify"
-    ];
+    environment.persistence."/persist".users.${username}.directories =
+      lib.optionals config.system.impermanence.enable
+        [
+          ".config/spotify"
+          ".cache/spotify"
+        ];
     home-manager.users.${username} = {
       imports = [ inputs.spicetify-nix.homeManagerModules.default ];
       programs.spicetify = {

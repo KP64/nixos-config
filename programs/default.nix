@@ -43,16 +43,19 @@
     ];
 
     environment.persistence."/persist".users.${username}.directories =
-      [ ".cache/whatsapp-for-linux" ]
-      ++ (map (p: ".local/share/${p}") [
-        "simplex"
-        "whatsapp-for-linux"
-      ])
-      ++ (map (p: ".config/${p}") [
-        "libreoffice"
-        "Signal"
-        "simplex"
-        "whatsapp-for-linux"
-      ]);
+      lib.optionals config.system.impermanence.enable
+        (
+          [ ".cache/whatsapp-for-linux" ]
+          ++ (map (p: ".local/share/${p}") [
+            "simplex"
+            "whatsapp-for-linux"
+          ])
+          ++ (map (p: ".config/${p}") [
+            "libreoffice"
+            "Signal"
+            "simplex"
+            "whatsapp-for-linux"
+          ])
+        );
   };
 }
