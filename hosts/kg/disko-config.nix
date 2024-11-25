@@ -46,7 +46,10 @@
           type = "btrfs";
           extraArgs = [ "-f" ];
           subvolumes = {
-            "/root".mountpoint = "/";
+            "/root" = {
+              mountpoint = "/";
+              mountOptions = [ "noatime" ];
+            };
 
             "/persist" = {
               mountpoint = "/persist";

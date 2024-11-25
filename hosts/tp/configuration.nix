@@ -53,6 +53,7 @@
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
+    impermanence.enable = true;
     security = {
       uutils-coreutils.enable = true;
       polkit.enable = true;
