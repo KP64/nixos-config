@@ -18,6 +18,7 @@
     enable = true;
     powertop.enable = true;
   };
+
   services = {
     thermald.enable = true;
     auto-cpufreq = {
@@ -38,6 +39,7 @@
       smartSupport = true;
     };
   };
+
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   hardware = {
@@ -52,12 +54,17 @@
     inherit stateVersion;
     boot.efi.enable = true;
     security = {
+      uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
+      secure-boot.enable = false;
+      sudo-rs.enable = true;
     };
   };
 
   cli = {
+    defaults.enable = true;
+
     git = {
       enable = true;
       user = {
@@ -71,13 +78,22 @@
       nushell.enable = true;
     };
 
-    file-managers.yazi.enable = true;
+    file-managers = {
+      yazi.enable = true;
+      broot.enable = true;
+    };
 
-    ricing.fetchers.enable = true;
+    ricing = {
+      defaults.enable = true;
+      fetchers.enable = true;
+    };
 
     terminals.kitty.enable = true;
 
-    monitors.btop.enable = true;
+    monitors = {
+      btop.enable = true;
+      bandwhich.enable = true;
+    };
   };
 
   hardware = {
@@ -125,12 +141,15 @@
   apps = {
     defaults.enable = true;
     spicetify.enable = true;
+    mpv.enable = true;
+    thunderbird.enable = true;
     browsers.firefox.enable = true;
   };
 
   gaming.discord.enable = true;
 
   networking.hostName = username;
+
   # sops = {
   #   defaultSopsFile = ./secrets.yaml;
   #   age = {

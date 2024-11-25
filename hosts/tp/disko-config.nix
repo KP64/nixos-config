@@ -6,6 +6,7 @@
       type = "gpt";
       partitions = {
         ESP = {
+          priority = 1;
           type = "EF00";
           size = "512M";
           content = {
@@ -21,10 +22,24 @@
         root = {
           size = "100%";
           content = {
-            type = "filesystem";
-            format = "ext4";
-            mountpoint = "/";
-            mountOptions = [ "noatime" ];
+            type = "btrfs";
+            extraArgs = [ "-f" ];
+            subvolumes = {
+              "/root" = {
+                mountpoint = "/";
+                mountOptions = [ "noatime" ];
+              };
+
+              "/persist" = {
+                mountpoint = "/persist";
+                mountOptions = [ "noatime" ];
+              };
+
+              "/nix" = {
+                mountpoint = "/nix";
+                mountOptions = [ "noatime" ];
+              };
+            };
           };
         };
       };
