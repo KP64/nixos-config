@@ -9,7 +9,7 @@ build host=default_host:
 # Show the 🥧 boot config
 config host=default_host:
     nom build .#nixosConfigurations.{{ host }}.config.hardware.raspberry-pi.config-output
-    bat result
+    @nom shell nixpkgs#bat --command bat result
 
 
 [confirm("Are you sure you want to build and flash the img?")]

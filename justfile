@@ -1,4 +1,7 @@
+set unstable := true
+
 mod anywhere
+mod eduroam
 mod pi
 mod topology
 mod sops
