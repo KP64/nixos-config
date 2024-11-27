@@ -61,6 +61,7 @@
       secure-boot.enable = true;
       sudo-rs.enable = true;
     };
+    services.ssh.enable = true;
   };
 
   cli = {
@@ -151,14 +152,11 @@
 
   networking.hostName = username;
 
-  # sops = {
-  #   defaultSopsFile = ./secrets.yaml;
-  #   age = {
-  #     keyFile = "/persist/home/${username}/.config/sops/age/keys.txt";
-  #     sshKeyPaths = [ "/home/${username}/.ssh/id_ed25519" ];
-  #   };
-  #   secrets.hashed_password.neededForUsers = true;
-  # };
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.sshKeyPaths = [ "/home/${username}/.ssh/id_ed25519" ];
+    secrets.hashed_password.neededForUsers = true;
+  };
 
   topology.self.interfaces.wlp4s0 =
     let
@@ -195,8 +193,7 @@
   nixpkgs.config.allowUnfree = true;
 
   users.users.${username} = {
-    # hashedPasswordFile = config.sops.secrets.hashed_password.path;
-    initialPassword = "12345";
+    hashedPasswordFile = config.sops.secrets.hashed_password.path;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgE5a4Wn4S/to9Z3QbQSDMyCOG/NAOWYJDEvAy4OdFf kg@kg"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
