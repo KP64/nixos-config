@@ -6,6 +6,8 @@
     networking.networkmanager = {
       enable = true;
       enableStrongSwan = true;
+      ethernet.macAddress = "random";
+      wifi.macAddress = "random";
     };
   };
 }
