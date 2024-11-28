@@ -61,7 +61,7 @@
       secure-boot.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
+    services.ssh.enable = false;
   };
 
   cli = {
@@ -154,7 +154,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.sshKeyPaths = [ "/home/${username}/.ssh/id_ed25519" ];
+    age.sshKeyPaths = [ "/persist/home/${username}/.ssh/id_ed25519" ];
     secrets.hashed_password.neededForUsers = true;
   };
 
