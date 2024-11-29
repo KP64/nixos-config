@@ -150,12 +150,35 @@
 
   gaming.discord.enable = true;
 
-  networking.hostName = username;
+  networking = {
+    hostName = username;
+
+    networkmanager.ensureProfiles = {
+      environmentFiles = [ config.sops.secrets."wireless.env".path ];
+      profiles = {
+        home-wifi = {
+          connection = {
+            id = "home-wifi";
+            type = "wifi";
+          };
+          wifi.ssid = "$HOME_WIFI_SSID";
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            psk = "$HOME_WIFI_PASSWORD";
+          };
+        };
+      };
+    };
+  };
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.sshKeyPaths = [ "/persist/home/${username}/.ssh/id_ed25519" ];
-    secrets.hashed_password.neededForUsers = true;
+    secrets = {
+      hashed_password.neededForUsers = true;
+      "wireless.env" = { };
+    };
   };
 
   topology.self.interfaces.wlp4s0 =
