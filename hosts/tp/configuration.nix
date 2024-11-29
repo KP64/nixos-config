@@ -42,14 +42,6 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  hardware = {
-    intel-gpu-tools.enable = true;
-    graphics = {
-      enable = true;
-      extraPackages = [ pkgs.vpl-gpu-rt ];
-    };
-  };
-
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
@@ -101,6 +93,7 @@
   hardware = {
     audio.enable = true;
     bluetoothctl.enable = true;
+    intel.enable = true;
     networking.enable = true;
   };
 
