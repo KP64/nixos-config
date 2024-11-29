@@ -40,7 +40,7 @@ in
       };
     };
 
-    environment =
+    environment = lib.mkMerge [
       {
         systemPackages =
           [ inputs.nix-alien.packages.${pkgs.system}.nix-alien ]
@@ -63,9 +63,11 @@ in
             statix
           ]);
       }
-      // (lib.mkIf config.system.impermanence.enable {
+
+      (lib.mkIf config.system.impermanence.enable {
         persistence."/persist".users.${username}.directories = [ ".local/share/direnv" ];
-      });
+      })
+    ];
 
     home-manager.users.${username} = {
       imports = [ inputs.nix-index-database.hmModules.nix-index ];

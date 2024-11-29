@@ -4,12 +4,15 @@
   username,
   ...
 }:
-{
-  home-manager.users.${username}.programs.zoxide = {
-    enable = true;
-    options = [ "--cmd cd" ];
-  };
-}
-// (lib.mkIf config.system.impermanence.enable {
-  environment.persistence."/persist".users.${username}.directories = [ ".local/share/zoxide" ];
-})
+lib.mkMerge [
+  {
+    home-manager.users.${username}.programs.zoxide = {
+      enable = true;
+      options = [ "--cmd cd" ];
+    };
+  }
+
+  (lib.mkIf config.system.impermanence.enable {
+    environment.persistence."/persist".users.${username}.directories = [ ".local/share/zoxide" ];
+  })
+]

@@ -8,7 +8,7 @@
 }:
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
-  environment =
+  environment = lib.mkMerge [
     {
       systemPackages = with pkgs; [
         age
@@ -21,7 +21,9 @@
         ssh-to-age
       ];
     }
-    // (lib.mkIf config.system.impermanence.enable {
+
+    (lib.mkIf config.system.impermanence.enable {
       persistence."/persist".users.${username}.directories = [ ".config/sops/age" ];
-    });
+    })
+  ];
 }
