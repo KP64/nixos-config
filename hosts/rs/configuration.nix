@@ -58,7 +58,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    age.sshKeyPaths = [ "/home/rs/.ssh/id_ed25519" ];
     secrets = {
       hashed_password.neededForUsers = true;
       "wg/keys/client" = { };
@@ -262,8 +262,7 @@
     };
   };
   users.users.${username} = {
-    # hashedPasswordFile = config.sops.secrets.hashed_password.path;
-    initialPassword = "12345";
+    hashedPasswordFile = config.sops.secrets.hashed_password.path;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgE5a4Wn4S/to9Z3QbQSDMyCOG/NAOWYJDEvAy4OdFf kg@kg"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
