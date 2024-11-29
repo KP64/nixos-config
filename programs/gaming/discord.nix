@@ -5,105 +5,113 @@
   username,
   ...
 }:
+let
+  cfg = config.gaming.discord;
+in
+
 {
   options.gaming.discord.enable = lib.mkEnableOption "Discord";
 
-  config = lib.mkIf config.gaming.discord.enable {
-    environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".config/vesktop";
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      home-manager.users.${username} = {
+        imports = [ inputs.nixcord.homeManagerModules.nixcord ];
 
-    home-manager.users.${username} = {
-      imports = [ inputs.nixcord.homeManagerModules.nixcord ];
-
-      programs.nixcord = {
-        enable = true;
-        vesktop.enable = true;
-        config = {
-          themeLinks = [ "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css" ];
-          frameless = true;
-          plugins = {
-            alwaysAnimate.enable = true;
-            anonymiseFileNames.enable = true;
-            betterFolders = {
-              enable = true;
-              sidebar = false;
-              closeAllFolders = true;
-              closeAllHomeButton = true;
-              closeOthers = true;
-              forceOpen = true;
+        programs.nixcord = {
+          enable = true;
+          vesktop.enable = true;
+          config = {
+            themeLinks = [ "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css" ];
+            frameless = true;
+            plugins = {
+              alwaysAnimate.enable = true;
+              anonymiseFileNames.enable = true;
+              betterFolders = {
+                enable = true;
+                sidebar = false;
+                closeAllFolders = true;
+                closeAllHomeButton = true;
+                closeOthers = true;
+                forceOpen = true;
+              };
+              betterGifAltText.enable = true;
+              betterRoleContext.enable = true;
+              betterRoleDot = {
+                enable = true;
+                bothStyles = true;
+                copyRoleColorInProfilePopout = true;
+              };
+              betterSessions.enable = true;
+              betterSettings.enable = true;
+              betterUploadButton.enable = true;
+              blurNSFW.enable = true;
+              callTimer.enable = true;
+              clearURLs.enable = true;
+              consoleJanitor.enable = true;
+              copyFileContents.enable = true;
+              copyUserURLs.enable = true;
+              customIdle.enable = true;
+              dearrow.enable = true;
+              disableCallIdle.enable = true;
+              dontRoundMyTimestamps.enable = true;
+              emoteCloner.enable = true;
+              fakeNitro.enable = true;
+              fakeProfileThemes.enable = true;
+              favoriteEmojiFirst.enable = true;
+              fixCodeblockGap.enable = true;
+              fixSpotifyEmbeds.enable = true;
+              fixYoutubeEmbeds.enable = true;
+              friendInvites.enable = true;
+              fullSearchContext.enable = true;
+              friendsSince.enable = true;
+              gameActivityToggle.enable = true;
+              gifPaste.enable = true;
+              greetStickerPicker.enable = true;
+              imageZoom.enable = true;
+              implicitRelationships.enable = true;
+              mentionAvatars.enable = true;
+              noRPC.enable = true;
+              nsfwGateBypass.enable = true;
+              pictureInPicture.enable = true;
+              pinDMs.enable = true;
+              platformIndicators.enable = true;
+              readAllNotificationsButton.enable = true;
+              relationshipNotifier.enable = true;
+              reverseImageSearch.enable = true;
+              shikiCodeblocks = {
+                enable = true;
+                theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
+              };
+              showConnections.enable = true;
+              showMeYourName.enable = true;
+              silentTyping = {
+                enable = true;
+                showIcon = true;
+              };
+              spotifyShareCommands.enable = true;
+              streamerModeOnStream.enable = true;
+              superReactionTweaks.enable = true;
+              themeAttributes.enable = true;
+              typingIndicator = {
+                enable = true;
+                includeMutedChannels = true;
+                includeBlockedUsers = true;
+              };
+              typingTweaks.enable = true;
+              userVoiceShow.enable = true;
+              USRBG.enable = true;
+              voiceChatDoubleClick.enable = true;
+              voiceMessages.enable = true;
+              whoReacted.enable = true;
+              youtubeAdblock.enable = true;
             };
-            betterGifAltText.enable = true;
-            betterRoleContext.enable = true;
-            betterRoleDot = {
-              enable = true;
-              bothStyles = true;
-              copyRoleColorInProfilePopout = true;
-            };
-            betterSessions.enable = true;
-            betterSettings.enable = true;
-            betterUploadButton.enable = true;
-            blurNSFW.enable = true;
-            callTimer.enable = true;
-            clearURLs.enable = true;
-            consoleJanitor.enable = true;
-            copyFileContents.enable = true;
-            copyUserURLs.enable = true;
-            customIdle.enable = true;
-            dearrow.enable = true;
-            disableCallIdle.enable = true;
-            dontRoundMyTimestamps.enable = true;
-            emoteCloner.enable = true;
-            fakeNitro.enable = true;
-            fakeProfileThemes.enable = true;
-            favoriteEmojiFirst.enable = true;
-            fixCodeblockGap.enable = true;
-            fixSpotifyEmbeds.enable = true;
-            fixYoutubeEmbeds.enable = true;
-            friendInvites.enable = true;
-            fullSearchContext.enable = true;
-            friendsSince.enable = true;
-            gameActivityToggle.enable = true;
-            gifPaste.enable = true;
-            greetStickerPicker.enable = true;
-            imageZoom.enable = true;
-            implicitRelationships.enable = true;
-            mentionAvatars.enable = true;
-            noRPC.enable = true;
-            nsfwGateBypass.enable = true;
-            pictureInPicture.enable = true;
-            pinDMs.enable = true;
-            platformIndicators.enable = true;
-            readAllNotificationsButton.enable = true;
-            relationshipNotifier.enable = true;
-            reverseImageSearch.enable = true;
-            shikiCodeblocks = {
-              enable = true;
-              theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
-            };
-            showConnections.enable = true;
-            showMeYourName.enable = true;
-            silentTyping = {
-              enable = true;
-              showIcon = true;
-            };
-            spotifyShareCommands.enable = true;
-            streamerModeOnStream.enable = true;
-            superReactionTweaks.enable = true;
-            themeAttributes.enable = true;
-            typingIndicator = {
-              enable = true;
-              includeMutedChannels = true;
-              includeBlockedUsers = true;
-            };
-            typingTweaks.enable = true;
-            userVoiceShow.enable = true;
-            USRBG.enable = true;
-            voiceChatDoubleClick.enable = true;
-            voiceMessages.enable = true;
-            whoReacted.enable = true;
-            youtubeAdblock.enable = true;
           };
         };
       };
-    };
-  };
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".users.${username}.directories = lib.optional cfg.enable ".config/vesktop";
+    })
+  ];
 }

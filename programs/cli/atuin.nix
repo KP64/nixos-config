@@ -12,5 +12,7 @@
       filter_mode_shell_up_key_binding = "directory";
     };
   };
-  environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".local/share/atuin";
 }
+// (lib.mkIf config.system.impermanence.enable {
+  environment.persistence."/persist".users.${username}.directories = [ ".local/share/atuin" ];
+})

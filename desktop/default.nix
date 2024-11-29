@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  cfg = config.desktop.defaults;
+in
 {
   imports = [
     ./eww
@@ -20,40 +23,40 @@
 
   options.desktop.defaults.enable = lib.mkEnableOption "Desktop Utils";
 
-  config = lib.mkIf config.desktop.defaults.enable {
-    environment = {
-      pathsToLink = map (p: "/share/${p}") [
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      environment.pathsToLink = map (p: "/share/${p}") [
         "xdg-desktop-portal"
         "applications"
       ];
 
-      persistence."/persist".users.${username}.directories =
-        lib.optionals config.system.impermanence.enable
-          [
-            "Desktop"
-            "Documents"
-            "Downloads"
-            "Music"
-            "Pictures"
-            "Public"
-            "Templates"
-            "Videos"
-          ];
-    };
+      home-manager.users.${username} = {
+        home.packages = with pkgs; [
+          xdg-utils
+          libnotify
+        ];
 
-    home-manager.users.${username} = {
-      home.packages = with pkgs; [
-        xdg-utils
-        libnotify
-      ];
-
-      xdg = {
-        enable = true;
-        userDirs = {
+        xdg = {
           enable = true;
-          createDirectories = true;
+          userDirs = {
+            enable = true;
+            createDirectories = true;
+          };
         };
       };
-    };
-  };
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable [
+        "Desktop"
+        "Documents"
+        "Downloads"
+        "Music"
+        "Pictures"
+        "Public"
+        "Templates"
+        "Videos"
+      ];
+    })
+  ];
 }

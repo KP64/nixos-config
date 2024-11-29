@@ -5,7 +5,9 @@
   username,
   ...
 }:
-
+let
+  cfg = config.apps.defaults;
+in
 {
   imports = [
     ./browsers
@@ -22,40 +24,43 @@
 
   options.apps.defaults.enable = lib.mkEnableOption "Some Graphical Apps";
 
-  config = lib.mkIf config.apps.defaults.enable {
-    home-manager.users.${username}.home.packages = with pkgs; [
-      gimp
-      figma-linux
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      home-manager.users.${username}.home.packages = with pkgs; [
+        gimp
+        figma-linux
 
-      libreoffice
-      hunspell
-      hunspellDicts.en_US
-      hunspellDicts.de_DE
+        libreoffice
+        hunspell
+        hunspellDicts.en_US
+        hunspellDicts.de_DE
 
-      anki-bin
+        anki-bin
 
-      whatsapp-for-linux
-      simplex-chat-desktop
-      signal-desktop
+        whatsapp-for-linux
+        simplex-chat-desktop
+        signal-desktop
 
-      czkawka
-      lmms
-    ];
+        czkawka
+        lmms
+      ];
 
-    environment.persistence."/persist".users.${username}.directories =
-      lib.optionals config.system.impermanence.enable
-        (
-          [ ".cache/whatsapp-for-linux" ]
-          ++ (map (p: ".local/share/${p}") [
-            "simplex"
-            "whatsapp-for-linux"
-          ])
-          ++ (map (p: ".config/${p}") [
-            "libreoffice"
-            "Signal"
-            "simplex"
-            "whatsapp-for-linux"
-          ])
-        );
-  };
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable (
+        [ ".cache/whatsapp-for-linux" ]
+        ++ (map (p: ".local/share/${p}") [
+          "simplex"
+          "whatsapp-for-linux"
+        ])
+        ++ (map (p: ".config/${p}") [
+          "libreoffice"
+          "Signal"
+          "simplex"
+          "whatsapp-for-linux"
+        ])
+      );
+    })
+  ];
 }

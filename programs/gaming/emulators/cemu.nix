@@ -5,12 +5,20 @@
   username,
   ...
 }:
+let
+  cfg = config.gaming.emulators.cemu;
+in
 {
   options.gaming.emulators.cemu.enable = lib.mkEnableOption "Cemu";
 
-  config = lib.mkIf config.gaming.emulators.cemu.enable {
-    home-manager.users.${username}.home.packages = [ pkgs.cemu ];
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      home-manager.users.${username}.home.packages = [ pkgs.cemu ];
 
-    environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".config/Cemu";
-  };
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".users.${username}.directories = lib.optional cfg.enable ".config/Cemu";
+    })
+  ];
 }

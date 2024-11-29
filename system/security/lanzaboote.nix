@@ -5,7 +5,9 @@
   inputs,
   ...
 }:
-
+let
+  cfg = config.system.security.secure-boot;
+in
 {
   options.system.security.secure-boot.enable = lib.mkEnableOption "Lanzaboote";
 
@@ -13,9 +15,7 @@
   config = lib.mkMerge [
     { environment.systemPackages = [ pkgs.sbctl ]; }
 
-    (lib.mkIf config.system.security.secure-boot.enable {
-      environment.persistence."/persist".directories = lib.optional config.system.impermanence.enable config.boot.lanzaboote.pkiBundle;
-
+    (lib.mkIf cfg.enable {
       boot = {
         # Lanzaboote currently replaces the systemd-boot module.
         # This setting is usually set to true in configuration.nix
@@ -27,6 +27,10 @@
           pkiBundle = "/etc/secureboot";
         };
       };
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".directories = lib.optional cfg.enable config.boot.lanzaboote.pkiBundle;
     })
   ];
 }

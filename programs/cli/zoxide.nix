@@ -9,6 +9,7 @@
     enable = true;
     options = [ "--cmd cd" ];
   };
-
-  environment.persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".local/share/zoxide";
 }
+// (lib.mkIf config.system.impermanence.enable {
+  environment.persistence."/persist".users.${username}.directories = [ ".local/share/zoxide" ];
+})

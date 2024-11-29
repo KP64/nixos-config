@@ -3,13 +3,16 @@
   lib,
   ...
 }:
+let
+  cfg = config.system.services.ssh;
+in
 {
   options.system.services.ssh.enable = lib.mkEnableOption "Openssh";
 
   config = lib.mkMerge [
     { programs.ssh.startAgent = true; }
 
-    (lib.mkIf config.system.services.ssh.enable {
+    (lib.mkIf cfg.enable {
       services = {
         openssh = {
           enable = true;
@@ -29,7 +32,10 @@
           };
         };
       };
-      environment.persistence."/persist".directories = lib.optional config.system.impermanence.enable "/var/lib/fail2ban";
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/fail2ban";
     })
   ];
 }

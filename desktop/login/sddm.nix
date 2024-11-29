@@ -5,19 +5,27 @@
   ...
 }:
 
+let
+  cfg = config.desktop.login.sddm;
+in
 {
   options.desktop.login.sddm.enable = lib.mkEnableOption "SDDM";
 
-  config = lib.mkIf config.desktop.login.sddm.enable {
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      catppuccin = {
-        background = ../wallpapers/cat-nix.png;
-        font = "JetBrainsMono Nerd Font";
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      services.displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+        catppuccin = {
+          background = ../wallpapers/cat-nix.png;
+          font = "JetBrainsMono Nerd Font";
+        };
+        package = pkgs.kdePackages.sddm;
       };
-      package = pkgs.kdePackages.sddm;
-    };
-    environment.persistence."/persist".directories = lib.optional config.system.impermanence.enable "/var/lib/sddm";
-  };
+    })
+
+    (lib.mkIf config.system.impermanence.enable {
+      environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/sddm";
+    })
+  ];
 }

@@ -8,17 +8,20 @@
 }:
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
-  environment = {
-    systemPackages = with pkgs; [
-      age
-      rage
-      age-plugin-tpm
-      age-plugin-yubikey
-      gnupg
-      sops
-      ssh-to-pgp
-      ssh-to-age
-    ];
-    persistence."/persist".users.${username}.directories = lib.optional config.system.impermanence.enable ".config/sops/age";
-  };
+  environment =
+    {
+      systemPackages = with pkgs; [
+        age
+        rage
+        age-plugin-tpm
+        age-plugin-yubikey
+        gnupg
+        sops
+        ssh-to-pgp
+        ssh-to-age
+      ];
+    }
+    // (lib.mkIf config.system.impermanence.enable {
+      persistence."/persist".users.${username}.directories = [ ".config/sops/age" ];
+    });
 }
