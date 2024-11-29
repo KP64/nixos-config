@@ -163,14 +163,42 @@
     steam.enable = true;
   };
 
-  networking.hostName = username;
+  networking = {
+    hostName = username;
+
+    networkmanager.ensureProfiles = {
+      environmentFiles = [ config.sops.secrets."wireless.env".path ];
+      profiles = {
+        home-wifi = {
+          connection = {
+            id = "home-wifi";
+            type = "wifi";
+          };
+          wifi.ssid = "$HOME_WIFI_SSID";
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            psk = "$HOME_WIFI_PASSWORD";
+          };
+        };
+      };
+    };
+  };
+
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age = {
-      keyFile = "/persist/home/${username}/.config/sops/age/keys.txt";
-      sshKeyPaths = [ "/home/${username}/.ssh/id_ed25519" ];
+    age =
+      let
+        persistDir = "/persist/home/${username}";
+      in
+      {
+        keyFile = "${persistDir}/.config/sops/age/keys.txt";
+        sshKeyPaths = [ "${persistDir}/.ssh/id_ed25519" ];
+      };
+    secrets = {
+      hashed_password.neededForUsers = true;
+      "wireless.env" = { };
     };
-    secrets.hashed_password.neededForUsers = true;
   };
 
   topology.self.interfaces.wlp6s0 =
