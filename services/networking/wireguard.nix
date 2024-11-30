@@ -183,7 +183,7 @@ in
           // {
             address = with value.address; ipv4 ++ ipv6;
             postUp = (setIPv4NAT "A") + (setIPv6NAT "A");
-            postDown = (setIPv4NAT "D") + (setIPv6NAT "D");
+            preDown = (setIPv4NAT "D") + (setIPv6NAT "D");
           }
         ) cfg.serverInterfaces;
       in
