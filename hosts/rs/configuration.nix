@@ -245,17 +245,13 @@
           "facebook"
           "minecraft"
           "nvidia"
-          "reddit"
           "samsung_tv_plus"
           "signal"
           "spotify"
           "steam"
           "telegram"
           "tiktok"
-          "twitch"
-          "ubisoft"
           "whatsapp"
-          "xbox_live"
           "youtube"
         ];
       };
