@@ -35,7 +35,7 @@
       nushell.enable = true;
     };
 
-    file-managers.yazi.enable = false;
+    file-managers.yazi.enable = true;
 
     ricing.fetchers.enable = true;
 
