@@ -85,6 +85,7 @@ let
     "plenty_of_fish"
     "plex"
     "qq"
+    "peacock_tv"
     "privacy"
     "pluto_tv"
     "rakuten_viki"
@@ -97,6 +98,7 @@ let
     "shopee"
     "signal"
     "skype"
+    "slack"
     "snapchat"
     "soundcloud"
     "spotify"
@@ -120,7 +122,7 @@ let
     "weibo"
     "whatsapp"
     "wizz"
-    "xbox_live"
+    "xboxlive"
     "xiaohongshu"
     "youtube"
     "yy"
@@ -390,7 +392,7 @@ in
             ids =
               (
                 blockedServices
-                |> lib.partition (toBlock: cfg.allowedServices |> lib.any (toAllow: toAllow == toBlock))
+                |> builtins.partition (toBlock: cfg.allowedServices |> builtins.any (toAllow: toAllow == toBlock))
               ).wrong;
           };
           protection_disabled_until = null;
