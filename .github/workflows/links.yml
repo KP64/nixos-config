@@ -19,6 +19,7 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           fail: false
+          args: --header "accept=*/*" ./*.nix ./hosts/**/*.nix
 
       - name: Create Issue From File
         if: steps.lychee.outputs.exit_code != 0
