@@ -260,7 +260,7 @@
   users.users.${username} = {
     hashedPasswordFile = config.sops.secrets.hashed_password.path;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgE5a4Wn4S/to9Z3QbQSDMyCOG/NAOWYJDEvAy4OdFf kg@kg"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKVc2eK6Ql+DtJ2D2asHMo8S0HUc8/2ar8wZVkm/ezsn kg@kg"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
     ];
     extraGroups = [
