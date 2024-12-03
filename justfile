@@ -16,3 +16,6 @@ check:
 
 fmt:
     @nix fmt
+
+links:
+    @lychee ./*.nix ./hosts/**/*.nix --include-fragments

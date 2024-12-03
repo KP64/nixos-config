@@ -16,7 +16,7 @@ jobs:
 
       - name: Link Checker
         id: lychee
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@f81112d0d2814ded911bd23e3beaa9dda9093915
         with:
           fail: false
           args: --header "accept=*/*" ./*.nix ./hosts/**/*.nix
