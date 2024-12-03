@@ -43,7 +43,7 @@ let
     )
     |> builtins.listToAttrs;
 
-  active_wallpaper = toString wallpapers.night;
+  active_wallpaper = toString wallpapers.cat-leaves;
 in
 {
   options.desktop.hypr.hyprpaper.enable = lib.mkEnableOption "Hyprpaper";

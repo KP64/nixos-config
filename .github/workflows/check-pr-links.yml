@@ -36,7 +36,7 @@ jobs:
             --include-fragments
             .
           output: ./existing-links.txt
-        continue-on-error: true  # Don't fail if base branch check has issues
+        continue-on-error: true # Don't fail if base branch check has issues
 
       - name: Stash untracked files
         run: git stash push --include-untracked
