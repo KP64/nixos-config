@@ -63,7 +63,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 | Text Editor             | [Vscodium](https://github.com/VSCodium/vscodium) + [Helix](https://github.com/helix-editor/helix) + [Zed](https://github.com/zed-industries/zed) |
 | Networking              | [NetworkManager](https://networkmanager.dev/) + [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet)                  |
 | System resource monitor | [Btop](https://github.com/aristocratos/btop)                                                                                                     |
-| File Manager            | [Broot](https://github.com/Canop/broot) + [Yazi](https://github.com/sxyazi/yazi)                                                                 |
+| File Manager            | [Dolphin](https://invent.kde.org/system/dolphin) + [Broot](https://github.com/Canop/broot) + [Yazi](https://github.com/sxyazi/yazi)              |
 | Fonts                   | [FiraCode Nerd Font](https://github.com/ryanoasis/nerd-fonts) + [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts)               |
 | Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix)                                                                                                  |
 | Cursor                  | [Catppuccin Cursors](https://github.com/catppuccin/nix)                                                                                          |
@@ -73,7 +73,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 | Music Player            | [Spicetify](https://spicetify.app/)                                                                                                              |
 | Screenshotting          | [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast)                                                                               |
 | Screen Recording        | [OBS](https://github.com/obsproject/obs-studio)                                                                                                  |
-| Clipboard               | [wl-clipboard-rs](https://github.com/YaLTeR/wl-clipboard-rs) + [Copyq](https://github.com/hluk/CopyQ)                                            |
+| Clipboard               | [wl-clipboard-rs](https://github.com/YaLTeR/wl-clipboard-rs) + [CopyQ](https://github.com/hluk/CopyQ)                                            |
 | Color Picker            | [Hyprpicker](https://github.com/hyprwm/hyprpicker)                                                                                               |
 | Touch Screen Gestures   | [Hyprgrass](https://github.com/horriblename/hyprgrass)                                                                                           |
 
