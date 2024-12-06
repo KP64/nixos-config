@@ -1,7 +1,6 @@
 {
   lib,
   inputs,
-  stable-pkgs,
   username,
   ...
 }:
@@ -21,10 +20,10 @@ in
     catppuccin = {
       enable = true;
       inherit accent;
-      # pointerCursor = {
-      #   enable = true;
-      #   accent = "dark";
-      # };
+      pointerCursor = {
+        enable = true;
+        accent = "dark";
+      };
     };
 
     home =
@@ -36,8 +35,6 @@ in
         pointerCursor = {
           gtk.enable = true;
           inherit size;
-          package = stable-pkgs.catppuccin-cursors.mochaDark;
-          name = "catppuccin-mocha-dark-cursors";
         };
       };
 
