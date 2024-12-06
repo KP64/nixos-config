@@ -18,4 +18,4 @@ fmt:
     @nix fmt
 
 links:
-    @lychee ./*.nix ./hosts/**/*.nix --include-fragments
+    @lychee ./*.md ./*.nix ./hosts/**/*.nix --include-fragments

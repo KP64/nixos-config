@@ -5,6 +5,7 @@
   programs = {
     deadnix.enable = true;
     just.enable = true;
+    mdformat.enable = true;
     nixfmt.enable = true;
     prettier = {
       enable = true;
