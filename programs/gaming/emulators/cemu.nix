@@ -18,7 +18,8 @@ in
     })
 
     (lib.mkIf config.system.impermanence.enable {
-      environment.persistence."/persist".users.${username}.directories = lib.optional cfg.enable ".config/Cemu";
+      environment.persistence."/persist".users.${username}.directories =
+        lib.optional cfg.enable ".config/Cemu";
     })
   ];
 }

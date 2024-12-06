@@ -111,7 +111,8 @@ in
     })
 
     (lib.mkIf config.system.impermanence.enable {
-      environment.persistence."/persist".users.${username}.directories = lib.optional cfg.enable ".config/vesktop";
+      environment.persistence."/persist".users.${username}.directories =
+        lib.optional cfg.enable ".config/vesktop";
     })
   ];
 }

@@ -33,7 +33,8 @@ in
     })
 
     (lib.mkIf config.system.impermanence.enable {
-      environment.persistence."/persist".users.${username}.directories = lib.optional cfg.enable ".config/obs-studio";
+      environment.persistence."/persist".users.${username}.directories =
+        lib.optional cfg.enable ".config/obs-studio";
     })
   ];
 }
