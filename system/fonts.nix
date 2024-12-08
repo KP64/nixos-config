@@ -13,24 +13,31 @@ in
     default = [ ];
     description = "Custom font packages to install.";
     type = with lib.types; listOf package;
-    example = with pkgs; [
-      noto-fonts
-      nerd-fonts.symbols-only
+    example = [
+      pkgs.noto-fonts
+      (pkgs.nerdfonts.override {
+        fonts = [ "JetBrainsMono" ];
+      })
     ];
   };
 
   config.fonts.packages =
-    (with pkgs.nerd-fonts; [
-      fira-code
-      fira-mono
-      jetbrains-mono
-      noto
-      symbols-only
-    ])
-    ++ (with pkgs; [
+    with pkgs;
+    [
       dejavu_fonts
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
       font-awesome
-    ])
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "JetBrainsMono"
+          "Noto"
+          "NerdFontsSymbolsOnly"
+        ];
+      })
+    ]
     ++ cfg.extraFonts;
 
 }
