@@ -39,7 +39,6 @@
     };
     ricing = {
       defaults.enable = true;
-      cava.enable = true;
       fetchers.enable = true;
     };
     monitors = {
