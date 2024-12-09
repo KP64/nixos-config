@@ -55,7 +55,7 @@
 
     ricing = {
       defaults.enable = true;
-      cava.enable = true;
+      cava.enable = false;
       fetchers.enable = true;
     };
 
@@ -125,7 +125,7 @@
   };
 
   editors = {
-    aseprite.enable = true;
+    aseprite.enable = false;
     blender.enable = true;
     helix.enable = true;
     imhex.enable = true;
@@ -150,7 +150,7 @@
   gaming = {
     defaults.enable = true;
     discord.enable = true;
-    # emulators.enable = true;
+    emulators.enable = true;
     heroic.enable = true;
     mangohud.enable = true;
     gamemode.enable = true;
