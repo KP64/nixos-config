@@ -121,7 +121,13 @@
       };
     };
 
-    nur.url = "github:nix-community/nur";
+    nur = {
+      url = "github:nix-community/nur";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
 
     potato-fox = {
       url = "git+https://codeberg.org/awwpotato/PotatoFox.git";

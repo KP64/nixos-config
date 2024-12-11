@@ -82,7 +82,7 @@ in
           ./services
           ./system
           {
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = [ inputs.nur.overlays.default ];
             users = {
               mutableUsers = false;
               users.${username} = {
