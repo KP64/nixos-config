@@ -21,11 +21,11 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 
 - [✨ Features](#-features)
 - [📚 Layout](#-layout)
-- [⚙️ Components](#️-components)
-- [🖼️ Gallery](#️-gallery)
+- [⚙️ Components](#-components)
+- [🖼️ Gallery](#-gallery)
 - [🐚 Shell Aliases](#-shell-aliases)
-- [⌨️ Keybinds](#️-keybinds)
-- [🖥️ Hosts](#️️-hosts)
+- [⌨️ Keybinds](#-keybinds)
+- [🖥️ Hosts](#-hosts)
 - [👀 Topology](#-network-topology)
 
 ## ✨ Features
