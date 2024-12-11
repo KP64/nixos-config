@@ -86,7 +86,8 @@ in
     })
 
     (lib.mkIf config.system.impermanence.enable {
-      environment.persistence."/persist".users.${username}.files = lib.optional cfg.enable ".config/nushell/history.txt";
+      environment.persistence."/persist".users.${username}.files =
+        lib.optional cfg.enable ".config/nushell/history.txt";
     })
   ];
 }
