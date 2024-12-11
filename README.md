@@ -11,11 +11,22 @@
 
 </div>
 
-## 🗒 About
+## 📝 About
 
 A wannabe size fits it all NixOS Configuration using flakes.
 It is encouraged to try modify and break it all you like!
 Don't believe me? Look at the ["License"](./UNLICENSE) :D
+
+## 📖 Content
+
+- [✨ Features](#-features)
+- [📚 Layout](#-layout)
+- [⚙️ Components](#️-components)
+- [🖼️ Gallery](#️-gallery)
+- [🐚 Shell Aliases](#-shell-aliases)
+- [⌨️ Keybinds](#️-keybinds)
+- [🖥️ Hosts](#️️-hosts)
+- [👀 Topology](#-network-topology)
 
 ## ✨ Features
 
@@ -36,7 +47,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 
 ## 📚 Layout
 
-- [flake.nix](./flake.nix) ❄ base of the configuration
+- [flake.nix](./flake.nix) ❄️ base of the configuration
 - [hosts](./hosts) 👻 per-host machine specific configurations
 - [desktop](./desktop) 🖥️ Desktop modules
 - [hardware](./hardware) ⚙️ Hardware modules
@@ -44,7 +55,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - [services](./services) 0️⃣ nice to have services extracted into own modules with sensible defaults for easier setup
 - [wallpapers](./desktop/wallpapers) 🌄 Wallpaper Collection
 
-## ⚙ Components
+## ⚙️ Components
 
 <!-- TODO: Add qview 1 -->
 
@@ -106,7 +117,7 @@ alias lla = ls -la
 
 and more at [nushell.nix](./programs/cli/shells/nushell/default.nix)
 
-## ⌨ Keybinds
+## ⌨️ Keybinds
 
 Look at the [Hyprland.nix](./desktop/hypr/hyprland.nix) file
 
