@@ -38,7 +38,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - ⚠️ [Impermanence](https://github.com/nix-community/impermanence)
 - 🔐 [Sops-nix](https://github.com/Mic92/sops-nix)
 - ♻️ [Nixos-anywhere](https://github.com/nix-community/nixos-anywhere)
-- 🔐 [Lanzaboote](https://github.com/nix-community/lanzaboote)
+- 🔒 [Lanzaboote](https://github.com/nix-community/lanzaboote)
 - 🌐 [Topology](https://github.com/oddlama/nix-topology)
 - 🐱 [Catppuccin](https://github.com/catppuccin/nix)
 - 🖥️ [Minecraft Servers](https://github.com/Infinidoge/nix-minecraft)
@@ -48,20 +48,18 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 ## 📚 Layout
 
 - [flake.nix](./flake.nix) ❄️ base of the configuration
-- [hosts](./hosts) 👻 per-host machine specific configurations
 - [desktop](./desktop) 🖥️ Desktop modules
   - [wallpapers](./desktop/wallpapers) 🌄 Wallpaper Collection
 - [hardware](./hardware) ⚙️ Hardware modules
+- [hosts](./hosts) 👻 per-host machine specific configurations
 - [programs](./programs) 1️⃣ mandatory programs and optional to enable modules
 - [services](./services) 0️⃣ nice to have services extracted into own modules with sensible defaults for easier setup
+- [system](./system) 🖥️ system critical modules
+- [topology](./topology) 🌐 global topology settings
 
 ## ⚙️ Components
 
-<!-- TODO: Add qview 1 -->
-
 <!-- TODO: | Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                           | -->
-
-<!-- TODO: | Image Viewer            | ()                                                                                                                                    | -->
 
 | Component               | Choice(s)                                                                                                                                        |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -99,8 +97,8 @@ For Bash:
 ```sh
 alias cd = z
 alias ls = lsd
-alias ll = lsd -l
 alias la = lsd -A
+alias ll = lsd -l
 alias lt = lsd --tree
 alias lla = lsd -lA
 alias llt = lsd -l --tree
@@ -108,11 +106,12 @@ alias llt = lsd -l --tree
 
 For Nushell:
 
-```sh
+```nu
 alias cd = z
-alias ll = ls -l
+alias fd = fd --hidden
 alias la = ls -a
-alias lla = ls -la
+alias ll = ls -l
+alias lla = ls -l -a
 ```
 
 and more at [nushell.nix](./programs/cli/shells/nushell/default.nix)
