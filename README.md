@@ -33,7 +33,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - ❄️ [Flakes](https://nixos.wiki/wiki/flakes)
 - 🏡 [Home-Manager](https://github.com/nix-community/home-manager)
 - 🪟 [WSL](https://github.com/nix-community/NixOS-WSL)
-- 🫐 [Raspberry Pi](https://github.com/nix-community/raspberry-pi-nix)
+- 🥧 [Raspberry Pi](https://github.com/nix-community/raspberry-pi-nix)
 - 💽 [Disko](https://github.com/nix-community/disko)
 - ⚠️ [Impermanence](https://github.com/nix-community/impermanence)
 - 🔐 [Sops-nix](https://github.com/Mic92/sops-nix)
