@@ -50,10 +50,10 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - [flake.nix](./flake.nix) ❄️ base of the configuration
 - [hosts](./hosts) 👻 per-host machine specific configurations
 - [desktop](./desktop) 🖥️ Desktop modules
+  - [wallpapers](./desktop/wallpapers) 🌄 Wallpaper Collection
 - [hardware](./hardware) ⚙️ Hardware modules
 - [programs](./programs) 1️⃣ mandatory programs and optional to enable modules
 - [services](./services) 0️⃣ nice to have services extracted into own modules with sensible defaults for easier setup
-- [wallpapers](./desktop/wallpapers) 🌄 Wallpaper Collection
 
 ## ⚙️ Components
 
