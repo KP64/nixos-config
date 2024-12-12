@@ -54,11 +54,13 @@
       procs
       rustscan
       sd
-      sherlock
       sshx
       tokei
       typst
       xh
+
+      sherlock
+      maigret
     ];
   };
 }
