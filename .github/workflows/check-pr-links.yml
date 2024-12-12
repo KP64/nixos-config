@@ -19,14 +19,17 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
         with:
+          persist-credentials: false
           fetch-depth: 0
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
 
       - name: Check out base branch
-        run: git checkout ${{github.event.pull_request.base.ref}}
+        env:
+          BASE_REF: ${{github.event.pull_request.base.ref}}
+        run: git checkout "$BASE_REF"
 
       - name: Dump all links from ${{github.event.pull_request.base.ref}}
         uses: lycheeverse/lychee-action@f81112d0d2814ded911bd23e3beaa9dda9093915
@@ -42,7 +45,9 @@ jobs:
         run: git stash push --include-untracked
 
       - name: Check out feature branch
-        run: git checkout ${{ github.head_ref }}
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: git checkout "$HEAD_REF"
 
       - name: Apply stashed changes
         run: git stash pop || true
@@ -54,7 +59,7 @@ jobs:
           fi
 
       - name: Check links
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@f81112d0d2814ded911bd23e3beaa9dda9093915
         with:
           args: |
             --no-progress

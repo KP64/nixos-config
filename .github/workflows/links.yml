@@ -12,8 +12,9 @@ jobs:
     permissions:
       issues: write # required for peter-evans/create-issue-from-file
     steps:
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
+        with:
+          persist-credentials: false
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@f81112d0d2814ded911bd23e3beaa9dda9093915
@@ -23,7 +24,7 @@ jobs:
 
       - name: Create Issue From File
         if: steps.lychee.outputs.exit_code != 0
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@64feed10c881151d72db1df9265baf264b570b29
         with:
           title: Link Checker Report
           content-filepath: ./lychee/out.md

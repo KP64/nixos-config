@@ -279,6 +279,7 @@
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
+            act
             deadnix
             just
             nixd
@@ -287,6 +288,7 @@
             nixfmt-rfc-style
             nurl
             statix
+            zizmor
           ];
         };
       }
