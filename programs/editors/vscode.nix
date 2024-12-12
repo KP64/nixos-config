@@ -44,6 +44,7 @@ in
             mhutchie.git-graph
             mkhl.direnv
             ms-azuretools.vscode-docker
+            myriad-dreamin.tinymist
             nefrob.vscode-just-syntax
             rust-lang.rust-analyzer
             svelte.svelte-vscode
