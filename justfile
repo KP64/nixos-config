@@ -1,6 +1,7 @@
 set unstable := true
 
 mod anywhere
+mod check
 mod eduroam
 mod pi
 mod topology
@@ -11,11 +12,6 @@ mod wsl
 default:
     @just --choose
 
-check:
-    @- nix flake check
-
+# Format the Whole Repo
 fmt:
     @nix fmt
-
-links:
-    @lychee ./*.md ./*.nix ./hosts/**/*.nix --include-fragments
