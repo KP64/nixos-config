@@ -16,7 +16,6 @@ in
     ./services
     ./login
 
-    ./catppuccin.nix
     ./rofi.nix
     ./waybar.nix
   ];
@@ -35,6 +34,9 @@ in
           xdg-utils
           libnotify
         ];
+
+        gtk.enable = true;
+        qt.enable = true;
 
         xdg = {
           enable = true;

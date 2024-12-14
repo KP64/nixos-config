@@ -20,8 +20,8 @@ in
         imports = [ inputs.spicetify-nix.homeManagerModules.default ];
         programs.spicetify = {
           enable = true;
-          theme = spicePkgs.themes.catppuccin;
-          colorScheme = "mocha";
+          theme = lib.mkIf config.isCatppuccinEnabled spicePkgs.themes.catppuccin;
+          colorScheme = lib.mkIf config.isCatppuccinEnabled "mocha";
           enabledCustomApps = [ spicePkgs.apps.lyricsPlus ];
           enabledExtensions = with spicePkgs.extensions; [
             adblock

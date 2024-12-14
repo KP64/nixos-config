@@ -41,7 +41,7 @@
       inputs.systems.follows = "systems";
     };
 
-    hm = {
+    home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -208,6 +208,17 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
+      };
+    };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
     };
 

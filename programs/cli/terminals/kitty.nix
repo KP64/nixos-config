@@ -5,16 +5,15 @@
   ...
 }:
 {
-
   options.cli.terminals.kitty.enable = lib.mkEnableOption "Kitty";
 
   config = lib.mkIf config.cli.terminals.kitty.enable {
     home-manager.users.${username}.programs.kitty = {
       enable = true;
-      font.name = "JetBrainsMono Nerd Font";
+      font.name = lib.mkDefault "JetBrainsMono Nerd Font";
       settings = {
         shell = "nu";
-        background_opacity = "0.8";
+        background_opacity = lib.mkIf config.isCatppuccinEnabled "0.8";
       };
     };
   };

@@ -1,5 +1,4 @@
 {
-  lib,
   config,
   pkgs,
   username,
@@ -15,9 +14,8 @@
       sudo-rs.enable = true;
     };
     services.ssh.enable = true;
+    style.stylix.enable = true;
   };
-
-  home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
 
   cli = {
     defaults.enable = true;

@@ -100,8 +100,8 @@ in
           };
 
           workbench = {
-            iconTheme = "catppuccin-mocha";
-            colorTheme = "Catppuccin Mocha";
+            iconTheme = lib.mkIf config.isCatppuccinEnabled "catppuccin-mocha";
+            colorTheme = lib.mkIf config.isCatppuccinEnabled "Catppuccin Mocha";
             productIconTheme = "fluent-icons";
             startupEditor = "none";
           };
@@ -112,7 +112,7 @@ in
           };
 
           editor = {
-            fontFamily = "JetBrainsMono Nerd Font";
+            fontFamily = lib.mkDefault "JetBrainsMono Nerd Font";
             fontLigatures = true;
             guides.bracketPairs = "active";
             formatOnSave = true;

@@ -41,9 +41,8 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - 🔒 [Lanzaboote](https://github.com/nix-community/lanzaboote)
 - 🌐 [Topology](https://github.com/oddlama/nix-topology)
 - 🐱 [Catppuccin](https://github.com/catppuccin/nix)
+- 💈 [Stylix (WIP)](https://github.com/danth/stylix)
 - 🖥️ [Minecraft Servers](https://github.com/Infinidoge/nix-minecraft)
-
-<!-- TODO: - 💈[Stylix](https://github.com/danth/stylix) -->
 
 ## 📚 Layout
 
@@ -59,24 +58,22 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 
 ## ⚙️ Components
 
-<!-- TODO: | Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                           | -->
-
 | Component               | Choice(s)                                                                                                                                        |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Window Manager          | [Hyprland](https://github.com/hyprwm/Hyprland)                                                                                                   |
 | Bar                     | [Hyprpanel](https://github.com/Jas-SinghFSU/HyprPanel)                                                                                           |
 | App Launcher            | [Rofi-wayland](https://github.com/lbonn/rofi)                                                                                                    |
 | Notification Daemon     | [Hyprpanel](https://github.com/Jas-SinghFSU/HyprPanel)                                                                                           |
-| Terminal Emulatro       | [Kitty](https://github.com/kovidgoyal/kitty)                                                                                                     |
+| Terminal Emulator       | [Kitty](https://github.com/kovidgoyal/kitty)                                                                                                     |
 | Shell                   | [Bash](https://www.gnu.org/software/bash/) + [Nushell](https://github.com/nushell/nushell) + [Starship](https://github.com/starship/starship)    |
 | Text Editor             | [Vscodium](https://github.com/VSCodium/vscodium) + [Helix](https://github.com/helix-editor/helix) + [Zed](https://github.com/zed-industries/zed) |
 | Networking              | [NetworkManager](https://networkmanager.dev/) + [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet)                  |
 | System resource monitor | [Btop](https://github.com/aristocratos/btop)                                                                                                     |
 | File Manager            | [Dolphin](https://invent.kde.org/system/dolphin) + [Broot](https://github.com/Canop/broot) + [Yazi](https://github.com/sxyazi/yazi)              |
 | Fonts                   | [FiraCode Nerd Font](https://github.com/ryanoasis/nerd-fonts) + [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts)               |
-| Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix)                                                                                                  |
-| Cursor                  | [Catppuccin Cursors](https://github.com/catppuccin/nix)                                                                                          |
-| Icons                   | [Catppuccin Icons](https://github.com/catppuccin/nix)                                                                                            |
+| Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                      |
+| Cursors                 | [Catppuccin Cursors](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                              |
+| Icons                   | [Catppuccin Icons](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                |
 | Lockscreen              | [Hyprlock](https://github.com/hyprwm/hyprlock)                                                                                                   |
 | Media Player            | [mpv](https://github.com/mpv-player/mpv)                                                                                                         |
 | Music Player            | [Spicetify](https://spicetify.app/)                                                                                                              |

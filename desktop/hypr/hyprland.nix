@@ -90,6 +90,7 @@ in
       home.packages =
         (with inputs; [
           hyprland-contrib.packages.${pkgs.system}.grimblast
+          # TODO: Ditch for Custom EWW or Ags Config!
           hyprpanel.packages.${pkgs.system}.default
         ])
         ++ (with pkgs; [
@@ -109,7 +110,7 @@ in
             hyprexpo = {
               columns = 3;
               gap_size = 5;
-              bg_col = "$base";
+              bg_col = if config.isCatppuccinEnabled then "$base" else "rgb(24,26,27)";
               # [center/first] [workspace] e.g. first 1 or center m+1
               workspace_method = "first 1";
 
@@ -140,6 +141,15 @@ in
               edge_margin = 10;
             };
           };
+
+          env =
+            let
+              stylixCursor = config.stylix.cursor;
+            in
+            lib.optionals config.isStylixEnabled [
+              "XCURSOR_SIZE,${toString stylixCursor.size}"
+              "XCURSOR_THEME,${stylixCursor.name}"
+            ];
 
           monitor =
             cfg.monitors
@@ -178,7 +188,7 @@ in
             "eww daemon"
           ];
 
-          general = {
+          general = lib.mkIf config.isCatppuccinEnabled {
             "col.active_border" = "$lavender";
             "col.inactive_border" = "$surface0";
           };
@@ -186,7 +196,7 @@ in
           decoration = {
             rounding = 8;
 
-            shadow.color = "$mantle";
+            shadow.color = lib.mkIf config.isCatppuccinEnabled "$mantle";
 
             blur = {
               enabled = true;

@@ -21,7 +21,7 @@ in
           enable = true;
           vesktop.enable = true;
           config = {
-            themeLinks = [ "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css" ];
+            themeLinks = lib.optional config.isCatppuccinEnabled "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
             frameless = true;
             plugins = {
               alwaysAnimate.enable = true;
@@ -80,7 +80,7 @@ in
               reverseImageSearch.enable = true;
               shikiCodeblocks = {
                 enable = true;
-                theme = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
+                theme = lib.optionalString config.isCatppuccinEnabled "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
               };
               showConnections.enable = true;
               showMeYourName.enable = true;

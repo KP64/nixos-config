@@ -15,6 +15,7 @@ in
 {
   options.desktop.hypr.hyprlock.enable = lib.mkEnableOption "Hyprlock";
 
+  # FIX: When Catppuccin is disabled!!!
   config = lib.mkIf config.desktop.hypr.hyprlock.enable {
     home-manager.users.${username}.programs.hyprlock = {
       enable = true;
@@ -29,7 +30,7 @@ in
         background = [
           {
             monitor = "";
-            path = toString ../wallpapers/doggocat.png;
+            path = toString ../wallpapers/astronaut.png;
             blur_passes = 0;
             color = "$base";
           }

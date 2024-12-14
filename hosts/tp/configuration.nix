@@ -54,6 +54,7 @@
       sudo-rs.enable = true;
     };
     services.ssh.enable = false;
+    style.catppuccin.enable = true;
   };
 
   cli = {
@@ -146,6 +147,7 @@
   networking = {
     hostName = username;
 
+    # TODO: Add WG Profiles
     networkmanager.ensureProfiles = {
       environmentFiles = [ config.sops.secrets."wireless.env".path ];
       profiles = {

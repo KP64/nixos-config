@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   username,
   stateVersion,
   ...
@@ -14,11 +13,13 @@
       polkit.enable = true;
       sudo-rs.enable = true;
     };
+    style.catppuccin = {
+      enable = true;
+      enableGtkIcons = false;
+    };
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  home-manager.users.${username}.gtk.catppuccin.icon.enable = lib.mkForce false;
 
   cli = {
     defaults.enable = true;

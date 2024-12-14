@@ -1,11 +1,12 @@
 {
   imports = [
+    ./boot
     ./security
     ./services
-    ./boot
+    ./style
 
     ./fonts.nix
-    ./hm.nix
+    ./home-manager.nix
     ./impermanence.nix
     ./nix.nix
     ./sops.nix

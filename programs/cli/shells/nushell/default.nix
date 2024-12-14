@@ -46,7 +46,7 @@ in
           in
           ''
             # Theme
-            source ${nuScriptsDir}/themes/nu-themes/catppuccin-mocha.nu
+            ${lib.optionalString config.isCatppuccinEnabled "source ${nuScriptsDir}/themes/nu-themes/catppuccin-mocha.nu"}
 
             # Aliases
             ${lib.concatMapStringsSep "\n" useAlias [
