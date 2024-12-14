@@ -15,13 +15,12 @@ in
 {
   options.desktop.hypr.hyprlock.enable = lib.mkEnableOption "Hyprlock";
 
-  # FIX: When Catppuccin is disabled!!!
   config = lib.mkIf config.desktop.hypr.hyprlock.enable {
     home-manager.users.${username}.programs.hyprlock = {
       enable = true;
       package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
 
-      settings = {
+      settings = lib.mkIf config.isCatppuccinEnabled {
         general = {
           disable_loading_bar = true;
           hide_cursor = true;

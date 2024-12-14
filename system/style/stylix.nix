@@ -89,7 +89,6 @@ in
       inherit stylix;
       home-manager.users.${username} = {
         stylix = stylix // {
-          targets.hyprlock.enable = lib.mkForce false;
           iconTheme = {
             enable = true;
             inherit (cfg.iconPack) package;
