@@ -112,7 +112,7 @@ in
           };
 
           editor = {
-            fontFamily = lib.mkDefault "JetBrainsMono Nerd Font";
+            fontFamily = config.system.fontName;
             fontLigatures = true;
             guides.bracketPairs = "active";
             formatOnSave = true;

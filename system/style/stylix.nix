@@ -78,6 +78,11 @@ in
         image = cfg.wallpaper;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/${cfg.scheme}.yaml";
 
+        fonts.monospace = {
+          package = pkgs.nerd-fonts.dejavu-sans-mono;
+          name = "DejaVuSansM Nerd Font";
+        };
+
         cursor = {
           package = pkgs.bibata-cursors;
           name = "Bibata-Modern-Ice";

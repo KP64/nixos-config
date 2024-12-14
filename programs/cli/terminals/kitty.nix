@@ -10,7 +10,7 @@
   config = lib.mkIf config.cli.terminals.kitty.enable {
     home-manager.users.${username}.programs.kitty = {
       enable = true;
-      font.name = lib.mkDefault "JetBrainsMono Nerd Font";
+      font.name = config.system.fontName;
       settings = {
         shell = "nu";
         background_opacity = lib.mkIf config.isCatppuccinEnabled "0.8";

@@ -10,7 +10,7 @@
 let
   accent = "$lavender";
   accentAlpha = "$lavenderAlpha";
-  font = "JetBrainsMono Nerd Font";
+  font = config.system.fontName;
 in
 {
   options.desktop.hypr.hyprlock.enable = lib.mkEnableOption "Hyprlock";
