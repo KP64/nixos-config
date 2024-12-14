@@ -123,12 +123,9 @@
     };
 
   services = {
-    immich = {
-      enable = false;
+    media.immich = {
+      enable = true;
       host = "192.168.2.204";
-      openFirewall = true;
-      # ? Machine Learning is broken on aarch64
-      machine-learning.enable = false;
     };
 
     stirling-pdf.enable = false;

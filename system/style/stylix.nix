@@ -14,9 +14,9 @@ in
 
   options = {
     isStylixEnabled = lib.mkOption {
+      internal = true;
       type = lib.types.bool;
       default = cfg.enable;
-      internal = true;
     };
 
     system.style.stylix = {
