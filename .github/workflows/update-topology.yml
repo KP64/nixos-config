@@ -47,6 +47,7 @@ jobs:
           if [[ -n "$(git status assets --porcelain)" ]]; then
             git add assets
             git commit -m "chore: Topology Update"
+            git push
             gh pr create --title "chore: Topology Update" --body "Automated PR to update the Topology in the README file."
             gh pr merge --auto --rebase "$PR_URL"
           fi
