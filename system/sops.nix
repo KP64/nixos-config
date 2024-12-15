@@ -22,7 +22,7 @@
       ];
     }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       persistence."/persist".users.${username}.directories = [ ".config/sops/age" ];
     })
   ];

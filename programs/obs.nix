@@ -32,7 +32,7 @@ in
       };
     })
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".users.${username}.directories =
         lib.optional cfg.enable ".config/obs-studio";
     })

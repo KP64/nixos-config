@@ -73,8 +73,7 @@ in
   config =
     let
       stylix = {
-        enable = true;
-        inherit (cfg) polarity;
+        inherit (cfg) enable polarity;
         image = cfg.wallpaper;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/${cfg.scheme}.yaml";
 
@@ -90,7 +89,7 @@ in
         };
       };
     in
-    lib.mkIf cfg.enable {
+    {
       inherit stylix;
       home-manager.users.${username} = {
         stylix = stylix // {

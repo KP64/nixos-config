@@ -1,12 +1,12 @@
 { lib, config, ... }:
-
+let
+  cfg = config.hardware.bluetoothctl;
+in
 {
   options.hardware.bluetoothctl.enable = lib.mkEnableOption "Bluetooth";
 
-  config = lib.mkIf config.hardware.bluetoothctl.enable {
-    hardware.bluetooth = {
-      enable = true;
-      settings.General.Experimental = true;
-    };
+  config.hardware.bluetooth = {
+    inherit (cfg) enable;
+    settings.General.Experimental = true;
   };
 }

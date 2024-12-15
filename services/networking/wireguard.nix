@@ -218,6 +218,16 @@ in
               preDown = (setIPv4NAT "D") + (setIPv6NAT "D");
             }
           );
+
+        clientInterfaces =
+          cfg.clientInterfaces
+          |> lib.mapAttrs (
+            name: value:
+            value
+            // {
+              address = with value.address; ipv4 ++ ipv6;
+            }
+          );
       in
       {
         nat = {
@@ -238,7 +248,7 @@ in
             ] ++ (serverInterfaces |> builtins.attrValues |> map (i: i.listenPort));
           };
 
-        wg-quick.interfaces = serverInterfaces // cfg.clientInterfaces;
+        wg-quick.interfaces = serverInterfaces // clientInterfaces;
       };
   };
 }

@@ -4,13 +4,14 @@
   username,
   ...
 }:
+let
+  cfg = config.desktop.services.mako;
+in
 {
   options.desktop.services.mako.enable = lib.mkEnableOption "Mako";
 
-  config = lib.mkIf config.desktop.services.mako.enable {
-    home-manager.users.${username}.services.mako = {
-      enable = true;
-      defaultTimeout = 5000;
-    };
+  config.home-manager.users.${username}.services.mako = {
+    inherit (cfg) enable;
+    defaultTimeout = 5000;
   };
 }

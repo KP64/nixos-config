@@ -14,9 +14,9 @@ in
   options.cli.shells.nushell.enable = lib.mkEnableOption "Nushell";
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    {
       home-manager.users.${username}.programs.nushell = {
-        enable = true;
+        inherit (cfg) enable;
         shellAliases = {
           ll = "ls -l";
           la = "ls -a";
@@ -83,9 +83,9 @@ in
             ]}
           '';
       };
-    })
+    }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".users.${username}.files =
         lib.optional cfg.enable ".config/nushell/history.txt";
     })

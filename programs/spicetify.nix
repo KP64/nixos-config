@@ -15,11 +15,11 @@ in
   options.apps.spicetify.enable = lib.mkEnableOption "Spicetify";
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    {
       home-manager.users.${username} = {
         imports = [ inputs.spicetify-nix.homeManagerModules.default ];
         programs.spicetify = {
-          enable = true;
+          inherit (cfg) enable;
           theme = lib.mkIf config.isCatppuccinEnabled spicePkgs.themes.catppuccin;
           colorScheme = lib.mkIf config.isCatppuccinEnabled "mocha";
           enabledCustomApps = [ spicePkgs.apps.lyricsPlus ];
@@ -42,9 +42,9 @@ in
           ];
         };
       };
-    })
+    }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable [
         ".config/spotify"
         ".cache/spotify"

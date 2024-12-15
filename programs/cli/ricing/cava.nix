@@ -4,10 +4,11 @@
   username,
   ...
 }:
+let
+  cfg = config.cli.ricing.cava;
+in
 {
   options.cli.ricing.cava.enable = lib.mkEnableOption "Cava";
 
-  config = lib.mkIf config.cli.ricing.cava.enable {
-    home-manager.users.${username}.programs.cava.enable = true;
-  };
+  config.home-manager.users.${username}.programs.cava = { inherit (cfg) enable; };
 }

@@ -13,13 +13,13 @@ in
   options.gaming.discord.enable = lib.mkEnableOption "Discord";
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    {
       home-manager.users.${username} = {
         imports = [ inputs.nixcord.homeManagerModules.nixcord ];
 
         programs.nixcord = {
-          enable = true;
-          vesktop.enable = true;
+          inherit (cfg) enable;
+          vesktop = { inherit (cfg) enable; };
           config = {
             themeLinks = lib.optional config.isCatppuccinEnabled "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
             frameless = true;
@@ -108,9 +108,9 @@ in
           };
         };
       };
-    })
+    }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".users.${username}.directories =
         lib.optional cfg.enable ".config/vesktop";
     })

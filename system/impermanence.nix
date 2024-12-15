@@ -5,12 +5,23 @@
   username,
   ...
 }:
+let
+  cfg = config.system.impermanence;
+in
 {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
-  options.system.impermanence.enable = lib.mkEnableOption "Impermanence";
+  options = {
+    isImpermanenceEnabled = lib.mkOption {
+      internal = true;
+      type = lib.types.bool;
+      default = cfg.enable;
+    };
 
-  config = lib.mkIf config.system.impermanence.enable {
+    system.impermanence.enable = lib.mkEnableOption "Impermanence";
+  };
+
+  config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       imports = [ inputs.impermanence.homeManagerModules.impermanence ];
       home.persistence."/persist".allowOther = true;

@@ -15,7 +15,7 @@ lib.mkMerge [
     };
   }
 
-  (lib.mkIf config.system.impermanence.enable {
+  (lib.mkIf config.isImpermanenceEnabled {
     environment.persistence."/persist".users.${username}.directories = [ ".local/share/atuin" ];
   })
 ]

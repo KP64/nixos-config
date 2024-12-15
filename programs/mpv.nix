@@ -4,10 +4,11 @@
   username,
   ...
 }:
+let
+  cfg = config.apps.mpv;
+in
 {
   options.apps.mpv.enable = lib.mkEnableOption "mpv";
 
-  config = lib.mkIf config.apps.mpv.enable {
-    home-manager.users.${username}.programs.mpv.enable = true;
-  };
+  config.home-manager.users.${username}.programs.mpv = { inherit (cfg) enable; };
 }

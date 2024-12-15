@@ -4,10 +4,11 @@
   username,
   ...
 }:
+let
+  cfg = config.desktop.services.ntwrk-mgr-app;
+in
 {
   options.desktop.services.ntwrk-mgr-app.enable = lib.mkEnableOption "Network Manager Applet";
 
-  config = lib.mkIf config.desktop.services.ntwrk-mgr-app.enable {
-    home-manager.users.${username}.services.network-manager-applet.enable = true;
-  };
+  config.home-manager.users.${username}.services.network-manager-applet = { inherit (cfg) enable; };
 }

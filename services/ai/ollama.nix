@@ -29,16 +29,15 @@ in
   };
 
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    {
       services.ollama = {
-        enable = true;
+        inherit (cfg) enable acceleration;
         openFirewall = true;
-        inherit (cfg) acceleration;
         loadModels = cfg.models;
       };
-    })
+    }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/private/ollama";
     })
   ];

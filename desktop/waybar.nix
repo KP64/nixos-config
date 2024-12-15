@@ -4,13 +4,14 @@
   username,
   ...
 }:
+let
+  cfg = config.desktop.waybar;
+in
 {
   options.desktop.waybar.enable = lib.mkEnableOption "Waybar";
 
-  config = lib.mkIf config.desktop.waybar.enable {
-    home-manager.users.${username}.programs.waybar = {
-      enable = true;
-      systemd.enable = true;
-    };
+  config.home-manager.users.${username}.programs.waybar = {
+    inherit (cfg) enable;
+    systemd.enable = true;
   };
 }

@@ -4,10 +4,11 @@
   username,
   ...
 }:
+let
+  cfg = config.gaming.mangohud;
+in
 {
   options.gaming.mangohud.enable = lib.mkEnableOption "Mangohud Overlay";
 
-  config = lib.mkIf config.gaming.mangohud.enable {
-    home-manager.users.${username}.programs.mangohud.enable = true;
-  };
+  config.home-manager.users.${username}.programs.mangohud = { inherit (cfg) enable; };
 }

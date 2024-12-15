@@ -13,9 +13,9 @@ in
 
   # TODO: Config for when Catppuccin isn't enabled!!!
   config = lib.mkMerge [
-    (lib.mkIf cfg.enable {
+    {
       services.displayManager.sddm = {
-        enable = true;
+        inherit (cfg) enable;
         wayland.enable = true;
         catppuccin = {
           background = ../wallpapers/cat-nix.png;
@@ -23,9 +23,9 @@ in
         };
         package = pkgs.kdePackages.sddm;
       };
-    })
+    }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/sddm";
     })
   ];

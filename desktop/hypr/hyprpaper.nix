@@ -19,13 +19,11 @@ in
     };
   };
 
-  config = lib.mkIf config.desktop.hypr.hyprpaper.enable {
-    home-manager.users.${username}.services.hyprpaper = {
-      enable = true;
-      settings = lib.mkIf (!config.isStylixEnabled) {
-        preload = [ (toString cfg.wallpaper) ];
-        wallpaper = [ ", ${toString cfg.wallpaper}" ];
-      };
+  config.home-manager.users.${username}.services.hyprpaper = {
+    inherit (cfg) enable;
+    settings = lib.mkIf (!config.isStylixEnabled) {
+      preload = [ (toString cfg.wallpaper) ];
+      wallpaper = [ ", ${toString cfg.wallpaper}" ];
     };
   };
 }

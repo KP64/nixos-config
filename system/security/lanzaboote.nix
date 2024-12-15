@@ -29,7 +29,7 @@ in
       };
     })
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".directories =
         lib.optional cfg.enable config.boot.lanzaboote.pkiBundle;
     })

@@ -20,7 +20,7 @@ in
 
     secretsFile = lib.mkOption {
       default = null;
-      type = lib.types.path;
+      type = with lib.types; nullOr path;
     };
   };
 
@@ -34,7 +34,7 @@ in
       };
     }
 
-    (lib.mkIf config.system.impermanence.enable {
+    (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/immich";
     })
   ];
