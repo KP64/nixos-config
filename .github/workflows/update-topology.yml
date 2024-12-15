@@ -34,7 +34,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build Topology
-        run: nix build .#topology.x86_64-linux.config.output
+        run: nix build .#topology.x86_64-linux.config.output --extra-experimental-features pipe-operators
 
       - name: Move Topology
         run: sudo cp -r result/* assets/topology/
