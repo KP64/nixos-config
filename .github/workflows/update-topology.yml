@@ -1,0 +1,58 @@
+name: CI topology updater
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@13dabe8ccc07ba82ad7ccfa52035616223194012
+
+      # Runs a single command using the runners shell
+      - name: Build Topology
+        run: nix build .#topology.x86_64-linux.config.output
+
+      - name: Move Topology
+        run: sudo cp -r result/* assets/topology/
+
+  compare:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Compare and replace
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          if [[ -n "$(git status assets --porcelain)" ]]; then
+            gh pr create --title "chore: Topology Update" --body "Automated PR to update the Topology in the README file."
+            gh pr merge --auto --rebase "$PR_URL"
+          fi
