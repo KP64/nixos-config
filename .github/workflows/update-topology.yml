@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
         with:
           persist-credentials: false
+          ref: ${{ github.head_ref }}
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
