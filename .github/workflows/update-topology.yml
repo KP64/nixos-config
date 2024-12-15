@@ -19,7 +19,6 @@ jobs:
       - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
         with:
           persist-credentials: false
-          ref: ${{ github.head_ref }}
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
@@ -34,6 +33,6 @@ jobs:
         run: sudo cp -r result/* assets/topology/
 
       - name: Commit and Push changed Files
-        uses: stefanzweifel/git-auto-commit-action@0b492c0d951b87f3cd12523a542dbd156c1dbc80
+        uses: EndBug/add-and-commit@2afad56181d84749b0d88d950978f238c741f9c9
         with:
-          commit_message: Topology Update
+          message: 'Update Topology'
