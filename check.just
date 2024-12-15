@@ -10,7 +10,7 @@ flake:
 
 # Check links with lychee
 links:
-    @lychee ./*.md ./*.nix ./hosts/**/*.nix --include-fragments
+    @lychee ./*.md ./*.nix ./hosts/**/*.nix
 
 # Check Github Actions
 actions:
