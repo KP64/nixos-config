@@ -34,20 +34,7 @@ jobs:
       - name: Move Topology
         run: sudo cp -r result/* assets/topology/
 
-      - name: Setup git user
-        run: |
-          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
-          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
-
-      - name: Compare and replace
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          if [[ -n "$(git status assets --porcelain)" ]]; then
-            git add assets
-            git commit -m "chore: Topology Update"
-            git push
-            gh pr create --title "chore: Topology Update" --body "Automated PR to update the Topology in the README file."
-            gh pr merge --auto --rebase "$PR_URL"
-          fi
+      - name: Commit and Push changed Files
+        uses: stefanzweifel/git-auto-commit-action@0b492c0d951b87f3cd12523a542dbd156c1dbc80
+        with:
+          commit_message: Topology Update
