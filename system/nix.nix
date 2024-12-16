@@ -60,6 +60,7 @@ in
             nurl
             nvd
             statix
+            vulnix
           ]);
       }
 

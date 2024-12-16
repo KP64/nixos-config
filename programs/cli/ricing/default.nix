@@ -18,6 +18,7 @@
       cbonsai
       pipes-rs
       cmatrix
+      nms
     ];
   };
 }

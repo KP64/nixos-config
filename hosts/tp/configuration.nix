@@ -108,6 +108,7 @@
     hypr = {
       hypridle.enable = true;
       hyprlock.enable = true;
+      hyprpanel.enable = true;
       hyprpaper.enable = true;
       hyprland = {
         enable = true;

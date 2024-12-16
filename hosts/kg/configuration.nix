@@ -28,7 +28,7 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    style.catppuccin.enable = true;
+    style.stylix.enable = true;
   };
 
   cli = {
@@ -85,6 +85,7 @@
     hypr = {
       hypridle.enable = true;
       hyprlock.enable = true;
+      hyprpanel.enable = true;
       hyprpaper.enable = true;
       hyprland = {
         enable = true;

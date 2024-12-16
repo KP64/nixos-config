@@ -85,18 +85,22 @@ in
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     # System wide install needed for e.g. SDDM
-    programs.hyprland.enable = true;
+    programs = {
+      hyprland.enable = true;
+      thunar = {
+        enable = true;
+        plugins = with pkgs.xfce; [
+          thunar-volman
+          thunar-archive-plugin
+          thunar-media-tags-plugin
+        ];
+      };
+    };
     home-manager.users.${username} = {
-      home.packages =
-        (with inputs; [
-          hyprland-contrib.packages.${pkgs.system}.grimblast
-          # TODO: Ditch for Custom EWW or Ags Config!
-          hyprpanel.packages.${pkgs.system}.default
-        ])
-        ++ (with pkgs; [
-          kdePackages.dolphin
-          hyprpicker
-        ]);
+      home.packages = [
+        pkgs.hyprpicker
+        inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      ];
       wayland.windowManager.hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -181,7 +185,6 @@ in
           exec-once = [
             "copyq --start-server"
             "mako"
-            "hyprpanel"
             "udiskie"
             "hyprpaper"
             "hypridle"
