@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  stable-pkgs,
   username,
   ...
 }:
@@ -34,33 +35,34 @@
   options.cli.defaults.enable = lib.mkEnableOption "Default Cli Apps";
 
   config = lib.mkIf config.cli.defaults.enable {
-    home-manager.users.${username}.home.packages = with pkgs; [
-      # ani-cli
-      asciinema
-      binsider
-      dipc
-      dust
-      glow
-      gping
-      grex
-      hexyl
-      hurl
-      hyperfine
-      jnv
-      just
-      kondo
-      lychee
-      ouch
-      procs
-      rustscan
-      sd
-      sshx
-      tokei
-      typst
-      xh
+    home-manager.users.${username}.home.packages =
+      [ stable-pkgs.ani-cli ]
+      ++ (with pkgs; [
+        asciinema
+        binsider
+        dipc
+        dust
+        glow
+        gping
+        grex
+        hexyl
+        hurl
+        hyperfine
+        jnv
+        just
+        kondo
+        lychee
+        ouch
+        procs
+        rustscan
+        sd
+        sshx
+        tokei
+        typst
+        xh
 
-      sherlock
-      maigret
-    ];
+        sherlock
+        maigret
+      ]);
   };
 }
