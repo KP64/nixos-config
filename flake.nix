@@ -100,6 +100,14 @@
       };
     };
 
+    hyprsunset = {
+      url = "github:hyprwm/hyprsunset";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     impermanence.url = "github:nix-community/impermanence";
 
     lanzaboote = {
