@@ -12,68 +12,76 @@ let
   max_workspace_count = 9;
 in
 {
-  options.desktop.hypr.hyprland = {
-    enable = lib.mkEnableOption "Hyprland";
-    monitors = lib.mkOption {
-      readOnly = true;
-      type = lib.types.nonEmptyListOf (
-        lib.types.submodule {
-          options = {
-            enabled = lib.mkOption {
-              default = true;
-              type = lib.types.bool;
-              description = "Whether the monitor is enabled.";
-              example = false;
-            };
-            name = lib.mkOption {
-              readOnly = true;
-              type = lib.types.nonEmptyStr;
-              description = "The descriptor of the Monitor.";
-              example = "DP-1";
-            };
-            resolution = lib.mkOption {
-              default = "preferred";
-              type = lib.types.enum [
-                "preferred"
-                "highres"
-                "highrr"
-              ];
-              example = "highres";
-            };
-            x = lib.mkOption {
-              type = lib.types.int;
-              default = 0;
-              example = 1920;
-            };
-            y = lib.mkOption {
-              type = lib.types.int;
-              default = 0;
-              example = 1080;
-            };
-            vrr = lib.mkOption {
-              type = lib.types.ints.between 0 2;
-              default = 0;
-              example = 1;
-            };
-            workspaces = lib.mkOption {
-              default = [ ];
-              description = "The workspaces to be assigned to the monitor.";
-              type = lib.types.listOf (
-                lib.types.submodule {
-                  options = {
-                    id = lib.mkOption {
-                      readOnly = true;
-                      type = lib.types.ints.between 1 max_workspace_count;
-                      example = 1;
+  options = {
+    maxWorkspaceCount = lib.mkOption {
+      internal = true;
+      type = lib.types.ints.positive;
+      default = max_workspace_count;
+    };
+
+    desktop.hypr.hyprland = {
+      enable = lib.mkEnableOption "Hyprland";
+      monitors = lib.mkOption {
+        readOnly = true;
+        type = lib.types.nonEmptyListOf (
+          lib.types.submodule {
+            options = {
+              enabled = lib.mkOption {
+                default = true;
+                type = lib.types.bool;
+                description = "Whether the monitor is enabled.";
+                example = false;
+              };
+              name = lib.mkOption {
+                readOnly = true;
+                type = lib.types.nonEmptyStr;
+                description = "The descriptor of the Monitor.";
+                example = "DP-1";
+              };
+              resolution = lib.mkOption {
+                default = "preferred";
+                type = lib.types.enum [
+                  "preferred"
+                  "highres"
+                  "highrr"
+                ];
+                example = "highres";
+              };
+              x = lib.mkOption {
+                type = lib.types.int;
+                default = 0;
+                example = 1920;
+              };
+              y = lib.mkOption {
+                type = lib.types.int;
+                default = 0;
+                example = 1080;
+              };
+              vrr = lib.mkOption {
+                type = lib.types.ints.between 0 2;
+                default = 0;
+                example = 1;
+              };
+              workspaces = lib.mkOption {
+                default = [ ];
+                description = "The workspaces to be assigned to the monitor.";
+                type = lib.types.listOf (
+                  lib.types.submodule {
+                    options = {
+                      id = lib.mkOption {
+                        readOnly = true;
+                        type = lib.types.ints.between 1 max_workspace_count;
+                        example = 1;
+                      };
+                      default = lib.mkEnableOption "this workspace always on this monitor";
                     };
-                    default = lib.mkEnableOption "this workspace always on this monitor";
-                  };
-                }
-              );
+                  }
+                );
+              };
             };
-          };
-        }
-      );
+          }
+        );
+      };
     };
   };
 

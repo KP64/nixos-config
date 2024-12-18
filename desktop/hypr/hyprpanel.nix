@@ -65,7 +65,7 @@ in
               },
 
               "bar.workspaces.show_numbered": true,
-              "bar.workspaces.workspaces": 9,
+              "bar.workspaces.workspaces": ${toString config.maxWorkspaceCount},
               "bar.workspaces.monitorSpecific": true,
 
               "menus.clock.weather.location": "",
