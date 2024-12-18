@@ -177,13 +177,20 @@
     };
   };
 
-  topology.self.interfaces.wlp4s0 =
+  topology.self =
     let
       inherit (config.lib) topology;
     in
     {
-      network = "home";
-      physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
+      hardware = {
+        info = "Lenovo Thinkpad Yoga 370";
+        image = ../../topology/yoga370.png;
+      };
+
+      interfaces.wlp4s0 = {
+        network = "home";
+        physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
+      };
     };
 
   services.xserver.xkb = {
