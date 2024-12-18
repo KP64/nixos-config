@@ -105,9 +105,10 @@ in
       };
     };
     home-manager.users.${username} = {
-      home.packages = [
-        pkgs.hyprpicker
-        inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      home.packages = with inputs; [
+        hyprland-contrib.packages.${pkgs.system}.grimblast
+        hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
+        hyprpicker.packages.${pkgs.system}.hyprpicker
       ];
       wayland.windowManager.hyprland = {
         enable = true;

@@ -84,6 +84,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
+    hyprpolkitagent = {
+      url = "github:hyprwm/hyprpolkitagent";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     impermanence.url = "github:nix-community/impermanence";
 
     lanzaboote = {
