@@ -123,12 +123,7 @@
     };
 
   services = {
-    media.immich = {
-      enable = true;
-      host = "192.168.2.204";
-    };
-
-    stirling-pdf.enable = false;
+    media.immich.enable = true;
 
     gaming.minecraft.servers = [
       {

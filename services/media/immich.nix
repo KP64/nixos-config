@@ -12,7 +12,7 @@ in
     enable = lib.mkEnableOption "Immich";
 
     host = lib.mkOption {
-      readOnly = true;
+      default = "0.0.0.0";
       type = lib.types.nonEmptyStr;
       description = "The ip on which immich is served.";
       example = "192.168.2.5";
@@ -30,7 +30,6 @@ in
         inherit (cfg) enable secretsFile host;
         package = stable-pkgs.immich;
         openFirewall = true;
-        machine-learning.enable = true;
       };
     }
 
