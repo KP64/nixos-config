@@ -2,7 +2,7 @@ keys:
   - &kg age1egmlkwjlnd0m0hpkjhju2ckaeq2fjfdnhgjlzkxctxq6mypc4sksek2ula
   - &rs age10eglflhnpcvu27sw74spey97etq2l0m4zqqde4vt5754m7rt53wqyuyaht
   - &ws age1rrds73cgd2nmd6py7j6cvpk28kwgu6kw30mhr0y4nz2crw9hf9cs6df32k
-  - &tp age1u734f72dgjcmz3ld8ltq6en52pgn8qftzutevsk22qxjm6nregrqwp7533
+  - &tp age1vy2rjgm67w96m3tkl4zgkhqudld9r6nnr55yuu287c4d9rt7x95stqrvlx
 creation_rules:
   - path_regex: hosts\/.+\/secrets\.(yaml|json|env|ini)$
     key_groups:
