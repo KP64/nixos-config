@@ -29,7 +29,7 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    style.stylix.enable = true;
+    style.catppuccin.enable = true;
   };
 
   cli = {
