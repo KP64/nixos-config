@@ -28,6 +28,7 @@
     ./greps.nix
     ./tealdeer.nix
     ./thefuck.nix
+    ./trippy.nix
     ./zellij.nix
     ./zoxide.nix
   ];
@@ -62,7 +63,6 @@
         sshx
         systemctl-tui
         tokei
-        trippy
         typst
         xh
 
