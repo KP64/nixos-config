@@ -53,12 +53,14 @@ in
         ++ (map (p: ".local/share/${p}") [
           "simplex"
           "whatsapp-for-linux"
+          "wasistlos"
         ])
         ++ (map (p: ".config/${p}") [
           "libreoffice"
           "Signal"
           "simplex"
           "whatsapp-for-linux"
+          "wasistlos"
         ])
       );
     })
