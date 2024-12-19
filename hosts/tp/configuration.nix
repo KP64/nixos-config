@@ -51,10 +51,9 @@
       uutils-coreutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
-      secure-boot.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = false;
+    services.ssh.enable = true;
     style.catppuccin.enable = true;
   };
 
@@ -194,31 +193,34 @@
       };
     };
 
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "";
-  };
-
   time.timeZone = "Europe/Berlin";
 
   nixpkgs.config.allowUnfree = true;
 
-  users.users.${username} = {
-    hashedPasswordFile = config.sops.secrets.hashed_password.path;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICHYe+2EqTg5Uh0/PZXhnuznFE84uiEzBtgd8qz9sUWS ed25519"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
-    ];
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "input"
-      "docker"
-      "kvm"
-      "libvirtd"
-      "audio"
-      "video"
-      "tss"
-    ];
-  };
+  users.users =
+    let
+      keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICHYe+2EqTg5Uh0/PZXhnuznFE84uiEzBtgd8qz9sUWS ed25519"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
+      ];
+    in
+    {
+      root.openssh.authorizedKeys = { inherit keys; };
+
+      ${username} = {
+        hashedPasswordFile = config.sops.secrets.hashed_password.path;
+        openssh.authorizedKeys = { inherit keys; };
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+          "input"
+          "docker"
+          "kvm"
+          "libvirtd"
+          "audio"
+          "video"
+          "tss"
+        ];
+      };
+    };
 }

@@ -53,11 +53,6 @@
 
   networking.hostName = username;
 
-  services.xserver.xkb = {
-    layout = "en";
-    variant = "";
-  };
-
   time.timeZone = "Europe/Berlin";
 
   nixpkgs.config.allowUnfree = true;

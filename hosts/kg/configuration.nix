@@ -205,19 +205,13 @@
       physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
     };
 
-  services = {
-    ai.ollama = {
-      enable = true;
-      acceleration = "cuda";
-      models = [
-        "llama3.2"
-        "llama3.1:8b"
-      ];
-    };
-    xserver.xkb = {
-      layout = "de";
-      variant = "";
-    };
+  services.ai.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    models = [
+      "llama3.2"
+      "llama3.1:8b"
+    ];
   };
 
   time.timeZone = "Europe/Berlin";
