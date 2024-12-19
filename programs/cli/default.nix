@@ -40,7 +40,9 @@
       ++ (with pkgs; [
         asciinema
         binsider
+        choose
         dipc
+        doggo
         dust
         glow
         gping
@@ -52,12 +54,15 @@
         just
         kondo
         lychee
+        mkcert
         ouch
         procs
         rustscan
         sd
         sshx
+        systemctl-tui
         tokei
+        trippy
         typst
         xh
 

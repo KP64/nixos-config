@@ -55,7 +55,7 @@
 
     ricing = {
       defaults.enable = true;
-      cava.enable = false;
+      cava.enable = true;
       fetchers.enable = true;
     };
 

@@ -16,9 +16,10 @@
   config = lib.mkIf config.cli.ricing.defaults.enable {
     home-manager.users.${username}.home.packages = with pkgs; [
       cbonsai
-      pipes-rs
       cmatrix
+      genact
       nms
+      pipes-rs
     ];
   };
 }
