@@ -34,7 +34,8 @@ in
     }
 
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/immich";
+      environment.persistence."/persist".directories =
+        lib.optional cfg.enable config.services.immich.mediaLocation;
     })
   ];
 }
