@@ -13,6 +13,11 @@ in
   config = {
     console.keyMap = language;
 
+    services.xserver.xkb = {
+      layout = language;
+      variant = "";
+    };
+
     i18n =
       let
         lang =

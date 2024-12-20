@@ -8,7 +8,7 @@
 {
   system = {
     inherit stateVersion;
-    language = "de";
+    language = "en";
     security = {
       uutils-coreutils.enable = true;
       polkit.enable = true;

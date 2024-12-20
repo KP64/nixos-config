@@ -45,7 +45,6 @@
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
-    language = "de";
     impermanence.enable = true;
     security = {
       uutils-coreutils.enable = true;
