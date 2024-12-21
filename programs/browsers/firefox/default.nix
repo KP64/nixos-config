@@ -57,6 +57,7 @@ in
                   "Google"
                   "DuckDuckGo"
                   "Wikipedia (en)"
+                  "LibRedirect"
                 ]
                 // {
                   SearXNG = {
@@ -78,7 +79,26 @@ in
                     icon = ./searxng.svg;
                     definedAliases = [ "@sx" ];
                   };
-                  "Nix Pkgs" = {
+                  "Home Manager" = {
+                    urls = [
+                      {
+                        template = "https://home-manager-options.extranix.com";
+                        params = [
+                          {
+                            name = "query";
+                            value = "{searchTerms}";
+                          }
+                          {
+                            name = "release";
+                            value = "master";
+                          }
+                        ];
+                      }
+                    ];
+                    icon = nix-snowflake-icon;
+                    definedAliases = [ "@hm" ];
+                  };
+                  "Nix Packages" = {
                     urls = [
                       {
                         template = "https://search.nixos.org/packages";
@@ -88,7 +108,7 @@ in
                     icon = nix-snowflake-icon;
                     definedAliases = [ "@np" ];
                   };
-                  "Nix Optns" = {
+                  "Nix Options" = {
                     urls = [
                       {
                         template = "https://search.nixos.org/options";
