@@ -13,7 +13,6 @@ in
     inherit (cfg) enable;
     extensions = [
       "html"
-      "catppuccin"
       "dockerfile"
       "toml"
       "git-firefly"
@@ -35,11 +34,6 @@ in
       };
       ui_font_size = 16;
       buffer_font_size = 16;
-      theme = {
-        mode = "system";
-        light = "One Light";
-        dark = "Catppuccin Mocha";
-      };
       format_on_save = "on";
       autosave.after_delay.milliseconds = 1000;
       auto_update = false;

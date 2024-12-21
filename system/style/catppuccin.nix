@@ -74,7 +74,8 @@ in
       catppuccin = {
         enable = true;
         inherit (cfg) accent;
-        pointerCursor = {
+        gtk.icon.enable = cfg.enableGtkIcons;
+        cursors = {
           enable = true;
           accent = cfg.cursorAccent;
         };
@@ -90,21 +91,14 @@ in
         };
 
       gtk =
-        {
-          catppuccin.icon.enable = cfg.enableGtkIcons;
-        }
-        // lib.genAttrs
+        lib.genAttrs
           [
             "gtk3"
             "gtk4"
           ]
-          (
-            _:
-            lib.setAttrByPath [
-              "extraConfig"
-              "gtk-application-prefer-dark-theme"
-            ] 1
-          );
+          (_: {
+            extraConfig.gtk-application-prefer-dark-theme = 1;
+          });
 
       qt =
         let

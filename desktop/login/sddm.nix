@@ -14,13 +14,14 @@ in
   # TODO: Config for when Catppuccin isn't enabled!!!
   config = lib.mkMerge [
     {
+      catppuccin.sddm = {
+        background = ../wallpapers/cat-nix.png;
+        font = "JetBrainsMono Nerd Font";
+      };
+
       services.displayManager.sddm = {
         inherit (cfg) enable;
         wayland.enable = true;
-        catppuccin = {
-          background = ../wallpapers/cat-nix.png;
-          font = "JetBrainsMono Nerd Font";
-        };
         package = pkgs.kdePackages.sddm;
       };
     }
