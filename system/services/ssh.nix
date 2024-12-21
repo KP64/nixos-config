@@ -12,10 +12,10 @@ in
   config = lib.mkMerge [
     { programs.ssh.startAgent = true; }
 
-    {
+    (lib.mkIf cfg.enable {
       services = {
         openssh = {
-          inherit (cfg) enable;
+          enable = true;
           startWhenNeeded = true;
           settings = {
             PasswordAuthentication = false;
@@ -23,7 +23,7 @@ in
           };
         };
         fail2ban = {
-          inherit (cfg) enable;
+          enable = true;
           bantime-increment = {
             enable = true;
             maxtime = "48h";
@@ -32,7 +32,7 @@ in
           };
         };
       };
-    }
+    })
 
     (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".directories = lib.optional cfg.enable "/var/lib/fail2ban";
