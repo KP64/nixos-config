@@ -163,6 +163,19 @@
             psk = "$HOME_WIFI_PASSWORD";
           };
         };
+
+        jw-wifi = {
+          connection = {
+            id = "jw-wifi";
+            type = "wifi";
+          };
+          wifi.ssid = "$JW_WIFI_SSID";
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            psk = "$JW_WIFI_PASSWORD";
+          };
+        };
       };
     };
   };
