@@ -236,6 +236,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICHYe+2EqTg5Uh0/PZXhnuznFE84uiEzBtgd8qz9sUWS ed25519"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqboCBFR7zCUKnUoIIXbYh42muPCKNXZ+g6cp/KXQaX tp@tp"
     ];
     extraGroups = [
       "networkmanager"
