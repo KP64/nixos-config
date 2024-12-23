@@ -19,12 +19,14 @@ in
 
         programs.nixcord = {
           inherit (cfg) enable;
-          vesktop = { inherit (cfg) enable; };
+          vesktop.enable = true;
           config = {
             themeLinks = lib.optional config.isCatppuccinEnabled "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
             frameless = true;
             plugins = {
+              accountPanelServerProfile.enable = true;
               alwaysAnimate.enable = true;
+              alwaysExpandRoles.enable = true;
               anonymiseFileNames.enable = true;
               betterFolders = {
                 enable = true;
@@ -45,7 +47,6 @@ in
               betterSettings.enable = true;
               betterUploadButton.enable = true;
               blurNSFW.enable = true;
-              callTimer.enable = true;
               clearURLs.enable = true;
               consoleJanitor.enable = true;
               copyFileContents.enable = true;
@@ -59,18 +60,25 @@ in
               fakeProfileThemes.enable = true;
               favoriteEmojiFirst.enable = true;
               fixCodeblockGap.enable = true;
+              fixImagesQuality.enable = true;
               fixSpotifyEmbeds.enable = true;
               fixYoutubeEmbeds.enable = true;
               friendInvites.enable = true;
-              fullSearchContext.enable = true;
               friendsSince.enable = true;
+              fullSearchContext.enable = true;
               gameActivityToggle.enable = true;
               gifPaste.enable = true;
               greetStickerPicker.enable = true;
               imageZoom.enable = true;
               implicitRelationships.enable = true;
               mentionAvatars.enable = true;
+              messageClickActions.enable = true;
+              messageLogger.enable = true;
+              messageTags.enable = true;
+              mutualGroupDMs.enable = true;
+              newGuildSettings.enable = true;
               noRPC.enable = true;
+              noScreensharePreview.enable = true;
               nsfwGateBypass.enable = true;
               pictureInPicture.enable = true;
               pinDMs.enable = true;
