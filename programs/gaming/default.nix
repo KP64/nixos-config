@@ -26,7 +26,7 @@ in
       home-manager.users.${username}.home.packages = with pkgs; [
         wineWowPackages.waylandFull
         bottles
-        atlauncher
+        prismlauncher
         steam-run
         openarena
       ];
