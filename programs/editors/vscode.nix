@@ -99,12 +99,15 @@ in
           autoUpdate = false;
         };
 
-        workbench = {
-          iconTheme = lib.mkIf config.isCatppuccinEnabled "catppuccin-mocha";
-          colorTheme = lib.mkIf config.isCatppuccinEnabled "Catppuccin Mocha";
-          productIconTheme = "fluent-icons";
-          startupEditor = "none";
-        };
+        workbench =
+          {
+            productIconTheme = "fluent-icons";
+            startupEditor = "none";
+          }
+          // (lib.optionalAttrs config.isCatppuccinEnabled {
+            iconTheme = "catppuccin-mocha";
+            colorTheme = "Catppuccin Mocha";
+          });
 
         files = {
           autoSave = "afterDelay";
