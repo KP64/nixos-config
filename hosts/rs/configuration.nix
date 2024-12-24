@@ -109,6 +109,11 @@
   services = {
     media.immich.enable = true;
 
+    misc.glance = {
+      enable = true;
+      location = "Bonn, Germany";
+    };
+
     gaming.minecraft.servers = [
       {
         name = "myServer";
@@ -215,16 +220,19 @@
         allowedServices = [
           "cloudflare"
           "discord"
+          "ebay"
           "epic_games"
           "facebook"
           "minecraft"
           "nvidia"
+          "reddit"
           "samsung_tv_plus"
           "signal"
           "spotify"
           "steam"
           "telegram"
           "tiktok"
+          "twitch"
           "whatsapp"
           "youtube"
         ];
