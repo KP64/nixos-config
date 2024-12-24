@@ -119,7 +119,7 @@ in
                     definedAliases = [ "@no" ];
                   };
                   "NixOS Wiki" = {
-                    urls = [ { template = "https://nixos.wiki/wiki/{searchTerms}"; } ];
+                    urls = [ { template = "https://wiki.nixos.org/wiki/{searchTerms}"; } ];
                     updateInterval = 24 * 60 * 60 * 1000; # every day
                     icon = nix-snowflake-icon;
                     definedAliases = [ "@nw" ];
