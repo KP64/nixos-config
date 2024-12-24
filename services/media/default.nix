@@ -1,1 +1,6 @@
-{ imports = [ ./immich.nix ]; }
+{
+  imports = [
+    ./immich.nix
+    ./redlib.nix
+  ];
+}

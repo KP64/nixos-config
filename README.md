@@ -44,8 +44,8 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - 💈 [Stylix (WIP)](https://github.com/danth/stylix)
 - 🖥️ [Minecraft Servers](https://github.com/Infinidoge/nix-minecraft)
 
-> [!NOTE]
-> This Config was supposed to be Catppuccin only, until I got bored of it, 
+> \[!NOTE\]
+> This Config was supposed to be Catppuccin only, until I got bored of it,
 > which is why Stylix was added as an afterthought. It is very incomplete!
 > Help is appreciated!
 

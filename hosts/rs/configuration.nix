@@ -107,7 +107,10 @@
     };
 
   services = {
-    media.immich.enable = true;
+    media = {
+      immich.enable = true;
+      redlib.enable = true;
+    };
 
     misc.glance = {
       enable = true;
