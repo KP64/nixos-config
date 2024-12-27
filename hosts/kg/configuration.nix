@@ -21,7 +21,6 @@
   system = {
     inherit stateVersion;
     boot.efi.enable = true;
-    language = "de";
     impermanence.enable = true;
     security = {
       uutils-coreutils.enable = true;
@@ -205,13 +204,16 @@
       physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
     };
 
-  services.ai.ollama = {
-    enable = true;
-    acceleration = "cuda";
-    models = [
-      "llama3.2"
-      "llama3.1:8b"
-    ];
+  services.ai = {
+    open-webui.enable = true;
+    ollama = {
+      enable = true;
+      acceleration = "cuda";
+      models = [
+        "llama3.2"
+        "llama3.1:8b"
+      ];
+    };
   };
 
   time.timeZone = "Europe/Berlin";
