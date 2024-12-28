@@ -109,6 +109,7 @@
   services = {
     media = {
       immich.enable = true;
+      jellyfin.enable = true;
       redlib.enable = true;
     };
 
@@ -168,6 +169,8 @@
     ];
 
     networking = {
+      i2p.enable = true;
+
       wireguard =
         let
           inherit (config.sops) secrets;
@@ -259,6 +262,7 @@
       "audio"
       "video"
       "tss"
+      "multimedia"
     ];
   };
 }
