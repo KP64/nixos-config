@@ -22,7 +22,7 @@ in
     }
 
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".directores =
+      environment.persistence."/persist".directories =
         lib.optional cfg.enable config.services.jellyfin.dataDir;
     })
   ];
