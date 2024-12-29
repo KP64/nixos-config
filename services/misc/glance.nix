@@ -164,6 +164,10 @@ in
                       symbol = "ETH-USD";
                       name = "Ethereum";
                     }
+                    {
+                      symbol = "XMR-USD";
+                      name = "Monero";
+                    }
                   ];
                 }
                 {
