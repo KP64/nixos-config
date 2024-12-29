@@ -12,6 +12,18 @@ in
         host = "0.0.0.0";
         port = 11111;
         openFirewall = true;
+        environment = {
+          ANONYMIZED_TELEMETRY = "False";
+          DO_NOT_TRACK = "True";
+          SCARF_NO_ANALYTICS = "True";
+
+          DEFAULT_USER_ROLE = "user";
+
+          ENABLE_RAG_WEB_SEARCH = "True";
+          ENABLE_SEARCH_QUERY = "True";
+          # TODO: Change to Self hosted SearXNG when ready.
+          RAG_WEB_SEARCH_ENGINE = "duckduckgo";
+        };
       };
     }
 
