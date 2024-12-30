@@ -32,7 +32,7 @@ jobs:
 
       - name: fmt SVGs
         run: |
-          sudo nix shell nixpkgs#nodePackages_latest.prettier
+          nix shell nixpkgs#nodePackages_latest.prettier
           prettier --write --parser html "assets/topology/*.svg"
 
       - name: Commit and Push changed Files
