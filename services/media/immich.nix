@@ -25,13 +25,26 @@ in
   };
 
   config = lib.mkMerge [
-    {
-      services.immich = {
-        inherit (cfg) enable secretsFile host;
-        package = stable-pkgs.immich;
-        openFirewall = true;
+    (lib.mkIf cfg.enable {
+      services = {
+        traefik.dynamicConfigOptions.http = {
+          routers.immich = {
+            rule = "Host(`immich.${config.homelab.domain}`)";
+            service = "immich";
+          };
+          services.immich.loadBalancer.servers = [
+            { url = "http://localhost:${toString config.services.immich.port}"; }
+          ];
+        };
+
+        immich = {
+          enable = true;
+          inherit (cfg) secretsFile host;
+          package = stable-pkgs.immich;
+          openFirewall = true;
+        };
       };
-    }
+    })
 
     (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".directories =

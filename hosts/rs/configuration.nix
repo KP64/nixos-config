@@ -169,7 +169,8 @@
     ];
 
     networking = {
-      i2p.enable = true;
+      i2p.enable = false;
+      traefik.enable = true;
 
       wireguard =
         let

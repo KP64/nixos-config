@@ -99,25 +99,48 @@ in
   };
   config = lib.mkIf (cfg.servers != [ ]) {
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
-    services.minecraft-servers = {
-      enable = true;
-      eula = true;
 
-      servers =
+    services = {
+      traefik.dynamicConfigOptions.http =
         cfg.servers
         |> map (
           s:
           let
-            ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
+            inherit (s) name;
+            inherit (s.serverProperties) server-port;
           in
-          lib.nameValuePair s.name {
-            inherit (s) enable serverProperties symlinks;
-            openFirewall = s.enable;
-            jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
-            package = pkgs.minecraftServers."fabric-${ver}";
+          {
+            routers.${name} = {
+              rule = "Host(`${name}.${config.homelab.domain}`)";
+              service = name;
+            };
+            services.${name}.loadBalancer.servers = [
+              { url = "http://localhost:${toString server-port}"; }
+            ];
           }
         )
-        |> builtins.listToAttrs;
+        |> lib.foldAttrs (item: acc: item // acc) { };
+
+      minecraft-servers = {
+        enable = true;
+        eula = true;
+
+        servers =
+          cfg.servers
+          |> map (
+            s:
+            let
+              ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
+            in
+            lib.nameValuePair s.name {
+              inherit (s) enable serverProperties symlinks;
+              openFirewall = true;
+              jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
+              package = pkgs.minecraftServers."fabric-${ver}";
+            }
+          )
+          |> builtins.listToAttrs;
+      };
     };
   };
 }
