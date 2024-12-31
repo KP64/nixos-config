@@ -49,6 +49,8 @@
     };
   };
 
+  topology.self.hardware.info = "WSL";
+
   editors.helix.enable = true;
 
   networking.hostName = username;
