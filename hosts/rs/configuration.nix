@@ -113,9 +113,12 @@
       redlib.enable = true;
     };
 
-    misc.glance = {
-      enable = true;
-      location = "Bonn, Germany";
+    misc = {
+      forgejo.enable = true;
+      glance = {
+        enable = true;
+        location = "Bonn, Germany";
+      };
     };
 
     gaming.minecraft.servers = [
