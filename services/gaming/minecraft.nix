@@ -103,6 +103,7 @@ in
     services = {
       traefik.dynamicConfigOptions.http =
         cfg.servers
+        |> builtins.filter (s: s.enable)
         |> map (
           s:
           let
