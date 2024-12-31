@@ -2,7 +2,12 @@
 let
   cfg = config.services.networking.traefik;
 in
+# Due to non external factors traefik can't be used yet with authentik-nix.
+# Therefore router Firewall is disabled by default.
+# When done
 # TODO: Authentik-nix
+# TODO: Remove most if not all "openFirewall" instances in Config
+# TODO: Replace SearXNG with selfhosted instance
 {
   options = {
     homelab.domain = lib.mkOption {
