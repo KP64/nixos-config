@@ -31,7 +31,7 @@ jobs:
         run: sudo cp -r result/* assets/topology/
 
       - name: fmt SVGs
-        run: nix shell nixpkgs#nodePackages_latest.prettier --command prettier --write --parser html "assets/topology/*.svg"
+        run: nix fmt
 
       - name: Commit and Push changed Files
         uses: EndBug/add-and-commit@1ce4061cf9755a21515d29ee90a04830c8bb9bb8
