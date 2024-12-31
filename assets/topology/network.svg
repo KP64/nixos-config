@@ -1164,11 +1164,11 @@
       <path fill="#fff" d="M24 8h29v72H24z" />
     </mask>
     <mask id="Y2hpbGRyZW4ubm9kZTp3cw_om-id-0-0-0-0-0">
-      <path fill="#fff" d="M24 26h29v36H24z" />
+      <path fill="#fff" d="M24 18h29v35H24z" />
     </mask>
     <text
       x="24"
-      y="51.103"
+      y="43.103"
       fill="#e3e6eb"
       font-family="jetbrains mono"
       font-size="24"
@@ -1176,7 +1176,18 @@
     >
       ws
     </text>
-    <mask id="Y2hpbGRyZW4ubm9kZTp3cw_om-id-0-0-0-0-1" />
+    <mask id="Y2hpbGRyZW4ubm9kZTp3cw_om-id-0-0-0-0-1">
+      <path fill="#fff" d="M24 53h29v17H24z" />
+    </mask>
+    <text
+      x="24"
+      y="65.552"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="12"
+    >
+      WSL
+    </text>
     <mask id="Y2hpbGRyZW4ubm9kZTp3cw_om-id-0-0-0-1" />
     <clipPath id="Y2hpbGRyZW4ubm9kZTp3cw_cp-id-0-0-0-2">
       <path d="M69 20h48v48H69z" />
