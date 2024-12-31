@@ -119,6 +119,7 @@
         enable = true;
         location = "Bonn, Germany";
       };
+      searxng.enable = true;
     };
 
     gaming.minecraft.servers = [
