@@ -145,7 +145,10 @@
     };
   };
 
-  virt.docker.enable = true;
+  virt = {
+    docker.enable = true;
+    virtualbox.enable = true;
+  };
 
   gaming = {
     defaults.enable = true;

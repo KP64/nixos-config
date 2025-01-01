@@ -51,7 +51,6 @@ in
               consoleJanitor.enable = true;
               copyFileContents.enable = true;
               copyUserURLs.enable = true;
-              customIdle.enable = true;
               dearrow.enable = true;
               disableCallIdle.enable = true;
               dontRoundMyTimestamps.enable = true;
