@@ -480,7 +480,7 @@
   >
     *
   </text>
-  <g transform="matrix(.8 0 0 .8 214.4 675)">
+  <g transform="matrix(.8 0 0 .8 240.2 675)">
     <mask id="Y2hpbGRyZW4ubm9kZTprZw_om-id">
       <path fill="#fff" d="M0 0h141v80H0z" />
     </mask>
@@ -557,10 +557,31 @@
     fill="#b6beca"
     stroke="#485263"
     stroke-width="2"
-    d="M327.2 703h8v8h-8z"
+    d="M232.2 703h8v8h-8z"
   />
   <text
-    x="336.2"
+    x="173.6"
+    y="712"
+    fill="#b6beca"
+    dominant-baseline="hanging"
+    style="font: 12px JetBrains Mono"
+    text-anchor="left"
+  >
+    vboxnet0
+  </text>
+  <text
+    x="144.8"
+    y="724"
+    fill="#b6beca"
+    dominant-baseline="hanging"
+    style="font: 12px JetBrains Mono"
+    text-anchor="left"
+  >
+    192.168.56.1
+  </text>
+  <path fill="#b6beca" stroke="#485263" stroke-width="2" d="M353 703h8v8h-8z" />
+  <text
+    x="362"
     y="712"
     fill="#b6beca"
     dominant-baseline="hanging"
@@ -1236,7 +1257,7 @@
     fill="none"
     stroke="#f1cf8a"
     stroke-width="2"
-    d="M335.2 707h129.6a5 5 0 0 0 5-5V439a5 5 0 0 1 5-5H543m-196.6-42h118.4a5 5 0 0 1 5 5v32a5 5 0 0 0 5 5H543"
+    d="M361 707h103.8a5 5 0 0 0 5-5V439a5 5 0 0 1 5-5H543m-196.6-42h118.4a5 5 0 0 1 5 5v32a5 5 0 0 0 5 5H543"
   />
   <path
     fill="none"
