@@ -30,6 +30,8 @@ in
         gimp
         figma-linux
 
+        obsidian
+
         libreoffice
         hunspell
         hunspellDicts.en_US
@@ -57,6 +59,7 @@ in
         ])
         ++ (map (p: ".config/${p}") [
           "libreoffice"
+          "obsidian"
           "Signal"
           "simplex"
           "whatsapp-for-linux"
