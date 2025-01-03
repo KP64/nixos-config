@@ -115,45 +115,28 @@ in
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         systemd.variables = [ "--all" ];
-        plugins = with inputs; [
-          hyprland-plugins.packages.${pkgs.system}.hyprexpo
-          hyprgrass.packages.${pkgs.system}.default
-        ];
+        plugins = [ inputs.hyprgrass.packages.${pkgs.system}.default ];
         settings = {
-          plugin = {
-            hyprexpo = {
-              columns = 3;
-              gap_size = 5;
-              bg_col = if config.isCatppuccinEnabled then "$base" else "rgb(24,26,27)";
-              # [center/first] [workspace] e.g. first 1 or center m+1
-              workspace_method = "first 1";
+          plugin.touch_gestures = {
+            sensitivity = 4.0;
 
-              enable_gesture = true;
-              gesture_fingers = 3;
-              gesture_distance = 300; # how far is the "max"
-              gesture_positive = true; # positive = swipe down. Negative = swipe up.
-            };
-            touch_gestures = {
-              sensitivity = 4.0;
+            workspace_swipe_fingers = 3;
+            workspace_swipe_cancel_ratio = 0.1;
 
-              workspace_swipe_fingers = 3;
-              workspace_swipe_cancel_ratio = 0.1;
+            workspace_swipe_edge = "u";
 
-              workspace_swipe_edge = "u";
+            # hyprgrass-bind = [ ", swipe:3:d, hyprexpo:expo, toggle" ];
 
-              hyprgrass-bind = [ ", swipe:3:d, hyprexpo:expo, toggle" ];
+            hyprgrass-bindm = [
+              ", longpress:2, movewindow"
+              ", longpress:3, resizewindow"
+            ];
 
-              hyprgrass-bindm = [
-                ", longpress:2, movewindow"
-                ", longpress:3, resizewindow"
-              ];
+            long_press_delay = 400;
 
-              long_press_delay = 400;
+            resize_on_boder_long_press = true;
 
-              resize_on_boder_long_press = true;
-
-              edge_margin = 10;
-            };
+            edge_margin = 10;
           };
 
           env =
@@ -271,7 +254,7 @@ in
               "P, pseudo,"
               "J, togglesplit,"
 
-              "W, hyprexpo:expo, toggle"
+              # "W, hyprexpo:expo, toggle"
 
               "left, movefocus, l"
               "right, movefocus, r"
