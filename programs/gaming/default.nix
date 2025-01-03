@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.gaming.defaults;
+  cfg = config.gaming;
 in
 {
   imports = [
@@ -19,21 +19,39 @@ in
     ./steam.nix
   ];
 
-  options.gaming.defaults.enable = lib.mkEnableOption "Some gaming Apps";
+  options.gaming = {
+    enable = lib.mkEnableOption "Gaming";
+    misc.enable = lib.mkEnableOption "Misc gaming Apps";
+  };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home-manager.users.${username}.home.packages = with pkgs; [
-        wineWowPackages.waylandFull
-        bottles
-        prismlauncher
-        steam-run
-        openarena
-      ];
+      gaming = {
+        emulators.enable = lib.mkDefault true;
+        discord.enable = lib.mkDefault true;
+        gamemode.enable = lib.mkDefault true;
+        heroic.enable = lib.mkDefault true;
+        mangohud.enable = lib.mkDefault true;
+        steam.enable = lib.mkDefault true;
+        misc.enable = true;
+      };
     })
 
+    {
+      home-manager.users.${username}.home.packages = lib.optionals cfg.misc.enable (
+        with pkgs;
+        [
+          wineWowPackages.waylandFull
+          bottles
+          prismlauncher
+          steam-run
+          openarena
+        ]
+      );
+    }
+
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable (
+      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.misc.enable (
         map (p: ".local/share/${p}") [
           "ATLauncher"
           "bottles"

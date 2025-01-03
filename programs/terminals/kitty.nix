@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.cli.terminals.kitty;
+  cfg = config.terminals.kitty;
 in
 {
-  options.cli.terminals.kitty.enable = lib.mkEnableOption "Kitty";
+  options.terminals.kitty.enable = lib.mkEnableOption "Kitty";
 
   config.home-manager.users.${username}.programs.kitty = {
     inherit (cfg) enable;

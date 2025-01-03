@@ -19,27 +19,19 @@
 
   file-managers.yazi.enable = true;
 
+  editors.helix.enable = true;
+
   cli = {
-    defaults.enable = true;
+    enable = true;
 
-    git = {
-      enable = true;
-      user = {
-        name = "KP64";
-        email = "karamalsadeh@hotmail.com";
-      };
+    ricing = {
+      cava.enable = false;
+      misc.enable = false;
     };
 
-    shells = {
-      bash.enable = true;
-      nushell.enable = true;
-    };
-
-    ricing.fetchers.enable = true;
-
-    monitors = {
-      btop.enable = true;
-      bandwhich.enable = true;
+    git.user = {
+      name = "KP64";
+      email = "karamalsadeh@hotmail.com";
     };
   };
 
@@ -84,8 +76,6 @@
       };
     };
   };
-
-  editors.helix.enable = true;
 
   time.timeZone = "Europe/Berlin";
 

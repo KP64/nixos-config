@@ -56,37 +56,15 @@
     style.catppuccin.enable = true;
   };
 
-  file-managers = {
-    yazi.enable = true;
-    broot.enable = true;
-  };
+  file-managers.enable = true;
+
+  terminals.enable = true;
 
   cli = {
-    defaults.enable = true;
-
-    git = {
-      enable = true;
-      user = {
-        name = "KP64";
-        email = "karamalsadeh@hotmail.com";
-      };
-    };
-
-    shells = {
-      bash.enable = true;
-      nushell.enable = true;
-    };
-
-    ricing = {
-      defaults.enable = true;
-      fetchers.enable = true;
-    };
-
-    terminals.kitty.enable = true;
-
-    monitors = {
-      btop.enable = true;
-      bandwhich.enable = true;
+    enable = true;
+    git.user = {
+      name = "KP64";
+      email = "karamalsadeh@hotmail.com";
     };
   };
 
@@ -98,35 +76,14 @@
   };
 
   desktop = {
-    defaults.enable = true;
-
-    rofi.enable = true;
-
-    login.sddm.enable = true;
-
-    hypr = {
-      hypridle.enable = true;
-      hyprlock.enable = true;
-      hyprpanel.enable = true;
-      hyprpaper.enable = true;
-      hyprland = {
-        enable = true;
-        monitors = [
-          {
-            name = "eDP-1";
-            resolution = "highrr";
-            vrr = 2;
-          }
-        ];
-      };
-    };
-
-    services = {
-      blueman-app.enable = true;
-      copyq.enable = true;
-      ntwrk-mgr-app.enable = true;
-      udiskie.enable = true;
-    };
+    enable = true;
+    hypr.hyprland.monitors = [
+      {
+        name = "eDP-1";
+        resolution = "highrr";
+        vrr = 2;
+      }
+    ];
   };
 
   editors = {
@@ -134,15 +91,16 @@
     vscode.enable = true;
   };
 
-  apps = {
-    defaults.enable = true;
-    spicetify.enable = true;
-    mpv.enable = true;
-    thunderbird.enable = true;
-    browsers.firefox.enable = true;
-  };
+  browsers.firefox.enable = true;
 
   gaming.discord.enable = true;
+
+  apps = {
+    misc.enable = true;
+    mpv.enable = true;
+    spicetify.enable = true;
+    thunderbird.enable = true;
+  };
 
   networking = {
     hostName = username;

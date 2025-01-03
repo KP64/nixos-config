@@ -22,40 +22,22 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  file-managers = {
-    yazi.enable = true;
-    broot.enable = true;
-  };
+  file-managers.enable = true;
 
   cli = {
-    defaults.enable = true;
-    git = {
-      enable = true;
-      user = {
-        name = "KP64";
-        email = "karamalsadeh@hotmail.com";
-      };
+    enable = true;
+
+    git.user = {
+      name = "KP64";
+      email = "karamalsadeh@hotmail.com";
     };
 
-    shells = {
-      bash.enable = true;
-      nushell.enable = true;
-    };
-
-    ricing = {
-      defaults.enable = true;
-      fetchers.enable = true;
-    };
-
-    monitors = {
-      btop.enable = true;
-      bandwhich.enable = true;
-    };
+    ricing.cava.enable = false;
   };
 
-  topology.self.hardware.info = "WSL";
-
   editors.helix.enable = true;
+
+  topology.self.hardware.info = "WSL";
 
   networking.hostName = username;
 

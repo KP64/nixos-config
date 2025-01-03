@@ -18,10 +18,10 @@ let
       metaData.hidden = true;
     });
 
-  cfg = config.apps.browsers.firefox;
+  cfg = config.browsers.firefox;
 in
 {
-  options.apps.browsers.firefox.enable = lib.mkEnableOption "Firefox";
+  options.browsers.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {

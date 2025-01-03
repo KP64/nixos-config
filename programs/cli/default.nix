@@ -6,14 +6,15 @@
   username,
   ...
 }:
-
+let
+  cfg = config.cli;
+in
 {
   imports = [
     ./monitors
     ./ricing
     ./shells
     ./starship
-    ./terminals
 
     ./atuin.nix
     ./bacon.nix
@@ -32,41 +33,56 @@
     ./zoxide.nix
   ];
 
-  options.cli.defaults.enable = lib.mkEnableOption "Default Cli Apps";
-
-  config = lib.mkIf config.cli.defaults.enable {
-    home-manager.users.${username}.home.packages =
-      [ stable-pkgs.ani-cli ]
-      ++ (with pkgs; [
-        asciinema
-        binsider
-        choose
-        dipc
-        doggo
-        dust
-        glow
-        gping
-        grex
-        hexyl
-        hurl
-        hyperfine
-        jnv
-        just
-        kondo
-        lychee
-        mkcert
-        ouch
-        procs
-        rustscan
-        sd
-        sshx
-        systemctl-tui
-        tokei
-        typst
-        xh
-
-        sherlock
-        maigret
-      ]);
+  options.cli = {
+    enable = lib.mkEnableOption "CLI";
+    misc.enable = lib.mkEnableOption "Misc Cli Apps";
   };
+
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      cli = {
+        monitors.enable = lib.mkDefault true;
+        ricing.enable = lib.mkDefault true;
+        shells.enable = lib.mkDefault true;
+        git.enable = lib.mkDefault true;
+        misc.enable = lib.mkDefault true;
+      };
+    })
+
+    {
+      home-manager.users.${username}.home.packages =
+        lib.optionals cfg.misc.enable [ stable-pkgs.ani-cli ]
+        ++ (with pkgs; [
+          asciinema
+          binsider
+          choose
+          dipc
+          doggo
+          dust
+          glow
+          gping
+          grex
+          hexyl
+          hurl
+          hyperfine
+          jnv
+          just
+          kondo
+          lychee
+          mkcert
+          ouch
+          procs
+          rustscan
+          sd
+          sshx
+          systemctl-tui
+          tokei
+          typst
+          xh
+
+          sherlock
+          maigret
+        ]);
+    }
+  ];
 }

@@ -9,12 +9,10 @@
 
   options.gaming.emulators.enable = lib.mkEnableOption "All Gaming Emulators";
 
-  config = lib.mkIf config.gaming.emulators.enable {
-    gaming.emulators = {
-      cemu.enable = true;
-      dolphin.enable = true;
-      ryujinx.enable = true;
-      xemu.enable = true;
-    };
+  config.gaming.emulators = lib.mkIf config.gaming.emulators.enable {
+    cemu.enable = lib.mkDefault true;
+    dolphin.enable = lib.mkDefault true;
+    ryujinx.enable = lib.mkDefault true;
+    xemu.enable = lib.mkDefault true;
   };
 }

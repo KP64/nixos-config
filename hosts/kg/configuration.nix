@@ -31,42 +31,6 @@
     style.catppuccin.enable = true;
   };
 
-  file-managers = {
-    broot.enable = true;
-    thunar.enable = true;
-    yazi.enable = true;
-  };
-
-  cli = {
-    defaults.enable = true;
-
-    git = {
-      enable = true;
-      user = {
-        name = "KP64";
-        email = "karamalsadeh@hotmail.com";
-      };
-    };
-
-    shells = {
-      bash.enable = true;
-      nushell.enable = true;
-    };
-
-    ricing = {
-      defaults.enable = true;
-      cava.enable = true;
-      fetchers.enable = true;
-    };
-
-    terminals.kitty.enable = true;
-
-    monitors = {
-      btop.enable = true;
-      bandwhich.enable = true;
-    };
-  };
-
   hardware = {
     audio.enable = true;
     bluetoothctl.enable = true;
@@ -74,91 +38,46 @@
     nvidia.enable = true;
   };
 
-  desktop = {
-    defaults.enable = true;
-
-    eww.enable = true;
-
-    rofi.enable = true;
-
-    login.sddm.enable = true;
-
-    hypr = {
-      hypridle.enable = true;
-      hyprlock.enable = true;
-      hyprpanel.enable = true;
-      hyprpaper.enable = true;
-      hyprland = {
-        enable = true;
-        monitors = [
-          {
-            name = "DP-3";
-            resolution = "highrr";
-            vrr = 2;
-            workspaces = [
-              {
-                id = 1;
-                default = true;
-              }
-            ];
-          }
-          {
-            name = "HDMI-A-1";
-            x = 1920;
-            y = 500;
-            workspaces = [
-              {
-                id = 2;
-                default = true;
-              }
-            ];
-          }
-        ];
-      };
-    };
-
-    services = {
-      blueman-app.enable = true;
-      copyq.enable = true;
-      ntwrk-mgr-app.enable = true;
-      udiskie.enable = true;
-    };
+  cli.git.user = {
+    name = "KP64";
+    email = "karamalsadeh@hotmail.com";
   };
 
-  editors = {
-    aseprite.enable = false;
-    blender.enable = true;
-    helix.enable = true;
-    imhex.enable = true;
-    vscode.enable = true;
-    zed.enable = true;
-  };
+  editors.aseprite.enable = false;
 
-  apps = {
-    defaults.enable = true;
-    spicetify.enable = true;
-    obs.enable = true;
-    mpv.enable = true;
-    thunderbird.enable = true;
-    browsers = {
-      firefox.enable = true;
-      tor.enable = true;
-    };
-  };
+  apps.enable = true;
 
   virt = {
-    docker.enable = true;
+    enable = true;
     virtualbox.enable = true;
   };
 
-  gaming = {
-    defaults.enable = true;
-    discord.enable = true;
-    emulators.enable = true;
-    heroic.enable = true;
-    mangohud.enable = true;
-    gamemode.enable = true;
-    steam.enable = true;
+  desktop = {
+    enable = true;
+    hypr.hyprland.monitors = [
+      {
+        name = "DP-3";
+        resolution = "highrr";
+        vrr = 2;
+        workspaces = [
+          {
+            id = 1;
+            default = true;
+          }
+        ];
+      }
+      {
+        name = "HDMI-A-1";
+        x = 1920;
+        y = 500;
+        workspaces = [
+          {
+            id = 2;
+            default = true;
+          }
+        ];
+      }
+    ];
   };
 
   networking = {

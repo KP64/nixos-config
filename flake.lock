@@ -1407,11 +1407,11 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1734266385,
-        "narHash": "sha256-k9P9Sa6jw/Xre8UDp7Ukk75h4Tcq8ZrK+nz6A2MC1IM=",
+        "lastModified": 1735927098,
+        "narHash": "sha256-bRAtYb+o9/kFrUDZt5pFD0ET+rG0g5nYM0qNKaRiv2g=",
         "owner": "oddlama",
         "repo": "nix-topology",
-        "rev": "ba6f61e594a85eabebf1c8f373923b59b3b07448",
+        "rev": "2113ac865a077a7487268d6f1fe27400271ecd19",
         "type": "github"
       },
       "original": {

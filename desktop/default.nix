@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.desktop.defaults;
+  cfg = config.desktop;
 in
 {
   imports = [
@@ -20,10 +20,24 @@ in
     ./waybar.nix
   ];
 
-  options.desktop.defaults.enable = lib.mkEnableOption "Desktop Utils";
+  options.desktop = {
+    enable = lib.mkEnableOption "Desktop";
+    misc.enable = lib.mkEnableOption "Desktop Utils";
+  };
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      desktop = {
+        eww.enable = lib.mkDefault true;
+        hypr.enable = lib.mkDefault true;
+        services.enable = lib.mkDefault true;
+        login.sddm.enable = lib.mkDefault true;
+        rofi.enable = lib.mkDefault true;
+        misc.enable = lib.mkDefault true;
+      };
+    })
+
+    (lib.mkIf cfg.misc.enable {
       environment.pathsToLink = map (p: "/share/${p}") [
         "xdg-desktop-portal"
         "applications"
@@ -49,7 +63,7 @@ in
     })
 
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable [
+      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.misc.enable [
         "Desktop"
         "Documents"
         "Downloads"
