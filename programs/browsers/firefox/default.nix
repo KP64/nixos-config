@@ -296,6 +296,7 @@ in
                 sidebery
                 simple-translate
                 stylus
+                tabliss
                 ublock-origin
                 userchrome-toggle-extended
                 videospeed
