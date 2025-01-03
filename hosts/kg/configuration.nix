@@ -31,6 +31,12 @@
     style.catppuccin.enable = true;
   };
 
+  file-managers = {
+    broot.enable = true;
+    thunar.enable = true;
+    yazi.enable = true;
+  };
+
   cli = {
     defaults.enable = true;
 
@@ -45,11 +51,6 @@
     shells = {
       bash.enable = true;
       nushell.enable = true;
-    };
-
-    file-managers = {
-      yazi.enable = true;
-      broot.enable = true;
     };
 
     ricing = {

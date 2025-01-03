@@ -6,9 +6,9 @@
   ...
 }:
 {
-  options.cli.file-managers.yazi.enable = lib.mkEnableOption "Yazi";
+  options.file-managers.yazi.enable = lib.mkEnableOption "Yazi";
 
-  config = lib.mkIf config.cli.file-managers.yazi.enable {
+  config = lib.mkIf config.file-managers.yazi.enable {
     home-manager.users.${username} = {
       home.packages = [ pkgs.exiftool ];
       programs.yazi = {

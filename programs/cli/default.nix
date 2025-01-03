@@ -9,7 +9,6 @@
 
 {
   imports = [
-    ./file-managers
     ./monitors
     ./ricing
     ./shells

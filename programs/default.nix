@@ -13,6 +13,7 @@ in
     ./browsers
     ./cli
     ./editors
+    ./file-managers
     ./gaming
     ./virtualisation
 

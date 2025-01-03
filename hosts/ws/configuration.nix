@@ -22,6 +22,11 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  file-managers = {
+    yazi.enable = true;
+    broot.enable = true;
+  };
+
   cli = {
     defaults.enable = true;
     git = {
@@ -31,18 +36,17 @@
         email = "karamalsadeh@hotmail.com";
       };
     };
+
     shells = {
       bash.enable = true;
       nushell.enable = true;
     };
-    file-managers = {
-      yazi.enable = true;
-      broot.enable = true;
-    };
+
     ricing = {
       defaults.enable = true;
       fetchers.enable = true;
     };
+
     monitors = {
       btop.enable = true;
       bandwhich.enable = true;

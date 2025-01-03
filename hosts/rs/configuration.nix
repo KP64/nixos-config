@@ -17,6 +17,8 @@
     style.stylix.enable = true;
   };
 
+  file-managers.yazi.enable = true;
+
   cli = {
     defaults.enable = true;
 
@@ -32,8 +34,6 @@
       bash.enable = true;
       nushell.enable = true;
     };
-
-    file-managers.yazi.enable = true;
 
     ricing.fetchers.enable = true;
 

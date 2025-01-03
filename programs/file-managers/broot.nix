@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.cli.file-managers.broot;
+  cfg = config.file-managers.broot;
 in
 {
-  options.cli.file-managers.broot.enable = lib.mkEnableOption "Broot";
+  options.file-managers.broot.enable = lib.mkEnableOption "Broot";
 
   config.home-manager.users.${username}.programs.broot = { inherit (cfg) enable; };
 }
