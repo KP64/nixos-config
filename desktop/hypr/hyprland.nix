@@ -93,17 +93,8 @@ in
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     # System wide install needed for e.g. SDDM
-    programs = {
-      hyprland.enable = true;
-      thunar = {
-        enable = true;
-        plugins = with pkgs.xfce; [
-          thunar-volman
-          thunar-archive-plugin
-          thunar-media-tags-plugin
-        ];
-      };
-    };
+    programs.hyprland.enable = true;
+
     home-manager.users.${username} = {
       home.packages = with inputs; [
         hyprpicker.packages.${pkgs.system}.hyprpicker
@@ -124,8 +115,6 @@ in
             workspace_swipe_cancel_ratio = 0.1;
 
             workspace_swipe_edge = "u";
-
-            # hyprgrass-bind = [ ", swipe:3:d, hyprexpo:expo, toggle" ];
 
             hyprgrass-bindm = [
               ", longpress:2, movewindow"
@@ -253,8 +242,6 @@ in
               "V, togglefloating,"
               "P, pseudo,"
               "J, togglesplit,"
-
-              # "W, hyprexpo:expo, toggle"
 
               "left, movefocus, l"
               "right, movefocus, r"
