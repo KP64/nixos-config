@@ -17,6 +17,11 @@ in
           DO_NOT_TRACK = "True";
           SCARF_NO_ANALYTICS = "True";
 
+          # Since open-webui will only run on local network for now.
+          # By the time its exposed to the world, it will be protected by
+          # TODO: traefik + authentik-nix.
+          WEBUI_AUTH = "False";
+
           DEFAULT_USER_ROLE = "user";
 
           ENABLE_RAG_WEB_SEARCH = "True";
