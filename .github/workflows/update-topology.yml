@@ -1,0 +1,39 @@
+name: CI topology updater
+
+on:
+  push:
+    branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@13dabe8ccc07ba82ad7ccfa52035616223194012
+
+      - name: Build Topology
+        run: nix build .#topology.x86_64-linux.config.output --extra-experimental-features pipe-operators
+
+      - name: Move Topology
+        run: sudo cp -r result/* assets/topology/
+
+      - name: fmt SVGs
+        run: nix fmt
+
+      - name: Commit and Push changed Files
+        uses: EndBug/add-and-commit@1ce4061cf9755a21515d29ee90a04830c8bb9bb8
+        with:
+          message: "Update Topology"
