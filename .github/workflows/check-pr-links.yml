@@ -32,7 +32,7 @@ jobs:
         run: git checkout "$BASE_REF"
 
       - name: Dump all links from ${{github.event.pull_request.base.ref}}
-        uses: lycheeverse/lychee-action@f81112d0d2814ded911bd23e3beaa9dda9093915
+        uses: lycheeverse/lychee-action@f796c8b7d468feb9b8c0a46da3fac0af6874d374
         with:
           args: |
             --dump
@@ -59,7 +59,7 @@ jobs:
           fi
 
       - name: Check links
-        uses: lycheeverse/lychee-action@f81112d0d2814ded911bd23e3beaa9dda9093915
+        uses: lycheeverse/lychee-action@f796c8b7d468feb9b8c0a46da3fac0af6874d374
         with:
           args: |
             --no-progress
