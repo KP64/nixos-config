@@ -70,7 +70,9 @@ in
           kondo
           lychee
           mkcert
+          monolith
           ouch
+          presenterm
           procs
           rustscan
           sd
