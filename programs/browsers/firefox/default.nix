@@ -290,6 +290,7 @@ in
                 facebook-container
                 firefox-color
                 i-dont-care-about-cookies
+                indie-wiki-buddy
                 languagetool
                 libredirect
                 private-relay
