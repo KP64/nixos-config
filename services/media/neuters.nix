@@ -20,25 +20,14 @@ in
       services.neuters.loadBalancer.servers = [ { url = "http://localhost:13369"; } ];
     };
 
-    users = {
-      users.neuters = {
-        name = "neuters";
-        group = "neuters";
-        isSystemUser = true;
-      };
-      groups.neuters = { };
-    };
-
     systemd.services.neuters = {
       description = "Reuters Redirect and Proxy.";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${self.packages.${pkgs.system}.neuters}/bin/neuters";
-
+        ExecStart = lib.getExe self.packages.${pkgs.system}.neuters;
+        DynamicUser = true;
         UMask = "0077";
-        User = "neuters";
-        Group = "neuters";
 
         RemoveIPC = true;
         LockPersonality = true;
