@@ -51,15 +51,16 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 
 ## 📚 Layout
 
-- [flake.nix](./flake.nix) ❄️ base of the configuration
+- [flake.nix](./flake.nix) ❄️ Base of the configuration
 - [desktop](./desktop) 🖥️ Desktop modules
   - [wallpapers](./desktop/wallpapers) 🌄 Wallpaper Collection
 - [hardware](./hardware) ⚙️ Hardware modules
-- [hosts](./hosts) 👻 per-host machine specific configurations
-- [programs](./programs) 1️⃣ mandatory programs and optional to enable modules
-- [services](./services) 0️⃣ nice to have services extracted into own modules with sensible defaults for easier setup
-- [system](./system) 🖥️ system critical modules
-- [topology](./topology) 🌐 global topology settings
+- [hosts](./hosts) 👻 Per-host machine specific configurations
+- [pkgs](./pkgs) 📦 Custom built Packages
+- [programs](./programs) 1️⃣ Mandatory programs and optional to enable modules
+- [services](./services) 0️⃣ Nice to have services extracted into own modules with sensible defaults for easier setup
+- [system](./system) 🖥️ System critical modules
+- [topology](./topology) 🌐 Global topology settings
 
 ## ⚙️ Components
 
