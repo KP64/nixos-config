@@ -310,6 +310,8 @@
             overlays = [ inputs.nix-topology.overlays.default ];
           };
 
+          packages.neuters = pkgs.callPackage ./pkgs/neuters { };
+
           topology.modules = [ ./topology ];
 
           treefmt = import ./treefmt.nix;

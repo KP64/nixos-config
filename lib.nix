@@ -55,6 +55,7 @@ in
       inherit system;
       specialArgs = {
         stateVersion = "24.11";
+        inherit (inputs) self;
         inherit
           inputs
           stable-pkgs

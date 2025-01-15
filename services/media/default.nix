@@ -4,6 +4,7 @@
     ./immich.nix
     ./invidious.nix
     ./jellyfin.nix
+    ./neuters.nix
     ./redlib.nix
     ./stirling-pdf.nix
   ];
