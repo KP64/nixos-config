@@ -36,4 +36,4 @@ jobs:
       - name: Commit and Push changed Files
         uses: EndBug/add-and-commit@a604fba70a846a0ea59e6040ef8a4a4f95015772
         with:
-          message: "Update Topology"
+          message: "ci: Update Topology"
