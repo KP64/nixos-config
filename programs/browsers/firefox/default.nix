@@ -283,6 +283,7 @@ in
               });
 
               extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+                bitwarden
                 catppuccin-gh-file-explorer
                 darkreader
                 dearrow
