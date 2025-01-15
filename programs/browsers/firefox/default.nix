@@ -297,6 +297,7 @@ in
                 return-youtube-dislikes
                 sidebery
                 simple-translate
+                sponsorblock
                 stylus
                 tabliss
                 ublock-origin
