@@ -303,13 +303,8 @@
       ];
 
       perSystem =
-        { system, pkgs, ... }:
+        { pkgs, ... }:
         {
-          _module.args.pkgs = import inputs.nixpkgs {
-            inherit system;
-            overlays = [ inputs.nix-topology.overlays.default ];
-          };
-
           packages.neuters = pkgs.callPackage ./pkgs/neuters { };
 
           topology.modules = [ ./topology ];
