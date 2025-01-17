@@ -10,8 +10,8 @@ flake:
 
 # Check links with lychee
 links:
-    @lychee ./*.md ./*.nix ./hosts/**/*.nix
+    @nix shell nixpkgs#lychee -command lychee ./*.md ./*.nix ./hosts/**/*.nix
 
 # Check Github Actions
 actions:
-    @zizmor -p .github/workflows/
+    @nix shell nixpkgs#zizmor -command zizmor -p .github/workflows/
