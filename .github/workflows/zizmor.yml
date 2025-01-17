@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
 
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@169ed2a5f2afde472466475871f616f8ecec10e9
+        uses: astral-sh/setup-uv@3548439624127c489c1ca842eb263681394bc7b3
         with:
           enable-cache: false
 
