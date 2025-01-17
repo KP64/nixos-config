@@ -22,7 +22,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
 
       - name: Setup Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@13dabe8ccc07ba82ad7ccfa52035616223194012
+        uses: DeterminateSystems/magic-nix-cache-action@f7eb5b510a46ce3f40945f76d6176296370bdb51
 
       - name: Build Topology
         run: nix build .#topology.x86_64-linux.config.output --extra-experimental-features pipe-operators
