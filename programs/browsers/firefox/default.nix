@@ -109,8 +109,7 @@ in
                     SearXNG = {
                       urls = [
                         {
-                          # TODO: Change to selfhosted SearXNG, when response times Improve
-                          template = "https://search.sapti.me/search";
+                          template = "https://searxng.nix-pi.ipv64.de/search";
                           params = [
                             {
                               name = "q";
