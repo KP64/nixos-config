@@ -18,7 +18,7 @@ in
       variant = "";
     };
 
-    i18n =
+    i18n.extraLocaleSettings =
       let
         lang =
           if (language == "en") then
@@ -29,19 +29,15 @@ in
             throw "Seems like your language hasn't been added. Open up an Issue or open a PR yourself!";
       in
       {
-        # defaultLocale by design always en_US.
-        defaultLocale = "en_US.UTF-8";
-        extraLocaleSettings = {
-          LC_ADDRESS = lang;
-          LC_IDENTIFICATION = lang;
-          LC_MEASUREMENT = lang;
-          LC_MONETARY = lang;
-          LC_NAME = lang;
-          LC_NUMERIC = lang;
-          LC_PAPER = lang;
-          LC_TELEPHONE = lang;
-          LC_TIME = lang;
-        };
+        LC_ADDRESS = lang;
+        LC_IDENTIFICATION = lang;
+        LC_MEASUREMENT = lang;
+        LC_MONETARY = lang;
+        LC_NAME = lang;
+        LC_NUMERIC = lang;
+        LC_PAPER = lang;
+        LC_TELEPHONE = lang;
+        LC_TIME = lang;
       };
   };
 }
