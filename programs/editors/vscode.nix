@@ -24,6 +24,7 @@ in
         jscearcy.rust-doc-viewer
         miguelsolorio.fluent-icons
         rszyma.vscode-kanata
+        tabbyml.vscode-tabby
         vivaxy.vscode-conventional-commits
       ])
       ++ (
@@ -97,6 +98,12 @@ in
         extensions = {
           autoCheckUpdates = false;
           autoUpdate = false;
+        };
+
+        tabby = {
+          # Confusing but this actually disables it
+          config.telemetry = true;
+          endpoint = "https://tabby.nix-pi.ipv64.de";
         };
 
         workbench =
