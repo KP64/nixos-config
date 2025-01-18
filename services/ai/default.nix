@@ -3,6 +3,7 @@
   imports = [
     ./ollama.nix
     ./open-webui.nix
+    ./tabby.nix
   ];
 
   config = lib.mkIf config.isImpermanenceEnabled {
