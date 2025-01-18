@@ -23,7 +23,6 @@ in
   config = {
     nix = {
       package = pkgs.nixVersions.latest;
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ]; # import <nixpkgs>
       optimise.automatic = true;
       settings = {
         experimental-features = [
