@@ -45,16 +45,18 @@ in
           bottles
           prismlauncher
           steam-run
+          ludusavi
         ]
       );
     }
 
     (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.misc.enable (
-        map (p: ".local/share/${p}") [
+        [ "ludusavi-backup" ]
+        ++ (map (p: ".local/share/${p}") [
           "ATLauncher"
           "bottles"
-        ]
+        ])
       );
     })
   ];
