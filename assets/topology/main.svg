@@ -1705,10 +1705,46 @@
       font-family="jetbrains mono"
       font-size="14"
     >
-      localhost
+      forgejo.nix
     </text>
     <text
-      x="222.4"
+      x="239.2"
+      y="628.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      -
+    </text>
+    <text
+      x="247.6"
+      y="628.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      pi.ipv64
+    </text>
+    <text
+      x="314.8"
+      y="628.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      .
+    </text>
+    <text
+      x="323.2"
+      y="628.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      de
+    </text>
+    <text
+      x="340"
       y="628.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -1717,7 +1753,7 @@
       :
     </text>
     <text
-      x="230.8"
+      x="348.4"
       y="628.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -1726,7 +1762,7 @@
       3000
     </text>
     <text
-      x="264.4"
+      x="382"
       y="628.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -4479,10 +4515,46 @@
       font-family="jetbrains mono"
       font-size="14"
     >
-      localhost
+      forgejo.nix
     </text>
     <text
-      x="222.4"
+      x="239.2"
+      y="596.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      -
+    </text>
+    <text
+      x="247.6"
+      y="596.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      pi.ipv64
+    </text>
+    <text
+      x="314.8"
+      y="596.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      .
+    </text>
+    <text
+      x="323.2"
+      y="596.377"
+      fill="#e3e6eb"
+      font-family="jetbrains mono"
+      font-size="14"
+    >
+      de
+    </text>
+    <text
+      x="340"
       y="596.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -4491,7 +4563,7 @@
       :
     </text>
     <text
-      x="230.8"
+      x="348.4"
       y="596.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -4500,7 +4572,7 @@
       3000
     </text>
     <text
-      x="264.4"
+      x="382"
       y="596.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
