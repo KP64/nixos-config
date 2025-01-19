@@ -20,6 +20,7 @@ in
 
         forgejo = {
           enable = true;
+          settings.server.DOMAIN = "forgejo.${config.networking.domain}";
           dump = {
             enable = true;
             type = "tar";
