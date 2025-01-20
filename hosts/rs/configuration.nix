@@ -187,6 +187,7 @@
 
     networking = {
       i2p.enable = false;
+      tor.enable = true;
       traefik.enable = true;
 
       wireguard =
