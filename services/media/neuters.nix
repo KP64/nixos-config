@@ -7,17 +7,31 @@
 }:
 let
   cfg = config.services.media.neuters;
+  neutersPort = 13369;
+  port = toString neutersPort;
 in
 {
   options.services.media.neuters.enable = lib.mkEnableOption "Neuters";
 
   config = lib.mkIf cfg.enable {
-    services.traefik.dynamicConfigOptions.http = {
-      routers.neuters = {
-        rule = "Host(`neuters.${config.networking.domain}`)";
-        service = "neuters";
+    services = {
+      traefik.dynamicConfigOptions.http = {
+        routers.neuters = {
+          rule = "Host(`neuters.${config.networking.domain}`)";
+          service = "neuters";
+        };
+        services.neuters.loadBalancer.servers = [ { url = "http://localhost:${port}"; } ];
       };
-      services.neuters.loadBalancer.servers = [ { url = "http://localhost:13369"; } ];
+
+      tor.relay.onionServices.neuters.map = [
+        {
+          port = 80;
+          target = {
+            addr = "127.0.0.1";
+            port = neutersPort;
+          };
+        }
+      ];
     };
 
     systemd.services.neuters = {

@@ -1,6 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.invidious;
+  invidiousPort = config.services.invidious.port;
+  port = toString invidiousPort;
 in
 {
   options.services.media.invidious.enable = lib.mkEnableOption "Invidious";
@@ -13,9 +15,7 @@ in
             rule = "Host(`invidious.${config.networking.domain}`)";
             service = "invidious";
           };
-          services.invidious.loadBalancer.servers = [
-            { url = "http://localhost:${toString config.services.invidious.port}"; }
-          ];
+          services.invidious.loadBalancer.servers = [ { url = "http://localhost:${toString port}"; } ];
         };
 
         invidious = {
@@ -33,6 +33,16 @@ in
             default_user_preferences.save_player_pos = true;
           };
         };
+
+        tor.relay.onionServices.invidious.map = [
+          {
+            port = 80;
+            target = {
+              addr = "127.0.0.1";
+              port = invidiousPort;
+            };
+          }
+        ];
       };
     })
 

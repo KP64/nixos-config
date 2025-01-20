@@ -1,7 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.stirling-pdf;
-  stirlingPort = "4300";
+  stirlingPort = 4300;
+  port = toString stirlingPort;
 in
 {
   options.services.media.stirling-pdf.enable = lib.mkEnableOption "Stirling-pdf";
@@ -11,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers.stirling-pdf = {
       image = "stirlingtools/stirling-pdf:latest";
-      ports = [ "${stirlingPort}:8080" ];
+      ports = [ "${port}:8080" ];
       volumes = map (p: "./StirlingPDF/${p}") [
         "trainingData:/usr/share/tessdata"
         "extraConfigs:/configs"
@@ -25,13 +26,25 @@ in
       };
     };
 
-    services.traefik.dynamicConfigOptions.http = {
-      routers.stirling-pdf = {
-        rule = "Host(`stirling-pdf.${config.networking.domain}`)";
-        service = "stirling-pdf";
+    services = {
+      traefik.dynamicConfigOptions.http = {
+        routers.stirling-pdf = {
+          rule = "Host(`stirling-pdf.${config.networking.domain}`)";
+          service = "stirling-pdf";
+        };
+        services.stirling-pdf.loadBalancer.servers = [
+          { url = "http://localhost:${port}"; }
+        ];
       };
-      services.stirling-pdf.loadBalancer.servers = [
-        { url = "http://localhost:${stirlingPort}"; }
+
+      tor.relay.onionServices.stirling-pdf.map = [
+        {
+          port = 80;
+          target = {
+            addr = "127.0.0.1";
+            port = stirlingPort;
+          };
+        }
       ];
     };
   };

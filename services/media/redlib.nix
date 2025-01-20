@@ -1,6 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.redlib;
+  redlibPort = config.services.redlib.port;
+  port = toString redlibPort;
 in
 {
   options.services.media.redlib.enable = lib.mkEnableOption "Redlib";
@@ -12,10 +14,18 @@ in
           rule = "Host(`redlib.${config.networking.domain}`)";
           service = "redlib";
         };
-        services.redlib.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.redlib.port}"; }
-        ];
+        services.redlib.loadBalancer.servers = [ { url = "http://localhost:${port}"; } ];
       };
+
+      tor.relay.onionServices.redlib.map = [
+        {
+          port = 80;
+          target = {
+            addr = "127.0.0.1";
+            port = redlibPort;
+          };
+        }
+      ];
 
       redlib = {
         enable = true;

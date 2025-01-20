@@ -5,6 +5,9 @@
   ...
 }:
 let
+  # TODO: Provide Secret Key to All tor onion Services.
+  # This improves reproducibility as the generated onion links
+  # will always be the same
   cfg = config.services.networking.tor;
 in
 {
