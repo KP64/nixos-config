@@ -143,25 +143,6 @@
         "type": "github"
       }
     },
-    "blender-bin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1734963688,
-        "narHash": "sha256-Pgt9FcqUJD/Mg+L2cMlvKw5z/WNDJRTg2ZvIho/2upE=",
-        "rev": "91297beb20864e611af6017c5eeef1b4564d7157",
-        "revCount": 132,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/edolstra/blender-bin/1.0.12/01940c9d-feca-7111-a812-8d8ba9dd4fbd/source.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/edolstra/blender-bin/%2A.tar.gz"
-      }
-    },
     "catppuccin": {
       "inputs": {
         "catppuccin-v1_1": "catppuccin-v1_1",
@@ -2085,7 +2066,6 @@
     },
     "root": {
       "inputs": {
-        "blender-bin": "blender-bin",
         "catppuccin": "catppuccin",
         "catppuccin-aseprite": "catppuccin-aseprite",
         "catppuccin-blender": "catppuccin-blender",

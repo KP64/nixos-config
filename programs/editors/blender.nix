@@ -8,8 +8,7 @@
 }:
 
 let
-  blender = inputs.blender-bin.packages.${pkgs.system}.default;
-
+  inherit (pkgs) blender;
   version = blender.version |> builtins.splitVersion |> lib.take 2 |> lib.concatStringsSep ".";
 in
 {

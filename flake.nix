@@ -2,11 +2,6 @@
   description = "My NixOS configuration flake";
 
   inputs = {
-    blender-bin = {
-      url = "https://flakehub.com/f/edolstra/blender-bin/*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     catppuccin.url = "github:catppuccin/nix";
 
     catppuccin-aseprite = {
