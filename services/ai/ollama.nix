@@ -6,17 +6,6 @@ in
   options.services.ai.ollama = {
     enable = lib.mkEnableOption "Ollama";
 
-    acceleration = lib.mkOption {
-      readOnly = true;
-      type = lib.types.enum [
-        "cpu"
-        "cuda"
-        "rocm"
-      ];
-      example = "cpu";
-      description = "Whether to use the GPU or CPU";
-    };
-
     models = lib.mkOption {
       readOnly = true;
       type = with lib.types; nonEmptyListOf nonEmptyStr;
@@ -31,7 +20,7 @@ in
   config = lib.mkMerge [
     {
       services.ollama = {
-        inherit (cfg) enable acceleration;
+        inherit (cfg) enable;
         loadModels = cfg.models;
       };
     }

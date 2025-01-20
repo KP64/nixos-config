@@ -126,7 +126,6 @@
     open-webui.enable = true;
     ollama = {
       enable = true;
-      acceleration = "cuda";
       models = [
         "llama3.2"
         "llama3.1:8b"
@@ -136,7 +135,10 @@
 
   time.timeZone = "Europe/Berlin";
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    cudaSupport = true;
+  };
 
   users.users.${username} = {
     hashedPasswordFile = config.sops.secrets.hashed_password.path;

@@ -1,7 +1,8 @@
 {
-  pkgs,
-  lib,
   config,
+  lib,
+  pkgs,
+  stable-pkgs,
   username,
   ...
 }:
@@ -49,10 +50,8 @@ in
 
     {
       home-manager.users.${username}.home.packages = lib.optionals cfg.misc.enable (
-        with pkgs;
-        [
-          gimp
-
+        [ stable-pkgs.gimp-with-plugins ]
+        ++ (with pkgs; [
           obsidian
 
           libreoffice
@@ -67,7 +66,7 @@ in
           signal-desktop
 
           czkawka
-        ]
+        ])
       );
     }
 
