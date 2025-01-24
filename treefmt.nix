@@ -1,4 +1,20 @@
+let
+  excludeSecrets = [ "*secrets.yaml" ];
+in
 {
+  settings.global.excludes =
+    excludeSecrets
+    ++ [ "UNLICENSE" ]
+    ++ (map (e: "*.${e}") [
+      "png"
+      "jpg"
+      "lycheeignore"
+      # TODO: Remove once justfmt supports module fmt
+      "just"
+      # TODO: Remove and use `nufmt` once production ready
+      "nu"
+      "yuck"
+    ]);
   programs = {
     deadnix.enable = true;
     just.enable = true;
@@ -6,7 +22,7 @@
     nixfmt.enable = true;
     prettier = {
       enable = true;
-      excludes = [ "*secrets.yaml" ];
+      excludes = excludeSecrets;
       settings.overrides = [
         {
           files = [ "*.svg" ];
