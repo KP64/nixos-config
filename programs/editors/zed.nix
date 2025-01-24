@@ -32,8 +32,6 @@ in
         diagnostics = false;
         metrics = false;
       };
-      ui_font_size = 16;
-      buffer_font_size = 16;
       format_on_save = "on";
       autosave.after_delay.milliseconds = 1000;
       auto_update = false;
