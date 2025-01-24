@@ -113,16 +113,11 @@
 
     media = {
       dumb.enable = true;
-      immich.enable = true;
       invidious.enable = true;
-      jellyfin.enable = true;
-      komga.enable = true;
       neuters.enable = true;
       redlib.enable = true;
       stirling-pdf.enable = true;
     };
-
-    metrics.enable = true;
 
     misc = {
       atuin.enable = true;
