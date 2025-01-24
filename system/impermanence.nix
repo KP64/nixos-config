@@ -55,7 +55,7 @@ in
       ];
     };
 
-    boot.initrd.postDeviceCommands =
+    boot.initrd.postResumeCommands =
       lib.mkAfter # sh
         ''
           mkdir /btrfs_tmp
