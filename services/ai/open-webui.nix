@@ -23,7 +23,6 @@ in
 
           ENABLE_RAG_WEB_SEARCH = "True";
           ENABLE_SEARCH_QUERY = "True";
-          # TODO: Change to Self hosted SearXNG when ready.
           RAG_WEB_SEARCH_ENGINE = "duckduckgo";
         };
       };
