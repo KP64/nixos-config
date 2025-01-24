@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   username,
   ...
@@ -16,153 +15,178 @@ let
   background = "#${colors.base00}";
   background-alt = "#${colors.base01}";
   foreground = "#${colors.base05}";
-
-  hyprpanel-reload = pkgs.writers.writeBashBin "hyprpanel-reload" ''
-    [ $(pgrep "hyprpanel") ] && pkill hyprpanel
-    hyprctl dispatch exec hyprpanel
-  '';
 in
 {
   options.desktop.hypr.hyprpanel.enable = lib.mkEnableOption "Hyprpanel";
 
   config = lib.mkIf cfg.enable {
+    nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
     home-manager.users.${username} = {
-      wayland.windowManager.hyprland.settings.exec-once = [ "hyprpanel" ];
-
-      home.packages = [
-        inputs.hyprpanel.packages.${pkgs.system}.default
-        hyprpanel-reload
-      ];
+      imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
       # TODO: Right now weather Key doesn't work with sops-nix.
       # Wait for Hyprpanel to provide support i.e. an option that expect a path.
-      xdg.configFile."hyprpanel/config.json".text =
-        let
-          stylixOnly = lib.optionalString config.isStylixEnabled ''
-            "theme.bar.transparent": true,
 
-            "theme.bar.buttons.workspaces.hover": "${accent-alt}",
-            "theme.bar.buttons.workspaces.active": "${accent}",
-            "theme.bar.buttons.workspaces.available": "${accent-alt}",
-            "theme.bar.buttons.workspaces.occupied": "${accent}",
+      programs.hyprpanel = {
+        enable = true;
+        hyprland.enable = true;
+        overwrite.enable = true;
+        theme = lib.optionalString config.isCatppuccinEnabled "catppuccin_mocha";
 
-            "theme.bar.menus.monochrome": true,
-            "theme.bar.menus.background": "${background}",
-            "theme.bar.menus.cards": "${background-alt}",
-            "theme.bar.menus.label": "${foreground}",
-            "theme.bar.menus.text": "${foreground}",
-            "theme.bar.menus.border.color": "${accent}",
-            "theme.bar.menus.popover.text": "${foreground}",
-            "theme.bar.menus.popover.background": "${background-alt}",
-            "theme.bar.menus.listitems.active": "${accent}",
-            "theme.bar.menus.icons.active": "${accent}",
-            "theme.bar.menus.switch.enabled":"${accent}",
-            "theme.bar.menus.check_radio_button.active": "${accent}",
-            "theme.bar.menus.buttons.default": "${accent}",
-            "theme.bar.menus.buttons.active": "${accent}",
-            "theme.bar.menus.iconbuttons.active": "${accent}",
-            "theme.bar.menus.progressbar.foreground": "${accent}",
-            "theme.bar.menus.slider.primary": "${accent}",
-            "theme.bar.menus.tooltip.background": "${background-alt}",
-            "theme.bar.menus.tooltip.text": "${foreground}",
-            "theme.bar.menus.dropdownmenu.background":"${background-alt}",
-            "theme.bar.menus.dropdownmenu.text": "${foreground}",
-            "theme.bar.buttons.style": "default",
-            "theme.bar.buttons.monochrome": true,
-            "theme.bar.buttons.text": "${foreground}",
-            "theme.bar.buttons.icon": "${accent}",
-            "theme.bar.buttons.notifications.background": "${background-alt}",
-            "theme.bar.buttons.hover": "${background}",
-            "theme.bar.buttons.notifications.hover": "${background}",
-            "theme.bar.buttons.notifications.total": "${accent}",
-            "theme.bar.buttons.notifications.icon": "${accent}",
-            "theme.notification.background": "${background-alt}",
-            "theme.notification.actions.background": "${accent}",
-            "theme.notification.actions.text": "${foreground}",
-            "theme.notification.label": "${accent}",
-            "theme.notification.border": "${background-alt}",
-            "theme.notification.text": "${foreground}",
-            "theme.notification.labelicon": "${accent}",
-            "theme.osd.bar_color": "${accent}",
-            "theme.osd.bar_overflow_color": "${accent-alt}",
-            "theme.osd.icon": "${background}",
-            "theme.osd.icon_container": "${accent}",
-            "theme.osd.label": "${accent}",
-            "theme.osd.bar_container": "${background-alt}",
-            "theme.bar.menus.menu.media.background.color": "${background-alt}",
-            "theme.bar.menus.menu.media.card.color": "${background-alt}",
-            "theme.bar.menus.menu.media.card.tint": 90,
-          '';
-        in
-        ''
-          {
-            ${stylixOnly}
+        layout."bar.layouts"."*" = {
+          left = [
+            "dashboard"
+            "workspaces"
+          ];
+          middle = [ "media" ];
+          right = [
+            "network"
+            "volume"
+            "bluetooth"
+            "systray"
+            "clock"
+            "hyprsunset"
+            "notifications"
+          ];
+        };
 
-            "wallpaper.enable": false,
-            "hyprpanel.restartCommand": "hyprpanel -q; hyprpanel",
+        override = lib.optionalAttrs config.isStylixEnabled {
+          theme = {
+            bar = {
+              buttons = {
+                style = "default";
+                monochrome = true;
+                text = foreground;
+                icon = accent;
+                hover = background;
+                workspaces = {
+                  hover = accent-alt;
+                  active = accent;
+                  available = accent-alt;
+                  occupied = accent;
+                };
+                notifications = {
+                  background = background-alt;
+                  hover = background;
+                  total = accent;
+                  icon = accent;
+                };
+              };
+              menus = {
+                inherit background;
+                cards = background-alt;
+                label = foreground;
+                text = foreground;
+                border.color = accent;
+                popover = {
+                  text = foreground;
+                  background = background-alt;
+                };
+                iconbuttons.active = accent;
+                progressbar.foreground = accent;
+                slider.primary = accent;
+                listitems.active = accent;
+                icons.active = accent;
+                switch.enabled = accent;
+                check_radio_button.active = accent;
+                buttons = {
+                  default = accent;
+                  active = accent;
+                };
+                tooltip = {
+                  background = background-alt;
+                  text = foreground;
+                };
+                dropdownmenu = {
+                  background = background-alt;
+                  text = foreground;
+                };
+                menu.media = {
+                  background.color = background-alt;
+                  card.color = background-alt;
+                };
+              };
+            };
+            notification = {
+              background = background-alt;
+              actions = {
+                background = accent;
+                text = foreground;
+              };
+              label = accent;
+              border = background-alt;
+              text = foreground;
+              labelicon = accent;
+            };
+            osd = {
+              bar_color = accent;
+              bar_overflow_color = accent-alt;
+              icon = background;
+              icon_container = accent;
+              label = accent;
+              bar_container = background-alt;
+            };
+          };
+        };
 
-            "bar.media.show_active_only": true,
-            "bar.customModules.updates.pollingInterval": 1440000,
-            "bar.windowtitle.label": false,
-            "bar.launcher.icon": "",
-            "bar.layouts": {
-              "*": {
-                "left": [
-                  "dashboard",
-                  "workspaces"
-                ],
-                "middle": [ "media" ],
-                "right": [
-                  "network",
-                  "volume",
-                  "bluetooth",
-                  "systray",
-                  "clock",
-                  "hyprsunset",
-                  "notifications"
-                ]
-              }
-            },
+        settings =
+          let
+            stylixOnly.theme.bar = {
+              transparent = true;
+              menus.monochrome = true;
+            };
+          in
+          (lib.optionalAttrs config.isStylixEnabled stylixOnly)
+          // {
+            wallpaper.enable = false;
 
-            "bar.workspaces.show_numbered": true,
-            "bar.workspaces.workspaces": ${toString config.maxWorkspaceCount},
-            "bar.workspaces.monitorSpecific": true,
+            bar = {
+              media.show_active_only = true;
+              windowtitle.label = false;
+              launcher.icon = "";
+              workspaces = {
+                show_numbered = true;
+                workspaces = config.maxWorkspaceCount;
+              };
+            };
 
-            "menus.clock.weather.location": "",
-            "menus.clock.weather.key": "",
-            "menus.clock.weather.unit": "metric",
+            menus = {
+              clock.weather = {
+                location = "";
+                key = "";
+                unit = "metric";
+              };
 
-            "menus.dashboard.shortcuts.left.shortcut1.icon": "",
-            "menus.dashboard.shortcuts.left.shortcut1.command": "firefox",
-            "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Firefox",
-            "menus.dashboard.shortcuts.left.shortcut2.icon": "",
-            "menus.dashboard.shortcuts.left.shortcut2.command": "spotify",
-            "menus.dashboard.shortcuts.left.shortcut2.tooltip": "Spotify",
-            "menus.dashboard.shortcuts.left.shortcut3.icon": "",
-            "menus.dashboard.shortcuts.left.shortcut3.command": "vesktop",
-            "menus.dashboard.shortcuts.left.shortcut3.tooltip": "Vesktop",
+              dashboard = {
+                shortcuts.left = {
+                  shortcut1 = {
+                    icon = "";
+                    command = "firefox";
+                    tooltip = "Firefox";
+                  };
+                  shortcut2.command = "spotify";
+                  shortcut3.command = "vesktop";
+                };
 
-            "menus.dashboard.shortcuts.right.shortcut1.icon": "",
-            "menus.dashboard.shortcuts.right.shortcut1.command": "hyprpicker -a",
-            "menus.dashboard.shortcuts.right.shortcut1.tooltip": "Color Picker",
-            "menus.dashboard.shortcuts.right.shortcut3.icon": "󰄀",
-            "menus.dashboard.shortcuts.right.shortcut3.command": "grimblast --freeze --notify copysave area",
-            "menus.dashboard.shortcuts.right.shortcut3.tooltip": "Screenshot",
-
-            "menus.dashboard.directories.left.directory1.label": "󰉍 Downloads",
-            "menus.dashboard.directories.left.directory1.command": "bash -c \"thunar $HOME/Downloads/\"",
-            "menus.dashboard.directories.left.directory2.label": "󰉏 Pictures",
-            "menus.dashboard.directories.left.directory2.command": "bash -c \"thunar $HOME/Pictures/\"",
-            "menus.dashboard.directories.left.directory3.label": "󱧶 Documents",
-            "menus.dashboard.directories.left.directory3.command": "bash -c \"thunar $HOME/Documents/\"",
-            "menus.dashboard.directories.right.directory1.label": "󱂵 Home",
-            "menus.dashboard.directories.right.directory1.command": "bash -c \"thunar $HOME/\"",
-            "menus.dashboard.directories.right.directory2.label": "󰚝 Projects",
-            "menus.dashboard.directories.right.directory2.command": "bash -c \"thunar $HOME/dev/\"",
-            "menus.dashboard.directories.right.directory3.label": " Config",
-            "menus.dashboard.directories.right.directory3.command": "bash -c \"thunar $HOME/.config/\""
-          }
-        '';
+                directories = {
+                  left = {
+                    directory1.command = "thunar Downloads";
+                    directory2.command = "thunar Videos";
+                    directory3 = {
+                      command = "thunar Desktop";
+                      label = "󰚝 Desktop";
+                    };
+                  };
+                  right = {
+                    directory1.command = "thunar Documents";
+                    directory2.command = "thunar Pictures";
+                    directory3.command = "thunar";
+                  };
+                };
+              };
+            };
+          };
+      };
     };
   };
 }
