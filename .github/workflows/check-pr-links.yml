@@ -9,6 +9,8 @@ on:
     #   - '**/*.md'
     #   - '**/*.html'
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
