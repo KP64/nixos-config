@@ -75,6 +75,11 @@ in
           ];
 
           engines = lib.mapAttrsToList (name: value: { inherit name; } // value) {
+            # General
+
+            ## translate
+            libretranslate.disabled = false;
+
             # Wikimedia
             wikisource.disabled = false;
             wikiversity.disabled = false;
@@ -90,19 +95,24 @@ in
             # Videos
             bilibili.disabled = false;
             invidious.disabled = false;
+            mediathekviewweb.disabled = false;
 
             # News
-            "tagesschau".disabled = false;
+            tagesschau.disabled = false;
 
             # IT
             "crates.io".disabled = false;
             "lib.rs".disabled = false;
+            npm.disabled = false;
             codeberg.disabled = false;
             "gitea.com".disabled = false;
             gitlab.disabled = false;
             sourcehut.disabled = false;
             cppreference.disabled = false;
             hackernews.disabled = false;
+
+            # Science
+            "semantic scholar".disabled = false;
 
             # Files
             fdroid.disabled = false;
