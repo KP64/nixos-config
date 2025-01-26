@@ -140,6 +140,7 @@ in
             wallpaper.enable = false;
 
             bar = {
+              clock.format = "%a %x %X";
               media.show_active_only = true;
               windowtitle.label = false;
               launcher.icon = "";
