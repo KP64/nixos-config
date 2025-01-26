@@ -1635,11 +1635,11 @@
     "nix-invisible": {
       "flake": false,
       "locked": {
-        "lastModified": 1736884023,
-        "narHash": "sha256-6tDDYnUVpGRdNUPXmbS9Bsz+kG1RXBW37nFW7c0MOnE=",
+        "lastModified": 1737777346,
+        "narHash": "sha256-pAzLduwpmKs2/L2pyyHyrIPxbZ+ao5xv3uHI+53Ih6E=",
         "ref": "main",
-        "rev": "f30bdd70dc92727928fa0cfd9cd5ca11c81167b2",
-        "revCount": 2,
+        "rev": "b7ec863e3769ec156e58650c0bbd6a0db1fdeec6",
+        "revCount": 3,
         "type": "git",
         "url": "ssh://forgejo@forgejo.nix-pi.ipv64.de/kp64/nix-invisible"
       },

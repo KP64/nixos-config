@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  invisible,
   username,
   ...
 }:
@@ -21,11 +22,9 @@ in
 
   config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
+
     home-manager.users.${username} = {
       imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-
-      # TODO: Right now weather Key doesn't work with sops-nix.
-      # Wait for Hyprpanel to provide support i.e. an option that expect a path.
 
       programs.hyprpanel = {
         enable = true;
@@ -152,8 +151,8 @@ in
 
             menus = {
               clock.weather = {
-                location = "";
-                key = "";
+                inherit (invisible.weatherApi) location;
+                key = config.sops.secrets."weather.json".path;
                 unit = "metric";
               };
 
