@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   username,
   ...
 }:
@@ -12,6 +13,8 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      environment.systemPackages = [ pkgs.lazydocker ];
+
       virtualisation = {
         oci-containers.backend = "docker";
         docker = {
@@ -22,6 +25,7 @@ in
           };
         };
       };
+
       users.users.${username}.extraGroups = [ "docker" ];
     })
 
