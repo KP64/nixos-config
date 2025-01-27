@@ -127,6 +127,7 @@
         enable = true;
         inherit (invisible.glance) location;
       };
+      languagetool.enable = true;
       searxng.enable = true;
     };
 
