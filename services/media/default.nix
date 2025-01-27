@@ -4,6 +4,7 @@
     ./immich.nix
     ./invidious.nix
     ./jellyfin.nix
+    ./jellyseerr.nix
     ./komga.nix
     ./neuters.nix
     ./redlib.nix
