@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.redlib;
-  port = config.services.redlib.port;
+  inherit (config.services.redlib) port;
 in
 {
   options.services.media.redlib.enable = lib.mkEnableOption "Redlib";

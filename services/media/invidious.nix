@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.invidious;
-  port = config.services.invidious.port;
+  inherit (config.services.invidious) port;
 in
 {
   options.services.media.invidious.enable = lib.mkEnableOption "Invidious";
