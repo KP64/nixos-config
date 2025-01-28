@@ -27,6 +27,7 @@ in
     (lib.mkIf cfg.enable {
       home-manager.users.${username} = {
 
+        # TODO: Use privacy respecting browser
         xdg.desktopEntries.i2p-browser = {
           name = "i2p Browser";
           genericName = "Web Browser";
@@ -50,30 +51,19 @@ in
               settings = collectLastEntries (appendLastWithFullPath {
                 keyword.enabled = false;
                 browser = {
-                  contentblocking.category = "standard";
+                  contentblocking.category = "strict";
                   policies.applied = true;
                 };
                 network = {
                   trr.mode = 5;
                   proxy = {
-                    backup.ssl = "";
-                    backup.ssl_port = 0;
                     http = "127.0.0.1";
                     http_port = 4444;
                     share_proxy_settings = true;
                     socks = "127.0.0.1";
                     socks_port = 4447;
-                    ssl = "127.0.0.1";
-                    ssl_port = 4444;
                     type = 1;
-                    # no_proxies_on = "localhost, 127.0.0.1";
                   };
-                };
-                dom.security = {
-                  https_only_mode = false;
-                  https_only_mode_ever_enabled = false;
-                  https_only_mode_ever_enabled_pbm = false;
-                  https_only_mode_pbm = false;
                 };
               });
             };
