@@ -182,7 +182,7 @@
     ];
 
     networking = {
-      i2p.enable = false;
+      i2p.enable = true;
       tor.enable = true;
       traefik.enable = true;
 

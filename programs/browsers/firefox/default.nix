@@ -27,18 +27,17 @@ in
     (lib.mkIf cfg.enable {
       home-manager.users.${username} = {
 
-        xdg.desktopEntries = {
-          i2p-browser = {
-            name = "i2p Browser";
-            genericName = "Web Browser";
-            exec = "${pkgs.firefox}/bin/firefox -p i2p";
-          };
+        xdg.desktopEntries.i2p-browser = {
+          name = "i2p Browser";
+          genericName = "Web Browser";
+          exec = "${pkgs.firefox}/bin/firefox -p i2p";
         };
 
         home.file.".mozilla/firefox/${username}/chrome" = {
           source = "${inputs.potato-fox}/chrome/";
           recursive = true;
         };
+
         programs.firefox = {
           enable = true;
           profiles = {

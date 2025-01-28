@@ -7,8 +7,7 @@
 }:
 let
   cfg = config.services.media.neuters;
-  neutersPort = 13369;
-  port = toString neutersPort;
+  port = 13369;
 in
 {
   options.services.media.neuters.enable = lib.mkEnableOption "Neuters";
@@ -20,7 +19,7 @@ in
           rule = "Host(`neuters.${config.networking.domain}`)";
           service = "neuters";
         };
-        services.neuters.loadBalancer.servers = [ { url = "http://localhost:${port}"; } ];
+        services.neuters.loadBalancer.servers = [ { url = "http://localhost:${toString port}"; } ];
       };
 
       tor.relay.onionServices.neuters.map = [
@@ -28,10 +27,16 @@ in
           port = 80;
           target = {
             addr = "127.0.0.1";
-            port = neutersPort;
+            inherit port;
           };
         }
       ];
+
+      i2pd.inTunnels.neuters = {
+        enable = true;
+        destination = "127.0.0.1";
+        inherit port;
+      };
     };
 
     systemd.services.neuters = {

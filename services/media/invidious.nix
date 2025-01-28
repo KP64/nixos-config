@@ -1,8 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.invidious;
-  invidiousPort = config.services.invidious.port;
-  port = toString invidiousPort;
+  port = config.services.invidious.port;
 in
 {
   options.services.media.invidious.enable = lib.mkEnableOption "Invidious";
@@ -39,10 +38,16 @@ in
             port = 80;
             target = {
               addr = "127.0.0.1";
-              port = invidiousPort;
+              inherit port;
             };
           }
         ];
+
+        i2pd.inTunnels.invidious = {
+          enable = true;
+          destination = "127.0.0.1";
+          inherit port;
+        };
       };
     })
 

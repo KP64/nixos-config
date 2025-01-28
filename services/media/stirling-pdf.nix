@@ -1,8 +1,8 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.stirling-pdf;
-  stirlingPort = 4300;
-  port = toString stirlingPort;
+  port = 4300;
+  stirlingPort = toString port;
 in
 {
   options.services.media.stirling-pdf.enable = lib.mkEnableOption "Stirling-pdf";
@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers.stirling-pdf = {
       image = "stirlingtools/stirling-pdf:latest";
-      ports = [ "${port}:8080" ];
+      ports = [ "${stirlingPort}:8080" ];
       volumes = map (p: "./StirlingPDF/${p}") [
         "trainingData:/usr/share/tessdata"
         "extraConfigs:/configs"
@@ -33,7 +33,7 @@ in
           service = "stirling-pdf";
         };
         services.stirling-pdf.loadBalancer.servers = [
-          { url = "http://localhost:${port}"; }
+          { url = "http://localhost:${stirlingPort}"; }
         ];
       };
 
@@ -42,10 +42,16 @@ in
           port = 80;
           target = {
             addr = "127.0.0.1";
-            port = stirlingPort;
+            inherit port;
           };
         }
       ];
+
+      i2pd.inTunnels.stirling-pdf = {
+        enable = true;
+        destination = "127.0.0.1";
+        inherit port;
+      };
     };
   };
 }

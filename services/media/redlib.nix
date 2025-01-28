@@ -1,8 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.services.media.redlib;
-  redlibPort = config.services.redlib.port;
-  port = toString redlibPort;
+  port = config.services.redlib.port;
 in
 {
   options.services.media.redlib.enable = lib.mkEnableOption "Redlib";
@@ -14,7 +13,7 @@ in
           rule = "Host(`redlib.${config.networking.domain}`)";
           service = "redlib";
         };
-        services.redlib.loadBalancer.servers = [ { url = "http://localhost:${port}"; } ];
+        services.redlib.loadBalancer.servers = [ { url = "http://localhost:${toString port}"; } ];
       };
 
       tor.relay.onionServices.redlib.map = [
@@ -22,10 +21,16 @@ in
           port = 80;
           target = {
             addr = "127.0.0.1";
-            port = redlibPort;
+            inherit port;
           };
         }
       ];
+
+      i2pd.inTunnels.redlib = {
+        enable = true;
+        destination = "127.0.0.1";
+        inherit port;
+      };
 
       redlib = {
         enable = true;
