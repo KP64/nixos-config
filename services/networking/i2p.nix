@@ -11,6 +11,8 @@ in
         enable = true;
         address = "0.0.0.0"; # For SSH-Tunnels
         bandwidth = 2048; # kbps
+        reseed.verify = true;
+        websocket.enable = true;
         proto = {
           http.enable = true;
           httpProxy.enable = true;
