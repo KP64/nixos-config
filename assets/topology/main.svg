@@ -260,7 +260,7 @@
       font-size="18"
       font-weight="bold"
     >
-      wg0
+      home
     </text>
     <mask
       id="Y2hpbGRyZW4ubGVnZW5kcy5jaGlsZHJlbi5uZXR3b3Jrcy1vdmVydmlldw_om-id-0-0-2-0-1-1"
@@ -392,7 +392,7 @@
       font-size="18"
       font-weight="bold"
     >
-      wg1
+      proton
     </text>
     <mask
       id="Y2hpbGRyZW4ubGVnZW5kcy5jaGlsZHJlbi5uZXR3b3Jrcy1vdmVydmlldw_om-id-0-0-3-0-1-1"
@@ -3685,51 +3685,51 @@
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-1-0-0" />
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-1-0-1" />
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-1-1">
-      <path fill="#fff" d="M103 138h22v18h-22z" />
+      <path fill="#fff" d="M100 138h29v18h-29z" />
     </mask>
     <text
-      x="103"
+      x="100"
       y="150.552"
       fill="#e3e6eb"
       font-family="jetbrains mono"
       font-size="12"
       font-weight="bold"
     >
-      wg0
+      home
     </text>
     <defs>
       <clipPath id="Y2hpbGRyZW4ubm9kZTpycw_bc-id-0-0-1-2">
         <path
-          d="M160 92h44a8 8 0 0 1 8 8v54a8 8 0 0 1-8 8h-44a8 8 0 0 1-8-8v-54a8 8 0 0 1 8-8"
+          d="M160 92h48a8 8 0 0 1 8 8v54a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-54a8 8 0 0 1 8-8"
         />
       </clipPath>
     </defs>
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-2">
-      <path fill="#fff" d="M154 94h56v66h-56z" />
+      <path fill="#fff" d="M154 94h60v66h-60z" />
       <path
         fill="none"
         stroke="#000"
         stroke-width="4"
-        d="M154.343 94.343A8 8 0 0 1 160 92h44a8 8 0 0 1 8 8v54a8 8 0 0 1-8 8h-44a8 8 0 0 1-8-8v-54a8 8 0 0 1 2.343-5.657"
+        d="M154.343 94.343A8 8 0 0 1 160 92h48a8 8 0 0 1 8 8v54a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-54a8 8 0 0 1 2.343-5.657"
       />
     </mask>
     <path
       fill="none"
       stroke="#21262e"
       stroke-width="4"
-      d="M154.343 94.343A8 8 0 0 1 160 92h44a8 8 0 0 1 8 8v54a8 8 0 0 1-8 8h-44a8 8 0 0 1-8-8v-54a8 8 0 0 1 2.343-5.657"
+      d="M154.343 94.343A8 8 0 0 1 160 92h48a8 8 0 0 1 8 8v54a8 8 0 0 1-8 8h-48a8 8 0 0 1-8-8v-54a8 8 0 0 1 2.343-5.657"
       clip-path="url(#Y2hpbGRyZW4ubm9kZTpycw_bc-id-0-0-1-2)"
     />
     <clipPath id="Y2hpbGRyZW4ubm9kZTpycw_cp-id-0-0-1-2-0">
-      <path d="M166 102h32v32h-32z" />
+      <path d="M168 102h32v32h-32z" />
     </clipPath>
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-2-0">
-      <path fill="#fff" d="M166 102h32v32h-32z" />
+      <path fill="#fff" d="M168 102h32v32h-32z" />
     </mask>
     <image
       width="32"
       height="32"
-      x="166"
+      x="168"
       y="102"
       clip-path="url(#Y2hpbGRyZW4ubm9kZTpycw_cp-id-0-0-1-2-0)"
       href="data:image/svg+xml;utf8,%3Csvg tw=%22w-8 h-8 m-1%22 xmlns=%22http://www.w3.org/2000/svg%22 aria-label=%22WireGuard%22 role=%22img%22 width=%22null%22 height=%22null%22 viewBox=%220 0 512 512%22%3E%3Crect width=%22512%22 height=%22512%22 rx=%2215%25%22 fill=%22%2388171a%22%3E%3C/rect%3E%3Cpath d=%22m238 53l35 8 0 2c-15 2-30-4-45-5 11 7 23 11 35 15-19 16-35-5-56 9 20 10 19 8 21 27-9 1-24 10-27 16 13 3 28 0 41 8-4 3-14 7-18 10 9 2 20-2 25 1 19 16 54 38 64 60 17 37-22 77-60 83-53 11-83 66-64 117 19 50 78 72 125 46 66-40 56-108 16-145-2-2-4-2-6 0-14 9-29 17-45 24 36 8 41 35 37 54-13 48-78 37-85-4-3-19 7-38 24-46 59-26 87-30 104-97 6-38-3-58-31-80-11-11-33-18-40-35-1-2 1-6 3-6 10-2 49-3 49-1 7 7 13-4 16-9-10-2-21-1-29-1-1 0-3-2-4-3 1 -1 3-2 4-2h41c0-7-9-17-18-19v3c-8 1-16-1-24-4-4-3-7-9-11-11-16-9-33-16-54-16-10 0-17 1-23 1zm74 30l3 3-4 2c-2 1-3 0-4-1-2-3 4-5 5-4zm-120 96c-54 33-51 109-3 139 4 2 6 2 8-1 12-15 23-22 36-30-25-4-38-16-37-33-4-60 83-54 74 2-2 10-8 19-16 25 27-6 47-21 55-48 2-8 2-19-2-26-30-44-75-53-115-28zm-62 195c16-7 33-10 49-13 1-13 5-26 13-36-30 0-55 20-62 49z%22 fill=%22%23ffffff%22%3E%3C/path%3E%3C/svg%3E"
@@ -3739,17 +3739,17 @@
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-2-0-0" />
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-2-0-1" />
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-1-2-1">
-      <path fill="#fff" d="M171 138h22v18h-22z" />
+      <path fill="#fff" d="M162 138h44v18h-44z" />
     </mask>
     <text
-      x="171"
+      x="162"
       y="150.552"
       fill="#e3e6eb"
       font-family="jetbrains mono"
       font-size="12"
       font-weight="bold"
     >
-      wg1
+      proton
     </text>
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-2">
       <path fill="#fff" d="M16 182h448v98H16z" />
@@ -6355,14 +6355,14 @@
     d="M1504 1019h8v8h-8z"
   />
   <text
-    x="1481.4"
+    x="1474.2"
     y="1028"
     fill="#b6beca"
     dominant-baseline="hanging"
     style="font: 12px JetBrains Mono"
     text-anchor="left"
   >
-    wg0
+    home
   </text>
   <text
     x="1409.4"
@@ -6381,14 +6381,14 @@
     d="M1504 342h8v8h-8z"
   />
   <text
-    x="1481.4"
+    x="1459.8"
     y="351"
     fill="#b6beca"
     dominant-baseline="hanging"
     style="font: 12px JetBrains Mono"
     text-anchor="left"
   >
-    wg1
+    proton
   </text>
   <text
     x="1423.8"
