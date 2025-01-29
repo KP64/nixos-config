@@ -181,9 +181,7 @@ in
             network = name;
             addresses = with value.address; ipv4 ++ ipv6;
             type = "wireguard";
-            physicalConnections = lib.optional (builtins.hasAttr "dns" value) (
-              config.lib.topology.mkConnection "internet" "*"
-            );
+            physicalConnections = lib.optional (value ? dns) (config.lib.topology.mkConnection "internet" "*");
           }
         ));
     };
