@@ -158,33 +158,37 @@ in
         }
       ];
 
-    topology = {
-      networks = (
-        (cfg.serverInterfaces // cfg.clientInterfaces)
-        |> lib.mapAttrs (
-          name: value:
-          let
-            getCIDRv = addresses: if addresses == [ ] then null else builtins.head addresses;
-          in
-          {
-            name = "Wireguard Net ${name}";
-            cidrv4 = getCIDRv value.address.ipv4;
-            cidrv6 = getCIDRv value.address.ipv6;
-          }
-        )
-      );
+    topology =
+      let
+        getNetworkName = name: "wg-${name}";
+      in
+      {
+        networks = (
+          (cfg.serverInterfaces // cfg.clientInterfaces)
+          |> lib.mapAttrs' (
+            name: value:
+            let
+              getCIDRv = addresses: if addresses == [ ] then null else builtins.head addresses;
+            in
+            lib.nameValuePair (getNetworkName name) {
+              name = "Wireguard Net ${name}";
+              cidrv4 = getCIDRv value.address.ipv4;
+              cidrv6 = getCIDRv value.address.ipv6;
+            }
+          )
+        );
 
-      self.interfaces =
-        (cfg.serverInterfaces // cfg.clientInterfaces)
-        |> (lib.mapAttrs (
-          name: value: {
-            network = name;
-            addresses = with value.address; ipv4 ++ ipv6;
-            type = "wireguard";
-            physicalConnections = lib.optional (value ? dns) (config.lib.topology.mkConnection "internet" "*");
-          }
-        ));
-    };
+        self.interfaces =
+          (cfg.serverInterfaces // cfg.clientInterfaces)
+          |> (lib.mapAttrs (
+            name: value: {
+              network = getNetworkName name;
+              addresses = with value.address; ipv4 ++ ipv6;
+              type = "wireguard";
+              physicalConnections = lib.optional (value ? dns) (config.lib.topology.mkConnection "internet" "*");
+            }
+          ));
+      };
 
     networking =
       let
