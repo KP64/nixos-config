@@ -41,7 +41,7 @@
       d="M30 38h36a6 6 0 0 1 6 6v4a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6v-4a6 6 0 0 1 6-6"
     />
     <mask id="Y2hpbGRyZW4ubmV0OmhvbWU_om-id-0-0-0-1">
-      <path fill="#fff" d="M88 28h116v35H88z" />
+      <path fill="#fff" d="M88 28h58v35H88z" />
     </mask>
     <text
       x="88"
@@ -52,24 +52,6 @@
       font-weight="bold"
     >
       Home
-    </text>
-    <text
-      x="145.6"
-      y="53.103"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="24"
-      font-weight="bold"
-    ></text>
-    <text
-      x="160"
-      y="53.103"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="24"
-      font-weight="bold"
-    >
-      Net
     </text>
     <mask id="Y2hpbGRyZW4ubmV0OmhvbWU_om-id-0-0-0-2" />
     <mask id="Y2hpbGRyZW4ubmV0OmhvbWU_om-id-0-0-1">
@@ -161,7 +143,7 @@
       d="M30 38h36a6 6 0 0 1 6 6v4a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6v-4a6 6 0 0 1 6-6"
     />
     <mask id="Y2hpbGRyZW4ubmV0OndnLWhvbWU_om-id-0-0-0-1">
-      <path fill="#fff" d="M88 28h260v35H88z" />
+      <path fill="#fff" d="M88 28h202v35H88z" />
     </mask>
     <text
       x="88"
@@ -183,24 +165,6 @@
     ></text>
     <text
       x="232"
-      y="53.103"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="24"
-      font-weight="bold"
-    >
-      Net
-    </text>
-    <text
-      x="275.2"
-      y="53.103"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="24"
-      font-weight="bold"
-    ></text>
-    <text
-      x="289.6"
       y="53.103"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -299,7 +263,7 @@
       d="M30 38h36a6 6 0 0 1 6 6v4a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6v-4a6 6 0 0 1 6-6"
     />
     <mask id="Y2hpbGRyZW4ubmV0OndnLXByb3Rvbg_om-id-0-0-0-1">
-      <path fill="#fff" d="M88 28h288v35H88z" />
+      <path fill="#fff" d="M88 28h231v35H88z" />
     </mask>
     <text
       x="88"
@@ -321,24 +285,6 @@
     ></text>
     <text
       x="232"
-      y="53.103"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="24"
-      font-weight="bold"
-    >
-      Net
-    </text>
-    <text
-      x="275.2"
-      y="53.103"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="24"
-      font-weight="bold"
-    ></text>
-    <text
-      x="289.6"
       y="53.103"
       fill="#e3e6eb"
       font-family="jetbrains mono"

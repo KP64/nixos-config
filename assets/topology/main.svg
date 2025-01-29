@@ -112,24 +112,6 @@
     >
       Home
     </text>
-    <text
-      x="131.2"
-      y="120.027"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="18"
-      font-weight="bold"
-    ></text>
-    <text
-      x="142"
-      y="120.027"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="18"
-      font-weight="bold"
-    >
-      Net
-    </text>
     <mask
       id="Y2hpbGRyZW4ubGVnZW5kcy5jaGlsZHJlbi5uZXR3b3Jrcy1vdmVydmlldw_om-id-0-0-1-0-1-1"
     >
@@ -236,24 +218,6 @@
     ></text>
     <text
       x="196"
-      y="196.027"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="18"
-      font-weight="bold"
-    >
-      Net
-    </text>
-    <text
-      x="228.4"
-      y="196.027"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="18"
-      font-weight="bold"
-    ></text>
-    <text
-      x="239.2"
       y="196.027"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -368,24 +332,6 @@
     ></text>
     <text
       x="196"
-      y="272.027"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="18"
-      font-weight="bold"
-    >
-      Net
-    </text>
-    <text
-      x="228.4"
-      y="272.027"
-      fill="#e3e6eb"
-      font-family="jetbrains mono"
-      font-size="18"
-      font-weight="bold"
-    ></text>
-    <text
-      x="239.2"
       y="272.027"
       fill="#e3e6eb"
       font-family="jetbrains mono"
