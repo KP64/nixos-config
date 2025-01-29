@@ -109,7 +109,6 @@
       };
     secrets = {
       hashed_password.neededForUsers = true;
-      "weather.json".owner = username;
       "wireless.env" = { };
     };
   };

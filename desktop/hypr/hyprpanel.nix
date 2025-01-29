@@ -23,6 +23,8 @@ in
   config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
 
+    sops.secrets."weather.json".owner = username;
+
     home-manager.users.${username} = {
       imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 

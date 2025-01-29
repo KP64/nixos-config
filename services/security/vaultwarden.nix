@@ -7,6 +7,8 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      sops.secrets."vaultwarden.env" = { };
+
       services = {
         traefik.dynamicConfigOptions.http = {
           routers.vaultwarden = {

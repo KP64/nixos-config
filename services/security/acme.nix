@@ -16,6 +16,8 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      sops.secrets.acme_credentials = { };
+
       security.acme = {
         acceptTerms = true;
         defaults = {

@@ -51,13 +51,10 @@
     age.sshKeyPaths = [ "/home/rs/.ssh/id_ed25519" ];
     secrets = {
       hashed_password.neededForUsers = true;
-      acme_credentials = { };
-      "firefox_sync.env" = { };
       "wg/keys/client" = { };
       "wg/keys/server" = { };
       "wg/keys/preshared/lap" = { };
       "wg/keys/preshared/hon" = { };
-      "vaultwarden.env" = { };
     };
   };
 

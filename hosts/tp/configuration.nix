@@ -144,7 +144,6 @@
     age.sshKeyPaths = [ "/persist/home/${username}/.ssh/id_ed25519" ];
     secrets = {
       hashed_password.neededForUsers = true;
-      "weather.json".owner = username;
       "wireless.env" = { };
     };
   };

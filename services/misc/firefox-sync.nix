@@ -12,6 +12,8 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      sops.secrets."firefox_sync.env" = { };
+
       services = {
         traefik.dynamicConfigOptions.http = {
           routers.firefox-sync = {
