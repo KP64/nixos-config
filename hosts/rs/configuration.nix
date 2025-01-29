@@ -191,7 +191,7 @@
           inherit (config.sops) secrets;
         in
         {
-          serverInterfaces.wg0 = {
+          serverInterfaces.home = {
             listenPort = 58008;
             address.ipv4 = [ "172.31.0.1/32" ];
             privateKeyFile = secrets."wg/keys/server".path;
@@ -209,7 +209,7 @@
             ];
           };
 
-          clientInterfaces.wg1 = {
+          clientInterfaces.proton = {
             autostart = false;
             address.ipv4 = [ "10.2.0.2/32" ];
             dns = [ "10.2.0.1" ];
