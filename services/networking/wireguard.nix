@@ -171,7 +171,7 @@ in
               getCIDRv = addresses: if addresses == [ ] then null else builtins.head addresses;
             in
             lib.nameValuePair (getNetworkName name) {
-              name = "Wireguard Net ${name}";
+              name = "Wireguard ${name}";
               cidrv4 = getCIDRv value.address.ipv4;
               cidrv6 = getCIDRv value.address.ipv6;
             }

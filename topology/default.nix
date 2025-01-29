@@ -5,7 +5,7 @@ in
 {
   networks = {
     home = {
-      name = "Home Net";
+      name = "Home";
       cidrv4 = "192.168.2.0/24";
     };
   };
