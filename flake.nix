@@ -298,9 +298,12 @@
       ];
 
       perSystem =
-        { pkgs, ... }:
+        { pkgs, lib, ... }:
         {
-          packages.neuters = pkgs.callPackage ./pkgs/neuters { };
+          packages = lib.packagesFromDirectoryRecursive {
+            inherit (pkgs) callPackage;
+            directory = ./pkgs;
+          };
 
           topology.modules = [ ./topology ];
 
