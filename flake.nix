@@ -267,6 +267,8 @@
           customLib = import ./lib.nix { inherit inputs; };
         in
         {
+          templates = import ./templates;
+
           nixosConfigurations = {
             kg = customLib.mkSystem {
               username = "kg";
