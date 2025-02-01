@@ -33,6 +33,7 @@ in
         with pkgs;
         [
           cbonsai
+          cfonts
           cmatrix
           genact
           nms
