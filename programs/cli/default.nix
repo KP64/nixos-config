@@ -21,11 +21,11 @@ in
     ./bat.nix
     ./dconf.nix
     ./fd.nix
-    ./fzf.nix
+    ./fuzzy-finder.nix
     ./git.nix
     ./lsd.nix
     ./navi.nix
-    ./greps.nix
+    ./grep.nix
     ./tealdeer.nix
     ./thefuck.nix
     ./trippy.nix
