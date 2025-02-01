@@ -31,8 +31,11 @@ in
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       home.packages = with pkgs; [
+        gfold
         gitoxide
         gitleaks
+        gql
+        trufflehog
       ];
 
       programs = {
