@@ -13,7 +13,10 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      environment.systemPackages = [ pkgs.lazydocker ];
+      environment.systemPackages = with pkgs; [
+        lazydocker
+        oxker
+      ];
 
       virtualisation = {
         oci-containers.backend = "docker";
