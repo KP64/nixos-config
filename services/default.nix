@@ -1,7 +1,6 @@
 {
   imports = [
     ./ai
-    ./auth
     ./gaming
     ./media
     ./metrics
