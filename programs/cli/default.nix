@@ -49,42 +49,57 @@ in
       };
     })
 
+    # TODO: Further categorize
     {
-      home-manager.users.${username}.home.packages =
-        lib.optionals cfg.misc.enable [ stable-pkgs.ani-cli ]
-        ++ (with pkgs; [
-          asciinema
-          binsider
-          choose
-          dipc
-          doggo
-          dust
-          glow
-          gping
-          grex
-          hexyl
-          hurl
-          hyperfine
-          jnv
-          just
-          kondo
-          lychee
-          mkcert
-          monolith
-          ouch
-          presenterm
-          procs
-          rustscan
-          sd
-          sshx
-          systemctl-tui
-          tokei
-          typst
-          xh
+      home-manager.users.${username} = {
+        services.pueue.enable = true;
+        home.packages =
+          lib.optionals cfg.misc.enable [ stable-pkgs.ani-cli ]
+          ++ (with pkgs; [
+            asciinema
+            binsider
+            choose
+            dipc
+            doggo
+            dust
+            glow
+            gping
+            grex
+            hexyl
+            hurl
+            hyperfine
+            jnv
+            just
+            kondo
+            lychee
+            mkcert
+            monolith
+            ouch
+            presenterm
+            procs
+            rustscan
+            sd
+            sshx
+            systemctl-tui
+            tokei
+            typst
+            xh
 
-          sherlock
-          maigret
-        ]);
+            licensor
+            qrtool
+            melody
+            wthrr
+            numbat
+            systeroid
+            netscanner
+            kalker
+            oxipng
+            eureka-ideas
+
+            sherlock
+            maigret
+          ]);
+      };
     }
   ];
 }
