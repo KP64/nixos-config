@@ -129,6 +129,7 @@
       models = [
         "llama3.2"
         "llama3.1:8b"
+        "deepseek-r1:8b"
       ];
     };
   };
