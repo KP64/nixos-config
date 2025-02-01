@@ -1,5 +1,5 @@
 {
-  description = "Full featured Devshell for the Rust programming language";
+  description = "Fully featured flake ❄️ for rusty 🦀 development";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
