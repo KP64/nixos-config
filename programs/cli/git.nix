@@ -64,7 +64,7 @@ in
             options.line-numbers = true;
           };
           extraConfig = {
-            init.defaultBranch = "master";
+            init.defaultBranch = "main";
             commit.gpgsign = true;
             gpg = {
               format = "ssh";
