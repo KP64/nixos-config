@@ -38,6 +38,9 @@ in
         trufflehog
       ];
 
+      home.file.".ssh/allowed_signers".text =
+        "* ${builtins.readFile ../../hosts/${username}/id_ed25519.pub}";
+
       programs = {
         gitui.enable = true;
 
@@ -59,7 +62,12 @@ in
             enable = true;
             options.line-numbers = true;
           };
-          extraConfig.init.defaultBranch = "master";
+          extraConfig = {
+            init.defaultBranch = "master";
+            commit.gpgsign = true;
+            gpg.format = "ssh";
+            user.signingkey = "~/.ssh/id_ed25519.pub";
+          };
         };
       };
     };
