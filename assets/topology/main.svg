@@ -5000,22 +5000,22 @@
       listen
     </text>
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-9-2-1">
-      <path fill="#fff" d="M88 865h234v22H88z" />
+      <path fill="#fff" d="M88 865h251v22H88z" />
     </mask>
     <mask id="Y2hpbGRyZW4ubm9kZTpycw_om-id-0-0-9-2-2">
-      <path fill="#fff" d="M338 865h118v22H338z" />
+      <path fill="#fff" d="M355 865h101v22H355z" />
     </mask>
     <text
-      x="338"
+      x="355"
       y="880.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
       font-size="14"
     >
-      127.0.0.1
+      0.0.0.0
     </text>
     <text
-      x="413.6"
+      x="413.8"
       y="880.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
@@ -5024,7 +5024,7 @@
       :
     </text>
     <text
-      x="422"
+      x="422.2"
       y="880.377"
       fill="#e3e6eb"
       font-family="jetbrains mono"
