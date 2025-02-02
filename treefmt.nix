@@ -1,11 +1,12 @@
 let
   excludeSecrets = [ "*secrets.yaml" ];
+  mapExtension = l: map (e: "*.${e}") l;
 in
 {
   settings.global.excludes =
     excludeSecrets
     ++ [ "UNLICENSE" ]
-    ++ (map (e: "*.${e}") [
+    ++ (mapExtension [
       "png"
       "jpg"
       "lycheeignore"
@@ -29,7 +30,7 @@ in
           options.parser = "html";
         }
       ];
-      includes = map (l: "*.${l}") [
+      includes = mapExtension [
         "cjs"
         "css"
         "html"
