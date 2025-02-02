@@ -30,16 +30,17 @@ in
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
-      home.packages = with pkgs; [
-        gfold
-        gitoxide
-        gitleaks
-        gql
-        trufflehog
-      ];
+      home = {
+        packages = with pkgs; [
+          gfold
+          gitoxide
+          gitleaks
+          gql
+          trufflehog
+        ];
 
-      home.file.".ssh/allowed_signers".text =
-        "* ${builtins.readFile ../../hosts/${username}/id_ed25519.pub}";
+        file.".ssh/allowed_signers".text = "* ${builtins.readFile ../../hosts/${username}/id_ed25519.pub}";
+      };
 
       programs = {
         gitui.enable = true;
