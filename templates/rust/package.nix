@@ -3,6 +3,8 @@
   rustPlatform,
   stdenv,
   darwin,
+  pkg-config,
+  openssl,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -16,11 +18,13 @@ rustPlatform.buildRustPackage rec {
     allowBuiltinFetchGit = true;
   };
 
-  nativeBuildInputs = [ ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    [ openssl ]
+    ++ (lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.Security
+    ]);
 
   useNextest = true;
   # Remove this line when application has >= 1 tests.
