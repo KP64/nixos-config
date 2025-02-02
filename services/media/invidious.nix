@@ -21,10 +21,9 @@ in
           enable = true;
           sig-helper.enable = true;
           port = 3344;
-          address = "127.0.0.1";
+          domain = "invidious.${config.networking.domain}";
           settings = {
-            external_port = "443";
-            domain = "invidious.${config.networking.domain}";
+            external_port = 443;
             check_tables = true;
             https_only = true;
             colorize_logs = true;
