@@ -14,7 +14,10 @@
       polkit.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
+    services = {
+      comin.enable = false;
+      ssh.enable = true;
+    };
     style.stylix.enable = true;
   };
 
