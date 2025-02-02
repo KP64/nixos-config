@@ -85,6 +85,7 @@ in
             typst
             xh
 
+            bore-cli
             licensor
             qrtool
             melody
