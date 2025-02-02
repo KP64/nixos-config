@@ -225,6 +225,26 @@
         "type": "github"
       }
     },
+    "comin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737581484,
+        "narHash": "sha256-Jo0fBfyJ/JLDcWQaLlZjra5VZDUB6m1Wes/dFFGbMBY=",
+        "owner": "nlewo",
+        "repo": "comin",
+        "rev": "773f6141a95f0538f3f8e687da037659bf38bd40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nlewo",
+        "repo": "comin",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1731098351,
@@ -2057,6 +2077,7 @@
         "catppuccin-blender": "catppuccin-blender",
         "catppuccin-heroic": "catppuccin-heroic",
         "catppuccin-imhex": "catppuccin-imhex",
+        "comin": "comin",
         "disko": "disko",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
