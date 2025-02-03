@@ -19,10 +19,10 @@ in
 
         programs.nixcord = {
           inherit (cfg) enable;
+          discord.enable = false;
           vesktop.enable = true;
           config = {
             themeLinks = lib.optional config.isCatppuccinEnabled "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
-            frameless = true;
             plugins = {
               accountPanelServerProfile.enable = true;
               alwaysAnimate.enable = true;
@@ -34,7 +34,6 @@ in
                 closeAllFolders = true;
                 closeAllHomeButton = true;
                 closeOthers = true;
-                forceOpen = true;
               };
               betterGifAltText.enable = true;
               betterRoleContext.enable = true;
@@ -43,10 +42,13 @@ in
                 bothStyles = true;
                 copyRoleColorInProfilePopout = true;
               };
-              betterSessions.enable = true;
+              betterSessions = {
+                enable = true;
+                backgroundCheck = true;
+              };
               betterSettings.enable = true;
               betterUploadButton.enable = true;
-              blurNSFW.enable = true;
+              callTimer.enable = true;
               clearURLs.enable = true;
               consoleJanitor.enable = true;
               copyFileContents.enable = true;
@@ -65,37 +67,62 @@ in
               friendInvites.enable = true;
               friendsSince.enable = true;
               fullSearchContext.enable = true;
+              fullUserInChatbox.enable = true;
               gameActivityToggle.enable = true;
               gifPaste.enable = true;
               greetStickerPicker.enable = true;
+              hideAttachments.enable = true;
               imageZoom.enable = true;
-              implicitRelationships.enable = true;
+              implicitRelationships = {
+                enable = true;
+                sortByAffinity = true;
+              };
+              memberCount.enable = true;
               mentionAvatars.enable = true;
               messageClickActions.enable = true;
+              messageLatency.enable = true;
+              messageLinkEmbeds = {
+                enable = true;
+                messageBackgroundColor = true;
+              };
               messageLogger.enable = true;
               messageTags.enable = true;
               mutualGroupDMs.enable = true;
               newGuildSettings.enable = true;
-              noRPC.enable = true;
+              noOnboardingDelay.enable = true;
               noScreensharePreview.enable = true;
+              noUnblockToJump.enable = true;
               nsfwGateBypass.enable = true;
+              openInApp = {
+                enable = true;
+                spotify = true;
+                steam = true;
+                epic = true;
+              };
               pictureInPicture.enable = true;
               pinDMs.enable = true;
               platformIndicators.enable = true;
+              quickMention.enable = true;
               readAllNotificationsButton.enable = true;
-              relationshipNotifier.enable = true;
+              relationshipNotifier = {
+                enable = true;
+                notices = true;
+              };
+              replyTimestamp.enable = true;
+              revealAllSpoilers.enable = true;
               reverseImageSearch.enable = true;
               shikiCodeblocks = {
                 enable = true;
                 theme = lib.optionalString config.isCatppuccinEnabled "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/refs/heads/main/packages/tm-themes/themes/catppuccin-mocha.json";
               };
               showConnections.enable = true;
+              showHiddenChannels.enable = true;
               showMeYourName.enable = true;
               silentTyping = {
                 enable = true;
                 showIcon = true;
               };
-              spotifyShareCommands.enable = true;
+              stickerPaste.enable = true;
               streamerModeOnStream.enable = true;
               superReactionTweaks.enable = true;
               themeAttributes.enable = true;
@@ -111,6 +138,8 @@ in
               voiceMessages.enable = true;
               whoReacted.enable = true;
               youtubeAdblock.enable = true;
+              # Vesktop Exclusive
+              webScreenShareFixes.enable = true;
             };
           };
         };
