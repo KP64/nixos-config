@@ -10,9 +10,7 @@ in
 {
   imports = [ inputs.comin.nixosModules.comin ];
 
-  options.system.services.comin.enable = lib.mkEnableOption "Comin" // {
-    default = true;
-  };
+  options.system.services.comin.enable = lib.mkEnableOption "Comin";
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
