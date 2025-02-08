@@ -1,0 +1,26 @@
+logging {
+	level = "debug"
+	format = "logfmt"
+	write_to = [loki.process.alloy.receiver]
+}
+
+prometheus.remote_write "default" {
+	endpoint {
+		url = "http://localhost:9090/api/prom/push"
+	}
+}
+
+loki.process "alloy" {
+	stage.lables {
+		values = {
+			service_name = "alloy"
+		}
+	}
+	forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+	endpoint {
+		url = "http://127.0.0.1:3100/loki/api/v1/push"
+	}
+}

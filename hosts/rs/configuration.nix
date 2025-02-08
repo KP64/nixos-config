@@ -108,6 +108,8 @@
       vaultwarden.enable = true;
     };
 
+    metrics.enable = true;
+
     media = {
       dumb.enable = true;
       invidious.enable = true;
