@@ -10,7 +10,6 @@ config host=default_host:
     nix build .#nixosConfigurations.{{ host }}.config.hardware.raspberry-pi.config-output
     @nix shell nixpkgs#bat --command bat result
 
-
 [confirm("Are you sure you want to build and flash the img?")]
 flash device host=default_host: (build host)
     for partition in $(lsblk -lno NAME | grep {{ device }}[0-9]); do \

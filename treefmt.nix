@@ -10,8 +10,6 @@ in
       "png"
       "jpg"
       "lycheeignore"
-      # TODO: Remove once justfmt supports module fmt
-      "just"
       # TODO: Remove and use `nufmt` once production ready
       "nu"
       "yuck"
