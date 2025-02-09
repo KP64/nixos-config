@@ -41,8 +41,6 @@
     inherit (invisible) email;
   };
 
-  editors.aseprite.enable = false;
-
   apps.enable = true;
 
   virt.enable = true;
