@@ -24,9 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ git ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = {
     description = "Reuters Redirect and Proxy";

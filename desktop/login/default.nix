@@ -10,7 +10,5 @@ in
 
   options.desktop.login.enable = lib.mkEnableOption "Desktop Login";
 
-  config = lib.mkIf cfg.enable {
-    desktop.login.tuigreet.enable = lib.mkDefault true;
-  };
+  config = lib.mkIf cfg.enable { desktop.login.tuigreet.enable = lib.mkDefault true; };
 }

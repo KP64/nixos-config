@@ -10,9 +10,7 @@ in
     };
   };
   nodes = {
-    internet = topology.mkInternet {
-      connections = topology.mkConnection "router" "wan";
-    };
+    internet = topology.mkInternet { connections = topology.mkConnection "router" "wan"; };
 
     router = topology.mkRouter "Speedport" {
       info = "Speedport Smart 4";

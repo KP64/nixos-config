@@ -87,15 +87,9 @@ in
 
       home.pointerCursor.hyprcursor.enable = true;
 
-      gtk =
-        lib.genAttrs
-          [
-            "gtk3"
-            "gtk4"
-          ]
-          (_: {
-            extraConfig.gtk-application-prefer-dark-theme = 1;
-          });
+      gtk = lib.genAttrs [ "gtk3" "gtk4" ] (_: {
+        extraConfig.gtk-application-prefer-dark-theme = 1;
+      });
 
       qt =
         let

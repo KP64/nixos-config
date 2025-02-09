@@ -11,7 +11,5 @@ in
 
   options.virt.enable = lib.mkEnableOption "Virtualisation";
 
-  config.virt = lib.mkIf cfg.enable {
-    docker.enable = lib.mkDefault true;
-  };
+  config.virt = lib.mkIf cfg.enable { docker.enable = lib.mkDefault true; };
 }

@@ -7,7 +7,5 @@ in
 
   options.terminals.enable = lib.mkEnableOption "Terminal Emulators";
 
-  config.terminals = lib.mkIf cfg.enable {
-    kitty.enable = lib.mkDefault true;
-  };
+  config.terminals = lib.mkIf cfg.enable { kitty.enable = lib.mkDefault true; };
 }

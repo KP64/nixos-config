@@ -115,9 +115,7 @@ in
               rule = "Host(`${name}.${config.networking.domain}`)";
               service = name;
             };
-            services.${name}.loadBalancer.servers = [
-              { url = "http://localhost:${toString server-port}"; }
-            ];
+            services.${name}.loadBalancer.servers = [ { url = "http://localhost:${toString server-port}"; } ];
           }
         )
         |> lib.foldAttrs (item: acc: item // acc) { };

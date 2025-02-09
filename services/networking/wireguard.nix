@@ -223,13 +223,7 @@ in
 
         clientInterfaces =
           cfg.clientInterfaces
-          |> lib.mapAttrs (
-            name: value:
-            value
-            // {
-              address = with value.address; ipv4 ++ ipv6;
-            }
-          );
+          |> lib.mapAttrs (name: value: value // { address = with value.address; ipv4 ++ ipv6; });
       in
       {
         nat = {
@@ -245,9 +239,7 @@ in
           in
           {
             allowedTCPPorts = [ dnsPort ];
-            allowedUDPPorts = [
-              dnsPort
-            ] ++ (serverInterfaces |> builtins.attrValues |> map (i: i.listenPort));
+            allowedUDPPorts = [ dnsPort ] ++ (serverInterfaces |> builtins.attrValues |> map (i: i.listenPort));
           };
 
         wg-quick.interfaces = serverInterfaces // clientInterfaces;

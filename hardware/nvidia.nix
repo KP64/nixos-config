@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 {
   options.hardware.nvidia.enable = lib.mkEnableOption "Nvidia drivers";
 

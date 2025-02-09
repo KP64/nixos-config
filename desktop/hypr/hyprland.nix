@@ -228,9 +228,7 @@ in
           ];
 
           bind =
-            [
-              ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            ]
+            [ ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" ]
             ++ map (s: "$mainMod, ${s}") [
               "T, exec, $terminal"
               "F, exec, $browser"

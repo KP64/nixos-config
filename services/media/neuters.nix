@@ -55,9 +55,7 @@ in
         CapabilityBoundingSet = "";
 
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "~ @privileged @resources @debug @obsolete @cpu-emulation @mount"
-        ];
+        SystemCallFilter = [ "~ @privileged @resources @debug @obsolete @cpu-emulation @mount" ];
 
         RestrictSUIDSGID = true;
         RestrictRealtime = true;

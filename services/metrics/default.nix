@@ -7,7 +7,5 @@ in
 
   options.services.metrics.enable = lib.mkEnableOption "Metrics";
 
-  config.services.metrics = lib.mkIf cfg.enable {
-    netdata.enable = lib.mkDefault true;
-  };
+  config.services.metrics = lib.mkIf cfg.enable { netdata.enable = lib.mkDefault true; };
 }

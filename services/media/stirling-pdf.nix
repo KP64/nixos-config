@@ -32,9 +32,7 @@ in
           rule = "Host(`stirling-pdf.${config.networking.domain}`)";
           service = "stirling-pdf";
         };
-        services.stirling-pdf.loadBalancer.servers = [
-          { url = "http://localhost:${stirlingPort}"; }
-        ];
+        services.stirling-pdf.loadBalancer.servers = [ { url = "http://localhost:${stirlingPort}"; } ];
       };
 
       tor.relay.onionServices.stirling-pdf.map = [

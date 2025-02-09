@@ -19,7 +19,10 @@ in
     deadnix.enable = true;
     just.enable = true;
     mdformat.enable = true;
-    nixfmt.enable = true;
+    nixfmt = {
+      enable = true;
+      strict = true;
+    };
     prettier = {
       enable = true;
       excludes = excludeSecrets;
