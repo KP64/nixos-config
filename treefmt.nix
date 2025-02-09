@@ -7,6 +7,7 @@ in
     excludeSecrets
     ++ [ "UNLICENSE" ]
     ++ (mapExtension [
+      "pub"
       "png"
       "jpg"
       "lycheeignore"
