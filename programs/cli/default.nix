@@ -86,7 +86,6 @@ in
             xh
 
             bore-cli
-            licensor
             qrtool
             melody
             wthrr
