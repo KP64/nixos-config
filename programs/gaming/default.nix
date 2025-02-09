@@ -56,6 +56,7 @@ in
         ++ (map (p: ".local/share/${p}") [
           "ATLauncher"
           "bottles"
+          "PrismLauncher"
         ])
       );
     })
