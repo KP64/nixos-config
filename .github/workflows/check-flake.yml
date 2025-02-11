@@ -22,13 +22,13 @@ jobs:
           persist-credentials: false
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
+        uses: DeterminateSystems/nix-installer-action@a48face58194521af687ce7df4c802b1b558e743
 
       - name: Setup Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@6221693898146dc97e38ad0e013488a16477a4c4
+        uses: DeterminateSystems/magic-nix-cache-action@76ee5cc393b0b25f060f5f80fd695097acbbd326
 
       - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@0b03ea1859a9191fc4119965e25e226ab1d81bf9
+        uses: DeterminateSystems/flake-checker-action@00e7cf159b4b86a37c9a3d791bf6895139c3eddee
         with:
           fail-mode: true
           send-statistics: false
