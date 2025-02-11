@@ -34,4 +34,4 @@ jobs:
           send-statistics: false
 
       - name: Check flake
-        run: nix flake check
+        run: nix flake check --extra-experimental-features pipe-operators
