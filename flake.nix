@@ -303,12 +303,19 @@
       ];
 
       perSystem =
-        { pkgs, lib, ... }:
+        {
+          self',
+          lib,
+          pkgs,
+          ...
+        }:
         {
           packages = lib.packagesFromDirectoryRecursive {
             inherit (pkgs) callPackage;
             directory = ./pkgs;
           };
+
+          checks = { inherit (self'.packages) neuters; };
 
           topology.modules = [ ./topology ];
 

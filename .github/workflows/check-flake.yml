@@ -1,0 +1,37 @@
+name: CI Check flake
+
+on:
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@dea7810afd9d4c98556c8ec68cf361bd5b648eaa
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@6221693898146dc97e38ad0e013488a16477a4c4
+
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@0b03ea1859a9191fc4119965e25e226ab1d81bf9
+        with:
+          fail-mode: true
+          send-statistics: false
+
+      - name: Check flake
+        run: nix flake check
