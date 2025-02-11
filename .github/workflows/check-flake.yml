@@ -28,7 +28,7 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@76ee5cc393b0b25f060f5f80fd695097acbbd326
 
       - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@00e7cf159b4b86a37c9a3d791bf6895139c3eddee
+        uses: DeterminateSystems/flake-checker-action@0e7cf159b4b86a37c9a3d791bf6895139c3eddee
         with:
           fail-mode: true
           send-statistics: false
