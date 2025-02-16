@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/HookedBehemoth/neuters";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ KP64 ];
-    mainProgram = "neuters";
+    mainProgram = pname;
   };
 }
