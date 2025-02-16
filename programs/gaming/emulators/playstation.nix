@@ -20,7 +20,6 @@ in
       ];
     })
 
-    # TODO:
     (lib.mkIf config.isImpermanenceEnabled {
       environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable [
         ".config/rpcs3"
