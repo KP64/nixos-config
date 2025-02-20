@@ -7,11 +7,13 @@
 }:
 let
   cfg = config.system.security.secure-boot;
+  pkiBundle = "/var/lib/sbctl";
 in
 {
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+
   options.system.security.secure-boot.enable = lib.mkEnableOption "Lanzaboote";
 
-  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
   config = lib.mkMerge [
     { environment.systemPackages = [ pkgs.sbctl ]; }
 
@@ -24,14 +26,13 @@ in
         loader.systemd-boot.enable = lib.mkForce false;
         lanzaboote = {
           enable = true;
-          pkiBundle = "/etc/secureboot";
+          inherit pkiBundle;
         };
       };
     })
 
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".directories =
-        lib.optional cfg.enable config.boot.lanzaboote.pkiBundle;
+      environment.persistence."/persist".directories = [ pkiBundle ];
     })
   ];
 }

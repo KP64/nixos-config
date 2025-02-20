@@ -53,7 +53,6 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
     style.catppuccin.enable = true;
   };
 
@@ -94,7 +93,11 @@
 
   browsers.firefox.enable = true;
 
-  gaming.discord.enable = true;
+  gaming = {
+    discord.enable = true;
+    steam.enable = true;
+    emulators.enable = true;
+  };
 
   apps = {
     misc.enable = true;
