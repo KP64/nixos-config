@@ -236,7 +236,7 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
+        systems.follows = "systems";
       };
     };
 
@@ -300,6 +300,7 @@
       imports = with inputs; [
         treefmt-nix.flakeModule
         nix-topology.flakeModule
+        home-manager.flakeModules.home-manager
       ];
 
       perSystem =
