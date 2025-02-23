@@ -61,14 +61,14 @@ in
             enable = true;
             options.line-numbers = true;
           };
+          signing = {
+            signByDefault = true;
+            format = "ssh";
+            key = "~/.ssh/id_ed25519.pub";
+          };
           extraConfig = {
             init.defaultBranch = "main";
-            commit.gpgsign = true;
-            gpg = {
-              format = "ssh";
-              ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-            };
-            user.signingkey = "~/.ssh/id_ed25519.pub";
+            gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
           };
         };
       };
