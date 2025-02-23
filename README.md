@@ -135,7 +135,7 @@ alias ll = ls -l
 alias lla = ls -l -a
 ```
 
-and more at [nushell.nix](./programs/cli/shells/nushell/default.nix)
+and more at [nushell.nix](./programs/cli/shells/nushell.nix)
 
 ## ⌨️ Keybinds
 
