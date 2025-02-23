@@ -4,8 +4,8 @@ let
 in
 {
   imports = [
-    ./nushell
     ./bash.nix
+    ./nushell.nix
   ];
 
   options.cli.shells.enable = lib.mkEnableOption "Cli Shells";

@@ -11,8 +11,6 @@ in
       "png"
       "jpg"
       "lycheeignore"
-      # TODO: Remove and use `nufmt` once production ready
-      "nu"
       "yuck"
     ]);
   programs = {

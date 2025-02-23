@@ -28,7 +28,7 @@ in
           polars
           query
         ];
-        configFile.source = ./config.nu;
+        settings.show_banner = false;
         extraConfig =
           let
             nuScriptsDir = "${pkgs.nu_scripts}/share/nu_scripts";
