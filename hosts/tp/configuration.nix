@@ -24,16 +24,20 @@
     thermald.enable = true;
     auto-cpufreq = {
       enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
+      settings =
+        let
           turbo = "auto";
+        in
+        {
+          battery = {
+            governor = "powersave";
+            inherit turbo;
+          };
+          charger = {
+            governor = "performance";
+            inherit turbo;
+          };
         };
-      };
     };
     thinkfan = {
       enable = true;
