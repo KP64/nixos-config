@@ -44,10 +44,13 @@ in
           profiles = {
             i2p = {
               id = 1;
-              extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-                noscript
-                ublock-origin
-              ];
+              extensions = {
+                force = true;
+                packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                  noscript
+                  ublock-origin
+                ];
+              };
               settings = collectLastEntries (appendLastWithFullPath {
                 keyword.enabled = false;
                 browser = {
@@ -270,30 +273,33 @@ in
                 };
               });
 
-              extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-                bitwarden
-                catppuccin-gh-file-explorer
-                darkreader
-                dearrow
-                enhancer-for-youtube
-                facebook-container
-                firefox-color
-                i-dont-care-about-cookies
-                indie-wiki-buddy
-                languagetool
-                libredirect
-                private-relay
-                refined-github
-                return-youtube-dislikes
-                sidebery
-                simple-translate
-                sponsorblock
-                stylus
-                tabliss
-                ublock-origin
-                userchrome-toggle-extended
-                videospeed
-              ];
+              extensions = {
+                force = true;
+                packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                  bitwarden
+                  catppuccin-gh-file-explorer
+                  darkreader
+                  dearrow
+                  enhancer-for-youtube
+                  facebook-container
+                  firefox-color
+                  i-dont-care-about-cookies
+                  indie-wiki-buddy
+                  languagetool
+                  libredirect
+                  private-relay
+                  refined-github
+                  return-youtube-dislikes
+                  sidebery
+                  simple-translate
+                  sponsorblock
+                  stylus
+                  tabliss
+                  ublock-origin
+                  userchrome-toggle-extended
+                  videospeed
+                ];
+              };
             };
           };
         };
