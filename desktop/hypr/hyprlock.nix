@@ -58,17 +58,26 @@ in
         }
       ];
 
-      image = [
-        {
-          monitor = "";
-          path = toString ../../hosts/${username}/pfp.jpg;
-          size = 100;
-          border_color = accent;
-          position = "0, 75";
-          halign = "center";
-          valign = "center";
-        }
-      ];
+      image =
+        let
+          fs = lib.fileset;
+          pfps =
+            ../../hosts/${username}
+            |> fs.fileFilter (file: lib.hasPrefix "pfp" file.name)
+            |> fs.toList
+            |> map toString;
+        in
+        [
+          {
+            monitor = "";
+            path = if pfps == [ ] then "" else builtins.head pfps;
+            size = 100;
+            border_color = accent;
+            position = "0, 75";
+            halign = "center";
+            valign = "center";
+          }
+        ];
 
       input-field = [
         {
