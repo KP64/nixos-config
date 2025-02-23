@@ -1655,18 +1655,17 @@
     "nix-invisible": {
       "flake": false,
       "locked": {
-        "lastModified": 1737777346,
-        "narHash": "sha256-pAzLduwpmKs2/L2pyyHyrIPxbZ+ao5xv3uHI+53Ih6E=",
-        "ref": "main",
-        "rev": "b7ec863e3769ec156e58650c0bbd6a0db1fdeec6",
-        "revCount": 3,
+        "lastModified": 1740316961,
+        "narHash": "sha256-NAamQVXHZb0Lp1i4ih7GrTNx0OhZky/0yHwLs9CHAcw=",
+        "ref": "refs/heads/main",
+        "rev": "5627a88877dc1ee82819f7926074ff287bb8592d",
+        "revCount": 1,
         "type": "git",
-        "url": "ssh://forgejo@forgejo.nix-pi.ipv64.de/kp64/nix-invisible"
+        "url": "ssh://git@github.com/KP64/nix-invisible"
       },
       "original": {
-        "ref": "main",
         "type": "git",
-        "url": "ssh://forgejo@forgejo.nix-pi.ipv64.de/kp64/nix-invisible"
+        "url": "ssh://git@github.com/KP64/nix-invisible"
       }
     },
     "nix-minecraft": {

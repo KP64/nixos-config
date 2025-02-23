@@ -159,7 +159,7 @@
     # Stuff that shouldn't be visible to the naked eye,
     # but shouldn't or can't be encrypted
     nix-invisible = {
-      url = "git+ssh://forgejo@forgejo.nix-pi.ipv64.de/kp64/nix-invisible?ref=main";
+      url = "git+ssh://git@github.com/KP64/nix-invisible";
       flake = false;
     };
 
