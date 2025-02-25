@@ -1,4 +1,6 @@
-<div align="center"><img src="./assets/nix.svg" width="100px" /></div>
+<div align="center">
+  <img src="./assets/nix.svg" width="100px" />
+</div>
 
 <h1 align="center">NixOS Config</h1>
 
@@ -34,7 +36,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - 🏡 [Home-Manager](https://github.com/nix-community/home-manager)
 - 🪟 [WSL](https://github.com/nix-community/NixOS-WSL)
 - 🥧 [Raspberry Pi](https://github.com/nix-community/raspberry-pi-nix)
-- 💽 [Disko](https://github.com/nix-community/disko)
+- 🪩 [Disko](https://github.com/nix-community/disko)
 - ⚠️ [Impermanence](https://github.com/nix-community/impermanence)
 - 🔐 [Sops-nix](https://github.com/Mic92/sops-nix)
 - ♻️ [Nixos-anywhere](https://github.com/nix-community/nixos-anywhere)
@@ -51,16 +53,16 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 
 ## 📚 Layout
 
-- [flake.nix](./flake.nix) ❄️ Base of the configuration
-- [desktop](./desktop) 🖥️ Desktop modules
-  - [wallpapers](./desktop/wallpapers) 🌄 Wallpaper Collection
-- [hardware](./hardware) ⚙️ Hardware modules
-- [hosts](./hosts) 👻 Per-host machine specific configurations
-- [pkgs](./pkgs) 📦 Custom built Packages
-- [programs](./programs) 1️⃣ Mandatory programs and optional to enable modules
-- [services](./services) 0️⃣ Nice to have services extracted into own modules with sensible defaults for easier setup
-- [system](./system) 🖥️ System critical modules
-- [topology](./topology) 🌐 Global topology settings
+- ❄️ [flake.nix](./flake.nix) Base of the configuration
+- 🖥️ [desktop](./desktop) Desktop modules
+  - 🌄 [wallpapers](./desktop/wallpapers) Wallpaper Collection
+- ⚙️ [hardware](./hardware) Hardware modules
+- 👻 [hosts](./hosts) Per-host machine specific configurations
+- 📦 [pkgs](./pkgs) Custom built Packages
+- 🚀 [programs](./programs) Mandatory programs and optional to enable modules
+- 📡 [services](./services) Nice to have services extracted into own modules with sensible defaults for easier setup
+- 🚧 [system](./system) System critical modules
+- 🌐 [topology](./topology) Global topology settings
 
 ## ⚙️ Components
 
@@ -150,7 +152,7 @@ Look at the [Hyprland.nix](./desktop/hypr/hyprland.nix) file
 | ws       | WSL               | WSL                 | WSL        | WSL                   | 🖥️   | ❄️  |
 | rs       | Raspberry Pi 400  | ARM-Cortex-A72-CPU  | 4GB LPDDR4 | Broadcom bcm2711-vc5  | 🗄️   | ❄️  |
 
-## 👀 Network Topology
+## 🌐 Network Topology
 
 ![Main](./assets/topology/main.svg)
 
