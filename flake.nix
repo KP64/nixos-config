@@ -146,7 +146,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
         nix-index-database.follows = "nix-index-database";
       };
     };
@@ -247,6 +246,7 @@
         flake-utils.follows = "flake-utils";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
         systems.follows = "systems";
       };
     };

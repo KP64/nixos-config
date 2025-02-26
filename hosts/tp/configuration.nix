@@ -15,12 +15,8 @@
 
   environment.systemPackages = [ pkgs.openboard ];
 
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-  };
-
   services = {
+    upower.enable = true;
     thermald.enable = true;
     auto-cpufreq = {
       enable = true;
