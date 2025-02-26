@@ -8,10 +8,9 @@
 }:
 
 {
-  imports = [
-    ./disko-config.nix
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./disko-config.nix ];
+
+  facter.reportPath = ./facter.json;
 
   environment.systemPackages = [ pkgs.openboard ];
 

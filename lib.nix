@@ -68,8 +68,9 @@ in
       };
       modules =
         (with inputs; [
-          nix-topology.nixosModules.default
           disko.nixosModules.disko
+          nix-topology.nixosModules.default
+          nixos-facter-modules.nixosModules.facter
         ])
         ++ lib.optionals pi (
           with inputs.raspberry-pi-nix.nixosModules;

@@ -198,6 +198,8 @@
       };
     };
 
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs = {
