@@ -29,3 +29,6 @@ jobs:
         with:
           fail-mode: true
           send-statistics: false
+
+      - name: Check flake
+        run: nix flake check --extra-experimental-features pipe-operators
