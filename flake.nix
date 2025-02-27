@@ -1,5 +1,5 @@
 {
-  description = "My NixOS configuration flake";
+  description = "KP64's NixOS ❄️";
 
   inputs = {
     catppuccin.url = "github:catppuccin/nix";
@@ -212,6 +212,16 @@
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     nur = {
       url = "github:nix-community/nur";
       inputs = {
@@ -310,10 +320,21 @@
           ...
         }:
         {
-          packages = lib.packagesFromDirectoryRecursive {
-            inherit (pkgs) callPackage;
-            directory = ./pkgs;
-          };
+          packages =
+            (lib.packagesFromDirectoryRecursive {
+              inherit (pkgs) callPackage;
+              directory = ./pkgs;
+            })
+            // {
+              default = self'.packages.neovim;
+              inherit
+                (inputs.nvf.lib.neovimConfiguration {
+                  inherit pkgs;
+                  modules = [ ./neovim.nix ];
+                })
+                neovim
+                ;
+            };
 
           checks = { inherit (self'.packages) neuters; };
 

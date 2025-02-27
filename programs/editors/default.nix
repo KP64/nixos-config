@@ -8,6 +8,7 @@ in
     ./blender.nix
     ./helix.nix
     ./imhex.nix
+    ./neovim.nix
     ./vscode.nix
     ./zed.nix
   ];
@@ -19,6 +20,7 @@ in
     blender.enable = lib.mkDefault true;
     helix.enable = lib.mkDefault true;
     imhex.enable = lib.mkDefault true;
+    neovim.enable = lib.mkDefault true;
     vscode.enable = lib.mkDefault true;
     zed.enable = lib.mkDefault true;
   };

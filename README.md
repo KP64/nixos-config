@@ -15,9 +15,9 @@
 
 ## 📝 About
 
-A wannabe size fits it all NixOS Configuration using flakes.
-It is encouraged to try modify and break it all you like!
-Don't believe me? Look at the ["License"](./UNLICENSE) :D
+A wannabe size fits it all NixOS Configuration using flakes. It is encouraged to
+try modify and break it all you like! Don't believe me? Look at the
+["License"](./UNLICENSE) :D
 
 ## 📖 Content
 
@@ -25,6 +25,7 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - [📚 Layout](#-layout)
 - [⚙️ Components](#%EF%B8%8F-components)
 - [🖼️ Gallery](#%EF%B8%8F-gallery)
+- [🧠 Neovim](#-neovim)
 - [🐚 Shell Aliases](#-shell-aliases)
 - [⌨️ Keybinds](#%EF%B8%8F-keybinds)
 - [🖥️ Hosts](#%EF%B8%8F%EF%B8%8F-hosts)
@@ -44,12 +45,12 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - 🌐 [Topology](https://github.com/oddlama/nix-topology)
 - 🐱 [Catppuccin](https://github.com/catppuccin/nix)
 - 💈 [Stylix (WIP)](https://github.com/danth/stylix)
-- 🖥️ [Minecraft Servers](https://github.com/Infinidoge/nix-minecraft)
+- 🧠 [Neovim](https://github.com/NotAShelf/nvf)
 
 > \[!NOTE\]
-> This Config was supposed to be Catppuccin only, until I got bored of it,
-> which is why Stylix was added as an afterthought. It is very incomplete!
-> Help is appreciated!
+> This Config was supposed to be Catppuccin only, until I got bored of it, which
+> is why Stylix was added as an afterthought. It is very incomplete! Help is
+> appreciated!
 
 ## 📚 Layout
 
@@ -60,36 +61,37 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 - 👻 [hosts](./hosts) Per-host machine specific configurations
 - 📦 [pkgs](./pkgs) Custom built Packages
 - 🚀 [programs](./programs) Mandatory programs and optional to enable modules
-- 📡 [services](./services) Nice to have services extracted into own modules with sensible defaults for easier setup
+- 📡 [services](./services) Nice to have services extracted into own modules
+  with sensible defaults for easier setup
 - 🚧 [system](./system) System critical modules
 - 🌐 [topology](./topology) Global topology settings
 
 ## ⚙️ Components
 
-| Component               | Choice(s)                                                                                                                                        |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Window Manager          | [Hyprland](https://github.com/hyprwm/Hyprland)                                                                                                   |
-| Bar                     | [Hyprpanel](https://github.com/Jas-SinghFSU/HyprPanel)                                                                                           |
-| App Launcher            | [Rofi-wayland](https://github.com/lbonn/rofi)                                                                                                    |
-| Notification Daemon     | [Hyprpanel](https://github.com/Jas-SinghFSU/HyprPanel)                                                                                           |
-| Terminal Emulator       | [Kitty](https://github.com/kovidgoyal/kitty)                                                                                                     |
-| Shell                   | [Bash](https://www.gnu.org/software/bash/) + [Nushell](https://github.com/nushell/nushell) + [Starship](https://github.com/starship/starship)    |
-| Text Editor             | [Vscodium](https://github.com/VSCodium/vscodium) + [Helix](https://github.com/helix-editor/helix) + [Zed](https://github.com/zed-industries/zed) |
-| Networking              | [NetworkManager](https://networkmanager.dev/) + [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet)                  |
-| System resource monitor | [Btop](https://github.com/aristocratos/btop)                                                                                                     |
-| File Manager            | [Dolphin](https://invent.kde.org/system/dolphin) + [Broot](https://github.com/Canop/broot) + [Yazi](https://github.com/sxyazi/yazi)              |
-| Fonts                   | [FiraCode Nerd Font](https://github.com/ryanoasis/nerd-fonts) + [JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts)               |
-| Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                      |
-| Cursors                 | [Catppuccin Cursors](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                              |
-| Icons                   | [Catppuccin Icons](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                |
-| Lockscreen              | [Hyprlock](https://github.com/hyprwm/hyprlock)                                                                                                   |
-| Media Player            | [mpv](https://github.com/mpv-player/mpv)                                                                                                         |
-| Music Player            | [Spicetify](https://spicetify.app/)                                                                                                              |
-| Screenshotting          | [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast)                                                                               |
-| Screen Recording        | [OBS](https://github.com/obsproject/obs-studio)                                                                                                  |
-| Clipboard               | [wl-clipboard-rs](https://github.com/YaLTeR/wl-clipboard-rs) + [CopyQ](https://github.com/hluk/CopyQ)                                            |
-| Color Picker            | [Hyprpicker](https://github.com/hyprwm/hyprpicker)                                                                                               |
-| Touch Screen Gestures   | [Hyprgrass](https://github.com/horriblename/hyprgrass)                                                                                           |
+| Component               | Choice(s)                                                                                                                                                                                     |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Window Manager          | [Hyprland](https://github.com/hyprwm/Hyprland)                                                                                                                                                |
+| Bar                     | [Hyprpanel](https://github.com/Jas-SinghFSU/HyprPanel)                                                                                                                                        |
+| App Launcher            | [Rofi-wayland](https://github.com/lbonn/rofi)                                                                                                                                                 |
+| Notification Daemon     | [Hyprpanel](https://github.com/Jas-SinghFSU/HyprPanel)                                                                                                                                        |
+| Terminal Emulator       | [Kitty](https://github.com/kovidgoyal/kitty)                                                                                                                                                  |
+| Shell                   | [Bash](https://www.gnu.org/software/bash/) + [Nushell](https://github.com/nushell/nushell) + [Starship](https://github.com/starship/starship)                                                 |
+| Text Editor             | [Neovim](https://github.com/neovim/neovim) + [Helix](https://github.com/helix-editor/helix) + [Vscodium](https://github.com/VSCodium/vscodium) + [Zed](https://github.com/zed-industries/zed) |
+| Networking              | [NetworkManager](https://networkmanager.dev/) + [network-manager-applet](https://gitlab.gnome.org/GNOME/network-manager-applet)                                                               |
+| System resource monitor | [Btop](https://github.com/aristocratos/btop)                                                                                                                                                  |
+| File Manager            | [Thunar](https://docs.xfce.org/xfce/thunar/start) + [Broot](https://github.com/Canop/broot) + [Yazi](https://github.com/sxyazi/yazi)                                                          |
+| Fonts                   | [FiraCode NF](https://github.com/ryanoasis/nerd-fonts) + [JetBrainsMono NF](https://github.com/ryanoasis/nerd-fonts)                                                                          |
+| Color Scheme            | [Catppuccin](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                                                                   |
+| Cursors                 | [Catppuccin Cursors](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                                                           |
+| Icons                   | [Catppuccin Icons](https://github.com/catppuccin/nix) + [Stylix](https://github.com/danth/stylix)                                                                                             |
+| Lockscreen              | [Hyprlock](https://github.com/hyprwm/hyprlock)                                                                                                                                                |
+| Media Player            | [mpv](https://github.com/mpv-player/mpv)                                                                                                                                                      |
+| Music Player            | [Spicetify](https://spicetify.app/)                                                                                                                                                           |
+| Screenshotting          | [grimblast](https://github.com/hyprwm/contrib/tree/main/grimblast)                                                                                                                            |
+| Screen Recording        | [OBS](https://github.com/obsproject/obs-studio)                                                                                                                                               |
+| Clipboard               | [wl-clipboard-rs](https://github.com/YaLTeR/wl-clipboard-rs) + [CopyQ](https://github.com/hluk/CopyQ)                                                                                         |
+| Color Picker            | [Hyprpicker](https://github.com/hyprwm/hyprpicker)                                                                                                                                            |
+| Touch Screen Gestures   | [Hyprgrass](https://github.com/horriblename/hyprgrass)                                                                                                                                        |
 
 ## 🖼️ Gallery
 
@@ -112,6 +114,23 @@ Don't believe me? Look at the ["License"](./UNLICENSE) :D
 <summary>Stylix (WIP)</summary>
 <p>Nothing to See yet :)</p>
 </details>
+
+## 🧠 Neovim
+
+This flake configures neovim via [nvf](https://github.com/NotAShelf/nvf) and
+exports it to be used by anyone.
+
+To run:
+
+```sh
+nix run github:KP64/nixos-config
+```
+
+or
+
+```sh
+nix run github:KP64/nixos-config#neovim
+```
 
 ## 🐚 Shell aliases
 

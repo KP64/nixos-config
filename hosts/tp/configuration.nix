@@ -87,7 +87,9 @@
 
   editors = {
     helix.enable = true;
+    neovim.enable = true;
     vscode.enable = true;
+    zed.enable = true;
   };
 
   browsers.firefox.enable = true;
