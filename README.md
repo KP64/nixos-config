@@ -47,7 +47,7 @@ try modify and break it all you like! Don't believe me? Look at the
 - 💈 [Stylix (WIP)](https://github.com/danth/stylix)
 - 🧠 [Neovim](https://github.com/NotAShelf/nvf)
 
-> \[!NOTE\]
+> [!NOTE]
 > This Config was supposed to be Catppuccin only, until I got bored of it, which
 > is why Stylix was added as an afterthought. It is very incomplete! Help is
 > appreciated!
