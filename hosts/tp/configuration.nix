@@ -96,8 +96,7 @@
 
   gaming = {
     discord.enable = true;
-    steam.enable = true;
-    emulators.enable = true;
+    emulators.nintendo.enable = true;
   };
 
   apps = {
