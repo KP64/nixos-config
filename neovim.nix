@@ -1,9 +1,26 @@
 { pkgs, ... }:
-# TODO: customize further
 {
+  # FIX: Overlapping mappings
   config.vim = {
     enableLuaLoader = true;
     lineNumberMode = "relNumber";
+
+    withNodeJs = true;
+    withPython3 = true;
+
+    extraPackages = with pkgs; [
+      tree-sitter
+      # fzf-lua
+      chafa
+      ueberzugpp
+      viu
+      # snacks.image
+      mermaid-cli
+      texliveSmall
+      ghostscript_headless
+      # snacks.lazygit
+      lazygit
+    ];
 
     autocomplete.blink-cmp = {
       enable = true;
@@ -22,7 +39,14 @@
       };
     };
 
-    dashboard.dashboard-nvim.enable = true;
+    dashboard.dashboard-nvim = {
+      enable = true;
+      setupOpts.config = {
+        week_header.enable = true;
+        packages.enable = false;
+        footer = [ "There is always one more 🐛 to fix" ];
+      };
+    };
 
     debugger.nvim-dap = {
       enable = true;
@@ -50,7 +74,6 @@
       enableFormat = true;
       enableLSP = true;
       enableTreesitter = true;
-
       assembly.enable = true;
       bash.enable = true;
       clang.enable = true;
@@ -74,6 +97,7 @@
       };
       nu.enable = true;
       python.enable = true;
+      # TODO: lldb-dap just hangs?
       rust = {
         enable = true;
         crates.enable = true;
@@ -87,6 +111,7 @@
         extensions.ts-error-translator.enable = true;
       };
       typst.enable = true;
+      yaml.enable = true;
     };
 
     lsp = {
@@ -106,6 +131,8 @@
       trouble.enable = true;
     };
 
+    mini.icons.enable = true;
+
     notes.todo-comments.enable = true;
 
     notify.nvim-notify.enable = true;
@@ -115,13 +142,16 @@
       setupOpts.show_hidden = true;
     };
 
+    # TODO: Fix warning
     snippets.luasnip = {
       enable = true;
       setupOpts.enable_autosnippets = true;
     };
 
+    # TODO: Customize
     statusline.lualine.enable = true;
 
+    # TODO: Customize
     tabline.nvimBufferline.enable = true;
 
     telescope.enable = true;
@@ -170,7 +200,14 @@
 
     utility = {
       diffview-nvim.enable = true;
-      leetcode-nvim.enable = true;
+      images.image-nvim.enable = true;
+      leetcode-nvim = {
+        enable = true;
+        setupOpts = {
+          lang = "rust";
+          image_support = true;
+        };
+      };
       motion = {
         leap.enable = true;
         precognition.enable = true;
@@ -183,10 +220,6 @@
       yazi-nvim.enable = true;
     };
 
-    visuals = {
-      cinnamon-nvim.enable = true;
-      nvim-web-devicons.enable = true;
-      rainbow-delimiters.enable = true;
-    };
+    visuals.nvim-web-devicons.enable = true;
   };
 }

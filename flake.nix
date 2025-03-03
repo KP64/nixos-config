@@ -336,7 +336,10 @@
                 ;
             };
 
-          checks = { inherit (self'.packages) neuters; };
+          # TODO: Check whether it works as intended
+          checks = lib.genAttrs (builtins.attrNames self'.packages) (
+            pack: builtins.getAttr pack self'.packages
+          );
 
           topology.modules = [ ./topology ];
 
