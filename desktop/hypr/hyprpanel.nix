@@ -42,6 +42,7 @@ in
           middle = [ "media" ];
           right = [
             "network"
+            "battery"
             "volume"
             "bluetooth"
             "systray"
