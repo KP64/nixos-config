@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  stable-pkgs,
   username,
   ...
 }:
@@ -14,17 +13,20 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home-manager.users.${username}.home.packages =
-        [ stable-pkgs.dolphin-emu ]
-        ++ (with pkgs; [
-          cemu
-          ryujinx-greemdev
-        ]);
+      home-manager.users.${username}.home.packages = with pkgs; [
+        cemu
+        dolphin-emu
+        ryujinx-greemdev
+      ];
     })
 
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".users.${username}.directories =
-        lib.optional cfg.enable ".config/Cemu";
+      environment.persistence."/persist".users.${username}.directories = lib.optionals cfg.enable (
+        map (p: ".config/${p}") [
+          "Cemu"
+          "dolphin-emu"
+        ]
+      );
     })
   ];
 }
