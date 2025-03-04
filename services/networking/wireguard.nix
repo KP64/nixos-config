@@ -206,7 +206,10 @@ in
                   (lib.optional (addresses != [ ]) "${ipv} -${mode} FORWARD -i ${name} -j ACCEPT")
                   ++ (map (
                     addr:
-                    "${pkgs.iptables}/bin/${ipv} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
+                    let
+                      iptables = lib.getExe' ipv pkgs.iptables;
+                    in
+                    "${iptables} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
                   ) addresses)
                 );
 
