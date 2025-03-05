@@ -25,9 +25,10 @@ in
       };
     })
 
-    # TODO: If any are enabled of the emulators
     (lib.mkIf config.isImpermanenceEnabled {
-      environment.persistence."/persist".users.${username}.directories = lib.optional cfg.enable "Games";
+      environment.persistence."/persist".users.${username}.directories = lib.optional (
+        cfg.enable || cfg.nintendo.enable || cfg.playstation.enable || cfg.xbox.enable
+      ) "Games";
     })
   ];
 }
