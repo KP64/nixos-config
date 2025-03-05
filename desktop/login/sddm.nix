@@ -11,7 +11,7 @@ in
 {
   options.desktop.login.sddm.enable = lib.mkEnableOption "SDDM";
 
-  # TODO: Config for when Catppuccin isn't enabled!!!
+  # TODO: Config for when Catppuccin isn't enabled
   config = lib.mkMerge [
     {
       catppuccin.sddm = {
