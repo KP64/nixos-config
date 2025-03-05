@@ -9,7 +9,9 @@
     withPython3 = true;
 
     extraPackages = with pkgs; [
+      # treesitter
       tree-sitter
+      zig
       # fzf-lua
       chafa
       ueberzugpp
@@ -24,6 +26,12 @@
 
     autocomplete.blink-cmp = {
       enable = true;
+      friendly-snippets.enable = true;
+      sourcePlugins = {
+        emoji.enable = true;
+        ripgrep.enable = true;
+        spell.enable = true;
+      };
       setupOpts.signature.enabled = true;
     };
 
@@ -90,18 +98,16 @@
       };
       nix = {
         enable = true;
-        lsp = {
-          package = pkgs.nixd;
-          server = "nixd";
-        };
+        format.type = "nixfmt";
+        lsp.server = "nixd";
       };
       nu.enable = true;
       python.enable = true;
       # TODO: lldb-dap just hangs?
-      rust = {
-        enable = true;
-        crates.enable = true;
-      };
+      # rust = {
+      #   enable = true;
+      #   crates.enable = true;
+      # };
       sql.enable = true;
       svelte.enable = true;
       tailwind.enable = true;
@@ -142,16 +148,15 @@
       setupOpts.show_hidden = true;
     };
 
-    # TODO: Fix warning
+    session.nvim-session-manager.enable = true;
+
     snippets.luasnip = {
       enable = true;
       setupOpts.enable_autosnippets = true;
     };
 
-    # TODO: Customize
     statusline.lualine.enable = true;
 
-    # TODO: Customize
     tabline.nvimBufferline.enable = true;
 
     telescope.enable = true;
@@ -200,6 +205,7 @@
 
     utility = {
       diffview-nvim.enable = true;
+      direnv.enable = true;
       images.image-nvim.enable = true;
       leetcode-nvim = {
         enable = true;
@@ -208,11 +214,13 @@
           image_support = true;
         };
       };
+      mkdir.enable = true;
       motion = {
         leap.enable = true;
         precognition.enable = true;
       };
       multicursors.enable = true;
+      nix-develop.enable = true;
       outline.aerial-nvim.enable = true;
       preview.glow.enable = true;
       surround.enable = true;
