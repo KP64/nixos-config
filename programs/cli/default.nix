@@ -49,55 +49,67 @@ in
       };
     })
 
-    # TODO: Further categorize
     {
       home-manager.users.${username} = {
         services.pueue.enable = true;
+
         home.packages =
           lib.optionals cfg.misc.enable [ stable-pkgs.ani-cli ]
           ++ (with pkgs; [
-            asciinema
-            binsider
-            choose
+            # misc
             dipc
-            doggo
-            dust
             glow
-            gping
-            grex
             hexyl
-            hurl
             hyperfine
-            jnv
-            just
             kondo
-            lychee
             mkcert
             monolith
-            ouch
+            tokei
+            wthrr
+
+            # presentation
+            asciinema
+            eureka-ideas
             presenterm
-            procs
-            rustscan
+
+            # regex
+            grex
+            melody
+
+            # files
+            ouch
+            oxipng
+            qrtool
+
+            # calc
+            kalker
+            numbat
+
+            # core-utils++
+            choose
+            dust
+            jnv
             sd
             sshx
-            systemctl-tui
-            tokei
-            typst
+
+            # networking
+            bore-cli
+            hurl
             xh
 
-            bore-cli
-            qrtool
-            melody
-            wthrr
-            numbat
-            systeroid
+            # inspect & monitoring
+            binsider
+            doggo
+            gping
             netscanner
-            kalker
-            oxipng
-            eureka-ideas
+            procs
+            rustscan
+            systemctl-tui
+            systeroid
 
-            sherlock
+            # Social account finders
             maigret
+            sherlock
           ]);
       };
     }
