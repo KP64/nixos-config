@@ -336,10 +336,8 @@
                 ;
             };
 
-          # TODO: Check whether it works as intended
-          checks = lib.genAttrs (builtins.attrNames self'.packages) (
-            pack: builtins.getAttr pack self'.packages
-          );
+          # Check all packages
+          checks = self'.packages;
 
           topology.modules = [ ./topology ];
 
