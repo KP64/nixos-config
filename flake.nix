@@ -110,9 +110,9 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -144,9 +144,9 @@
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         nix-index-database.follows = "nix-index-database";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -165,34 +165,34 @@
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -203,8 +203,8 @@
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -225,8 +225,8 @@
     nur = {
       url = "github:nix-community/nur";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
