@@ -44,9 +44,6 @@ in
                 "use ${completionsDir}/${cmd}/${cmd}-completions.nu *";
           in
           ''
-            # Theme
-            ${lib.optionalString config.isCatppuccinEnabled "source ${nuScriptsDir}/themes/nu-themes/catppuccin-mocha.nu"}
-
             # Aliases
             ${lib.concatMapStringsSep "\n" useAlias [
               "bat"
