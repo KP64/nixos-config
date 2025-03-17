@@ -21,7 +21,7 @@
     boot.efi.enable = true;
     impermanence.enable = true;
     security = {
-      uutils-coreutils.enable = true;
+      uutils.enable = true;
       polkit.enable = true;
       tpm.enable = true;
       sudo-rs.enable = true;

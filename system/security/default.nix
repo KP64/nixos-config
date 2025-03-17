@@ -4,6 +4,6 @@
     ./polkit.nix
     ./sudo-rs.nix
     ./tpm.nix
-    ./uutils-coreutils.nix
+    ./uutils.nix
   ];
 }
