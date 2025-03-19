@@ -106,6 +106,7 @@ in
             rustscan
             systemctl-tui
             systeroid
+            binwalk
 
             # Social account finders
             maigret
