@@ -31,7 +31,7 @@ in
         xdg.desktopEntries.i2p-browser = {
           name = "i2p Browser";
           genericName = "Web Browser";
-          exec = "${pkgs.firefox}/bin/firefox -p i2p";
+          exec = "${lib.getExe pkgs.firefox} -p i2p";
         };
 
         home.file.".mozilla/firefox/${username}/chrome" = {
@@ -79,15 +79,11 @@ in
                 engines =
                   let
                     nix-snowflake-icon = "${nixos-icons}/nix-snowflake.svg";
+
+                    mkParam = name: value: { inherit name value; };
                     nix-search-params = [
-                      {
-                        name = "channel";
-                        value = "unstable";
-                      }
-                      {
-                        name = "query";
-                        value = "{searchTerms}";
-                      }
+                      (mkParam "channel" "unstable")
+                      (mkParam "query" "{searchTerms}")
                     ];
                   in
                   hideEngines [
@@ -103,14 +99,8 @@ in
                         {
                           template = "https://searxng.nix-pi.ipv64.de/search";
                           params = [
-                            {
-                              name = "q";
-                              value = "{searchTerms}";
-                            }
-                            {
-                              name = "language";
-                              value = "all";
-                            }
+                            (mkParam "q" "{searchTerms}")
+                            (mkParam "language" "all")
                           ];
                         }
                       ];
@@ -122,14 +112,8 @@ in
                         {
                           template = "https://home-manager-options.extranix.com";
                           params = [
-                            {
-                              name = "query";
-                              value = "{searchTerms}";
-                            }
-                            {
-                              name = "release";
-                              value = "master";
-                            }
+                            (mkParam "query" "{searchTerms}")
+                            (mkParam "release" "master")
                           ];
                         }
                       ];
