@@ -181,7 +181,7 @@
         enable = true;
         setupOpts = {
           lsp.signature.enabled = true;
-          presets.inc_rename = true;
+          presets.bottom_search = false;
         };
       };
 
