@@ -32,5 +32,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ KP64 ];
     mainProgram = pname;
+    platforms = lib.platforms.all;
   };
 }
