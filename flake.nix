@@ -340,7 +340,7 @@
 
           topology.modules = [ ./topology ];
 
-          treefmt = import ./treefmt.nix;
+          treefmt = ./treefmt.nix;
 
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
