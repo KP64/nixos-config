@@ -1,28 +1,17 @@
-{ pkgs, ... }:
+# TODO: Use commented plugins once more familiar with nvim
 {
-  # FIX: Overlapping mappings
   config.vim = {
     enableLuaLoader = true;
     lineNumberMode = "relNumber";
+    useSystemClipboard = true;
 
-    withNodeJs = true;
-    withPython3 = true;
+    theme = {
+      enable = true;
+      name = "catppuccin";
+      style = "mocha";
+    };
 
-    extraPackages = with pkgs; [
-      # treesitter
-      tree-sitter
-      zig
-      # fzf-lua
-      chafa
-      ueberzugpp
-      viu
-      # snacks.image
-      mermaid-cli
-      texliveSmall
-      ghostscript_headless
-      # snacks.lazygit
-      lazygit
-    ];
+    undoFile.enable = true;
 
     autocomplete.blink-cmp = {
       enable = true;
@@ -32,20 +21,13 @@
         ripgrep.enable = true;
         spell.enable = true;
       };
-      setupOpts.signature.enabled = true;
     };
 
-    autopairs.nvim-autopairs.enable = true;
+    # autopairs.nvim-autopairs.enable = true;
 
     binds.whichKey.enable = true;
 
-    comments.comment-nvim = {
-      enable = true;
-      setupOpts.mappings = {
-        basic = true;
-        extra = true;
-      };
-    };
+    # comments.comment-nvim.enable = true;
 
     dashboard.dashboard-nvim = {
       enable = true;
@@ -56,25 +38,32 @@
       };
     };
 
-    debugger.nvim-dap = {
-      enable = true;
-      ui.enable = true;
-    };
+    # debugger.nvim-dap = {
+    #   enable = true;
+    #   ui.enable = true;
+    # };
 
-    filetree.neo-tree = {
-      enable = true;
-      setupOpts = {
-        auto_clean_after_session_restore = true;
-        git_status_async = true;
-      };
-    };
+    # diagnostics.nvim-lint.enable = true;
+
+    # TODO: Try out which one is better
+    # filetree.nvimTree
+    # filetree.neo-tree = {
+    #   enable = true;
+    #   setupOpts = {
+    #     enable_cursor_hijack = true;
+    #     git_status_async = true;
+    #   };
+    # };
 
     formatter.conform-nvim.enable = true;
 
-    git = {
-      enable = true;
-      gitsigns.codeActions.enable = true;
-    };
+    # TODO: WTF?
+    # fzf-lua = {
+    #   enable = true;
+    #   profile = "telescope";
+    # };
+
+    # git.enable = true;
 
     languages = {
       enableDAP = true;
@@ -82,16 +71,14 @@
       enableFormat = true;
       enableLSP = true;
       enableTreesitter = true;
+
       assembly.enable = true;
       bash.enable = true;
       clang.enable = true;
       css.enable = true;
-      go.enable = true;
-      # Not the same as terraform:
-      # https://github.com/NotAShelf/nvf/pull/359
-      hcl.enable = true;
+      # hcl.enable = true; FIX: Broken?
+      helm.enable = true;
       html.enable = true;
-      java.enable = true;
       markdown = {
         enable = true;
         extensions.render-markdown-nvim.enable = true;
@@ -102,12 +89,15 @@
         lsp.server = "nixd";
       };
       nu.enable = true;
-      python.enable = true;
-      # TODO: lldb-dap just hangs?
-      # rust = {
-      #   enable = true;
-      #   crates.enable = true;
-      # };
+      python = {
+        enable = true;
+        format.type = "ruff";
+      };
+      rust = {
+        enable = true;
+        crates.enable = true;
+        dap.enable = false; # FIX: lldb-dap hangs
+      };
       sql.enable = true;
       svelte.enable = true;
       tailwind.enable = true;
@@ -116,44 +106,44 @@
         enable = true;
         extensions.ts-error-translator.enable = true;
       };
-      typst.enable = true;
+      typst = {
+        enable = true;
+        extensions.typst-preview-nvim.enable = true;
+        format.type = "typstyle";
+      };
       yaml.enable = true;
     };
 
     lsp = {
-      enable = true;
       formatOnSave = true;
-      lspconfig.enable = true;
-      lspkind.enable = true;
-      lspsaga.enable = true;
-      nvim-docs-view.enable = true;
-      otter-nvim = {
-        enable = true;
-        setupOpts.buffers = {
-          write_to_disk = true;
-          handle_leading_whitespace = true;
-        };
-      };
-      trouble.enable = true;
+      # lspSignature.enable = true; # TODO: Doesn't work with blink-cmp
+      # lspkind.enable = true;
+      # lspsaga.enable = true;
+      # nvim-docs-view.enable = true;
+      # otter-nvim.enable = true;
+      # trouble.enable = true;
     };
 
     mini.icons.enable = true;
 
-    notes.todo-comments.enable = true;
+    notes = {
+      # neorg.enable = true;
+      # obsidian.enable = true;
+      todo-comments.enable = true;
+    };
 
     notify.nvim-notify.enable = true;
 
-    projects.project-nvim = {
-      enable = true;
-      setupOpts.show_hidden = true;
-    };
+    # projects.project-nvim.enable = true;
 
-    session.nvim-session-manager.enable = true;
+    # runner.run-nvim.enable = true;
 
-    snippets.luasnip = {
-      enable = true;
-      setupOpts.enable_autosnippets = true;
-    };
+    # session.nvim-session-manager.enable = true;
+
+    # snippets.luasnip = {
+    #   enable = true;
+    #   enable_autosnippets = true;
+    # };
 
     statusline.lualine.enable = true;
 
@@ -161,73 +151,101 @@
 
     telescope.enable = true;
 
-    terminal.toggleterm = {
-      enable = true;
-      lazygit.enable = true;
-      setupOpts.enable_winbar = true;
-    };
-
-    theme = {
-      enable = true;
-      name = "catppuccin";
-      style = "mocha";
-    };
+    # terminal.toggleterm = {
+    #   enable = true;
+    #   lazygit.enable = true;
+    #   TODO: Check why both exist?
+    #   setupOpts.enable_winbar = true;
+    #   setupOpts.winbar.enabled = true;
+    # };
 
     treesitter = {
-      enable = true;
       autotagHtml = true;
-      fold = true;
+      # TODO: Get rid if it gets too annoying
       context.enable = true;
+      fold = true;
     };
 
     ui = {
-      borders.enable = true;
-      breadcrumbs = {
-        enable = true;
-        navbuddy.enable = true;
-      };
+      # borders.enable = true;
+
+      # breadcrumbs = {
+      #   enable = true;
+      #   navbuddy.enable = true;
+      # };
+
+      # TODO: Customize if necessary
       colorizer.enable = true;
-      fastaction.enable = true;
-      illuminate.enable = true;
+
+      # fastaction.enable = true;
+
+      # illuminate.enable = true;
+
+      # modes-nvim.enable = true;
+
       noice = {
         enable = true;
         setupOpts = {
           lsp.signature.enabled = true;
-          presets = {
-            inc_rename = true;
-            lsp_doc_border = true;
+          presets.inc_rename = true;
+        };
+      };
+
+      # TODO: Check whats the diff with treesitter fold
+      # nvim-ufo.enable = true;
+
+      # smartcolumn.enable = true;
+    };
+
+    utility = {
+      # diffview-nvim.enable = true;
+
+      direnv.enable = true;
+
+      images.image-nvim = {
+        enable = true;
+        # If you aren't using kitty as your
+        # terminal emulator...
+        # just what are you doing?
+        setupOpts = {
+          backend = "kitty";
+          integrations = {
+            markdown.downloadRemoteImages = true;
+            neorg.downloadRemoteImages = true;
           };
         };
       };
-    };
 
-    undoFile.enable = true;
+      # leetcode-nvim = {
+      #   enable = true;
+      #   setupOpts.image_support = true;
+      # };
 
-    utility = {
-      diffview-nvim.enable = true;
-      direnv.enable = true;
-      images.image-nvim.enable = true;
-      leetcode-nvim = {
-        enable = true;
-        setupOpts = {
-          lang = "rust";
-          image_support = true;
-        };
-      };
       mkdir.enable = true;
-      motion = {
-        leap.enable = true;
-        precognition.enable = true;
-      };
-      multicursors.enable = true;
+
+      # motion = {
+      #   hop.enable = true;
+      #   leap.enable = true;
+      #   precognition.enable = true;
+      # };
+
+      # multicursors.enable = true;
+
       nix-develop.enable = true;
-      outline.aerial-nvim.enable = true;
-      preview.glow.enable = true;
-      surround.enable = true;
-      yanky-nvim.enable = true;
-      yazi-nvim.enable = true;
+
+      # outline.aerial-nvim.enable = true;
+
+      # surround.enable = true;
+
+      # yanky-nvim.enable = true;
+
+      # yazi-nvim.enable = true;
     };
 
-    visuals.nvim-web-devicons.enable = true;
+    visuals = {
+      nvim-web-devicons.enable = true;
+
+      rainbow-delimiters.enable = true;
+    };
   };
 }
