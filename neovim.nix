@@ -25,6 +25,7 @@
 
     # autopairs.nvim-autopairs.enable = true;
 
+    # TODO: Remove once familiar with bindings
     binds.whichKey.enable = true;
 
     # comments.comment-nvim.enable = true;
