@@ -13,8 +13,6 @@
       style = "mocha";
     };
 
-    undoFile.enable = true;
-
     autocomplete.blink-cmp = {
       enable = true;
       friendly-snippets.enable = true;
