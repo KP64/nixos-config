@@ -59,12 +59,6 @@
 
     formatter.conform-nvim.enable = true;
 
-    # TODO: WTF?
-    # fzf-lua = {
-    #   enable = true;
-    #   profile = "telescope";
-    # };
-
     # git.enable = true;
 
     languages = {
@@ -118,7 +112,6 @@
 
     lsp = {
       formatOnSave = true;
-      # lspSignature.enable = true; # TODO: Doesn't work with blink-cmp
       # lspkind.enable = true;
       # lspsaga.enable = true;
       # nvim-docs-view.enable = true;
@@ -202,8 +195,6 @@
     utility = {
       # diffview-nvim.enable = true;
 
-      direnv.enable = true;
-
       images.image-nvim = {
         enable = true;
         # If you aren't using kitty as your
@@ -223,7 +214,7 @@
       #   setupOpts.image_support = true;
       # };
 
-      mkdir.enable = true;
+      # mkdir.enable = true;
 
       # motion = {
       #   hop.enable = true;
@@ -232,8 +223,6 @@
       # };
 
       # multicursors.enable = true;
-
-      nix-develop.enable = true;
 
       # outline.aerial-nvim.enable = true;
 
