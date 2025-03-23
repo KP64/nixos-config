@@ -12,7 +12,10 @@
 
   facter.reportPath = ./facter.json;
 
-  environment.systemPackages = [ pkgs.openboard ];
+  environment.systemPackages = with pkgs; [
+    openboard
+    ventoy
+  ];
 
   services = {
     upower.enable = true;
