@@ -5,6 +5,8 @@
     lineNumberMode = "relNumber";
     useSystemClipboard = true;
 
+    withRuby = false;
+
     theme = {
       enable = true;
       name = "catppuccin";
