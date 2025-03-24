@@ -182,7 +182,6 @@
       #   navbuddy.enable = true;
       # };
 
-      # TODO: Customize if necessary
       colorizer.enable = true;
 
       # fastaction.enable = true;
