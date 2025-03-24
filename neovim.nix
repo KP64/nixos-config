@@ -44,7 +44,7 @@
     #   ui.enable = true;
     # };
 
-    # diagnostics.nvim-lint.enable = true;
+    diagnostics.nvim-lint.enable = true;
 
     # TODO: Try out which one is better
     # filetree.nvimTree
