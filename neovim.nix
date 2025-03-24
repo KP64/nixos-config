@@ -166,8 +166,11 @@
 
     treesitter = {
       autotagHtml = true;
-      # TODO: Get rid if it gets too annoying
-      context.enable = true;
+      context = {
+        enable = true;
+        setupOpts.mode = "topline";
+      };
+      # FIX: E350: Cannot create fold with current "foldmethod"
       fold = true;
     };
 
