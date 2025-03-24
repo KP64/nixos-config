@@ -139,7 +139,18 @@
     #   enable_autosnippets = true;
     # };
 
-    statusline.lualine.enable = true;
+    statusline.lualine = {
+      enable = true;
+      refresh =
+        let
+          time_ms = 100;
+        in
+        {
+          statusline = time_ms;
+          tabline = time_ms;
+          winbar = time_ms;
+        };
+    };
 
     tabline.nvimBufferline.enable = true;
 
