@@ -1,4 +1,4 @@
-name: CI topology updater
+name: topology updater
 
 on:
   push:
@@ -35,4 +35,4 @@ jobs:
       - name: Commit and Push changed Files
         uses: EndBug/add-and-commit@5442017c908921e9bee9dfca7978ca6901143bf0
         with:
-          message: "ci: Update Topology"
+          message: "chore: update topology"
