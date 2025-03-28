@@ -260,13 +260,13 @@
 
   users.users = {
     root.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICmnXKmHkmJFNQ5cll8rNmkQ0yU5l6MetqNz7BWMVlhG kg@kg"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwKX/O745ddCdc78VI/1c9weFT3+DAJNc8nYdVP1xji kg@kg"
     ];
 
     ${username} = {
       hashedPasswordFile = config.sops.secrets.hashed_password.path;
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICmnXKmHkmJFNQ5cll8rNmkQ0yU5l6MetqNz7BWMVlhG kg@kg"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwKX/O745ddCdc78VI/1c9weFT3+DAJNc8nYdVP1xji kg@kg"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAD+mYDOwD6lR89dpPCprEDTBIBNKgjzb6sqoGCHOYl7 kg@LapT"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFqboCBFR7zCUKnUoIIXbYh42muPCKNXZ+g6cp/KXQaX tp@tp"
       ];
