@@ -243,13 +243,13 @@ in
 
               "left, movefocus, l"
               "H, movefocus, l"
-              
+
               "right, movefocus, r"
               "L, movefocus, r"
 
               "up, movefocus, u"
               "K, movefocus, u"
-              
+
               "down, movefocus, d"
               "J, movefocus, d"
 
