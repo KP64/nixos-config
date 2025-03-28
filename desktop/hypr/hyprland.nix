@@ -239,26 +239,28 @@ in
               "M, exit,"
               "V, togglefloating,"
               "P, pseudo,"
-              "J, togglesplit,"
+              "S, togglesplit,"
 
               "left, movefocus, l"
+              "H, movefocus, l"
+              
               "right, movefocus, r"
-              "up, movefocus, u"
-              "down, movefocus, d"
+              "L, movefocus, r"
 
-              "H, togglespecialworkspace, magic"
+              "up, movefocus, u"
+              "K, movefocus, u"
+              
+              "down, movefocus, d"
+              "J, movefocus, d"
 
               "mouse_down, workspace, e+1"
               "mouse_up, workspace, e-1"
             ]
             ++ map (s: "$mainMod SHIFT, ${s}") [
-              "J, swapsplit"
+              "S, swapsplit"
               "C, exec, hyprpicker --no-fancy --autocopy"
               "R, exec, systemctl --user restart waybar.service"
-              "S, exec, grimblast --freeze --notify copysave area"
-              "H, movetoworkspace, special:magic"
-              "right, movetoworkspace, e+1"
-              "left, movetoworkspace, e-1"
+              "I, exec, grimblast --freeze --notify copysave area"
             ]
             ++ (
               # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
