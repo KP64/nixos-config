@@ -7,10 +7,9 @@
 }:
 
 {
-  imports = [
-    ./disko-config.nix
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./disko-config.nix ];
+
+  facter.reportPath = ./facter.json;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
