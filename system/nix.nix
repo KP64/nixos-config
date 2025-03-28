@@ -50,21 +50,15 @@ in
           [ inputs.nix-alien.packages.${pkgs.system}.nix-alien ]
           ++ (with pkgs; [
             cachix
-            deadnix
-            devenv
-            fh
             nix-health
             nix-init
             nix-melt
             nix-output-monitor
             nix-tree
-            nix-update
-            nixfmt-rfc-style
             nixpkgs-lint-community
             nixpkgs-review
             nurl
             nvd
-            statix
             vulnix
           ]);
       }
