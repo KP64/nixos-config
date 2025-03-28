@@ -120,16 +120,13 @@
       physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
     };
 
-  services.ai = {
-    open-webui.enable = true;
-    ollama = {
-      enable = true;
-      models = [
-        "llama3.2"
-        "llama3.1:8b"
-        "deepseek-r1:8b"
-      ];
-    };
+  services.ai.ollama = {
+    enable = true;
+    models = [
+      "llama3.2"
+      "llama3.1:8b"
+      "deepseek-r1:8b"
+    ];
   };
 
   time.timeZone = "Europe/Berlin";
