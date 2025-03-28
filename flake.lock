@@ -1721,11 +1721,11 @@
     "nix-invisible": {
       "flake": false,
       "locked": {
-        "lastModified": 1740316961,
-        "narHash": "sha256-NAamQVXHZb0Lp1i4ih7GrTNx0OhZky/0yHwLs9CHAcw=",
+        "lastModified": 1743176421,
+        "narHash": "sha256-PoMTM/dDzodFd4zjvdTDqp8S8QG48u2DNoWQdhuUdUA=",
         "ref": "refs/heads/main",
-        "rev": "5627a88877dc1ee82819f7926074ff287bb8592d",
-        "revCount": 1,
+        "rev": "3b8f2f9057f0501135578f3ea4d4c50b141146c9",
+        "revCount": 2,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
       },
