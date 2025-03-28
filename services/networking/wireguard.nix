@@ -207,7 +207,7 @@ in
                   ++ (map (
                     addr:
                     let
-                      iptables = lib.getExe' ipv pkgs.iptables;
+                      iptables = lib.getExe' pkgs.iptables ipv;
                     in
                     "${iptables} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
                   ) addresses)
