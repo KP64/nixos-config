@@ -15,6 +15,7 @@ in
     description = "The address of the server to sync with!";
   };
 
+  # TODO: Provide atuin key_path via sops-nix
   config = lib.mkMerge [
     {
       home-manager.users.${username}.programs.atuin = {
@@ -24,8 +25,9 @@ in
           inherit (cfg) sync_address;
           invert = true;
           filter_mode_shell_up_key_binding = "directory";
-          style = "full";
+          style = "auto";
           update_check = false;
+          enter_accept = true;
         };
       };
     }
