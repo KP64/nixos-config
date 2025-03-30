@@ -23,7 +23,7 @@
       };
     };
 
-    # autopairs.nvim-autopairs.enable = true;
+    autopairs.nvim-autopairs.enable = true;
 
     # TODO: Remove once familiar with bindings
     binds.whichKey.enable = true;
