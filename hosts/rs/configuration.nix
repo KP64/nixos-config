@@ -54,6 +54,7 @@
     age.sshKeyPaths = [ "/home/rs/.ssh/id_ed25519" ];
     secrets = {
       hashed_password.neededForUsers = true;
+      "anki/main_passw" = { };
       "wg/keys/client" = { };
       "wg/keys/server" = { };
       "wg/keys/preshared/lap" = { };
@@ -113,16 +114,25 @@
 
     media = {
       dumb.enable = true;
-      invidious.enable = true;
+      # invidious.enable = true;
       # neuters.enable = true;
       redlib.enable = true;
       stirling-pdf.enable = true;
     };
 
     misc = {
+      anki = {
+        enable = true;
+        users = [
+          {
+            username = invisible.email;
+            passwordFile = config.sops.secrets."anki/main_passw".path;
+          }
+        ];
+      };
       atuin.enable = true;
-      firefox-sync.enable = true;
-      forgejo.enable = true;
+      # firefox-sync.enable = true;
+      # forgejo.enable = true;
       glance = {
         enable = true;
         inherit (invisible.glance) location;
