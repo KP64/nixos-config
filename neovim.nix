@@ -221,10 +221,14 @@
         };
       };
 
-      # leetcode-nvim = {
-      #   enable = true;
-      #   setupOpts.image_support = true;
-      # };
+      leetcode-nvim = {
+        enable = true;
+        setupOpts = {
+          arg = "lc";
+          # TODO: Enable when wrapping problem is fixed
+          # image_support = true;
+        };
+      };
 
       # mkdir.enable = true;
 
