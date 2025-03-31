@@ -38,6 +38,7 @@ in
           genact
           nms
           pipes-rs
+          rust-stakeholder
         ]
       );
     }
