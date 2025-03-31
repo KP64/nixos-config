@@ -1,11 +1,20 @@
 # TODO: Use commented plugins once more familiar with nvim
+{ pkgs, ... }:
 {
   config.vim = {
     enableLuaLoader = true;
     lineNumberMode = "relNumber";
     useSystemClipboard = true;
 
+    withNodeJs = true;
     withRuby = false;
+
+    extraPackages = with pkgs; [
+      viu
+      chafa
+      ueberzugpp
+      tree-sitter
+    ];
 
     theme = {
       enable = true;
@@ -76,7 +85,11 @@
       html.enable = true;
       markdown = {
         enable = true;
-        extensions.render-markdown-nvim.enable = true;
+        extensions.render-markdown-nvim = {
+          enable = true;
+          # TODO: Enable again when supported
+          setupOpts.latex.enabled = false;
+        };
       };
       nix = {
         enable = true;
@@ -209,11 +222,8 @@
 
       images.image-nvim = {
         enable = true;
-        # If you aren't using kitty as your
-        # terminal emulator...
-        # just what are you doing?
         setupOpts = {
-          backend = "kitty";
+          backend = "ueberzug";
           integrations = {
             markdown.downloadRemoteImages = true;
             neorg.downloadRemoteImages = true;
