@@ -70,10 +70,8 @@ in
             black-formatter
             python
           ])
-          ++ (with catppuccin; [
-            catppuccin-vsc
-            catppuccin-vsc-icons
-          ])
+          # TODO: Remove once https://github.com/catppuccin/nix/issues/518 is closed.
+          ++ (with catppuccin; [ catppuccin-vsc-icons ])
           ++ (with ms-vscode; [
             cpptools-extension-pack
             makefile-tools
@@ -105,15 +103,10 @@ in
             endpoint = "https://tabby.nix-pi.ipv64.de";
           };
 
-          workbench =
-            {
-              productIconTheme = "fluent-icons";
-              startupEditor = "none";
-            }
-            // (lib.optionalAttrs config.isCatppuccinEnabled {
-              iconTheme = "catppuccin-mocha";
-              colorTheme = "Catppuccin Mocha";
-            });
+          workbench = {
+            productIconTheme = "fluent-icons";
+            startupEditor = "none";
+          } // (lib.optionalAttrs config.isCatppuccinEnabled { iconTheme = "catppuccin-mocha"; });
 
           files = {
             autoSave = "afterDelay";
