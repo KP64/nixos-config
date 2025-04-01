@@ -37,7 +37,13 @@
     # TODO: Remove once familiar with bindings
     binds.whichKey.enable = true;
 
-    # comments.comment-nvim.enable = true;
+    comments.comment-nvim = {
+      enable = true;
+      setupOpts.mappings = {
+        basic = true;
+        extra = true;
+      };
+    };
 
     dashboard.dashboard-nvim = {
       enable = true;
@@ -201,8 +207,6 @@
 
       # illuminate.enable = true;
 
-      # modes-nvim.enable = true;
-
       noice = {
         enable = true;
         setupOpts = {
@@ -249,6 +253,8 @@
       # };
 
       # multicursors.enable = true;
+
+      # oil-nvim.enable = true;
 
       # outline.aerial-nvim.enable = true;
 
