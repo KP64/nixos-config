@@ -248,7 +248,7 @@
 
       # multicursors.enable = true;
 
-      # oil-nvim.enable = true;
+      oil-nvim.enable = true;
 
       # outline.aerial-nvim.enable = true;
 
