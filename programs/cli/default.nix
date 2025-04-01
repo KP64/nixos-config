@@ -105,7 +105,8 @@ in
             procs
             rustscan
             systemctl-tui
-            systeroid
+            # TODO: Uncomment when building works again
+            # systeroid
             binwalk
 
             # Social account finders
