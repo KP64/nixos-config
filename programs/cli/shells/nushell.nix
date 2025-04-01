@@ -66,6 +66,7 @@ in
               "man"
               "nix"
               "npm"
+              "pnpm"
               "rg"
               "rustup"
               "ssh"
@@ -76,6 +77,7 @@ in
               }
               "typst"
               "zellij"
+              "zoxide"
             ]}
           '';
       };
