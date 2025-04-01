@@ -86,7 +86,7 @@
       bash.enable = true;
       clang.enable = true;
       css.enable = true;
-      # hcl.enable = true; FIX: Broken?
+      hcl.enable = true;
       helm.enable = true;
       html.enable = true;
       markdown = {
