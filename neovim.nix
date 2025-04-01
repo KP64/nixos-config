@@ -244,13 +244,7 @@
         };
       };
 
-      # mkdir.enable = true;
-
-      # motion = {
-      #   hop.enable = true;
-      #   leap.enable = true;
-      #   precognition.enable = true;
-      # };
+      mkdir.enable = true;
 
       # multicursors.enable = true;
 
