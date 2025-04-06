@@ -1,5 +1,5 @@
 {
-  description = "KP64's NixOS ❄️";
+  description = "KP64's Ultimate Nixos ❄️";
 
   inputs = {
     catppuccin.url = "github:catppuccin/nix";
@@ -105,6 +105,7 @@
       };
     };
 
+    # TODO: Re-add ASAP
     impermanence.url = "github:nix-community/impermanence";
 
     lanzaboote = {
@@ -209,8 +210,6 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-
     nvf = {
       url = "github:notashelf/nvf";
       inputs = {
@@ -230,13 +229,15 @@
       };
     };
 
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+
+    # TODO: Find better alternatives
     potato-fox = {
       url = "git+https://codeberg.org/awwpotato/PotatoFox.git";
       flake = false;
     };
 
-    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
-
+    # TODO: Re-add ASAP
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -250,18 +251,6 @@
       };
     };
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-        nur.follows = "nur";
-        systems.follows = "systems";
-      };
-    };
-
     systems.url = "github:nix-systems/default";
 
     treefmt-nix = {
@@ -271,69 +260,106 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-
-      flake =
-        let
-          customLib = import ./lib.nix { inherit inputs; };
-        in
-        {
-          nixosConfigurations = {
-            kg = customLib.mkSystem {
-              username = "kg";
-              system = "x86_64-linux";
-            };
-
-            tp = customLib.mkSystem {
-              username = "tp";
-              system = "x86_64-linux";
-            };
-
-            ws = customLib.mkSystem {
-              username = "ws";
-              system = "x86_64-linux";
-              wsl = true;
-            };
-
-            rs = customLib.mkSystem {
-              username = "rs";
-              system = "aarch64-linux";
-              pi = true;
-            };
-          };
-        };
 
       imports = with inputs; [
         treefmt-nix.flakeModule
         nix-topology.flakeModule
         home-manager.flakeModules.home-manager
+        pkgs-by-name-for-flake-parts.flakeModule
       ];
 
+      flake =
+        let
+          inherit (inputs.nixpkgs) lib;
+          rootPath = inputs.self.outPath;
+          # TODO: Extend nixos lib with it
+          customLib = import ./lib { inherit inputs rootPath; };
+          # TODO: Important to do on a per User basis!
+          invisible = import "${inputs.nix-invisible}/globals.nix";
+        in
+        {
+          nixosConfigurations =
+            "nixos"
+            |> customLib.getHosts
+            |> builtins.mapAttrs (
+              n:
+              { hostName, system }:
+              let
+                hostPath = ./hosts/nixos/${system}/${n};
+              in
+              lib.nixosSystem rec {
+                # TODO: Seems like system specification not needed.
+                # Maybe it only woks because facter takes care of it.
+                # If it isn't neede at all this would simplify the directory
+                # logic by a lot.
+                inherit system;
+                specialArgs = {
+                  inherit
+                    inputs
+                    hostName
+                    rootPath
+                    customLib
+                    invisible
+                    ;
+                };
+                modules =
+                  (with inputs; [
+                    disko.nixosModules.disko
+                    home-manager.nixosModules.home-manager
+                    nix-topology.nixosModules.default
+                    nixos-facter-modules.nixosModules.facter
+                    nixos-wsl.nixosModules.default
+                    catppuccin.nixosModules.catppuccin
+                  ])
+                  ++ (customLib.getUsers hostPath)
+                  ++ (customLib.getHomes hostPath)
+                  ++ [
+                    hostPath
+                    ./modules/nixos
+                    {
+                      nixpkgs.overlays = with inputs; [
+                        nur.overlays.default
+                        hyprpanel.overlay
+                      ];
+
+                      networking = { inherit hostName; };
+
+                      users.mutableUsers = false;
+
+                      catppuccin.cache.enable = true;
+
+                      home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        backupFileExtension = "backup";
+                        extraSpecialArgs = specialArgs;
+
+                        sharedModules = [ ./modules/home ];
+                      };
+                    }
+                  ];
+              }
+            );
+        };
+
       perSystem =
+        { self', pkgs, ... }:
         {
-          self',
-          lib,
-          pkgs,
-          ...
-        }:
-        {
-          packages =
-            (lib.packagesFromDirectoryRecursive {
-              inherit (pkgs) callPackage;
-              directory = ./pkgs;
-            })
-            // {
-              default = self'.packages.neovim;
-              inherit
-                (inputs.nvf.lib.neovimConfiguration {
-                  inherit pkgs;
-                  modules = [ ./neovim.nix ];
-                })
-                neovim
-                ;
-            };
+          pkgsDirectory = ./pkgs;
+
+          packages = rec {
+            default = neovim;
+            inherit
+              (inputs.nvf.lib.neovimConfiguration {
+                inherit pkgs;
+                modules = [ ./neovim.nix ];
+              })
+              neovim
+              ;
+          };
 
           # Check all packages
           checks = self'.packages;

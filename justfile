@@ -3,10 +3,8 @@ set unstable := true
 mod anywhere
 mod check
 mod eduroam
-mod facter
 mod pi
 mod topology
-mod sops
 mod wsl
 
 # 😺 you are seeing it right now

@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 # TODO: Use commented plugins once more familiar with nvim
 {
   config.vim = {
@@ -6,6 +7,9 @@
     useSystemClipboard = true;
 
     withRuby = false;
+
+    # TODO: Check whether to package more
+    extraPackages = with pkgs; [ ripgrep ];
 
     theme = {
       enable = true;
@@ -113,6 +117,7 @@
       formatOnSave = true;
       # lspkind.enable = true;
       # lspsaga.enable = true;
+      inlayHints.enable = true;
       # nvim-docs-view.enable = true;
       # otter-nvim.enable = true;
       trouble.enable = true;
@@ -228,11 +233,7 @@
 
       # mkdir.enable = true;
 
-      # motion = {
-      #   hop.enable = true;
-      #   leap.enable = true;
-      #   precognition.enable = true;
-      # };
+      # motion.flash-nvim.enable = true;
 
       # multicursors.enable = true;
 

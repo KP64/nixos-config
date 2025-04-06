@@ -1,1 +1,0 @@
-{ programs.trippy.enable = true; }
