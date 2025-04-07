@@ -8,7 +8,6 @@ in
     ++ [ "UNLICENSE" ]
     ++ (mapExtension [
       "pub"
-      "png"
       "jpg"
       "lycheeignore"
       "yuck"
@@ -20,6 +19,7 @@ in
       enable = true;
       strict = true;
     };
+    oxipng.enable = true;
     prettier = {
       enable = true;
       excludes = excludeSecrets;
