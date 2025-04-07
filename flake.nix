@@ -172,6 +172,14 @@
       };
     };
 
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {
@@ -281,6 +289,37 @@
           invisible = import "${inputs.nix-invisible}/globals.nix";
         in
         {
+          nixOnDroidConfigurations =
+            "droid"
+            |> customLib.getHosts
+            |> builtins.mapAttrs (
+              n:
+              { hostName, system }:
+              let
+                hostPath = ./hosts/nixos/${system}/${n};
+              in
+              inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
+                home-manager-path = inputs.home-manager.outPath;
+                extraSpecialArgs = { inherit rootPath; };
+
+                modules = (customLib.getHomes hostPath) ++ [
+                  hostPath
+                  ./modules/droid
+                  {
+                    nixpkgs.overlays = [ inputs.nix-on-droid.overlays.default ];
+
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      backupFileExtension = "backup";
+                      inherit extraSpecialArgs;
+                      sharedModules = [ ./modules/home ];
+                    };
+                  }
+                ];
+              }
+            );
+
           nixosConfigurations =
             "nixos"
             |> customLib.getHosts
