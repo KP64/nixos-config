@@ -14,12 +14,25 @@
     withNodeJs = true;
     withRuby = false;
 
-    # TODO: Check whether to package more
     extraPackages = with pkgs; [
+      # System
+      curl
+      git
+
+      # fzf-lua
+      ## required
+      fzf
+      git
+      ripgrep
+      fd
+      ## optional:media
       viu
       chafa
       ueberzugpp
-      ripgrep
+
+      # nvim-treesitter
+      tree-sitter
+      gcc
     ];
 
     theme = {
@@ -40,7 +53,6 @@
 
     autopairs.nvim-autopairs.enable = true;
 
-    # TODO: Remove once familiar with bindings
     binds.whichKey.enable = true;
 
     comments.comment-nvim = {
