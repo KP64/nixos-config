@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./copyq.nix
@@ -11,21 +16,21 @@
     ./rofi.nix
   ];
 
-  # TODO: Check whether actually needed
-  # TODO: Only enable all of them if hyprpanel is enabled
-  home.packages = with pkgs; [
-    xdg-utils
-    libnotify
-  ];
+  config = lib.mkIf config.desktop.hyprland.enable {
+    home.packages = with pkgs; [
+      xdg-utils
+      libnotify
+    ];
 
-  gtk.enable = true;
-  qt.enable = true;
+    gtk.enable = true;
+    qt.enable = true;
 
-  xdg = {
-    enable = true;
-    userDirs = {
+    xdg = {
       enable = true;
-      createDirectories = true;
+      userDirs = {
+        enable = true;
+        createDirectories = true;
+      };
     };
   };
 }

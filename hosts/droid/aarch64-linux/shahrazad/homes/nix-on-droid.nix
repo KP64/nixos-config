@@ -1,7 +1,10 @@
 {
   home.stateVersion = "24.11";
 
-  system.style.catppuccin.enable = true;
+  system.style.catppuccin = {
+    enable = true;
+    enableGtkIcons = false;
+  };
 
   programs = {
     bacon.enable = true;

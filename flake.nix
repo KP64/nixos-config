@@ -289,6 +289,7 @@
           invisible = import "${inputs.nix-invisible}/globals.nix";
         in
         {
+          # TODO: Refactor the hell out of this mess
           nixOnDroidConfigurations =
             "droid"
             |> customLib.getHosts
@@ -296,24 +297,40 @@
               n:
               { hostName, system }:
               let
-                hostPath = ./hosts/nixos/${system}/${n};
+                hostPath = ./hosts/droid/${system}/${n};
               in
               inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
                 home-manager-path = inputs.home-manager.outPath;
-                extraSpecialArgs = { inherit rootPath; };
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    hostName
+                    rootPath
+                    customLib
+                    invisible
+                    ;
+                };
 
-                modules = (customLib.getHomes hostPath) ++ [
+                pkgs = import inputs.nixpkgs {
+                  inherit system;
+                  overlays = with inputs; [
+                    nix-on-droid.overlays.default
+                    hyprpanel.overlay
+                  ];
+                };
+
+                modules = [
                   hostPath
                   ./modules/droid
                   {
-                    nixpkgs.overlays = [ inputs.nix-on-droid.overlays.default ];
-
                     home-manager = {
                       useGlobalPkgs = true;
                       useUserPackages = true;
-                      backupFileExtension = "backup";
+                      backupFileExtension = "hm-bak";
                       inherit extraSpecialArgs;
                       sharedModules = [ ./modules/home ];
+                      # TODO: Refactor to support different username
+                      config = "${hostPath}/homes/nix-on-droid.nix";
                     };
                   }
                 ];
