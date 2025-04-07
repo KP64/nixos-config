@@ -6,10 +6,21 @@
     lineNumberMode = "relNumber";
     useSystemClipboard = true;
 
+    options = {
+      tabstop = 4;
+      shiftwidth = 4;
+    };
+
+    withNodeJs = true;
     withRuby = false;
 
     # TODO: Check whether to package more
-    extraPackages = with pkgs; [ ripgrep ];
+    extraPackages = with pkgs; [
+      viu
+      chafa
+      ueberzugpp
+      ripgrep
+    ];
 
     theme = {
       enable = true;
@@ -32,7 +43,13 @@
     # TODO: Remove once familiar with bindings
     binds.whichKey.enable = true;
 
-    # comments.comment-nvim.enable = true;
+    comments.comment-nvim = {
+      enable = true;
+      setupOpts.mappings = {
+        basic = true;
+        extra = true;
+      };
+    };
 
     dashboard.dashboard-nvim = {
       enable = true;
@@ -75,12 +92,16 @@
       bash.enable = true;
       clang.enable = true;
       css.enable = true;
-      # hcl.enable = true; FIX: Broken?
+      hcl.enable = true;
       helm.enable = true;
       html.enable = true;
       markdown = {
         enable = true;
-        extensions.render-markdown-nvim.enable = true;
+        extensions.render-markdown-nvim = {
+          enable = true;
+          # TODO: Enable when supported
+          setupOpts.latex.enabled = false;
+        };
       };
       nix = {
         enable = true;
@@ -171,10 +192,7 @@
 
     treesitter = {
       autotagHtml = true;
-      context = {
-        enable = true;
-        setupOpts.mode = "topline";
-      };
+      context.enable = true;
       # FIX: E350: Cannot create fold with current "foldmethod"
       fold = true;
     };
@@ -192,8 +210,6 @@
       # fastaction.enable = true;
 
       # illuminate.enable = true;
-
-      # modes-nvim.enable = true;
 
       noice = {
         enable = true;
@@ -226,16 +242,22 @@
         };
       };
 
-      # leetcode-nvim = {
-      #   enable = true;
-      #   setupOpts.image_support = true;
-      # };
+      leetcode-nvim = {
+        enable = true;
+        setupOpts = {
+          arg = "lc";
+          # TODO: Enable when wrapping problem is fixed
+          image_support = true;
+        };
+      };
 
-      # mkdir.enable = true;
+      mkdir.enable = true;
 
       # motion.flash-nvim.enable = true;
 
       # multicursors.enable = true;
+
+      oil-nvim.enable = true;
 
       # outline.aerial-nvim.enable = true;
 
