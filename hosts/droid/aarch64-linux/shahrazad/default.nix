@@ -3,7 +3,7 @@
     stateVersion = "24.05";
     sshd = {
       enable = true;
-      pubKey = builtins.readFile ./pubKey.pub;
+      pubKey = builtins.readFile ./sshKey.pub;
     };
   };
 
