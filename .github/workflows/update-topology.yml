@@ -33,6 +33,6 @@ jobs:
         run: nix fmt
 
       - name: Commit and Push changed Files
-        uses: EndBug/add-and-commit@5442017c908921e9bee9dfca7978ca6901143bf0
+        uses: EndBug/add-and-commit@ba9831c23564bc690b385cce69f1b2ca96d5b861
         with:
           message: "chore: update topology"
