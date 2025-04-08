@@ -1,5 +1,11 @@
 {
-  system.stateVersion = "24.05";
+  system = {
+    stateVersion = "24.05";
+    sshd = {
+      enable = true;
+      pubKey = builtins.readFile ./pubKey.pub;
+    };
+  };
 
   time.timeZone = "Europe/Berlin";
 
@@ -8,7 +14,6 @@
   android-integration = {
     am.enable = true;
 
-    # TODO: whats the diff?
     termux-open.enable = true;
     termux-open-url.enable = true;
 

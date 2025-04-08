@@ -32,7 +32,6 @@ in
       exec = "${lib.getExe pkgs.firefox} -p i2p";
     };
 
-    # TODO: Check whether this is correct
     home.file.".mozilla/firefox/${homeUsername}/chrome" = {
       source = "${inputs.potato-fox}/chrome/";
       recursive = true;

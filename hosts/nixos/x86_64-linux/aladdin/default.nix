@@ -65,9 +65,5 @@
 
   gaming.launchers.steam.enable = true;
 
-  virt = {
-    docker.enable = true;
-    # TODO: Borked
-    # virtualbox.enable = true;
-  };
+  virt.docker.enable = true;
 }
