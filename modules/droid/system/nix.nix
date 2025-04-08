@@ -1,6 +1,13 @@
 { pkgs, ... }:
 {
-  environment.etcBackupExtension = ".bak";
+  environment = {
+    etcBackupExtension = ".bak";
+    packages = with pkgs; [
+      gnused
+      gnugrep      
+    ];
+  };
+
   nix = {
     package = pkgs.nixVersions.latest;
     extraOptions = ''

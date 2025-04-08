@@ -4,8 +4,6 @@
 
   time.timeZone = "Europe/Berlin";
 
-  environment.packages = with pkgs; [ helix ];
-
   # terminal.font = ""; # TODO:
 
   android-integration = {
