@@ -4,7 +4,7 @@
     etcBackupExtension = ".bak";
     packages = with pkgs; [
       gnused
-      gnugrep      
+      gnugrep
     ];
   };
 
