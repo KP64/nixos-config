@@ -4,6 +4,15 @@
 
   system.style.catppuccin.enable = true;
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age = {
+      keyFile = "/home/kg/.config/sops/age/keys.txt";
+      sshKeyPaths = [ "/home/kg/.ssh/id_ed25519" ];
+    };
+    secrets."weather.json" = { };
+  };
+
   services = {
     blueman-applet.enable = true;
     network-manager-applet.enable = true;

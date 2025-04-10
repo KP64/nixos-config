@@ -204,13 +204,16 @@ in
                 in
                 lib.concatLines (
                   (lib.optional (addresses != [ ]) "${ipv} -${mode} FORWARD -i ${name} -j ACCEPT")
-                  ++ (map (
-                    addr:
-                    let
-                      iptables = lib.getExe' pkgs.iptables ipv;
-                    in
-                    "${iptables} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
-                  ) addresses)
+                  ++ (
+                    addresses
+                    |> map (
+                      addr:
+                      let
+                        iptables = lib.getExe' pkgs.iptables ipv;
+                      in
+                      "${iptables} -t nat -${mode} POSTROUTING -s ${addr} -o ${cfg.externalInterface} -j MASQUERADE"
+                    )
+                  )
                 );
 
               setIPv4NAT = setNAT "iptables";

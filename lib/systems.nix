@@ -7,7 +7,8 @@ let
     path |> builtins.readDir |> lib.filterAttrs (_: v: v == filetype) |> builtins.attrNames;
 
   getDirNames = getNames "directory";
-  getFileNames = getNames "regular";
+
+  getUsersPath = hostPath: lib.path.append hostPath "users";
 
   getHosts =
     platform:
@@ -18,32 +19,30 @@ let
     |> getDirNames
     |> map (
       arch:
-      (getDirNames "${platformPath}/${arch}")
+      "${platformPath}/${arch}"
+      |> getDirNames
       |> map (host: {
-        ${host} = {
-          hostName = host;
-          system = arch;
-        };
+        ${host}.system = arch;
       })
     )
     |> lib.flatten
     |> lib.mergeAttrsList;
 
   getHomes =
-    path:
-    let
-      homesPath = "${path}/homes";
-    in
-    homesPath
-    |> getFileNames
+    hostPath:
+    hostPath
+    |> getUsersPath
+    |> lib.fileset.fileFilter (file: file.name == "home.nix")
+    |> lib.fileset.toList
+    |> map (home: {
+      username = baseNameOf <| dirOf <| home;
+      inherit home;
+    })
     |> map (
-      u:
-      let
-        username = lib.removeSuffix ".nix" u;
-      in
+      { username, home }:
       {
         home-manager.users.${username} = lib.mkMerge [
-          "${homesPath}/${u}"
+          home
           {
             programs.home-manager.enable = true;
             home = {
@@ -56,21 +55,11 @@ let
     );
 
   getUsers =
-    path:
+    hostPath:
     let
-      userPath = "${path}/users";
+      usersPath = getUsersPath hostPath;
     in
-    userPath
-    |> getFileNames
-    |> map (
-      u:
-      let
-        user = lib.removeSuffix ".nix" u;
-      in
-      {
-        users.users.${user} = import "${userPath}/${u}";
-      }
-    );
+    usersPath |> getDirNames |> map (u: "${usersPath}/${u}");
 in
 {
   inherit getHosts getHomes getUsers;

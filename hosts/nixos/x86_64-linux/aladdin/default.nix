@@ -11,6 +11,18 @@
     cudaSupport = true;
   };
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age = {
+      keyFile = "/home/kg/.config/sops/age/keys.txt";
+      sshKeyPaths = [ "/home/kg/.ssh/id_ed25519" ];
+    };
+    secrets = {
+      "users/kg/password".neededForUsers = true;
+      "wireless.env" = { };
+    };
+  };
+
   security.polkit.enable = true;
 
   system = {
@@ -28,6 +40,22 @@
     bluetoothctl.enable = true;
     networking.enable = true;
     nvidia.enable = true;
+  };
+
+  networking.networkmanager.ensureProfiles = {
+    environmentFiles = [ config.sops.secrets."wireless.env".path ];
+    profiles.home-wifi = {
+      connection = {
+        id = "home-wifi";
+        type = "wifi";
+      };
+      wifi.ssid = "$HOME_WIFI_SSID";
+      wifi-security = {
+        auth-alg = "open";
+        key-mgmt = "wpa-psk";
+        psk = "$HOME_WIFI_PASSWORD";
+      };
+    };
   };
 
   time.timeZone = "Europe/Berlin";

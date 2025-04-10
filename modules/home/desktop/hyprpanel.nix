@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  invisible,
   ...
 }:
 let
@@ -53,8 +54,8 @@ in
 
       menus = {
         clock.weather = {
-          # inherit (invisible.weatherApi) location;
-          # key = config.sops.secrets."weather.json".path;
+          inherit (invisible.weatherApi) location;
+          key = config.sops.secrets."weather.json".path;
           unit = "metric";
         };
 

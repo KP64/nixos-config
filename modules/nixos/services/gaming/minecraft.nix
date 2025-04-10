@@ -123,7 +123,6 @@ in
       minecraft-servers = {
         enable = true;
         eula = true;
-
         servers =
           cfg.servers
           |> map (

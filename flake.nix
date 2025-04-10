@@ -294,10 +294,10 @@
             "droid"
             |> customLib.getHosts
             |> builtins.mapAttrs (
-              n:
-              { hostName, system }:
+              hostName:
+              { system }:
               let
-                hostPath = ./hosts/droid/${system}/${n};
+                hostPath = ./hosts/droid/${system}/${hostName};
               in
               inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
                 home-manager-path = inputs.home-manager.outPath;
@@ -341,10 +341,10 @@
             "nixos"
             |> customLib.getHosts
             |> builtins.mapAttrs (
-              n:
-              { hostName, system }:
+              hostName:
+              { system }:
               let
-                hostPath = ./hosts/nixos/${system}/${n};
+                hostPath = ./hosts/nixos/${system}/${hostName};
               in
               lib.nixosSystem rec {
                 # TODO: Seems like system specification not needed.
@@ -369,6 +369,7 @@
                     nixos-facter-modules.nixosModules.facter
                     nixos-wsl.nixosModules.default
                     catppuccin.nixosModules.catppuccin
+                    sops-nix.nixosModules.sops
                   ])
                   ++ (customLib.getUsers hostPath)
                   ++ (customLib.getHomes hostPath)
