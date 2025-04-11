@@ -21,7 +21,6 @@
     termux-setup-storage.enable = true;
     termux-wake-lock.enable = true;
     termux-wake-unlock.enable = true;
-    # unsupported.enable = true; # TODO: How bad can it be? ;)
     xdg-open.enable = true;
   };
 }

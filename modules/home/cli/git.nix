@@ -27,18 +27,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home = {
-      packages = with pkgs; [
-        gfold
-        gitoxide
-        gitleaks
-        gql
-        trufflehog
-      ];
-
-      # TODO: Check & fix if needed
-      # file.".ssh/allowed_signers".text = "* ${builtins.readFile ../../hosts/${username}/id_ed25519.pub}";
-    };
+    home.packages = with pkgs; [
+      gfold
+      gitoxide
+      gitleaks
+      gql
+      trufflehog
+    ];
 
     programs = {
       gitui.enable = true;

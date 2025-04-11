@@ -245,7 +245,6 @@
       flake = false;
     };
 
-    # TODO: Re-add ASAP
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -289,7 +288,6 @@
           invisible = import "${inputs.nix-invisible}/globals.nix";
         in
         {
-          # TODO: Refactor the hell out of this mess
           nixOnDroidConfigurations =
             "droid"
             |> customLib.getHosts

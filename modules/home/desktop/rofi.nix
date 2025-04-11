@@ -10,7 +10,7 @@ in
 {
   options.desktop.rofi.enable = lib.mkEnableOption "Rofi";
 
-  # TODO: Config for when Catppuccin isn't enabled
+  # TODO: Custom config
   config.programs.rofi = {
     inherit (cfg) enable;
     package = pkgs.rofi-wayland;
