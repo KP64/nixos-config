@@ -25,10 +25,10 @@ in
 
   config = lib.mkIf cfg.enable {
     # TODO: Use privacy respecting browser
-    # TODO: Add Icon
     xdg.desktopEntries.i2p-browser = {
       name = "i2p Browser";
       genericName = "Web Browser";
+      icon = ./i2p.svg;
       exec = "${lib.getExe pkgs.firefox} -p i2p";
     };
 
