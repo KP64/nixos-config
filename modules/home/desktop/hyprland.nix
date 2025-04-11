@@ -92,7 +92,6 @@ in
         hyprpicker.packages.${pkgs.system}.hyprpicker
         hyprland-contrib.packages.${pkgs.system}.grimblast
         hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
-        hyprsunset.packages.${pkgs.system}.hyprsunset
       ];
     };
 

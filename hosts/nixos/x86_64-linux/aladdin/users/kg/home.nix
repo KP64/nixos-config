@@ -1,4 +1,4 @@
-{ invisible, ... }:
+{ config, invisible, ... }:
 {
   home.stateVersion = "24.11";
 
@@ -6,10 +6,14 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age = {
-      keyFile = "/home/kg/.config/sops/age/keys.txt";
-      sshKeyPaths = [ "/home/kg/.ssh/id_ed25519" ];
-    };
+    age =
+      let
+        inherit (config.home) homeDirectory;
+      in
+      {
+        keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+        sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
+      };
     secrets."weather.json" = { };
   };
 
@@ -75,6 +79,7 @@
     hyprlock.enable = true;
     hyprpanel.enable = true;
     hyprpaper.enable = true;
+    hyprsunset.enable = true;
     hyprland = {
       enable = true;
       monitors = [

@@ -12,6 +12,7 @@
     ./hyprlock.nix
     ./hyprpanel.nix
     ./hyprpaper.nix
+    ./hyprsunset.nix
     ./mako.nix
     ./rofi.nix
   ];
