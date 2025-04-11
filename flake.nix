@@ -142,6 +142,16 @@
       flake = false;
     };
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
@@ -401,8 +411,18 @@
         };
 
       perSystem =
-        { self', pkgs, ... }:
         {
+          self',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
+          };
+
           pkgsDirectory = ./pkgs;
 
           packages = rec {
