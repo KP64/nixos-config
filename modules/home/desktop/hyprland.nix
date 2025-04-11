@@ -100,27 +100,27 @@ in
       enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       systemd.variables = [ "--all" ];
-      # plugins = [ inputs.hyprgrass.packages.${pkgs.system}.default ];
+      plugins = [ inputs.hyprgrass.packages.${pkgs.system}.default ];
       settings = {
-        # plugin.touch_gestures = {
-        #   sensitivity = 4.0;
+        plugin.touch_gestures = {
+          sensitivity = 4.0;
 
-        #   workspace_swipe_fingers = 3;
-        #   workspace_swipe_cancel_ratio = 0.1;
+          workspace_swipe_fingers = 3;
+          workspace_swipe_cancel_ratio = 0.1;
 
-        #   workspace_swipe_edge = "u";
+          workspace_swipe_edge = "u";
 
-        #   hyprgrass-bindm = [
-        #     ", longpress:2, movewindow"
-        #     ", longpress:3, resizewindow"
-        #   ];
+          hyprgrass-bindm = [
+            ", longpress:2, movewindow"
+            ", longpress:3, resizewindow"
+          ];
 
-        #   long_press_delay = 400;
+          long_press_delay = 400;
 
-        #   resize_on_boder_long_press = true;
+          resize_on_boder_long_press = true;
 
-        #   edge_margin = 10;
-        # };
+          edge_margin = 10;
+        };
 
         monitor =
           cfg.monitors
@@ -260,7 +260,7 @@ in
           "mouse:273, resizewindow"
         ];
 
-        windowrulev2 =
+        windowrule =
           let
             titles = map (game: "title:^(${game})$") [
               "DOOMEternal"

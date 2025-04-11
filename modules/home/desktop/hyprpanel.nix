@@ -17,29 +17,29 @@ in
     inherit (cfg) enable;
     hyprland.enable = true;
     overwrite.enable = true;
-    # TODO: Configurable
-    theme = "catppuccin_mocha";
-
-    layout."bar.layouts"."*" = {
-      left = [
-        "dashboard"
-        "workspaces"
-      ];
-      middle = [ "media" ];
-      right = [
-        "network"
-        "battery"
-        "volume"
-        "bluetooth"
-        "systray"
-        "clock"
-        "hyprsunset"
-        "notifications"
-      ];
-    };
 
     settings = {
       wallpaper.enable = false;
+
+      theme.name = "catppuccin_mocha";
+
+      layout."bar.layouts"."*" = {
+        left = [
+          "dashboard"
+          "workspaces"
+        ];
+        middle = [ "media" ];
+        right = [
+          "network"
+          "battery"
+          "volume"
+          "bluetooth"
+          "systray"
+          "clock"
+          "hyprsunset"
+          "notifications"
+        ];
+      };
 
       bar = {
         clock.format = "%a %x %X";
