@@ -1,6 +1,14 @@
-{ config, invisible, ... }:
 {
-  home.stateVersion = "24.11";
+  config,
+  pkgs,
+  invisible,
+  ...
+}:
+{
+  home = {
+    stateVersion = "24.11";
+    packages = with pkgs; [ igrep ];
+  };
 
   system.style.catppuccin.enable = true;
 
