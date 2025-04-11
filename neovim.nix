@@ -221,7 +221,7 @@
 
       # fastaction.enable = true;
 
-      # illuminate.enable = true;
+      illuminate.enable = true;
 
       noice = {
         enable = true;
