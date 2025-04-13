@@ -1,5 +1,4 @@
 { pkgs, ... }:
-# TODO: Use commented plugins once more familiar with nvim
 {
   config.vim = {
     enableLuaLoader = true;
@@ -91,7 +90,7 @@
 
     formatter.conform-nvim.enable = true;
 
-    # git.enable = true;
+    git.enable = true;
 
     languages = {
       enableDAP = true;
@@ -148,11 +147,16 @@
 
     lsp = {
       formatOnSave = true;
-      # lspkind.enable = true;
       # lspsaga.enable = true;
       inlayHints.enable = true;
-      # nvim-docs-view.enable = true;
-      # otter-nvim.enable = true;
+      nvim-docs-view.enable = true;
+      otter-nvim = {
+        enable = true;
+        setupOpts = {
+          buffers.write_to_disk = true;
+          handle_leading_whitespace = true;
+        };
+      };
       trouble.enable = true;
     };
 
@@ -205,17 +209,10 @@
     treesitter = {
       autotagHtml = true;
       context.enable = true;
-      # FIX: E350: Cannot create fold with current "foldmethod"
-      fold = true;
     };
 
     ui = {
-      # borders.enable = true;
-
-      # breadcrumbs = {
-      #   enable = true;
-      #   navbuddy.enable = true;
-      # };
+      borders.enable = true;
 
       colorizer.enable = true;
 
@@ -230,11 +227,6 @@
           presets.bottom_search = false;
         };
       };
-
-      # TODO: Check whats the diff with treesitter fold
-      # nvim-ufo.enable = true;
-
-      # smartcolumn.enable = true;
     };
 
     utility = {
@@ -258,7 +250,6 @@
         enable = true;
         setupOpts = {
           arg = "lc";
-          # TODO: Enable when wrapping problem is fixed
           image_support = true;
         };
       };
@@ -277,7 +268,7 @@
 
       # yanky-nvim.enable = true;
 
-      # yazi-nvim.enable = true;
+      yazi-nvim.enable = true;
     };
 
     visuals = {
