@@ -13,6 +13,7 @@ in
       "yuck"
     ]);
   programs = {
+    actionlint.enable = true;
     deadnix.enable = true;
     just.enable = true;
     nixfmt = {
