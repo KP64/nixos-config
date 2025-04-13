@@ -145,7 +145,7 @@ in
         "$terminal" = "kitty";
         "$browser" = "firefox";
         "$menu" = "rofi -show drun -show-icons";
-        "$emenu" = "rofi -modi emoji -show emoji";
+        "$emenu" = "rofi -show emoji";
         "$mainMod" = "SUPER";
 
         exec-once = [
