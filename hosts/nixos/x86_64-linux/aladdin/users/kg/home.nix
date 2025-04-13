@@ -7,7 +7,11 @@
 {
   home = {
     stateVersion = "24.11";
-    packages = with pkgs; [ igrep ];
+    packages = with pkgs; [
+      igrep
+      oh-my-git
+      simplex-chat-desktop
+    ];
   };
 
   system.style.catppuccin.enable = true;
