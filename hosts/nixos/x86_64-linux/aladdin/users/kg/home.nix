@@ -22,7 +22,11 @@
         keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
         sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
       };
-    secrets."weather.json" = { };
+    secrets = {
+      "atuin/key" = { };
+      "atuin/session" = { };
+      "weather.json" = { };
+    };
   };
 
   services = {

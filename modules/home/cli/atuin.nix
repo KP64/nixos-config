@@ -14,17 +14,22 @@ in
     };
   };
 
-  # TODO: Provide atuin key_path via sops-nix
-  config.programs.atuin = {
-    inherit (cfg) enable;
-    daemon.enable = true;
-    settings = {
-      inherit (cfg) sync_address;
-      invert = true;
-      filter_mode_shell_up_key_binding = "directory";
-      style = "auto";
-      update_check = false;
-      enter_accept = true;
+  config.programs.atuin =
+    let
+      inherit (config.sops) secrets;
+    in
+    {
+      inherit (cfg) enable;
+      daemon.enable = true;
+      settings = {
+        inherit (cfg) sync_address;
+        invert = true;
+        filter_mode_shell_up_key_binding = "directory";
+        style = "auto";
+        update_check = false;
+        enter_accept = true;
+        session_path = secrets."atuin/session".path;
+        key_path = secrets."atuin/key".path;
+      };
     };
-  };
 }
