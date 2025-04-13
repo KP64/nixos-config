@@ -39,18 +39,21 @@
     networking.enable = true;
   };
 
-  networking.networkmanager.ensureProfiles = {
-    environmentFiles = [ config.sops.secrets."wireless.env".path ];
-    profiles.home-wifi = {
-      connection = {
-        id = "home-wifi";
-        type = "wifi";
-      };
-      wifi.ssid = "$HOME_WIFI_SSID";
-      wifi-security = {
-        auth-alg = "open";
-        key-mgmt = "wpa-psk";
-        psk = "$HOME_WIFI_PASSWORD";
+  networking.networkmanager = {
+    wifi.powersave = true;
+    ensureProfiles = {
+      environmentFiles = [ config.sops.secrets."wireless.env".path ];
+      profiles.home-wifi = {
+        connection = {
+          id = "home-wifi";
+          type = "wifi";
+        };
+        wifi.ssid = "$HOME_WIFI_SSID";
+        wifi-security = {
+          auth-alg = "open";
+          key-mgmt = "wpa-psk";
+          psk = "$HOME_WIFI_PASSWORD";
+        };
       };
     };
   };
