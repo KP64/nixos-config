@@ -130,6 +130,7 @@ let
   ];
 in
 {
+  # TODO: Enable Encrypted DNS
   options.services.networking.adguard = {
     enable = lib.mkEnableOption "AdguardHome";
     allowedServices = lib.mkOption {
@@ -320,56 +321,50 @@ in
             interval = "24h";
             enabled = true;
           };
-          filters = [
-            {
-              enabled = true;
-              url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
-              name = "AdGuard DNS filter";
-              id = 1;
-            }
-            {
-              enabled = true;
-              url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/pro.txt";
-              name = "Hagezi Pro";
-              id = 2;
-            }
-            {
-              enabled = true;
-              url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/tif.txt";
-              name = "Hagezi TIFs";
-              id = 3;
-            }
-            {
-              enabled = true;
-              url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/hoster.txt";
-              name = "Hagezi Badware Hoster";
-              id = 4;
-            }
-            {
-              enabled = true;
-              url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/spam-tlds.txt";
-              name = "Hagezi Most Abused TLDs";
-              id = 5;
-            }
-            {
-              enabled = true;
-              url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/gambling.txt";
-              name = "Hagezi Gambling";
-              id = 6;
-            }
-            {
-              enabled = true;
-              url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.winoffice.txt";
-              name = "Hagezi Native Tracker Windows";
-              id = 7;
-            }
-            {
-              enabled = true;
-              url = "https://nsfw.oisd.nl/";
-              name = "oisd NSFW";
-              id = 8;
-            }
-          ];
+          filters =
+            lib.imap
+              (
+                idx: attr:
+                attr
+                // {
+                  enabled = true;
+                  id = idx;
+                }
+              )
+              [
+                {
+                  url = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
+                  name = "AdGuard DNS filter";
+                }
+                {
+                  url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/pro.txt";
+                  name = "Hagezi Pro";
+                }
+                {
+                  url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/tif.txt";
+                  name = "Hagezi TIFs";
+                }
+                {
+                  url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/hoster.txt";
+                  name = "Hagezi Badware Hoster";
+                }
+                {
+                  url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/spam-tlds.txt";
+                  name = "Hagezi Most Abused TLDs";
+                }
+                {
+                  url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/gambling.txt";
+                  name = "Hagezi Gambling";
+                }
+                {
+                  url = "https://gitlab.com/hagezi/mirror/-/raw/main/dns-blocklists/adblock/native.winoffice.txt";
+                  name = "Hagezi Native Tracker Windows";
+                }
+                {
+                  url = "https://nsfw.oisd.nl/";
+                  name = "oisd NSFW";
+                }
+              ];
           whitelist_filters = [ ];
           user_rules = map (toAllow: "@@||${toAllow}") [
             "flakehub.com^"
