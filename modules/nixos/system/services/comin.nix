@@ -25,6 +25,5 @@ in
         branches.testing.name = "";
       }
     ];
-    # exporter = { }; # TODO: For prometheus
   };
 }

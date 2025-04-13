@@ -9,7 +9,7 @@
 
   time.timeZone = "Europe/Berlin";
 
-  # terminal.font = ""; # TODO:
+  # terminal.font = ""; # TODO
 
   android-integration = {
     am.enable = true;
