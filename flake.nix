@@ -290,17 +290,18 @@
 
       flake =
         let
-          inherit (inputs.nixpkgs) lib;
           rootPath = inputs.self.outPath;
-          # TODO: Extend nixos lib with it
-          customLib = import ./lib { inherit inputs rootPath; };
+          lib = inputs.nixpkgs.lib.extend (
+            _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
+          );
+
           # TODO: Important to do on a per User basis!
           invisible = import "${inputs.nix-invisible}/globals.nix";
         in
         {
           nixOnDroidConfigurations =
             "droid"
-            |> customLib.getHosts
+            |> lib.custom.getHosts
             |> builtins.mapAttrs (
               hostName:
               { system }:
@@ -314,7 +315,6 @@
                     inputs
                     hostName
                     rootPath
-                    customLib
                     invisible
                     ;
                 };
@@ -347,7 +347,7 @@
 
           nixosConfigurations =
             "nixos"
-            |> customLib.getHosts
+            |> lib.custom.getHosts
             |> builtins.mapAttrs (
               hostName:
               { system }:
@@ -365,7 +365,6 @@
                     inputs
                     hostName
                     rootPath
-                    customLib
                     invisible
                     ;
                 };
@@ -378,17 +377,15 @@
                     nixos-wsl.nixosModules.default
                     catppuccin.nixosModules.catppuccin
                     sops-nix.nixosModules.sops
+                    nur.modules.nixos.default
                   ])
-                  ++ (customLib.getUsers hostPath)
-                  ++ (customLib.getHomes hostPath)
+                  ++ (lib.custom.getUsers hostPath)
+                  ++ (lib.custom.getHomes hostPath)
                   ++ [
                     hostPath
                     ./modules/nixos
                     {
-                      nixpkgs.overlays = with inputs; [
-                        nur.overlays.default
-                        hyprpanel.overlay
-                      ];
+                      nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
 
                       networking = { inherit hostName; };
 

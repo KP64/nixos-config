@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  customLib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.apps.thunderbird;
 in
@@ -14,8 +9,8 @@ in
     inherit (cfg) enable;
     profiles.${config.home.username} = {
       isDefault = true;
-      settings = customLib.collectLastEntries (
-        customLib.appendLastWithFullPath {
+      settings = lib.custom.collectLastEntries (
+        lib.custom.appendLastWithFullPath {
           middlemouse.paste = false;
           general.autoScroll = true;
 

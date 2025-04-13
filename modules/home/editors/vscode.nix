@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  customLib,
   pkgs,
   inputs,
   ...
@@ -94,8 +93,8 @@ in
       };
 
       userSettings =
-        (customLib.collectLastEntries (
-          customLib.appendLastWithFullPath {
+        (lib.custom.collectLastEntries (
+          lib.custom.appendLastWithFullPath {
             tabby = {
               # Confusing but this actually disables it
               config.telemetry = true;

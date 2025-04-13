@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  customLib,
   pkgs,
   inputs,
   ...
@@ -49,8 +48,8 @@ in
               ublock-origin
             ];
           };
-          settings = customLib.collectLastEntries (
-            customLib.appendLastWithFullPath {
+          settings = lib.custom.collectLastEntries (
+            lib.custom.appendLastWithFullPath {
               keyword.enabled = false;
               browser = {
                 contentblocking.category = "strict";
@@ -92,8 +91,6 @@ in
                 "google"
                 "ddg"
                 "wikipedia"
-                # TODO: Find a way to disable
-                # "LibRedirect"
               ]
               // {
                 SearXNG = {
@@ -150,8 +147,8 @@ in
                 };
               };
           };
-          settings = customLib.collectLastEntries (
-            customLib.appendLastWithFullPath {
+          settings = lib.custom.collectLastEntries (
+            lib.custom.appendLastWithFullPath {
               browser = {
                 aboutConfig.showWarning = false;
                 aboutwelcome.enabled = false;
