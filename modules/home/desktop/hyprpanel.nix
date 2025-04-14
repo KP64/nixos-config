@@ -53,11 +53,15 @@ in
       };
 
       menus = {
-        clock.weather = {
-          inherit (invisible.weatherApi) location;
-          key = config.sops.secrets."weather.json".path;
-          unit = "metric";
-        };
+        clock.weather =
+          let
+            inherit (config.sops) secrets;
+          in
+          {
+            inherit (invisible.weatherApi) location;
+            unit = "metric";
+          }
+          // lib.optionalAttrs (secrets ? "weather.json") { key = secrets."weather.json".path; };
 
         dashboard = {
           shortcuts.left = {
