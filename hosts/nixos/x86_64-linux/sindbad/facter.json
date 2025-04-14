@@ -15,10 +15,10 @@
         "version": 0,
         "video_memory": 0
       },
-      "pnp": false,
+      "pnp": true,
       "pnp_id": 0,
       "lba_support": false,
-      "low_memory_size": 0,
+      "low_memory_size": 643072,
       "smbios_version": 768
     },
     "bluetooth": [
@@ -915,7 +915,6 @@
           "range": 16
         },
         "unix_device_names": [
-          "/dev/disk/by-diskseq/1",
           "/dev/disk/by-id/ata-Intenso_SSD_Sata_III_AYSNT1105OUT000642",
           "/dev/disk/by-path/pci-0000:00:17.0-ata-2",
           "/dev/disk/by-path/pci-0000:00:17.0-ata-2.0",
@@ -1072,7 +1071,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.13.3-zen1 xhci-hcd",
+          "name": "Linux 6.14.0-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1082,11 +1081,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.13",
+          "name": "6.14",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.13.3-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.14.0-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -1128,7 +1127,7 @@
         "hotplug": "usb",
         "driver": "hub",
         "drivers": ["hub"],
-        "module_alias": "usb:v1D6Bp0002d0613dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0614dc09dsc00dp01ic09isc00ip00in00"
       },
       {
         "index": 38,
@@ -1150,7 +1149,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.13.3-zen1 xhci-hcd",
+          "name": "Linux 6.14.0-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1160,11 +1159,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.13",
+          "name": "6.14",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.13.3-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.14.0-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -1196,7 +1195,7 @@
         "hotplug": "usb",
         "driver": "hub",
         "drivers": ["hub"],
-        "module_alias": "usb:v1D6Bp0003d0613dc09dsc00dp03ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0003d0614dc09dsc00dp03ic09isc00ip00in00"
       }
     ],
     "memory": [
@@ -1219,7 +1218,7 @@
           {
             "type": "mem",
             "base": 0,
-            "range": 8066478080,
+            "range": 8061042688,
             "enabled": true,
             "access": "read_write",
             "prefetch": "unknown"
@@ -1359,11 +1358,11 @@
           "range": 1
         },
         "unix_device_names": ["/dev/input/mice"],
-        "unix_device_name2": "/dev/input/mouse2",
+        "unix_device_name2": "/dev/input/mouse0",
         "unix_device_number2": {
           "type": 99,
           "major": 13,
-          "minor": 34,
+          "minor": 32,
           "range": 1
         },
         "resources": [
@@ -1468,11 +1467,11 @@
           "range": 1
         },
         "unix_device_names": ["/dev/input/mice"],
-        "unix_device_name2": "/dev/input/mouse3",
+        "unix_device_name2": "/dev/input/mouse1",
         "unix_device_number2": {
           "type": 99,
           "major": 13,
-          "minor": 35,
+          "minor": 33,
           "range": 1
         },
         "resources": [
@@ -1552,8 +1551,8 @@
           "hex": "000e",
           "value": 14
         },
-        "sysfs_id": "/devices/platform/i8042/serio1/input/input5",
-        "unix_device_names": ["/dev/input/event5", "/dev/input/ + handler"]
+        "sysfs_id": "/devices/platform/i8042/serio1/input/input17",
+        "unix_device_names": ["/dev/input/event8", "/dev/input/ + handler"]
       }
     ],
     "network_controller": [
@@ -1697,7 +1696,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 98
+            "address": 50
           },
           {
             "type": "irq",
@@ -1860,7 +1859,7 @@
           },
           {
             "type": "hwaddr",
-            "address": 97
+            "address": 50
           }
         ],
         "detail": {
@@ -1915,6 +1914,59 @@
     "network_interface": [
       {
         "index": 39,
+        "attached_to": 21,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/wlp4s0",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:1c.2/0000:04:00.0",
+        "unix_device_name": "wlp4s0",
+        "unix_device_names": ["wlp4s0"],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 50
+          },
+          {
+            "type": "phwaddr",
+            "address": 50
+          }
+        ],
+        "driver": "iwlwifi",
+        "driver_module": "iwlwifi",
+        "drivers": ["iwlwifi"],
+        "driver_modules": ["iwlwifi"]
+      },
+      {
+        "index": 40,
+        "attached_to": 0,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_name": "lo",
+        "unix_device_names": ["lo"]
+      },
+      {
+        "index": 41,
         "attached_to": 20,
         "class_list": ["network_interface"],
         "base_class": {
@@ -1948,59 +2000,6 @@
         "driver_modules": ["e1000e"]
       },
       {
-        "index": 40,
-        "attached_to": 21,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/wlp4s0",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:1c.2/0000:04:00.0",
-        "unix_device_name": "wlp4s0",
-        "unix_device_names": ["wlp4s0"],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 98
-          },
-          {
-            "type": "phwaddr",
-            "address": 50
-          }
-        ],
-        "driver": "iwlwifi",
-        "driver_module": "iwlwifi",
-        "drivers": ["iwlwifi"],
-        "driver_modules": ["iwlwifi"]
-      },
-      {
-        "index": 41,
-        "attached_to": 0,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_name": "lo",
-        "unix_device_names": ["lo"]
-      },
-      {
         "index": 42,
         "attached_to": 29,
         "class_list": ["network_interface"],
@@ -2022,7 +2021,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 97
+            "address": 50
           }
         ],
         "driver": "cdc_mbim",
@@ -3182,38 +3181,40 @@
         "sram_type_supported": ["Synchronous"]
       }
     ],
-    "chassis": {
-      "handle": 14,
-      "manufacturer": "LENOVO",
-      "version": "None",
-      "chassis_type": {
-        "hex": "001f",
-        "name": "Other",
-        "value": 31
-      },
-      "lock_present": false,
-      "bootup_state": {
-        "hex": "0002",
-        "name": "Unknown",
-        "value": 2
-      },
-      "power_state": {
-        "hex": "0002",
-        "name": "Unknown",
-        "value": 2
-      },
-      "thermal_state": {
-        "hex": "0002",
-        "name": "Unknown",
-        "value": 2
-      },
-      "security_state": {
-        "hex": "0002",
-        "name": "Unknown",
-        "value": 2
-      },
-      "oem": "0x0"
-    },
+    "chassis": [
+      {
+        "handle": 14,
+        "manufacturer": "LENOVO",
+        "version": "None",
+        "chassis_type": {
+          "hex": "001f",
+          "name": "Other",
+          "value": 31
+        },
+        "lock_present": false,
+        "bootup_state": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "power_state": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "thermal_state": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "security_state": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "oem": "0x0"
+      }
+    ],
     "config": {
       "handle": 33
     },

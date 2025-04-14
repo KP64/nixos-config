@@ -1,4 +1,9 @@
-{ pkgs, invisible, ... }:
+{
+  config,
+  pkgs,
+  invisible,
+  ...
+}:
 {
   home = {
     stateVersion = "24.11";
@@ -9,6 +14,23 @@
   };
 
   system.style.catppuccin.enable = true;
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age =
+      let
+        inherit (config.home) homeDirectory;
+      in
+      {
+        keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+        sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
+      };
+    secrets = {
+      "atuin/key" = { };
+      "atuin/session" = { };
+      "weather.json" = { };
+    };
+  };
 
   services = {
     blueman-applet.enable = true;
@@ -55,7 +77,7 @@
       nushell.enable = true;
     };
     tealdeer.enable = true;
-    zoxide.enable = true;
+    # zoxide.enable = true;
   };
 
   desktop = {

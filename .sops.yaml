@@ -1,6 +1,6 @@
 keys:
   - &kg age1aq8u2tm6v5ylvjn5g5hzysnxf9tlsrkgl4s3ykkhu30nf0ce6u9sn9vspu
-  - &tp age1vy2rjgm67w96m3tkl4zgkhqudld9r6nnr55yuu287c4d9rt7x95stqrvlx
+  - &tp age1zve6v6g4rlt595d7zew8ewr05u2fnaptat6gcqa7mv07yefy29yqtpkr7c
 creation_rules:
   - path_regex: hosts\/.+\/aladdin\/secrets\.yaml$
     key_groups:
