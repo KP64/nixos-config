@@ -10,16 +10,18 @@ in
 {
   options.cli.ricing.enable = lib.mkEnableOption "All ricing";
 
-  config.home.packages = lib.optionals cfg.enable (
-    with pkgs;
-    [
+  config = lib.mkIf cfg.enable {
+    programs.cava.enable = true;
+    home.packages = with pkgs; [
       cbonsai
       cfonts
       cmatrix
+      figlet
       genact
       nms
       pipes-rs
       rust-stakeholder
-    ]
-  );
+      toilet
+    ];
+  };
 }

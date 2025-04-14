@@ -20,7 +20,6 @@
     bacon.enable = true;
     bat.enable = true;
     btop.enable = true;
-    cava.enable = true;
     fzf.enable = true;
     mpv.enable = true;
     mangohud.enable = true;
