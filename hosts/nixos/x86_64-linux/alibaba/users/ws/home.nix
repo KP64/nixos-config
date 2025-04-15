@@ -10,7 +10,6 @@
     fzf.enable = true;
     pay-respects.enable = true;
     ripgrep.enable = true;
-    zellij.enable = true;
   };
 
   cli = {
@@ -25,6 +24,7 @@
       };
     };
     lsd.enable = true;
+    multiplexer.zellij.enable = true;
     navi.enable = true;
     ricing.enable = true;
     starship.enable = true;
