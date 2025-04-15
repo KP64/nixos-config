@@ -274,6 +274,11 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    yazi-hexyl = {
+      url = "github:Reledia/hexyl.yazi";
+      flake = false;
+    };
   };
 
   outputs =
