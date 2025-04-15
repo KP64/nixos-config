@@ -14,11 +14,20 @@ in
   config.programs.rofi = {
     inherit (cfg) enable;
     package = pkgs.rofi-wayland;
-    plugins = [ pkgs.rofi-emoji-wayland ];
+    plugins = with pkgs; [
+      rofi-emoji-wayland
+      rofi-calc
+    ];
 
     cycle = false;
 
-    extraConfig.modi = "run,drun,emoji,window";
+    extraConfig.modi = builtins.concatStringsSep "," [
+      "run"
+      "drun"
+      "window"
+      "emoji"
+      "calc"
+    ];
 
     theme = {
       window = rec {

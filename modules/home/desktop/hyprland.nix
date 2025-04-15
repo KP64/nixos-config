@@ -144,8 +144,6 @@ in
 
         "$terminal" = "kitty";
         "$browser" = "firefox";
-        "$menu" = "rofi -show drun -show-icons";
-        "$emenu" = "rofi -show emoji";
         "$mainMod" = "SUPER";
 
         exec-once = [
@@ -208,8 +206,9 @@ in
           ++ map (s: "$mainMod, ${s}") [
             "T, exec, $terminal"
             "F, exec, $browser"
-            "R, exec, $menu"
-            "E, exec, $emenu"
+            "R, exec, rofi -show drun -show-icons"
+            "E, exec, rofi -show emoji"
+            "W, exec, rofi -show calc"
 
             "C, killactive,"
             "M, exit,"
