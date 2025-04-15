@@ -262,7 +262,7 @@ in
             force = true;
             packages = with pkgs.nur.repos.rycee.firefox-addons; [
               bitwarden
-              catppuccin-gh-file-explorer
+              catppuccin-web-file-icons
               darkreader
               dearrow
               enhancer-for-youtube
