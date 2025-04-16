@@ -7,6 +7,8 @@
     enableGtkIcons = false;
   };
 
+  services.ollama.enable = true;
+
   programs = {
     bacon.enable = true;
     bat.enable = true;
