@@ -45,9 +45,7 @@ in
     '';
 
     environment.packages = [
-      (pkgs.writeScriptBin "sshd-start" ''
-        #!${pkgs.runtimeShell}
-
+      (pkgs.wirters.writeBashBin "sshd-start" ''
         echo "Starting sshd in non-daemonized way on port ${toString port}"
         ${getSSH "sshd"} -f "${sshdDirectory}/sshd_config" -D
       '')
