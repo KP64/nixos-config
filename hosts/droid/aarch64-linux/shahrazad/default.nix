@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   system = {
     stateVersion = "24.05";
@@ -9,7 +10,7 @@
 
   time.timeZone = "Europe/Berlin";
 
-  # terminal.font = ""; # TODO
+  terminal.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFontMono-Regular.ttf";
 
   android-integration = {
     am.enable = true;
