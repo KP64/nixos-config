@@ -110,7 +110,7 @@
         enable = true;
         extensions.render-markdown-nvim = {
           enable = true;
-          # TODO: Enable when supported
+          # TODO: Enable again when supported
           setupOpts.latex.enabled = false;
         };
       };
@@ -234,11 +234,8 @@
 
       images.image-nvim = {
         enable = true;
-        # If you aren't using kitty as your
-        # terminal emulator...
-        # just what are you doing?
         setupOpts = {
-          backend = "kitty";
+          backend = "ueberzug";
           integrations = {
             markdown.downloadRemoteImages = true;
             neorg.downloadRemoteImages = true;

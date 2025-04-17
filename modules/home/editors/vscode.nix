@@ -68,6 +68,7 @@ in
             black-formatter
             python
           ])
+          # TODO: Remove once https://github.com/catppuccin/nix/issues/518 is closed.
           ++ (with catppuccin; [ catppuccin-vsc-icons ])
           ++ (with ms-vscode; [
             cpptools-extension-pack
