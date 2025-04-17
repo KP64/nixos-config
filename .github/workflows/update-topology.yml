@@ -27,7 +27,9 @@ jobs:
         run: nix build .#topology.x86_64-linux.config.output --extra-experimental-features pipe-operators
 
       - name: Move Topology
-        run: sudo cp -r result/* assets/topology/
+        run: |
+          mkdir -p assets/topology/
+          sudo cp -r result/* assets/topology/
 
       - name: fmt SVGs
         run: nix fmt
