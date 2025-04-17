@@ -30,6 +30,7 @@
       sudo-rs.enable = true;
     };
     services.ssh.enable = true;
+    style.catppuccin.enable = true;
   };
 
   hardware = {
@@ -75,12 +76,6 @@
         physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
       };
     };
-
-  catppuccin = {
-    enable = true;
-    accent = "lavender";
-    sddm.background = "${rootPath}/assets/wallpapers/cat-nix.png";
-  };
 
   services = {
     blueman.enable = true;

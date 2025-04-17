@@ -1,4 +1,3 @@
-{ rootPath, ... }:
 {
   wsl = {
     enable = true;
@@ -20,15 +19,10 @@
     language = "en";
     security.sudo-rs.enable = true;
     services.ssh.enable = true;
+    style.catppuccin.enable = true;
   };
 
   time.timeZone = "Europe/Berlin";
 
   topology.self.hardware.info = "WSL";
-
-  catppuccin = {
-    enable = true;
-    accent = "lavender";
-    sddm.background = "${rootPath}/assets/wallpapers/cat-nix.png";
-  };
 }

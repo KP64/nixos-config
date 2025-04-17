@@ -385,7 +385,6 @@
                     nix-topology.nixosModules.default
                     nixos-facter-modules.nixosModules.facter
                     nixos-wsl.nixosModules.default
-                    catppuccin.nixosModules.catppuccin
                     sops-nix.nixosModules.sops
                     nur.modules.nixos.default
                   ])

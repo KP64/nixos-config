@@ -1,4 +1,4 @@
-{ config, rootPath, ... }:
+{ config, ... }:
 {
   imports = [ ./disko-config.nix ];
 
@@ -33,6 +33,7 @@
       sudo-rs.enable = true;
     };
     services.ssh.enable = true;
+    style.catppuccin.enable = true;
   };
 
   hardware = {
@@ -68,12 +69,6 @@
       network = "home";
       physicalConnections = [ (topology.mkConnectionRev "router" "wifi") ];
     };
-
-  catppuccin = {
-    enable = true;
-    accent = "lavender";
-    sddm.background = "${rootPath}/assets/wallpapers/cat-nix.png";
-  };
 
   services = {
     blueman.enable = true;
