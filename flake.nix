@@ -1,5 +1,5 @@
 {
-  description = "KP64's NixOS ❄️";
+  description = "KP64's Ultimate Nixos ❄️";
 
   inputs = {
     catppuccin.url = "github:catppuccin/nix";
@@ -105,6 +105,7 @@
       };
     };
 
+    # TODO: Re-add ASAP
     impermanence.url = "github:nix-community/impermanence";
 
     lanzaboote = {
@@ -141,6 +142,16 @@
       flake = false;
     };
 
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
@@ -168,6 +179,14 @@
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
       };
     };
 
@@ -209,8 +228,6 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-
     nvf = {
       url = "github:notashelf/nvf";
       inputs = {
@@ -230,12 +247,13 @@
       };
     };
 
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+
+    # TODO: Find better alternatives
     potato-fox = {
       url = "git+https://codeberg.org/awwpotato/PotatoFox.git";
       flake = false;
     };
-
-    raspberry-pi-nix.url = "github:nix-community/raspberry-pi-nix";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -250,90 +268,175 @@
       };
     };
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-        nur.follows = "nur";
-        systems.follows = "systems";
-      };
-    };
-
     systems.url = "github:nix-systems/default";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    yazi-hexyl = {
+      url = "github:Reledia/hexyl.yazi";
+      flake = false;
+    };
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-
-      flake =
-        let
-          customLib = import ./lib.nix { inherit inputs; };
-        in
-        {
-          nixosConfigurations = {
-            kg = customLib.mkSystem {
-              username = "kg";
-              system = "x86_64-linux";
-            };
-
-            tp = customLib.mkSystem {
-              username = "tp";
-              system = "x86_64-linux";
-            };
-
-            ws = customLib.mkSystem {
-              username = "ws";
-              system = "x86_64-linux";
-              wsl = true;
-            };
-
-            rs = customLib.mkSystem {
-              username = "rs";
-              system = "aarch64-linux";
-              pi = true;
-            };
-          };
-        };
 
       imports = with inputs; [
         treefmt-nix.flakeModule
         nix-topology.flakeModule
         home-manager.flakeModules.home-manager
+        pkgs-by-name-for-flake-parts.flakeModule
       ];
+
+      flake =
+        let
+          rootPath = inputs.self.outPath;
+          lib = inputs.nixpkgs.lib.extend (
+            _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
+          );
+
+          # TODO: Important to do on a per User basis!
+          invisible = import "${inputs.nix-invisible}/globals.nix";
+        in
+        {
+          nixOnDroidConfigurations =
+            "droid"
+            |> lib.custom.getHosts
+            |> builtins.mapAttrs (
+              hostName:
+              { system }:
+              let
+                hostPath = ./hosts/droid/${system}/${hostName};
+              in
+              inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
+                home-manager-path = inputs.home-manager.outPath;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    hostName
+                    rootPath
+                    invisible
+                    ;
+                };
+
+                pkgs = import inputs.nixpkgs {
+                  inherit system;
+                  overlays = with inputs; [
+                    nix-on-droid.overlays.default
+                    hyprpanel.overlay
+                  ];
+                };
+
+                modules = [
+                  hostPath
+                  ./modules/droid
+                  {
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      backupFileExtension = "hm-bak";
+                      inherit extraSpecialArgs;
+                      sharedModules = [ ./modules/home ];
+                      # TODO: Refactor to support different username
+                      config = "${hostPath}/homes/nix-on-droid.nix";
+                    };
+                  }
+                ];
+              }
+            );
+
+          nixosConfigurations =
+            "nixos"
+            |> lib.custom.getHosts
+            |> builtins.mapAttrs (
+              hostName:
+              { system }:
+              let
+                hostPath = ./hosts/nixos/${system}/${hostName};
+              in
+              lib.nixosSystem rec {
+                # TODO: Seems like system specification not needed.
+                # Maybe it only woks because facter takes care of it.
+                # If it isn't neede at all this would simplify the directory
+                # logic by a lot.
+                inherit system;
+                specialArgs = {
+                  inherit
+                    inputs
+                    hostName
+                    rootPath
+                    invisible
+                    ;
+                };
+                modules =
+                  (with inputs; [
+                    disko.nixosModules.disko
+                    home-manager.nixosModules.home-manager
+                    nix-topology.nixosModules.default
+                    nixos-facter-modules.nixosModules.facter
+                    nixos-wsl.nixosModules.default
+                    catppuccin.nixosModules.catppuccin
+                    sops-nix.nixosModules.sops
+                    nur.modules.nixos.default
+                  ])
+                  ++ (lib.custom.getUsers hostPath)
+                  ++ (lib.custom.getHomes hostPath)
+                  ++ [
+                    hostPath
+                    ./modules/nixos
+                    {
+                      nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
+
+                      networking = { inherit hostName; };
+
+                      users.mutableUsers = false;
+
+                      catppuccin.cache.enable = true;
+
+                      home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        backupFileExtension = "backup";
+                        extraSpecialArgs = specialArgs;
+
+                        sharedModules = [ ./modules/home ];
+                      };
+                    }
+                  ];
+              }
+            );
+        };
 
       perSystem =
         {
           self',
-          lib,
           pkgs,
+          system,
           ...
         }:
         {
-          packages =
-            (lib.packagesFromDirectoryRecursive {
-              inherit (pkgs) callPackage;
-              directory = ./pkgs;
-            })
-            // {
-              default = self'.packages.neovim;
-              inherit
-                (inputs.nvf.lib.neovimConfiguration {
-                  inherit pkgs;
-                  modules = [ ./neovim.nix ];
-                })
-                neovim
-                ;
-            };
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
+          };
+
+          pkgsDirectory = ./pkgs;
+
+          packages = rec {
+            default = neovim;
+            inherit
+              (inputs.nvf.lib.neovimConfiguration {
+                inherit pkgs;
+                modules = [ ./neovim.nix ];
+              })
+              neovim
+              ;
+          };
 
           # Check all packages
           checks = self'.packages;

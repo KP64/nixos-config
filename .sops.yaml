@@ -1,13 +1,21 @@
 keys:
-  - &kg age18t0vlx3jykctemgz68u7pjdhr87e6g5yfpwqjp0ek0wa2vmyngjqlgahkt
-  - &rs age1a5x4yf5tjhc6v4tgx6jmxljwzg845zs9r5rc46e680gck7twjcgsyrwe44
-  - &ws age1rrds73cgd2nmd6py7j6cvpk28kwgu6kw30mhr0y4nz2crw9hf9cs6df32k
-  - &tp age1vy2rjgm67w96m3tkl4zgkhqudld9r6nnr55yuu287c4d9rt7x95stqrvlx
+  - &kg age1aq8u2tm6v5ylvjn5g5hzysnxf9tlsrkgl4s3ykkhu30nf0ce6u9sn9vspu
+  - &tp age1zve6v6g4rlt595d7zew8ewr05u2fnaptat6gcqa7mv07yefy29yqtpkr7c
 creation_rules:
-  - path_regex: hosts\/.+\/secrets\.(yaml|json|env|ini)$
+  - path_regex: hosts\/.+\/aladdin\/secrets\.yaml$
     key_groups:
       - age:
           - *kg
-          - *rs
-          - *ws
+  - path_regex: hosts\/.+\/aladdin\/users\/kg\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *kg
+
+  - path_regex: hosts\/.+\/sindbad\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *tp
+  - path_regex: hosts\/.+\/sindbad\/users\/tp\/secrets\.yaml$
+    key_groups:
+      - age:
           - *tp

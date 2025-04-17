@@ -1,4 +1,3 @@
-# TODO: Use commented plugins once more familiar with nvim
 { pkgs, ... }:
 {
   config.vim = {
@@ -6,14 +5,33 @@
     lineNumberMode = "relNumber";
     useSystemClipboard = true;
 
+    options = {
+      tabstop = 4;
+      shiftwidth = 4;
+    };
+
     withNodeJs = true;
     withRuby = false;
 
     extraPackages = with pkgs; [
+      # System
+      curl
+      git
+
+      # fzf-lua
+      ## required
+      fzf
+      git
+      ripgrep
+      fd
+      ## optional:media
       viu
       chafa
       ueberzugpp
+
+      # nvim-treesitter
       tree-sitter
+      gcc
     ];
 
     theme = {
@@ -34,7 +52,6 @@
 
     autopairs.nvim-autopairs.enable = true;
 
-    # TODO: Remove once familiar with bindings
     binds.whichKey.enable = true;
 
     comments.comment-nvim = {
@@ -73,7 +90,7 @@
 
     formatter.conform-nvim.enable = true;
 
-    # git.enable = true;
+    git.enable = true;
 
     languages = {
       enableDAP = true;
@@ -130,10 +147,16 @@
 
     lsp = {
       formatOnSave = true;
-      # lspkind.enable = true;
       # lspsaga.enable = true;
-      # nvim-docs-view.enable = true;
-      # otter-nvim.enable = true;
+      inlayHints.enable = true;
+      nvim-docs-view.enable = true;
+      otter-nvim = {
+        enable = true;
+        setupOpts = {
+          buffers.write_to_disk = true;
+          handle_leading_whitespace = true;
+        };
+      };
       trouble.enable = true;
     };
 
@@ -186,23 +209,16 @@
     treesitter = {
       autotagHtml = true;
       context.enable = true;
-      # FIX: E350: Cannot create fold with current "foldmethod"
-      fold = true;
     };
 
     ui = {
-      # borders.enable = true;
-
-      # breadcrumbs = {
-      #   enable = true;
-      #   navbuddy.enable = true;
-      # };
+      borders.enable = true;
 
       colorizer.enable = true;
 
       # fastaction.enable = true;
 
-      # illuminate.enable = true;
+      illuminate.enable = true;
 
       noice = {
         enable = true;
@@ -211,11 +227,6 @@
           presets.bottom_search = false;
         };
       };
-
-      # TODO: Check whats the diff with treesitter fold
-      # nvim-ufo.enable = true;
-
-      # smartcolumn.enable = true;
     };
 
     utility = {
@@ -236,12 +247,13 @@
         enable = true;
         setupOpts = {
           arg = "lc";
-          # TODO: Enable when wrapping problem is fixed
-          # image_support = true;
+          image_support = true;
         };
       };
 
       mkdir.enable = true;
+
+      # motion.flash-nvim.enable = true;
 
       # multicursors.enable = true;
 
@@ -253,7 +265,7 @@
 
       # yanky-nvim.enable = true;
 
-      # yazi-nvim.enable = true;
+      yazi-nvim.enable = true;
     };
 
     visuals = {

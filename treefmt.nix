@@ -8,18 +8,19 @@ in
     ++ [ "UNLICENSE" ]
     ++ (mapExtension [
       "pub"
-      "png"
       "jpg"
       "lycheeignore"
       "yuck"
     ]);
   programs = {
+    actionlint.enable = true;
     deadnix.enable = true;
     just.enable = true;
     nixfmt = {
       enable = true;
       strict = true;
     };
+    oxipng.enable = true;
     prettier = {
       enable = true;
       excludes = excludeSecrets;

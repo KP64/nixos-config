@@ -1,4 +1,4 @@
-default_host := "rs"
+default_host := "saladin"
 
 # Builds an sd-Image for nixos on a raspberry 🥧
 build host=default_host:
