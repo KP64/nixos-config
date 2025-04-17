@@ -6,28 +6,6 @@
 }:
 let
   cfg = config.system.style.catppuccin;
-
-  accents = [
-    "blue"
-    "flamingo"
-    "green"
-    "lavender"
-    "maroon"
-    "mauve"
-    "peach"
-    "pink"
-    "red"
-    "rosewater"
-    "sapphire"
-    "sky"
-    "teal"
-    "yellow"
-  ];
-
-  cursorAccents = accents ++ [
-    "dark"
-    "light"
-  ];
 in
 {
   imports = [ inputs.catppuccin.homeModules.catppuccin ];
@@ -51,14 +29,14 @@ in
 
       accent = lib.mkOption {
         default = "lavender";
-        type = lib.types.enum accents;
+        type = lib.types.nonEmptyStr;
         description = "What Accent Catppuccin should use.";
         example = "rosewater";
       };
 
       cursorAccent = lib.mkOption {
         default = "dark";
-        type = lib.types.enum cursorAccents;
+        type = lib.types.nonEmptyStr;
         description = "What Accent the desktop cursor should use.";
         example = "lavender";
       };

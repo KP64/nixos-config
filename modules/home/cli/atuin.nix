@@ -8,7 +8,7 @@ in
 
     sync_address = lib.mkOption {
       default = "https://atuin.nix-pi.ipv64.de";
-      type = with lib.types; nullOr nonEmptyStr;
+      type = lib.types.nonEmptyStr;
       example = "https://api.atuin.sh";
       description = "The address of the server to sync with!";
     };
