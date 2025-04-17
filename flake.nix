@@ -305,6 +305,26 @@
             _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
           );
 
+          common = {
+            overlays = [ inputs.hyprpanel.overlay ];
+
+            homeManager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hm-backup";
+              sharedModules = [ ./modules/home ];
+            };
+
+            specialArgs = hostName: {
+              inherit
+                inputs
+                hostName
+                rootPath
+                invisible
+                ;
+            };
+          };
+
           # TODO: Important to do on a per User basis!
           invisible = import "${inputs.nix-invisible}/globals.nix";
         in
@@ -320,34 +340,19 @@
               in
               inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
                 home-manager-path = inputs.home-manager.outPath;
-                extraSpecialArgs = {
-                  inherit
-                    inputs
-                    hostName
-                    rootPath
-                    invisible
-                    ;
-                };
+                extraSpecialArgs = common.specialArgs hostName;
 
                 pkgs = import inputs.nixpkgs {
                   inherit system;
-                  overlays = with inputs; [
-                    nix-on-droid.overlays.default
-                    hyprpanel.overlay
-                  ];
+                  overlays = common.overlays ++ [ inputs.nix-on-droid.overlays.default ];
                 };
 
                 modules = [
                   hostPath
                   ./modules/droid
                   {
-                    home-manager = {
-                      useGlobalPkgs = true;
-                      useUserPackages = true;
-                      backupFileExtension = "hm-bak";
+                    home-manager = common.homeManager // {
                       inherit extraSpecialArgs;
-                      sharedModules = [ ./modules/home ];
-                      # TODO: Refactor to support different username
                       config = "${hostPath}/homes/nix-on-droid.nix";
                     };
                   }
@@ -367,17 +372,11 @@
               lib.nixosSystem rec {
                 # TODO: Seems like system specification not needed.
                 # Maybe it only woks because facter takes care of it.
-                # If it isn't neede at all this would simplify the directory
+                # If it isn't needed at all, this would simplify the directory
                 # logic by a lot.
                 inherit system;
-                specialArgs = {
-                  inherit
-                    inputs
-                    hostName
-                    rootPath
-                    invisible
-                    ;
-                };
+                specialArgs = common.specialArgs hostName;
+
                 modules =
                   (with inputs; [
                     disko.nixosModules.disko
@@ -394,21 +393,14 @@
                     hostPath
                     ./modules/nixos
                     {
-                      nixpkgs.overlays = [ inputs.hyprpanel.overlay ];
+                      nixpkgs = { inherit (common) overlays; };
 
                       networking = { inherit hostName; };
 
                       users.mutableUsers = false;
 
-                      catppuccin.cache.enable = true;
-
-                      home-manager = {
-                        useGlobalPkgs = true;
-                        useUserPackages = true;
-                        backupFileExtension = "backup";
+                      home-manager = common.homeManager // {
                         extraSpecialArgs = specialArgs;
-
-                        sharedModules = [ ./modules/home ];
                       };
                     }
                   ];
