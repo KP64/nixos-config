@@ -118,7 +118,7 @@ in
             services.${name}.loadBalancer.servers = [ { url = "http://localhost:${toString server-port}"; } ];
           }
         )
-        |> lib.foldAttrs (item: acc: item // acc) { };
+        |> lib.foldAttrs lib.mergeAttrs { };
 
       minecraft-servers = {
         enable = true;
