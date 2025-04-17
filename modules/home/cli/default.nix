@@ -2,7 +2,6 @@
   imports = [
     ./multiplexer
     ./shells
-    ./starship
 
     ./atuin.nix
     ./fd.nix
@@ -11,6 +10,7 @@
     ./lsd.nix
     ./navi.nix
     ./ricing.nix
+    ./starship.nix
     ./tealdeer.nix
     ./zoxide.nix
   ];

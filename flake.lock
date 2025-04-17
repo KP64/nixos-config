@@ -2241,6 +2241,7 @@
         "potato-fox": "potato-fox",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
+        "starship": "starship",
         "systems": "systems_2",
         "treefmt-nix": "treefmt-nix",
         "yazi-hexyl": "yazi-hexyl"
@@ -2345,6 +2346,22 @@
       "original": {
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "starship": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744601485,
+        "narHash": "sha256-sBiZbT1i/wlcu6omu3rF1X4s0quFbQZLaQme9YKw/io=",
+        "owner": "starship",
+        "repo": "starship",
+        "rev": "fedad9173f3bc1b29d1844aa40e762102d49eb03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "starship",
+        "repo": "starship",
         "type": "github"
       }
     },

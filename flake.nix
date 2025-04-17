@@ -268,6 +268,11 @@
       };
     };
 
+    starship = {
+      url = "github:starship/starship";
+      flake = false;
+    };
+
     systems.url = "github:nix-systems/default";
 
     treefmt-nix = {
