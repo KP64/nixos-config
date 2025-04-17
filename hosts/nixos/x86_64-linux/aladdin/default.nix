@@ -6,10 +6,7 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    cudaSupport = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   sops = {
     defaultSopsFile = ./secrets.yaml;

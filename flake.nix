@@ -287,7 +287,7 @@
   };
 
   outputs =
-    inputs:
+    inputs@{ nixpkgs, ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
 
@@ -301,7 +301,7 @@
       flake =
         let
           rootPath = inputs.self.outPath;
-          lib = inputs.nixpkgs.lib.extend (
+          lib = nixpkgs.lib.extend (
             _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
           );
 
@@ -342,7 +342,7 @@
                 home-manager-path = inputs.home-manager.outPath;
                 extraSpecialArgs = common.specialArgs hostName;
 
-                pkgs = import inputs.nixpkgs {
+                pkgs = import nixpkgs {
                   inherit system;
                   overlays = common.overlays ++ [ inputs.nix-on-droid.overlays.default ];
                 };
@@ -416,7 +416,7 @@
           ...
         }:
         {
-          _module.args.pkgs = import inputs.nixpkgs {
+          _module.args.pkgs = import nixpkgs {
             inherit system;
             overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
           };

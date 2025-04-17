@@ -3,6 +3,8 @@
   options.hardware.nvidia.enable = lib.mkEnableOption "Nvidia drivers";
 
   config = lib.mkIf config.hardware.nvidia.enable {
+    nixpkgs.config.cudaSupport = true;
+
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
