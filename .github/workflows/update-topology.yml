@@ -31,9 +31,6 @@ jobs:
           mkdir -p assets/topology/
           sudo cp -r result/* assets/topology/
 
-      - name: fmt SVGs
-        run: nix fmt --extra-experimental-features pipe-operators
-
       - name: Commit and Push changed Files
         uses: EndBug/add-and-commit@ba9831c23564bc690b385cce69f1b2ca96d5b861
         with:

@@ -5,7 +5,10 @@ in
 {
   settings.global.excludes =
     excludeSecrets
-    ++ [ "UNLICENSE" ]
+    ++ [
+      "UNLICENSE"
+      "assets/topology/*"
+    ]
     ++ (mapExtension [
       "pub"
       "jpg"
