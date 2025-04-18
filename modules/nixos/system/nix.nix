@@ -4,13 +4,13 @@
     package = pkgs.nixVersions.latest;
     optimise.automatic = true;
     settings = {
+      auto-optimise-store = true;
       experimental-features = [
         "nix-command"
         "flakes"
         "no-url-literals"
         "pipe-operators"
       ];
-      auto-optimise-store = true;
       substituters = [
         "https://nix-community.cachix.org"
         "https://numtide.cachix.org"
@@ -21,6 +21,7 @@
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
+      trusted-users = [ "@wheel" ];
     };
   };
 
