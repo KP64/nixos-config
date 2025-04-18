@@ -58,7 +58,7 @@ in
             inherit (config.sops) secrets;
           in
           {
-            inherit (invisible.weatherApi) location;
+            inherit (invisible.users.${config.home.username}.weatherApi) location;
             unit = "metric";
           }
           // lib.optionalAttrs (secrets ? "weather.json") { key = secrets."weather.json".path; };

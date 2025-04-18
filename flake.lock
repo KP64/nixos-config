@@ -1696,13 +1696,23 @@
       }
     },
     "nix-invisible": {
-      "flake": false,
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
       "locked": {
-        "lastModified": 1743176421,
-        "narHash": "sha256-PoMTM/dDzodFd4zjvdTDqp8S8QG48u2DNoWQdhuUdUA=",
+        "lastModified": 1744991486,
+        "narHash": "sha256-Si6Os9Xi6xlGJcfK2TnyBR2iXWBMv2ZjF6iy+YfnbN4=",
         "ref": "refs/heads/main",
-        "rev": "3b8f2f9057f0501135578f3ea4d4c50b141146c9",
-        "revCount": 2,
+        "rev": "0877a0dfc46ab9cb182c224aafa493da750ed2c2",
+        "revCount": 3,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
       },

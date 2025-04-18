@@ -16,6 +16,7 @@ in
     services.traefik =
       let
         certDir = "/var/lib/acme/${config.networking.domain}";
+        inherit (config.services.traefik) dataDir;
       in
       {
         enable = true;
@@ -42,13 +43,13 @@ in
 
           log = {
             level = "INFO";
-            filePath = "${config.services.traefik.dataDir}/traefik.log";
+            filePath = "${dataDir}/traefik.log";
             format = "json";
           };
 
           certificatesResolvers.letsencrypt.acme = {
             inherit (invisible) email;
-            storage = "${config.services.traefik.dataDir}/cert.json";
+            storage = "${dataDir}/cert.json";
             dnsChallenge = {
               provider = "ipv64";
               resolvers = [ "9.9.9.9:53" ];

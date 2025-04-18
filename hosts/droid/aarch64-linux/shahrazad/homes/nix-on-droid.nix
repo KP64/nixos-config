@@ -1,4 +1,7 @@
-{ invisible, ... }:
+{ config, invisible, ... }:
+let
+  inherit (config.home) username;
+in
 {
   home.stateVersion = "24.11";
 
@@ -27,7 +30,7 @@
       enable = true;
       user = {
         name = "KP64";
-        inherit (invisible) email;
+        inherit (invisible.users.${username}) email;
       };
     };
     lsd.enable = true;

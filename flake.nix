@@ -170,7 +170,11 @@
     # but shouldn't or can't be encrypted
     nix-invisible = {
       url = "git+ssh://git@github.com/KP64/nix-invisible";
-      flake = false;
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
     };
 
     nix-minecraft = {
@@ -300,6 +304,8 @@
 
       flake =
         let
+          globals = import "${inputs.nix-invisible}/globals.nix";
+
           rootPath = inputs.self.outPath;
           lib = nixpkgs.lib.extend (
             _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
@@ -315,7 +321,7 @@
               sharedModules = [ ./modules/home ];
             };
 
-            specialArgs = hostName: {
+            specialArgs = hostName: invisible: {
               inherit
                 inputs
                 hostName
@@ -324,13 +330,13 @@
                 ;
             };
           };
-
-          # TODO: Important to do on a per User basis!
-          invisible = import "${inputs.nix-invisible}/globals.nix";
         in
         {
           nixOnDroidConfigurations =
-            "droid"
+            let
+              platform = "droid";
+            in
+            platform
             |> lib.custom.getHosts
             |> builtins.mapAttrs (
               hostName:
@@ -340,7 +346,7 @@
               in
               inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
                 home-manager-path = inputs.home-manager.outPath;
-                extraSpecialArgs = common.specialArgs hostName;
+                extraSpecialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
 
                 pkgs = import nixpkgs {
                   inherit system;
@@ -361,7 +367,10 @@
             );
 
           nixosConfigurations =
-            "nixos"
+            let
+              platform = "nixos";
+            in
+            platform
             |> lib.custom.getHosts
             |> builtins.mapAttrs (
               hostName:
@@ -375,7 +384,7 @@
                 # If it isn't needed at all, this would simplify the directory
                 # logic by a lot.
                 inherit system;
-                specialArgs = common.specialArgs hostName;
+                specialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
 
                 modules =
                   (with inputs; [
