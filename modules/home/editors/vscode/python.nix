@@ -1,5 +1,4 @@
 { pkgs, ... }:
-# TODO: Remove once https://github.com/catppuccin/nix/issues/518 is closed.
 {
   programs.vscode.profiles.default = {
     extensions =
