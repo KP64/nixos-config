@@ -9,12 +9,23 @@ in
     inherit (cfg) enable;
     profiles.${config.home.username} = {
       isDefault = true;
+
+      # TODO: SearXNG?
+      search = rec {
+        force = true;
+        default = "ddg";
+        privateDefault = default;
+      };
+
       settings = lib.custom.collectLastEntries (
         lib.custom.appendLastWithFullPath {
           middlemouse.paste = false;
           general.autoScroll = true;
 
-          extensions.webcompat-reporter.enabled = false;
+          extensions = {
+            autoDisableScopes = 0;
+            webcompat-reporter.enabled = false;
+          };
 
           media.ffmpeg.vaapi.enabled = true;
 

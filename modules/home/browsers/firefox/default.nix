@@ -5,7 +5,7 @@
   inputs,
   ...
 }:
-
+# TODO: Needs major refactoring
 let
   nixos-icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
 
@@ -72,10 +72,11 @@ in
 
         ${homeUsername} = {
           extraConfig = builtins.readFile "${inputs.potato-fox}/user.js";
-          search = {
+
+          search = rec {
             force = true;
             default = "SearXNG";
-            privateDefault = "SearXNG";
+            privateDefault = default;
             engines =
               let
                 nix-snowflake-icon = "${nixos-icons}/nix-snowflake.svg";
