@@ -379,10 +379,6 @@
                 hostPath = ./hosts/nixos/${system}/${hostName};
               in
               lib.nixosSystem rec {
-                # TODO: Seems like system specification not needed.
-                # Maybe it only woks because facter takes care of it.
-                # If it isn't needed at all, this would simplify the directory
-                # logic by a lot.
                 inherit system;
                 specialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
 
