@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  rootPath,
+  ...
+}:
 let
   cfg = config.apps.thunderbird;
 in
@@ -10,12 +15,36 @@ in
     profiles.${config.home.username} = {
       isDefault = true;
 
-      # TODO: SearXNG?
-      search = rec {
-        force = true;
-        default = "ddg";
-        privateDefault = default;
-      };
+      search =
+        let
+          mkParam = name: value: { inherit name value; };
+        in
+        rec {
+          force = true;
+          default = "SearXNG";
+          privateDefault = default;
+          engines =
+            lib.custom.hideEngines [
+              "bing"
+              "google"
+              "wikipedia"
+            ]
+            // {
+              SearXNG = {
+                urls = [
+                  {
+                    template = "https://searxng.nix-pi.ipv64.de/search";
+                    params = [
+                      (mkParam "q" "{searchTerms}")
+                      (mkParam "language" "all")
+                    ];
+                  }
+                ];
+                icon = "${rootPath}/assets/firefox/searxng.svg";
+                definedAliases = [ "@sx" ];
+              };
+            };
+        };
 
       settings = lib.custom.collectLastEntries (
         lib.custom.appendLastWithFullPath {

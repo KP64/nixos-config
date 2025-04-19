@@ -5,12 +5,6 @@
 }:
 let
   nixos-icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
-
-  hideEngines =
-    list:
-    lib.genAttrs list (_: {
-      metaData.hidden = true;
-    });
 in
 rec {
   force = true;
@@ -26,10 +20,9 @@ rec {
         (mkParam "query" "{searchTerms}")
       ];
     in
-    hideEngines [
+    lib.custom.hideEngines [
       "bing"
       "google"
-      "ddg"
       "wikipedia"
     ]
     // {

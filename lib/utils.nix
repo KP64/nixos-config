@@ -3,6 +3,15 @@ let
   inherit (inputs.nixpkgs) lib;
 
   # -- DESC --
+  # Takes in a list of
+  # search engines to disable
+  hideEngines =
+    list:
+    lib.genAttrs list (_: {
+      metaData.hidden = true;
+    });
+
+  # -- DESC --
   # Recurses the attrsets until the name-value-pair is not an attrset
   # Then appends on it the concatenated paths (names)
   # -- CODE --
@@ -40,5 +49,5 @@ let
     .result;
 in
 {
-  inherit collectLastEntries appendLastWithFullPath;
+  inherit appendLastWithFullPath collectLastEntries hideEngines;
 }
