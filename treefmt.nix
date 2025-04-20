@@ -16,14 +16,40 @@ in
       "yuck"
     ]);
   programs = {
+    # 🐙 Github Actions
     actionlint.enable = true;
-    deadnix.enable = true;
+
+    # Just
     just.enable = true;
+
+    # ❄️ Nix
+    deadnix.enable = true;
+    statix.enable = true;
     nixfmt = {
       enable = true;
       strict = true;
     };
+
+    # PNG
     oxipng.enable = true;
+
+    # 🐚 Shell
+    shfmt.enable = true;
+
+    # TOML
+    taplo.enable = true;
+    toml-sort.enable = true;
+
+    # 🪐 Lua
+    stylua = {
+      enable = true;
+      settings = {
+        indent_type = "Spaces";
+        sort_requires.enabled = true;
+      };
+    };
+
+    # Multiple
     prettier = {
       enable = true;
       excludes = excludeSecrets;
@@ -53,9 +79,5 @@ in
         "svg"
       ];
     };
-    shfmt.enable = true;
-    statix.enable = true;
-    taplo.enable = true;
-    toml-sort.enable = true;
   };
 }
