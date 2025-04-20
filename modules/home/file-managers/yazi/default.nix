@@ -104,11 +104,13 @@ in
           |> map (
             { pane, mode }:
             let
-              p = {
-                preview = "n"; # (n)ext
-                current = "c"; # (c)urrent
-                parent = "p"; # (p)revious
-              }.${pane};
+              p =
+                {
+                  preview = "n"; # (n)ext
+                  current = "c"; # (c)urrent
+                  parent = "p"; # (p)revious
+                }
+                .${pane};
               m = mode |> lib.stringToCharacters |> lib.last;
               modeDesc = if mode == "min" then "(un)Minimize" else "(un)Maximize";
             in
@@ -169,17 +171,14 @@ in
 
             prepend_fetchers =
               map
-                (
-                  names:
-                  names
-                  // rec {
-                    id = "git";
-                    run = id;
-                  }
-                )
+                (name: rec {
+                  inherit name;
+                  id = "git";
+                  run = id;
+                })
                 [
-                  { name = "*"; }
-                  { name = "*/"; }
+                  "*"
+                  "*/"
                 ];
           };
 
