@@ -69,7 +69,6 @@ in
           }
           "typst"
           "zellij"
-          "zoxide"
         ]}
       '';
   };
