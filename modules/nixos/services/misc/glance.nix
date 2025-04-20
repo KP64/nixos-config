@@ -23,6 +23,12 @@ in
       example = "Berlin, Germany";
     };
   };
+
+  # TODO: Use communnity Widgets
+  #  - Mealie
+  #  - Media (Jellyfin)
+  #  - Steam specials
+  #  - Minecraft Server
   config = lib.mkIf cfg.enable {
     services = {
       traefik.dynamicConfigOptions.http = {
@@ -76,6 +82,7 @@ in
                       type = "search";
                       search-engine = "https://searxng.nix-pi.ipv64.de/search?q={QUERY}&language=all";
                       autofocus = true;
+                      # TODO: Add more bangs
                       bangs = [
                         {
                           title = "YouTube";
