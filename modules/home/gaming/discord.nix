@@ -15,7 +15,10 @@ in
   config.programs.nixcord = {
     inherit (cfg) enable;
     discord.enable = false;
-    vesktop.enable = true;
+    vesktop = {
+      enable = true;
+      useSystemVencord = false;
+    };
     config = {
       themeLinks = lib.optional config.isCatppuccinEnabled "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
       plugins = {
