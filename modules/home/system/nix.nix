@@ -7,7 +7,6 @@
     ++ (with pkgs; [
       cachix
       nix-health
-      nix-init
       nix-melt
       nix-output-monitor
       nix-tree
@@ -21,6 +20,7 @@
   programs = {
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
+    nix-init.enable = true;
     direnv = {
       enable = true;
       silent = true;
