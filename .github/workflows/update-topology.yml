@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@ce0da527df91a7fa0b6f54ead8997eb14e9fdaa5
+        uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3
 
       - name: Build Topology
         run: nix build .#topology.x86_64-linux.config.output --extra-experimental-features pipe-operators
