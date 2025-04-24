@@ -8,7 +8,11 @@
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
-      nvidia.open = true;
+      nvidia = {
+        open = true;
+        nvidiaPersistenced = true;
+        powerManagement.enable = true;
+      };
       nvidia-container-toolkit.enable = true;
       graphics = {
         enable = true;
