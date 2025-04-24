@@ -1,8 +1,15 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   nix = {
     package = pkgs.nixVersions.latest;
     optimise.automatic = true;
+    registry = lib.mapAttrs (_: flake: { inherit flake; }) inputs;
+    channel.enable = false;
     settings = {
       auto-optimise-store = true;
       experimental-features = [
