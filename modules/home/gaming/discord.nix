@@ -8,17 +8,14 @@ let
   cfg = config.gaming.discord;
 in
 {
-  imports = [ inputs.nixcord.homeManagerModules.nixcord ];
+  imports = [ inputs.nixcord.homeModules.nixcord ];
 
   options.gaming.discord.enable = lib.mkEnableOption "Discord";
 
   config.programs.nixcord = {
     inherit (cfg) enable;
     discord.enable = false;
-    vesktop = {
-      enable = true;
-      useSystemVencord = false;
-    };
+    vesktop.enable = true;
     config = {
       themeLinks = lib.optional config.isCatppuccinEnabled "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css";
       plugins = {
