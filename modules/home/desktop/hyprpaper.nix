@@ -11,7 +11,7 @@ in
   options.desktop.hyprpaper = {
     enable = lib.mkEnableOption "Hyprpaper";
     wallpaper = lib.mkOption {
-      default = "${rootPath}/assets/wallpapers/cat-nix.png";
+      default = "${rootPath}/assets/wallpapers/catppuccin/nix.png";
       type = lib.types.path;
       description = "Path to the wallpaper.";
     };
