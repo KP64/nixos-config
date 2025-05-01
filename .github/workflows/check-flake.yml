@@ -25,7 +25,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3
 
       - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@2db192b0ac374a4817535ed3f20159c71c197d89
+        uses: DeterminateSystems/flake-checker-action@4024545a57437a930248c71ed0496a2b2d56e931
         with:
           fail-mode: true
           send-statistics: false
