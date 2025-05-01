@@ -5,17 +5,11 @@ in
 {
   home.stateVersion = "24.11";
 
-  system.style.catppuccin = {
-    enable = true;
-    enableGtkIcons = false;
-  };
-
-  services.ollama.enable = true;
+  system.style.catppuccin.enable = true;
 
   programs = {
     bat.enable = true;
     btop.enable = true;
-    cava.enable = true;
     fzf.enable = true;
     pay-respects.enable = true;
     ripgrep.enable = true;
@@ -34,14 +28,11 @@ in
     };
     lsd.enable = true;
     multiplexer.zellij.enable = true;
-    navi.enable = true;
-    ricing.enable = true;
     starship.enable = true;
     shells = {
       bash.enable = true;
       nushell.enable = true;
     };
-    tealdeer.enable = true;
     zoxide.enable = true;
   };
 
@@ -50,8 +41,5 @@ in
     neovim.enable = true;
   };
 
-  file-managers = {
-    broot.enable = true;
-    yazi.enable = true;
-  };
+  file-managers.yazi.enable = true;
 }

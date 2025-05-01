@@ -57,6 +57,8 @@ in
 
           enable = lib.mkEnableOption "Server";
 
+          openFirewall = lib.mkEnableOption "Server Firewall";
+
           version = lib.mkOption {
             readOnly = true;
             type = lib.types.strMatching "[0-9]\\.[0-9]{1,2}(\\.[0-9])?";
@@ -131,7 +133,12 @@ in
               ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
             in
             lib.nameValuePair s.name {
-              inherit (s) enable serverProperties symlinks;
+              inherit (s)
+                enable
+                serverProperties
+                symlinks
+                openFirewall
+                ;
               jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
               package = pkgs.minecraftServers."fabric-${ver}";
             }

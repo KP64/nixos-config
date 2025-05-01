@@ -143,11 +143,7 @@ in
 
   gaming = {
     discord.enable = true;
-    emulators = {
-      nintendo.enable = true;
-      playstation.enable = true;
-      xbox.enable = true;
-    };
+    emulators.nintendo.enable = true;
     launchers.heroic.enable = true;
   };
 

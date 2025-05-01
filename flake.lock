@@ -222,11 +222,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744940522,
-        "narHash": "sha256-TNoetfICvd29DhxRPpmyKItQBDlqSvKcV+wGNkn14jk=",
+        "lastModified": 1745812220,
+        "narHash": "sha256-hotBG0EJ9VmAHJYF0yhWuTVZpENHvwcJ2SxvIPrXm+g=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "51d33bbb7f1e74ba5f9d9a77357735149da99081",
+        "rev": "d0c543d740fad42fe2c035b43c9d41127e073c78",
         "type": "github"
       },
       "original": {
@@ -1708,11 +1708,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744991486,
-        "narHash": "sha256-Si6Os9Xi6xlGJcfK2TnyBR2iXWBMv2ZjF6iy+YfnbN4=",
+        "lastModified": 1746124706,
+        "narHash": "sha256-9iGXj3SBRO8ZwH0X8c70/zvvSuLIw8i8xnnK1CXL6iA=",
         "ref": "refs/heads/main",
-        "rev": "0877a0dfc46ab9cb182c224aafa493da750ed2c2",
-        "revCount": 3,
+        "rev": "69067c6ed0c34e65edbac0445fa9357c1def083d",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
       },
@@ -1734,11 +1734,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744941245,
-        "narHash": "sha256-tIfmf4UYcbhCtV0CwJkB7S1zrWzodtB/jYyoMvKSvug=",
+        "lastModified": 1746065310,
+        "narHash": "sha256-5B+j82oDN+Jm6CdwHdYeUp5dswWYDARJkOhznu1I7X8=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "556c14e59b53c7c1d70823919d8a02c763e8a9f1",
+        "rev": "f2fcf7cd864c0e31b7f48d6709f436d524892fe4",
         "type": "github"
       },
       "original": {
