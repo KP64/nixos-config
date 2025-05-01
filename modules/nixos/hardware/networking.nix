@@ -8,7 +8,6 @@ in
   config.networking.networkmanager = {
     inherit (cfg) enable;
     enableStrongSwan = true;
-    ethernet.macAddress = "random";
     wifi.macAddress = "random";
   };
 }
