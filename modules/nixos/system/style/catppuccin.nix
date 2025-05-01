@@ -21,7 +21,7 @@ in
     };
 
     background = lib.mkOption {
-      default = "${rootPath}/assets/wallpapers/cat-nix.png";
+      default = "${rootPath}/assets/wallpapers/catppuccin/nixos-waves.png";
       type = lib.types.path;
       description = "The background that is applied to SDDM (only).";
     };
