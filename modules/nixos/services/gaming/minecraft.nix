@@ -133,7 +133,12 @@ in
               ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
             in
             lib.nameValuePair s.name {
-              inherit (s) enable serverProperties symlinks openFirewall;
+              inherit (s)
+                enable
+                serverProperties
+                symlinks
+                openFirewall
+                ;
               jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
               package = pkgs.minecraftServers."fabric-${ver}";
             }
