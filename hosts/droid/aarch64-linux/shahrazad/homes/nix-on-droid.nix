@@ -13,7 +13,6 @@ in
   services.ollama.enable = true;
 
   programs = {
-    bacon.enable = true;
     bat.enable = true;
     btop.enable = true;
     cava.enable = true;
