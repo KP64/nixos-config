@@ -89,6 +89,28 @@ in
           jvmOpts = lib.mkOption {
             default = [ ];
             type = with lib.types; listOf nonEmptyStr;
+            description = "Extra Arguments to pass to the JVM.";
+          };
+
+          mods = lib.mkOption {
+            default = [ ];
+            description = "The mods to load with the server.";
+            type = lib.types.attrsOf (
+              lib.types.submodule {
+                options = {
+                  url = lib.mkOption {
+                    readOnly = true;
+                    type = lib.types.nonEmptyStr;
+                    description = "The url of the mod .jar file.";
+                  };
+                  sha512 = lib.mkOption {
+                    readOnly = true;
+                    type = lib.types.nonEmptyStr;
+                    description = "The sha of the .jar file.";
+                  };
+                };
+              }
+            );
           };
 
           symlinks = lib.mkOption {
@@ -133,12 +155,10 @@ in
               ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
             in
             lib.nameValuePair s.name {
-              inherit (s)
-                enable
-                serverProperties
-                symlinks
-                openFirewall
-                ;
+              inherit (s) enable serverProperties openFirewall;
+              symlinks = lib.recursiveUpdate s.symlinks {
+                mods = s.mods |> builtins.attrValues |> map pkgs.fetchurl |> pkgs.linkFarmFromDrvs "mods";
+              };
               jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
               package = pkgs.minecraftServers."fabric-${ver}";
             }
