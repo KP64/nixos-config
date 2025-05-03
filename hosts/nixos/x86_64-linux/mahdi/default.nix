@@ -31,7 +31,7 @@
 
   time.timeZone = "Europe/Berlin";
 
-  topology.self.interfaces.wlp6s0 =
+  topology.self.interfaces.eno3 =
     let
       inherit (config.lib) topology;
     in
