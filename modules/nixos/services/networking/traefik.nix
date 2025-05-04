@@ -11,7 +11,11 @@ in
   options.services.networking.traefik.enable = lib.mkEnableOption "Traefik";
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 443 ];
+    # TODO: Which one is needed?
+    networking.firewall = {
+      allowedTCPPorts = [ 443 ];
+      allowedUDPPorts = [ 443 ];
+    };
 
     services.traefik =
       let
@@ -49,7 +53,7 @@ in
 
           certificatesResolvers.letsencrypt.acme = {
             inherit (invisible) email;
-            storage = "${dataDir}/cert.json";
+            storage = "${dataDir}/acme.json";
             dnsChallenge = {
               provider = "ipv64";
               resolvers = [ "9.9.9.9:53" ];

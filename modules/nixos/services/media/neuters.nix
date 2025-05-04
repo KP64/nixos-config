@@ -1,8 +1,8 @@
 {
-  self,
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -44,7 +44,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = lib.getExe self.packages.${pkgs.system}.neuters;
+        ExecStart = lib.getExe inputs.self.packages.${pkgs.system}.neuters;
         DynamicUser = true;
         UMask = "0077";
 

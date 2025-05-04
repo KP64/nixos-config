@@ -251,8 +251,6 @@
       };
     };
 
-    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
-
     # TODO: Find better alternatives
     potato-fox = {
       url = "git+https://codeberg.org/awwpotato/PotatoFox.git";
@@ -299,7 +297,6 @@
         treefmt-nix.flakeModule
         nix-topology.flakeModule
         home-manager.flakeModules.home-manager
-        pkgs-by-name-for-flake-parts.flakeModule
       ];
 
       flake =
@@ -426,18 +423,21 @@
             overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
           };
 
-          pkgsDirectory = ./pkgs;
-
-          packages = rec {
-            default = neovim;
-            inherit
-              (inputs.nvf.lib.neovimConfiguration {
-                inherit pkgs;
-                modules = [ ./neovim.nix ];
-              })
-              neovim
-              ;
-          };
+          packages =
+            (nixpkgs.lib.packagesFromDirectoryRecursive {
+              inherit (pkgs) callPackage;
+              directory = ./pkgs;
+            })
+            // rec {
+              default = neovim;
+              inherit
+                (inputs.nvf.lib.neovimConfiguration {
+                  inherit pkgs;
+                  modules = [ ./neovim.nix ];
+                })
+                neovim
+                ;
+            };
 
           # Check all packages
           checks = self'.packages;

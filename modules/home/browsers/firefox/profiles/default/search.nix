@@ -8,7 +8,7 @@ let
 in
 rec {
   force = true;
-  default = "SearXNG";
+  default = "duckduckgo";
   privateDefault = default;
   engines =
     let
@@ -29,7 +29,7 @@ rec {
       SearXNG = {
         urls = [
           {
-            template = "https://searxng.nix-pi.ipv64.de/search";
+            template = "https://searxng.holab.ipv64.de/search";
             params = [
               (mkParam "q" "{searchTerms}")
               (mkParam "language" "all")

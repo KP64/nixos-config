@@ -80,7 +80,7 @@ in
                   widgets = [
                     {
                       type = "search";
-                      search-engine = "https://searxng.nix-pi.ipv64.de/search?q={QUERY}&language=all";
+                      search-engine = "https://searxng.holab.ipv64.de/search?q={QUERY}&language=all";
                       autofocus = true;
                       # TODO: Add more bangs
                       bangs = [

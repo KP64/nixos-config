@@ -5,6 +5,7 @@ in
 {
   options.services.ai.open-webui.enable = lib.mkEnableOption "Open-Webui";
 
+  # TODO: Traefik
   config.services.open-webui = {
     inherit (cfg) enable;
     host = "0.0.0.0";

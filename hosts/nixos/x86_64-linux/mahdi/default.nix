@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, invisible, ... }:
 {
   imports = [ ./disko-config.nix ];
 
@@ -6,7 +6,36 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  security.polkit.enable = true;
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age = {
+      keyFile = "/home/sv/.config/sops/age/keys.txt";
+      sshKeyPaths = [ "/home/sv/.ssh/id_ed25519" ];
+    };
+    secrets = {
+      "users/sv/password".neededForUsers = true;
+      acme_credentials = { };
+    };
+  };
+
+  security = {
+    polkit.enable = true;
+
+    acme =
+      let
+        inherit (config.networking) domain;
+      in
+      {
+        acceptTerms = true;
+        certs.${domain} = {
+          inherit (invisible) email;
+          dnsProvider = "ipv64";
+          credentialFiles.IPV64_API_KEY_FILE = config.sops.secrets.acme_credentials.path;
+          group = "traefik";
+          extraDomainNames = [ "*.${domain}" ];
+        };
+      };
+  };
 
   system = {
     stateVersion = "24.11";
@@ -19,14 +48,13 @@
     style.catppuccin.enable = true;
   };
 
-  hardware = {
-    audio.enable = true;
-    networking.enable = true;
-  };
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
+
+  hardware.networking.enable = true;
 
   networking = {
-    enableIPv6 = false;
-    domain = null; # TODO:
+    domain = "holab.ipv64.de";
   };
 
   time.timeZone = "Europe/Berlin";
@@ -40,8 +68,74 @@
       physicalConnections = [ (topology.mkConnectionRev "router" "eth3") ];
     };
 
+  # TODO: Replace with podman
+  virt.docker.enable = true;
+
   services = {
-    security.fail2ban.enable = true;
+    ai = {
+      ollama = {
+        enable = true;
+        models = [
+          "deepseek-r1:1.5b"
+          "llama3.2"
+          "llama3.1"
+        ];
+      };
+      open-webui.enable = true;
+      tabby.enable = true;
+    };
+
+    media = {
+      dumb.enable = true;
+      # immich = {
+      #   enable = true;
+      #   secretsFile = null; # TODO
+      # };
+      invidious.enable = true; # FIX: NilAssertionError
+      # jellyfin.enable = true;
+      # jellyseerr.enable = true; # TODO: Needs *arr Services first
+      # komga.enable = true;
+      # neuters.enable = true;
+      redlib.enable = true;
+      stirling-pdf.enable = true;
+    };
+
+    # metrics.netdata.enable = true; # FIX
+
+    misc = {
+      # anki = { # TODO
+      #   enable = true;
+      #   users = [ { } ];
+      # };
+      atuin.enable = true; # TODO: Sign in
+      # firefox-sync.enable = true;
+      # forgejo.enable = true;
+      glance = {
+        enable = true;
+        inherit (invisible.glance) location;
+      };
+      languagetool.enable = true;
+      # searxng.enable = true; # TODO
+    };
+
+    networking = {
+      # adguard = { # TODO
+      #   enable = true;
+      #   allowedServices = [ ];
+      #   rewrites = [ ];
+      #   users = [ ];
+      # };
+      i2p.enable = true;
+      tor.enable = true;
+      traefik.enable = true;
+      # wireguard.enable = true; # TODO
+    };
+
+    security = {
+      fail2ban.enable = true;
+      # vaultwarden.enable = true; # TODO
+    };
+
     gaming.minecraft.servers = [
       {
         name = "Stern";
@@ -49,6 +143,7 @@
         version = "1.21.4";
         ram = 24;
         serverProperties = {
+          server-port = 25565;
           max-players = 32;
           difficulty = "hard";
           motd = "One Heck of a Server";
