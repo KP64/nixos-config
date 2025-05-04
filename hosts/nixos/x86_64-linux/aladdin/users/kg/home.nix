@@ -14,6 +14,7 @@ in
       igrep
       oh-my-git
       simplex-chat-desktop
+      prismlauncher
     ];
   };
 
