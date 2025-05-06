@@ -7,9 +7,9 @@ vscode-marketplace:
     userSettings =
       {
         tabby = {
-          # Confusing but this actually disables it
+          # TODO: Check how it is disabled
           config.telemetry = true;
-          endpoint = "https://tabby.nix-pi.ipv64.de";
+          endpoint = "https://tabby.holab.ipv64.de";
         };
       }
       |> lib.custom.appendLastWithFullPath
