@@ -35,6 +35,7 @@ in
 
     # 🐚 Shell
     shfmt.enable = true;
+    shellcheck.enable = true;
 
     # TOML
     taplo.enable = true;
