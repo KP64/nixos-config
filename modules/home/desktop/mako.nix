@@ -7,6 +7,6 @@ in
 
   config.services.mako = {
     inherit (cfg) enable;
-    defaultTimeout = 4000;
+    settings.defaultTimeout = 4000;
   };
 }
