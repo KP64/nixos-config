@@ -14,6 +14,7 @@ in
     home.packages = with pkgs; [
       onefetch
       cpufetch
+      nitch
     ];
 
     programs.fastfetch.enable = true;
