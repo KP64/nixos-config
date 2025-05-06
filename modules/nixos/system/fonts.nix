@@ -4,6 +4,8 @@
     (with pkgs; [
       dejavu_fonts
       font-awesome
+      rubik
+      lexend
     ])
     ++ (with pkgs.nerd-fonts; [
       fira-code
