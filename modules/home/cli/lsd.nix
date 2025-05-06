@@ -7,7 +7,6 @@ in
 
   config.programs.lsd = {
     inherit (cfg) enable;
-    enableAliases = true;
     settings.sorting.dir-grouping = "first";
   };
 }
