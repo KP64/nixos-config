@@ -45,10 +45,14 @@ in
     '';
 
     environment.packages = [
-      (pkgs.writers.writeBashBin "sshd-start" ''
-        echo "Starting sshd in non-daemonized way on port ${toString port}"
-        ${getSSH "sshd"} -f "${sshdDirectory}/sshd_config" -D
-      '')
+      (pkgs.writeShellApplication {
+        name = "sshd-start";
+        runtimeInputs = [ pkgs.openssh ];
+        text = ''
+          echo "Starting sshd in non-daemonized way on port ${toString port}"
+          sshd -f "${sshdDirectory}/sshd_config" -D
+        '';
+      })
     ];
   };
 }
