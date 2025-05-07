@@ -10,10 +10,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age = {
-      keyFile = "/home/kg/.config/sops/age/keys.txt";
-      sshKeyPaths = [ "/home/kg/.ssh/id_ed25519" ];
-    };
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets = {
       "users/kg/password".neededForUsers = true;
       "wireless.env" = { };

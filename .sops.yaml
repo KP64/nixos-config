@@ -1,32 +1,35 @@
 keys:
-  - &kg age1aq8u2tm6v5ylvjn5g5hzysnxf9tlsrkgl4s3ykkhu30nf0ce6u9sn9vspu
-  - &tp age1zve6v6g4rlt595d7zew8ewr05u2fnaptat6gcqa7mv07yefy29yqtpkr7c
-  - &sv age1ecaazzhd6r67y5kwxq2srryyalzxvsjlk903uxjd79r24f8zy4gqjtk67w
+  - &host_aladdin age1zr2qgrxhn3qx3cy9uqhq5hrck3ey6mcjmrpg5le5u03cedglcgcsn0nv60
+  - &admin_kg age1aq8u2tm6v5ylvjn5g5hzysnxf9tlsrkgl4s3ykkhu30nf0ce6u9sn9vspu
+  - &admin_tp age1zve6v6g4rlt595d7zew8ewr05u2fnaptat6gcqa7mv07yefy29yqtpkr7c
+  - &admin_sv age1ecaazzhd6r67y5kwxq2srryyalzxvsjlk903uxjd79r24f8zy4gqjtk67w
 creation_rules:
   - path_regex: hosts\/.+\/aladdin\/secrets\.yaml$
     key_groups:
       - age:
-          - *kg
+          - *host_aladdin 
+          - *admin_kg
   - path_regex: hosts\/.+\/aladdin\/users\/kg\/secrets\.yaml$
     key_groups:
       - age:
-          - *kg
+          - *host_aladdin
+          - *admin_kg
 
   - path_regex: hosts\/.+\/sindbad\/secrets\.yaml$
     key_groups:
       - age:
-          - *tp
+          - *admin_tp
   - path_regex: hosts\/.+\/sindbad\/users\/tp\/secrets\.yaml$
     key_groups:
       - age:
-          - *tp
+          - *admin_tp
 
   - path_regex: hosts\/.+\/mahdi\/secrets\.yaml$
     key_groups:
       - age:
-          - *sv
-          - *kg
+          - *admin_sv
+          - *admin_kg
   - path_regex: hosts\/.+\/mahdi\/users\/sv\/secrets\.yaml$
     key_groups:
       - age:
-          - *sv
+          - *admin_sv
