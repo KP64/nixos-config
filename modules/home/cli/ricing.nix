@@ -7,16 +7,20 @@
 let
   cfg = config.cli.ricing;
 
-  # TODO: Improve
   rain = pkgs.writeShellApplication {
     name = "rain";
-    text = # sh
-      ''
-        while true; do
-          c=$(( $(date +%s%N) % 8 ))
-          printf "\033[1;3%sm." "$c"
-        done
-      '';
+    text = ''
+      trap "exit 0" SIGINT
+
+      while true; do
+        if read -rsn1 -t 0.01 key && [[ $key == q ]]; then
+          break
+        fi
+
+        c=$(( $(date +%s%N) % 8 ))
+        printf "\033[1;3%sm." "$c"
+      done
+    '';
   };
 in
 {
