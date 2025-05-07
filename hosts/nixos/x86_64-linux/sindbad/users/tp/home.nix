@@ -80,7 +80,7 @@ in
       nushell.enable = true;
     };
     tealdeer.enable = true;
-    # zoxide.enable = true;
+    zoxide.enable = true;
   };
 
   desktop = {
