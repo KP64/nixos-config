@@ -44,18 +44,13 @@ in
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
   options.services.gaming.minecraft.servers = lib.mkOption {
-    default = [ ];
-    type = lib.types.listOf (
+    default = { };
+    type = lib.types.attrsOf (
       lib.types.submodule {
         options = {
-          name = lib.mkOption {
-            readOnly = true;
-            type = lib.types.nonEmptyStr;
-            description = "The name of the Server";
-            example = "MyServer";
+          enable = lib.mkEnableOption "Server" // {
+            default = true;
           };
-
-          enable = lib.mkEnableOption "Server";
 
           openFirewall = lib.mkEnableOption "Server Firewall";
 
@@ -121,17 +116,16 @@ in
       }
     );
   };
-  config = lib.mkIf (cfg.servers != [ ]) {
+  config = lib.mkIf (cfg.servers != { }) {
     nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
     services = {
       traefik.dynamicConfigOptions.http =
         cfg.servers
-        |> builtins.filter (s: s.enable)
-        |> map (
-          s:
+        |> lib.filterAttrs (_: s: s.enable)
+        |> builtins.mapAttrs (
+          name: s:
           let
-            inherit (s) name;
             inherit (s.serverProperties) server-port;
           in
           {
@@ -142,19 +136,20 @@ in
             services.${name}.loadBalancer.servers = [ { url = "http://localhost:${toString server-port}"; } ];
           }
         )
-        |> lib.foldAttrs lib.mergeAttrs { };
+        |> builtins.attrValues
+        |> lib.mergeAttrsList;
 
       minecraft-servers = {
         enable = true;
         eula = true;
         servers =
           cfg.servers
-          |> map (
-            s:
+          |> lib.mapAttrs (
+            _: s:
             let
               ver = builtins.replaceStrings [ "." ] [ "_" ] s.version;
             in
-            lib.nameValuePair s.name {
+            {
               inherit (s) enable serverProperties openFirewall;
               symlinks = lib.recursiveUpdate s.symlinks {
                 mods = s.mods |> builtins.attrValues |> map pkgs.fetchurl |> pkgs.linkFarmFromDrvs "mods";
@@ -162,8 +157,7 @@ in
               jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
               package = pkgs.minecraftServers."fabric-${ver}";
             }
-          )
-          |> builtins.listToAttrs;
+          );
       };
     };
   };
