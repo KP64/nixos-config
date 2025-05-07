@@ -15,6 +15,8 @@ in
       oh-my-git
       simplex-chat-desktop
       prismlauncher
+      hyperfine
+      anki
     ];
   };
 
