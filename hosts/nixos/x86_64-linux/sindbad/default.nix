@@ -10,10 +10,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age = {
-      keyFile = "/home/tp/.config/sops/age/keys.txt";
-      sshKeyPaths = [ "/home/tp/.ssh/id_ed25519.pub" ];
-    };
+    age.sshKeyPaths = [ "/home/tp/.ssh/id_ed25519" ];
     secrets = {
       "users/tp/password".neededForUsers = true;
       "wireless.env" = { };
