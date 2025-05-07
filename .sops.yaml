@@ -7,7 +7,7 @@ creation_rules:
   - path_regex: hosts\/.+\/aladdin\/secrets\.yaml$
     key_groups:
       - age:
-          - *host_aladdin 
+          - *host_aladdin
           - *admin_kg
   - path_regex: hosts\/.+\/aladdin\/users\/kg\/secrets\.yaml$
     key_groups:

@@ -6,6 +6,18 @@
 }:
 let
   cfg = config.cli.ricing;
+
+  # TODO: Improve
+  rain = pkgs.writeShellApplication {
+    name = "rain";
+    text = # sh
+      ''
+        while true; do
+          c=$(( $(date +%s%N) % 8 ))
+          printf "\033[1;3%sm." "$c"
+        done
+      '';
+  };
 in
 {
   options.cli.ricing.enable = lib.mkEnableOption "All ricing";
