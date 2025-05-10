@@ -34,6 +34,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dotz = {
+      url = "github:KP64/dotz";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
 
     flake-parts.url = "github:hercules-ci/flake-parts";

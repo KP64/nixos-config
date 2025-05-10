@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -32,20 +33,22 @@ in
       clock-rs.enable = true;
     };
 
-    home.packages = with pkgs; [
-      cbonsai
-      cfonts
-      cmatrix
-      dwt1-shell-color-scripts
-      figlet
-      genact
-      nms
-      pipes-rs
-      rust-stakeholder
-      tenki
-      toilet
-      tty-clock
-      rain
-    ];
+    home.packages =
+      [ inputs.dotz.packages.${pkgs.system}.default ]
+      ++ (with pkgs; [
+        cbonsai
+        cfonts
+        cmatrix
+        dwt1-shell-color-scripts
+        figlet
+        genact
+        nms
+        pipes-rs
+        rust-stakeholder
+        tenki
+        toilet
+        tty-clock
+        rain
+      ]);
   };
 }
