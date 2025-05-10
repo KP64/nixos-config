@@ -44,9 +44,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # TODO: Reenable when https://github.com/catppuccin/nix/issues/552 is closed
-    catppuccin.mako.enable = false;
-
     catppuccin = {
       enable = true;
       inherit (cfg) accent;
