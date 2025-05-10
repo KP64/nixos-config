@@ -19,15 +19,15 @@ in
       rofi-calc
     ];
 
-    cycle = false;
-
-    extraConfig.modi = builtins.concatStringsSep "," [
+    modes = [
       "run"
       "drun"
       "window"
       "emoji"
       "calc"
     ];
+
+    cycle = false;
 
     theme = {
       window = rec {
