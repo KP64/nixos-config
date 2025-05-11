@@ -147,5 +147,8 @@ in
     launchers.heroic.enable = true;
   };
 
-  terminals.kitty.enable = true;
+  terminals = {
+    ghostty.enable = true;
+    kitty.enable = true;
+  };
 }
