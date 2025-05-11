@@ -1,0 +1,7 @@
+[lints.clippy]
+pedantic = "warn"
+nursery = "warn"
+cargo = "warn"
+
+[lints.rust]
+unsafe-code = "forbid"

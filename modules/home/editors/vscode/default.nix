@@ -13,8 +13,8 @@ in
 {
   imports =
     (map (p: import p vscode-marketplace) [
+      ./rust
       ./fluent-icons.nix
-      ./rust.nix
       ./tabby.nix
     ])
     ++ [

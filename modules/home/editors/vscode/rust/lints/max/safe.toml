@@ -1,0 +1,2 @@
+[lints.rust]
+unsafe_code = "forbid"
