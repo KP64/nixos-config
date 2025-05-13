@@ -456,6 +456,8 @@
           treefmt = ./treefmt.nix;
 
           devShells.default = pkgs.mkShell {
+            name = "nixos-config";
+
             packages = with pkgs; [
               act
               just
