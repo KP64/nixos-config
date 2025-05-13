@@ -22,8 +22,15 @@ in
       };
     };
     languages = {
-      language-server.nixd.command = "nixd";
+      language-server = {
+        just-lsp.command = "just-lsp";
+        nixd.command = "nixd";
+      };
       language = [
+        {
+          name = "just";
+          language-servers = [ "just-lsp" ];
+        }
         {
           name = "nix";
           language-servers = [

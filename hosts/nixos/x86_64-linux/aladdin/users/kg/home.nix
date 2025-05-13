@@ -12,12 +12,13 @@ in
   home = {
     stateVersion = "24.11";
     packages = with pkgs; [
+      anki
+      hyperfine
       igrep
       oh-my-git
-      simplex-chat-desktop
       prismlauncher
-      hyperfine
-      anki
+      simplex-chat-desktop
+      wthrr
     ];
   };
 

@@ -460,7 +460,10 @@
 
             packages = with pkgs; [
               act
+
               just
+              just-lsp
+
               nixd
               nix-melt
             ];
