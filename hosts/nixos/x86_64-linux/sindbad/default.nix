@@ -65,7 +65,7 @@
     {
       hardware = {
         info = "Lenovo Thinkpad Yoga 370";
-        image = "${rootPath}/topology/yoga370.png";
+        image = "${rootPath}/assets/topology/devices/yoga370.png";
       };
 
       interfaces.wlp4s0 = {
