@@ -18,7 +18,10 @@ in
     };
 
     home.packages =
-      [ inputs.dotz.packages.${pkgs.system}.default ]
+      (with inputs; [
+        dotz.packages.${pkgs.system}.default
+        self.packages.${pkgs.system}.terminal-rain-lightning
+      ])
       ++ (with pkgs; [
         cbonsai
         cfonts
