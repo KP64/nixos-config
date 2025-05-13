@@ -10,7 +10,7 @@ in
     font.name = lib.mkDefault "JetBrainsMono Nerd Font";
     settings = {
       shell = lib.mkIf config.programs.nushell.enable "nu";
-      background_opacity = lib.mkDefault "0.8";
+      background_opacity = lib.mkDefault 0.9;
     };
   };
 }
