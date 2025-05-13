@@ -2,6 +2,7 @@
   config,
   pkgs,
   invisible,
+  rootPath,
   ...
 }:
 let
@@ -96,7 +97,10 @@ in
     hypridle.enable = true;
     hyprlock.enable = true;
     hyprpanel.enable = true;
-    hyprpaper.enable = true;
+    hyprpaper = {
+      enable = true;
+      wallpaper = "${rootPath}/assets/wallpapers/catppuccin/retro2_live.png";
+    };
     hyprsunset.enable = true;
     hyprland = {
       enable = true;

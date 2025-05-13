@@ -451,11 +451,13 @@
           # Check all packages
           checks = self'.packages;
 
-          topology.modules = [ ./topology ];
+          topology.modules = [ ./topology.nix ];
 
           treefmt = ./treefmt.nix;
 
           devShells.default = pkgs.mkShell {
+            name = "nixos-config";
+
             packages = with pkgs; [
               act
               just
