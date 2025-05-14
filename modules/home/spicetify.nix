@@ -30,7 +30,7 @@ in
       history
       keyboardShortcut
       loopyLoop
-      popupLyrics
+      powerBar
       sectionMarker
       shuffle
       songStats

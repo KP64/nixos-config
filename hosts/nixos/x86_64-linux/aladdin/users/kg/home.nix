@@ -12,12 +12,15 @@ in
   home = {
     stateVersion = "24.11";
     packages = with pkgs; [
+      asciinema
       anki
       hyperfine
       igrep
+      lux
       oh-my-git
       prismlauncher
       simplex-chat-desktop
+      vhs
       wthrr
     ];
   };
