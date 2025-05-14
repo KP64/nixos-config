@@ -8,6 +8,7 @@ in
   config.programs.kitty = {
     inherit (cfg) enable;
     font.name = lib.mkDefault "JetBrainsMono Nerd Font";
+    enableGitIntegration = true;
     settings = {
       shell = lib.mkIf config.programs.nushell.enable "nu";
       background_opacity = lib.mkDefault 0.9;

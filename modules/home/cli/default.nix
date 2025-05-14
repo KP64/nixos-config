@@ -9,6 +9,7 @@
     ./git.nix
     ./lsd.nix
     ./navi.nix
+    ./numbat.nix
     ./ricing.nix
     ./starship.nix
     ./tealdeer.nix
