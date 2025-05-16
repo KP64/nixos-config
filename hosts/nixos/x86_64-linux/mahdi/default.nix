@@ -8,10 +8,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age = {
-      keyFile = "/home/sv/.config/sops/age/keys.txt";
-      sshKeyPaths = [ "/home/sv/.ssh/id_ed25519" ];
-    };
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets = {
       "users/sv/password".neededForUsers = true;
       acme_credentials = { };
@@ -55,6 +52,7 @@
 
   networking = {
     domain = "holab.ipv64.de";
+    firewall.allowPing = false;
   };
 
   time.timeZone = "Europe/Berlin";
