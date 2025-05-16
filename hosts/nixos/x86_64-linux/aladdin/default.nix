@@ -70,8 +70,9 @@
   };
 
   programs = {
-    hyprland.enable = true;
     gamemode.enable = true;
+    hyprland.enable = true;
+    trippy.enable = true;
   };
 
   apps.obs.enable = true;
