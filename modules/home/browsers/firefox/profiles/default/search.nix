@@ -22,6 +22,7 @@ rec {
     in
     lib.custom.hideEngines [
       "bing"
+      "ecosia"
       "google"
       "wikipedia"
     ]
