@@ -154,7 +154,7 @@ in
               symlinks = lib.recursiveUpdate s.symlinks {
                 mods = s.mods |> builtins.attrValues |> map pkgs.fetchurl |> pkgs.linkFarmFromDrvs "mods";
               };
-              jvmOpts = builtins.concatStringsSep " " ((defaultOpts s.ram) ++ s.jvmOpts);
+              jvmOpts = (defaultOpts s.ram) ++ s.jvmOpts;
               package = pkgs.minecraftServers."fabric-${ver}";
             }
           );
