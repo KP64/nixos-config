@@ -205,6 +205,8 @@ in
           [ ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" ]
           ++ map (s: "$mainMod, ${s}") [
             "T, exec, $terminal"
+            "D, exec, kitten quick-access-terminal"
+
             "F, exec, $browser"
             "R, exec, rofi -show drun -show-icons"
             "E, exec, rofi -show emoji"
