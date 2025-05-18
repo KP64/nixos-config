@@ -11,11 +11,14 @@ in
   options.services.networking.traefik.enable = lib.mkEnableOption "Traefik";
 
   config = lib.mkIf cfg.enable {
-    # TODO: Which one is needed?
-    networking.firewall = {
-      allowedTCPPorts = [ 443 ];
-      allowedUDPPorts = [ 443 ];
-    };
+    networking.firewall =
+      let
+        port = 443;
+      in
+      {
+        allowedTCPPorts = [ port ];
+        allowedUDPPorts = [ port ];
+      };
 
     services.traefik =
       let

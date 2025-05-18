@@ -19,20 +19,18 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    services = {
-      traefik.dynamicConfigOptions.http = {
-        routers.anki = {
-          rule = "Host(`anki.${config.networking.domain}`)";
-          service = "anki";
-        };
-        services.anki.loadBalancer.servers = [ { url = "http://localhost:${toString port}"; } ];
+  config.services = lib.mkIf cfg.enable {
+    traefik.dynamicConfigOptions.http = {
+      routers.anki = {
+        rule = "Host(`anki.${config.networking.domain}`)";
+        service = "anki";
       };
+      services.anki.loadBalancer.servers = [ { url = "http://localhost:${toString port}"; } ];
+    };
 
-      anki-sync-server = {
-        enable = true;
-        inherit (cfg) users;
-      };
+    anki-sync-server = {
+      enable = true;
+      inherit (cfg) users;
     };
   };
 }

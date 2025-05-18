@@ -10,21 +10,19 @@ in
 {
   options.services.networking.tor.enable = lib.mkEnableOption "Tor";
 
-  config = lib.mkIf cfg.enable {
-    services = {
-      snowflake-proxy = {
-        enable = true;
-        capacity = 20;
-      };
+  config.services = lib.mkIf cfg.enable {
+    snowflake-proxy = {
+      enable = true;
+      capacity = 20;
+    };
 
-      tor = {
+    tor = {
+      enable = true;
+      openFirewall = true;
+      settings.ContactInfo = invisible.email;
+      relay = {
         enable = true;
-        openFirewall = true;
-        settings.ContactInfo = invisible.email;
-        relay = {
-          enable = true;
-          role = "relay";
-        };
+        role = "relay";
       };
     };
   };

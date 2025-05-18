@@ -45,10 +45,25 @@
     style.catppuccin.enable = true;
   };
 
-  systemd.network.wait-online.enable = false;
-  boot.initrd.systemd.network.wait-online.enable = false;
-
-  hardware.networking.enable = true;
+  systemd.network = {
+    enable = true;
+    networks."10-eno3" = rec {
+      name = "eno3";
+      linkConfig.RequiredForOnline = "routable";
+      address = [ "192.168.2.108/24" ];
+      gateway = [
+        "192.168.2.1"
+        "fe80::1"
+      ];
+      dns = gateway;
+      networkConfig = {
+        DNSSEC = "yes";
+        DNSOverTLS = "yes";
+        IPv6AcceptRA = "yes";
+        IPv6PrivacyExtensions = "yes";
+      };
+    };
+  };
 
   networking = {
     domain = "holab.ipv64.de";
@@ -89,7 +104,7 @@
       #   enable = true;
       #   secretsFile = null; # TODO
       # };
-      invidious.enable = true; # FIX: NilAssertionError
+      invidious.enable = true;
       # jellyfin.enable = true;
       # jellyseerr.enable = true; # TODO: Needs *arr Services first
       # komga.enable = true;

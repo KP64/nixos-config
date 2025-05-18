@@ -5,139 +5,138 @@ in
 {
   options.services.misc.searxng.enable = lib.mkEnableOption "SearXNG";
 
-  config = lib.mkIf cfg.enable {
-    services = {
-      traefik.dynamicConfigOptions.http = {
-        routers.searxng = {
-          rule = "Host(`searxng.${config.networking.domain}`)";
-          service = "searxng";
+  config.services = lib.mkIf cfg.enable {
+    traefik.dynamicConfigOptions.http = {
+      routers.searxng = {
+        rule = "Host(`searxng.${config.networking.domain}`)";
+        service = "searxng";
+      };
+      services.searxng.loadBalancer.servers = [
+        { url = "http://localhost:${toString config.services.searx.settings.server.port}"; }
+      ];
+    };
+
+    searx = {
+      enable = true;
+      environmentFile = config.sops.secrets."searx.env".path;
+      redisCreateLocally = true;
+
+      limiterSettings = {
+        real_ip = {
+          x_for = 1;
+          ipv4_prefix = 32;
+          ipv6_prefix = 56;
         };
-        services.searxng.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.searx.settings.server.port}"; }
-        ];
+
+        botdetection.ip_limit = {
+          filter_link_local = true;
+          link_token = true;
+        };
       };
 
-      searx = {
-        enable = true;
-        environmentFile = config.sops.secrets."searx.env".path;
-        redisCreateLocally = true;
-
-        limiterSettings = {
-          real_ip = {
-            x_for = 1;
-            ipv4_prefix = 32;
-            ipv6_prefix = 56;
-          };
-
-          botdetection.ip_limit = {
-            filter_link_local = true;
-            link_token = true;
-          };
+      settings = {
+        general = {
+          debug = false;
+          instance_name = "SearXNG Instance";
+          donation_url = false;
+          contact_url = false;
+          privacypolicy_url = false;
+          enable_metrics = false;
         };
 
-        settings = {
-          general = {
-            debug = false;
-            instance_name = "SearXNG Instance";
-            donation_url = false;
-            contact_url = false;
-            privacypolicy_url = false;
-            enable_metrics = false;
-          };
+        ui = {
+          static_use_hash = true;
+          center_alignment = true;
+        };
 
-          ui = {
-            static_use_hash = true;
-            center_alignment = true;
-          };
+        search = {
+          default_lang = "all";
+          ban_time_on_fail = 5;
+          max_ban_tim_on_fail = 120;
+        };
 
-          search = {
-            default_lang = "all";
-            ban_time_on_fail = 5;
-            max_ban_tim_on_fail = 120;
-          };
+        server = {
+          port = 8888;
+          limiter = true;
+          secret_key = "@SEARX_SECRET_KEY@";
+        };
 
-          server = {
-            port = 8888;
-            limiter = true;
-            secret_key = "@SEARX_SECRET_KEY@";
-          };
+        enabled_plugins = [
+          "Basic Calculator"
+          "Hash plugin"
+          "Tor check plugin" # FIX: Not enabled for whatever reason
+          "Open Access DOI rewrite"
+          "Hostnames plugin"
+          "Unit converter plugin"
+          "Tracker URL remover"
+        ];
 
-          enabled_plugins = [
-            "Basic Calculator"
-            "Hash plugin"
-            "Tor check plugin"
-            "Open Access DOI rewrite"
-            "Hostnames plugin"
-            "Unit converter plugin"
-            "Tracker URL remover"
-          ];
+        # TODO: NixOS wiki is now supported.
+        engines = lib.mapAttrsToList (name: value: { inherit name; } // value) {
+          # General
 
-          engines = lib.mapAttrsToList (name: value: { inherit name; } // value) {
-            # General
+          ## translate
+          libretranslate.disabled = false;
 
-            ## translate
-            libretranslate.disabled = false;
+          # Wikimedia
+          wikisource.disabled = false;
+          wikiversity.disabled = false;
 
-            # Wikimedia
-            wikisource.disabled = false;
-            wikiversity.disabled = false;
+          # Images
+          "duckduckgo images".disabled = false;
 
-            # Images
-            "duckduckgo images".disabled = false;
+          findthatmeme.disabled = false;
 
-            findthatmeme.disabled = false;
+          imgur.disabled = false;
+          svgrepo.disabled = false;
 
-            imgur.disabled = false;
-            svgrepo.disabled = false;
+          # Videos
+          bilibili.disabled = false;
+          invidious.disabled = false;
+          mediathekviewweb.disabled = false;
 
-            # Videos
-            bilibili.disabled = false;
-            invidious.disabled = false;
-            mediathekviewweb.disabled = false;
+          # News
+          tagesschau.disabled = false;
 
-            # News
-            tagesschau.disabled = false;
+          # IT
+          "crates.io".disabled = false;
+          "lib.rs".disabled = false;
+          npm.disabled = false;
+          codeberg.disabled = false;
+          "gitea.com".disabled = false;
+          gitlab.disabled = false;
+          sourcehut.disabled = false;
+          cppreference.disabled = false;
+          hackernews.disabled = false;
 
-            # IT
-            "crates.io".disabled = false;
-            "lib.rs".disabled = false;
-            npm.disabled = false;
-            codeberg.disabled = false;
-            "gitea.com".disabled = false;
-            gitlab.disabled = false;
-            sourcehut.disabled = false;
-            cppreference.disabled = false;
-            hackernews.disabled = false;
+          # Science
+          "semantic scholar".disabled = false;
 
-            # Science
-            "semantic scholar".disabled = false;
+          # Files
+          fdroid.disabled = false;
 
-            # Files
-            fdroid.disabled = false;
+          # Social Media
+          reddit.disabled = false;
 
-            # Social Media
-            reddit.disabled = false;
+          # Other
 
-            # Other
+          ## Dictionaries
+          duden.disabled = false;
 
-            ## Dictionaries
-            duden.disabled = false;
+          ## Movies
+          imdb.disabled = false;
+          rottentomatoes.disabled = false;
+          tmdb.disabled = false;
+          moviepilot.disabled = false;
 
-            ## Movies
-            imdb.disabled = false;
-            rottentomatoes.disabled = false;
-            tmdb.disabled = false;
-            moviepilot.disabled = false;
+          ## Shopping
+          geizhals.disabled = false;
 
-            ## Shopping
-            geizhals.disabled = false;
-
-            ## Other
-            wolframalpha.disabled = false;
-            bpb.disabled = false;
-            goodreads.disabled = false;
-            yummly.disabled = false;
-          };
+          ## Other
+          wolframalpha.disabled = false;
+          bpb.disabled = false;
+          goodreads.disabled = false;
+          yummly.disabled = false;
         };
       };
     };

@@ -1,8 +1,4 @@
-{
-  config,
-  invisible,
-  ...
-}:
+{ config, invisible, ... }:
 let
   inherit (config.home) username;
 in
