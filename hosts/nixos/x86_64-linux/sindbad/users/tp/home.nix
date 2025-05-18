@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   invisible,
   ...
 }:
@@ -8,13 +7,7 @@ let
   inherit (config.home) username;
 in
 {
-  home = {
-    stateVersion = "24.11";
-    packages = with pkgs; [
-      openboard
-      ventoy
-    ];
-  };
+  home.stateVersion = "24.11";
 
   system.style.catppuccin.enable = true;
 
