@@ -74,7 +74,6 @@ rc_buffer = "warn"
 rc_mutex = "warn"
 # redundant_test_prefix = "deny" # TODO: Added in 1.88.0
 redundant_type_annotations = "warn"
-ref_patterns = "warn"
 renamed_function_params = "deny"
 rest_pat_in_fully_bound_structs = "deny"
 return_and_then = "warn"
