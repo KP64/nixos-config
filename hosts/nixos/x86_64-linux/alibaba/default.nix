@@ -15,7 +15,7 @@
   security.polkit.enable = true;
 
   system = {
-    stateVersion = "24.11";
+    stateVersion = "25.11";
     language = "en";
     security.sudo-rs.enable = true;
     services.ssh.enable = true;

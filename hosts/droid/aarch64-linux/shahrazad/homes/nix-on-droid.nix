@@ -3,7 +3,7 @@ let
   inherit (config.home) username;
 in
 {
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.11";
 
   system.style.catppuccin = {
     enable = true;

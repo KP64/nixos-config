@@ -20,7 +20,7 @@
   security.polkit.enable = true;
 
   system = {
-    stateVersion = "24.11";
+    stateVersion = "25.11";
     boot.efi.enable = true;
     security = {
       tpm.enable = true;

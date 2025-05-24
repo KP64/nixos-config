@@ -382,7 +382,7 @@
               hostName:
               { system }:
               let
-                hostPath = ./hosts/nixos/${system}/${hostName};
+                hostPath = ./hosts/${platform}/${system}/${hostName};
               in
               lib.nixosSystem rec {
                 inherit system;
