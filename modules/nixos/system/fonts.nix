@@ -6,6 +6,7 @@
       font-awesome
       rubik
       lexend
+      kreative-square
     ])
     ++ (with pkgs.nerd-fonts; [
       fira-code
