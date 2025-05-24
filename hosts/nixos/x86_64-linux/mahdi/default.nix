@@ -85,16 +85,29 @@
   virt.docker.enable = true;
 
   services = {
+    ollama = {
+      enable = true;
+      loadModels = [
+        "deepseek-r1:1.5b"
+        "deepseek-r1:70b"
+        "llama3.2"
+        "llama3.1"
+        "paraphrase-multilingual:278m"
+        "all-minilm:l6-v2"
+      ];
+    };
     ai = {
-      ollama = {
+      open-webui = {
         enable = true;
-        models = [
-          "deepseek-r1:1.5b"
-          "llama3.2"
-          "llama3.1"
-        ];
+        ollamaUrls =
+          let
+            ollamaPort = toString config.services.ollama.port;
+          in
+          [
+            "http://localhost:${ollamaPort}"
+            "http://192.168.2.112:${ollamaPort}"
+          ];
       };
-      open-webui.enable = true;
       tabby.enable = true;
     };
 
