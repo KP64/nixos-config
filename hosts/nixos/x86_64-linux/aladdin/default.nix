@@ -65,6 +65,39 @@
     };
 
   services = {
+    ollama = {
+      enable = true;
+      host = "0.0.0.0";
+      openFirewall = true;
+      loadModels =
+        let
+          toModel = name: params: map (p: "${name}:${toString p}b") params;
+        in
+        [
+          "llama3.1:8b"
+          "llava:7b"
+          "mistral:7b"
+        ]
+        ++ toModel "llama3.2" [
+          1
+          3
+        ]
+        ++ toModel "deepseek-r1" [
+          "1.5"
+          7
+          8
+        ]
+        ++ toModel "qwen3" [
+          "0.6"
+          "1.7"
+          4
+          8
+        ]
+        ++ toModel "gemma3" [
+          1
+          4
+        ];
+    };
     blueman.enable = true;
     udisks2.enable = true;
   };
