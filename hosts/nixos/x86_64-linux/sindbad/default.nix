@@ -34,11 +34,15 @@
     audio.enable = true;
     bluetoothctl.enable = true;
     intel.enable = true;
-    networking.enable = true;
   };
 
   networking.networkmanager = {
-    wifi.powersave = true;
+    enable = true;
+    ethernet.macAddress = "random";
+    wifi = {
+      macAddress = "random";
+      powersave = true;
+    };
     ensureProfiles = {
       environmentFiles = [ config.sops.secrets."wireless.env".path ];
       profiles.home-wifi = {
