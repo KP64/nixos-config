@@ -32,6 +32,7 @@ in
       gitoxide
       gitleaks
       gql
+      lazyjj
       trufflehog
     ];
 
