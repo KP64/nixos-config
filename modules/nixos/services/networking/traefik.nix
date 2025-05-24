@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.services.networking.traefik;
+  inherit (config.networking) domain;
 in
 {
   options.services.networking.traefik.enable = lib.mkEnableOption "Traefik";
@@ -22,7 +23,7 @@ in
 
     services.traefik =
       let
-        certDir = "/var/lib/acme/${config.networking.domain}";
+        certDir = config.security.acme.certs.${domain}.directory;
         inherit (config.services.traefik) dataDir;
       in
       {
@@ -70,8 +71,8 @@ in
               certResolver = "letsencrypt";
               domains = [
                 {
-                  main = "${config.networking.domain}";
-                  sans = [ "*.${config.networking.domain}" ];
+                  main = "${domain}";
+                  sans = [ "*.${domain}" ];
                 }
               ];
             };

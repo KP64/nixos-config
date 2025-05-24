@@ -1,37 +1,66 @@
 { config, lib, ... }:
 let
-  cfg = config.services.ai.open-webui;
+  inherit (config.services) ai open-webui ollama;
 
-  inherit (config.services.open-webui) port;
+  cfg = ai.open-webui;
+
+  inherit (open-webui) port;
+
+  domain = "open-webui.${config.networking.domain}";
 in
 {
-  options.services.ai.open-webui.enable = lib.mkEnableOption "Open-Webui";
+  options.services.ai.open-webui = {
+    enable = lib.mkEnableOption "Open-Webui";
+
+    ollamaUrls = lib.mkOption {
+      default = [ "http://localhost:${toString ollama.port}" ];
+      type = with lib.types; nonEmptyListOf nonEmptyStr;
+      description = "The Model Providers.";
+    };
+  };
 
   config.services = lib.mkIf cfg.enable {
     traefik.dynamicConfigOptions.http = {
       routers.open-webui = {
-        rule = "Host(`open-webui.${config.networking.domain}`)";
+        rule = "Host(`${domain}`)";
         service = "open-webui";
       };
       services.open-webui.loadBalancer.servers = [ { url = "http://localhost:${toString port}"; } ];
     };
 
+    # TODO: RAG & Image Generation
     open-webui = {
       inherit (cfg) enable;
-      host = "0.0.0.0";
       port = 11111;
       environment = {
-        ANONYMIZED_TELEMETRY = "False";
-        DO_NOT_TRACK = "True";
-        SCARF_NO_ANALYTICS = "True";
+        WEBUI_URL = domain;
 
-        WEBUI_AUTH = "False";
+        SHOW_ADMIN_DETAILS = "False";
+        RESET_CONFIG_ON_START = "True";
 
-        DEFAULT_USER_ROLE = "user";
+        OAUTH_UPDATE_PICTURE_ON_LOGIN = "True";
 
-        ENABLE_RAG_WEB_SEARCH = "True";
-        ENABLE_SEARCH_QUERY = "True";
-        RAG_WEB_SEARCH_ENGINE = "duckduckgo";
+        RAG_EMBEDDING_MODEL_AUTO_UPDATE = "False";
+        RAG_RERANKING_MODEL_AUTO_UPDATE = "False";
+
+        ENABLE_CHANNELS = "True";
+        ENABLE_REALTIME_CHAT_SAVE = "True";
+
+        ENABLE_API_KEY_ENDPOINT_RESTRICTIONS = "True";
+        ENABLE_FORWARD_USER_INFO_HEADERS = "True";
+
+        ENABLE_WEB_SEARCH = "True";
+        WEB_SEARCH_ENGINE = "duckduckgo";
+
+        PDF_EXTRACT_IMAGES = "True";
+        BYPASS_WEB_SEARCH_EMBEDDING_AND_RETRIEVAL = "True";
+
+        ENABLE_IMAGE_GENERATION = "True";
+
+        OLLAMA_BASE_URLS = builtins.concatStringsSep ";" cfg.ollamaUrls;
+
+        RAG_FULL_CONTEXT = "True";
+        ENABLE_RAG_LOCAL_WEB_FETCH = "True";
       };
     };
   };
