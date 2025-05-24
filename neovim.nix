@@ -3,7 +3,15 @@
   config.vim = {
     enableLuaLoader = true;
     lineNumberMode = "relNumber";
-    useSystemClipboard = true;
+
+    clipboard = {
+      enable = true;
+      registers = "unnamedplus";
+      providers.wl-copy = {
+        enable = true;
+        package = pkgs.wl-clipboard-rs;
+      };
+    };
 
     options = {
       tabstop = 4;
@@ -96,7 +104,6 @@
       enableDAP = true;
       enableExtraDiagnostics = true;
       enableFormat = true;
-      enableLSP = true;
       enableTreesitter = true;
 
       assembly.enable = true;
@@ -146,6 +153,7 @@
     };
 
     lsp = {
+      enable = true;
       formatOnSave = true;
       # lspsaga.enable = true;
       inlayHints.enable = true;
