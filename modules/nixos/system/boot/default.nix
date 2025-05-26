@@ -2,8 +2,11 @@
 {
   imports = [ ./efi.nix ];
 
-  config.boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_zen;
-    tmp.cleanOnBoot = lib.mkDefault true;
-  };
+  config.boot =
+    {
+      kernelPackages = pkgs.linuxPackages_zen;
+    }
+    |> lib.optionalAttrs (!pkgs.stdenv.isAarch64)
+    |> lib.mergeAttrs { tmp.cleanOnBoot = true; }
+    |> lib.mkDefault;
 }

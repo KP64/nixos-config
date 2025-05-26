@@ -1,22 +1,26 @@
-{ config, invisible, ... }:
+{
+  config,
+  pkgs,
+  invisible,
+  ...
+}:
 let
-  inherit (config.home) username;
+  inherit (config.home) homeDirectory username;
 in
 {
-  home.stateVersion = "25.11";
+  home = {
+    stateVersion = "25.11";
+    packages = [ pkgs.igrep ];
+  };
 
   system.style.catppuccin.enable = true;
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age =
-      let
-        inherit (config.home) homeDirectory;
-      in
-      {
-        keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
-        sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
-      };
+    age = {
+      keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+      sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
+    };
     secrets = {
       "atuin/key" = { };
       "atuin/session" = { };

@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
@@ -28,7 +33,11 @@
     };
     nh = {
       enable = true;
-      clean.enable = true;
+      flake = "${config.home.homeDirectory}/nixos-config";
+      clean = {
+        enable = true;
+        extraArgs = "--keep 5";
+      };
     };
   };
 }

@@ -57,7 +57,6 @@ in
     fzf.enable = true;
     mpv.enable = true;
     mangohud.enable = true;
-    nh.flake = "${homeDirectory}/Desktop/nixos-config";
     pay-respects.enable = true;
     ripgrep.enable = true;
   };
