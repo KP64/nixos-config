@@ -21,7 +21,7 @@ in
 
     programs.yazi = {
       enable = true;
-
+      shellWrapperName = "y";
       plugins = {
         hexyl = inputs.yazi-hexyl;
         inherit (pkgs.yaziPlugins)
