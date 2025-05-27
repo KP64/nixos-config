@@ -1,24 +1,29 @@
 { config, lib, ... }:
 let
-  cfg = config.services.misc.forgejo;
+  inherit (config.services) misc forgejo;
+  cfg = misc.forgejo;
 in
 {
   options.services.misc.forgejo.enable = lib.mkEnableOption "Forgejo";
 
   config.services = lib.mkIf cfg.enable {
-    traefik.dynamicConfigOptions.http = {
-      routers.forgejo = {
-        rule = "Host(`forgejo.${config.networking.domain}`)";
-        service = "forgejo";
+    traefik.dynamicConfigOptions.http =
+      let
+        inherit (forgejo) domain settings;
+      in
+      {
+        routers.git = {
+          rule = "Host(`${domain}`)";
+          service = "git";
+        };
+        services.git.loadBalancer.servers = [
+          { url = "http://localhost:${toString settings.server.HTTP_PORT}"; }
+        ];
       };
-      services.forgejo.loadBalancer.servers = [
-        { url = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}"; }
-      ];
-    };
 
     forgejo = {
       enable = true;
-      settings.server.DOMAIN = "forgejo.${config.networking.domain}";
+      settings.server.DOMAIN = "git.${config.networking.domain}";
       dump = {
         enable = true;
         type = "tar";

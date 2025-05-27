@@ -204,11 +204,11 @@ in
 
     services = {
       traefik.dynamicConfigOptions.http = {
-        routers.adguard = {
-          rule = "Host(`adguard.${config.networking.domain}`)";
-          service = "adguard";
+        routers.dns = {
+          rule = "Host(`dns.${config.networking.domain}`)";
+          service = "dns";
         };
-        services.adguard.loadBalancer.servers = [
+        services.dns.loadBalancer.servers = [
           { url = "http://localhost:${toString config.services.adguardhome.port}"; }
         ];
       };
