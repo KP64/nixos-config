@@ -6,7 +6,6 @@
     ./jellyfin.nix
     ./jellyseerr.nix
     ./komga.nix
-    ./neuters.nix
     ./redlib.nix
     ./stirling-pdf.nix
   ];
