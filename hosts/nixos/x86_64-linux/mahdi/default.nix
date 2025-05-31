@@ -1,4 +1,9 @@
-{ config, invisible, ... }:
+{
+  config,
+  invisible,
+  rootPath,
+  ...
+}:
 {
   imports = [ ./disko-config.nix ];
 
@@ -72,14 +77,20 @@
 
   time.timeZone = "Europe/Berlin";
 
-  topology.self.interfaces.eno3 =
-    let
-      inherit (config.lib) topology;
-    in
-    {
-      network = "home";
-      physicalConnections = [ (topology.mkConnectionRev "router" "eth3") ];
+  topology.self = {
+    hardware = {
+      info = "Dell Poweredge R730";
+      image = "${rootPath}/assets/topology/devices/poweredge730.png";
     };
+    interfaces.eno3 =
+      let
+        inherit (config.lib) topology;
+      in
+      {
+        network = "home";
+        physicalConnections = [ (topology.mkConnectionRev "router" "eth3") ];
+      };
+  };
 
   # TODO: Replace with podman
   virt.docker.enable = true;
