@@ -121,7 +121,6 @@
       # jellyfin.enable = true;
       # jellyseerr.enable = true; # TODO: Needs *arr Services first
       # komga.enable = true;
-      # neuters.enable = true;
       redlib.enable = true;
       stirling-pdf.enable = true;
     };

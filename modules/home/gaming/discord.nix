@@ -71,7 +71,6 @@ in
         mutualGroupDMs.enable = true;
         newGuildSettings.enable = true;
         noUnblockToJump.enable = true;
-        nsfwGateBypass.enable = true;
         openInApp = {
           enable = true;
           spotify = true;

@@ -25,6 +25,7 @@ in
     # ❄️ Nix
     deadnix.enable = true;
     statix.enable = true;
+    nixf-diagnose.enable = true;
     nixfmt = {
       enable = true;
       strict = true;

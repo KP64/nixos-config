@@ -43,7 +43,7 @@
       };
     };
 
-    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+    flake-compat.url = "github:edolstra/flake-compat";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -224,8 +224,6 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
