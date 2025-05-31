@@ -408,6 +408,9 @@
 
                       users.mutableUsers = false;
 
+                      # Disables superfluous pre-installed pkgs
+                      environment.defaultPackages = [ ];
+
                       home-manager = common.homeManager // {
                         extraSpecialArgs = specialArgs;
                       };
