@@ -42,7 +42,7 @@ in
 
       initLua = ./init.lua;
 
-      keymap.manager.prepend_keymap =
+      keymap.mgr.prepend_keymap =
         [
           {
             on = "M";
@@ -138,7 +138,7 @@ in
         ) 9);
 
       settings = {
-        manager.show_hidden = true;
+        mgr.show_hidden = true;
 
         plugin =
           let
