@@ -20,8 +20,8 @@ in
       type = lib.types.enum presets;
       example = "nerd-font-symbols";
       description = ''
-        The preset found at https://github.com/starship/starship/tree/master/docs/public/presets/toml
-        to be applied.
+        The preset to be applied is found at
+        https://github.com/starship/starship/tree/master/docs/public/presets/toml
       '';
     };
   };

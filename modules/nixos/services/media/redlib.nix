@@ -40,6 +40,5 @@ in
         REDLIB_DEFAULT_BLUR_NSFW = "on";
       };
     };
-
   };
 }
