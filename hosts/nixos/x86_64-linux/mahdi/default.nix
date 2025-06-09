@@ -92,8 +92,6 @@
       };
   };
 
-  # TODO: Replace with podman
-  virt.docker.enable = true;
 
   services = {
     ollama = {
