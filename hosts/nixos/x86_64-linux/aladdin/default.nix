@@ -107,6 +107,7 @@
   programs = {
     gamemode.enable = true;
     hyprland.enable = true;
+    localsend.enable = true;
     trippy.enable = true;
   };
 
