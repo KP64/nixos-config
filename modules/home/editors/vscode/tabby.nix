@@ -6,11 +6,7 @@ vscode-marketplace:
 
     userSettings =
       {
-        tabby = {
-          # TODO: Check how it is disabled
-          config.telemetry = true;
-          endpoint = "https://tabby.holab.ipv64.de";
-        };
+        tabby.endpoint = "https://tabby.holab.ipv64.de";
       }
       |> lib.custom.appendLastWithFullPath
       |> lib.custom.collectLastEntries;
