@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   system = {
-    stateVersion = "25.11";
+    stateVersion = "24.05";
     sshd = {
       enable = true;
       pathToPubKey = ./sshKey.pub;
