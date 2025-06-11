@@ -22,19 +22,11 @@ in
     in
     {
       console.keyMap = language;
-
       services.xserver.xkb.layout = language;
 
-      i18n.extraLocaleSettings = {
-        LC_ADDRESS = lang;
-        LC_IDENTIFICATION = lang;
-        LC_MEASUREMENT = lang;
-        LC_MONETARY = lang;
-        LC_NAME = lang;
-        LC_NUMERIC = lang;
-        LC_PAPER = lang;
-        LC_TELEPHONE = lang;
-        LC_TIME = lang;
+      i18n = {
+        defaultLocale = lang;
+        extraLocales = [ "all" ];
       };
     };
 }
