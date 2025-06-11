@@ -12,6 +12,9 @@ in
   # UDP is needed for Geyser & Floodgate.
   networking.firewall.allowedUDPPorts = [ velocityPort ];
 
+  # TODO:
+  #  - Viaversion
+  #  - Floodgate on backend Server (for better Skin support etc.)
   services.gaming.minecraft = {
     environmentFile = config.sops.secrets."minecraft.env".path;
     servers = rec {
@@ -79,6 +82,7 @@ in
             config-version = 4;
           };
 
+          # TODO: Compile from Source instead of downloading jar
           "plugins/floodgate-velocity.jar" =
             let
               jarExtList =
