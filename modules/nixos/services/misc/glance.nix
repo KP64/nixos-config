@@ -6,7 +6,7 @@ in
   options.services.misc.glance = {
     enable = lib.mkEnableOption "Glance";
     theme = lib.mkOption {
-      type = lib.types.attrs;
+      type = with lib.types; attrsOf anything;
       description = "The colors everything should take.";
       default = {
         background-color = "240 21 15";
@@ -104,7 +104,7 @@ in
                   {
                     type = "hacker-news";
                     limit = 15;
-                    collapes-after = 5;
+                    collapse-after = 5;
                   }
                 ];
               }

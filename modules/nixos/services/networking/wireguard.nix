@@ -13,7 +13,7 @@ let
         default = true;
         type = lib.types.bool;
         example = false;
-        description = "Wether to start this interface on device Startup.";
+        description = "Whether to start this interface on device Startup.";
       };
 
       address = lib.mkOption {
