@@ -112,7 +112,7 @@ in
                 }
                 .${pane};
               m = mode |> lib.stringToCharacters |> lib.last;
-              modeDesc = if mode == "min" then "(un)Minimize" else "(un)Maximize";
+              modeDesc = "(un)${lib.toSentenceCase mode}imize";
             in
             {
               on = [
