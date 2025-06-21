@@ -14,8 +14,16 @@ in
     packages = with pkgs; [
       asciinema
       anki
+      doggo
+      duf
       hyperfine
       igrep
+      (kicad-unstable.override {
+        addons = with kicadAddons; [
+          kikit
+          kikit-library
+        ];
+      })
       lux
       oh-my-git
       prismlauncher
