@@ -259,9 +259,8 @@
       };
     };
 
-    # TODO: Find better alternatives
-    potato-fox = {
-      url = "git+https://codeberg.org/awwpotato/PotatoFox.git";
+    better-fox = {
+      url = "github:yokoffing/Betterfox";
       flake = false;
     };
 

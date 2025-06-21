@@ -10,17 +10,35 @@ let
   inherit (config.home) username;
 in
 lib.mkIf config.browsers.firefox.enable {
-  home.file.".mozilla/firefox/${username}/chrome" = {
-    source = "${inputs.potato-fox}/chrome/";
-    recursive = true;
-  };
-
   programs.firefox.profiles.${username} = {
-    extraConfig = builtins.readFile "${inputs.potato-fox}/user.js";
+    extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
 
     search = import ./search.nix { inherit lib pkgs rootPath; };
 
-    settings = import ./settings.nix { inherit lib; };
+    settings =
+      lib.custom.collectLastEntries
+      <| lib.custom.appendLastWithFullPath
+      <| {
+        dom.security.https_only_mode = true;
+        general = {
+          autoScroll = true;
+          smoothScroll = {
+            currentVelocityWeighting = "1";
+            stopDecelerationWeighting = "1";
+            msdPhysics = {
+              continuousMotionMaxDeltaMS = 12;
+              enabled = true;
+              motionBeginSpringConstant = 600;
+              regularSpringConstant = 650;
+              slowdownMinDeltaMS = 25;
+              slowdownMinDeltaRatio = "2";
+              slowdownSpringConstant = 250;
+            };
+          };
+        };
+        mousewheel.default.delta_multiplier_y = 300;
+        sidebar.verticalTabs = true;
+      };
 
     extensions = {
       force = true;
@@ -39,13 +57,11 @@ lib.mkIf config.browsers.firefox.enable {
         private-relay
         refined-github
         return-youtube-dislikes
-        sidebery
         simple-translate
         sponsorblock
         stylus
         tabliss
         ublock-origin
-        userchrome-toggle-extended
         videospeed
         youtube-recommended-videos
       ];

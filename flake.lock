@@ -98,6 +98,22 @@
         "type": "github"
       }
     },
+    "better-fox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750480196,
+        "narHash": "sha256-Kkk3mqfQCXf/J+SoAKki46e4OoD6ZPHTlXT+yezj6gU=",
+        "owner": "yokoffing",
+        "repo": "Betterfox",
+        "rev": "e66de491acd5e87f53abc3dfe9622f7ce5e2a101",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yokoffing",
+        "repo": "Betterfox",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -2139,22 +2155,6 @@
         "type": "github"
       }
     },
-    "potato-fox": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1743709562,
-        "narHash": "sha256-Kx/NLIVQBD5qmZjCbaXwyVsLcSOflOaXW9UIl3T2gHI=",
-        "ref": "refs/heads/main",
-        "rev": "201bf4db8f042fc6c2fc26116cb77b96d11d5300",
-        "revCount": 383,
-        "type": "git",
-        "url": "https://codeberg.org/awwpotato/PotatoFox.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://codeberg.org/awwpotato/PotatoFox.git"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -2233,6 +2233,7 @@
     },
     "root": {
       "inputs": {
+        "better-fox": "better-fox",
         "catppuccin": "catppuccin",
         "catppuccin-aseprite": "catppuccin-aseprite",
         "catppuccin-blender": "catppuccin-blender",
@@ -2275,7 +2276,6 @@
         "nixpkgs": "nixpkgs_3",
         "nur": "nur",
         "nvf": "nvf",
-        "potato-fox": "potato-fox",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "starship": "starship",
