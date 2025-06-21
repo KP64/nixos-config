@@ -71,7 +71,7 @@ in
               tooltip = "Firefox";
             };
             shortcut2.command = "spotify";
-            shortcut3.command = "vesktop";
+            shortcut3.command = "discord";
           };
 
           directories = {

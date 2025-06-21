@@ -47,6 +47,7 @@ lib.mkIf config.browsers.firefox.enable {
         ublock-origin
         userchrome-toggle-extended
         videospeed
+        youtube-recommended-videos
       ];
     };
   };
