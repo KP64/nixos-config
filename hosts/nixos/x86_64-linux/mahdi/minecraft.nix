@@ -82,7 +82,7 @@ in
             config-version = 4;
           };
 
-          # TODO: Compile from Source instead of downloading jar
+          # TODO: Compile from Source instead of downloaded jar
           "plugins/floodgate-velocity.jar" =
             let
               jarExtList =

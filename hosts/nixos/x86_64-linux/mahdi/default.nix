@@ -126,52 +126,27 @@
 
     media = {
       dumb.enable = true;
-      # immich = {
-      #   enable = true;
-      #   secretsFile = null; # TODO
-      # };
       invidious.enable = true;
-      # jellyfin.enable = true;
-      # jellyseerr.enable = true; # TODO: Needs *arr Services first
-      # komga.enable = true;
       redlib.enable = true;
       stirling-pdf.enable = true;
     };
 
-    # metrics.netdata.enable = true; # FIX
-
     misc = {
-      # anki = { # TODO
-      #   enable = true;
-      #   users = [ { } ];
-      # };
       atuin.enable = true; # TODO: Sign in
-      # firefox-sync.enable = true;
-      # forgejo.enable = true;
       glance = {
         enable = true;
         inherit (invisible.glance) location;
       };
       languagetool.enable = true;
-      # searxng.enable = true; # TODO
     };
 
     networking = {
-      # adguard = { # TODO
-      #   enable = true;
-      #   allowedServices = [ ];
-      #   rewrites = [ ];
-      #   users = [ ];
-      # };
-      # i2p.enable = true; # TODO
       tor.enable = true;
       traefik.enable = true;
-      # wireguard.enable = true; # TODO
     };
 
     security = {
       fail2ban.enable = true;
-      # vaultwarden.enable = true; # TODO
     };
   };
 }

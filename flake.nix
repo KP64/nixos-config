@@ -114,8 +114,8 @@
       };
     };
 
-    # TODO: Re-add ASAP
-    impermanence.url = "github:nix-community/impermanence";
+    # TODO: Re-add
+    # impermanence.url = "github:nix-community/impermanence";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";

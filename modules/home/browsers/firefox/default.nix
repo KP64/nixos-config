@@ -14,7 +14,6 @@ in
   options.browsers.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf cfg.enable {
-    # TODO: Use privacy respecting browser
     xdg.desktopEntries.i2p-browser = {
       name = "i2p Browser";
       genericName = "Web Browser";
