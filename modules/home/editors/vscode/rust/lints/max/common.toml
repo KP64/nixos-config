@@ -3,9 +3,11 @@
 # Because enforcing these is just crazy.
 
 [lints.clippy]
+# Groups
 pedantic = {level = "warn", priority = -1}
 nursery = {level = "warn", priority = -1}
 cargo = {level = "warn", priority = -1}
+# cargo
 multiple_crate_versions = "allow"
 # restriction
 absolute_paths = "warn"

@@ -316,8 +316,6 @@
           );
 
           common = {
-            overlays = [ inputs.hyprpanel.overlay ];
-
             homeManager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -352,10 +350,7 @@
                 home-manager-path = inputs.home-manager.outPath;
                 extraSpecialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
 
-                pkgs = import nixpkgs {
-                  inherit system;
-                  overlays = common.overlays ++ [ inputs.nix-on-droid.overlays.default ];
-                };
+                pkgs = import nixpkgs { inherit system; };
 
                 modules = [
                   hostPath
@@ -402,8 +397,6 @@
                     hostPath
                     ./modules/nixos
                     {
-                      nixpkgs = { inherit (common) overlays; };
-
                       networking = { inherit hostName; };
 
                       users.mutableUsers = false;

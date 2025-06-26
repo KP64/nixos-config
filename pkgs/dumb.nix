@@ -2,7 +2,6 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  templ,
   esbuild,
 }:
 
@@ -17,10 +16,7 @@ buildGoModule rec {
     hash = "sha256-5HV14vMmUfwe132g1BBD3ZQctEcNeTZkbYfnvSEE8CM=";
   };
 
-  nativeBuildInputs = [
-    templ
-    esbuild
-  ];
+  nativeBuildInputs = [ esbuild ];
 
   vendorHash = "sha256-A9QjEYdjwcB690PVpm0NS5vjxpl12gKtrwIMZbS7ym0=";
 
@@ -36,7 +32,7 @@ buildGoModule rec {
     ];
 
   preBuild = ''
-    templ generate
+    go tool templ generate
     cat $src/style/*.css | esbuild --loader=css --minify > ./static/style.css
   '';
 

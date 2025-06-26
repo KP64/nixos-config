@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   inputs,
   invisible,
   ...
@@ -9,39 +10,33 @@ let
   cfg = config.desktop.hyprpanel;
 in
 {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-
   options.desktop.hyprpanel.enable = lib.mkEnableOption "Hyprpanel";
 
   config.programs.hyprpanel = {
     inherit (cfg) enable;
-    hyprland.enable = true;
-    overwrite.enable = true;
+    package = inputs.hyprpanel.packages.${pkgs.system}.default;
 
     settings = {
       wallpaper.enable = false;
 
       theme.name = "catppuccin_mocha";
 
-      layout."bar.layouts"."*" = {
-        left = [
-          "dashboard"
-          "workspaces"
-        ];
-        middle = [ "media" ];
-        right = [
-          "network"
-          "battery"
-          "volume"
-          "bluetooth"
-          "systray"
-          "clock"
-          "hyprsunset"
-          "notifications"
-        ];
-      };
-
       bar = {
+        layouts."*" = {
+          left = [
+            "dashboard"
+            "workspaces"
+          ];
+          middle = [ "clock" ];
+          right = [
+            "battery"
+            "volume"
+            "bluetooth"
+            "systray"
+            "hyprsunset"
+            "notifications"
+          ];
+        };
         clock.format = "%a %x %X";
         media.show_active_only = true;
         windowtitle.label = false;
