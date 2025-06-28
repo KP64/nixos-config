@@ -5,9 +5,8 @@
   inputs,
   ...
 }:
-
 let
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  inherit (inputs.spicetify-nix.legacyPackages.${pkgs.system}) apps themes extensions;
   cfg = config.apps.spicetify;
 in
 {
@@ -17,10 +16,10 @@ in
 
   config.programs.spicetify = {
     inherit (cfg) enable;
-    theme = lib.mkIf config.isCatppuccinEnabled spicePkgs.themes.catppuccin;
+    theme = lib.mkIf config.isCatppuccinEnabled themes.catppuccin;
     colorScheme = lib.mkIf config.isCatppuccinEnabled "mocha";
-    enabledCustomApps = [ spicePkgs.apps.lyricsPlus ];
-    enabledExtensions = with spicePkgs.extensions; [
+    enabledCustomApps = [ apps.lyricsPlus ];
+    enabledExtensions = with extensions; [
       adblock
       autoSkipVideo
       betterGenres

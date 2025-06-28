@@ -31,10 +31,10 @@ in
         completionsDir = "${nuScriptsDir}/custom-completions";
         useCompletion =
           cmd:
-          if builtins.isAttrs cmd then
-            "use ${completionsDir}/${cmd.dir}/${cmd.file}-completions.nu *"
-          else
-            "use ${completionsDir}/${cmd}/${cmd}-completions.nu *";
+          let
+            program = if builtins.isAttrs cmd then "${cmd.dir}/${cmd.file}" else "${cmd}/${cmd}";
+          in
+          "source ${completionsDir}/${program}-completions.nu";
       in
       ''
         # Aliases

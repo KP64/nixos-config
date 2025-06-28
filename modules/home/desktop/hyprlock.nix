@@ -22,14 +22,12 @@ in
           monitor = "";
           path = "${rootPath}/assets/wallpapers/astronaut.png";
           blur_passes = 0;
-          # color = "$base";
         }
       ];
 
       image = [
         {
           monitor = "";
-          # path = if pfps == [ ] then "" else builtins.head pfps;
           path = "";
           size = 100;
           border_color = "$lavender";

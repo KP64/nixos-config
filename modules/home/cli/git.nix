@@ -8,19 +8,19 @@ let
   cfg = config.cli.git;
 in
 {
-  options.cli.git = with lib; {
-    enable = mkEnableOption "Git & helper Utils";
+  options.cli.git = {
+    enable = lib.mkEnableOption "Git & helper Utils";
     user = {
-      name = mkOption {
+      name = lib.mkOption {
         readOnly = true;
         description = "Your Git Username";
-        type = types.nonEmptyStr;
+        type = lib.types.nonEmptyStr;
         example = "alice";
       };
-      email = mkOption {
+      email = lib.mkOption {
         readOnly = true;
         description = "Your Git Email";
-        type = types.nonEmptyStr;
+        type = lib.types.nonEmptyStr;
         example = "example@gmail.com";
       };
     };
@@ -36,38 +36,49 @@ in
       trufflehog
     ];
 
-    programs = {
-      gitui.enable = true;
+    programs =
+      let
+        key = "~/.ssh/id_ed25519.pub";
+        signerPath = "~/.ssh/allowed_signers";
+      in
+      {
+        gitui.enable = true;
 
-      git-cliff.enable = true;
+        git-cliff.enable = true;
 
-      jujutsu = {
-        enable = true;
-        settings = {
-          inherit (cfg) user;
-          ui.default-command = [ "log" ];
-        };
-      };
-
-      git = {
-        enable = true;
-        lfs.enable = true;
-        userName = cfg.user.name;
-        userEmail = cfg.user.email;
-        delta = {
+        git = {
           enable = true;
-          options.line-numbers = true;
+          lfs.enable = true;
+          userName = cfg.user.name;
+          userEmail = cfg.user.email;
+          delta = {
+            enable = true;
+            options.line-numbers = true;
+          };
+          signing = {
+            signByDefault = true;
+            format = "ssh";
+            inherit key;
+          };
+          extraConfig = {
+            init.defaultBranch = "main";
+            gpg.ssh.allowedSignersFile = signerPath;
+          };
         };
-        signing = {
-          signByDefault = true;
-          format = "ssh";
-          key = "~/.ssh/id_ed25519.pub";
-        };
-        extraConfig = {
-          init.defaultBranch = "main";
-          gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+
+        jujutsu = {
+          enable = true;
+          settings = {
+            inherit (cfg) user;
+            ui.default-command = [ "log" ];
+            signing = {
+              behavior = "own";
+              backend = "ssh";
+              inherit key;
+              backends.ssh.allowed-signers = signerPath;
+            };
+          };
         };
       };
-    };
   };
 }

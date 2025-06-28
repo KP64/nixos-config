@@ -128,11 +128,11 @@ in
         ++ (builtins.genList (
           n:
           let
-            num = toString (n + 1);
+            steps = toString (n + 1);
           in
           {
-            on = num;
-            run = "plugin relative-motions ${num}";
+            on = steps;
+            run = "plugin relative-motions ${steps}";
             desc = "Move in relative steps";
           }
         ) 9);
@@ -142,25 +142,37 @@ in
 
         plugin =
           let
-            mediainfo = map (a: a // { run = "mediainfo"; }) [
-              { mime = "{audio,video,image}/*"; }
-              { mime = "application/subrip"; }
-            ];
+            mediainfo =
+              map
+                (mime: {
+                  inherit mime;
+                  run = "mediainfo";
+                })
+                [
+                  "{audio,video,image}/*"
+                  "application/subrip"
+                ];
           in
           {
             prepend_preloaders = mediainfo;
 
             prepend_previewers =
               mediainfo
-              ++ (map (a: a // { run = "ouch"; }) [
-                { mime = "application/*zip"; }
-                { mime = "application/x-tar"; }
-                { mime = "application/x-bzip2"; }
-                { mime = "application/x-7z-compressed"; }
-                { mime = "application/x-rar"; }
-                { mime = "application/x-xz"; }
-                { mime = "application/xz"; }
-              ]);
+              ++ (map
+                (arch: {
+                  mime = "application/${arch}";
+                  run = "ouch";
+                })
+                [
+                  "*zip"
+                  "x-tar"
+                  "x-bzip2"
+                  "x-7z-compressed"
+                  "x-rar"
+                  "x-xz"
+                  "xz"
+                ]
+              );
 
             append_previewers = [
               {
