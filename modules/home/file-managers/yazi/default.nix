@@ -17,6 +17,7 @@ in
       ouch
       hexyl
       mediainfo
+      rich-cli
     ];
 
     programs.yazi = {
@@ -31,6 +32,7 @@ in
           mediainfo
           mount
           relative-motions
+          rich-preview
           smart-enter
           smart-filter
           starship
@@ -157,7 +159,20 @@ in
             prepend_preloaders = mediainfo;
 
             prepend_previewers =
-              mediainfo
+              (map
+                (ext: {
+                  name = "*.${ext}";
+                  run = "rich-preview";
+                })
+                [
+                  "csv"
+                  "md"
+                  "rst"
+                  "ipynb"
+                  "json"
+                ]
+              )
+              ++ mediainfo
               ++ (map
                 (arch: {
                   mime = "application/${arch}";
