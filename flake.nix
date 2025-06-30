@@ -289,6 +289,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    trmt = {
+      url = "github:cenonym/trmt";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     yazi-hexyl = {
       url = "github:Reledia/hexyl.yazi";
       flake = false;
