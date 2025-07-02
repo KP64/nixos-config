@@ -3,6 +3,7 @@
   pkgs,
   invisible,
   rootPath,
+  inputs,
   ...
 }:
 let
@@ -11,26 +12,27 @@ in
 {
   home = {
     stateVersion = "25.11";
-    packages = with pkgs; [
-      asciinema
-      anki
-      doggo
-      duf
-      hyperfine
-      igrep
-      (kicad-unstable.override {
-        addons = with kicadAddons; [
-          kikit
-          kikit-library
-        ];
-      })
-      lux
-      oh-my-git
-      prismlauncher
-      simplex-chat-desktop
-      vhs
-      wthrr
-    ];
+    packages =
+      [ inputs.somo.packages.${pkgs.system}.default ]
+      ++ (with pkgs; [
+        anki
+        doggo
+        duf
+        hyperfine
+        igrep
+        (kicad-unstable.override {
+          addons = with kicadAddons; [
+            kikit
+            kikit-library
+          ];
+        })
+        lux
+        oh-my-git
+        prismlauncher
+        simplex-chat-desktop
+        vhs
+        wthrr
+      ]);
   };
 
   system.style.catppuccin.enable = true;

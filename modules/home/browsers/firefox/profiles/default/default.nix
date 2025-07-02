@@ -10,6 +10,8 @@ let
   inherit (config.home) username;
 in
 lib.mkIf config.browsers.firefox.enable {
+  catppuccin.firefox.profiles.${username}.force = true;
+
   programs.firefox.profiles.${username} = {
     extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
 

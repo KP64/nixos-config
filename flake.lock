@@ -119,11 +119,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1751021896,
-        "narHash": "sha256-L9u68mNPPiuW7+OV5BKbXaj/AENTiiuEx8+QnMBjRlU=",
+        "lastModified": 1751453285,
+        "narHash": "sha256-F7zhh5VhlarncktsWeXiekn1RcAipLd4kBq6s/DCspg=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "a6b0e34d083c79f08efabb1fd6ccf12b882daae6",
+        "rev": "c65eb816b07c39c0075f5425c6b9d3d16d9dde3c",
         "type": "github"
       },
       "original": {
@@ -1936,11 +1936,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1744463964,
-        "narHash": "sha256-LWqduOgLHCFxiTNYi3Uj5Lgz0SR+Xhw3kr/3Xd0GPTM=",
+        "lastModified": 1750776420,
+        "narHash": "sha256-/CG+w0o0oJ5itVklOoLbdn2dGB0wbZVOoDm4np6w09A=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2631b0b7abcea6e640ce31cd78ea58910d31e650",
+        "rev": "30a61f056ac492e3b7cdcb69c1e6abdcf00e39cf",
         "type": "github"
       },
       "original": {
@@ -2260,6 +2260,7 @@
         "nixpkgs": "nixpkgs_3",
         "nur": "nur",
         "nvf": "nvf",
+        "somo": "somo",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "starship": "starship",
@@ -2324,6 +2325,28 @@
       "original": {
         "owner": "andreymatin",
         "repo": "scss-reset",
+        "type": "github"
+      }
+    },
+    "somo": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nix",
+        "lastModified": 1750927242,
+        "narHash": "sha256-2MgxnGBp0kegP6JjJx6rahkH3vvzOk3LeDInKeT3xc0=",
+        "owner": "theopfr",
+        "repo": "somo",
+        "rev": "1af3c77f59cf3651263f3cce55e0b1db41a501e9",
+        "type": "github"
+      },
+      "original": {
+        "dir": "nix",
+        "owner": "theopfr",
+        "repo": "somo",
         "type": "github"
       }
     },
@@ -2446,11 +2469,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749791927,
-        "narHash": "sha256-+19SnYKqkxaebe4Xo5hqnPYdjW74/6IPJub4r4O8WxY=",
+        "lastModified": 1751354969,
+        "narHash": "sha256-SRzWp5yyl3U7JIfT4fOEBx3COJJ3V/SXLUW8yIQKVvI=",
         "owner": "cenonym",
         "repo": "trmt",
-        "rev": "d4e0f51735866f8178d86ff072c28aae096d6f18",
+        "rev": "3332214a941525eb8da2af078842714fd0be82fa",
         "type": "github"
       },
       "original": {
