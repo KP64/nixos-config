@@ -20,9 +20,10 @@ let
   # browser.discovery.enabled."browser.discovery.enabled" = false;
   appendLastWithFullPath =
     attrs:
-    lib.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
-      ${builtins.concatStringsSep "." name} = value;
-    }) attrs;
+    attrs
+    |> lib.mapAttrsRecursiveCond builtins.isAttrs (
+      name: value: { ${builtins.concatStringsSep "." name} = value; }
+    );
 
   # -- DESC --
   # Takes the last entry of each (nested) attrset and

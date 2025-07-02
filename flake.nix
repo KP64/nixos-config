@@ -87,7 +87,11 @@
 
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        home-manager.follows = "home-manager";
+      };
     };
 
     hyprpicker = {
@@ -352,7 +356,7 @@
               hostName:
               { system }:
               let
-                hostPath = ./hosts/droid/${system}/${hostName};
+                hostPath = ./hosts/${platform}/${system}/${hostName};
               in
               inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
                 home-manager-path = inputs.home-manager.outPath;
