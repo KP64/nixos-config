@@ -22,23 +22,7 @@ lib.mkIf config.browsers.firefox.enable {
       <| lib.custom.appendLastWithFullPath
       <| {
         dom.security.https_only_mode = true;
-        general = {
-          autoScroll = true;
-          smoothScroll = {
-            currentVelocityWeighting = "1";
-            stopDecelerationWeighting = "1";
-            msdPhysics = {
-              continuousMotionMaxDeltaMS = 12;
-              enabled = true;
-              motionBeginSpringConstant = 600;
-              regularSpringConstant = 650;
-              slowdownMinDeltaMS = 25;
-              slowdownMinDeltaRatio = "2";
-              slowdownSpringConstant = 250;
-            };
-          };
-        };
-        mousewheel.default.delta_multiplier_y = 300;
+        general.autoScroll = true;
         sidebar.verticalTabs = true;
       };
 
