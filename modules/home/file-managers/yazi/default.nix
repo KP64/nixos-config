@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -24,13 +23,13 @@ in
       enable = true;
       shellWrapperName = "y";
       plugins = {
-        hexyl = inputs.yazi-hexyl;
         inherit (pkgs.yaziPlugins)
           chmod
           full-border
           git
           mediainfo
           mount
+          piper
           relative-motions
           rich-preview
           smart-enter
@@ -192,7 +191,7 @@ in
             append_previewers = [
               {
                 name = "*";
-                run = "hexyl";
+                run = ''piper -- hexyl --border=none --terminal-width=$w "$1"'';
               }
             ];
 

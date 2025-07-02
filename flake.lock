@@ -2266,8 +2266,7 @@
         "starship": "starship",
         "systems": "systems_2",
         "treefmt-nix": "treefmt-nix",
-        "trmt": "trmt",
-        "yazi-hexyl": "yazi-hexyl"
+        "trmt": "trmt"
       }
     },
     "rust-overlay": {
@@ -2520,22 +2519,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "type": "github"
-      }
-    },
-    "yazi-hexyl": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1744660531,
-        "narHash": "sha256-ly/cLKl2y3npoT2nX8ioGOFcRXI4UXbD9Es/5veUhOU=",
-        "owner": "Reledia",
-        "repo": "hexyl.yazi",
-        "rev": "016a09bcc249dd3ce06267d54cc039e73de9c647",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Reledia",
-        "repo": "hexyl.yazi",
         "type": "github"
       }
     }
