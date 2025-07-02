@@ -109,6 +109,10 @@
     hyprland.enable = true;
     localsend.enable = true;
     trippy.enable = true;
+    ausweisapp = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   apps.obs.enable = true;

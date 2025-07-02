@@ -109,6 +109,10 @@
   programs = {
     hyprland.enable = true;
     gamemode.enable = true;
+    ausweisapp = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   desktop.login.sddm.enable = true;
