@@ -67,6 +67,9 @@ lib.mkIf config.browsers.firefox.enable {
         videospeed
         youtube-recommended-videos
       ];
+      # Libredirect Settings
+      # it's actually a ".js" file, but importing it as JSON is easier :P
+      settings."7esoorv3@alefvanoon.anonaddy.me".settings = lib.importJSON ./libredirect-settings.json;
     };
   };
 }
