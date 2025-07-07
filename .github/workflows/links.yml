@@ -26,7 +26,7 @@ jobs:
 
       - name: Create Issue From File
         if: steps.lychee.outputs.exit_code != 0
-        uses: peter-evans/create-issue-from-file@ac8d53325654b33b4b3476540d438da6ba789fd3
+        uses: peter-evans/create-issue-from-file@7c454184bed728cc4f49d890f1cc85bde708cf38
         with:
           title: Link Checker Report
           content-filepath: ./lychee/out.md
