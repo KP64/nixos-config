@@ -32,6 +32,6 @@ jobs:
           sudo cp -r result/* assets/topology/
 
       - name: Commit and Push changed Files
-        uses: EndBug/add-and-commit@b5fc3de01ef5614aa38ef8d911f023b0a7a04dca
+        uses: EndBug/add-and-commit@af62f267410b647327457e1a82a6686727fcb8a0
         with:
           message: "chore: update topology"
