@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [ ./disko-config.nix ];
 
@@ -38,6 +38,7 @@
 
   networking.networkmanager = {
     enable = true;
+    plugins = [ pkgs.networkmanager-openvpn ];
     ensureProfiles = {
       environmentFiles = [ config.sops.secrets."wireless.env".path ];
       profiles.home-wifi = {
@@ -105,14 +106,17 @@
   };
 
   programs = {
-    gamemode.enable = true;
-    hyprland.enable = true;
-    localsend.enable = true;
-    trippy.enable = true;
     ausweisapp = {
       enable = true;
       openFirewall = true;
     };
+    bandwhich.enable = true;
+    gamemode.enable = true;
+    hyprland.enable = true;
+    localsend.enable = true;
+    sniffnet.enable = true;
+    trippy.enable = true;
+    weylus.enable = true;
   };
 
   apps.obs.enable = true;

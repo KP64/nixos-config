@@ -247,6 +247,7 @@
     nvf = {
       url = "github:notashelf/nvf";
       inputs = {
+        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
@@ -259,18 +260,12 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
     better-fox = {
       url = "github:yokoffing/Betterfox";
       flake = false;
-    };
-
-    somo = {
-      url = "github:theopfr/somo?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {

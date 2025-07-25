@@ -31,6 +31,7 @@ in
       gfold
       gitoxide
       gitleaks
+      git-who
       gql
       lazyjj
       trufflehog
@@ -42,6 +43,11 @@ in
         signerPath = "~/.ssh/allowed_signers";
       in
       {
+        gh = {
+          enable = true;
+          settings.git_protocol = "ssh";
+        };
+
         gitui.enable = true;
 
         git-cliff.enable = true;

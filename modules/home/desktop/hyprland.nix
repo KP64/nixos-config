@@ -201,59 +201,60 @@ in
           ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ];
 
-        bind =
-          [ ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" ]
-          ++ map (s: "$mainMod, ${s}") [
-            "T, exec, $terminal"
-            "D, exec, kitten quick-access-terminal"
+        bind = [
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ]
+        ++ map (s: "$mainMod, ${s}") [
+          "T, exec, $terminal"
+          "D, exec, kitten quick-access-terminal"
 
-            "F, exec, $browser"
-            "R, exec, rofi -show drun -show-icons"
-            "E, exec, rofi -show emoji"
-            "W, exec, rofi -show calc"
+          "F, exec, $browser"
+          "R, exec, rofi -show drun -show-icons"
+          "E, exec, rofi -show emoji"
+          "W, exec, rofi -show calc"
 
-            "C, killactive,"
-            "M, exit,"
-            "V, togglefloating,"
-            "P, pseudo,"
-            "S, togglesplit,"
+          "C, killactive,"
+          "M, exit,"
+          "V, togglefloating,"
+          "P, pseudo,"
+          "S, togglesplit,"
 
-            "left, movefocus, l"
-            "H, movefocus, l"
+          "left, movefocus, l"
+          "H, movefocus, l"
 
-            "right, movefocus, r"
-            "L, movefocus, r"
+          "right, movefocus, r"
+          "L, movefocus, r"
 
-            "up, movefocus, u"
-            "K, movefocus, u"
+          "up, movefocus, u"
+          "K, movefocus, u"
 
-            "down, movefocus, d"
-            "J, movefocus, d"
+          "down, movefocus, d"
+          "J, movefocus, d"
 
-            "mouse_down, workspace, e+1"
-            "mouse_up, workspace, e-1"
-          ]
-          ++ map (s: "$mainMod SHIFT, ${s}") [
-            "S, swapsplit"
-            "C, exec, hyprpicker --no-fancy --autocopy"
-            "R, exec, systemctl --user restart waybar.service"
-            "I, exec, grimblast --freeze --notify copysave area"
-          ]
-          ++ (
-            # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-            max_workspace_count
-            |> builtins.genList (
-              i:
-              let
-                ws = i + 1;
-              in
-              [
-                "$mainMod, code:1${toString i}, workspace, ${toString ws}"
-                "$mainMod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-              ]
-            )
-            |> builtins.concatLists
-          );
+          "mouse_down, workspace, e+1"
+          "mouse_up, workspace, e-1"
+        ]
+        ++ map (s: "$mainMod SHIFT, ${s}") [
+          "S, swapsplit"
+          "C, exec, hyprpicker --no-fancy --autocopy"
+          "R, exec, systemctl --user restart waybar.service"
+          "I, exec, grimblast --freeze --notify copysave area"
+        ]
+        ++ (
+          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+          max_workspace_count
+          |> builtins.genList (
+            i:
+            let
+              ws = i + 1;
+            in
+            [
+              "$mainMod, code:1${toString i}, workspace, ${toString ws}"
+              "$mainMod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          )
+          |> builtins.concatLists
+        );
 
         bindm = map (s: "$mainMod, ${s}") [
           "mouse:272, movewindow"

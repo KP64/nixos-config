@@ -1,4 +1,9 @@
-{ config, rootPath, ... }:
+{
+  config,
+  pkgs,
+  rootPath,
+  ...
+}:
 {
   imports = [ ./disko-config.nix ];
 
@@ -38,6 +43,7 @@
 
   networking.networkmanager = {
     enable = true;
+    plugins = [ pkgs.networkmanager-openvpn ];
     ethernet.macAddress = "random";
     wifi = {
       macAddress = "random";

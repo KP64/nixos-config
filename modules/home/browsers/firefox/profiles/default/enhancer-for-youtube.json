@@ -1,0 +1,15 @@
+{
+  "controls": [
+    "reverse-playlist",
+    "cards-end-screens",
+    "cinema-mode",
+    "keyboard-shortcuts"
+  ],
+  "controlbar": {
+    "active": false,
+    "autohide": false,
+    "centered": true,
+    "position": "absolute"
+  },
+  "controlsvisible": true
+}

@@ -3,7 +3,6 @@
   pkgs,
   invisible,
   rootPath,
-  inputs,
   ...
 }:
 let
@@ -13,8 +12,6 @@ in
   home = {
     stateVersion = "25.11";
     packages =
-      [ inputs.somo.packages.${pkgs.system}.default ]
-      ++ (with pkgs; [
         anki
         doggo
         duf
@@ -32,7 +29,6 @@ in
         simplex-chat-desktop
         vhs
         wthrr
-      ]);
   };
 
   system.style.catppuccin.enable = true;

@@ -15,13 +15,14 @@ in
   # e.g.:
   # with    prefix: uutils-mv
   # without prefix: mv
-  config.home.packages =
-    [ pkgs.uutils-coreutils-noprefix ]
-    ++ (lib.optionals cfg.enable (
-      with pkgs;
-      [
-        uutils-diffutils
-        uutils-findutils
-      ]
-    ));
+  config.home.packages = [
+    pkgs.uutils-coreutils-noprefix
+  ]
+  ++ (lib.optionals cfg.enable (
+    with pkgs;
+    [
+      uutils-diffutils
+      uutils-findutils
+    ]
+  ));
 }
