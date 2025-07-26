@@ -101,6 +101,11 @@ in
       systemd.variables = [ "--all" ];
       plugins = [ inputs.hyprgrass.packages.${pkgs.system}.default ];
       settings = {
+        ecosystem = {
+          no_update_news = true;
+          no_donation_nag = true;
+        };
+
         plugin.touch_gestures = {
           sensitivity = 4.0;
 
