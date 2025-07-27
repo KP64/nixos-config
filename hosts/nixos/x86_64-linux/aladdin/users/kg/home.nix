@@ -11,24 +11,74 @@ in
 {
   home = {
     stateVersion = "25.11";
-    packages =
-        anki
-        doggo
-        duf
-        hyperfine
-        igrep
-        (kicad-unstable.override {
-          addons = with kicadAddons; [
-            kikit
-            kikit-library
-          ];
-        })
-        lux
-        oh-my-git
-        prismlauncher
-        simplex-chat-desktop
-        vhs
-        wthrr
+    shellAliases.c = "clear";
+    packages = with pkgs; [
+      ani-cli
+      asciinema
+      asciinema-agg
+      charm-freeze
+      choose
+      czkawka-full
+      doggo
+      dua
+      duf
+      dust
+      dysk
+      gping
+      grex
+      # gyroflow
+      hurl
+      hyperfine
+      igrep
+      jnv
+      (kicad-unstable.override {
+        addons = with kicadAddons; [
+          kikit
+          kikit-library
+        ];
+      })
+      kondo
+      lux
+      # mullvad-browser
+      netscanner
+      oha
+      oxipng
+      presenterm
+      prismlauncher
+      procs
+      rnote
+      rustscan
+      sd
+      sherlock
+      shh
+      simplex-chat-desktop
+      sshx
+      systemctl-tui
+      systeroid
+      tldx
+      tokei
+      uutils-coreutils-noprefix
+      vhs
+      vtracer
+      wthrr
+      xan
+      xh
+    ];
+  };
+
+  services = {
+    copyq.enable = true;
+    pueue.enable = true;
+    ludusavi = {
+      enable = true;
+      backupNotification = true;
+    };
+  };
+
+  programs = {
+    gh-dash.enable = true;
+    himalaya.enable = true;
+    rmpc.enable = true;
   };
 
   system.style.catppuccin.enable = true;

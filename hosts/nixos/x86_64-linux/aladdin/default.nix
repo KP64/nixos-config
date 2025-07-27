@@ -116,7 +116,11 @@
     localsend.enable = true;
     sniffnet.enable = true;
     trippy.enable = true;
-    weylus.enable = true;
+    weylus = {
+      enable = true;
+      openFirewall = true;
+      users = [ "kg" ];
+    };
   };
 
   apps.obs.enable = true;
