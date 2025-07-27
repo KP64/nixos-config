@@ -26,15 +26,12 @@ in
       cfonts
       cmatrix
       dipc
-      dwt1-shell-color-scripts
-      figlet
       genact
       nms
       pipes-rs
       rust-stakeholder
       tenki
       toilet
-      tty-clock
     ]);
     programs = {
       cava.enable = true;

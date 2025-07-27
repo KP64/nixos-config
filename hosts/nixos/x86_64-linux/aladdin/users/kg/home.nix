@@ -101,8 +101,6 @@ in
   };
 
   desktop = {
-    services.copyq.enable = true;
-
     rofi.enable = true;
     hypridle.enable = true;
     hyprlock.enable = true;

@@ -37,8 +37,8 @@ lib.mkIf config.browsers.firefox.enable {
         facebook-container
         firefox-color
         indie-wiki-buddy
-        languagetool
         libredirect
+        private-grammar-checker-harper
         private-relay
         refined-github
         return-youtube-dislikes
@@ -48,6 +48,7 @@ lib.mkIf config.browsers.firefox.enable {
         tabliss
         ublock-origin
         videospeed
+        vimium
         youtube-recommended-videos
       ];
       # Libredirect Settings

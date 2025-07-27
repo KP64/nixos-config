@@ -18,7 +18,7 @@
     stateVersion = "25.11";
     language = "en";
     security.sudo-rs.enable = true;
-    services.ssh.enable = true;
+    ssh.enable = true;
     style.catppuccin.enable = true;
   };
 

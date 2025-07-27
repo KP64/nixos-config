@@ -5,14 +5,14 @@
   ...
 }:
 let
-  cfg = config.system.services.comin;
+  cfg = config.system.comin;
 
   toMinutes = sec: 60 * sec;
 in
 {
   imports = [ inputs.comin.nixosModules.comin ];
 
-  options.system.services.comin.enable = lib.mkEnableOption "Comin";
+  options.system.comin.enable = lib.mkEnableOption "Comin";
 
   config.services.comin = {
     inherit (cfg) enable;

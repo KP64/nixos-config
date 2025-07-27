@@ -50,7 +50,7 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
+    ssh.enable = true;
     style.catppuccin.enable = true;
   };
 

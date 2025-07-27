@@ -151,14 +151,6 @@ in
         "$browser" = "firefox";
         "$mainMod" = "SUPER";
 
-        exec-once = [
-          "copyq --start-server"
-          "mako"
-          "udiskie"
-          "hyprpaper"
-          "hypridle"
-        ];
-
         decoration = {
           rounding = 8;
 
