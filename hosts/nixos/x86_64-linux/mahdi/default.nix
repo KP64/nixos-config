@@ -76,7 +76,7 @@
 
   networking = {
     domain = "holab.ipv64.de";
-    firewall.allowPing = false;
+    nftables.enable = true;
   };
 
   time.timeZone = "Europe/Berlin";
