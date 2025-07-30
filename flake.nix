@@ -85,15 +85,6 @@
       };
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        home-manager.follows = "home-manager";
-      };
-    };
-
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs = {
