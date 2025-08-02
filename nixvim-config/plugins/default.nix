@@ -18,7 +18,6 @@
     ./image.nix
     ./lualine.nix
     ./modicator.nix
-    ./navic.nix
     ./noice.nix
     ./rainbow-delimiters.nix
     ./render-markdown.nix

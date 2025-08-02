@@ -1,10 +1,7 @@
 { lib, ... }:
 {
   plugins = {
-    # TODO: Everything (shortcuts, configs, ...)
     dap.enable = true;
-    # dap-lldb.enable = true; # TODO: Needed?
-    # dap-python.enable = true; # TODO: Needed?
     dap-ui.enable = true;
   };
 

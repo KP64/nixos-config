@@ -52,9 +52,6 @@
 
     breakindent = true;
 
-    # Save undo history
-    undofile = true;
-
     # Case-insensitive searching UNLESS \C or one or more capital letters in the search term
     ignorecase = true;
     smartcase = true;
@@ -68,6 +65,8 @@
     splitright = true;
     splitbelow = true;
 
+    inccommand = "split";
+
     # Set how neovim will display certain whitespace
     # characters in the editor
     # See :help 'list'
@@ -78,13 +77,13 @@
     confirm = true;
   };
 
-  # TODO: Enable after understanding what they are doing
   keymaps = [
-    # {
-    #   mode = "n";
-    #   key = "<Esc>";
-    #   action = "<cmd>nohlsearch<CR>";
-    # }
+    {
+      mode = "n";
+      key = "<Esc>";
+      action = "<cmd>nohlsearch<CR>";
+      options.desc = "Remove Search Highlighting";
+    }
 
     ###
     # Keybinds to make split navigation easier.

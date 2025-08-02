@@ -2,7 +2,7 @@
   plugins.trouble = {
     enable = true;
     settings = {
-      auto_close = true; # TODO: Annoying?
+      auto_close = true;
       auto_refresh = true;
     };
   };

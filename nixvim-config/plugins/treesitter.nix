@@ -10,7 +10,7 @@
       enable = true;
       settings = {
         highlight.enable = true;
-        incremental_selection.enable = true; # TODO: Needed?
+        incremental_selection.enable = true;
       };
     };
     treesitter-context.enable = true;
@@ -18,8 +18,8 @@
     treesitter-textobjects = {
       enable = true;
       lspInterop = {
-        enable = true; # TODO: Needed? + Configure
-        border = "rounded"; # TODO: Annoying? -> None
+        enable = true;
+        border = "rounded";
       };
       move.enable = true;
       select = {

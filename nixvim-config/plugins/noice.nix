@@ -1,26 +1,15 @@
 {
-  plugins = rec {
-    # TODO: Test once LSP is online
-    # TODO: Shortcuts
-    inc-rename.enable = true;
+  plugins = {
     notify.enable = true;
     nui.enable = true;
     noice = {
       enable = true;
       settings = {
-        presets = {
-          inc_rename = inc-rename.enable;
-          lsp_doc_border = true; # TODO: Check if works, when LSP online
+        presets.lsp_doc_border = true;
+        lsp.override = {
+          "vim.lsp.util.convert_input_to_markdown_lines" = true;
+          "vim.lsp.util.stylize_markdown" = true;
         };
-        # TODO: Does this work as intended?
-        lsp.override =
-          let
-            lspUtil = "vim.lsp.util";
-          in
-          {
-            "${lspUtil}.convert_input_to_markdown_lines" = true;
-            "${lspUtil}.stylize_markdown" = true;
-          };
       };
     };
   };

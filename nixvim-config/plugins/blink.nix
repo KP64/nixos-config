@@ -16,7 +16,7 @@
       settings = {
         signature.enabled = true;
         completion = {
-          documentation.auto_show = true; # TODO: Disable if annoying
+          documentation.auto_show = true;
           menu.draw = {
             columns =
               lib.nixvim.mkRaw # lua
