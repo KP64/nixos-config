@@ -1,2 +1,6 @@
-# TODO: Configure
-{ plugins.hlchunk.enable = true; }
+{
+  plugins.hlchunk = {
+    enable = true;
+    settings.indent.enable = true;
+  };
+}

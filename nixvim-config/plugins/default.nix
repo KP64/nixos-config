@@ -5,7 +5,6 @@
     ./bufferline.nix
     ./codesnap.nix
     ./comment.nix
-    ./conform.nix
     ./dap.nix
     ./dashboard.nix
     ./emmet.nix
@@ -30,6 +29,8 @@
     ./treesitter.nix
     ./trouble.nix
     ./todo-comments.nix
+    ./which-key.nix
     ./yazi.nix
+    ./zen-mode.nix
   ];
 }

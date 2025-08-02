@@ -4,7 +4,7 @@
   inputs,
   ...
 }:
-rec {
+{
   imports = [
     ./lsp
     ./plugins
@@ -31,31 +31,12 @@ rec {
 
   colorschemes.catppuccin.enable = true;
 
-  globals = {
-    mapleader = " ";
-    have_nerd_font = true;
-  };
+  globals.mapleader = " ";
 
   # plugins.avante.enable = true; # TODO: Configure
-
   # plugins.neorg.enable = true; # TODO: Configure
-
   # plugins.nvim-ufo.enable = true; # TODO: Configure? + This vs. Treesitter-folding
-
   # plugins.otter.enable = true; # TODO: Configure
-
-  # TODO: Move to plugins folder
-  plugins = {
-    which-key.enable = true;
-    web-devicons.enable = globals.have_nerd_font;
-    mini-icons.enable = true;
-  };
-
-  plugins = {
-    # TODO: Configure
-    zen-mode.enable = true;
-    twilight.enable = true;
-  };
 
   clipboard = {
     providers = {
@@ -94,14 +75,7 @@ rec {
     list = true;
     listchars = lib.nixvim.mkRaw "{ tab = '» ', trail = '·', nbsp = '␣' }";
 
-    # Preview substitutions live, as you type!
-    # TODO: Confirm
-    inccommand = "split";
-
     confirm = true;
-
-    # FIX: Issues with telescope
-    # winborder = "rounded";
   };
 
   # TODO: Enable after understanding what they are doing
