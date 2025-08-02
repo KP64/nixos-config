@@ -1,5 +1,4 @@
 {
-  # TODO: Not lazyload to fix flashing?
   plugins.dashboard = {
     enable = true;
     settings = {

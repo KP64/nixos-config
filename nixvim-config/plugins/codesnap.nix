@@ -1,5 +1,4 @@
 {
-  # FIX: Crashes
   performance.combinePlugins.standalonePlugins = [ "codesnap.nvim" ];
 
   plugins.codesnap = {

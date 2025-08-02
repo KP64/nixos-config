@@ -4,7 +4,6 @@
     ./blink.nix
     ./bufferline.nix
     ./codesnap.nix
-    ./colorful-menu.nix
     ./comment.nix
     ./conform.nix
     ./dap.nix

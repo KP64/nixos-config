@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   extraPackages = [ pkgs.glab ];
   dependencies = {
@@ -7,6 +7,7 @@
   };
 
   plugins = {
+    colorful-menu.enable = true;
     blink-cmp-git.enable = true;
     blink-ripgrep.enable = true;
     # TODO: Rust fuzzy implementation
@@ -14,7 +15,30 @@
       enable = true;
       settings = {
         signature.enabled = true;
-        completion.documentation.auto_show = true; # TODO: Disable if annoying
+        completion = {
+          documentation.auto_show = true; # TODO: Disable if annoying
+          menu.draw = {
+            columns =
+              lib.nixvim.mkRaw # lua
+                ''{ { "kind_icon" }, { "label", gap = 1 } }'';
+            components.label = {
+              text =
+                lib.nixvim.mkRaw # lua
+                  ''
+                    function(ctx)
+                      return require("colorful-menu").blink_components_text(ctx)
+                    end
+                  '';
+              highlight =
+                lib.nixvim.mkRaw # lua
+                  ''
+                    function(ctx)
+                      return require("colorful-menu").blink_components_highlight(ctx)
+                    end
+                  '';
+            };
+          };
+        };
         sources = {
           default = [
             "lsp"
