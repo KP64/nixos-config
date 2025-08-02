@@ -12,6 +12,5 @@
     ./obs.nix
     ./spicetify.nix
     ./thunderbird.nix
-    ./uutils.nix
   ];
 }

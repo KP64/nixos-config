@@ -6,14 +6,12 @@
 }:
 {
   imports = [
-    ./copyq.nix
     ./hypridle.nix
     ./hyprland.nix
     ./hyprlock.nix
     ./hyprpanel.nix
     ./hyprpaper.nix
     ./hyprsunset.nix
-    ./mako.nix
     ./rofi.nix
   ];
 

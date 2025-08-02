@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [ ./disko-config.nix ];
 
@@ -26,7 +26,7 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
+    ssh.enable = true;
     style.catppuccin.enable = true;
   };
 
@@ -36,20 +36,24 @@
     nvidia.enable = true;
   };
 
-  networking.networkmanager = {
-    enable = true;
-    ensureProfiles = {
-      environmentFiles = [ config.sops.secrets."wireless.env".path ];
-      profiles.home-wifi = {
-        connection = {
-          id = "home-wifi";
-          type = "wifi";
-        };
-        wifi.ssid = "$HOME_WIFI_SSID";
-        wifi-security = {
-          auth-alg = "open";
-          key-mgmt = "wpa-psk";
-          psk = "$HOME_WIFI_PASSWORD";
+  networking = {
+    nftables.enable = true;
+    networkmanager = {
+      enable = true;
+      plugins = [ pkgs.networkmanager-openvpn ];
+      ensureProfiles = {
+        environmentFiles = [ config.sops.secrets."wireless.env".path ];
+        profiles.home-wifi = {
+          connection = {
+            id = "home-wifi";
+            type = "wifi";
+          };
+          wifi.ssid = "$HOME_WIFI_SSID";
+          wifi-security = {
+            auth-alg = "open";
+            key-mgmt = "wpa-psk";
+            psk = "$HOME_WIFI_PASSWORD";
+          };
         };
       };
     };
@@ -105,13 +109,20 @@
   };
 
   programs = {
-    gamemode.enable = true;
-    hyprland.enable = true;
-    localsend.enable = true;
-    trippy.enable = true;
     ausweisapp = {
       enable = true;
       openFirewall = true;
+    };
+    bandwhich.enable = true;
+    gamemode.enable = true;
+    hyprland.enable = true;
+    localsend.enable = true;
+    sniffnet.enable = true;
+    trippy.enable = true;
+    weylus = {
+      enable = true;
+      openFirewall = true;
+      users = [ "kg" ];
     };
   };
 
@@ -122,6 +133,4 @@
   file-managers.thunar.enable = true;
 
   gaming.launchers.steam.enable = true;
-
-  virt.docker.enable = true;
 }

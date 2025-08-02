@@ -23,6 +23,7 @@ in
       background-opacity = 0.5;
       clipboard-trim-trailing-spaces = true;
       clipboard-paste-protection = true;
-    } // lib.optionalAttrs (cfg.shader != null) { custom-shader = toString cfg.shader; };
+    }
+    // lib.optionalAttrs (cfg.shader != null) { custom-shader = toString cfg.shader; };
   };
 }

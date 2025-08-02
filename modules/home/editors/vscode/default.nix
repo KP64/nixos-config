@@ -73,29 +73,25 @@ in
       userSettings =
         lib.custom.collectLastEntries
         <| lib.custom.appendLastWithFullPath
-        <|
-          (lib.optionalAttrs config.programs.nushell.enable {
-            terminal.integrated.defaultProfile.linux = "Nushell";
-          })
-          // {
-            workbench.startupEditor = "none";
+        <| {
+          workbench.startupEditor = "none";
 
-            files = {
-              autoSave = "afterDelay";
-              trimTrailingWhitespace = true;
-            };
-
-            editor = {
-              fontFamily = "JetBrainsMono Nerd Font";
-              fontLigatures = true;
-              guides.bracketPairs = "active";
-              formatOnSave = true;
-              minimap.autohide = true;
-            };
-
-            telemetry.telemetryLevel = "off";
-            update.showReleaseNotes = false;
+          files = {
+            autoSave = "afterDelay";
+            trimTrailingWhitespace = true;
           };
+
+          editor = {
+            fontFamily = "JetBrainsMono Nerd Font";
+            fontLigatures = true;
+            guides.bracketPairs = "active";
+            formatOnSave = true;
+            minimap.autohide = true;
+          };
+
+          telemetry.telemetryLevel = "off";
+          update.showReleaseNotes = false;
+        };
     };
   };
 }

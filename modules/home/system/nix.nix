@@ -5,22 +5,23 @@
   ...
 }:
 {
-  imports = [ inputs.nix-index-database.hmModules.nix-index ];
+  imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-  home.packages =
-    [ inputs.nix-alien.packages.${pkgs.system}.nix-alien ]
-    ++ (with pkgs; [
-      cachix
-      nix-health
-      nix-melt
-      nix-output-monitor
-      nix-tree
-      nixpkgs-lint-community
-      nixpkgs-review
-      nurl
-      nvd
-      vulnix
-    ]);
+  home.packages = [
+    inputs.nix-alien.packages.${pkgs.system}.nix-alien
+  ]
+  ++ (with pkgs; [
+    cachix
+    nix-health
+    nix-melt
+    nix-output-monitor
+    nix-tree
+    nixpkgs-lint-community
+    nixpkgs-review
+    nurl
+    nvd
+    vulnix
+  ]);
 
   programs = {
     nix-index.enable = true;

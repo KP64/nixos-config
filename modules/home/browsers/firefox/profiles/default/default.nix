@@ -36,10 +36,9 @@ lib.mkIf config.browsers.firefox.enable {
         enhancer-for-youtube
         facebook-container
         firefox-color
-        i-dont-care-about-cookies
         indie-wiki-buddy
-        languagetool
         libredirect
+        private-grammar-checker-harper
         private-relay
         refined-github
         return-youtube-dislikes
@@ -49,11 +48,39 @@ lib.mkIf config.browsers.firefox.enable {
         tabliss
         ublock-origin
         videospeed
+        vimium
         youtube-recommended-videos
       ];
       # Libredirect Settings
       # it's actually a ".js" file, but importing it as JSON is easier :P
-      settings."7esoorv3@alefvanoon.anonaddy.me".settings = lib.importJSON ./libredirect-settings.json;
+      settings = {
+        "uBlock0@raymondhill.net".settings = {
+          selectedFilterLists = [
+            "ublock-filters"
+            "ublock-badware"
+            "ublock-privacy"
+            "ublock-quick-fixes"
+            "ublock-unbreak"
+            "easylist"
+            "adguard-generic"
+            "easyprivacy"
+            "adguard-spyware"
+            "adguard-spyware-url"
+            "block-lan"
+            "urlhaus-1"
+            "curben-phishing"
+            "plowe-0"
+            "fanboy-cookiemonster"
+            "ublock-cookies-easylist"
+            "adguard-cookies"
+            "ublock-cookies-adguard"
+          ];
+        };
+      }
+      // builtins.mapAttrs (_: v: { settings = lib.importJSON v; }) {
+        "7esoorv3@alefvanoon.anonaddy.me" = ./libredirect-settings.json;
+        "enhancerforyoutube@maximerf.addons.mozilla.org" = ./enhancer-for-youtube.json;
+      };
     };
   };
 }

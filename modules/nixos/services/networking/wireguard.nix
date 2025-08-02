@@ -200,6 +200,7 @@ in
               setNAT =
                 ipv: mode:
                 let
+                  # TODO: Convert to nftables
                   addresses = if (ipv == "iptables") then value.address.ipv4 else value.address.ipv6;
                 in
                 lib.concatLines (

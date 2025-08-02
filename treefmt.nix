@@ -32,7 +32,11 @@ in
     };
 
     # PNG
-    oxipng.enable = true;
+    oxipng = {
+      enable = true;
+      opt = "max";
+      strip = "safe";
+    };
 
     # 🐚 Shell
     shfmt.enable = true;

@@ -7,7 +7,6 @@
 }:
 let
   cfg = config.system.security.secure-boot;
-  pkiBundle = "/var/lib/sbctl";
 in
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
@@ -26,7 +25,7 @@ in
         loader.systemd-boot.enable = lib.mkForce false;
         lanzaboote = {
           enable = true;
-          inherit pkiBundle;
+          pkiBundle = "/var/lib/sbctl";
         };
       };
     })
