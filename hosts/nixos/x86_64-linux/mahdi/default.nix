@@ -96,7 +96,6 @@
       };
   };
 
-
   services = {
     ollama = {
       enable = true;

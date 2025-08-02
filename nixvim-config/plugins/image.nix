@@ -1,0 +1,1 @@
+{ plugins.image.enable = true; }
