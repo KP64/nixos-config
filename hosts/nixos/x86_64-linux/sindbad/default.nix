@@ -1,4 +1,9 @@
-{ config, rootPath, ... }:
+{
+  config,
+  pkgs,
+  rootPath,
+  ...
+}:
 {
   imports = [ ./disko-config.nix ];
 
@@ -26,7 +31,7 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
+    ssh.enable = true;
     style.catppuccin.enable = true;
   };
 
@@ -38,6 +43,7 @@
 
   networking.networkmanager = {
     enable = true;
+    plugins = [ pkgs.networkmanager-openvpn ];
     ethernet.macAddress = "random";
     wifi = {
       macAddress = "random";

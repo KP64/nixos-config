@@ -21,18 +21,17 @@ in
     {
       inherit (cfg) enable;
       daemon.enable = true;
-      settings =
-        {
-          inherit (cfg) sync_address;
-          invert = true;
-          filter_mode_shell_up_key_binding = "directory";
-          style = "auto";
-          update_check = false;
-          enter_accept = true;
-        }
-        // lib.optionalAttrs (secrets ? "atuin/session" && secrets ? "atuin/key") {
-          session_path = secrets."atuin/session".path;
-          key_path = secrets."atuin/key".path;
-        };
+      settings = {
+        inherit (cfg) sync_address;
+        invert = true;
+        filter_mode_shell_up_key_binding = "directory";
+        style = "auto";
+        update_check = false;
+        enter_accept = true;
+      }
+      // lib.optionalAttrs (secrets ? "atuin/session" && secrets ? "atuin/key") {
+        session_path = secrets."atuin/session".path;
+        key_path = secrets."atuin/key".path;
+      };
     };
 }

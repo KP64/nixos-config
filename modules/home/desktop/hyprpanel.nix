@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   invisible,
   ...
 }:
@@ -14,7 +12,6 @@ in
 
   config.programs.hyprpanel = {
     inherit (cfg) enable;
-    package = inputs.hyprpanel.packages.${pkgs.system}.default;
 
     settings = {
       wallpaper.enable = false;

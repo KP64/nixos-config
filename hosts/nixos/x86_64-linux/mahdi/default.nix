@@ -50,7 +50,7 @@
       tpm.enable = true;
       sudo-rs.enable = true;
     };
-    services.ssh.enable = true;
+    ssh.enable = true;
     style.catppuccin.enable = true;
   };
 
@@ -76,7 +76,7 @@
 
   networking = {
     domain = "holab.ipv64.de";
-    firewall.allowPing = false;
+    nftables.enable = true;
   };
 
   time.timeZone = "Europe/Berlin";
@@ -95,7 +95,6 @@
         physicalConnections = [ (topology.mkConnectionRev "router" "eth3") ];
       };
   };
-
 
   services = {
     ollama = {

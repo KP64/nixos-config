@@ -85,15 +85,6 @@
       };
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        home-manager.follows = "home-manager";
-      };
-    };
-
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs = {
@@ -232,6 +223,15 @@
       };
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
     nixos-wsl = {
@@ -244,33 +244,17 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
     nur = {
       url = "github:nix-community/nur";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
     better-fox = {
       url = "github:yokoffing/Betterfox";
       flake = false;
-    };
-
-    somo = {
-      url = "github:theopfr/somo?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {
@@ -313,6 +297,7 @@
       systems = import inputs.systems;
 
       imports = with inputs; [
+        nixvim.flakeModules.default
         treefmt-nix.flakeModule
         nix-topology.flakeModule
         home-manager.flakeModules.home-manager
@@ -425,6 +410,12 @@
             );
         };
 
+      nixvim = {
+        packages.enable = true;
+        # TODO: Enable once certain plugins can be disabled when checking
+        # checks.enable = true;
+      };
+
       perSystem =
         {
           self',
@@ -433,29 +424,20 @@
           ...
         }:
         {
-          _module.args.pkgs = import nixpkgs {
+          nixvimConfigurations.neovim = inputs.nixvim.lib.evalNixvim {
             inherit system;
-            overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
+            extraSpecialArgs = { inherit inputs; };
+            modules = [ ./nixvim-config ];
           };
 
-          packages =
-            (nixpkgs.lib.packagesFromDirectoryRecursive {
-              inherit (pkgs) callPackage;
-              directory = ./pkgs;
-            })
-            // rec {
-              default = neovim;
-              inherit
-                (inputs.nvf.lib.neovimConfiguration {
-                  inherit pkgs;
-                  modules = [ ./neovim.nix ];
-                })
-                neovim
-                ;
-            };
+          packages = nixpkgs.lib.packagesFromDirectoryRecursive {
+            inherit (pkgs) callPackage;
+            directory = ./pkgs;
+          };
 
-          # Check all packages
-          checks = self'.packages;
+          # Nixvim configurations are considered
+          # packages too. Let nixvim handle the checks.
+          checks = { inherit (self'.packages) dumb terminal-rain-lightning; };
 
           topology.modules = [ ./topology.nix ];
 

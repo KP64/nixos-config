@@ -15,24 +15,21 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages =
-      [ inputs.dotz.packages.${pkgs.system}.default ]
-      ++ (with inputs.self.packages.${pkgs.system}; [
-        mufetch
-        terminal-rain-lightning
+      (with inputs; [
+        dotz.packages.${pkgs.system}.default
+        self.packages.${pkgs.system}.terminal-rain-lightning
       ])
       ++ (with pkgs; [
         cbonsai
         cfonts
         cmatrix
-        dwt1-shell-color-scripts
-        figlet
+        dipc
         genact
         nms
         pipes-rs
         rust-stakeholder
         tenki
         toilet
-        tty-clock
       ]);
     programs = {
       cava.enable = true;

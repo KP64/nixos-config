@@ -1,0 +1,36 @@
+{
+  imports = [
+    ./autopairs.nix
+    ./blink.nix
+    ./bufferline.nix
+    ./codesnap.nix
+    ./comment.nix
+    ./dap.nix
+    ./dashboard.nix
+    ./emmet.nix
+    ./fastaction.nix
+    ./flash.nix
+    ./git.nix
+    ./hardtime.nix
+    ./highlight-colors.nix
+    ./hlchunk.nix
+    ./illuminate.nix
+    ./image.nix
+    ./lualine.nix
+    ./modicator.nix
+    ./navic.nix
+    ./noice.nix
+    ./rainbow-delimiters.nix
+    ./render-markdown.nix
+    ./spider.nix
+    ./surround.nix
+    ./telescope.nix
+    ./tiny-inline-diagnostics.nix
+    ./treesitter.nix
+    ./trouble.nix
+    ./todo-comments.nix
+    ./which-key.nix
+    ./yazi.nix
+    ./zen-mode.nix
+  ];
+}
