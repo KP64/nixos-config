@@ -437,7 +437,7 @@
 
           # Nixvim configurations are considered
           # packages too. Let nixvim handle the checks.
-          checks = { inherit (self'.packages) dumb mufetch terminal-rain-lightning; };
+          checks = { inherit (self'.packages) dumb terminal-rain-lightning; };
 
           topology.modules = [ ./topology.nix ];
 

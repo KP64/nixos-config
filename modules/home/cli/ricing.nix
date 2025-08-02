@@ -14,25 +14,23 @@ in
   options.cli.ricing.enable = lib.mkEnableOption "All ricing";
 
   config = lib.mkIf cfg.enable {
-    home.packages = [
-      inputs.dotz.packages.${pkgs.system}.default
-    ]
-    ++ (with inputs.self.packages.${pkgs.system}; [
-      mufetch
-      terminal-rain-lightning
-    ])
-    ++ (with pkgs; [
-      cbonsai
-      cfonts
-      cmatrix
-      dipc
-      genact
-      nms
-      pipes-rs
-      rust-stakeholder
-      tenki
-      toilet
-    ]);
+    home.packages =
+      (with inputs; [
+        dotz.packages.${pkgs.system}.default
+        self.packages.${pkgs.system}.terminal-rain-lightning
+      ])
+      ++ (with pkgs; [
+        cbonsai
+        cfonts
+        cmatrix
+        dipc
+        genact
+        nms
+        pipes-rs
+        rust-stakeholder
+        tenki
+        toilet
+      ]);
     programs = {
       cava.enable = true;
       clock-rs.enable = true;
