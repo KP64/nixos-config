@@ -29,13 +29,19 @@
     combinePlugins.enable = true;
   };
 
+  # The only colorscheme -> No need to Lazyload
   colorschemes.catppuccin.enable = true;
 
   globals.mapleader = " ";
 
+  plugins = {
+    lz-n.enable = true;
+    web-devicons.enable = true;
+    mini-icons.enable = true;
+  };
+
   # plugins.avante.enable = true; # TODO: Configure
   # plugins.neorg.enable = true; # TODO: Configure
-  # plugins.nvim-ufo.enable = true; # TODO: Configure? + This vs. Treesitter-folding
   # plugins.otter.enable = true; # TODO: Configure
 
   clipboard = {
@@ -52,6 +58,8 @@
 
     breakindent = true;
 
+    undofile = true;
+
     # Case-insensitive searching UNLESS \C or one or more capital letters in the search term
     ignorecase = true;
     smartcase = true;
@@ -64,6 +72,9 @@
     # Configure how new splits should be opened
     splitright = true;
     splitbelow = true;
+
+    wrap = false;
+    cursorline = true;
 
     inccommand = "split";
 

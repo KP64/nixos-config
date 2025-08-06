@@ -8,13 +8,11 @@
     ./dap.nix
     ./dashboard.nix
     ./emmet.nix
-    ./fastaction.nix
     ./flash.nix
     ./git.nix
     ./hardtime.nix
     ./highlight-colors.nix
     ./hlchunk.nix
-    ./illuminate.nix
     ./image.nix
     ./lualine.nix
     ./modicator.nix

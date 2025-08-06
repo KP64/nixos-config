@@ -5,8 +5,8 @@
     dap-ui.enable = true;
   };
 
+  # TODO: LazyLoad
   keymaps = [
-    # Basic debugging keymaps, feel free to change to your liking!
     {
       mode = "n";
       key = "<F5>";

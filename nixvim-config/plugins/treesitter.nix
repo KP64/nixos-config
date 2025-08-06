@@ -5,14 +5,9 @@
     gcc.enable = true;
   };
 
+  # TODO: LazyLoad
   plugins = {
-    treesitter = {
-      enable = true;
-      settings = {
-        highlight.enable = true;
-        incremental_selection.enable = true;
-      };
-    };
+    treesitter.enable = true;
     treesitter-context.enable = true;
     # TODO: Mappings
     treesitter-textobjects = {

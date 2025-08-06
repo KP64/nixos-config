@@ -1,6 +1,7 @@
 {
   plugins.yazi = {
     enable = true;
+    lazyLoad.settings.event = "DeferredUIEnter";
     settings = {
       open_for_directories = true;
       use_ya_for_event_reading = true;

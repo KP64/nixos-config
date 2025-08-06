@@ -1,14 +1,25 @@
+let
+  zenModeKeymap = "<leader>zn";
+  zenModeCmd = "ZenMode";
+in
 {
   plugins = {
-    zen-mode.enable = true;
+    # TODO: LazyLoad, such that twilight is loaded before zen-mode
     twilight.enable = true;
+    zen-mode = {
+      enable = true;
+      lazyLoad.settings = {
+        cmd = zenModeCmd;
+        keys = [ zenModeKeymap ];
+      };
+    };
   };
 
   keymaps = [
     {
       mode = "n";
-      key = "<leader>zn";
-      action = "<CMD>ZenMode<CR>";
+      key = zenModeKeymap;
+      action = "<CMD>${zenModeCmd}<CR>";
       options.desc = "Zen Mode";
     }
   ];

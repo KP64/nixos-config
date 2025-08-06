@@ -1,6 +1,9 @@
 { lib, ... }:
 {
-  plugins.flash.enable = true;
+  plugins.flash = {
+    enable = true;
+    lazyLoad.settings.event = "DeferredUIEnter";
+  };
 
   keymaps = [
     {

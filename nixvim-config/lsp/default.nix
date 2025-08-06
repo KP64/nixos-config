@@ -3,7 +3,10 @@
   # Faster replacement for libuv-watchdirs
   extraPackages = [ pkgs.inotify-tools ];
 
-  # TODO: Conform, Lint, lsp-signature
+  # TODO:
+  # Formatting: conform -> LazyLoad : cmd = "ConformInfo", keys = [ ... ]
+  # Linting: nvim-lint -> LazyLoad : event = "LazyFile"
+  # TODO: LazyLoad -> event = "LazyFile"
   plugins.lspconfig.enable = true;
 
   lsp = {
@@ -82,6 +85,7 @@
         enable = true;
         settings = {
           cmd = [ "rust-analyzer" ];
+          filetypes = [ "rust" ];
           assist = {
             emitMustUse = true;
             preferSelf = true;

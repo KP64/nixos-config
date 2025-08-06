@@ -1,4 +1,5 @@
 {
+  # TODO: LazyLoad
   plugins = {
     fugitive.enable = true;
     git-conflict.enable = true;

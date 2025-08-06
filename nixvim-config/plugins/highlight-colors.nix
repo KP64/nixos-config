@@ -1,4 +1,5 @@
 {
+  # TODO: LazyLoad
   plugins.highlight-colors = {
     enable = true;
     settings = {

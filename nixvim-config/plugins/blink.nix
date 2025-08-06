@@ -6,13 +6,15 @@
     gh.enable = true;
   };
 
+  # TODO: LazyLoad
   plugins = {
     colorful-menu.enable = true;
+    # FIX: Rust "from" shows git stuff instead of conversions
     blink-cmp-git.enable = true;
     blink-ripgrep.enable = true;
-    # TODO: Rust fuzzy implementation
     blink-cmp = {
       enable = true;
+      lazyLoad.settings.event = "InsertEnter";
       settings = {
         signature.enabled = true;
         completion = {
