@@ -138,8 +138,6 @@ in
       ) 9);
 
       settings = {
-        mgr.show_hidden = true;
-
         plugin =
           let
             mediainfo =
