@@ -97,6 +97,7 @@
   };
 
   services = {
+    fwupd.enable = true;
     ollama = {
       enable = true;
       loadModels = [
