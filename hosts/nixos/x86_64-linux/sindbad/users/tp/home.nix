@@ -82,7 +82,6 @@ in
     hyprlock.enable = true;
     hyprpanel.enable = true;
     hyprpaper.enable = true;
-    hyprsunset.enable = true;
     hyprland = {
       enable = true;
       monitors = [

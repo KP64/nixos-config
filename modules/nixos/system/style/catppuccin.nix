@@ -2,7 +2,6 @@
   config,
   lib,
   inputs,
-  rootPath,
   ...
 }:
 let
@@ -19,17 +18,10 @@ in
       type = lib.types.nonEmptyStr;
       example = "rosewater";
     };
-
-    background = lib.mkOption {
-      default = "${rootPath}/assets/wallpapers/catppuccin/nixos-waves.png";
-      type = lib.types.path;
-      description = "The background that is applied to SDDM (only).";
-    };
   };
 
   config.catppuccin = {
     inherit (cfg) enable accent;
     cache.enable = true;
-    sddm = { inherit (cfg) background; };
   };
 }
