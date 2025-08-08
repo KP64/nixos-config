@@ -1,1 +1,0 @@
-{ imports = [ ./heroic.nix ]; }

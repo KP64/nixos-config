@@ -189,9 +189,7 @@ in
   };
 
   editors = {
-    blender.enable = true;
     helix.enable = true;
-    imhex.enable = true;
     neovim.enable = true;
     vscode.enable = true;
     zed.enable = true;
@@ -205,7 +203,6 @@ in
   gaming = {
     discord.enable = true;
     emulators.nintendo.enable = true;
-    launchers.heroic.enable = true;
   };
 
   terminals = {

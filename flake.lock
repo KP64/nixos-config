@@ -67,70 +67,6 @@
         "type": "github"
       }
     },
-    "catppuccin-aseprite": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1750325543,
-        "narHash": "sha256-lHJIi5gjZ86G0K9FcjCbRIH3se9VJ0NVLFoad7uWCPs=",
-        "owner": "catppuccin",
-        "repo": "aseprite",
-        "rev": "0adfcdbf0b0222c61746bf38b9563427ffafbd58",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "aseprite",
-        "type": "github"
-      }
-    },
-    "catppuccin-blender": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1688048888,
-        "narHash": "sha256-BHlSjtr8+5+kgjIoVIUwiJ6iyEPMR2G+9x2vWgMNoew=",
-        "owner": "Dalibor-P",
-        "repo": "blender",
-        "rev": "13581d8296249a62368e14ee66868f9100f19b5a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Dalibor-P",
-        "repo": "blender",
-        "type": "github"
-      }
-    },
-    "catppuccin-heroic": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1748271610,
-        "narHash": "sha256-JcLvp/7F+lmU8FVkrMvgtnu087XLS1T3/3X6OrA/yOg=",
-        "owner": "catppuccin",
-        "repo": "heroic",
-        "rev": "1248e2d24721aa1cc54f185b1b851826207a2b46",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "heroic",
-        "type": "github"
-      }
-    },
-    "catppuccin-imhex": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1717073335,
-        "narHash": "sha256-hdJWvuOCWUNoWwYNXVycwZIjgVOCcKNtyXaDOivKfg8=",
-        "owner": "catppuccin",
-        "repo": "imhex",
-        "rev": "cbac7a79c9ef707efdcc9acfa65e30ca09a61b39",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "imhex",
-        "type": "github"
-      }
-    },
     "comin": {
       "inputs": {
         "nixpkgs": [
@@ -2189,10 +2125,6 @@
       "inputs": {
         "better-fox": "better-fox",
         "catppuccin": "catppuccin",
-        "catppuccin-aseprite": "catppuccin-aseprite",
-        "catppuccin-blender": "catppuccin-blender",
-        "catppuccin-heroic": "catppuccin-heroic",
-        "catppuccin-imhex": "catppuccin-imhex",
         "comin": "comin",
         "disko": "disko",
         "dotz": "dotz",

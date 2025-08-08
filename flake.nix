@@ -4,26 +4,6 @@
   inputs = {
     catppuccin.url = "github:catppuccin/nix";
 
-    catppuccin-aseprite = {
-      url = "github:catppuccin/aseprite";
-      flake = false;
-    };
-
-    catppuccin-blender = {
-      url = "github:Dalibor-P/blender";
-      flake = false;
-    };
-
-    catppuccin-heroic = {
-      url = "github:catppuccin/heroic";
-      flake = false;
-    };
-
-    catppuccin-imhex = {
-      url = "github:catppuccin/imhex";
-      flake = false;
-    };
-
     comin = {
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
