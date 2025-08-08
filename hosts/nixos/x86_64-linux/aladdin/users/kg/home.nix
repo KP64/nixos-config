@@ -159,7 +159,6 @@ in
       enable = true;
       wallpaper = "${rootPath}/assets/wallpapers/catppuccin/retro2_live.png";
     };
-    hyprsunset.enable = true;
     hyprland = {
       enable = true;
       monitors = [

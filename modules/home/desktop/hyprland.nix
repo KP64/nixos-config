@@ -97,7 +97,8 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      package = null;
+      portalPackage = null;
       systemd.variables = [ "--all" ];
       plugins = [ inputs.hyprgrass.packages.${pkgs.system}.default ];
       settings = {
@@ -179,10 +180,9 @@ in
           smart_split = true;
         };
 
-        render.direct_scanout = true;
+        render.direct_scanout = 2;
 
         misc = {
-          force_default_wallpaper = -1;
           disable_hyprland_logo = true;
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
@@ -190,6 +190,8 @@ in
 
         input = {
           kb_layout = "de";
+          kb_options = "caps:escape";
+
           follow_mouse = 1;
         };
 
@@ -208,9 +210,9 @@ in
           "F, exec, $browser"
           "R, exec, rofi -show drun -show-icons"
           "E, exec, rofi -show emoji"
-          "W, exec, rofi -show calc"
+          "C, exec, rofi -show calc"
 
-          "C, killactive,"
+          "W, killactive,"
           "M, exit,"
           "V, togglefloating,"
           "P, pseudo,"

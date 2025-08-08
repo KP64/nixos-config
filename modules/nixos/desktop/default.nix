@@ -1,1 +1,7 @@
-{ imports = [ ./login ]; }
+{
+  imports = [
+    ./login
+
+    ./hyprland.nix
+  ];
+}
