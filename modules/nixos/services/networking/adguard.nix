@@ -146,7 +146,7 @@ in
       default = [ ];
       description = ''
         The DNS rewrites.
-        NOTE: If it doesn't work check that your router is not using some kind of rebind protection.
+        If it doesn't work check that your router is not using some kind of rebind protection.
       '';
       example = [
         {
