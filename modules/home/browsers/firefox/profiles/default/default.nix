@@ -33,7 +33,6 @@ lib.mkIf config.browsers.firefox.enable {
         catppuccin-web-file-icons
         darkreader
         dearrow
-        enhancer-for-youtube
         facebook-container
         firefox-color
         indie-wiki-buddy
@@ -54,6 +53,7 @@ lib.mkIf config.browsers.firefox.enable {
       # Libredirect Settings
       # it's actually a ".js" file, but importing it as JSON is easier :P
       settings = {
+        "7esoorv3@alefvanoon.anonaddy.me".settings = lib.importJSON ./libredirect-settings.json;
         "uBlock0@raymondhill.net".settings = {
           selectedFilterLists = [
             "ublock-filters"
@@ -76,10 +76,6 @@ lib.mkIf config.browsers.firefox.enable {
             "ublock-cookies-adguard"
           ];
         };
-      }
-      // builtins.mapAttrs (_: v: { settings = lib.importJSON v; }) {
-        "7esoorv3@alefvanoon.anonaddy.me" = ./libredirect-settings.json;
-        "enhancerforyoutube@maximerf.addons.mozilla.org" = ./enhancer-for-youtube.json;
       };
     };
   };
