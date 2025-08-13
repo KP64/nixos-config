@@ -133,10 +133,6 @@
 
     misc = {
       atuin.enable = true; # TODO: Sign in
-      glance = {
-        enable = true;
-        inherit (invisible.glance) location;
-      };
       languagetool.enable = true;
     };
 

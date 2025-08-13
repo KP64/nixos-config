@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.desktop.hyprsunset;
 in
@@ -14,7 +8,6 @@ in
   # FIX: Broken in home-manager itself
   config.services.hyprsunset = {
     inherit (cfg) enable;
-    package = inputs.hyprsunset.packages.${pkgs.system}.hyprsunset;
     extraArgs = [ "--identity" ];
     # TODO: Do some Profiles :)
     settings = { };

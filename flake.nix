@@ -2,18 +2,25 @@
   description = "KP64's Ultimate Nixos ❄️";
 
   inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Everything Catppuccin 😺
     catppuccin.url = "github:catppuccin/nix";
 
+    # Periodic NixOS config update service
+    # Especially important for Servers
     comin = {
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Disk partitioning
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Self-Made colorscript
     dotz = {
       url = "github:KP64/dotz";
       inputs = {
@@ -22,75 +29,24 @@
       };
     };
 
+    # Just for deduplication of inputs
     flake-compat.url = "github:edolstra/flake-compat";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
+    systems.url = "github:nix-systems/default";
 
+    # Bind everything together
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # Manage Dotfiles
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprpolkitagent = {
-      url = "github:hyprwm/hyprpolkitagent";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprsunset = {
-      url = "github:hyprwm/hyprsunset";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    # TODO: Re-add
-    # impermanence.url = "github:nix-community/impermanence";
-
+    # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
@@ -100,31 +56,13 @@
       };
     };
 
+    # Realtime Audio
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    navi-denis-cheats = {
-      url = "github:denisidoro/cheats";
-      flake = false;
-    };
-
-    navi-denis-dotfiles = {
-      url = "github:denisidoro/dotfiles";
-      flake = false;
-    };
-
-    navi-denis-tldr-pages = {
-      url = "github:denisidoro/navi-tldr-pages";
-      flake = false;
-    };
-
-    navi-papanito-cheats = {
-      url = "github:papanito/cheats";
-      flake = false;
-    };
-
+    # Latest neovim version
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
@@ -135,6 +73,7 @@
       };
     };
 
+    # Run unpatched Binaries
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
@@ -144,11 +83,15 @@
       };
     };
 
+    # Weekly updated nix pkgs database
+    # Useful for https://github.com/nix-community/comma
+    # and replacing command-not-found
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # TODO: Get rid of treefmt input
     # Stuff that shouldn't be visible to the naked eye,
     # but shouldn't or can't be encrypted
     nix-invisible = {
@@ -160,6 +103,7 @@
       };
     };
 
+    # Advanced minecraft Server configuration
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
@@ -169,14 +113,16 @@
       };
     };
 
+    # NixOS in Android via termux
     nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-24.05";
+      url = "github:nix-community/nix-on-droid";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
     };
 
+    # Network Topology
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {
@@ -185,6 +131,8 @@
       };
     };
 
+    # VSCode extensions not
+    # packaged by nixpkgs
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
@@ -193,6 +141,7 @@
       };
     };
 
+    # Declarative Discord
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs = {
@@ -202,6 +151,7 @@
       };
     };
 
+    # Nix managed Neovim
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
@@ -211,8 +161,10 @@
       };
     };
 
+    # Better hardware-configuration "replacement"
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
+    # NixOS on Windows via WSL
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs = {
@@ -221,8 +173,7 @@
       };
     };
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
+    # AUR Nix edition
     nur = {
       url = "github:nix-community/nur";
       inputs = {
@@ -231,16 +182,19 @@
       };
     };
 
+    # Firefox Hardening
     better-fox = {
       url = "github:yokoffing/Betterfox";
       flake = false;
     };
 
+    # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Declarative Spotify
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs = {
@@ -249,24 +203,10 @@
       };
     };
 
-    starship = {
-      url = "github:starship/starship";
-      flake = false;
-    };
-
-    systems.url = "github:nix-systems/default";
-
+    # Format repos with style
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    trmt = {
-      url = "github:cenonym/trmt";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
     };
   };
 
@@ -276,9 +216,9 @@
       systems = import inputs.systems;
 
       imports = with inputs; [
-        nixvim.flakeModules.default
         treefmt-nix.flakeModule
         nix-topology.flakeModule
+        nixvim.flakeModules.default
         home-manager.flakeModules.home-manager
       ];
 

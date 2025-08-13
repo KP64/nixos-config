@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   rootPath,
   ...
 }:
@@ -15,7 +13,6 @@ in
 
   config.programs.hyprlock = {
     inherit (cfg) enable;
-    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
     settings = {
       background = [
         {

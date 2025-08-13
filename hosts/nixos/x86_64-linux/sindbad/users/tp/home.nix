@@ -65,7 +65,6 @@ in
     };
     lsd.enable = true;
     multiplexer.zellij.enable = true;
-    navi.enable = true;
     ricing.enable = true;
     starship.enable = true;
     shells = {

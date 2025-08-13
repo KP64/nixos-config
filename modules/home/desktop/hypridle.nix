@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}:
+{ config, lib, ... }:
 let
   dispatch_dpms = cmd: "hyprctl dispatch dpms ${cmd}";
   minutes = mins: 60 * mins;
@@ -15,7 +9,6 @@ in
 
   config.services.hypridle = {
     inherit (cfg) enable;
-    package = inputs.hypridle.packages.${pkgs.system}.hypridle;
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";

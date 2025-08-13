@@ -138,7 +138,6 @@ in
     };
     lsd.enable = true;
     multiplexer.zellij.enable = true;
-    navi.enable = true;
     numbat.enable = true;
     ricing.enable = true;
     starship.enable = true;

@@ -120,10 +120,8 @@
     };
   };
 
-  desktop = {
-    hyprland.enable = true;
-    login.sddm.enable = true;
-  };
+  desktop.login.sddm.enable = true;
+
   file-managers.thunar.enable = true;
 
   gaming.launchers.steam.enable = true;

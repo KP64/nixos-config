@@ -116,6 +116,7 @@
     };
     bandwhich.enable = true;
     gamemode.enable = true;
+    hyprland.enable = true;
     localsend.enable = true;
     sniffnet.enable = true;
     trippy.enable = true;
@@ -128,10 +129,7 @@
 
   apps.obs.enable = true;
 
-  desktop = {
-    hyprland.enable = true;
-    login.sddm.enable = true;
-  };
+  desktop.login.sddm.enable = true;
 
   file-managers.thunar.enable = true;
 

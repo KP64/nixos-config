@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -85,27 +84,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home = {
-      sessionVariables.NIXOS_OZONE_WL = "1";
-
-      packages = with inputs; [
-        hyprpicker.packages.${pkgs.system}.hyprpicker
-        hyprland-contrib.packages.${pkgs.system}.grimblast
-        hyprpolkitagent.packages.${pkgs.system}.hyprpolkitagent
-      ];
-    };
+    home.packages = with pkgs; [
+      grimblast
+      hyprpicker
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
       package = null;
       portalPackage = null;
       systemd.variables = [ "--all" ];
-      plugins = [ inputs.hyprgrass.packages.${pkgs.system}.default ];
+      plugins = [ pkgs.hyprlandPlugins.hyprgrass ];
       settings = {
         ecosystem = {
           no_update_news = true;
           no_donation_nag = true;
         };
+
+        env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
 
         plugin.touch_gestures = {
           sensitivity = 4.0;
@@ -210,9 +206,9 @@ in
           "F, exec, $browser"
           "R, exec, rofi -show drun -show-icons"
           "E, exec, rofi -show emoji"
-          "C, exec, rofi -show calc"
+          "W, exec, rofi -show calc"
 
-          "W, killactive,"
+          "C, killactive,"
           "M, exit,"
           "V, togglefloating,"
           "P, pseudo,"
