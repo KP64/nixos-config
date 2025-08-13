@@ -16,24 +16,28 @@ in
 
   config.programs.spicetify = {
     inherit (cfg) enable;
+    wayland = true; # or null -> depends on NIXOS_OZONE_WL env
     theme = lib.mkIf config.isCatppuccinEnabled themes.catppuccin;
     colorScheme = lib.mkIf config.isCatppuccinEnabled "mocha";
     enabledCustomApps = [ apps.lyricsPlus ];
     enabledExtensions = with extensions; [
-      adblock
+      # Official
       autoSkipVideo
-      betterGenres
       bookmark
+      keyboardShortcut
+      loopyLoop
+      shuffle
+      trashbin
+
+      # Community
+      adblock
+      betterGenres
       fullAlbumDate
       hidePodcasts
       history
-      keyboardShortcut
-      loopyLoop
       powerBar
       sectionMarker
-      shuffle
       songStats
-      trashbin
       volumePercentage
     ];
   };
