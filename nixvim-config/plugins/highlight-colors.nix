@@ -1,7 +1,12 @@
 {
-  # TODO: LazyLoad
+  opts.termguicolors = true;
+
   plugins.highlight-colors = {
     enable = true;
+    lazyLoad.settings.event = [
+      "BufNewFile"
+      "BufReadPre"
+    ];
     settings = {
       render = "virtual";
       # Set virtual symbol (requires render to be set to 'virtual')

@@ -8,7 +8,6 @@
   # Prevents everything to be folded on start
   opts.foldlevelstart = 99;
 
-  # TODO: LazyLoad
   plugins = {
     treesitter = {
       enable = true;

@@ -1,16 +1,26 @@
+{ lib, ... }:
 let
   zenModeKeymap = "<leader>zn";
   zenModeCmd = "ZenMode";
 in
 {
   plugins = {
-    # TODO: LazyLoad, such that twilight is loaded before zen-mode
-    twilight.enable = true;
+    twilight = {
+      enable = true;
+      lazyLoad.settings.cmd = "Twilight";
+    };
     zen-mode = {
       enable = true;
       lazyLoad.settings = {
         cmd = zenModeCmd;
         keys = [ zenModeKeymap ];
+        before =
+          lib.nixvim.mkRaw # lua
+            ''
+              function()
+                require("lz.n").trigger_load("twilight.nvim")
+              end
+            '';
       };
     };
   };

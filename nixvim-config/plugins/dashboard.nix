@@ -1,7 +1,6 @@
 {
   plugins.dashboard = {
     enable = true;
-    lazyLoad.settings.event = "VimEnter";
     settings = {
       config = {
         header = [

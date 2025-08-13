@@ -1,7 +1,15 @@
 {
-  # TODO: LazyLoad
+  opts = {
+    cursorline = true;
+    number = true;
+    termguicolors = true;
+  };
+
   plugins.modicator = {
     enable = true;
-    settings.show_warnings = true;
+    lazyLoad.settings.event = [
+      "BufNewFile"
+      "BufReadPre"
+    ];
   };
 }

@@ -2,10 +2,8 @@ rec {
   plugins.codesnap = {
     enable = true;
     lazyLoad.settings = {
-      cmd = [
-        "CodeSnap"
-      ]
-      ++ map (c: "CodeSnap${c}") [
+      cmd = map (c: "CodeSnap${c}") [
+        ""
         "ASCII"
         "Highlight"
         "Save"

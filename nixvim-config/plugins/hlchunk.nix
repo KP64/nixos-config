@@ -2,8 +2,8 @@
   plugins.hlchunk = {
     enable = true;
     lazyLoad.settings.event = [
-      "BufReadPre"
       "BufNewFile"
+      "BufReadPre"
     ];
     settings.indent.enable = true;
   };
