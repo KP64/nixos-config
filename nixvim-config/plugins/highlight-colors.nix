@@ -5,7 +5,7 @@
     enable = true;
     lazyLoad.settings.event = [
       "BufNewFile"
-      "BufReadPre"
+      "BufReadPost"
     ];
     settings = {
       render = "virtual";

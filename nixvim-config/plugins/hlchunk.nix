@@ -3,7 +3,7 @@
     enable = true;
     lazyLoad.settings.event = [
       "BufNewFile"
-      "BufReadPre"
+      "BufReadPost"
     ];
     settings.indent.enable = true;
   };
