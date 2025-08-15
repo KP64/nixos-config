@@ -91,7 +91,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # TODO: Get rid of treefmt input
     # Stuff that shouldn't be visible to the naked eye,
     # but shouldn't or can't be encrypted
     nix-invisible = {
@@ -99,7 +98,6 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
