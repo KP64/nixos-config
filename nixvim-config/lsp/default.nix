@@ -61,19 +61,15 @@
       };
       harper_ls = {
         enable = true;
-        # TODO: Check
-        settings.settings."harper-ls" = {
-          codeActions.ForceStable = true;
-          linters = {
-            spelled_numbers = true;
-            use_genitive = true;
-            possessive_noun = true;
-            boring_words = true;
+        settings.settings."harper-ls".linters = {
+          SpelledNumbers = true;
+          UseGenitive = true;
+          PossessiveNoun = true;
+          BoringWords = true;
 
-            # Counterproductive for programming
-            spell_check = false;
-            sentence_capitalization = false;
-          };
+          # Counterproductive for programming
+          SpellCheck = false;
+          SentenceCapitalization = false;
         };
       };
       just.enable = true;
