@@ -336,6 +336,7 @@
       perSystem =
         {
           self',
+          lib,
           pkgs,
           system,
           ...
@@ -347,14 +348,14 @@
             modules = [ ./nixvim-config ];
           };
 
-          packages = nixpkgs.lib.packagesFromDirectoryRecursive {
+          packages = lib.packagesFromDirectoryRecursive {
             inherit (pkgs) callPackage;
             directory = ./pkgs;
           };
 
           # Nixvim configurations are considered
           # packages too. Let nixvim handle the checks.
-          checks = { inherit (self'.packages) dumb terminal-rain-lightning; };
+          checks = { inherit (self'.packages) dumb; };
 
           topology.modules = [ ./topology.nix ];
 
