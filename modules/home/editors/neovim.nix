@@ -11,5 +11,8 @@ in
 {
   options.editors.neovim.enable = lib.mkEnableOption "Neovim";
 
-  config.home.packages = lib.optional cfg.enable inputs.self.packages.${pkgs.system}.neovim;
+  config.home = lib.mkIf cfg.enable {
+    packages = [ inputs.self.packages.${pkgs.system}.neovim ];
+    sessionVariables.EDITOR = lib.mkForce "nvim";
+  };
 }

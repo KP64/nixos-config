@@ -7,7 +7,6 @@ in
 
   config.programs.helix = {
     inherit (cfg) enable;
-    # TODO: Make neovim defaultEditor when ready.
     defaultEditor = true;
     settings = lib.mkDefault {
       editor = {
