@@ -26,7 +26,6 @@ in
       dysk
       gping
       grex
-      # gyroflow
       hurl
       hyperfine
       igrep
@@ -39,7 +38,6 @@ in
       })
       kondo
       lux
-      # mullvad-browser
       netscanner
       oha
       oxipng
