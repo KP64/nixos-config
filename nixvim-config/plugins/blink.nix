@@ -9,6 +9,7 @@
       enable = true;
       lazyLoad.settings.event = "InsertEnter";
       settings = {
+        keymap.preset = "super-tab";
         signature.enabled = true;
         completion = {
           documentation.auto_show = true;
