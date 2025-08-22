@@ -5,6 +5,7 @@
     ./bufferline.nix
     ./codesnap.nix
     ./comment.nix
+    ./conform.nix
     ./dap.nix
     ./dashboard.nix
     ./emmet.nix
@@ -14,6 +15,7 @@
     ./highlight-colors.nix
     ./hlchunk.nix
     ./image.nix
+    ./lint.nix
     ./lualine.nix
     ./modicator.nix
     ./noice.nix

@@ -3,10 +3,6 @@
   # Faster replacement for libuv-watchdirs
   extraPackages = [ pkgs.inotify-tools ];
 
-  # TODO:
-  # Formatting: conform -> LazyLoad : cmd = "ConformInfo", keys = [ ... ]
-  # Linting: nvim-lint -> LazyLoad : event = "LazyFile"
-  # TODO: LazyLoad -> event = "LazyFile"
   plugins.lspconfig.enable = true;
 
   lsp = {
@@ -86,7 +82,6 @@
             emitMustUse = true;
             preferSelf = true;
           };
-          check.command = "clippy";
           completion.fullFunctionSignatures.enable = true;
           diagnostics.styleLints.enable = true;
           inlayHints = {
