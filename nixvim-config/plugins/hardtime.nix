@@ -1,1 +1,0 @@
-{ plugins.hardtime.enable = true; }

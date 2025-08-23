@@ -1,7 +1,0 @@
-[lints.clippy]
-multiple_unsafe_ops_per_block = "forbid"
-undocumented_unsafe_blocks = "forbid"
-
-[lints.rust]
-unsafe_attr_outside_unsafe = "forbid"
-unsafe_op_in_unsafe_fn = "forbid"

@@ -1,19 +1,50 @@
 {
-  description = "KP64's Ultimate Nixos ❄️";
+  description = "KP64's All-In-One Nix Flake";
 
+  # TODO: Move to Config
+  #   nixConfig = {
+  #     accept-flake-config = true;
+  #   allow-import-from-derivation = false;
+  #   auto-optimise-store = true;
+  #   pure-eval = true;
+  #   experimental-features = [ "ca-derivations" "flakes" "nix-command" "no-url-literals" "parse-toml-timestamps" "pipe-operators" "verified-fetches" ];
+  # };
+
+  # Think of inputs like dependencies that
+  # are used throughout the project
+  #
+  # The "url" specifies, Where this dependency lives.
+  # It could be a GitHub, GitLab, etc. Repo, a file, a path doesn't matter.
+  # Bend it to your own will.
+  #
+  # inputs.<name>.follows is like sharing an input.
+  # The most common example is `inputs.nixpkgs.follows = "nixpkgs"`
+  # This indicates that the input that in turn has a dependency on
+  # nixpkgs shouldn't bring its own copy of it, but reuse the one
+  # already specified inputs in this very flake.
   inputs = {
-    catppuccin.url = "github:catppuccin/nix";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # Everything Catppuccin 😺
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Periodic NixOS config update service
+    # Especially important for Servers
     comin = {
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Disk partitioning
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Self-Made colorscript
     dotz = {
       url = "github:KP64/dotz";
       inputs = {
@@ -22,75 +53,32 @@
       };
     };
 
+    # Make the outputs compatible with non flake systems
+    # The compatibility layer is comprised of the default.nix
+    # and the shell.nix file in the current working directory
     flake-compat.url = "github:edolstra/flake-compat";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
+    # Just for deduplication of inputs
+    systems.url = "github:nix-systems/default";
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
 
+    # Bind everything together
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # Manage Dotfiles
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland";
-    };
+    # Ephemeral root storage
+    # Clean up files on every reboot :P
+    impermanence.url = "github:nix-community/impermanence";
 
-    hypridle = {
-      url = "github:hyprwm/hypridle";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprland.url = "github:hyprwm/Hyprland";
-
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprlock = {
-      url = "github:hyprwm/hyprlock";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprpolkitagent = {
-      url = "github:hyprwm/hyprpolkitagent";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    hyprsunset = {
-      url = "github:hyprwm/hyprsunset";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    # TODO: Re-add
-    # impermanence.url = "github:nix-community/impermanence";
-
+    # Secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs = {
@@ -100,31 +88,13 @@
       };
     };
 
+    # Realtime Audio
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    navi-denis-cheats = {
-      url = "github:denisidoro/cheats";
-      flake = false;
-    };
-
-    navi-denis-dotfiles = {
-      url = "github:denisidoro/dotfiles";
-      flake = false;
-    };
-
-    navi-denis-tldr-pages = {
-      url = "github:denisidoro/navi-tldr-pages";
-      flake = false;
-    };
-
-    navi-papanito-cheats = {
-      url = "github:papanito/cheats";
-      flake = false;
-    };
-
+    # Latest neovim version
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
@@ -135,6 +105,7 @@
       };
     };
 
+    # Run unpatched Binaries
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
@@ -144,6 +115,9 @@
       };
     };
 
+    # Weekly updated nix pkgs database
+    # Useful for https://github.com/nix-community/comma
+    # and replacing command-not-found
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -151,15 +125,16 @@
 
     # Stuff that shouldn't be visible to the naked eye,
     # but shouldn't or can't be encrypted
+    # TODO: Overhaul
     nix-invisible = {
       url = "git+ssh://git@github.com/KP64/nix-invisible";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
+    # Advanced minecraft Server configuration
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
@@ -169,14 +144,16 @@
       };
     };
 
+    # NixOS in Android via termux
     nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-24.05";
+      url = "github:nix-community/nix-on-droid";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
     };
 
+    # Network Topology
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {
@@ -185,6 +162,8 @@
       };
     };
 
+    # VSCode extensions not
+    # packaged by nixpkgs
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
@@ -193,6 +172,7 @@
       };
     };
 
+    # Declarative Discord
     nixcord = {
       url = "github:kaylorben/nixcord";
       inputs = {
@@ -202,6 +182,7 @@
       };
     };
 
+    # Nix managed Neovim
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
@@ -211,8 +192,16 @@
       };
     };
 
+    # Better hardware-configuration "replacement"
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
+    # Nixos on the Raspberry Pi
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # NixOS on Windows via WSL
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs = {
@@ -221,8 +210,7 @@
       };
     };
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
+    # AUR Nix edition
     nur = {
       url = "github:nix-community/nur";
       inputs = {
@@ -231,16 +219,19 @@
       };
     };
 
+    # Firefox Hardening
     better-fox = {
       url = "github:yokoffing/Betterfox";
       flake = false;
     };
 
+    # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Declarative Spotify
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs = {
@@ -249,192 +240,51 @@
       };
     };
 
-    starship = {
-      url = "github:starship/starship";
-      flake = false;
-    };
-
-    systems.url = "github:nix-systems/default";
-
+    # Format repos with style
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    trmt = {
-      url = "github:cenonym/trmt";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
   };
 
   outputs =
-    inputs@{ nixpkgs, ... }:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      { withSystem, ... }:
+      {
+        debug = true;
 
-      imports = with inputs; [
-        nixvim.flakeModules.default
-        treefmt-nix.flakeModule
-        nix-topology.flakeModule
-        home-manager.flakeModules.home-manager
-      ];
+        systems = inputs.nixpkgs.lib.systems.flakeExposed;
 
-      flake =
-        let
-          globals = import "${inputs.nix-invisible}/globals.nix";
+        imports = with inputs.flake-parts.flakeModules; [
+          flakeModules
+          # modules
+          partitions
+        ];
 
-          rootPath = inputs.self.outPath;
-          lib = nixpkgs.lib.extend (
-            _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
+        partitions.dev = {
+          extraInputsFlake = ./dev;
+          module.imports = [ ./dev ];
+        };
+
+        partitionedAttrs = {
+          checks = "dev";
+          devShells = "dev";
+          formatter = "dev";
+        };
+
+        flake = {
+          flakeModules.default = { };
+          # flake.modules = { };
+
+          nixosConfigurations.aladdin = withSystem "x86_64-linux" (
+            { inputs', system, ... }:
+            inputs.nixpkgs.lib.nixosSystem {
+              specialArgs = { inherit inputs inputs'; };
+              modules = [ { nixpkgs.hostPlatform = system; } ];
+            }
           );
-
-          common = {
-            homeManager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "hm-backup";
-              sharedModules = [ ./modules/home ];
-            };
-
-            specialArgs = hostName: invisible: {
-              inherit
-                inputs
-                hostName
-                rootPath
-                invisible
-                ;
-            };
-          };
-        in
-        {
-          nixOnDroidConfigurations =
-            let
-              platform = "droid";
-            in
-            platform
-            |> lib.custom.getHosts
-            |> builtins.mapAttrs (
-              hostName:
-              { system }:
-              let
-                hostPath = ./hosts/${platform}/${system}/${hostName};
-              in
-              inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-                home-manager-path = inputs.home-manager.outPath;
-                extraSpecialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
-
-                pkgs = import nixpkgs { inherit system; };
-
-                modules = [
-                  hostPath
-                  ./modules/droid
-                  {
-                    home-manager = common.homeManager // {
-                      inherit extraSpecialArgs;
-                      config = "${hostPath}/homes/nix-on-droid.nix";
-                    };
-                  }
-                ];
-              }
-            );
-
-          nixosConfigurations =
-            let
-              platform = "nixos";
-            in
-            platform
-            |> lib.custom.getHosts
-            |> builtins.mapAttrs (
-              hostName:
-              { system }:
-              let
-                hostPath = ./hosts/${platform}/${system}/${hostName};
-              in
-              lib.nixosSystem rec {
-                inherit system;
-                specialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
-
-                modules =
-                  (with inputs; [
-                    disko.nixosModules.disko
-                    home-manager.nixosModules.home-manager
-                    nix-topology.nixosModules.default
-                    nixos-facter-modules.nixosModules.facter
-                    nixos-wsl.nixosModules.default
-                    sops-nix.nixosModules.sops
-                    nur.modules.nixos.default
-                  ])
-                  ++ (lib.custom.getUsers hostPath)
-                  ++ (lib.custom.getHomes hostPath)
-                  ++ [
-                    hostPath
-                    ./modules/nixos
-                    {
-                      networking = { inherit hostName; };
-
-                      users.mutableUsers = false;
-
-                      # Disables superfluous pre-installed pkgs
-                      environment.defaultPackages = [ ];
-
-                      home-manager = common.homeManager // {
-                        extraSpecialArgs = specialArgs;
-                      };
-                    }
-                  ];
-              }
-            );
         };
-
-      nixvim = {
-        packages.enable = true;
-        # TODO: Enable once certain plugins can be disabled when checking
-        # checks.enable = true;
-      };
-
-      perSystem =
-        {
-          self',
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          nixvimConfigurations.neovim = inputs.nixvim.lib.evalNixvim {
-            inherit system;
-            extraSpecialArgs = { inherit inputs; };
-            modules = [ ./nixvim-config ];
-          };
-
-          packages = nixpkgs.lib.packagesFromDirectoryRecursive {
-            inherit (pkgs) callPackage;
-            directory = ./pkgs;
-          };
-
-          # Nixvim configurations are considered
-          # packages too. Let nixvim handle the checks.
-          checks = { inherit (self'.packages) dumb terminal-rain-lightning; };
-
-          topology.modules = [ ./topology.nix ];
-
-          treefmt = ./treefmt.nix;
-
-          devShells.default = pkgs.mkShell {
-            name = "nixos-config";
-
-            packages = with pkgs; [
-              act
-
-              just
-              just-lsp
-
-              nixd
-              nix-melt
-            ];
-          };
-        };
-    };
+      }
+    );
 }

@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./yazi
-
-    ./broot.nix
-  ];
-}

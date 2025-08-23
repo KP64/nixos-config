@@ -1,3 +1,0 @@
-require_https = true
-headers = ["accept=*/*"]
-exclude_all_private = true
