@@ -1,4 +1,6 @@
 {
+  settings.global.excludes = [ "*secrets.yaml" ];
+
   programs = {
     # 🐙 Github Actions
     actionlint.enable = true;

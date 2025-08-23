@@ -193,7 +193,8 @@
     };
 
     # Better hardware-configuration "replacement"
-    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+    # TODO: Unfix the version, when Systemd issue is resolved
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules/354ed498c9628f32383c3bf5b6668a17cdd72a28";
 
     # Nixos on the Raspberry Pi
     nixos-raspberrypi = {
@@ -256,11 +257,16 @@
 
         systems = inputs.nixpkgs.lib.systems.flakeExposed;
 
-        imports = with inputs.flake-parts.flakeModules; [
-          flakeModules
-          # modules
-          partitions
-        ];
+        imports =
+          (with inputs.flake-parts.flakeModules; [
+            flakeModules
+            # modules
+            partitions
+          ])
+          ++ (with inputs; [
+            home-manager.flakeModules.home-manager
+            nix-topology.flakeModule
+          ]);
 
         partitions.dev = {
           extraInputsFlake = ./dev;
@@ -273,18 +279,27 @@
           formatter = "dev";
         };
 
-        flake = {
-          flakeModules.default = { };
-          # flake.modules = { };
+        flake =
+          let
+            lib = inputs.nixpkgs.lib.extend (_: _: { custom = import ./lib { inherit inputs; }; });
+          in
+          {
+            flakeModules.default = { };
+            # flake.modules = { };
 
-          nixosConfigurations.aladdin = withSystem "x86_64-linux" (
-            { inputs', system, ... }:
-            inputs.nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs inputs'; };
-              modules = [ { nixpkgs.hostPlatform = system; } ];
-            }
-          );
-        };
+            nixosConfigurations.aladdin = withSystem "x86_64-linux" (
+              ctx:
+              lib.nixosSystem {
+                specialArgs = { inherit inputs ctx; };
+                modules = [
+                  ./hosts/aladdin
+                  { home-manager.extraSpecialArgs = { inherit inputs ctx; }; }
+                ]
+                ++ lib.custom.getUsers [ "kg" ]
+                ++ lib.custom.getHomes [ "kg" ];
+              }
+            );
+          };
       }
     );
 }
