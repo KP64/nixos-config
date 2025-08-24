@@ -9,12 +9,15 @@
   imports = [
     ./disko-config.nix
   ]
+  ++ lib.custom.importUsers [ "kg" ]
+  ++ lib.custom.importHomes [ "kg" ]
   ++ (with inputs; [
     catppuccin.nixosModules.default
     disko.nixosModules.default
     home-manager.nixosModules.default
     musnix.nixosModules.default
     nixos-facter-modules.nixosModules.facter
+    nur.modules.nixos.default
     sops-nix.nixosModules.default
   ]);
   facter.reportPath = ./facter.json;
@@ -60,6 +63,33 @@
     sudo-rs = {
       enable = true;
       execWheelOnly = true;
+    };
+  };
+
+  fonts.packages = with pkgs.nerd-fonts; [
+    jetbrains-mono
+    symbols-only
+  ];
+
+  console.keyMap = "de";
+  services.xserver.xkb.layout = "de";
+  i18n.defaultLocale = "de_DE.UTF-8";
+
+  nix = {
+    package = pkgs.nixVersions.latest;
+    optimise.automatic = true;
+    channel.enable = false;
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "flakes"
+        "nix-command"
+        "no-url-literals"
+        "pipe-operators"
+      ];
+      substituters = [ "https://nix-community.cachix.org" ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+      trusted-users = [ "@wheel" ];
     };
   };
 

@@ -1,15 +1,6 @@
 {
   description = "KP64's All-In-One Nix Flake";
 
-  # TODO: Move to Config
-  #   nixConfig = {
-  #     accept-flake-config = true;
-  #   allow-import-from-derivation = false;
-  #   auto-optimise-store = true;
-  #   pure-eval = true;
-  #   experimental-features = [ "ca-derivations" "flakes" "nix-command" "no-url-literals" "parse-toml-timestamps" "pipe-operators" "verified-fetches" ];
-  # };
-
   # Think of inputs like dependencies that
   # are used throughout the project
   #
@@ -125,7 +116,6 @@
 
     # Stuff that shouldn't be visible to the naked eye,
     # but shouldn't or can't be encrypted
-    # TODO: Overhaul
     nix-invisible = {
       url = "git+ssh://git@github.com/KP64/nix-invisible";
       inputs = {
@@ -260,7 +250,6 @@
         imports =
           (with inputs.flake-parts.flakeModules; [
             flakeModules
-            # modules
             partitions
           ])
           ++ (with inputs; [
@@ -285,20 +274,29 @@
           in
           {
             flakeModules.default = { };
-            # flake.modules = { };
 
-            nixosConfigurations.aladdin = withSystem "x86_64-linux" (
-              ctx:
-              lib.nixosSystem {
-                specialArgs = { inherit inputs ctx; };
-                modules = [
-                  ./hosts/aladdin
-                  { home-manager.extraSpecialArgs = { inherit inputs ctx; }; }
-                ]
-                ++ lib.custom.getUsers [ "kg" ]
-                ++ lib.custom.getHomes [ "kg" ];
-              }
-            );
+            nixosConfigurations =
+              let
+                mkNixOSSystem =
+                  host:
+                  let
+                    hardware-conf = lib.importJSON ./hosts/nixos/${host}/facter.json;
+                  in
+                  withSystem hardware-conf.system (
+                    { inputs', ... }:
+                    lib.nixosSystem {
+                      specialArgs = { inherit inputs inputs'; };
+                      modules = [
+                        ./hosts/nixos/${host}
+                        {
+                          home-manager.extraSpecialArgs = { inherit inputs inputs'; };
+                          nixpkgs.config.allowAliases = false;
+                        }
+                      ];
+                    }
+                  );
+              in
+              ./hosts/nixos |> builtins.readDir |> builtins.mapAttrs (host: _: mkNixOSSystem host);
           };
       }
     );

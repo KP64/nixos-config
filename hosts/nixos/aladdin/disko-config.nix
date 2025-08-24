@@ -9,6 +9,7 @@
         partitions = {
           ESP = {
             name = "ESP";
+            # TODO: Upgrade to 1G
             size = "512M";
             type = "EF00";
             content = {
