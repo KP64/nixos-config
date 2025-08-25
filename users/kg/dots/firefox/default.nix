@@ -19,14 +19,11 @@ in
 
       search = import ./search.nix { inherit lib pkgs inputs; };
 
-      settings =
-        lib.custom.collectLastEntries
-        <| lib.custom.appendLastWithFullPath
-        <| {
-          dom.security.https_only_mode = true;
-          general.autoScroll = true;
-          sidebar.verticalTabs = true;
-        };
+      settings = lib.custom.firefox.toFirefoxSettingStyle {
+        dom.security.https_only_mode = true;
+        general.autoScroll = true;
+        sidebar.verticalTabs = true;
+      };
 
       extensions = {
         force = true;

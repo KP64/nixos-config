@@ -7,9 +7,6 @@ format = '\[[$symbol($version)]($style)\]'
 [c]
 format = '\[[$symbol($version(-$name))]($style)\]'
 
-[cpp]
-format = '\[[$symbol($version(-$name))]($style)\]'
-
 [cmake]
 format = '\[[$symbol($version)]($style)\]'
 
@@ -21,6 +18,9 @@ format = '\[[$symbol($version)]($style)\]'
 
 [conda]
 format = '\[[$symbol$environment]($style)\]'
+
+[cpp]
+format = '\[[$symbol($version(-$name))]($style)\]'
 
 [crystal]
 format = '\[[$symbol($version)]($style)\]'
@@ -166,6 +166,9 @@ format = '\[[$symbol($version)]($style)\]'
 [scala]
 format = '\[[$symbol($version)]($style)\]'
 
+[solidity]
+format = '\[[$symbol($version)]($style)\]'
+
 [spack]
 format = '\[[$symbol$environment]($style)\]'
 
@@ -191,7 +194,4 @@ format = '\[[$symbol($version)]($style)\]'
 format = '\[[$symbol($version)]($style)\]'
 
 [zig]
-format = '\[[$symbol($version)]($style)\]'
-
-[solidity]
 format = '\[[$symbol($version)]($style)\]'

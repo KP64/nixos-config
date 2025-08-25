@@ -20,7 +20,7 @@ in
   default = "duckduckgo";
   privateDefault = "duckduckgo";
   engines =
-    lib.custom.hideEngines [
+    lib.custom.firefox.hideEngines [
       "bing"
       "ecosia"
       "google"

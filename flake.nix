@@ -1,18 +1,20 @@
 {
   description = "KP64's All-In-One Nix Flake";
 
-  # Think of inputs like dependencies that
-  # are used throughout the project
-  #
-  # The "url" specifies, Where this dependency lives.
-  # It could be a GitHub, GitLab, etc. Repo, a file, a path doesn't matter.
-  # Bend it to your own will.
-  #
-  # inputs.<name>.follows is like sharing an input.
-  # The most common example is `inputs.nixpkgs.follows = "nixpkgs"`
-  # This indicates that the input that in turn has a dependency on
-  # nixpkgs shouldn't bring its own copy of it, but reuse the one
-  # already specified inputs in this very flake.
+  /*
+    Think of inputs like dependencies that
+    are used throughout the project
+
+    The "url" specifies, Where this dependency lives.
+    It could be a GitHub, GitLab, etc. Repo, a file, a path doesn't matter.
+    Bend it to your own will.
+
+    inputs.<name>.follows is like sharing an input.
+    The most common example is `inputs.nixpkgs.follows = "nixpkgs"`
+    This indicates that the input that in turn has a dependency on
+    nixpkgs shouldn't bring its own copy of it, but reuse the one
+    already specified inputs in this very flake.
+  */
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -182,7 +184,7 @@
       };
     };
 
-    # Better hardware-configuration "replacement"
+    # Better hardware-configuration replacement
     # TODO: Unfix the version, when Systemd issue is resolved
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules/354ed498c9628f32383c3bf5b6668a17cdd72a28";
 
@@ -238,13 +240,22 @@
     };
   };
 
+  /*
+    The outputs are akin to "results" that this flake produces.
+    This ranges from a simple Network Topology all the way to
+    full blown NixOS Configs.
+  */
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, ... }:
       {
+        # This allows further inspection of
+        # outputs via the nix repl
         debug = true;
 
+        # Every system this flake supports,
+        # for which perSystem will run
         systems = inputs.nixpkgs.lib.systems.flakeExposed;
 
         imports =
@@ -257,11 +268,21 @@
             nix-topology.flakeModule
           ]);
 
+        /*
+          Partitions define "sub flakes", whose inputs
+          and results will not be shown in a consumers' flake.
+          This is useful to compartmentalize flakes into more
+          specialised units, like for example a development flake
+          that handles everything about further developing this flake
+          like formatters etc.
+        */
         partitions.dev = {
+          # This will use "./dev/flake.nix"
           extraInputsFlake = ./dev;
+          # While this will use "./dev/default.nix"
           module.imports = [ ./dev ];
         };
-
+        # Moving dev related stuff to the appropriate partition
         partitionedAttrs = {
           checks = "dev";
           devShells = "dev";
@@ -270,6 +291,7 @@
 
         flake =
           let
+            # Extend the "standard nix library" with our custom functions
             lib = inputs.nixpkgs.lib.extend (_: _: { custom = import ./lib { inherit inputs; }; });
           in
           {
@@ -280,9 +302,9 @@
                 mkNixOSSystem =
                   host:
                   let
-                    hardware-conf = lib.importJSON ./hosts/nixos/${host}/facter.json;
+                    facter-conf = lib.importJSON ./hosts/nixos/${host}/facter.json;
                   in
-                  withSystem hardware-conf.system (
+                  withSystem facter-conf.system (
                     { inputs', ... }:
                     lib.nixosSystem {
                       specialArgs = { inherit inputs inputs'; };

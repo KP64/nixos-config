@@ -9,8 +9,8 @@
   imports = [
     ./disko-config.nix
   ]
-  ++ lib.custom.importUsers [ "kg" ]
-  ++ lib.custom.importHomes [ "kg" ]
+  ++ lib.custom.fs.importUsers [ "kg" ]
+  ++ lib.custom.fs.importHomes [ "kg" ]
   ++ (with inputs; [
     catppuccin.nixosModules.default
     disko.nixosModules.default
