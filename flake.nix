@@ -196,7 +196,7 @@
         (inputs.import-tree ./modules)
       ]
       ++ (with inputs.flake-parts.flakeModules; [
-        flakeModules
+        modules
         partitions
       ]);
     };
