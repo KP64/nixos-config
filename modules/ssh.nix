@@ -1,0 +1,27 @@
+{
+  flake.modules = {
+    nixos.ssh = {
+      # TODO: Needed?
+      # programs.ssh.startAgent = true;
+
+      services.openssh = {
+        enable = true;
+        startWhenNeeded = true;
+        settings = {
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
+      };
+    };
+
+    homeManager.ssh = {
+      # TODO: Configure
+      programs.ssh.enable = true;
+
+      services = {
+        ssh-agent.enable = true;
+        ssh-tpm-agent.enable = true;
+      };
+    };
+  };
+}
