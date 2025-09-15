@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos."hosts/aladdin" = {
+  flake.modules.nixos.hosts-aladdin = {
     imports = [ inputs.disko.nixosModules.default ];
 
     disko.devices = {

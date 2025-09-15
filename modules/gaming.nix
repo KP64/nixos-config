@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.steam =
+  flake.modules.nixos.gaming =
     { pkgs, ... }:
     {
       programs = {

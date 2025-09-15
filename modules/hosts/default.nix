@@ -5,7 +5,7 @@
   ...
 }:
 let
-  prefix = "hosts/";
+  prefix = "hosts-";
 in
 {
   flake.nixosConfigurations =
@@ -14,7 +14,18 @@ in
     |> lib.mapAttrs' (
       name: module: {
         name = name |> lib.removePrefix prefix;
-        value = inputs.nixpkgs.lib.nixosSystem { modules = module.imports; };
+        value = inputs.nixpkgs.lib.nixosSystem {
+          modules = module.imports ++ [
+            inputs.home-manager.nixosModules.default
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "hm-backup";
+              };
+            }
+          ];
+        };
       }
     );
 }

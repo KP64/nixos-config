@@ -1,3 +1,4 @@
+{ inputs, ... }:
 let
   commonSettings = pkgs: {
     package = pkgs.nixVersions.latest;
@@ -28,17 +29,34 @@ in
       };
 
     homeManager.nix =
-      { config, pkgs, ... }:
       {
-        nix = commonSettings pkgs;
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
+      {
+        imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-        programs.nh = {
-          enable = true;
-          clean = {
+        nix = pkgs |> commonSettings |> lib.mkDefault;
+
+        programs = {
+          nix-index.enable = true;
+          nix-index-database.comma.enable = true;
+          nix-init.enable = true;
+          direnv = {
             enable = true;
-            extraArgs = "--keep 5";
+            silent = true;
+            nix-direnv.enable = true;
           };
-          flake = /home/${config.home.homeDirectory}/nixos-config;
+          nh = {
+            enable = true;
+            clean = {
+              enable = true;
+              extraArgs = "--keep 5";
+            };
+            flake = /. + "${config.home.homeDirectory}/nixos-config";
+          };
         };
       };
   };

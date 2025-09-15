@@ -149,14 +149,7 @@
       # Extend the "standard nix library" with our custom functions
       lib = inputs.nixpkgs.lib.extend (
         final: _:
-        {
-          custom = import ./lib {
-            lib = final;
-            inherit (inputs) self;
-          };
-        }
-        // inputs.home-manager.lib
-        // inputs.flake-parts.lib
+        { custom = import ./lib { lib = final; }; } // inputs.home-manager.lib // inputs.flake-parts.lib
       );
     in
     lib.mkFlake { inherit inputs; } {
@@ -186,7 +179,6 @@
       };
       # Moving dev related stuff to the appropriate partition
       partitionedAttrs = {
-        # TODO: Check the checks xD
         checks = "dev";
         devShells = "dev";
         formatter = "dev";

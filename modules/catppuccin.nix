@@ -4,15 +4,19 @@ let
 in
 {
   flake.modules = {
-    nixos.catppuccin = {
-      imports = [ inputs.catppuccin.nixosModules.catppuccin ];
+    nixos.catppuccin =
+      { pkgs, ... }:
+      {
+        imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
-      catppuccin = {
-        enable = true;
-        cache.enable = true;
-        inherit accent;
+        services.displayManager.sddm.package = pkgs.kdePackages.sddm;
+
+        catppuccin = {
+          enable = true;
+          cache.enable = true;
+          inherit accent;
+        };
       };
-    };
 
     homeManager.catppuccin = {
       imports = [ inputs.catppuccin.homeModules.catppuccin ];
@@ -20,6 +24,7 @@ in
       catppuccin = {
         enable = true;
         inherit accent;
+        firefox.force = true;
         # TODO: Activate when config.flake.modules.desktop is imported
         gtk.icon.enable = true;
         cursors = {

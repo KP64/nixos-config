@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos."hosts/aladdin" =
+  flake.modules.nixos.hosts-aladdin =
     {
       config,
       lib,
@@ -16,6 +16,7 @@ toplevel@{ inputs, ... }:
         ++ (with toplevel.config.flake.modules.nixos; [
           audio
           catppuccin
+          hyprland
           nix
           nvidia
           sddm
@@ -23,6 +24,8 @@ toplevel@{ inputs, ... }:
           steam
           sudo
           tpm
+
+          users-kg
         ]);
 
       facter.reportPath = ./facter.json;
@@ -31,7 +34,6 @@ toplevel@{ inputs, ... }:
         defaultSopsFile = ./secrets.yaml;
         age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
         secrets = {
-          "users/kg/password".neededForUsers = true;
           "wireless.env" = { };
         };
       };
@@ -43,8 +45,6 @@ toplevel@{ inputs, ... }:
         builtins.elem (lib.getName pkg) [
           "nvidia-x11"
           "nvidia-settings"
-          # TODO: Needed?
-          # "nvidia-persistenced"
 
           "steam"
           "steam-unwrapped"
@@ -79,10 +79,6 @@ toplevel@{ inputs, ... }:
         ausweisapp = {
           enable = true;
           openFirewall = true;
-        };
-        hyprland = {
-          enable = true;
-          withUWSM = true;
         };
         localsend.enable = true;
         weylus = {
