@@ -37,14 +37,14 @@ in
       # TODO: Needed?
       # gtk.colorScheme = "dark";
       # home.pointerCurosr.hyprcursor.enable = true;
-      # qt =
-      #   let
-      #     name = "kvantum";
-      #   in
-      #   {
-      #     style = { inherit name; };
-      #     platformTheme = { inherit name; };
-      #   };
+      qt =
+        let
+          name = "kvantum";
+        in
+        {
+          style = { inherit name; };
+          platformTheme = { inherit name; };
+        };
     };
   };
 }

@@ -16,12 +16,12 @@ toplevel@{ inputs, ... }:
         ++ (with toplevel.config.flake.modules.nixos; [
           audio
           catppuccin
+          gaming
           hyprland
           nix
           nvidia
           sddm
           ssh
-          steam
           sudo
           tpm
 
