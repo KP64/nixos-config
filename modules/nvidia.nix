@@ -8,8 +8,6 @@
       nvidia = {
         open = true;
         nvidiaPersistenced = true;
-        # TODO: Disable when there is no GUI
-        nvidiaSettings = true;
         powerManagement.enable = true;
         prime.allowExternalGpu = true;
       };

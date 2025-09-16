@@ -1,8 +1,7 @@
 {
   flake.modules = {
     nixos.ssh = {
-      # TODO: Needed?
-      # programs.ssh.startAgent = true;
+      programs.ssh.startAgent = true;
 
       services.openssh = {
         enable = true;

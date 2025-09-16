@@ -21,8 +21,6 @@
 
           settings.show_banner = false;
 
-          # TODO: Check that configFile works as expected
-          # If doesn't work -> Use extraConfig
           configFile.text =
             let
               nuScriptsDir = "${pkgs.nu_scripts}/share/nu_scripts";
