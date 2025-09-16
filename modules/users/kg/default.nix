@@ -12,7 +12,6 @@ toplevel@{ inputs, ... }:
         users.users.kg = {
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets."users/kg/password".path;
-          # TODO
           openssh.authorizedKeys.keys = [ ];
           extraGroups = [
             "networkmanager"
@@ -29,7 +28,7 @@ toplevel@{ inputs, ... }:
       };
 
     homeManager.users-kg =
-      { config, lib, ... }:
+      { config, ... }:
       let
         inherit (config.home) homeDirectory;
       in
@@ -72,58 +71,6 @@ toplevel@{ inputs, ... }:
           cava.enable = true;
           fzf.enable = true;
           ripgrep.enable = true;
-        };
-
-        programs.atuin = {
-          enable = true;
-          daemon.enable = true;
-          settings = {
-            invert = true;
-            filter_mode_shell_up_key_binding = "directory";
-            style = "auto";
-            update_check = false;
-            enter_accept = true;
-          };
-        };
-
-        programs.fd = {
-          enable = true;
-          hidden = true;
-        };
-
-        programs.starship = {
-          enable = true;
-          settings = lib.importTOML ./bracketed-segments.toml;
-        };
-
-        programs.zoxide = {
-          enable = true;
-          options = [ "--cmd cd" ];
-        };
-
-        programs.helix = {
-          enable = true;
-          defaultEditor = true;
-          settings.editor = {
-            true-color = true;
-            file-picker.hidden = false;
-            lsp.display-inlay-hints = true;
-            cursor-shape = {
-              insert = "bar";
-              normal = "block";
-              select = "underline";
-            };
-          };
-        };
-
-        programs.kitty = {
-          enable = true;
-          font.name = "JetBrainsMono Nerd Font";
-          enableGitIntegration = true;
-          settings = {
-            shell = lib.mkIf config.programs.nushell.enable "nu";
-            background_opacity = 0.9;
-          };
         };
       };
   };

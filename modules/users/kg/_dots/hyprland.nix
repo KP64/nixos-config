@@ -13,7 +13,7 @@ in
       enable = false;
       variables = [ "--all" ];
     };
-    plugins = [ pkgs.hyprlandPlugins.hyprgrass ];
+    # plugins = [ pkgs.hyprlandPlugins.hyprgrass ];
     settings = {
       ecosystem = {
         no_update_news = true;
@@ -22,21 +22,21 @@ in
 
       env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
 
-      plugin.touch_gestures = {
-        sensitivity = 4.0;
-        long_press_delay = 400;
-        resize_on_boder_long_press = true;
-        edge_margin = 10;
+      # plugin.touch_gestures = {
+      #   sensitivity = 4.0;
+      #   long_press_delay = 400;
+      #   resize_on_boder_long_press = true;
+      #   edge_margin = 10;
 
-        workspace_swipe_fingers = 3;
-        workspace_swipe_cancel_ratio = 0.1;
-        workspace_swipe_edge = "u";
+      #   workspace_swipe_fingers = 3;
+      #   workspace_swipe_cancel_ratio = 0.1;
+      #   workspace_swipe_edge = "u";
 
-        hyprgrass-bindm = [
-          ", longpress:2, movewindow"
-          ", longpress:3, resizewindow"
-        ];
-      };
+      #   hyprgrass-bindm = [
+      #     ", longpress:2, movewindow"
+      #     ", longpress:3, resizewindow"
+      #   ];
+      # };
 
       # TODO: Per Host basis
       monitorv2 = [
