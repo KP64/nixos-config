@@ -4,6 +4,8 @@ toplevel@{ inputs, ... }:
     nixos.users-kg =
       { config, ... }:
       {
+        imports = [ inputs.nur.modules.nixos.default ];
+
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
         sops.secrets."users/kg/password".neededForUsers = true;
@@ -34,6 +36,7 @@ toplevel@{ inputs, ... }:
       {
         imports = [
           inputs.sops-nix.homeModules.default
+          ./_dots
         ]
         ++ (with toplevel.config.flake.modules.homeManager; [
           catppuccin
@@ -42,7 +45,6 @@ toplevel@{ inputs, ... }:
           shells
           ssh
           vcs
-          yazi
         ]);
 
         vcs.user = {

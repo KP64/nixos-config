@@ -48,6 +48,18 @@ toplevel@{ inputs, ... }:
 
           "steam"
           "steam-unwrapped"
+
+          # Unfree packages added by home-manager user kg
+          "cuda_cccl"
+          "libcublas"
+          "libcurand"
+          "libcusparse"
+          "libnvjitlink"
+          "libcufft"
+          "cudnn"
+          "cuda_cudart"
+          "cuda_nvcc"
+          "cuda_nvrtc"
         ];
 
       # TODO: Move to home-manager per user basis

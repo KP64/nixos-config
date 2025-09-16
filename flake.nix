@@ -144,52 +144,53 @@
     full blown NixOS Configs.
   */
   outputs =
-    inputs:
+    inputs@{ flake-parts, nixpkgs, ... }:
     let
-      # Extend the "standard nix library" with our custom functions
-      lib = inputs.nixpkgs.lib.extend (
-        final: _:
-        { custom = import ./lib { lib = final; }; } // inputs.home-manager.lib // inputs.flake-parts.lib
-      );
+      customLib = import ./lib { inherit (nixpkgs) lib; };
     in
-    lib.mkFlake { inherit inputs; } {
-      # This allows further inspection of
-      # outputs via the `nix repl`
-      debug = true;
+    flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+        specialArgs = { inherit customLib; };
+      }
+      {
+        # This allows further inspection of
+        # outputs via the `nix repl`
+        debug = true;
 
-      # Every system this flake supports,
-      # for which perSystem will run
-      # `flakeExposed` returns ALL systems
-      # supported by Nix
-      systems = inputs.nixpkgs.lib.systems.flakeExposed;
+        # Every system this flake supports,
+        # for which perSystem will run
+        # `flakeExposed` returns ALL systems
+        # supported by Nix
+        systems = nixpkgs.lib.systems.flakeExposed;
 
-      /*
-        Partitions define "sub flakes", whose inputs
-        and results will not be shown in a consumers' flake.
-        This is useful to compartmentalize flakes into more
-        specialised units.
-        An example would be a development flake that handles
-        everything about further developing this flake like formatters etc.
-      */
-      partitions.dev = {
-        # This will use "./dev/flake.nix"
-        extraInputsFlake = ./dev;
-        # While this will use "./dev/default.nix"
-        module.imports = [ ./dev ];
+        /*
+          Partitions define "sub flakes", whose inputs
+          and results will not be shown in a consumers' flake.
+          This is useful to compartmentalize flakes into more
+          specialised units.
+          An example would be a development flake that handles
+          everything about further developing this flake like formatters etc.
+        */
+        partitions.dev = {
+          # This will use "./dev/flake.nix"
+          extraInputsFlake = ./dev;
+          # While this will use "./dev/default.nix"
+          module.imports = [ ./dev ];
+        };
+        # Moving dev related stuff to the appropriate partition
+        partitionedAttrs = {
+          checks = "dev";
+          devShells = "dev";
+          formatter = "dev";
+        };
+
+        imports = [
+          (inputs.import-tree ./modules)
+        ]
+        ++ (with flake-parts.flakeModules; [
+          modules
+          partitions
+        ]);
       };
-      # Moving dev related stuff to the appropriate partition
-      partitionedAttrs = {
-        checks = "dev";
-        devShells = "dev";
-        formatter = "dev";
-      };
-
-      imports = [
-        (inputs.import-tree ./modules)
-      ]
-      ++ (with inputs.flake-parts.flakeModules; [
-        modules
-        partitions
-      ]);
-    };
 }

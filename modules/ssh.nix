@@ -16,7 +16,11 @@
 
     homeManager.ssh = {
       # TODO: Configure
-      programs.ssh.enable = true;
+      programs.ssh = {
+        enable = true;
+        # TODO: Remove when unused upstream
+        enableDefaultConfig = false;
+      };
 
       services = {
         ssh-agent.enable = true;

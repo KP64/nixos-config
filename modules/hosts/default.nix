@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  customLib,
   ...
 }:
 let
@@ -22,6 +23,7 @@ in
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 backupFileExtension = "hm-backup";
+                extraSpecialArgs = { inherit inputs customLib; };
               };
             }
           ];

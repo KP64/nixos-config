@@ -17,7 +17,6 @@
             query
             semver
             skim
-            units
           ];
 
           settings.show_banner = false;

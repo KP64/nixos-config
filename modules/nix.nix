@@ -55,7 +55,7 @@ in
               enable = true;
               extraArgs = "--keep 5";
             };
-            flake = /. + "${config.home.homeDirectory}/nixos-config";
+            flake = "${config.home.homeDirectory}/nixos-config";
           };
         };
       };
