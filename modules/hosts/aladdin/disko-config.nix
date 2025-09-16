@@ -1,5 +1,8 @@
 { inputs, ... }:
 {
+  # TODO: Change to diskoConfigurations
+  # disko recently got a flake-parts module.
+  # Switch to that once it is more fleshed out.
   flake.modules.nixos.hosts-aladdin = {
     imports = [ inputs.disko.nixosModules.default ];
 
