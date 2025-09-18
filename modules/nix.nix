@@ -29,16 +29,16 @@ in
       };
 
     homeManager.nix =
-      {
-        config,
-        lib,
-        pkgs,
-        ...
-      }:
+      { config, ... }:
       {
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-        nix = pkgs |> commonSettings |> lib.mkDefault;
+        # FiXME: Cache invalidation
+        # Populating both Nix Settings in Home-Manager and NixOS
+        # causes the Substituters and keys to conflict and
+        # be marked as untrusted. WHY THE F*CK THO?
+        # This invalidates the cache causing everything to compile from source.
+        # nix = pkgs |> commonSettings |> lib.mkDefault;
 
         programs = {
           nix-index.enable = true;

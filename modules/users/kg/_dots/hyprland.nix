@@ -5,6 +5,11 @@ let
   bind_shift = b: "${mod} SHIFT, ${b}";
 in
 {
+  home.packages = with pkgs; [
+    hyprpicker
+    grimblast
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
@@ -95,7 +100,7 @@ in
 
       input = {
         kb_layout = "de";
-        kb_options = "caps:escape";
+        kb_options = "caps:swapescape";
       };
 
       binde = [
@@ -110,8 +115,8 @@ in
           "B, Browser, exec, firefox"
         ]
         ++ map bind_shift [
-          "C, Colorpicker, exec, ${pkgs.hyprpicker} --no-fancy --autocopy"
-          "I, Screenshot, exec, ${pkgs.grimblast} --freeze --notify copysave area"
+          "C, Colorpicker, exec, hyprpicker --no-fancy --autocopy"
+          "I, Screenshot, exec, grimblast --freeze --notify copysave area"
         ];
 
       bind = [

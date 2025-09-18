@@ -28,6 +28,8 @@
 
         FakeNitro.enabled = true;
 
+        MessageLogger.enabled = true;
+
         SilentTyping.enabled = true;
         StreamerModeOnStream.enabled = true;
 

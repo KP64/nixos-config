@@ -101,6 +101,30 @@
     # Import all needed nix files ;)
     import-tree.url = "github:vic/import-tree";
 
+    # Latest neovim version
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        git-hooks.follows = "";
+        hercules-ci-effects.follows = "";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "";
+      };
+    };
+
+    # Nix managed Neovim
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        nuschtosSearch.follows = "";
+        systems.follows = "systems";
+      };
+    };
+
     # Weekly updated nix pkgs database
     # Useful for https://github.com/nix-community/comma
     # and replacing command-not-found

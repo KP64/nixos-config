@@ -2,7 +2,6 @@
   flake.modules.nixos.audio = {
     security.rtkit.enable = true;
 
-    # TODO: Musnix Needed?
     services.pipewire = {
       enable = true;
       raopOpenFirewall = true;

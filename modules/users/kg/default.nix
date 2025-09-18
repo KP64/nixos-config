@@ -34,9 +34,13 @@ toplevel@{ inputs, ... }:
       in
       {
         imports = [
-          inputs.sops-nix.homeModules.default
+          # TODO: Convert back to flake-parts modules?
           ./_dots
         ]
+        ++ (with inputs; [
+          sops-nix.homeModules.default
+          nixvim.homeModules.nixvim
+        ])
         ++ (with toplevel.config.flake.modules.homeManager; [
           catppuccin
           fetchers
@@ -45,6 +49,47 @@ toplevel@{ inputs, ... }:
           ssh
           vcs
         ]);
+
+        programs.nixvim = {
+          enable = true;
+          defaultEditor = true;
+          vimdiffAlias = true;
+          imports =
+            (with toplevel.config.flake.modules.nixvim; [
+              base
+              lsp
+              navigation
+              ui
+
+              codesnap
+              comments
+              git
+              markdown
+              movement
+              zen
+            ])
+            ++ [
+              { colorschemes.catppuccin.enable = true; }
+              {
+                neovim-dashboard = [
+                  "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
+                  "  ██  ██  ██              ██  ██  ██          "
+                  "  ██  ██  ██████████████████  ██  ██  ██████  "
+                  "  ██  ██                      ██  ██  ██  ██  "
+                  "  ██  ██  ██████  ██  ██████████  ██  ██████  "
+                  "  ██  ██  ██                      ██      ██  "
+                  "  ██  ██████████  ██  ██████  ██  ██████████  "
+                  "  ██  ██          ██      ██      ██          "
+                  "  ██████████  ██████  ██████  ██  ██  ██████  "
+                  "      ██  ██  ██              ██  ██  ██  ██  "
+                  "  ██  ██████  ██████  ██████████  ██  ██████  "
+                  "  ██              ██              ██      ██  "
+                  "  ██████████████████  ██████████████  ██████  "
+                  "                                              "
+                ];
+              }
+            ];
+        };
 
         vcs.user = {
           name = "KP64";

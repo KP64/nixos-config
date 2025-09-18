@@ -1,8 +1,17 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  # TODO: QuickAccessTerminalConfig
   programs.kitty = {
     enable = true;
-    font.name = "JetBrainsMono Nerd Font";
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      package = pkgs.nerd-fonts.jetbrains-mono;
+    };
     enableGitIntegration = true;
     settings = {
       shell = lib.mkIf config.programs.nushell.enable "nu";
