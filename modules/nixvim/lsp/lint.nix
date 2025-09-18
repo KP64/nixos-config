@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.lsp =
+  flake.modules.nixvim.lint =
     { lib, pkgs, ... }:
     {
       plugins.lint = {

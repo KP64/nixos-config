@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.lsp = {
+  flake.modules.nixvim.treesitter = {
     dependencies = {
       tree-sitter.enable = true;
       git.enable = true;

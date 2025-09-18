@@ -67,6 +67,9 @@ toplevel@{ inputs, ... }:
               git
               markdown
               movement
+              treesitter
+              trouble
+              which-key
               zen
             ])
             ++ [

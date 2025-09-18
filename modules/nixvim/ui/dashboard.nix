@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.ui =
+  flake.modules.nixvim.dashboard =
     { config, lib, ... }:
     {
       options.neovim-dashboard = lib.mkOption {

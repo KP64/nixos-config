@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.lsp =
+  flake.modules.nixvim.conform =
     { lib, pkgs, ... }:
     {
       plugins.conform-nvim = {

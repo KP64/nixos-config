@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.navigation = {
+  flake.modules.nixvim.yazi = {
     plugins.yazi = {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";

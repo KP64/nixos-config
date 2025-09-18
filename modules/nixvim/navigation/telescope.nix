@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.navigation =
+  flake.modules.nixvim.telescope =
     { pkgs, ... }:
     {
       extraPackages = [ pkgs.fd ];

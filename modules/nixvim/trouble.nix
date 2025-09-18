@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.navigation = {
+  flake.modules.nixvim.trouble = {
     plugins.trouble = {
       enable = true;
       lazyLoad.settings.cmd = "Trouble";
@@ -9,7 +9,7 @@
       };
     };
 
-    # TODO: Investigate 'provider "line"' treesitter issue
+    # TODO: Broken on newest Neovim. Check when it is fixed
     keymaps = [
       {
         mode = "n";

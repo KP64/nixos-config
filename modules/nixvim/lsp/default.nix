@@ -1,7 +1,15 @@
+{ config, ... }:
 {
   flake.modules.nixvim.lsp =
     { pkgs, ... }:
     {
+      imports = with config.flake.modules.nixvim; [
+        blink
+        conform
+        dap
+        lint
+      ];
+
       # Faster replacement for libuv-watchdirs
       extraPackages = [ pkgs.inotify-tools ];
 
@@ -54,19 +62,6 @@
                 "pug"
                 "typescriptreact"
               ];
-            };
-          };
-          harper_ls = {
-            enable = true;
-            settings.settings."harper-ls".linters = {
-              SpelledNumbers = true;
-              UseGenitive = true;
-              PossessiveNoun = true;
-              BoringWords = true;
-
-              # Counterproductive for programming
-              SpellCheck = false;
-              SentenceCapitalization = false;
             };
           };
           just.enable = true;

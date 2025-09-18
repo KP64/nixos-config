@@ -12,7 +12,6 @@ toplevel@{ inputs, ... }:
     {
       nixvimConfigurations.default = inputs.nixvim.lib.evalNixvim {
         inherit system;
-        # TODO: Organize modules better. Not entirely happy with separation.
         modules =
           (with toplevel.config.flake.modules.nixvim; [
             base
@@ -25,6 +24,9 @@ toplevel@{ inputs, ... }:
             git
             markdown
             movement
+            treesitter
+            trouble
+            which-key
             zen
           ])
           ++ [
