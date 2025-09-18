@@ -13,8 +13,12 @@ in
     config.flake.modules.nixos
     |> lib.filterAttrs (name: _: name |> lib.hasPrefix prefix)
     |> lib.mapAttrs' (
-      name: module: {
-        name = name |> lib.removePrefix prefix;
+      name: module:
+      let
+        hostName = name |> lib.removePrefix prefix;
+      in
+      {
+        name = hostName;
         value = inputs.nixpkgs.lib.nixosSystem {
           modules = module.imports ++ [
             inputs.home-manager.nixosModules.default
@@ -26,6 +30,7 @@ in
                 extraSpecialArgs = { inherit inputs customLib; };
               };
             }
+            { networking = { inherit hostName; }; }
           ];
         };
       }
