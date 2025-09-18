@@ -1,17 +1,15 @@
 {
   description = ''
-    KP64's wannabe All-In-One Nix Flake
+    KP64's Wannabe All-In-One Nix Flake
 
-    This flake aims to include all machines,
-    be it NixOS or not (i.e. Home-Manager).
-
-    This should range from "simple" dotfile managment
-    all the way to managing multiple services for a
-    fault-tolerant homelab.
+    This flake aims to include everything.
+    Ranging from "simple" dotfile management with Home Manager
+    all the way to managing multiple services
+    for a fault-tolerant homelab.
 
     Is it a good Flake?
     Absolutely not, but I'm not a jugde.
-    You are... yes YOU!
+    You are... yes, YOU!
     Roast this Flake (and by extension me) however you like!
   '';
 

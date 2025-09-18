@@ -34,7 +34,8 @@ toplevel@{ inputs, ... }:
       in
       {
         imports = [
-          # TODO: Convert back to flake-parts modules?
+          # TODO: Convert back to flake-parts modules!
+          # This will eliminate the need for extraSpecialArgs!!!
           ./_dots
         ]
         ++ (with inputs; [
