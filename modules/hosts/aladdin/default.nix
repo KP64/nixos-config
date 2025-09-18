@@ -21,6 +21,7 @@ toplevel@{ inputs, ... }:
           audio
           catppuccin
           desktop
+          fonts
           gaming
           nix
           nvidia
@@ -64,15 +65,6 @@ toplevel@{ inputs, ... }:
           "cuda_nvcc"
           "cuda_nvrtc"
         ];
-
-      # TODO: Move to home-manager per user basis
-      fonts.packages = [
-        pkgs.font-awesome
-      ]
-      ++ (with pkgs.nerd-fonts; [
-        jetbrains-mono
-        symbols-only
-      ]);
 
       system.stateVersion = "25.11";
 

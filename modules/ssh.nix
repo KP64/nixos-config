@@ -7,6 +7,7 @@
         enable = true;
         startWhenNeeded = true;
         settings = {
+          PermitRootLogin = "no";
           PasswordAuthentication = false;
           KbdInteractiveAuthentication = false;
         };
@@ -14,10 +15,8 @@
     };
 
     homeManager.ssh = {
-      # TODO: Configure
       programs.ssh = {
         enable = true;
-        # TODO: Remove when unused upstream
         enableDefaultConfig = false;
       };
 

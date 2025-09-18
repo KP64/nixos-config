@@ -5,7 +5,6 @@
   ...
 }:
 {
-  # TODO: QuickAccessTerminalConfig
   programs.kitty = {
     enable = true;
     font = {

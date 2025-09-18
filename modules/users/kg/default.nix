@@ -45,6 +45,7 @@ toplevel@{ inputs, ... }:
         ++ (with toplevel.config.flake.modules.homeManager; [
           catppuccin
           fetchers
+          fonts
           nix
           shells
           ssh

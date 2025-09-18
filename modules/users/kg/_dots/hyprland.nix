@@ -18,6 +18,7 @@ in
       enable = false;
       variables = [ "--all" ];
     };
+    # TODO: reenable once not broken x)
     # plugins = [ pkgs.hyprlandPlugins.hyprgrass ];
     settings = {
       ecosystem = {
