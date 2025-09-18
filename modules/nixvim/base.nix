@@ -26,8 +26,9 @@
 
       plugins = {
         lz-n.enable = true;
-        web-devicons.enable = true;
         mini-icons.enable = true;
+        web-devicons.enable = true;
+        guess-indent.enable = true;
         nvim-autopairs = {
           enable = true;
           lazyLoad.settings.event = "InsertEnter";
