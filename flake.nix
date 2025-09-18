@@ -67,6 +67,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Just for the deduplication of inputs
+    # NOTE: Guys. Please AVOID using this in your projects!
+    dedup_systems.url = "github:nix-systems/default";
+
     # Declarative Disk partitioning
     disko = {
       url = "github:nix-community/disko";
@@ -77,14 +81,6 @@
     # The compatibility layer is comprised of the `default.nix`
     # and the `shell.nix` file in the current working directory.
     flake-compat.url = "github:edolstra/flake-compat";
-
-    # Just for the deduplication of inputs
-    # NOTE: Guys. Please AVOID using these in your projects!
-    systems.url = "github:nix-systems/default";
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
 
     # Bind everything together
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -119,7 +115,7 @@
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
         nuschtosSearch.follows = "";
-        systems.follows = "systems";
+        systems.follows = "dedup_systems";
       };
     };
 
