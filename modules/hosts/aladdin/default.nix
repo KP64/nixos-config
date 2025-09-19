@@ -21,6 +21,7 @@ toplevel@{ inputs, ... }:
           audio
           catppuccin
           desktop
+          efi
           fonts
           gaming
           nix
@@ -34,15 +35,12 @@ toplevel@{ inputs, ... }:
 
       facter.reportPath = ./facter.json;
 
-      sops = {
-        defaultSopsFile = ./secrets.yaml;
-        age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-        secrets = {
-          "wireless.env" = { };
-        };
-      };
-
+      system.stateVersion = "25.11";
       time.timeZone = "Europe/Berlin";
+      console.keyMap = "de";
+      services.xserver.xkb.layout = "de";
+
+      boot.kernelPackages = pkgs.linuxPackages_zen;
 
       nixpkgs.config.allowUnfreePredicate =
         pkg:
@@ -66,25 +64,18 @@ toplevel@{ inputs, ... }:
           "cuda_nvrtc"
         ];
 
-      system.stateVersion = "25.11";
+      sops = {
+        defaultSopsFile = ./secrets.yaml;
+        age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+        secrets = {
+          "wireless.env" = { };
+        };
+      };
 
       users.users.root = {
         isSystemUser = true;
         hashedPasswordFile = config.sops.secrets."users/kg/password".path;
       };
-
-      boot.kernelPackages = pkgs.linuxPackages_zen;
-
-      boot.loader = {
-        efi.canTouchEfiVariables = true;
-        systemd-boot = {
-          enable = true;
-          editor = false;
-        };
-      };
-
-      console.keyMap = "de";
-      services.xserver.xkb.layout = "de";
 
       programs = {
         ausweisapp = {
@@ -99,24 +90,23 @@ toplevel@{ inputs, ... }:
         };
       };
 
-      networking = {
-        nftables.enable = true;
-        networkmanager = {
-          enable = true;
-          plugins = [ pkgs.networkmanager-openvpn ];
-          ensureProfiles = {
-            environmentFiles = [ config.sops.secrets."wireless.env".path ];
-            profiles.home-wifi = {
-              connection = {
-                id = "home-wifi";
-                type = "wifi";
-              };
-              wifi.ssid = "$HOME_WIFI_SSID";
-              wifi-security = {
-                auth-alg = "open";
-                key-mgmt = "wpa-psk";
-                psk = "$HOME_WIFI_PASSWORD";
-              };
+      # TODO: Use resolved for DNS resolution (DNSSEC!)
+      #  - networking.networkmanager.dns = "systemd-resolved"
+      networking.networkmanager = {
+        enable = true;
+        plugins = [ pkgs.networkmanager-openvpn ];
+        ensureProfiles = {
+          environmentFiles = [ config.sops.secrets."wireless.env".path ];
+          profiles.home-wifi = {
+            connection = {
+              id = "home-wifi";
+              type = "wifi";
+            };
+            wifi.ssid = "$HOME_WIFI_SSID";
+            wifi-security = {
+              auth-alg = "open";
+              key-mgmt = "wpa-psk";
+              psk = "$HOME_WIFI_PASSWORD";
             };
           };
         };

@@ -32,7 +32,12 @@ in
               users.mutableUsers = false;
               environment.defaultPackages = [ ];
               boot.tmp.cleanOnBoot = true;
-              networking = { inherit hostName; };
+              networking = {
+                inherit hostName;
+                # Let's help the adoption of nftables a bit ;)
+                # NOTE: This might break some stuff like Docker & libvirtd
+                nftables.enable = true;
+              };
             }
           ];
         };
