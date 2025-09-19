@@ -112,11 +112,11 @@ in
       ];
 
       bindl = [
-        " XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         # Requires playerctl
-        "XF86AudioPlay, exec, playerctl play-pause"
-        "XF86AudioPrev, exec, playerctl previous"
-        "XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, playerctl next"
       ];
 
       bindd =
