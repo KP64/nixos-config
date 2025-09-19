@@ -31,24 +31,20 @@ in
       };
 
     homeManager.users-kg = {
-      imports = [
-        # TODO: Convert back to flake-parts modules!
-        # This will eliminate the need for extraSpecialArgs!!!
-        ./_dots
-      ]
-      ++ (with inputs; [
-        sops-nix.homeModules.default
-        nixvim.homeModules.nixvim
-      ])
-      ++ (with toplevel.config.flake.modules.homeManager; [
-        catppuccin
-        fetchers
-        fonts
-        nix
-        shells
-        ssh
-        vcs
-      ]);
+      imports =
+        (with inputs; [
+          sops-nix.homeModules.default
+          nixvim.homeModules.nixvim
+        ])
+        ++ (with toplevel.config.flake.modules.homeManager; [
+          catppuccin
+          fetchers
+          fonts
+          nix
+          shells
+          ssh
+          vcs
+        ]);
 
       programs.nixvim = {
         enable = true;
