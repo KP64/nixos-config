@@ -1,7 +1,4 @@
 toplevel@{ inputs, ... }:
-let
-  invisible = (import "${inputs.nix-invisible}/globals.nix").users.kg;
-in
 {
   flake.modules = {
     nixos.users-kg =
@@ -23,90 +20,92 @@ in
             "audio"
             "video"
             "tss" # TPM
-            "docker"
-            "podman"
-            "vboxusers"
           ];
         };
       };
 
-    homeManager.users-kg = {
-      imports =
-        (with inputs; [
-          sops-nix.homeModules.default
-          nixvim.homeModules.nixvim
-        ])
-        ++ (with toplevel.config.flake.modules.homeManager; [
-          catppuccin
-          fetchers
-          fonts
-          nix
-          shells
-          ssh
-          vcs
-        ]);
-
-      programs.nixvim = {
-        enable = true;
-        defaultEditor = true;
-        vimdiffAlias = true;
+    homeManager.users-kg =
+      { config, ... }:
+      let
+        invisible = import "${inputs.nix-invisible}/users/${config.home.username}.nix";
+      in
+      {
         imports =
-          (with toplevel.config.flake.modules.nixvim; [
-            base
-            lsp
-            navigation
-            ui
-
-            codesnap
-            comments
-            git
-            markdown
-            movement
-            treesitter
-            trouble
-            which-key
-            zen
+          (with inputs; [
+            sops-nix.homeModules.default
+            nixvim.homeModules.nixvim
           ])
-          ++ [
-            { colorschemes.catppuccin.enable = true; }
-            {
-              neovim-dashboard = [
-                "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
-                "  ██  ██  ██              ██  ██  ██          "
-                "  ██  ██  ██████████████████  ██  ██  ██████  "
-                "  ██  ██                      ██  ██  ██  ██  "
-                "  ██  ██  ██████  ██  ██████████  ██  ██████  "
-                "  ██  ██  ██                      ██      ██  "
-                "  ██  ██████████  ██  ██████  ██  ██████████  "
-                "  ██  ██          ██      ██      ██          "
-                "  ██████████  ██████  ██████  ██  ██  ██████  "
-                "      ██  ██  ██              ██  ██  ██  ██  "
-                "  ██  ██████  ██████  ██████████  ██  ██████  "
-                "  ██              ██              ██      ██  "
-                "  ██████████████████  ██████████████  ██████  "
-                "                                              "
-              ];
-            }
-          ];
-      };
+          ++ (with toplevel.config.flake.modules.homeManager; [
+            catppuccin
+            fetchers
+            fonts
+            nix
+            shells
+            ssh
+            vcs
+          ]);
 
-      vcs.user = {
-        name = "KP64";
-        inherit (invisible) email;
-      };
+        programs.nixvim = {
+          enable = true;
+          defaultEditor = true;
+          vimdiffAlias = true;
+          imports =
+            (with toplevel.config.flake.modules.nixvim; [
+              base
+              lsp
+              navigation
+              ui
 
-      home = {
-        stateVersion = "25.11";
-        shellAliases.c = "clear";
-      };
+              codesnap
+              comments
+              git
+              markdown
+              movement
+              treesitter
+              trouble
+              which-key
+              zen
+            ])
+            ++ [
+              { colorschemes.catppuccin.enable = true; }
+              {
+                neovim-dashboard = [
+                  "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
+                  "  ██  ██  ██              ██  ██  ██          "
+                  "  ██  ██  ██████████████████  ██  ██  ██████  "
+                  "  ██  ██                      ██  ██  ██  ██  "
+                  "  ██  ██  ██████  ██  ██████████  ██  ██████  "
+                  "  ██  ██  ██                      ██      ██  "
+                  "  ██  ██████████  ██  ██████  ██  ██████████  "
+                  "  ██  ██          ██      ██      ██          "
+                  "  ██████████  ██████  ██████  ██  ██  ██████  "
+                  "      ██  ██  ██              ██  ██  ██  ██  "
+                  "  ██  ██████  ██████  ██████████  ██  ██████  "
+                  "  ██              ██              ██      ██  "
+                  "  ██████████████████  ██████████████  ██████  "
+                  "                                              "
+                ];
+              }
+            ];
+        };
 
-      programs = {
-        bat.enable = true;
-        btop.enable = true;
-        cava.enable = true;
-        fzf.enable = true;
-        ripgrep.enable = true;
+        vcs.user = {
+          name = "KP64";
+          inherit (invisible) email;
+        };
+
+        home = {
+          stateVersion = "25.11";
+          shellAliases.c = "clear";
+        };
+
+        programs = {
+          bat.enable = true;
+          btop.enable = true;
+          cava.enable = true;
+          fzf.enable = true;
+          ripgrep.enable = true;
+        };
       };
-    };
   };
 }

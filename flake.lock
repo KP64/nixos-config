@@ -215,11 +215,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756026324,
-        "narHash": "sha256-Xwd43LJCF66gb7Hj0zjGk8WMbY7rrs6ZCaIXlYYcfbw=",
+        "lastModified": 1758293715,
+        "narHash": "sha256-Qg2fCR/jqy3VeukaW2h8CXnrEzjFPYWGLLBoYedUWLU=",
         "ref": "refs/heads/main",
-        "rev": "5d8093cb265db63c6d4b8eb788fb1cc53bc50ce4",
-        "revCount": 7,
+        "rev": "3a8bc6b9de53965f3cfbdbe38ed4fcabe3c71e24",
+        "revCount": 8,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
       },
