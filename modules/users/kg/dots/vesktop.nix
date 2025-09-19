@@ -22,7 +22,6 @@
           BetterUploadButton.enabled = true;
 
           CallTimer.enabled = true;
-          ClearURLs.enabled = true;
           CopyFileContents.enabled = true;
 
           Dearrow.enabled = true;

@@ -8,6 +8,7 @@ toplevel@{ inputs, ... }:
 
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
+        # TODO: Move sops file containing password to user
         sops.secrets."users/kg/password".neededForUsers = true;
         users.users.kg = {
           isNormalUser = true;
