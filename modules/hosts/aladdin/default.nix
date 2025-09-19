@@ -95,8 +95,7 @@ toplevel@{ inputs, ... }:
         weylus = {
           enable = true;
           openFirewall = true;
-          # TODO: Is there a better way?
-          # users = [ config.users.users.kg.name ];
+          users = map (user: user.name) (with config.users.users; [ kg ]);
         };
       };
 
