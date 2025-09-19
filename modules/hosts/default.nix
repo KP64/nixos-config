@@ -30,7 +30,12 @@ in
                 extraSpecialArgs = { inherit inputs customLib; };
               };
             }
-            { networking = { inherit hostName; }; }
+            {
+              users.mutableUsers = false;
+              environment.defaultPackages = [ ];
+              boot.tmp.cleanOnBoot = true;
+              networking = { inherit hostName; };
+            }
           ];
         };
       }
