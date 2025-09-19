@@ -68,8 +68,12 @@ toplevel@{ inputs, ... }:
 
       system.stateVersion = "25.11";
 
+      users.users.root = {
+        isSystemUser = true;
+        hashedPasswordFile = config.sops.secrets."users/kg/password".path;
+      };
+
       boot.kernelPackages = pkgs.linuxPackages_zen;
-      boot.tmp.cleanOnBoot = true;
 
       boot.loader = {
         efi.canTouchEfiVariables = true;

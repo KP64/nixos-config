@@ -1,4 +1,7 @@
 toplevel@{ inputs, ... }:
+let
+  invisible = (import "${inputs.nix-invisible}/globals.nix").users.kg;
+in
 {
   flake.modules = {
     nixos.users-kg =
@@ -27,101 +30,87 @@ toplevel@{ inputs, ... }:
         };
       };
 
-    homeManager.users-kg =
-      { config, ... }:
-      let
-        inherit (config.home) homeDirectory;
-      in
-      {
-        imports = [
-          # TODO: Convert back to flake-parts modules!
-          # This will eliminate the need for extraSpecialArgs!!!
-          ./_dots
-        ]
-        ++ (with inputs; [
-          sops-nix.homeModules.default
-          nixvim.homeModules.nixvim
-        ])
-        ++ (with toplevel.config.flake.modules.homeManager; [
-          catppuccin
-          fetchers
-          fonts
-          nix
-          shells
-          ssh
-          vcs
-        ]);
+    homeManager.users-kg = {
+      imports = [
+        # TODO: Convert back to flake-parts modules!
+        # This will eliminate the need for extraSpecialArgs!!!
+        ./_dots
+      ]
+      ++ (with inputs; [
+        sops-nix.homeModules.default
+        nixvim.homeModules.nixvim
+      ])
+      ++ (with toplevel.config.flake.modules.homeManager; [
+        catppuccin
+        fetchers
+        fonts
+        nix
+        shells
+        ssh
+        vcs
+      ]);
 
-        programs.nixvim = {
-          enable = true;
-          defaultEditor = true;
-          vimdiffAlias = true;
-          imports =
-            (with toplevel.config.flake.modules.nixvim; [
-              base
-              lsp
-              navigation
-              ui
+      programs.nixvim = {
+        enable = true;
+        defaultEditor = true;
+        vimdiffAlias = true;
+        imports =
+          (with toplevel.config.flake.modules.nixvim; [
+            base
+            lsp
+            navigation
+            ui
 
-              codesnap
-              comments
-              git
-              markdown
-              movement
-              treesitter
-              trouble
-              which-key
-              zen
-            ])
-            ++ [
-              { colorschemes.catppuccin.enable = true; }
-              {
-                neovim-dashboard = [
-                  "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
-                  "  ██  ██  ██              ██  ██  ██          "
-                  "  ██  ██  ██████████████████  ██  ██  ██████  "
-                  "  ██  ██                      ██  ██  ██  ██  "
-                  "  ██  ██  ██████  ██  ██████████  ██  ██████  "
-                  "  ██  ██  ██                      ██      ██  "
-                  "  ██  ██████████  ██  ██████  ██  ██████████  "
-                  "  ██  ██          ██      ██      ██          "
-                  "  ██████████  ██████  ██████  ██  ██  ██████  "
-                  "      ██  ██  ██              ██  ██  ██  ██  "
-                  "  ██  ██████  ██████  ██████████  ██  ██████  "
-                  "  ██              ██              ██      ██  "
-                  "  ██████████████████  ██████████████  ██████  "
-                  "                                              "
-                ];
-              }
-            ];
-        };
-
-        vcs.user = {
-          name = "KP64";
-          email = "karamalsadeh@hotmail.com";
-        };
-
-        sops = {
-          defaultSopsFile = ./secrets.yaml;
-          age = {
-            keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
-            sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
-          };
-          secrets = { };
-        };
-
-        home = {
-          stateVersion = "25.11";
-          shellAliases.c = "clear";
-        };
-
-        programs = {
-          bat.enable = true;
-          btop.enable = true;
-          cava.enable = true;
-          fzf.enable = true;
-          ripgrep.enable = true;
-        };
+            codesnap
+            comments
+            git
+            markdown
+            movement
+            treesitter
+            trouble
+            which-key
+            zen
+          ])
+          ++ [
+            { colorschemes.catppuccin.enable = true; }
+            {
+              neovim-dashboard = [
+                "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
+                "  ██  ██  ██              ██  ██  ██          "
+                "  ██  ██  ██████████████████  ██  ██  ██████  "
+                "  ██  ██                      ██  ██  ██  ██  "
+                "  ██  ██  ██████  ██  ██████████  ██  ██████  "
+                "  ██  ██  ██                      ██      ██  "
+                "  ██  ██████████  ██  ██████  ██  ██████████  "
+                "  ██  ██          ██      ██      ██          "
+                "  ██████████  ██████  ██████  ██  ██  ██████  "
+                "      ██  ██  ██              ██  ██  ██  ██  "
+                "  ██  ██████  ██████  ██████████  ██  ██████  "
+                "  ██              ██              ██      ██  "
+                "  ██████████████████  ██████████████  ██████  "
+                "                                              "
+              ];
+            }
+          ];
       };
+
+      vcs.user = {
+        name = "KP64";
+        inherit (invisible) email;
+      };
+
+      home = {
+        stateVersion = "25.11";
+        shellAliases.c = "clear";
+      };
+
+      programs = {
+        bat.enable = true;
+        btop.enable = true;
+        cava.enable = true;
+        fzf.enable = true;
+        ripgrep.enable = true;
+      };
+    };
   };
 }

@@ -1,7 +1,6 @@
 keys:
-  - &host_aladdin age1zr2qgrxhn3qx3cy9uqhq5hrck3ey6mcjmrpg5le5u03cedglcgcsn0nv60
-  - &host_mahdi age16k90aksxhswa636nxz5sv68jf8fu0pcphxfn6wv00dxx24tzkp5sfs35gl
-  - &admin_kg age1aq8u2tm6v5ylvjn5g5hzysnxf9tlsrkgl4s3ykkhu30nf0ce6u9sn9vspu
+  - &host_aladdin age147qz8tf8tlctz78l4kmgruu032z9jd9v4wku3slpx0m2fek7effqn2tv9u
+  - &admin_kg age1hft9v6r9zpa23pxhamuhm9tnmvx39m56chfn8t996wn8v4txts2s3jjpwa
 
 creation_rules:
   - path_regex: modules\/hosts\/aladdin\/secrets\.yaml$
@@ -13,10 +12,4 @@ creation_rules:
     key_groups:
       - age:
           - *host_aladdin
-          - *admin_kg
-
-  - path_regex: modules\/hosts\/mahdi\/secrets\.yaml$
-    key_groups:
-      - age:
-          - *host_mahdi
           - *admin_kg
