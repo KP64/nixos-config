@@ -13,6 +13,7 @@
       extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
 
       settings = customLib.firefox.toFirefoxSettingStyle {
+        extensions.autoDisableScopes = 0;
         dom.security.https_only_mode = true;
         general.autoScroll = true;
         sidebar.verticalTabs = true;
