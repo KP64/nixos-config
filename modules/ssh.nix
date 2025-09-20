@@ -14,16 +14,20 @@
       };
     };
 
-    homeManager.ssh = {
-      programs.ssh = {
-        enable = true;
-        enableDefaultConfig = false;
-      };
+    homeManager.ssh =
+      { osConfig, ... }:
+      {
+        programs.ssh = {
+          enable = true;
+          enableDefaultConfig = false;
+        };
 
-      services = {
-        ssh-agent.enable = true;
-        ssh-tpm-agent.enable = true;
+        services = {
+          ssh-agent.enable = true;
+          # TODO: Use different logic, if doesn't work correctly for HomeConfigurations later on
+          # This agent is only for TPM >= v2.0
+          ssh-tpm-agent.enable = osConfig.security.tpm2.enable;
+        };
       };
-    };
   };
 }

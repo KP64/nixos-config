@@ -1,15 +1,25 @@
+# TODO: Improve this Sh*t, if possible
 keys:
   - &host_aladdin age147qz8tf8tlctz78l4kmgruu032z9jd9v4wku3slpx0m2fek7effqn2tv9u
-  - &admin_kg age1hft9v6r9zpa23pxhamuhm9tnmvx39m56chfn8t996wn8v4txts2s3jjpwa
+  - &admin_kg_aladdin age1hft9v6r9zpa23pxhamuhm9tnmvx39m56chfn8t996wn8v4txts2s3jjpwa
+
+  - &host_mahdi age1k6hkw62h3js987u666pj4y2ld3p8yvd38e8w8z3sgfc3tflyjq9sru0mf7
+  - &admin_kg_mahdi age1vv4gkuthy2kgdx925lp6xt4gx5ygn3vf4uszev7mjc7l2yj95ucqqfgswd
 
 creation_rules:
   - path_regex: modules\/hosts\/aladdin\/secrets\.yaml$
     key_groups:
       - age:
           - *host_aladdin
-          - *admin_kg
+          - *admin_kg_aladdin
   - path_regex: modules\/users\/kg\/secrets\.yaml$
     key_groups:
       - age:
-          - *host_aladdin
-          - *admin_kg
+          - *admin_kg_aladdin
+          - *admin_kg_mahdi
+
+  - path_regex: modules\/hosts\/mahdi\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *host_mahdi
+          - *admin_kg_mahdi

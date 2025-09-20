@@ -13,7 +13,9 @@ toplevel@{ inputs, ... }:
         users.users.kg = {
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets."users/kg/password".path;
-          openssh.authorizedKeys.keys = [ ];
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
+          ];
           extraGroups = [
             "networkmanager"
             "wheel"
