@@ -35,9 +35,6 @@ toplevel@{ inputs, ... }:
       sops = {
         defaultSopsFile = ./secrets.yaml;
         age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-        secrets = {
-          "wireless.env" = { };
-        };
       };
 
       # This service is the "only" way to
@@ -50,30 +47,6 @@ toplevel@{ inputs, ... }:
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
         ];
-      };
-
-      # TODO: Use resolved for DNS resolution (DNSSEC!)
-      #  - networking.networkmanager.dns = "systemd-resolved"
-      networking = {
-        domain = "holab.ipv64.de";
-        networkmanager = {
-          enable = true;
-          ensureProfiles = {
-            environmentFiles = [ config.sops.secrets."wireless.env".path ];
-            profiles.home-wifi = {
-              connection = {
-                id = "home-wifi";
-                type = "wifi";
-              };
-              wifi.ssid = "$HOME_WIFI_SSID";
-              wifi-security = {
-                auth-alg = "open";
-                key-mgmt = "wpa-psk";
-                psk = "$HOME_WIFI_PASSWORD";
-              };
-            };
-          };
-        };
       };
     };
 }
