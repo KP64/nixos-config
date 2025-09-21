@@ -1,5 +1,6 @@
 {
   flake.modules.nixos.dns = {
+    # In quad9 and cloudflare we trust...
     networking.nameservers =
       map (qdns: "${qdns}#dns.quad9.net") [
         "9.9.9.9"

@@ -2,16 +2,17 @@
   flake.modules.homeManager.users-kg =
     { lib, pkgs, ... }:
     {
-      home.packages = with pkgs; [
-        exiftool
-        ouch
-        mediainfo
-        rich-cli
-      ];
-
       programs.yazi = {
         enable = true;
         shellWrapperName = "y";
+
+        extraPackages = with pkgs; [
+          exiftool
+          ouch
+          mediainfo
+          rich-cli
+        ];
+
         plugins = {
           inherit (pkgs.yaziPlugins)
             chmod
