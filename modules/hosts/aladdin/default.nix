@@ -67,9 +67,6 @@ toplevel@{ inputs, ... }:
       sops = {
         defaultSopsFile = ./secrets.yaml;
         age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-        secrets = {
-          "wireless.env" = { };
-        };
       };
 
       users.users.root = {
@@ -87,28 +84,6 @@ toplevel@{ inputs, ... }:
           enable = true;
           openFirewall = true;
           users = map (user: user.name) (with config.users.users; [ kg ]);
-        };
-      };
-
-      # TODO: Use resolved for DNS resolution (DNSSEC!)
-      #  - networking.networkmanager.dns = "systemd-resolved"
-      networking.networkmanager = {
-        enable = true;
-        plugins = [ pkgs.networkmanager-openvpn ];
-        ensureProfiles = {
-          environmentFiles = [ config.sops.secrets."wireless.env".path ];
-          profiles.home-wifi = {
-            connection = {
-              id = "home-wifi";
-              type = "wifi";
-            };
-            wifi.ssid = "$HOME_WIFI_SSID";
-            wifi-security = {
-              auth-alg = "open";
-              key-mgmt = "wpa-psk";
-              psk = "$HOME_WIFI_PASSWORD";
-            };
-          };
         };
       };
     };

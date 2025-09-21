@@ -52,6 +52,8 @@ toplevel@{ inputs, ... }:
         ];
       };
 
+      # TODO: Use resolved for DNS resolution (DNSSEC!)
+      #  - networking.networkmanager.dns = "systemd-resolved"
       networking = {
         domain = "holab.ipv64.de";
         networkmanager = {

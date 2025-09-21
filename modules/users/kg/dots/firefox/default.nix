@@ -14,6 +14,8 @@
           extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
 
           settings = customLib.firefox.toFirefoxSettingStyle {
+            network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
+            media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
             extensions.autoDisableScopes = 0;
             dom.security.https_only_mode = true;
             general.autoScroll = true;
