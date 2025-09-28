@@ -4,7 +4,12 @@
     {
       devShells.default = pkgs.mkShell {
         name = "config";
-        packages = [ pkgs.nil ];
+        packages = with pkgs; [
+          just
+          just-lsp
+
+          nil
+        ];
       };
     };
 }

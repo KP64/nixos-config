@@ -177,7 +177,7 @@
         debug = true;
 
         # Every system this flake supports,
-        # for which perSystem will run
+        # for which perSystem will run.
         # `flakeExposed` returns ALL systems
         # supported by Nix
         systems = nixpkgs.lib.systems.flakeExposed;
