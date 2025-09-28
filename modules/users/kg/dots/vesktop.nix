@@ -7,6 +7,7 @@
         autoUpdate = false;
         autoUpdateNotification = false;
         notifyAboutUpdates = false;
+        # TODO: Add more needed plugins
         plugins = {
           AnonymiseFileNames.enabled = true;
 

@@ -6,7 +6,7 @@
         enable = true;
         lazyLoad.settings.event = "DeferredUIEnter";
         # Do not add linters that are easily breakable by their version.
-        # These packages "overwrite" whatever is installed devShells.
+        # These packages "overwrite" whatever is installed by devShells.
         # E.g.:
         # Let's say Clippy 1.88.0 is installed by nixpkgs but the rust
         # project uses lints from 1.89.0, then Clippy will error out.

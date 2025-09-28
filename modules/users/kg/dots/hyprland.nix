@@ -1,5 +1,6 @@
 let
   mod = "SUPER";
+
   bind = b: "${mod}, ${b}";
   bind_shift = b: "${mod} SHIFT, ${b}";
 in
@@ -16,6 +17,7 @@ in
 
       wayland.windowManager.hyprland = {
         enable = true;
+        # TODO: Set on Per-Host basis
         package = null;
         portalPackage = null;
         systemd = {

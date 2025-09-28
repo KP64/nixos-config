@@ -1,6 +1,7 @@
 {
   flake.modules.nixvim.image = {
     dependencies.imagemagick.enable = true;
+
     plugins.image = {
       enable = true;
       lazyLoad.settings.ft = [

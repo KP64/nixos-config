@@ -12,6 +12,7 @@
       tiny-inline-diagnostic
     ];
 
+    # TODO: Add colorful-winsep
     plugins.rainbow-delimiters.enable = true;
   };
 }

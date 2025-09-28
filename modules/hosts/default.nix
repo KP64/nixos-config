@@ -30,6 +30,7 @@ in
             }
             {
               users.mutableUsers = false;
+              # Do not install rsync, perl & strace by default
               environment.defaultPackages = [ ];
               boot.tmp.cleanOnBoot = true;
               networking = {

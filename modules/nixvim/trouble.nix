@@ -9,7 +9,6 @@
       };
     };
 
-    # TODO: Broken on newest Neovim. Check when it is fixed
     keymaps = [
       {
         mode = "n";

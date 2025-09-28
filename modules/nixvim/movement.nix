@@ -1,6 +1,19 @@
 {
   flake.modules.nixvim.movement =
     { lib, ... }:
+    let
+      lazyLoad.settings.event = "DeferredUIEnter";
+
+      mkFlashRequire =
+        func:
+        lib.nixvim.mkRaw # lua
+          ''
+            function()
+              require("flash").${func}()
+            end
+          '';
+
+    in
     {
       plugins = {
         hardtime.enable = true;
@@ -15,12 +28,12 @@
 
         nvim-surround = {
           enable = true;
-          lazyLoad.settings.event = "DeferredUIEnter";
+          inherit lazyLoad;
         };
 
         flash = {
           enable = true;
-          lazyLoad.settings.event = "DeferredUIEnter";
+          inherit lazyLoad;
         };
       };
 
@@ -32,13 +45,7 @@
             "x"
             "o"
           ];
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                  require("flash").jump()
-                end
-              '';
+          action = mkFlashRequire "jump";
           options.desc = "Flash";
         }
         {
@@ -48,25 +55,13 @@
             "x"
             "o"
           ];
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                  require("flash").treesitter()
-                end
-              '';
+          action = mkFlashRequire "treesitter";
           options.desc = "Flash Treesitter";
         }
         {
           key = "r";
           mode = [ "o" ];
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                  require("flash").remote()
-                end
-              '';
+          action = mkFlashRequire "remote";
           options.desc = "Remote Flash";
         }
         {
@@ -75,25 +70,13 @@
             "o"
             "x"
           ];
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                  require("flash").treesitter_search()
-                end
-              '';
+          action = mkFlashRequire "treesitter_search";
           options.desc = "Treesitter Search";
         }
         {
           key = "<c-s>";
           mode = [ "c" ];
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                  require("flash").toggle()
-                end
-              '';
+          action = mkFlashRequire "toggle";
           options.desc = "Toggle Flash Search";
         }
       ];

@@ -108,25 +108,28 @@
             {
               on = [
                 "T"
-                m
                 p
+                m
               ];
               run = "plugin toggle-pane ${mode}-${pane}";
               desc = "${modeDesc} ${pane}";
             }
           )
         )
-        ++ (builtins.genList (
-          n:
-          let
-            steps = toString (n + 1);
-          in
-          {
-            on = steps;
-            run = "plugin relative-motions ${steps}";
-            desc = "Move in relative steps";
-          }
-        ) 9);
+        ++ (
+          9
+          |> builtins.genList (
+            n:
+            let
+              steps = n + 1 |> toString;
+            in
+            {
+              on = steps;
+              run = "plugin relative-motions ${steps}";
+              desc = "Move in relative steps";
+            }
+          )
+        );
 
         settings = {
           plugin =

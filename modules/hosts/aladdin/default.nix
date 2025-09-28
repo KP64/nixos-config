@@ -22,7 +22,6 @@ toplevel@{ inputs, ... }:
           catppuccin
           desktop
           efi
-          fonts
           gaming
           nix
           nvidia
@@ -33,6 +32,7 @@ toplevel@{ inputs, ... }:
           users-kg
         ]);
 
+      # TODO: Add Bluetooth module
       facter.reportPath = ./facter.json;
 
       system.stateVersion = "25.11";

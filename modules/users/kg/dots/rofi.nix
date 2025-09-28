@@ -74,7 +74,7 @@
           };
 
           "element.normal.urgent, element.alternate.urgent" = {
-            background-color = "@red";
+            background-color = mkLiteral "@red";
           };
 
           "element.selected.urgent" = {

@@ -1,6 +1,16 @@
 {
   flake.modules.nixvim.dap =
     { lib, ... }:
+    let
+      mkRequire =
+        func:
+        lib.nixvim.mkRaw # lua
+          ''
+            function()
+                require('dap').${func}
+            end
+          '';
+    in
     {
       plugins = {
         dap.enable = true;
@@ -12,73 +22,37 @@
         {
           mode = "n";
           key = "<F5>";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dap').continue()
-                end
-              '';
+          action = mkRequire "continue()";
           options.desc = "Debug: Start/Continue";
         }
         {
           mode = "n";
           key = "<F1>";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dap').step_into()
-                end
-              '';
+          action = mkRequire "step_into()";
           options.desc = "Debug: Step Into";
         }
         {
           mode = "n";
           key = "<F2>";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dap').step_over()
-                end
-              '';
+          action = mkRequire "step_over()";
           options.desc = "Debug: Step Over";
         }
         {
           mode = "n";
           key = "<F3>";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dap').step_out()
-                end
-              '';
+          action = mkRequire "step_out()";
           options.desc = "Debug: Step Out";
         }
         {
           mode = "n";
           key = "<leader>b";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dap').toggle_breakpoint()
-                end
-              '';
+          action = mkRequire "toggle_breakpoint()";
           options.desc = "Debug: Toggle Breakpoint";
         }
         {
           mode = "n";
           key = "<leader>B";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-                end
-              '';
+          action = mkRequire "set_breakpoint(vim.fn.input 'Breakpoint condition: ')";
           options.desc = "Debug: Set Breakpoint";
         }
         # Toggle to see last session result. Without this, you can't see session output
@@ -86,13 +60,7 @@
         {
           mode = "n";
           key = "<F7>";
-          action =
-            lib.nixvim.mkRaw # lua
-              ''
-                function()
-                    require('dapui').toggle()
-                end
-              '';
+          action = mkRequire "toggle()";
           options.desc = "Debug: See last session result.";
         }
       ];

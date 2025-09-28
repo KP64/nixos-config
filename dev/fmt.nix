@@ -1,4 +1,5 @@
 { inputs, ... }:
+# TODO: Add typos
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 

@@ -1,15 +1,27 @@
 {
   flake.modules.nixvim.blink =
     { lib, ... }:
+    let
+      lazyLoad.settings.event = "InsertEnter";
+
+      mkRequire =
+        func:
+        lib.nixvim.mkRaw # lua
+          ''
+            function(ctx)
+              return require("colorful-menu").${func}(ctx)
+            end
+          '';
+    in
     {
       plugins = {
         colorful-menu = {
           enable = true;
-          lazyLoad.settings.event = "InsertEnter";
+          inherit lazyLoad;
         };
         blink-cmp = {
           enable = true;
-          lazyLoad.settings.event = "InsertEnter";
+          inherit lazyLoad;
           settings = {
             keymap.preset = "super-tab";
             signature.enabled = true;
@@ -20,20 +32,8 @@
                   lib.nixvim.mkRaw # lua
                     ''{ { "kind_icon" }, { "label", gap = 1 } }'';
                 components.label = {
-                  text =
-                    lib.nixvim.mkRaw # lua
-                      ''
-                        function(ctx)
-                          return require("colorful-menu").blink_components_text(ctx)
-                        end
-                      '';
-                  highlight =
-                    lib.nixvim.mkRaw # lua
-                      ''
-                        function(ctx)
-                          return require("colorful-menu").blink_components_highlight(ctx)
-                        end
-                      '';
+                  text = mkRequire "blink_components_text";
+                  highlight = mkRequire "blink_components_highlight";
                 };
               };
             };

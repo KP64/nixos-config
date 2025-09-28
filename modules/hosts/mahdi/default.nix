@@ -15,7 +15,6 @@ toplevel@{ inputs, ... }:
         ++ (with toplevel.config.flake.modules.nixos; [
           catppuccin
           efi
-          fonts
           nix
           ssh
           sudo
@@ -44,9 +43,6 @@ toplevel@{ inputs, ... }:
       users.users.root = {
         isSystemUser = true;
         hashedPasswordFile = config.sops.secrets."users/kg/password".path;
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
-        ];
       };
     };
 }
