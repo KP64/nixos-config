@@ -17,7 +17,7 @@ in
 
       wayland.windowManager.hyprland = {
         enable = true;
-        # TODO: Set on Per-Host basis
+        # TODO: Set on Per-Host basis (Maybe specialisations prove helpful?)
         package = null;
         portalPackage = null;
         systemd = {
