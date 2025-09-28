@@ -1,5 +1,4 @@
 {
-  # TODO: Improve this A LOT once disko fleshes out their module.
   flake.diskoConfigurations.aladdin = {
     disko.devices.disk.main = {
       type = "disk";
