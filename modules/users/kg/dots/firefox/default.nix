@@ -1,4 +1,4 @@
-{ inputs, customLib, ... }:
+toplevel@{ inputs, customLib, ... }:
 {
   flake.modules.homeManager.users-kg =
     {
@@ -28,6 +28,7 @@
             privateDefault = "duckduckgo";
             engines =
               let
+                inherit (toplevel.config.flake.nixosConfigurations) mahdi;
                 nix-snowflake-icon = "${inputs.self}/assets/nix-snowflake.svg";
 
                 mkParam = name: value: { inherit name value; };
@@ -46,8 +47,7 @@
                 SearXNG = {
                   urls = [
                     {
-                      # TODO: Use correct URL
-                      template = "https://searxng.holab.ipv64.de/search";
+                      template = "https://searxng.${mahdi.config.networking.domain}/search";
                       params = [
                         (mkParam "q" "{searchTerms}")
                         (mkParam "language" "all")
