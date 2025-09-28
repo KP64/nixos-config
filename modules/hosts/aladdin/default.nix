@@ -15,6 +15,7 @@ toplevel@{ inputs, ... }:
         ])
         ++ (with toplevel.config.flake.modules.nixos; [
           audio
+          bluetooth
           catppuccin
           desktop
           efi
@@ -28,7 +29,6 @@ toplevel@{ inputs, ... }:
           users-kg
         ]);
 
-      # TODO: Add Bluetooth module
       facter.reportPath = ./facter.json;
 
       system.stateVersion = "25.11";

@@ -15,9 +15,9 @@ in
 
       services.playerctld.enable = true;
 
+      # TODO: Set on Per-Host basis (Specialisations could prove helpful?)
       wayland.windowManager.hyprland = {
         enable = true;
-        # TODO: Set on Per-Host basis (Maybe specialisations prove helpful?)
         package = null;
         portalPackage = null;
         systemd = {
@@ -50,7 +50,6 @@ in
           #   ];
           # };
 
-          # TODO: Per Host basis
           monitorv2 = [
             {
               output = "DP-3";

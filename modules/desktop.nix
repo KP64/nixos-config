@@ -1,21 +1,27 @@
 toplevel: {
   flake.modules = {
-    nixos.desktop = {
-      services.displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
+    nixos.desktop =
+      { config, lib, ... }:
+      {
+        services.displayManager.sddm = {
+          enable = true;
+          wayland.enable = true;
+        };
+
+        programs.hyprland = {
+          enable = true;
+          withUWSM = true;
+        };
+
+        # Is only installed if nvidia is supported by the system
+        hardware.nvidia.nvidiaSettings = true;
+
+        home-manager.sharedModules =
+          let
+            inherit (toplevel.config.flake.modules) homeManager;
+          in
+          [ homeManager.desktop ] ++ lib.optionals config.services.blueman.enable [ homeManager.bluetooth ];
       };
-
-      programs.hyprland = {
-        enable = true;
-        withUWSM = true;
-      };
-
-      # Is only installed if nvidia is supported by the system
-      hardware.nvidia.nvidiaSettings = true;
-
-      home-manager.sharedModules = [ toplevel.config.flake.modules.homeManager.desktop ];
-    };
 
     homeManager.desktop =
       { config, ... }:
