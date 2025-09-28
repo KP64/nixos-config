@@ -19,7 +19,10 @@ in
       {
         name = hostName;
         value = inputs.nixpkgs.lib.nixosSystem {
-          modules = module.imports ++ [
+          modules = [
+            module # The actual system config
+          ]
+          ++ [
             inputs.home-manager.nixosModules.default
             {
               home-manager = {
@@ -40,6 +43,11 @@ in
                 nftables.enable = true;
               };
             }
+          ]
+          # Adds disko configuration if available
+          ++ lib.optionals (lib.hasAttr hostName config.flake.diskoConfigurations) [
+            inputs.disko.nixosModules.default
+            config.flake.diskoConfigurations.${hostName}
           ];
         };
       }

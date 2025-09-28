@@ -13,10 +13,6 @@ toplevel@{ inputs, ... }:
           nixos-facter-modules.nixosModules.facter
           sops-nix.nixosModules.default
         ])
-        ++ (with inputs; [
-          disko.nixosModules.default
-          self.diskoConfigurations.aladdin
-        ])
         ++ (with toplevel.config.flake.modules.nixos; [
           audio
           catppuccin

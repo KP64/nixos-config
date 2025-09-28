@@ -8,10 +8,6 @@ toplevel@{ inputs, ... }:
           nixos-facter-modules.nixosModules.facter
           sops-nix.nixosModules.default
         ])
-        ++ (with inputs; [
-          disko.nixosModules.default
-          self.diskoConfigurations.mahdi
-        ])
         ++ (with toplevel.config.flake.modules.nixos; [
           catppuccin
           efi
