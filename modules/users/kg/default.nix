@@ -55,7 +55,6 @@ toplevel@{ inputs, ... }:
             (with toplevel.config.flake.modules.nixvim; [
               base
               lsp
-              navigation
               ui
 
               codesnap
@@ -63,9 +62,11 @@ toplevel@{ inputs, ... }:
               git
               markdown
               movement
+              telescope
               treesitter
               trouble
               which-key
+              yazi
               zen
             ])
             ++ [
