@@ -1,0 +1,5 @@
+[default]
+extend-ignore-words-re = ["noice", "facter", "nitch"]
+
+[files]
+extend-exclude = ["modules/hosts/*/facter.json", "modules/hosts/*/secrets.yaml"]

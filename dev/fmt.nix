@@ -1,5 +1,4 @@
 { inputs, ... }:
-# TODO: Add typos
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
@@ -44,6 +43,12 @@
 
       # Multiple
       prettier.enable = true;
+      typos = {
+        enable = true;
+        sort = true;
+        isolated = true;
+        configFile = "${inputs.self}/typos.toml";
+      };
     };
   };
 }
