@@ -33,7 +33,7 @@ in
       {
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-        # FiXME: Cache invalidation
+        # FIXME: Cache invalidation
         # Populating both Nix Settings in Home-Manager and NixOS
         # causes the Substituters and keys to conflict and
         # be marked as untrusted. WHY THE F*CK THO?

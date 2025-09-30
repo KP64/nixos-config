@@ -8,6 +8,7 @@ toplevel@{ inputs, customLib, ... }:
       ...
     }:
     {
+      # TODO: Change new tabs and startup to glance
       programs.firefox = {
         enable = true;
         profiles.${config.home.username} = {

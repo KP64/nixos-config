@@ -20,7 +20,7 @@ toplevel: {
           let
             inherit (toplevel.config.flake.modules) homeManager;
           in
-          [ homeManager.desktop ] ++ lib.optionals config.services.blueman.enable [ homeManager.bluetooth ];
+          [ homeManager.desktop ] ++ lib.optional config.services.blueman.enable homeManager.bluetooth;
       };
 
     homeManager.desktop =
