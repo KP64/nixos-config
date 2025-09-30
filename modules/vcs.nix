@@ -22,11 +22,11 @@
           enable = true;
           settings.git_protocol = "ssh";
         };
-
-        gitui.enable = true;
+        gh-dash.enable = true;
 
         git-cliff.enable = true;
 
+        gitui.enable = true;
         git =
           let
             inherit (config.vcs) user;
@@ -51,6 +51,7 @@
             };
           };
 
+        jjui.enable = true; # TODO: This vs. lazyjj
         jujutsu =
           let
             inherit (config.programs) git;
