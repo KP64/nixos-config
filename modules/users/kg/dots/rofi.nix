@@ -37,7 +37,7 @@
           inputbar = {
             color = mkLiteral "@text";
             padding = 14;
-            background-color = "@base";
+            background-color = mkLiteral "@base";
           };
 
           listview = {
