@@ -117,12 +117,15 @@ toplevel@{ inputs, ... }:
           packages = [ inputs.dotz.packages.${pkgs.system}.default ];
         };
 
+        services.pueue.enable = true;
+
         programs = {
           bat.enable = true;
           btop.enable = true;
           cava.enable = true;
           fzf.enable = true;
           ripgrep.enable = true;
+          zellij.enable = true;
         };
       };
   };
