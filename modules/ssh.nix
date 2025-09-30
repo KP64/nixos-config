@@ -11,6 +11,11 @@
           PasswordAuthentication = false;
           KbdInteractiveAuthentication = false;
         };
+        extraConfig = ''
+          # NOTE: Hardening Setting Recommended by ssh-audit
+          # Number of unauthenticated connections allowed from a given source address.
+          PerSourceMaxStartups 1
+        '';
       };
     };
 
