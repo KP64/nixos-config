@@ -60,14 +60,11 @@ toplevel@{ inputs, ... }:
           "cuda_nvrtc"
         ];
 
-      sops = {
-        defaultSopsFile = ./secrets.yaml;
-        age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      };
+      sops.defaultSopsFile = ./secrets.yaml;
 
       users.users.root = {
         isSystemUser = true;
-        hashedPasswordFile = config.sops.secrets."users/kg/password".path;
+        hashedPasswordFile = config.sops.secrets.kg_password.path;
       };
 
       programs = {

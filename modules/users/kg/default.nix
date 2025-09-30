@@ -8,11 +8,15 @@ toplevel@{ inputs, ... }:
 
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
-        # TODO: Move sops file containing password to user
-        sops.secrets."users/kg/password".neededForUsers = true;
+        sops.secrets.kg_password = {
+          neededForUsers = true;
+          key = "password";
+          sopsFile = ./secrets.yaml;
+        };
+
         users.users.kg = {
           isNormalUser = true;
-          hashedPasswordFile = config.sops.secrets."users/kg/password".path;
+          hashedPasswordFile = config.sops.secrets.kg_password.path;
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
           ];
@@ -46,6 +50,16 @@ toplevel@{ inputs, ... }:
             ssh
             vcs
           ]);
+
+        sops = {
+          defaultSopsFile = ./secrets.yaml;
+          age = {
+            keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+            generateKey = true;
+          };
+          # TODO: Paste private SSH key?
+          # secrets."private_keys/kg".path = "${config.home.homeDirectory}/.ssh/id_ed25519";
+        };
 
         programs.nixvim = {
           enable = true;
