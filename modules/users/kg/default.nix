@@ -32,7 +32,7 @@ toplevel@{ inputs, ... }:
       };
 
     homeManager.users-kg =
-      { config, ... }:
+      { config, pkgs, ... }:
       let
         invisible = import "${inputs.nix-invisible}/users/${config.home.username}.nix";
       in
@@ -114,6 +114,7 @@ toplevel@{ inputs, ... }:
         home = {
           stateVersion = "25.11";
           shellAliases.c = "clear";
+          packages = [ inputs.dotz.packages.${pkgs.system}.default ];
         };
 
         programs = {

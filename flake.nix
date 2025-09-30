@@ -77,6 +77,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # My custom made "colorscript"
+    # TODO: This should be available in a custom cache
+    dotz = {
+      url = "github:KP64/dotz";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # Make the outputs compatible with non flake systems
     # The compatibility layer is comprised of the `default.nix`
     # and the `shell.nix` file in the current working directory.

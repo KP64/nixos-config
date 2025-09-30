@@ -32,6 +32,7 @@ in
             no_donation_nag = true;
           };
 
+          # Discourages XWayland to be used. Useful for discord & stuff
           env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
 
           # plugin.touch_gestures = {
