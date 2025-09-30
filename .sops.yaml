@@ -17,6 +17,9 @@ creation_rules:
       - age:
           - *host_mahdi
           - *admin_kg_mahdi
+          # TODO: There must be a better way... Right?
+          # This is done for when access to "mahdi" is lost
+          - *admin_kg_aladdin
 
   - path_regex: modules\/users\/kg\/secrets\.yaml$
     key_groups:
