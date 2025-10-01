@@ -107,7 +107,7 @@ in
 
           input = {
             kb_layout = "de";
-            kb_options = "caps:swapescape";
+            kb_options = "caps:escape";
           };
 
           bindel = [

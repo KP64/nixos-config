@@ -147,6 +147,15 @@
       };
     };
 
+    # Nix managed Minecraft Servers.
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # Better hardware-configuration replacement
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
