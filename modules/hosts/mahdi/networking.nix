@@ -8,6 +8,7 @@ toplevel: {
 
       networking = {
         domain = "holab.ipv64.de";
+        enableIPv6 = false;
         networkmanager = {
           enable = true;
           ensureProfiles = {
