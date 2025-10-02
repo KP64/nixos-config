@@ -84,6 +84,10 @@
           name = "@player2_name@";
           uuid = "@player2_id@";
         }
+        {
+          name = "@player3_name@";
+          uuid = "@player3_id@";
+        }
       ];
     in
     {

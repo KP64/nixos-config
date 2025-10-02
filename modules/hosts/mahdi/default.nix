@@ -1,5 +1,6 @@
 toplevel@{ inputs, ... }:
 {
+  # TODO: Harden
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     {
