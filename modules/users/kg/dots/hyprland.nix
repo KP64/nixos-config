@@ -18,12 +18,7 @@ in
       # TODO: Set on Per-Host basis (Specialisations could prove helpful?)
       wayland.windowManager.hyprland = {
         enable = true;
-        package = null;
-        portalPackage = null;
-        systemd = {
-          enable = false;
-          variables = [ "--all" ];
-        };
+        systemd.variables = [ "--all" ];
         # TODO: reenable once not broken x)
         # plugins = [ pkgs.hyprlandPlugins.hyprgrass ];
         settings = {

@@ -10,6 +10,7 @@ let
     ];
     substituters = [ "https://nix-community.cachix.org" ];
     trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+    # FIXME: This isn't recognized by Home-Manager for whatever reason (Check note in sindbad)
     trusted-users = [ "@wheel" ];
   };
 in
@@ -38,15 +39,28 @@ in
       {
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-        # FIXME: Cache invalidation
-        # Populating both Nix Settings in Home-Manager and NixOS
-        # causes the Substituters and keys to conflict and
-        # be marked as untrusted. WHY THE F*CK THO?
-        # This invalidates the cache causing everything to compile from source.
-        # NOTE: ONLY Include this if Home-Manager isn't used as a module
+        # NOTE: ONLY Include this if Home-Manager isn't used as a module.
+        #       Otherwise the cache will be invalidated on NixOS Systems
+        #       for whatever f*cking reason.
+        # NOTE: For Whatever f*cking reason this doesn't come with defaults at all.
+        #       Everything must be specified manually.
         nix = lib.mkIf (osConfig == null) {
           package = lib.mkDefault pkgs.nixVersions.latest;
-          settings = commonSettings;
+          # NOTE: Why Home-Manager... Why? No Default options are set AT ALL.
+          settings = {
+            inherit (commonSettings) auto-optimise-store experimental-features trusted-users;
+            allowed-users = "*";
+            builders = null;
+            cores = 0;
+            max-jobs = "auto";
+            require-sigs = true;
+            sandbox = true;
+            sandbox-fallback = false;
+            substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
+            trusted-public-keys = commonSettings.trusted-public-keys ++ [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+            trusted-substituters = null;
+            extra-sandbox-paths = null;
+          };
         };
 
         programs = {

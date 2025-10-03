@@ -24,7 +24,7 @@ in
         host = additionalHosts.${hostname};
       in
       {
-        name = username;
+        name = userHost;
         value = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs { inherit (host) system; };
           modules = [

@@ -114,7 +114,13 @@ toplevel@{ inputs, ... }:
         home = {
           stateVersion = "25.11";
           shellAliases.c = "clear";
-          packages = [ inputs.dotz.packages.${pkgs.system}.default ] ++ [ pkgs.prismlauncher ];
+          packages = [
+            inputs.dotz.packages.${pkgs.system}.default
+          ]
+          ++ (with pkgs; [
+            pavucontrol
+            prismlauncher
+          ]);
         };
 
         services.pueue.enable = true;
