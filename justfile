@@ -1,6 +1,7 @@
 # TODO: Move most if not all recipes to devshell stuff.
 #       -> This (hopefully) allows us to bind variables like
 #          experimental-features with the ones set in the config.
+
 experimental-features := "nix-command flakes pipe-operators no-url-literals"
 
 default:

@@ -10,7 +10,10 @@ let
     ];
     substituters = [ "https://nix-community.cachix.org" ];
     trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
-    # FIXME: This isn't recognized by Home-Manager for whatever reason (Check note in sindbad)
+    # NOTE: This isn't recognized by Home-Manager for whatever reason.
+    #       This causes Home-Manager to emit A LOT of warnings even though
+    #       it still works perfectly fine. Just WTF man.
+    # TODO: Open issue about this
     trusted-users = [ "@wheel" ];
   };
 in
@@ -40,13 +43,11 @@ in
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
         # NOTE: ONLY Include this if Home-Manager isn't used as a module.
-        #       Otherwise the cache will be invalidated on NixOS Systems
-        #       for whatever f*cking reason.
-        # NOTE: For Whatever f*cking reason this doesn't come with defaults at all.
+        #
+        # NOTE: For whatever reason this doesn't come with defaults at all.
         #       Everything must be specified manually.
         nix = lib.mkIf (osConfig == null) {
-          package = lib.mkDefault pkgs.nixVersions.latest;
-          # NOTE: Why Home-Manager... Why? No Default options are set AT ALL.
+          package = pkgs.nixVersions.latest;
           settings = {
             inherit (commonSettings) auto-optimise-store experimental-features trusted-users;
             allowed-users = "*";
@@ -56,8 +57,13 @@ in
             require-sigs = true;
             sandbox = true;
             sandbox-fallback = false;
+            # NOTE: WHY IN THE FUCKING HELL IS THE NIXOS CACHE NOT INCLUDED BY DEFAULT???
+            #       At this point I'm just losing my sanity.
+            #       Is there a genuine good reason for omitting the cache?
             substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
-            trusted-public-keys = commonSettings.trusted-public-keys ++ [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+            trusted-public-keys = commonSettings.trusted-public-keys ++ [
+              "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            ];
             trusted-substituters = null;
             extra-sandbox-paths = null;
           };
