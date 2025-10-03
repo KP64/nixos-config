@@ -1,19 +1,16 @@
 { inputs, ... }:
 let
-  commonSettings = pkgs: {
-    package = pkgs.nixVersions.latest;
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "no-url-literals"
-        "pipe-operators"
-      ];
-      substituters = [ "https://nix-community.cachix.org" ];
-      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
-      trusted-users = [ "@wheel" ];
-    };
+  commonSettings = {
+    auto-optimise-store = true;
+    experimental-features = [
+      "nix-command"
+      "flakes"
+      "no-url-literals"
+      "pipe-operators"
+    ];
+    substituters = [ "https://nix-community.cachix.org" ];
+    trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+    trusted-users = [ "@wheel" ];
   };
 in
 {
@@ -22,14 +19,22 @@ in
     nixos.nix =
       { pkgs, ... }:
       {
-        nix = (commonSettings pkgs) // {
+        nix = {
+          package = pkgs.nixVersions.latest;
+          settings = commonSettings;
           optimise.automatic = true;
           channel.enable = false;
         };
       };
 
     homeManager.nix =
-      { config, ... }:
+      {
+        osConfig ? null,
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
       {
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
@@ -38,7 +43,11 @@ in
         # causes the Substituters and keys to conflict and
         # be marked as untrusted. WHY THE F*CK THO?
         # This invalidates the cache causing everything to compile from source.
-        # nix = pkgs |> commonSettings |> lib.mkDefault;
+        # NOTE: ONLY Include this if Home-Manager isn't used as a module
+        nix = lib.mkIf (osConfig == null) {
+          package = lib.mkDefault pkgs.nixVersions.latest;
+          settings = commonSettings;
+        };
 
         programs = {
           nix-index.enable = true;
