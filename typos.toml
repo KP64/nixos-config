@@ -4,4 +4,8 @@ facter = "facter"
 nitch = "nitch"
 
 [files]
-extend-exclude = ["modules/hosts/*/facter.json", "modules/hosts/*/secrets.yaml"]
+extend-exclude = [
+  "modules/hosts/*/facter.json",
+  "modules/hosts/*/secrets.yaml",
+  "modules/users/*/secrets.yaml"
+]
