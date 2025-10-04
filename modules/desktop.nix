@@ -8,10 +8,7 @@ toplevel: {
           wayland.enable = true;
         };
 
-        programs.hyprland = {
-          enable = true;
-          withUWSM = true;
-        };
+        programs.hyprland.enable = true;
 
         # Is only installed if nvidia is supported by the system
         hardware.nvidia.nvidiaSettings = true;
@@ -20,32 +17,53 @@ toplevel: {
           let
             inherit (toplevel.config.flake.modules) homeManager;
           in
-          [ homeManager.desktop ] ++ lib.optional config.services.blueman.enable homeManager.bluetooth;
+          [ homeManager.desktop ]
+          ++ lib.optional config.services.blueman.enable homeManager.bluetooth
+          ++ [
+            {
+              wayland.windowManager.hyprland = {
+                package = null;
+                portalPackage = null;
+              };
+            }
+          ];
       };
 
     homeManager.desktop =
-      { config, ... }:
       {
-        xdg.configFile."uwsm/env".source =
-          "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
+      let
+        inherit (config.lib) nixGL;
+      in
+      {
+        imports = [ toplevel.config.flake.modules.homeManager.wrap-graphics ];
 
-        wayland.windowManager.hyprland = {
-          package = null;
-          portalPackage = null;
-          systemd.enable = false;
-        };
+        config = {
+          # NOTE: When HM warnings are triggered they won't
+          #       show when used as a NixOS module
+          warnings = lib.optional (config.wayland.windowManager.hyprland.portalPackage != null) ''
+            This will most likely NOT work at all!
+            Set the hyprland portalPackage to null and install it via your favourite package manager!
+          '';
 
-        gtk.enable = true;
-        qt.enable = true;
+          wayland.windowManager.hyprland.package = lib.mkDefault <| nixGL.wrap <| pkgs.hyprland;
 
-        xdg = {
-          enable = true;
-          autostart.enable = true;
-          mime.enable = true;
-          mimeApps.enable = true;
-          userDirs = {
+          gtk.enable = true;
+          qt.enable = true;
+
+          xdg = {
             enable = true;
-            createDirectories = true;
+            autostart.enable = true;
+            mime.enable = true;
+            mimeApps.enable = true;
+            userDirs = {
+              enable = true;
+              createDirectories = true;
+            };
           };
         };
       };

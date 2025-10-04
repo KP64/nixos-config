@@ -68,8 +68,12 @@
     };
 
     # Just for the deduplication of inputs
-    # NOTE: Guys. Please AVOID using this in your projects!
+    # NOTE: Guys. Please AVOID using these in your projects!
     dedup_systems.url = "github:nix-systems/default";
+    dedup_flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "dedup_systems";
+    };
 
     # Declarative Disk partitioning
     disko = {
@@ -129,6 +133,14 @@
       };
     };
 
+    nixGL = {
+      url = "github:nix-community/nixGL";
+      inputs = {
+        flake-utils.follows = "dedup_flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # Weekly updated nix pkgs database
     # Useful for https://github.com/nix-community/comma
     # and replacing command-not-found
@@ -152,6 +164,7 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
         flake-compat.follows = "flake-compat";
+        flake-utils.follows = "dedup_flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
     };

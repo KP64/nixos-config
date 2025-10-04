@@ -19,19 +19,17 @@
       };
     };
 
-    homeManager.ssh = {
-      programs.ssh = {
-        enable = true;
-        enableDefaultConfig = false;
-      };
+    homeManager.ssh =
+      { pkgs, ... }:
+      {
+        home.packages = [ pkgs.openssh ];
 
-      services = {
-        ssh-agent.enable = true;
-        # TODO: Find better logic
-        # This agent is only for TPM >= v2.0
-        # ssh-tpm-agent.enable = osConfig.security.tpm2.enable;
-        # TODO: Implement yubikey agent logic
+        programs.ssh = {
+          enable = true;
+          enableDefaultConfig = false;
+        };
+
+        services.ssh-agent.enable = true;
       };
-    };
   };
 }
