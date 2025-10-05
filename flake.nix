@@ -123,11 +123,13 @@
     };
 
     # Nix managed Neovim
+    # NOTE: Do not override nixpkgs.
+    #       They use the latest possible for the nixpkgs branch.
+    #       Causes breakage, even though rarely.
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
         flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
         nuschtosSearch.follows = "";
         systems.follows = "dedup_systems";
       };
