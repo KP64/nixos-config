@@ -1,7 +1,5 @@
 { inputs, ... }:
 {
-  # TODO: Encrypt Email instead of having it as an invisible
-  #       Because why not ;)
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
@@ -22,7 +20,6 @@
         certs.${domain} = {
           dnsProvider = "ipv64";
           credentialFiles.IPV64_API_KEY_FILE = config.sops.secrets.ipv64_api_token.path;
-          # TODO: Add traefik user to acme group instead of this SHIT
           group = "traefik";
           # TODO: Remove Wildcard!
           extraDomainNames = [ "*.${domain}" ];

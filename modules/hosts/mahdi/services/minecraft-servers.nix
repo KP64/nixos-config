@@ -206,6 +206,7 @@
               view-distance = 32;
               gamemode = "survival";
               force-gamemode = true;
+              # TODO: Disable -> Check Ping
               online-mode = true;
               white-list = true;
               enforce-whitelist = true;
@@ -240,6 +241,7 @@
               view-distance = 32;
               gamemode = "creative";
               force-gamemode = true;
+              # TODO: Disable -> Check Ping
               online-mode = true;
               white-list = true;
               enforce-whitelist = true;

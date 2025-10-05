@@ -2,7 +2,12 @@ toplevel@{ inputs, ... }:
 {
   # TODO: Harden
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       imports =
         (with inputs; [
@@ -21,6 +26,8 @@ toplevel@{ inputs, ... }:
 
       facter.reportPath = ./facter.json;
       system.stateVersion = "25.11";
+
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "open-webui" ];
 
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";
