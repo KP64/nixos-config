@@ -118,6 +118,7 @@ toplevel@{ inputs, ... }:
             inputs.dotz.packages.${pkgs.system}.default
           ]
           ++ (with pkgs; [
+            bluetui
             pavucontrol
             prismlauncher
           ]);
