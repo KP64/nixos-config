@@ -1,6 +1,11 @@
-{ inputs, rootPath }:
-let
-  systems = import ./systems.nix { inherit inputs rootPath; };
-  utils = import ./utils.nix { inherit inputs; };
-in
-systems // utils
+{ lib }:
+# TODO: Generate Documentation
+rec {
+  ai = import ./ai.nix { inherit lib; };
+
+  fs = import ./fs.nix { inherit lib; };
+
+  firefox = import ./firefox.nix { inherit lib util; };
+
+  util = import ./util.nix { inherit lib; };
+}

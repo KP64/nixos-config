@@ -1,5 +1,0 @@
-{
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMH6w/Q19oTmsf88Sksonk5A07wcNAloXaChlsKIEO83 tp@sindbad"
-  ];
-}

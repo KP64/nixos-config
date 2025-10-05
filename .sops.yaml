@@ -1,41 +1,30 @@
 keys:
-  - &host_aladdin age1zr2qgrxhn3qx3cy9uqhq5hrck3ey6mcjmrpg5le5u03cedglcgcsn0nv60
-  - &host_sindbad age19wp8a0keekvjlnzlu86k6nrw0kt3rxnmw48wjv9d0ke8n9h8c5lq86qf0q
-  - &host_mahdi age16k90aksxhswa636nxz5sv68jf8fu0pcphxfn6wv00dxx24tzkp5sfs35gl
-  - &admin_kg age1aq8u2tm6v5ylvjn5g5hzysnxf9tlsrkgl4s3ykkhu30nf0ce6u9sn9vspu
-  - &admin_tp age1zve6v6g4rlt595d7zew8ewr05u2fnaptat6gcqa7mv07yefy29yqtpkr7c
-  - &admin_sv age1ecaazzhd6r67y5kwxq2srryyalzxvsjlk903uxjd79r24f8zy4gqjtk67w
+  - &host_aladdin age147qz8tf8tlctz78l4kmgruu032z9jd9v4wku3slpx0m2fek7effqn2tv9u
+  - &host_mahdi age1k6hkw62h3js987u666pj4y2ld3p8yvd38e8w8z3sgfc3tflyjq9sru0mf7
+
+  - &admin_kg_aladdin age1860xuy8hczqepjr5ys9mm6nshtdkss98uv0pj64d9xy4tyct8gkq4c87gl
+  - &admin_kg_mahdi age16xq27lvvv3j7pvkp0rk6jzljdhldevlrucnv906tuq0mfecvuq4q0pznww
+
 creation_rules:
-  - path_regex: hosts\/.+\/aladdin\/secrets\.yaml$
+  - path_regex: modules\/hosts\/aladdin\/secrets\.yaml$
     key_groups:
       - age:
           - *host_aladdin
-          - *admin_kg
-  - path_regex: hosts\/.+\/aladdin\/users\/kg\/secrets\.yaml$
+          - *admin_kg_aladdin
+
+  - path_regex: modules\/hosts\/mahdi\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *host_mahdi
+          - *admin_kg_mahdi
+          # TODO: There must be a better way... Right?
+          # This is done for when access to "mahdi" is lost
+          - *admin_kg_aladdin
+
+  - path_regex: modules\/users\/kg\/secrets\.yaml$
     key_groups:
       - age:
           - *host_aladdin
-          - *admin_kg
-
-  - path_regex: hosts\/.+\/sindbad\/secrets\.yaml$
-    key_groups:
-      - age:
-          - *host_sindbad
-          - *admin_tp
-  - path_regex: hosts\/.+\/sindbad\/users\/tp\/secrets\.yaml$
-    key_groups:
-      - age:
-          - *host_sindbad
-          - *admin_tp
-
-  - path_regex: hosts\/.+\/mahdi\/secrets\.yaml$
-    key_groups:
-      - age:
           - *host_mahdi
-          - *admin_sv
-          - *admin_kg
-  - path_regex: hosts\/.+\/mahdi\/users\/sv\/secrets\.yaml$
-    key_groups:
-      - age:
-          - *host_mahdi
-          - *admin_sv
+          - *admin_kg_aladdin
+          - *admin_kg_mahdi

@@ -1,66 +1,113 @@
 {
-  description = "KP64's Ultimate Nixos ❄️";
+  description = ''
+    KP64's Wannabe All-In-One Nix Flake
 
+    This flake aims to include everything.
+    Ranging from "simple" dotfile management with Home Manager
+    all the way to managing multiple services
+    for a fault-tolerant homelab.
+
+    Is it a good Flake?
+    Absolutely not, but I'm not a jugde.
+    You are... yes, YOU!
+    Roast this Flake (and by extension me) however you like!
+  '';
+
+  /*
+    Think of inputs like dependencies that
+    are used throughout the project
+
+    The "url" specifies, Where this dependency lives.
+    It could be a Repository, a file or a path, it doesn't matter.
+    Your imagination is the limit.
+
+    `inputs.<name>.follows` means sharing an input `<name>`.
+    The most common example is `inputs.nixpkgs.follows = "nixpkgs"`
+    This indicates that the input that in turn has a dependency on
+    nixpkgs shouldn't bring its own copy of it, but reuse the one
+    already specified in this very flake.
+
+    If you are hellbent on keeping your lockfile as small as Possible
+    you can "delete" inputs too, by using `inputs.<name>.follows = "";`.
+    NOTE: IIRC this should only be done for inputs that are only for dev
+          purposes and do not affect the consuming/usage of said flake.
+          An example would be `treefmt-nix`.
+  */
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    /*
+      There are multiple branches of nixpkgs.
+      The most important distinction is between
+      `nixos` and `nixpkgs` imho.
+      Without going into details, think of the branches
+      starting with `nixos` as intended to be used in flakes
+      that configure your system, while branches starting with
+      `nixpkgs` are used for flakes that only package programs.
+
+      Compare this flake (which uses the nixos-unstable branch),
+      with the dotz flake (github repo: https://github.com/KP64/dotz)
+
+      FYI. Don't shy away from using the unstable branches.
+      In the worst case NixOS rollbacks come in clutch!
+      Unstable it is Baby 🥳
+
+      NOTE: It is USUALLY alright to follow a "nixpkgs" input
+            even if the branch is different
+    */
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Firefox Hardening
+    better-fox = {
+      url = "github:yokoffing/Betterfox";
+      flake = false;
+    };
 
     # Everything Catppuccin 😺
-    catppuccin.url = "github:catppuccin/nix";
-
-    # Periodic NixOS config update service
-    # Especially important for Servers
-    comin = {
-      url = "github:nlewo/comin";
+    catppuccin = {
+      url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Disk partitioning
+    # Just for the deduplication of inputs
+    # NOTE: Guys. Please AVOID using these in your projects!
+    dedup_systems.url = "github:nix-systems/default";
+    dedup_flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "dedup_systems";
+    };
+
+    # Declarative Disk partitioning
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Self-Made colorscript
+    # My custom made "colorscript"
+    # TODO: This should be available in a custom cache
     dotz = {
       url = "github:KP64/dotz";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
       };
     };
 
-    # Just for deduplication of inputs
+    # Make the outputs compatible with non flake systems
+    # The compatibility layer is comprised of the `default.nix`
+    # and the `shell.nix` file in the current working directory.
     flake-compat.url = "github:edolstra/flake-compat";
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
-    systems.url = "github:nix-systems/default";
 
     # Bind everything together
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    # Manage Dotfiles
+    # Manage your dotfiles, i.e. your home.
+    # Intuitive name right? xD
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Secure boot
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    # Realtime Audio
-    musnix = {
-      url = "github:musnix/musnix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # Import all needed nix files ;)
+    import-tree.url = "github:vic/import-tree";
 
     # Latest neovim version
     neovim-nightly-overlay = {
@@ -68,17 +115,30 @@
       inputs = {
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
+        git-hooks.follows = "";
+        hercules-ci-effects.follows = "";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
+        treefmt-nix.follows = "";
       };
     };
 
-    # Run unpatched Binaries
-    nix-alien = {
-      url = "github:thiagokokada/nix-alien";
+    # Nix managed Neovim
+    # NOTE: Do not override nixpkgs.
+    #       They use the latest possible for the nixpkgs branch.
+    #       Causes breakage, even though rarely.
+    nixvim = {
+      url = "github:nix-community/nixvim";
       inputs = {
-        flake-compat.follows = "flake-compat";
-        nix-index-database.follows = "nix-index-database";
+        flake-parts.follows = "flake-parts";
+        nuschtosSearch.follows = "";
+        systems.follows = "dedup_systems";
+      };
+    };
+
+    nixGL = {
+      url = "github:nix-community/nixGL";
+      inputs = {
+        flake-utils.follows = "dedup_flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
     };
@@ -92,7 +152,7 @@
     };
 
     # Stuff that shouldn't be visible to the naked eye,
-    # but shouldn't or can't be encrypted
+    # but doesn't have to be or can't be encrypted.
     nix-invisible = {
       url = "git+ssh://git@github.com/KP64/nix-invisible";
       inputs = {
@@ -101,75 +161,18 @@
       };
     };
 
-    # Advanced minecraft Server configuration
+    # Nix managed Minecraft Servers.
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
+        flake-utils.follows = "dedup_flake-utils";
         nixpkgs.follows = "nixpkgs";
       };
     };
 
-    # NixOS in Android via termux
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
-    # Network Topology
-    nix-topology = {
-      url = "github:oddlama/nix-topology";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    # VSCode extensions not
-    # packaged by nixpkgs
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    # Declarative Discord
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    # Nix managed Neovim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    # Better hardware-configuration "replacement"
+    # Better hardware-configuration replacement
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
-
-    # NixOS on Windows via WSL
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
 
     # AUR Nix edition
     nur = {
@@ -180,200 +183,66 @@
       };
     };
 
-    # Firefox Hardening
-    better-fox = {
-      url = "github:yokoffing/Betterfox";
-      flake = false;
-    };
-
     # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Declarative Spotify
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    # Format repos with style
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
+  /*
+    The outputs are akin to "results" that this flake produces.
+    This ranges from a simple Network Topology all the way to
+    full blown NixOS Configs.
+  */
   outputs =
-    inputs@{ nixpkgs, ... }:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = import inputs.systems;
+    inputs@{ flake-parts, nixpkgs, ... }:
+    let
+      customLib = import ./lib { inherit (nixpkgs) lib; };
+    in
+    flake-parts.lib.mkFlake
+      {
+        inherit inputs;
+        specialArgs = { inherit customLib; };
+      }
+      {
+        # This allows further inspection of
+        # outputs via the `nix repl`
+        debug = true;
 
-      imports = with inputs; [
-        treefmt-nix.flakeModule
-        nix-topology.flakeModule
-        nixvim.flakeModules.default
-        home-manager.flakeModules.home-manager
-      ];
+        # Every system this flake supports,
+        # for which perSystem will run.
+        # `flakeExposed` returns ALL systems
+        # supported by Nix
+        systems = nixpkgs.lib.systems.flakeExposed;
 
-      flake =
-        let
-          globals = import "${inputs.nix-invisible}/globals.nix";
-
-          rootPath = inputs.self.outPath;
-          lib = nixpkgs.lib.extend (
-            _: _: inputs.home-manager.lib // { custom = import ./lib { inherit inputs rootPath; }; }
-          );
-
-          common = {
-            homeManager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "hm-backup";
-              sharedModules = [ ./modules/home ];
-            };
-
-            specialArgs = hostName: invisible: {
-              inherit
-                inputs
-                hostName
-                rootPath
-                invisible
-                ;
-            };
-          };
-        in
-        {
-          nixOnDroidConfigurations =
-            let
-              platform = "droid";
-            in
-            platform
-            |> lib.custom.getHosts
-            |> builtins.mapAttrs (
-              hostName:
-              { system }:
-              let
-                hostPath = ./hosts/${platform}/${system}/${hostName};
-              in
-              inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-                home-manager-path = inputs.home-manager.outPath;
-                extraSpecialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
-
-                pkgs = import nixpkgs { inherit system; };
-
-                modules = [
-                  hostPath
-                  ./modules/droid
-                  {
-                    home-manager = common.homeManager // {
-                      inherit extraSpecialArgs;
-                      config = "${hostPath}/homes/nix-on-droid.nix";
-                    };
-                  }
-                ];
-              }
-            );
-
-          nixosConfigurations =
-            let
-              platform = "nixos";
-            in
-            platform
-            |> lib.custom.getHosts
-            |> builtins.mapAttrs (
-              hostName:
-              { system }:
-              let
-                hostPath = ./hosts/${platform}/${system}/${hostName};
-              in
-              lib.nixosSystem rec {
-                inherit system;
-                specialArgs = common.specialArgs hostName globals.${platform}.${system}.${hostName};
-
-                modules =
-                  (with inputs; [
-                    disko.nixosModules.disko
-                    home-manager.nixosModules.home-manager
-                    nix-topology.nixosModules.default
-                    nixos-facter-modules.nixosModules.facter
-                    nixos-wsl.nixosModules.default
-                    sops-nix.nixosModules.sops
-                    nur.modules.nixos.default
-                  ])
-                  ++ (lib.custom.getUsers hostPath)
-                  ++ (lib.custom.getHomes hostPath)
-                  ++ [
-                    hostPath
-                    ./modules/nixos
-                    {
-                      networking = { inherit hostName; };
-
-                      users.mutableUsers = false;
-
-                      # Disables superfluous pre-installed pkgs
-                      environment.defaultPackages = [ ];
-
-                      home-manager = common.homeManager // {
-                        extraSpecialArgs = specialArgs;
-                      };
-                    }
-                  ];
-              }
-            );
+        /*
+          Partitions define "sub flakes", whose inputs
+          and results will not be shown in a consumers' flake.
+          This is useful to compartmentalize flakes into more
+          specialised units.
+          An example would be a development flake that handles
+          everything about further developing this flake like formatters etc.
+        */
+        partitions.dev = {
+          # This will use "./dev/flake.nix"
+          extraInputsFlake = ./dev;
+          # While this will use "./dev/default.nix"
+          module.imports = [ ./dev ];
+        };
+        # Moving dev related stuff to the appropriate partition
+        partitionedAttrs = {
+          checks = "dev";
+          devShells = "dev";
+          formatter = "dev";
         };
 
-      nixvim = {
-        packages.enable = true;
-        # TODO: Enable once certain plugins can be disabled when checking
-        # checks.enable = true;
+        imports = [
+          (inputs.import-tree ./modules)
+        ]
+        ++ (with flake-parts.flakeModules; [
+          modules
+          partitions
+        ]);
       };
-
-      perSystem =
-        {
-          self',
-          lib,
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          nixvimConfigurations.neovim = inputs.nixvim.lib.evalNixvim {
-            inherit system;
-            extraSpecialArgs = { inherit inputs; };
-            modules = [ ./nixvim-config ];
-          };
-
-          packages = lib.packagesFromDirectoryRecursive {
-            inherit (pkgs) callPackage;
-            directory = ./pkgs;
-          };
-
-          # Nixvim configurations are considered
-          # packages too. Let nixvim handle the checks.
-          checks = { inherit (self'.packages) dumb; };
-
-          topology.modules = [ ./topology.nix ];
-
-          treefmt = ./treefmt.nix;
-
-          devShells.default = pkgs.mkShell {
-            name = "nixos-config";
-
-            packages = with pkgs; [
-              act
-
-              just
-              just-lsp
-
-              nixd
-              nix-melt
-            ];
-          };
-        };
-    };
 }
