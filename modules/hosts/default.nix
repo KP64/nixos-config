@@ -28,6 +28,7 @@ in
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                overwriteBackup = true;
                 backupFileExtension = "hm-backup";
               };
             }
