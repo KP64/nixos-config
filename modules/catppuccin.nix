@@ -40,14 +40,7 @@ in
         };
 
         gtk.colorScheme = "dark";
-        qt =
-          let
-            name = "kvantum";
-          in
-          {
-            style = { inherit name; };
-            platformTheme = { inherit name; };
-          };
+        qt.style.name = "kvantum";
       };
   };
 }
