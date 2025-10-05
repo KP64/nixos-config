@@ -15,94 +15,67 @@
 
       plugins.lspconfig.enable = true;
 
-      lsp = {
-        inlayHints.enable = true;
-        servers = {
-          "*".settings = {
-            capabilities.textDocument.semanticTokens.multilineTokenSupport = true;
-            root_markers = [ ".git" ];
-          };
-          bashls.enable = true;
-          clangd = {
+      lsp =
+        let
+          enableAsFallback = {
             enable = true;
-            settings = {
-              cmd = [
-                "clangd"
-                "--background-index"
-              ];
-              filetypes = [
-                "c"
-                "cpp"
-                "h"
-                "hpp"
-                "ipp"
-              ];
-              root_markers = [
-                "compile_commands.json"
-                "compile_flags.txt"
-              ];
+            packageFallback = true;
+          };
+        in
+        {
+          inlayHints.enable = true;
+          servers = {
+            bashls = enableAsFallback;
+            just = enableAsFallback;
+            lua_ls = enableAsFallback;
+            nil_ls = enableAsFallback // {
+              settings.nix.flake.autoEvalInputs = true;
             };
-          };
-          emmet_language_server = {
-            enable = true;
-            settings = {
-              cmd = [
-                "emmet-language-server"
-                "--stdio"
-              ];
-              filetypes = [
-                "css"
-                "eruby"
-                "html"
-                "javascript"
-                "javascriptreact"
-                "less"
-                "sass"
-                "scss"
-                "pug"
-                "typescriptreact"
-              ];
-            };
-          };
-          just.enable = true;
-          lua_ls.enable = true;
-          nixd.enable = true;
-          nushell.enable = true;
-          ruff.enable = true;
-          rust-analyzer = {
-            enable = true;
-            settings = {
-              cmd = [ "rust-analyzer" ];
-              filetypes = [ "rust" ];
-              assist = {
-                emitMustUse = true;
-                preferSelf = true;
-              };
-              completion.fullFunctionSignatures.enable = true;
-              diagnostics.styleLints.enable = true;
-              inlayHints = {
-                bindingModeHints.enable = true;
-                closureCaptureHints.enable = true;
-                discriminantHints.enable = true;
-                genericParameterHints = {
-                  lifetime.enable = true;
-                  type.enable = true;
+            nushell = enableAsFallback;
+            ruff = enableAsFallback;
+            rust_analyzer = enableAsFallback // {
+              settings = {
+                assist.preferSelf = true;
+                completion = {
+                  fullFunctionSignatures.enable = true;
+                  termSearch.enable = true;
                 };
-                implicitSizedBoundHints.enable = true;
-                rangeExclusiveHints.enable = true;
-              };
-              lens.references = {
-                adt.enable = true;
-                enumVariant.enable = true;
-                method.enable = true;
-                trait.enable = true;
+                diagnostics.styleLints.enable = true;
+                hover.actions.references = true;
+                inlayHints = {
+                  bindingModeHints.enable = true;
+                  closureCaptureHints.enable = true;
+                  closureReturnTypeHints.enable = "with_block";
+                  discriminantHints.enable = "fieldless";
+                  expressionAdjustmentHints = {
+                    enable = "always";
+                    hideOutsideUnsafe = true;
+                    mode = "prefer_prefix";
+                  };
+                  genericParameterHints = {
+                    lifetime.enable = true;
+                    type.enable = true;
+                  };
+                  implicitSizedBoundHints.enable = true;
+                  lifetimeElisionHints = {
+                    enable = "skip_trivial";
+                    useParameterNames = true;
+                  };
+                  rangeExclusiveHints.enable = true;
+                };
+                lens.references = {
+                  adt.enable = true;
+                  enumVariant.enable = true;
+                  method.enable = true;
+                  trait.enable = true;
+                };
               };
             };
+            statix = enableAsFallback;
+            taplo = enableAsFallback;
+            typos_lsp = enableAsFallback;
+            typst_lsp = enableAsFallback;
           };
-          statix.enable = true;
-          taplo.enable = true;
-          typos_lsp.enable = true;
         };
-      };
     };
 }
