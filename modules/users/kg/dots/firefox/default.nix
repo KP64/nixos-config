@@ -25,8 +25,8 @@ toplevel@{ inputs, customLib, ... }:
 
           search = {
             force = true;
-            default = "duckduckgo";
-            privateDefault = "duckduckgo";
+            default = "SearXNG";
+            privateDefault = "SearXNG";
             engines =
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
