@@ -48,7 +48,7 @@ toplevel@{ inputs, customLib, ... }:
                 SearXNG = {
                   urls = [
                     {
-                      template = "https://searxng.${mahdi.config.networking.domain}/search";
+                      template = "${mahdi.config.services.searx.settings.server.base_url}/search";
                       params = [
                         (mkParam "q" "{searchTerms}")
                         (mkParam "language" "all")
@@ -90,13 +90,6 @@ toplevel@{ inputs, customLib, ... }:
                   ];
                   icon = nix-snowflake-icon;
                   definedAliases = [ "@no" ];
-                };
-                # TODO: Available in SearXNG now -> Remove
-                "NixOS Wiki" = {
-                  urls = [ { template = "https://wiki.nixos.org/wiki/{searchTerms}"; } ];
-                  updateInterval = 24 * 60 * 60 * 1000; # every day
-                  icon = nix-snowflake-icon;
-                  definedAliases = [ "@nw" ];
                 };
               };
           };
