@@ -67,8 +67,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Just for the deduplication of inputs
-    # NOTE: Guys. Please AVOID using these in your projects!
+    /*
+      Just for the deduplication of inputs
+      NOTE: Guys. Please AVOID using these in your projects!
+            If you need something similar just use flake-parts (https://github.com/hercules-ci/flake-parts).
+            But most of the time you will not need ANY of them.
+    */
     dedup_systems.url = "github:nix-systems/default";
     dedup_flake-utils = {
       url = "github:numtide/flake-utils";
@@ -91,7 +95,7 @@
       };
     };
 
-    # Make the outputs compatible with non flake systems
+    # Make the outputs compatible with non flake systems (i.e. channels).
     # The compatibility layer is comprised of the `default.nix`
     # and the `shell.nix` file in the current working directory.
     flake-compat.url = "github:edolstra/flake-compat";
@@ -122,10 +126,13 @@
       };
     };
 
-    # Nix managed Neovim
-    # NOTE: Do not override nixpkgs.
-    #       They use the latest possible for the nixpkgs branch.
-    #       Causes breakage, even though rarely.
+    /*
+      Nix managed Neovim
+      NOTE: Do not override nixpkgs.
+            They use the latest possible nixpkgs branch.
+            Again. nixpkgs and nixos branch are not the same.
+            This causes breakage, even though rarely.
+    */
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
@@ -135,6 +142,9 @@
       };
     };
 
+    # This provides package wrapping functions, that are
+    # especially important for home-manager setups on non
+    # NixOS systems when trying to get graphical application working.
     nixGL = {
       url = "github:nix-community/nixGL";
       inputs = {
@@ -144,7 +154,7 @@
     };
 
     # Weekly updated nix pkgs database
-    # Useful for https://github.com/nix-community/comma
+    # Useful for Comma (https://github.com/nix-community/comma)
     # and replacing command-not-found
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -198,6 +208,10 @@
   outputs =
     inputs@{ flake-parts, nixpkgs, ... }:
     let
+      # Here we import our custom library.
+      # It will be exported to all our flake-parts modules via
+      # the specialArgs attribute of the mkFlake function
+      # that our flake-parts modules can access (imo) life saving functions.
       customLib = import ./lib { inherit (nixpkgs) lib; };
     in
     flake-parts.lib.mkFlake
@@ -210,10 +224,12 @@
         # outputs via the `nix repl`
         debug = true;
 
-        # Every system this flake supports,
-        # for which perSystem will run.
-        # `flakeExposed` returns ALL systems
-        # supported by Nix
+        /*
+          Every system this flake supports,
+          for which perSystem will run.
+          `flakeExposed` returns ALL systems
+          supported by Nix
+        */
         systems = nixpkgs.lib.systems.flakeExposed;
 
         /*
@@ -230,6 +246,7 @@
           # While this will use "./dev/default.nix"
           module.imports = [ ./dev ];
         };
+
         # Moving dev related stuff to the appropriate partition
         partitionedAttrs = {
           checks = "dev";
