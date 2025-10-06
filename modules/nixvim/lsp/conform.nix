@@ -33,6 +33,7 @@
           just = [ "just" ];
           nix = [ "nixfmt" ];
           toml = [ "taplo" ];
+          typst = [ "typstyle" ];
         };
       };
     };

@@ -74,7 +74,9 @@
             statix = enableAsFallback;
             taplo = enableAsFallback;
             typos_lsp = enableAsFallback;
-            typst_lsp = enableAsFallback;
+            tinymist = enableAsFallback // {
+              settings.formatterMode = "typststyle";
+            };
           };
         };
     };
