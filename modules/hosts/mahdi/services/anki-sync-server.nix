@@ -13,7 +13,10 @@
       };
 
       # TODO: Move this to User
-      sops.secrets."anki/kg" = { };
+      sops.secrets = {
+        "anki/kg" = { };
+        "anki/jeffyjeff" = { };
+      };
 
       services.anki-sync-server = {
         enable = true;
@@ -25,6 +28,10 @@
           {
             username = "kg";
             passwordFile = config.sops.secrets."anki/kg".path;
+          }
+          {
+            username = "jeffyjeff";
+            passwordFile = config.sops.secrets."anki/jeffyjeff".path;
           }
         ];
       };
