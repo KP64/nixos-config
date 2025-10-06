@@ -18,7 +18,7 @@
       services.anki-sync-server = {
         enable = true;
         # TODO: User auto detection. Maybe through sops-nix secrets naming?
-        # 
+        #
         # NOTE: When using AnkiDroid remember that you need to insert the username
         #       and not the email as instructed. Unless the username is an email ofc...
         users = [
