@@ -1,5 +1,6 @@
 toplevel@{ inputs, ... }:
 {
+  # TODO: Move all provisional service secrets to the users if needed.
   # TODO: Harden
   flake.modules.nixos.hosts-mahdi =
     {
