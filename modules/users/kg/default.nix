@@ -61,6 +61,14 @@ toplevel@{ inputs, ... }:
           # secrets."private_keys/kg".path = "${config.home.homeDirectory}/.ssh/id_ed25519";
         };
 
+        programs.obs-studio = {
+          enable = true;
+          plugins = with pkgs.obs-studio-plugins; [
+            droidcam-obs
+            wlrobs
+          ];
+        };
+
         programs.nixvim = {
           enable = true;
           defaultEditor = true;
