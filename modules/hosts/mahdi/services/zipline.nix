@@ -33,9 +33,8 @@
           FEATURES_IMAGE_COMPRESSION = "true";
           FEATURES_ROBOTS_TXT = "true";
           FEATURES_HEALTHCHECK = "true";
-          # TODO: Enable this later on
-          # FEATURES_USER_REGISTRATION = "true";
-          # FEATURES_OAUTH_REGISTRATION = "true";
+          FEATURES_USER_REGISTRATION = "true";
+          FEATURES_OAUTH_REGISTRATION = "true";
           FEATURES_DELETE_ON_MAX_VIEWS = "true";
           FEATURES_THUMBNAILS_ENABLED = "true";
           FEATURES_METRICS_ENABLED = "true";
