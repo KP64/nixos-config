@@ -31,11 +31,24 @@
             open_metrics = "";
           };
 
+          # Just enabe all formats because why not ;)
+          search.formats = [
+            "html"
+            "csv"
+            "rss"
+            # NOTE: JSON is needed for Open-Webui
+            "json"
+          ];
+
           server = {
             secret_key = "$SECRET_KEY";
             base_url = "https://${config.services.searx.domain}";
-            limiter = true;
-            public_instance = true;
+            # FIXME: Limiter Settings aren't found according to logs.
+            #        They are stored under /etc/searxng/limiter.toml
+            #        bu should be stored in /run/searx/limiter.toml
+            # TODO: Open Issue in Nixpkgs about this and reenable this
+            # NOTE: Open-Webui Web Search working takes precedence
+            public_instance = false; # Enables rate limiting and bot detection
             # Only 1.0 and 1.1 are supported.
             # 1.0 was the default for whatever reason
             http_protocol_version = "1.1";

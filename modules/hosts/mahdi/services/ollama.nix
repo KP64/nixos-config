@@ -11,6 +11,7 @@ in
         "llama3.1:8b"
         "mistral:7b"
         "gpt-oss:20b"
+        "llama3.2-vision:11b"
       ]
       ++ genModelTypes "qwen3" [
         "0.6"
