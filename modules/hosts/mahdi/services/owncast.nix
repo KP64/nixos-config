@@ -1,0 +1,58 @@
+{
+  flake.modules.nixos.hosts-mahdi =
+    { config, pkgs, ... }:
+    let
+      reverseRTMPPort = 1935;
+    in
+    {
+      services.traefik.dynamicConfigOptions.http = {
+        routers.owncast = {
+          rule = "Host(`owncast.${config.networking.domain}`)";
+          service = "owncast";
+        };
+        services.owncast.loadBalancer.servers = [
+          { url = "http://localhost:${toString config.services.owncast.port}"; }
+        ];
+      };
+
+      # TODO: DO NOT USE 2 Proxies lol. This should be handled entirely differently.
+      #       1.) Either find a way with traefik (preferred)
+      #       2.) Replace traefik with another Proxy like Nginx
+      networking.firewall.allowedTCPPorts = [ reverseRTMPPort ];
+      services.nginx = {
+        enable = true;
+        package = pkgs.nginxMainline;
+        additionalModules = [ pkgs.nginxModules.rtmp ];
+        recommendedTlsSettings = true;
+        recommendedOptimisation = true;
+        recommendedGzipSettings = true;
+        recommendedUwsgiSettings = true;
+        recommendedProxySettings = true;
+        recommendedBrotliSettings = true;
+
+        appendConfig = ''
+          rtmp {
+            server {
+              listen ${toString reverseRTMPPort};
+              chunk_size 4096;
+
+              application owncast {
+                live on;
+                record off;
+                push rtmp://127.0.0.1:${toString config.services.owncast.rtmp-port}/live;
+              }
+            }
+          }
+        '';
+      };
+
+      # NOTE: Default credentials are:
+      #       username: admin
+      #       password: abc123
+      services.owncast = {
+        enable = true;
+        port = 32857;
+        rtmp-port = 1936;
+      };
+    };
+}
