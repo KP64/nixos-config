@@ -1,6 +1,11 @@
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       services.traefik.dynamicConfigOptions.http = {
         routers.karakeep = {

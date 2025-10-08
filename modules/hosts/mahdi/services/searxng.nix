@@ -31,7 +31,7 @@
             open_metrics = "";
           };
 
-          # Just enabe all formats because why not ;)
+          # Just enable all formats because why not ;)
           search.formats = [
             "html"
             "csv"
