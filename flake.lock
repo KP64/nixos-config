@@ -469,6 +469,22 @@
         "type": "github"
       }
     },
+    "pkg_dumb": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751816280,
+        "narHash": "sha256-rrIyAVt9TuNedt7BkZZbJx/JoMLeG9agKP63pCxTsKA=",
+        "owner": "rramiachraf",
+        "repo": "dumb",
+        "rev": "132af50dd6ac4994dd9f4f7dffa144be74f9c0f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rramiachraf",
+        "repo": "dumb",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "better-fox": "better-fox",
@@ -490,6 +506,7 @@
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "nur": "nur",
+        "pkg_dumb": "pkg_dumb",
         "sops-nix": "sops-nix"
       }
     },

@@ -198,6 +198,16 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ## Packages
+    #
+    # Inputs of packages that aren't available via Nixpkgs
+
+    # Private alternative frontend for Genius.
+    pkg_dumb = {
+      url = "github:rramiachraf/dumb";
+      flake = false;
+    };
   };
 
   /*
@@ -231,6 +241,15 @@
           supported by Nix
         */
         systems = nixpkgs.lib.systems.flakeExposed;
+
+        perSystem =
+          { lib, pkgs, ... }:
+          {
+            packages = lib.packagesFromDirectoryRecursive {
+              callPackage = lib.callPackageWith (pkgs // { inherit inputs; });
+              directory = ./pkgs;
+            };
+          };
 
         /*
           Partitions define "sub flakes", whose inputs
