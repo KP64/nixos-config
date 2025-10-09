@@ -31,6 +31,12 @@ toplevel@{ inputs, ... }:
 
       facter.reportPath = ./facter.json;
 
+      hardware.bluetooth.settings.General = {
+        FastConnectable = true;
+        Privacy = "network/on";
+        SecureConnection = "only";
+      };
+
       system.stateVersion = "25.11";
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";
