@@ -1,5 +1,7 @@
 { inputs, ... }:
 let
+  nixpkgs.config.allowAliases = false;
+
   commonSettings = {
     auto-optimise-store = true;
     experimental-features = [
@@ -23,6 +25,7 @@ in
     nixos.nix =
       { pkgs, ... }:
       {
+        inherit nixpkgs;
         nix = {
           package = pkgs.nixVersions.latest;
           settings = commonSettings;
@@ -42,51 +45,54 @@ in
       {
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-        # NOTE: ONLY Include this if Home-Manager isn't used as a module.
-        #
-        # NOTE: For whatever reason this doesn't come with defaults at all.
-        #       Everything must be specified manually.
-        nix = lib.mkIf (osConfig == null) {
-          package = pkgs.nixVersions.latest;
-          settings = {
-            inherit (commonSettings) auto-optimise-store experimental-features trusted-users;
-            allowed-users = "*";
-            builders = null;
-            cores = 0;
-            max-jobs = "auto";
-            require-sigs = true;
-            sandbox = true;
-            sandbox-fallback = false;
-            # NOTE: WHY IN THE FUCKING HELL IS THE NIXOS CACHE NOT INCLUDED BY DEFAULT???
-            #       At this point I'm just losing my sanity.
-            #       Is there a genuine good reason for omitting the cache?
-            substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
-            trusted-public-keys = commonSettings.trusted-public-keys ++ [
-              "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-            ];
-            trusted-substituters = null;
-            extra-sandbox-paths = null;
-          };
-        };
-
-        programs = {
-          nix-index.enable = true;
-          nix-index-database.comma.enable = true;
-          nix-init.enable = true;
-          direnv = {
-            enable = true;
-            silent = true;
-            nix-direnv.enable = true;
-          };
-          nh = {
-            enable = true;
-            clean = {
-              enable = true;
-              extraArgs = "--keep 5";
+        config = lib.mkMerge [
+          {
+            programs = {
+              nix-index.enable = true;
+              nix-index-database.comma.enable = true;
+              nix-init.enable = true;
+              direnv = {
+                enable = true;
+                silent = true;
+                nix-direnv.enable = true;
+              };
+              nh = {
+                enable = true;
+                clean = {
+                  enable = true;
+                  extraArgs = "--keep 5";
+                };
+                flake = "${config.home.homeDirectory}/nixos-config";
+              };
             };
-            flake = "${config.home.homeDirectory}/nixos-config";
-          };
-        };
+          }
+
+          # NOTE: ONLY Include this if Home-Manager isn't used as a module.
+          (lib.mkIf (osConfig == null) {
+            inherit nixpkgs;
+            nix = {
+              package = pkgs.nixVersions.latest;
+              # NOTE: For whatever reason this doesn't come with defaults at all.
+              #       Everything must be specified manually.
+              settings = {
+                inherit (commonSettings) auto-optimise-store experimental-features trusted-users;
+                allowed-users = "*";
+                cores = 0;
+                max-jobs = "auto";
+                require-sigs = true;
+                sandbox = true;
+                sandbox-fallback = false;
+                # NOTE: WHY IN THE FUCKING HELL IS THE NIXOS CACHE NOT INCLUDED BY DEFAULT???
+                #       At this point I'm just losing my sanity.
+                #       Is there a genuine good reason for omitting the cache?
+                substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
+                trusted-public-keys = commonSettings.trusted-public-keys ++ [
+                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+                ];
+              };
+            };
+          })
+        ];
       };
   };
 }

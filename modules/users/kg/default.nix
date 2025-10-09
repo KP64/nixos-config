@@ -1,4 +1,4 @@
-toplevel@{ inputs, ... }:
+toplevel@{ moduleWithSystem, inputs, ... }:
 {
   flake.modules = {
     nixos.users-kg =
@@ -31,7 +31,8 @@ toplevel@{ inputs, ... }:
         };
       };
 
-    homeManager.users-kg =
+    homeManager.users-kg = moduleWithSystem (
+      { inputs', ... }:
       { config, pkgs, ... }:
       let
         invisible = import "${inputs.nix-invisible}/users/${config.home.username}.nix";
@@ -123,7 +124,7 @@ toplevel@{ inputs, ... }:
           stateVersion = "25.11";
           shellAliases.c = "clear";
           packages = [
-            inputs.dotz.packages.${pkgs.system}.default
+            inputs'.dotz.packages.default
           ]
           ++ (with pkgs; [
             bluetui
@@ -142,6 +143,7 @@ toplevel@{ inputs, ... }:
           ripgrep.enable = true;
           zellij.enable = true;
         };
-      };
+      }
+    );
   };
 }

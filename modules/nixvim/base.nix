@@ -1,9 +1,10 @@
-{ inputs, ... }:
+{ moduleWithSystem, ... }:
 {
-  flake.modules.nixvim.base =
-    { lib, pkgs, ... }:
+  flake.modules.nixvim.base = moduleWithSystem (
+    { inputs', ... }:
+    { lib, ... }:
     {
-      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+      package = inputs'.neovim-nightly-overlay.packages.default;
 
       withNodeJs = true;
 
@@ -111,5 +112,6 @@
         #   options.desc = "Move focus to the upper window";
         # }
       ];
-    };
+    }
+  );
 }

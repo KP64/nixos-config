@@ -1,7 +1,8 @@
-{ inputs, ... }:
+{ moduleWithSystem, inputs, ... }:
 {
   # TODO: IMPROVE THIS SHIT
-  flake.modules.nixos.hosts-mahdi =
+  flake.modules.nixos.hosts-mahdi = moduleWithSystem (
+    { inputs', ... }:
     {
       config,
       lib,
@@ -10,7 +11,7 @@
     }:
     let
       velocityPort = 25565;
-      mcPkgs = inputs.nix-minecraft.legacyPackages.${pkgs.system};
+      mcPkgs = inputs'.nix-minecraft.legacyPackages;
 
       # TODO: This should be in customLib.minecraft
       collectMods =
@@ -262,5 +263,6 @@
           };
         };
       };
-    };
+    }
+  );
 }

@@ -4,7 +4,7 @@
     { config, ... }:
     let
       reverseProxyPort = 443;
-      invisible = import "${inputs.nix-invisible}/hosts/mahdi.nix";
+      invisible = import (inputs.nix-invisible + /hosts/mahdi.nix);
 
       inherit (config.networking) domain;
       certDir = config.security.acme.certs.${domain}.directory;
