@@ -32,7 +32,7 @@
             ;
         };
 
-        initLua = ./init.lua;
+        initLua = builtins.path { path = ./init.lua; };
 
         keymap.mgr.prepend_keymap = [
           {

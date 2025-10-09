@@ -1,8 +1,10 @@
 { inputs, ... }:
 {
   flake.modules.homeManager.users-kg = {
-    home.file.".face".source = ../pfp.jpg;
-    xdg.configFile."background".source = "${inputs.self}/assets/wallpapers/catppuccin/cat-vibin.png";
+    home.file.".face".source = builtins.path { path = ../pfp.jp; };
+    xdg.configFile."background".source = builtins.path {
+      path = inputs.self + /assets/wallpapers/catppuccin/cat-vibin.png;
+    };
 
     # Prepopulated via Catppuccin
     programs.hyprlock.enable = true;

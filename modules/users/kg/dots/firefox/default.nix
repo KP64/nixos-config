@@ -12,7 +12,7 @@ toplevel@{ inputs, customLib, ... }:
       programs.firefox = {
         enable = true;
         profiles.${config.home.username} = {
-          extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
+          extraConfig = builtins.readFile (inputs.better-fox + /user.js);
 
           settings = customLib.firefox.toFirefoxSettingStyle {
             network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
@@ -30,7 +30,7 @@ toplevel@{ inputs, customLib, ... }:
             engines =
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
-                nix-snowflake-icon = "${inputs.self}/assets/nix-snowflake.svg";
+                nix-snowflake-icon = builtins.path { path = inputs.self + /assets/nix-snowflake.svg; };
 
                 mkParam = name: value: { inherit name value; };
                 nix-search-params = [
@@ -55,7 +55,7 @@ toplevel@{ inputs, customLib, ... }:
                       ];
                     }
                   ];
-                  icon = "${inputs.self}/assets/searxng.svg";
+                  icon = builtins.path { path = inputs.self + /assets/searxng.svg; };
                   definedAliases = [ "@sx" ];
                 };
                 "Home Manager" = {

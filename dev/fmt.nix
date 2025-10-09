@@ -47,7 +47,7 @@
         enable = true;
         sort = true;
         isolated = true;
-        configFile = "${inputs.self}/typos.toml";
+        configFile = builtins.path { path = inputs.self + /typos.toml; };
       };
     };
   };

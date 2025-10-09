@@ -1,6 +1,4 @@
+{ customLib, ... }:
 {
-  imports = [
-    ./fmt.nix
-    ./shell.nix
-  ];
+  imports = customLib.fs.scanPath { path = ./.; };
 }
