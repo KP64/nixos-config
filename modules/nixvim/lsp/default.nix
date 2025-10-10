@@ -29,12 +29,12 @@
             just = enableAsFallback;
             lua_ls = enableAsFallback;
             nil_ls = enableAsFallback // {
-              settings.nix.flake.autoEvalInputs = true;
+              config.nix.flake.autoEvalInputs = true;
             };
             nushell = enableAsFallback;
             ruff = enableAsFallback;
             rust_analyzer = enableAsFallback // {
-              settings = {
+              config = {
                 assist.preferSelf = true;
                 completion = {
                   fullFunctionSignatures.enable = true;
@@ -75,7 +75,7 @@
             taplo = enableAsFallback;
             typos_lsp = enableAsFallback;
             tinymist = enableAsFallback // {
-              settings.formatterMode = "typststyle";
+              config.formatterMode = "typststyle";
             };
           };
         };
