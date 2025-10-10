@@ -19,7 +19,10 @@
             skim
           ];
 
-          settings.show_banner = false;
+          settings = {
+            show_banner = false;
+            edit_mode = "vi";
+          };
 
           configFile.text =
             let
