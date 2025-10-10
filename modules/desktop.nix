@@ -13,6 +13,8 @@ toplevel: {
         # Is only installed if nvidia is supported by the system
         hardware.nvidia.nvidiaSettings = true;
 
+        qt.enable = true;
+
         home-manager.sharedModules =
           let
             inherit (toplevel.config.flake.modules) homeManager;
