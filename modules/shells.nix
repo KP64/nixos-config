@@ -3,6 +3,8 @@
     { lib, pkgs, ... }:
     {
       programs = {
+        carapace.enable = true;
+
         bash.enable = true;
 
         nushell = {
