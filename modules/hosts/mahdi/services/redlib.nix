@@ -2,14 +2,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.redlib = {
-          rule = "Host(`redlib.${config.networking.domain}`)";
-          service = "redlib";
+      services.nginx.virtualHosts."redlib.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.redlib.port}";
         };
-        services.redlib.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.redlib.port}"; }
-        ];
       };
 
       services.redlib = {

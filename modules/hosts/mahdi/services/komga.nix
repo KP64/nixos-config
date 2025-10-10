@@ -2,14 +2,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.komga = {
-          rule = "Host(`komga.${config.networking.domain}`)";
-          service = "komga";
+      services.nginx.virtualHosts."komga.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.komga.settings.server.port}";
         };
-        services.komga.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.komga.settings.server.port}"; }
-        ];
       };
 
       # TODO: Add Library -> Multimedia?

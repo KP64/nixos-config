@@ -2,14 +2,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.zipline = {
-          rule = "Host(`${config.services.zipline.settings.CORE_DEFAULT_DOMAIN}`)";
-          service = "zipline";
+      services.nginx.virtualHosts."${config.services.zipline.settings.CORE_DEFAULT_DOMAIN}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.zipline.settings.CORE_PORT}";
         };
-        services.zipline.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.zipline.settings.CORE_PORT}"; }
-        ];
       };
 
       sops.secrets."zipline.env" = { };

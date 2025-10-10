@@ -5,30 +5,22 @@
       reverseRTMPPort = 1935;
     in
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.owncast = {
-          rule = "Host(`owncast.${config.networking.domain}`)";
-          service = "owncast";
+      services.nginx.virtualHosts."owncast.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.owncast.port}";
         };
-        services.owncast.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.owncast.port}"; }
-        ];
       };
 
       # TODO: DO NOT USE 2 Proxies lol. This should be handled entirely differently.
       #       1.) Either find a way with traefik (preferred)
       #       2.) Replace traefik with another Proxy like Nginx
       networking.firewall.allowedTCPPorts = [ reverseRTMPPort ];
+
       services.nginx = {
-        enable = true;
-        package = pkgs.nginxMainline;
         additionalModules = [ pkgs.nginxModules.rtmp ];
-        recommendedTlsSettings = true;
-        recommendedOptimisation = true;
-        recommendedGzipSettings = true;
-        recommendedUwsgiSettings = true;
-        recommendedProxySettings = true;
-        recommendedBrotliSettings = true;
 
         appendConfig = ''
           rtmp {

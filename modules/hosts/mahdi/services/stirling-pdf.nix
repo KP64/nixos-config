@@ -2,14 +2,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.stirling-pdf = {
-          rule = "Host(`stirling-pdf.${config.networking.domain}`)";
-          service = "stirling-pdf";
+      services.nginx.virtualHosts."stirling-pdf.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.stirling-pdf.environment.SERVER_PORT}";
         };
-        services.stirling-pdf.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.stirling-pdf.environment.SERVER_PORT}"; }
-        ];
       };
 
       # NOTE: Default credentials are:

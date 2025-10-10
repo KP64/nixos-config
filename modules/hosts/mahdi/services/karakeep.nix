@@ -7,14 +7,13 @@
       ...
     }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.karakeep = {
-          rule = "Host(`karakeep.${config.networking.domain}`)";
-          service = "karakeep";
+      services.nginx.virtualHosts."karakeep.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.karakeep.extraEnvironment.PORT}";
         };
-        services.karakeep.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.karakeep.extraEnvironment.PORT}"; }
-        ];
       };
 
       services.karakeep = {

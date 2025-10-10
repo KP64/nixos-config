@@ -4,14 +4,13 @@ toplevel: {
     {
       imports = [ toplevel.config.flake.nixosModules.dumb ];
 
-      services.traefik.dynamicConfigOptions.http = {
-        routers.dumb = {
-          rule = "Host(`dumb.${config.networking.domain}`)";
-          service = "dumb";
+      services.nginx.virtualHosts."dumb.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.dumb.port}";
         };
-        services.dumb.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.dumb.port}"; }
-        ];
       };
 
       services.dumb.enable = true;

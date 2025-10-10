@@ -2,14 +2,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.anki = {
-          rule = "Host(`anki.${config.networking.domain}`)";
-          service = "anki";
+      services.nginx.virtualHosts."anki.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.anki-sync-server.port}";
         };
-        services.anki.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.anki-sync-server.port}"; }
-        ];
       };
 
       # TODO: Move this to User

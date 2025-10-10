@@ -3,14 +3,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.forgejo = {
-          rule = "Host(`forgejo.${config.networking.domain}`)";
-          service = "forgejo";
+      services.nginx.virtualHosts."forgejo.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}";
         };
-        services.forgejo.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}"; }
-        ];
       };
 
       networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];

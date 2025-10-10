@@ -2,14 +2,13 @@ toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.open-webui = {
-          rule = "Host(`open-webui.${config.networking.domain}`)";
-          service = "open-webui";
+      services.nginx.virtualHosts."open-webui.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.open-webui.port}";
         };
-        services.open-webui.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.open-webui.port}"; }
-        ];
       };
 
       # TODO: Set CORS_ALLOW_ORIGIN

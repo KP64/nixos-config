@@ -4,15 +4,14 @@
     {
       sops.secrets."searxng.env" = { };
 
-      services.traefik.dynamicConfigOptions.http = {
-        routers.searxng = {
-          rule = "Host(`${config.services.searx.domain}`)";
-          service = "searxng";
+      services.nginx.virtualHosts."${config.services.searx.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          # Yes this is correct without the ":"
+          proxyPass = "http://localhost${config.services.searx.uwsgiConfig.http}";
         };
-        # Yes this is correct without the ":"
-        services.searxng.loadBalancer.servers = [
-          { url = "http://localhost${config.services.searx.uwsgiConfig.http}"; }
-        ];
       };
 
       services.searx = {

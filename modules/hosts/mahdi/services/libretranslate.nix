@@ -2,14 +2,13 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.traefik.dynamicConfigOptions.http = {
-        routers.libretranslate = {
-          rule = "Host(`${config.services.libretranslate.domain}`)";
-          service = "libretranslate";
+      services.nginx.virtualHosts."libretranslate.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        onlySSL = true;
+        kTLS = true;
+        locations."/" = {
+          proxyPass = "http://localhost:${toString config.services.libretranslate.port}";
         };
-        services.libretranslate.loadBalancer.servers = [
-          { url = "http://localhost:${toString config.services.libretranslate.port}"; }
-        ];
       };
 
       # NOTE: To manage API keys use the "ltmanage-keys" cli command.
