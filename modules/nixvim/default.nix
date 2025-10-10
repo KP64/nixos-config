@@ -22,6 +22,7 @@ toplevel@{ inputs, ... }:
             codesnap
             comments
             git
+            leetcode
             markdown
             movement
             treesitter

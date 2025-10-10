@@ -83,6 +83,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               codesnap
               comments
               git
+              leetcode
               markdown
               movement
               telescope
