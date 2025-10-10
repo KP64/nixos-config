@@ -28,7 +28,7 @@
         settings = {
           server = rec {
             START_SSH_SERVER = true; # Needed because isn't started by default.
-            SSH_PORT = 36032; # High port so that forgejo user can bind to it ;)
+            SSH_PORT = 2222; # High port so that forgejo user can bind to it ;)
             # TODO: The "forgejo" subdomain is NOT needed. Fix that?
             DOMAIN = "forgejo.${config.networking.domain}";
             ROOT_URL = "https://${DOMAIN}";
