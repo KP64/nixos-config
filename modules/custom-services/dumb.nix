@@ -23,12 +23,13 @@
       };
 
       config = lib.mkIf cfg.enable {
-        networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+        networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
         systemd.services.dumb = {
           description = "Private alternative front-end for Genius";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
+          enableStrictShellChecks = true;
           environment.PORT = toString cfg.port;
           serviceConfig = {
             ExecStart = lib.getExe cfg.package;
