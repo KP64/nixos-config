@@ -32,7 +32,10 @@
             ;
         };
 
-        initLua = builtins.path { path = ./init.lua; };
+        # The readFile seems unnecessary but it makes
+        # rebuilding fail when the file doesn't exist
+        # instead of silently failing.
+        initLua = builtins.readFile ./init.lua;
 
         keymap.mgr.prepend_keymap = [
           {
