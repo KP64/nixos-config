@@ -1,7 +1,7 @@
 {
-  inputs,
   lib,
   buildGoModule,
+  fetchFromGitHub,
   esbuild,
 }:
 
@@ -9,7 +9,12 @@ buildGoModule rec {
   pname = "dumb";
   version = "unstable-2025-07-06";
 
-  src = inputs.pkg_dumb;
+  src = fetchFromGitHub {
+    owner = "rramiachraf";
+    repo = "dumb";
+    rev = "132af50dd6ac4994dd9f4f7dffa144be74f9c0f1";
+    hash = "sha256-rrIyAVt9TuNedt7BkZZbJx/JoMLeG9agKP63pCxTsKA=";
+  };
 
   nativeBuildInputs = [ esbuild ];
 

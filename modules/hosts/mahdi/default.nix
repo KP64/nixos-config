@@ -1,7 +1,6 @@
 toplevel@{ inputs, ... }:
 {
   # TODO: Move all provisional service secrets to the users if needed.
-  # TODO: Harden
   # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
   flake.modules.nixos.hosts-mahdi =
     {

@@ -43,6 +43,9 @@ in
                 # NOTE: This might break some stuff like Docker & libvirtd
                 nftables.enable = true;
               };
+
+              # TODO: Enable once https://github.com/NixOS/nixpkgs/issues/349572 closes
+              # systemd.enableStrictShellChecks = true;
             }
           ]
           # Adds disko configuration if available

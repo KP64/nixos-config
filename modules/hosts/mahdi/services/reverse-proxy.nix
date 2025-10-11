@@ -27,7 +27,6 @@
       # Allow Nginx to read acme certificates
       users.users.nginx.extraGroups = [ "acme" ];
 
-      # TODO: Enable HSTS
       # TODO: Enable DNS CAA
       # TODO: Enable SNI
       services.nginx = {
