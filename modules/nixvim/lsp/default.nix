@@ -13,7 +13,13 @@
       # Faster replacement for libuv-watchdirs
       extraPackages = [ pkgs.inotify-tools ];
 
-      plugins.lspconfig.enable = true;
+      # Remove once https://github.com/nix-community/nixvim/issues/2746 is fixed.
+      performance.combinePlugins.standalonePlugins = [ "friendly-snippets" ];
+
+      plugins = {
+        lspconfig.enable = true;
+        friendly-snippets.enable = true;
+      };
 
       lsp =
         let
