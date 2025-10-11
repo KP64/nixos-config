@@ -4,7 +4,7 @@
     {
       sops.secrets."searxng.env" = { };
 
-      services.nginx.virtualHosts."${config.services.searx.domain}" = {
+      services.nginx.virtualHosts.${config.services.searx.domain} = {
         useACMEHost = config.networking.domain;
         onlySSL = true;
         kTLS = true;

@@ -15,13 +15,13 @@
 
       security.acme = {
         acceptTerms = true;
-        defaults = { inherit (invisible) email; };
-        certs.${domain} = {
+        defaults = {
+          inherit (invisible) email;
           dnsProvider = "ipv64";
           credentialFiles.IPV64_API_KEY_FILE = config.sops.secrets.ipv64_api_token.path;
-          # TODO: Remove Wildcard!
-          extraDomainNames = [ "*.${domain}" ];
         };
+        # TODO: Remove Wildcard!
+        certs.${domain}.extraDomainNames = [ "*.${domain}" ];
       };
 
       # Allow Nginx to read acme certificates
@@ -49,7 +49,7 @@
           map $scheme $hsts_header {
               https   "max-age=31536000; includeSubdomains; preload";
           }
-          add_header Strict-Transport-Security $hsts_header;
+          add_header Strict-Transport-Security $hsts_header always;
         '';
       };
     };

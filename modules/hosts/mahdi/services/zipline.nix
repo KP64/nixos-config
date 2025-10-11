@@ -2,7 +2,7 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.nginx.virtualHosts."${config.services.zipline.settings.CORE_DEFAULT_DOMAIN}" = {
+      services.nginx.virtualHosts.${config.services.zipline.settings.CORE_DEFAULT_DOMAIN} = {
         useACMEHost = config.networking.domain;
         onlySSL = true;
         kTLS = true;
