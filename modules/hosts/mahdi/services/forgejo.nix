@@ -4,7 +4,7 @@
     { config, pkgs, ... }:
     {
       services.nginx.virtualHosts."forgejo.${config.networking.domain}" = {
-        useACMEHost = config.networking.domain;
+        enableACME = true;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

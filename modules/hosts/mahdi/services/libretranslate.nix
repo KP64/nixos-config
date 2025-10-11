@@ -3,7 +3,7 @@
     { config, ... }:
     {
       services.nginx.virtualHosts."libretranslate.${config.networking.domain}" = {
-        useACMEHost = config.networking.domain;
+        enableACME = true;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

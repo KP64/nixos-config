@@ -6,7 +6,7 @@
     in
     {
       services.nginx.virtualHosts."owncast.${config.networking.domain}" = {
-        useACMEHost = config.networking.domain;
+        enableACME = true;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

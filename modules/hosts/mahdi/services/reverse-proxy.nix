@@ -3,15 +3,10 @@
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     let
-      reverseProxyPort = 443;
       invisible = import (inputs.nix-invisible + /hosts/mahdi.nix);
-
-      inherit (config.networking) domain;
     in
     {
       sops.secrets.ipv64_api_token = { };
-
-      networking.firewall.allowedTCPPorts = [ reverseProxyPort ];
 
       security.acme = {
         acceptTerms = true;
@@ -20,15 +15,10 @@
           dnsProvider = "ipv64";
           credentialFiles.IPV64_API_KEY_FILE = config.sops.secrets.ipv64_api_token.path;
         };
-        # TODO: Remove Wildcard!
-        certs.${domain}.extraDomainNames = [ "*.${domain}" ];
       };
 
-      # Allow Nginx to read acme certificates
-      users.users.nginx.extraGroups = [ "acme" ];
+      networking.firewall.allowedTCPPorts = [ 443 ];
 
-      # TODO: Enable DNS CAA
-      # TODO: Enable SNI
       services.nginx = {
         enable = true;
 
@@ -51,6 +41,18 @@
           }
           add_header Strict-Transport-Security $hsts_header always;
         '';
+
+        virtualHosts.${config.networking.domain} = {
+          enableACME = true;
+          onlySSL = true;
+          kTLS = true;
+          locations."/" = {
+            return = "200 '<html><body>Amazing. An empty Site! XD</body></html>'";
+            extraConfig = ''
+              default_type text/html;
+            '';
+          };
+        };
       };
     };
 }

@@ -5,7 +5,7 @@ toplevel: {
       imports = [ toplevel.config.flake.nixosModules.dumb ];
 
       services.nginx.virtualHosts."dumb.${config.networking.domain}" = {
-        useACMEHost = config.networking.domain;
+        enableACME = true;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

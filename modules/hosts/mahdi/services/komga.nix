@@ -3,7 +3,7 @@
     { config, ... }:
     {
       services.nginx.virtualHosts."komga.${config.networking.domain}" = {
-        useACMEHost = config.networking.domain;
+        enableACME = true;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

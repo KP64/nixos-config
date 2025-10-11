@@ -3,7 +3,7 @@
     { config, ... }:
     {
       services.nginx.virtualHosts.${config.services.zipline.settings.CORE_DEFAULT_DOMAIN} = {
-        useACMEHost = config.networking.domain;
+        enableACME = true;
         onlySSL = true;
         kTLS = true;
         locations."/" = {
