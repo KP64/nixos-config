@@ -36,6 +36,13 @@ toplevel@{ inputs, ... }:
 
       boot.kernelPackages = pkgs.linuxPackages_zen;
 
+      system.etc.overlay.mutable = false;
+
+      security = {
+        lockKernelModules = true;
+        protectKernelImage = true;
+      };
+
       sops.defaultSopsFile = ./secrets.yaml;
 
       # This service is the "only" way to
