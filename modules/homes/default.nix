@@ -45,4 +45,13 @@ in
         };
       }
     );
+
+  flake.checks =
+    config.flake.homeConfigurations
+    |> lib.mapAttrsToList (
+      name: home: {
+        ${home.pkgs.stdenv.hostPlatform.system}."homeConfigurations-${name}" = home.activationPackage;
+      }
+    )
+    |> lib.mkMerge;
 }

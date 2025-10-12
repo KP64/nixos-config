@@ -56,4 +56,14 @@ in
         };
       }
     );
+
+  flake.checks =
+    config.flake.nixosConfigurations
+    |> lib.mapAttrsToList (
+      name: nixos: {
+        ${nixos.config.nixpkgs.hostPlatform.system}."nixosConfigurations-${name}" =
+          nixos.config.system.build.toplevel;
+      }
+    )
+    |> lib.mkMerge;
 }
