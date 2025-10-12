@@ -1743,7 +1743,8 @@
           "srso",
           "div0",
           "ibpb_no_ret",
-          "spectre_v2_user"
+          "spectre_v2_user",
+          "vmscape"
         ],
         "power_management": [
           "ts",
@@ -1755,7 +1756,7 @@
           "[13]",
           "[14]"
         ],
-        "bogo": 7399,
+        "bogo": 7400,
         "cache": 512,
         "units": 16,
         "page_size": 4096,
@@ -1946,7 +1947,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-zen1 xhci-hcd",
+          "name": "Linux 6.17.1-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1956,11 +1957,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.17",
           "value": 0
         },
         "serial": "0000:0a:00.3",
-        "model": "Linux 6.16.5-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:07.1/0000:0a:00.3/usb6/6-0:1.0",
         "sysfs_bus_id": "6-0:1.0",
         "detail": {
@@ -1994,7 +1995,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0003d0616dc09dsc00dp03ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0003d0617dc09dsc00dp03ic09isc00ip00in00"
       },
       {
         "index": 74,
@@ -2016,7 +2017,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-zen1 xhci-hcd",
+          "name": "Linux 6.17.1-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2026,11 +2027,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.17",
           "value": 0
         },
         "serial": "0000:09:00.2",
-        "model": "Linux 6.16.5-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:03.1/0000:09:00.2/usb3/3-0:1.0",
         "sysfs_bus_id": "3-0:1.0",
         "resources": [
@@ -2074,7 +2075,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0616dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0617dc09dsc00dp01ic09isc00ip00in00"
       },
       {
         "index": 76,
@@ -2096,7 +2097,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-zen1 xhci-hcd",
+          "name": "Linux 6.17.1-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2106,11 +2107,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.17",
           "value": 0
         },
         "serial": "0000:09:00.2",
-        "model": "Linux 6.16.5-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:03.1/0000:09:00.2/usb4/4-0:1.0",
         "sysfs_bus_id": "4-0:1.0",
         "detail": {
@@ -2144,7 +2145,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0003d0616dc09dsc00dp03ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0003d0617dc09dsc00dp03ic09isc00ip00in00"
       },
       {
         "index": 81,
@@ -2166,7 +2167,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-zen1 xhci-hcd",
+          "name": "Linux 6.17.1-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2176,11 +2177,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.17",
           "value": 0
         },
         "serial": "0000:01:00.0",
-        "model": "Linux 6.16.5-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.3/0000:01:00.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -2224,7 +2225,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0616dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0617dc09dsc00dp01ic09isc00ip00in00"
       },
       {
         "index": 85,
@@ -2246,7 +2247,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-zen1 xhci-hcd",
+          "name": "Linux 6.17.1-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2256,11 +2257,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.17",
           "value": 0
         },
         "serial": "0000:0a:00.3",
-        "model": "Linux 6.16.5-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:07.1/0000:0a:00.3/usb5/5-0:1.0",
         "sysfs_bus_id": "5-0:1.0",
         "resources": [
@@ -2304,7 +2305,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0616dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0617dc09dsc00dp01ic09isc00ip00in00"
       },
       {
         "index": 86,
@@ -2326,7 +2327,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-zen1 xhci-hcd",
+          "name": "Linux 6.17.1-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2336,11 +2337,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.17",
           "value": 0
         },
         "serial": "0000:01:00.0",
-        "model": "Linux 6.16.5-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.3/0000:01:00.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -2374,7 +2375,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0003d0616dc09dsc00dp03ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0003d0617dc09dsc00dp03ic09isc00ip00in00"
       }
     ],
     "keyboard": [
@@ -2424,7 +2425,7 @@
           "/dev/input/by-id/usb-Corsair_CORSAIR_SLIPSTREAM_WIRELESS_USB_Receiver_D685433E2C97FCE5-if03-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:4:1.3-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:4:1.3-event-kbd",
-          "/dev/input/event21"
+          "/dev/input/event8"
         ],
         "resources": [
           {
@@ -2518,7 +2519,7 @@
           "/dev/input/by-id/usb-_Akko_2.4G_Wireless_Keyboard-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:10:1.0-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:10:1.0-event-kbd",
-          "/dev/input/event22"
+          "/dev/input/event9"
         ],
         "resources": [
           {
@@ -2704,7 +2705,7 @@
           "/dev/input/by-id/usb-Corsair_CORSAIR_SLIPSTREAM_WIRELESS_USB_Receiver_D685433E2C97FCE5-if05-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:4:1.5-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:4:1.5-event-kbd",
-          "/dev/input/event19"
+          "/dev/input/event6"
         ],
         "resources": [
           {
@@ -3559,39 +3560,6 @@
     "network_interface": [
       {
         "index": 88,
-        "attached_to": 48,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/wlp6s0",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:01.3/0000:01:00.2/0000:02:05.0/0000:06:00.0",
-        "unix_device_names": ["wlp6s0"],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 99
-          },
-          {
-            "type": "phwaddr",
-            "address": 99
-          }
-        ],
-        "driver": "iwlwifi",
-        "driver_module": "iwlwifi",
-        "drivers": ["iwlwifi"],
-        "driver_modules": ["iwlwifi"]
-      },
-      {
-        "index": 89,
         "attached_to": 0,
         "class_list": ["network_interface"],
         "base_class": {
@@ -3609,7 +3577,7 @@
         "unix_device_names": ["lo"]
       },
       {
-        "index": 90,
+        "index": 89,
         "attached_to": 30,
         "class_list": ["network_interface"],
         "base_class": {
@@ -3640,6 +3608,39 @@
         "driver_module": "r8169",
         "drivers": ["r8169"],
         "driver_modules": ["r8169"]
+      },
+      {
+        "index": 90,
+        "attached_to": 48,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/wlp6s0",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:01.3/0000:01:00.2/0000:02:05.0/0000:06:00.0",
+        "unix_device_names": ["wlp6s0"],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 99
+          },
+          {
+            "type": "phwaddr",
+            "address": 99
+          }
+        ],
+        "driver": "iwlwifi",
+        "driver_module": "iwlwifi",
+        "drivers": ["iwlwifi"],
+        "driver_modules": ["iwlwifi"]
       }
     ],
     "pci": [
@@ -4260,7 +4261,7 @@
           },
           "interface_protocol": 0,
           "interface_number": 1,
-          "interface_alternate_setting": 2
+          "interface_alternate_setting": 0
         },
         "hotplug": "usb",
         "driver": "snd-usb-audio",
@@ -4670,7 +4671,7 @@
           "/dev/input/by-id/usb-Corsair_CORSAIR_SLIPSTREAM_WIRELESS_USB_Receiver_D685433E2C97FCE5-event-if04",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:4:1.4-event",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:4:1.4-event",
-          "/dev/input/event20"
+          "/dev/input/event7"
         ],
         "resources": [
           {
