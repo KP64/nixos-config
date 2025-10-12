@@ -8,7 +8,7 @@
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+          proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
         };
       };
 
@@ -25,13 +25,14 @@
         # database.passwordFile = "";
         # secrets = { };
         settings = {
-          server = rec {
+          server = {
+            HTTP_PORT = 36031;
+            PROTOCOL = "http+unix";
+            DOMAIN = "forgejo.${config.networking.domain}";
+            ROOT_URL = "https://${config.services.forgejo.settings.server.DOMAIN}";
+
             START_SSH_SERVER = true; # Needed because isn't started by default.
             SSH_PORT = 2222; # High port so that forgejo user can bind to it ;)
-            # TODO: The "forgejo" subdomain is NOT needed. Fix that?
-            DOMAIN = "forgejo.${config.networking.domain}";
-            ROOT_URL = "https://${DOMAIN}";
-            HTTP_PORT = 36031;
           };
           repository.DISABLE_HTTP_GIT = true;
           security = {
