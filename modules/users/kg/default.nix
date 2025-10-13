@@ -86,8 +86,12 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             bluetui
             pavucontrol
             prismlauncher
+            yubikey-manager
+            yubioath-flutter
           ]);
         };
+
+        services.yubikey-agent.enable = true;
 
         services.pueue.enable = true;
 
