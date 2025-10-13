@@ -72,6 +72,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
         programs.anki = {
           enable = true;
+          style = "anki";
+          theme = "dark";
           sync = {
             autoSync = true;
             syncMedia = true;
