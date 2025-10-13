@@ -38,19 +38,17 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         invisible = import "${inputs.nix-invisible}/users/${config.home.username}.nix";
       in
       {
-        imports =
-          (with inputs; [
-            sops-nix.homeModules.default
-            nixvim.homeModules.nixvim
-          ])
-          ++ (with toplevel.config.flake.modules.homeManager; [
-            catppuccin
-            fetchers
-            nix
-            shells
-            ssh
-            vcs
-          ]);
+        imports = [
+          inputs.sops-nix.homeModules.default
+        ]
+        ++ (with toplevel.config.flake.modules.homeManager; [
+          catppuccin
+          fetchers
+          nix
+          shells
+          ssh
+          vcs
+        ]);
 
         sops = {
           defaultSopsFile = ./secrets.yaml;
@@ -70,50 +68,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           ];
         };
 
-        programs.nixvim = {
           enable = true;
-          defaultEditor = true;
-          vimdiffAlias = true;
-          imports =
-            (with toplevel.config.flake.modules.nixvim; [
-              base
-              lsp
-              ui
-
-              codesnap
-              comments
-              git
-              leetcode
-              markdown
-              movement
-              telescope
-              treesitter
-              trouble
-              which-key
-              yazi
-              zen
-            ])
-            ++ [
-              { colorschemes.catppuccin.enable = true; }
-              {
-                neovim-dashboard = [
-                  "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
-                  "  ██  ██  ██              ██  ██  ██          "
-                  "  ██  ██  ██████████████████  ██  ██  ██████  "
-                  "  ██  ██                      ██  ██  ██  ██  "
-                  "  ██  ██  ██████  ██  ██████████  ██  ██████  "
-                  "  ██  ██  ██                      ██      ██  "
-                  "  ██  ██████████  ██  ██████  ██  ██████████  "
-                  "  ██  ██          ██      ██      ██          "
-                  "  ██████████  ██████  ██████  ██  ██  ██████  "
-                  "      ██  ██  ██              ██  ██  ██  ██  "
-                  "  ██  ██████  ██████  ██████████  ██  ██████  "
-                  "  ██              ██              ██      ██  "
-                  "  ██████████████████  ██████████████  ██████  "
-                  "                                              "
-                ];
-              }
-            ];
         };
 
         vcs.user = {
