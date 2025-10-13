@@ -56,8 +56,10 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
             generateKey = true;
           };
-          # TODO: Paste private SSH key?
-          # secrets."private_keys/kg".path = "${config.home.homeDirectory}/.ssh/id_ed25519";
+          secrets = {
+            "anki/username" = { };
+            "anki/sync_key" = { };
+          };
         };
 
         programs.obs-studio = {
@@ -68,7 +70,15 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           ];
         };
 
+        programs.anki = {
           enable = true;
+          sync = {
+            autoSync = true;
+            syncMedia = true;
+            url = "https://anki.${toplevel.config.flake.nixosConfigurations.mahdi.config.networking.domain}";
+            usernameFile = config.sops.secrets."anki/username".path;
+            keyFile = config.sops.secrets."anki/sync_key".path;
+          };
         };
 
         vcs.user = {
