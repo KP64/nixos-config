@@ -10,7 +10,7 @@
       services.nginx = {
         additionalModules = [ pkgs.nginxModules.rtmp ];
 
-        "owncast.${config.networking.domain}" = {
+        virtualHosts."owncast.${config.networking.domain}" = {
           enableACME = true;
           onlySSL = true;
           kTLS = true;
