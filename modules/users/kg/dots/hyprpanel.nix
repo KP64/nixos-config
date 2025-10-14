@@ -5,14 +5,13 @@
       settings.bar.layouts."*" = {
         left = [
           "dashboard"
-          "clock"
+          "battery"
+          "volume"
         ];
-        middle = [ "media" ];
+        middle = [ "clock" ];
         right = [
           "network"
-          "volume"
           "bluetooth"
-          "battery"
           "notifications"
         ];
       };
