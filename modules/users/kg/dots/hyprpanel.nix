@@ -11,10 +11,17 @@
       programs.hyprpanel = {
         enable = true;
         settings = {
-          menus.clock.weather = {
-            unit = "metric";
-            inherit (invisible) location;
-            key = config.sops.secrets."weather.json".path;
+          menus.dashboarddirectories.enabled = false;
+          menus = {
+            clock.weather = {
+              unit = "metric";
+              inherit (invisible) location;
+              key = config.sops.secrets."weather.json".path;
+            };
+            dashboard = {
+              directories.enabled = false;
+              stats.enabled = false;
+            };
           };
 
           bar = {
