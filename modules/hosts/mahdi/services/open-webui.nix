@@ -11,7 +11,6 @@ toplevel: {
         };
       };
 
-      # TODO: Set CORS_ALLOW_ORIGIN
       services.open-webui = {
         enable = true;
         port = 11111;
@@ -24,7 +23,6 @@ toplevel: {
             "http://localhost:${toString config.services.ollama.port}"
           ];
 
-          # TODO: Do this when Mail Server is set up
           SHOW_ADMIN_DETAILS = "False";
           # ADMIN_EMAIL = "";
           ENABLE_SIGNUP_PASSWORD_CONFIRMATION = "True";

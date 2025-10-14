@@ -22,7 +22,6 @@
 
           SECURITY_ENABLELOGIN = "true";
           SECURITY_LOGINATTEMPTCOUNT = 5;
-          # TODO: Support OAUTH once ready
           SECURITY_LOGINMETHOD = "normal";
           SECURITY_OAUTH2_ENABLED = "false";
 

@@ -25,7 +25,6 @@
 
         settings = {
           general = {
-            # TODO: Enable when ready
             enable_metrics = false;
             open_metrics = "";
           };

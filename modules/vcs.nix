@@ -51,7 +51,7 @@
             };
           };
 
-        jjui.enable = true; # TODO: This vs. lazyjj
+        jjui.enable = true;
         jujutsu =
           let
             inherit (config.programs) git;

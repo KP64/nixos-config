@@ -11,12 +11,10 @@
         };
       };
 
-      # TODO: Add Library -> Multimedia?
       services.komga = {
         enable = true;
         settings = {
           server.port = 25600;
-          # TODO: Enable when ready
           komga.oauth2-account-creation = false;
         };
       };

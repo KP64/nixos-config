@@ -13,7 +13,6 @@
 
       sops.secrets."zipline.env" = { };
 
-      # TODO: Enable OAuth
       services.zipline = {
         enable = true;
         environmentFiles = [ config.sops.secrets."zipline.env".path ];
