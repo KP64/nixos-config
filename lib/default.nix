@@ -10,5 +10,7 @@ rec {
 
   firefox = import ./firefox.nix { inherit lib util; };
 
+  minecraft = import ./minecraft.nix;
+
   util = import ./util.nix { inherit lib; };
 }

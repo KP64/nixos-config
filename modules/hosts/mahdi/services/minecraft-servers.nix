@@ -1,6 +1,10 @@
-{ moduleWithSystem, inputs, ... }:
 {
-  # TODO: IMPROVE THIS SHIT
+  moduleWithSystem,
+  inputs,
+  customLib,
+  ...
+}:
+{
   flake.modules.nixos.hosts-mahdi = moduleWithSystem (
     { inputs', ... }:
     {
@@ -13,9 +17,7 @@
       velocityPort = 25565;
       mcPkgs = inputs'.nix-minecraft.legacyPackages;
 
-      # TODO: This should be in customLib.minecraft
-      collectMods =
-        mods: mods |> builtins.attrValues |> map pkgs.fetchurl |> pkgs.linkFarmFromDrvs "mods";
+      inherit (customLib.minecraft) collectMods;
 
       commonMods = {
         ALTERNATE_CURRENT = {
@@ -207,7 +209,6 @@
               view-distance = 32;
               gamemode = "survival";
               force-gamemode = true;
-              # TODO: Disable -> Check Ping
               online-mode = true;
               white-list = true;
               enforce-whitelist = true;
@@ -224,7 +225,10 @@
                   secret = "@velocity_forward_secret@";
                 };
               };
-            symlinks.mods = collectMods commonMods;
+            symlinks.mods = collectMods {
+              inherit pkgs;
+              mods = commonMods;
+            };
           };
           Creative = {
             enable = true;
@@ -242,7 +246,6 @@
               view-distance = 32;
               gamemode = "creative";
               force-gamemode = true;
-              # TODO: Disable -> Check Ping
               online-mode = true;
               white-list = true;
               enforce-whitelist = true;
@@ -259,7 +262,10 @@
                   secret = "@velocity_forward_secret@";
                 };
               };
-            symlinks.mods = collectMods commonMods;
+            symlinks.mods = collectMods {
+              inherit pkgs;
+              mods = commonMods;
+            };
           };
         };
       };
