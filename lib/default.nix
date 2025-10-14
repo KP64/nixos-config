@@ -4,6 +4,8 @@
 rec {
   ai = import ./ai.nix { inherit lib; };
 
+  anki = import ./anki.nix { inherit lib; };
+
   fs = import ./fs.nix { inherit lib; };
 
   firefox = import ./firefox.nix { inherit lib util; };

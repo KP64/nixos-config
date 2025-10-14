@@ -8,11 +8,21 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
-        sops.secrets.kg_password = {
-          neededForUsers = true;
-          key = "password";
-          sopsFile = ./secrets.yaml;
-        };
+        sops.secrets =
+          let
+            sopsFile = ./secrets.yaml;
+          in
+          {
+            kg_password = {
+              neededForUsers = true;
+              key = "password";
+              inherit sopsFile;
+            };
+            "anki/kg" = {
+              key = "anki/password";
+              inherit sopsFile;
+            };
+          };
 
         users.users.kg = {
           isNormalUser = true;

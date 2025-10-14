@@ -1,3 +1,4 @@
+{ customLib, ... }:
 {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
@@ -11,28 +12,14 @@
         };
       };
 
-      # TODO: Move this to User
-      sops.secrets = {
-        "anki/kg" = { };
-        "anki/jeffyjeff" = { };
-      };
+      # Here are users that either aren't part of the Nix Config.
+      sops.secrets."anki/jeffyjeff" = { };
 
+      # NOTE: When using AnkiDroid remember that you need to insert the username
+      #       and not the email as instructed. Unless the username is an email ofc...
       services.anki-sync-server = {
         enable = true;
-        # TODO: User auto detection. Maybe through sops-nix secrets naming?
-        #
-        # NOTE: When using AnkiDroid remember that you need to insert the username
-        #       and not the email as instructed. Unless the username is an email ofc...
-        users = [
-          {
-            username = "kg";
-            passwordFile = config.sops.secrets."anki/kg".path;
-          }
-          {
-            username = "jeffyjeff";
-            passwordFile = config.sops.secrets."anki/jeffyjeff".path;
-          }
-        ];
+        users = customLib.anki.genUsers config.sops.secrets;
       };
     };
 }
