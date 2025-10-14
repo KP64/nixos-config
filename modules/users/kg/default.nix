@@ -45,7 +45,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
       { inputs', ... }:
       { config, pkgs, ... }:
       let
-        invisible = import "${inputs.nix-invisible}/users/${config.home.username}.nix";
+        invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
       in
       {
         imports = [

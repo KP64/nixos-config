@@ -18,13 +18,13 @@
     =>
     Derivation
     ```
-    
+
     # Type
 
     ```
     collectMods :: { pkgs :: a; mods :: AttrSet }
     ```
-    
+
     # Arguments
 
     pkgs
