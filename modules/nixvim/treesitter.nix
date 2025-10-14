@@ -18,7 +18,10 @@
           indent.enable = true;
         };
       };
-      treesitter-context.enable = true;
+      treesitter-context = {
+        enable = true;
+        settings.max_lines = 7;
+      };
       treesitter-refactor = {
         enable = true;
         smartRename = {
