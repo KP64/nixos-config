@@ -17,7 +17,7 @@
         settings = {
           REDLIB_ROBOTS_DISABLE_INDEXING = true;
           REDLIB_ENABLE_RSS = true;
-          # REDLIB_FULL_URL = ""; # TODO: Needed by RSS?
+          REDLIB_FULL_URL = "https://redlib.${config.networking.domain}";
 
           REDLIB_DEFAULT_BLUR_SPOILER = true;
           REDLIB_DEFAULT_SHOW_NSFW = true;
