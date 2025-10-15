@@ -10,8 +10,11 @@ toplevel: {
 
       programs.kitty.package = config.lib.nixGL.wrap pkgs.kitty;
 
+      # NOTE: Works with HM, but:
+      #   - SDDM won't find it.
+      #   - pacman installed portal doesn't work with HM hyprland
       wayland.windowManager.hyprland = {
-        package = null; # NOTE: Works with HM, but SDDM won't find it.
+        package = null;
         portalPackage = null;
       };
 

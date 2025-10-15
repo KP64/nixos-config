@@ -1,17 +1,20 @@
 { inputs, ... }:
 {
   flake.modules.homeManager.users-kg =
-    { config, ... }:
+    { config, pkgs, ... }:
     let
       invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
     in
     {
       sops.secrets."weather.json" = { };
 
+      fonts.fontconfig.enable = true;
+      home.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
+
       programs.hyprpanel = {
         enable = true;
         settings = {
-          menus.dashboarddirectories.enabled = false;
+          theme.font.name = "JetBrainsMono Nerd Font Mono";
           menus = {
             clock.weather = {
               unit = "metric";
