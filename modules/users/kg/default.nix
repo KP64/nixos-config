@@ -60,39 +60,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           vcs
         ]);
 
-        sops = {
-          defaultSopsFile = ./secrets.yaml;
-          age = {
-            keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
-            generateKey = true;
-          };
-          secrets = {
-            "anki/username" = { };
-            "anki/sync_key" = { };
-          };
-        };
-
-        programs.obs-studio = {
-          enable = true;
-          plugins = with pkgs.obs-studio-plugins; [
-            droidcam-obs
-            wlrobs
-          ];
-        };
-
-        programs.anki = {
-          enable = true;
-          style = "anki";
-          theme = "dark";
-          sync = {
-            autoSync = true;
-            syncMedia = true;
-            url = "https://anki.${toplevel.config.flake.nixosConfigurations.mahdi.config.networking.domain}";
-            usernameFile = config.sops.secrets."anki/username".path;
-            keyFile = config.sops.secrets."anki/sync_key".path;
-          };
-        };
-
         vcs.user = {
           name = "KP64";
           inherit (invisible) email;
@@ -113,9 +80,26 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           ]);
         };
 
-        services.yubikey-agent.enable = true;
+        sops = {
+          defaultSopsFile = ./secrets.yaml;
+          age = {
+            keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+            generateKey = true;
+          };
+        };
 
-        services.pueue.enable = true;
+        programs.obs-studio = {
+          enable = true;
+          plugins = with pkgs.obs-studio-plugins; [
+            droidcam-obs
+            wlrobs
+          ];
+        };
+
+        services = {
+          pueue.enable = true;
+          yubikey-agent.enable = true;
+        };
 
         programs = {
           bat.enable = true;
