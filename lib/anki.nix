@@ -36,5 +36,4 @@
         passwordFile = secret.path;
       }
     );
-
 }
