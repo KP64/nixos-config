@@ -11,11 +11,9 @@
           enable = true;
 
           plugins = with pkgs.nushellPlugins; [
-            desktop_notifications
             formats
             gstat
             hcl
-            highlight
             query
             semver
             skim
