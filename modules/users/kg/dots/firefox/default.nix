@@ -8,7 +8,6 @@ toplevel@{ inputs, customLib, ... }:
       ...
     }:
     {
-      # TODO: Change new tabs and startup to glance
       programs.firefox = {
         enable = true;
         profiles.${config.home.username} = {
@@ -21,6 +20,25 @@ toplevel@{ inputs, customLib, ... }:
             dom.security.https_only_mode = true;
             general.autoScroll = true;
             sidebar.verticalTabs = true;
+            browser = {
+              startup.homepage = "http://localhost:${toString config.services.glance.settings.server.port}";
+              newtabpage = {
+                enabled = true;
+                activity-stream = {
+                  showSearch = false;
+                  showSponsoredCheckboxes = false;
+                  showSponsoredTopSites = false;
+                  showSponsored = false;
+                  feeds = {
+                    topsites = false;
+                    section = {
+                      topstories = false;
+                      highlights = false;
+                    };
+                  };
+                };
+              };
+            };
           };
 
           search = {
@@ -114,7 +132,6 @@ toplevel@{ inputs, customLib, ... }:
               simple-translate
               sponsorblock
               stylus
-              tabliss
               ublock-origin
               videospeed
               vimium
@@ -151,7 +168,6 @@ toplevel@{ inputs, customLib, ... }:
                 "tabs"
                 "https://color.firefox.com/*"
               ];
-              "extension@tabliss.io".permissions = [ "storage" ];
               # Stylus
               "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}".permissions = [
                 "alarms"

@@ -2,6 +2,7 @@
 noice = "noice"
 facter = "facter"
 nitch = "nitch"
+HAE = "HAE" # LTT Channel ID
 
 [files]
 extend-exclude = [
