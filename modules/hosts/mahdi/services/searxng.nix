@@ -6,6 +6,7 @@
 
       services.nginx.virtualHosts.${config.services.searx.domain} = {
         enableACME = true;
+        acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

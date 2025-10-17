@@ -4,6 +4,7 @@
     {
       services.nginx.virtualHosts."stirling-pdf.${config.networking.domain}" = {
         enableACME = true;
+        acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

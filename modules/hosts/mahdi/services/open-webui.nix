@@ -4,6 +4,7 @@ toplevel: {
     {
       services.nginx.virtualHosts."open-webui.${config.networking.domain}" = {
         enableACME = true;
+        acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

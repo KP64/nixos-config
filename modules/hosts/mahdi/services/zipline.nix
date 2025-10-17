@@ -4,6 +4,7 @@
     {
       services.nginx.virtualHosts.${config.services.zipline.settings.CORE_DEFAULT_DOMAIN} = {
         enableACME = true;
+        acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {

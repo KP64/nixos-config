@@ -5,6 +5,7 @@
     {
       services.nginx.virtualHosts."anki.${config.networking.domain}" = {
         enableACME = true;
+        acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {
