@@ -144,7 +144,7 @@
 
     # This provides package wrapping functions, that are
     # especially important for home-manager setups on non
-    # NixOS systems when trying to get graphical application working.
+    # NixOS systems when trying to get graphical applications working.
     nixGL = {
       url = "github:nix-community/nixGL";
       inputs = {
@@ -153,7 +153,7 @@
       };
     };
 
-    # Weekly updated nix pkgs database
+    # Weekly updated nixpkgs database
     # Useful for Comma (https://github.com/nix-community/comma)
     # and replacing command-not-found
     nix-index-database = {
@@ -204,71 +204,20 @@
     The outputs are akin to "results" that this flake produces.
     This ranges from a simple Network Topology all the way to
     full blown NixOS Configs.
+
+    First we import our custom library that will be exported to all our flake-parts
+    modules via the specialArgs attributes of the `mkFlake` function.
+    Then we import all modules with the help of import-tree
+    and finally make the flake with flake-part's `mkFlake` function.
   */
   outputs =
     inputs@{ flake-parts, nixpkgs, ... }:
     let
-      # Here we import our custom library.
-      # It will be exported to all our flake-parts modules via
-      # the specialArgs attribute of the mkFlake function
-      # that our flake-parts modules can access (imo) life saving functions.
       customLib = import ./lib { inherit (nixpkgs) lib; };
     in
-    flake-parts.lib.mkFlake
-      {
-        inherit inputs;
-        specialArgs = { inherit customLib; };
-      }
-      {
-        # This allows further inspection of
-        # outputs via the `nix repl`
-        debug = true;
-
-        /*
-          Every system this flake supports,
-          for which `perSystem` will run.
-          `flakeExposed` returns ALL systems
-          supported by Nix
-        */
-        systems = nixpkgs.lib.systems.flakeExposed;
-
-        perSystem =
-          { lib, pkgs, ... }:
-          {
-            packages = lib.packagesFromDirectoryRecursive {
-              inherit (pkgs) callPackage;
-              directory = ./pkgs;
-            };
-          };
-
-        /*
-          Partitions define "sub flakes", whose inputs
-          and results will not be shown in a consumers' flake.
-          This is useful to compartmentalize flakes into more
-          specialised units.
-          An example would be a development flake that handles
-          everything about further developing this flake like formatters etc.
-        */
-        partitions.dev = {
-          # This will use "./dev/flake.nix"
-          extraInputsFlake = ./dev;
-          # While this will use "./dev/default.nix"
-          module.imports = [ ./dev ];
-        };
-
-        # Moving dev related stuff to the appropriate partition
-        partitionedAttrs = {
-          checks = "dev";
-          devShells = "dev";
-          formatter = "dev";
-        };
-
-        imports = [
-          (inputs.import-tree ./modules)
-        ]
-        ++ (with flake-parts.flakeModules; [
-          modules
-          partitions
-        ]);
-      };
+    inputs.import-tree ./modules
+    |> flake-parts.lib.mkFlake {
+      inherit inputs;
+      specialArgs = { inherit customLib; };
+    };
 }
