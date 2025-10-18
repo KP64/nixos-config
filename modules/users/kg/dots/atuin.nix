@@ -1,4 +1,4 @@
-{
+toplevel: {
   flake.modules.homeManager.users-kg = {
     programs.atuin = {
       enable = true;
@@ -9,6 +9,7 @@
         style = "auto";
         update_check = false;
         enter_accept = true;
+        sync_address = "https://atuin.${toplevel.config.flake.nixosConfigurations.mahdi.config.networking.domain}";
       };
     };
   };

@@ -31,12 +31,13 @@
     |> map (
       p:
       let
-        inferred = "${modelName}:${toString p}b";
+        modelType = "${modelName}:${toString p}";
+        modelType' = "${modelType}b";
       in
       if builtins.isInt p then
-        inferred
+        modelType'
       else if builtins.isString p then
-        if (lib.hasSuffix "m" p) then "${modelName}:${toString p}" else inferred
+        if (lib.hasSuffix "m" p) then modelType else modelType'
       else
         throw "Only Strings and Integer are Supported!"
     );

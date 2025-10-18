@@ -13,7 +13,7 @@
         };
       };
 
-      # Here are users that either aren't part of the Nix Config.
+      # Here are users that aren't part of the Nix Config.
       sops.secrets."anki/jeffyjeff" = { };
 
       # NOTE: When using AnkiDroid remember that you need to insert the username
