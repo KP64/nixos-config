@@ -48,7 +48,6 @@
       # NOTE: Either podman or Docker needed for runners
       virtualisation.podman = {
         enable = true;
-        dockerCompat = true;
         autoPrune.enable = true;
       };
       services.gitea-actions-runner = {
