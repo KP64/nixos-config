@@ -27,7 +27,12 @@ toplevel@{ inputs, ... }:
       facter.reportPath = ./facter.json;
       system.stateVersion = "25.11";
 
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "open-webui" ];
+      nixpkgs.config.allowUnfreePredicate =
+        pkg:
+        builtins.elem (lib.getName pkg) [
+          "open-webui"
+          "terraform" # Needed by Coder
+        ];
 
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";
