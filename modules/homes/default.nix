@@ -28,7 +28,6 @@ in
         value = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs { inherit (host) system; };
           modules = [
-            # TODO: Move this to users
             inputs.nur.modules.homeManager.default
             module
           ]

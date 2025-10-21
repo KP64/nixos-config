@@ -22,8 +22,11 @@ in
           modules = [
             module # The actual system config
           ]
+          ++ (with inputs; [
+            nur.modules.nixos.default
+            home-manager.nixosModules.default
+          ])
           ++ [
-            inputs.home-manager.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;

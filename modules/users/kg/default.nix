@@ -4,8 +4,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
     nixos.users-kg =
       { config, ... }:
       {
-        imports = [ inputs.nur.modules.nixos.default ];
-
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
         sops.secrets =
