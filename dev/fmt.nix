@@ -42,7 +42,22 @@
       };
 
       # Multiple
-      prettier.enable = true;
+      prettier = {
+        enable = true;
+        settings.overrides = [
+          {
+            files = [ "*.svg" ];
+            options.parser = "html";
+          }
+        ];
+        includes = [
+          "*.json"
+          "*.md"
+          "*.yaml"
+          "*.yml"
+          "*.svg"
+        ];
+      };
       typos = {
         enable = true;
         sort = true;

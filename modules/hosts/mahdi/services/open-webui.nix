@@ -2,12 +2,14 @@ toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
+      # TODO: DISABLE CACHING https://docs.openwebui.com/troubleshooting/sso/
       services.nginx.virtualHosts."open-webui.${config.networking.domain}" = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {
+          proxyWebsockets = true;
           proxyPass = "http://localhost:${toString config.services.open-webui.port}";
         };
       };
@@ -25,9 +27,23 @@ toplevel: {
           ];
 
           SHOW_ADMIN_DETAILS = "False";
-          # ADMIN_EMAIL = "";
+
           ENABLE_SIGNUP_PASSWORD_CONFIRMATION = "True";
+          ENABLE_SIGNUP = "False";
+          ENABLE_LOGIN_FORM = "False";
+
+          ENABLE_OAUTH_SIGNUP = "True"; # Not the same as ENABLE_SIGNUP
           OAUTH_UPDATE_PICTURE_ON_LOGIN = "True";
+          ENABLE_OAUTH_PERSISTENT_CONFIG = "False"; # That's why we are using NixOS ;)
+          OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "True";
+
+          OAUTH_CLIENT_ID = "open-webui";
+          # OAUTH_CLIENT_SECRET = "";
+          OPENID_PROVIDER_URL = "https://idm.${config.networking.domain}/oauth2/openid/open-webui/.well-known/openid-configuration";
+          OAUTH_CODE_CHALLENGE_METHOD = "S256";
+          OAUTH_PROVIDER_NAME = "kanidm";
+          ENABLE_OAUTH_ROLE_MANAGEMENT = "True";
+          ENABLE_OAUTH_GROUP_MANAGEMENT = "True";
 
           RESET_CONFIG_ON_START = "True";
           ENABLE_OPENAI_API = "False";

@@ -13,7 +13,7 @@
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.karakeep.extraEnvironment.PORT}";
+          proxyPass = "http://localhost:${config.services.karakeep.extraEnvironment.PORT}";
         };
       };
 
@@ -26,10 +26,17 @@
         };
         extraEnvironment = {
           NEXTAUTH_URL = "https://karakeep.${config.networking.domain}";
+
+          DISABLE_PASSWORD_AUTH = "true";
+
+          OAUTH_WELLKNOWN_URL = "https://idm.${config.networking.domain}/oauth2/openid/karakeep/.well-known/openid-configuration";
+          OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
+          OAUTH_CLIENT_ID = "karakeep";
+          OAUTH_PROVIDER_NAME = "Kanidm";
+
           PORT = "43547";
           RATE_LIMITING_ENABLED = "true";
           DB_WAL_MODE = "true";
-          DISABLE_SIGNUPS = "true";
 
           OLLAMA_BASE_URL = "http://localhost:${toString config.services.ollama.port}";
           OLLAMA_KEEP_ALIVE = "5m";

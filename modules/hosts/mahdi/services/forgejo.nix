@@ -1,5 +1,4 @@
 {
-  # TODO: Finish Setup
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     {
@@ -41,7 +40,11 @@
             PASSWORD_CHECK_PWN = true;
           };
           session.COOKIE_SECURE = true;
-          service.ENABLE_CAPTCHA = true;
+          service = {
+            ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
+            ENABLE_INTERNAL_SIGNIN = false;
+            ENABLE_CAPTCHA = true;
+          };
         };
       };
 
@@ -50,6 +53,8 @@
         enable = true;
         autoPrune.enable = true;
       };
+
+      # TODO: Add Runners
       services.gitea-actions-runner = {
         package = pkgs.forgejo-runner;
         instances = { };

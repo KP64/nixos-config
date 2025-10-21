@@ -12,19 +12,26 @@
         };
       };
 
+      sops.secrets."stirling-pdf.env" = { };
+
       # NOTE: Default credentials are:
       #       Username: admin
       #       Password: stirling
       services.stirling-pdf = {
         enable = true;
+        environmentFiles = [ config.sops.secrets."stirling-pdf.env".path ];
         environment = {
           SERVER_PORT = 34509;
           SERVER_ADDRESS = "127.0.0.1"; # Default is 0.0.0.0
 
           SECURITY_ENABLELOGIN = "true";
           SECURITY_LOGINATTEMPTCOUNT = 5;
-          SECURITY_LOGINMETHOD = "normal";
-          SECURITY_OAUTH2_ENABLED = "false";
+          SECURITY_LOGINMETHOD = "oauth2";
+          SECURITY_OAUTH2_ENABLED = "true";
+          SECURITY_OAUTH2_ISSUER = "https://idm.${config.networking.domain}/oauth2/openid/stirling-pdf";
+          SECURITY_OAUTH2_CLIENTID = "stirling-pdf";
+          SECURITY_OAUTH2_BLOCKREGISTRATION = "false";
+          SECURITY_OAUTH2_PROVIDER = "kanidm";
 
           SYSTEM_GOOGLEVISIBILITY = "false";
           SYSTEM_CUSTOMHTMLFILES = "false";
@@ -33,7 +40,6 @@
           # Do not set to true. Security is at play.
           SYSTEM_ENABLEURLTOPDF = "false";
           SYSTEM_DISABLESANITIZE = "false";
-
         };
       };
     };

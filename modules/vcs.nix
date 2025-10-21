@@ -27,29 +27,20 @@
         git-cliff.enable = true;
 
         gitui.enable = true;
-        git =
-          let
+        git = {
+          enable = true;
+          lfs.enable = true;
+          settings = {
             inherit (config.vcs) user;
-          in
-          {
-            enable = true;
-            lfs.enable = true;
-            userName = user.name;
-            userEmail = user.email;
-            delta = {
-              enable = true;
-              options.line-numbers = true;
-            };
-            signing = {
-              signByDefault = true;
-              format = "ssh";
-              key = "~/.ssh/id_ed25519.pub";
-            };
-            extraConfig = {
-              init.defaultBranch = "main";
-              gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-            };
+            init.defaultBranch = "main";
+            gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
           };
+          signing = {
+            signByDefault = true;
+            format = "ssh";
+            key = "~/.ssh/id_ed25519.pub";
+          };
+        };
 
         jjui.enable = true;
         jujutsu =
@@ -59,16 +50,13 @@
           {
             enable = true;
             settings = {
-              user = {
-                name = git.userName;
-                email = git.userEmail;
-              };
+              inherit (git.settings) user;
               ui.default-command = [ "log" ];
               signing = {
                 behavior = "own";
                 backend = "ssh";
                 inherit (git.signing) key;
-                backends.ssh.allowed-signers = git.extraConfig.gpg.ssh.allowedSignersFile;
+                backends.ssh.allowed-signers = git.settings.gpg.ssh.allowedSignersFile;
               };
             };
           };

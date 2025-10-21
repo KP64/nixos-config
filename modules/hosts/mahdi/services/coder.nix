@@ -28,18 +28,32 @@
       # Doesn't have permission to access the socket otherway
       users.users.coder.extraGroups = [ "docker" ];
 
+      sops.secrets."coder.env" = { };
+
+      # TODO: Use PKCE when it isn't experimental anymore
       services.coder = {
         enable = true;
         package = pkgs.coder.override { channel = "mainline"; };
         accessUrl = "https://coder.${config.networking.domain}";
         wildcardAccessUrl = "*.coder.${config.networking.domain}";
         listenAddress = "127.0.0.1:${toString port}";
-        environment.extra = {
-          CODER_BLOCK_DIRECT = "1";
-          CODER_DISABLE_PASSWORD_AUTH = "1";
-          CODER_DISABLE_SESSION_EXPIRY_REFRESH = "1";
-          CODER_SECURE_AUTH_COOKIE = "1";
-          CODER_STRICT_TRANSPORT_SECURITY = "31536000";
+        environment = {
+          file = config.sops.secrets."coder.env".path;
+          extra = {
+            CODER_BLOCK_DIRECT = "1";
+            CODER_DISABLE_PASSWORD_AUTH = "1";
+            CODER_DISABLE_SESSION_EXPIRY_REFRESH = "1";
+            CODER_SECURE_AUTH_COOKIE = "1";
+            CODER_STRICT_TRANSPORT_SECURITY = "31536000";
+
+            CODER_OAUTH2_GITHUB_ALLOW_SIGNUPS = "0";
+            CODER_OAUTH2_GITHUB_DEFAULT_PROVIDER_ENABLE = "0";
+
+            CODER_OIDC_SIGN_IN_TEXT = "Sign in with Kanidm";
+            CODER_OIDC_ISSUER_URL = "https://idm.${config.networking.domain}/oauth2/openid/coder";
+            CODER_OIDC_CLIENT_ID = "coder";
+            CODER_OIDC_IGNORE_EMAIL_VERIFIED = "1";
+          };
         };
       };
     };

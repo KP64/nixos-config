@@ -24,9 +24,9 @@
       };
       treesitter-refactor = {
         enable = true;
-        smartRename = {
+        settings.smart_rename = {
           enable = true;
-          keymaps.smartRename = "gR";
+          keymaps.smart_rename = "gR";
         };
       };
       # TODO: Mappings
