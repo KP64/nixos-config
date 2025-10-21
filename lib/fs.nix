@@ -12,11 +12,12 @@
     # Example
 
     ```nix
-    scanPath { path = "${self}/hosts/nixos/aladdin"; }
+    scanPath { path = "${self}/modules/hosts/aladdin"; }
     =>
     [
       "default.nix"
-      "disko-config.nix"
+      "networking.nix"
+      "services/"
     ]
     ```
 

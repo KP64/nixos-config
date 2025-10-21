@@ -28,7 +28,7 @@
           SECURITY_LOGINATTEMPTCOUNT = 5;
           SECURITY_LOGINMETHOD = "oauth2";
           SECURITY_OAUTH2_ENABLED = "true";
-          SECURITY_OAUTH2_ISSUER = "https://idm.${config.networking.domain}/oauth2/openid/stirling-pdf";
+          SECURITY_OAUTH2_ISSUER = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/stirling-pdf";
           SECURITY_OAUTH2_CLIENTID = "stirling-pdf";
           SECURITY_OAUTH2_BLOCKREGISTRATION = "false";
           SECURITY_OAUTH2_PROVIDER = "kanidm";

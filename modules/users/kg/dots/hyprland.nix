@@ -19,8 +19,6 @@ in
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.variables = [ "--all" ];
-        # TODO: reenable once not broken x)
-        # plugins = [ pkgs.hyprlandPlugins.hyprgrass ];
         settings = {
           ecosystem = {
             no_update_news = true;
@@ -29,22 +27,6 @@ in
 
           # Discourages XWayland to be used. Useful for discord & stuff
           env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
-
-          # plugin.touch_gestures = {
-          #   sensitivity = 4.0;
-          #   long_press_delay = 400;
-          #   resize_on_boder_long_press = true;
-          #   edge_margin = 10;
-
-          #   workspace_swipe_fingers = 3;
-          #   workspace_swipe_cancel_ratio = 0.1;
-          #   workspace_swipe_edge = "u";
-
-          #   hyprgrass-bindm = [
-          #     ", longpress:2, movewindow"
-          #     ", longpress:3, resizewindow"
-          #   ];
-          # };
 
           monitorv2 = [
             {

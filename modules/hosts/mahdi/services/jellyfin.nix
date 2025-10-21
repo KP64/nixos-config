@@ -12,9 +12,6 @@
         };
       };
 
-      services.jellyfin = {
-        enable = true;
-        openFirewall = true; # TODO: Disable everything not needed
-      };
+      services.jellyfin.enable = true;
     };
 }

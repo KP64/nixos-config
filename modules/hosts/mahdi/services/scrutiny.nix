@@ -1,5 +1,4 @@
 {
-  # TODO: Let this be public once kanidm works
   flake.modules.nixos.hosts-mahdi = {
     # services.nginx.virtualHosts."scrutiny.${config.networking.domain}" = {
     #   enableACME = true;

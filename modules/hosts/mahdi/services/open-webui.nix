@@ -2,7 +2,6 @@ toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      # TODO: DISABLE CACHING https://docs.openwebui.com/troubleshooting/sso/
       services.nginx.virtualHosts."open-webui.${config.networking.domain}" = {
         enableACME = true;
         acmeRoot = null;
@@ -39,7 +38,7 @@ toplevel: {
 
           OAUTH_CLIENT_ID = "open-webui";
           # OAUTH_CLIENT_SECRET = "";
-          OPENID_PROVIDER_URL = "https://idm.${config.networking.domain}/oauth2/openid/open-webui/.well-known/openid-configuration";
+          OPENID_PROVIDER_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/open-webui/.well-known/openid-configuration";
           OAUTH_CODE_CHALLENGE_METHOD = "S256";
           OAUTH_PROVIDER_NAME = "kanidm";
           ENABLE_OAUTH_ROLE_MANAGEMENT = "True";

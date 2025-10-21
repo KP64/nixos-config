@@ -17,7 +17,6 @@
         dap-ui.enable = true;
       };
 
-      # TODO: LazyLoad
       keymaps = [
         {
           mode = "n";

@@ -121,7 +121,6 @@
             ];
             symlinks."velocity.toml".value =
               let
-                # TODO: Autodetection
                 servers =
                   let
                     inherit (config.services.minecraft-servers.servers) Creative Survival;

@@ -29,7 +29,7 @@
 
           DISABLE_PASSWORD_AUTH = "true";
 
-          OAUTH_WELLKNOWN_URL = "https://idm.${config.networking.domain}/oauth2/openid/karakeep/.well-known/openid-configuration";
+          OAUTH_WELLKNOWN_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/karakeep/.well-known/openid-configuration";
           OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
           OAUTH_CLIENT_ID = "karakeep";
           OAUTH_PROVIDER_NAME = "Kanidm";
