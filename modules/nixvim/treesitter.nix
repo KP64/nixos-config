@@ -1,9 +1,10 @@
 {
   flake.modules.nixvim.treesitter = {
     dependencies = {
-      tree-sitter.enable = true;
-      git.enable = true;
       gcc.enable = true;
+      git.enable = true;
+      nodejs.enable = true;
+      tree-sitter.enable = true;
     };
 
     # Prevents everything to be folded on start
@@ -32,16 +33,18 @@
       # TODO: Mappings
       treesitter-textobjects = {
         enable = true;
-        lspInterop = {
-          enable = true;
-          border = "rounded";
+        settings = {
+          lsp_interop = {
+            enable = true;
+            border = "rounded";
+          };
+          move.enable = true;
+          select = {
+            enable = true;
+            lookahead = true;
+          };
+          swap.enable = true;
         };
-        move.enable = true;
-        select = {
-          enable = true;
-          lookahead = true;
-        };
-        swap.enable = true;
       };
     };
   };

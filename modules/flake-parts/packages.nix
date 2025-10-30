@@ -1,11 +1,6 @@
 { inputs, ... }:
 {
-  perSystem =
-    { lib, pkgs, ... }:
-    {
-      packages = lib.packagesFromDirectoryRecursive {
-        inherit (pkgs) callPackage;
-        directory = builtins.path { path = inputs.self + /pkgs; };
-      };
-    };
+  imports = [ inputs.pkgs-by-name-for-flake-parts.flakeModule ];
+
+  perSystem.pkgsDirectory = inputs.self + /pkgs;
 }

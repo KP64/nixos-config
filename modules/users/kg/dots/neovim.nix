@@ -13,7 +13,6 @@
           lsp
           ui
 
-          codesnap
           comments
           git
           leetcode

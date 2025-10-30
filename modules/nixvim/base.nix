@@ -25,6 +25,13 @@
 
       globals.mapleader = " ";
 
+      # Needed for vim.health
+      dependencies = {
+        curl.enable = true;
+        git.enable = true;
+        ripgrep.enable = true;
+      };
+
       plugins = {
         lz-n.enable = true;
         mini-icons.enable = true;

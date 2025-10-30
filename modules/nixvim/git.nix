@@ -1,5 +1,7 @@
 {
   flake.modules.nixvim.git = {
+    dependencies.git.enable = true;
+
     # TODO: Keybinds
     plugins = {
       fugitive.enable = true;

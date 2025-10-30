@@ -1,11 +1,15 @@
 {
-  flake.modules.nixvim.telescope =
-    { pkgs, ... }:
-    {
-      extraPackages = [ pkgs.fd ];
-      dependencies.ripgrep.enable = true;
+  flake.modules.nixvim.telescope = {
+    dependencies = {
+      fd.enable = true;
+      ripgrep.enable = true;
+      tree-sitter.enable = true;
+    };
 
-      plugins.telescope = {
+    plugins = {
+      treesitter.enable = true;
+
+      telescope = {
         enable = true;
         extensions.fzf-native.enable = true;
 
@@ -20,4 +24,5 @@
         };
       };
     };
+  };
 }

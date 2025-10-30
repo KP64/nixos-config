@@ -117,12 +117,8 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
-        flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        git-hooks.follows = "";
-        hercules-ci-effects.follows = "";
         nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "";
       };
     };
 
@@ -130,7 +126,7 @@
       Nix managed Neovim
       NOTE: Do not override nixpkgs.
             They use the latest possible nixpkgs branch.
-            Again. nixpkgs and nixos branch are not the same.
+            Again. nixpkgs and nixos branches are not the same.
             This causes breakage, even though rarely.
     */
     nixvim = {
@@ -193,6 +189,9 @@
       };
     };
 
+    # Utility to call all custom packages of this flake
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+
     # Secrets management
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -211,12 +210,12 @@
     and finally make the flake with flake-part's `mkFlake` function.
   */
   outputs =
-    inputs@{ flake-parts, nixpkgs, ... }:
+    inputs:
     let
-      customLib = import ./lib { inherit (nixpkgs) lib; };
+      customLib = import ./lib { inherit (inputs.nixpkgs) lib; };
     in
     inputs.import-tree ./modules
-    |> flake-parts.lib.mkFlake {
+    |> inputs.flake-parts.lib.mkFlake {
       inherit inputs;
       specialArgs = { inherit customLib; };
     };

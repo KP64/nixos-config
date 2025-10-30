@@ -14,6 +14,11 @@
           '';
     in
     {
+      dependencies = {
+        curl.enable = true;
+        git.enable = true;
+      };
+
       plugins = {
         colorful-menu = {
           enable = true;

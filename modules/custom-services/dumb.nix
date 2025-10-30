@@ -30,7 +30,9 @@
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           enableStrictShellChecks = true;
+
           environment.PORT = toString cfg.port;
+
           serviceConfig = {
             ExecStart = lib.getExe cfg.package;
             DynamicUser = true;

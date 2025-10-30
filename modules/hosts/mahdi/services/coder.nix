@@ -41,6 +41,11 @@
           file = config.sops.secrets."coder.env".path;
           extra = {
             CODER_BLOCK_DIRECT = "1";
+            # NOTE: You need to disable this for the first time
+            #       in order to be able to create the admin account.
+            #       You will have to change the auth type in the
+            #       settings after you have logged in.
+            #       Then you can disable password auth once again.
             CODER_DISABLE_PASSWORD_AUTH = "1";
             CODER_DISABLE_SESSION_EXPIRY_REFRESH = "1";
             CODER_SECURE_AUTH_COOKIE = "1";

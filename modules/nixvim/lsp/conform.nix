@@ -27,6 +27,7 @@
           ];
           sh = bash;
 
+          java = [ "google-java-format" ];
           lua = [ "stylua" ];
           python = [ "ruff" ];
           rust = [ "rustfmt" ];

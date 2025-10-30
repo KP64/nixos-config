@@ -163,9 +163,18 @@
                   "profile"
                 ];
                 preferShortUsername = true;
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."open-webui.admins" = [ "admins" ];
+                claimMaps = {
+                  groups = {
+                    joinType = "array";
+                    valuesByGroup."open-webui.admins" = [ "admins" ];
+                  };
+                  roles = {
+                    joinType = "array";
+                    valuesByGroup = {
+                      "open-webui.admins" = [ "admin" ];
+                      "open-webui.access" = [ "user" ];
+                    };
+                  };
                 };
               };
             };

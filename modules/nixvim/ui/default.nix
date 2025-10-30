@@ -9,9 +9,8 @@
       lualine
       modicator
       noice
+      rainbow-delimiters
       tiny-inline-diagnostic
     ];
-
-    plugins.rainbow-delimiters.enable = true;
   };
 }

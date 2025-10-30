@@ -30,6 +30,7 @@ toplevel: {
           ENABLE_SIGNUP_PASSWORD_CONFIRMATION = "True";
           ENABLE_SIGNUP = "False";
           ENABLE_LOGIN_FORM = "False";
+          DEFAULT_USER_ROLE = "user";
 
           ENABLE_OAUTH_SIGNUP = "True"; # Not the same as ENABLE_SIGNUP
           OAUTH_UPDATE_PICTURE_ON_LOGIN = "True";
@@ -37,12 +38,12 @@ toplevel: {
           OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "True";
 
           OAUTH_CLIENT_ID = "open-webui";
-          # OAUTH_CLIENT_SECRET = "";
           OPENID_PROVIDER_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/open-webui/.well-known/openid-configuration";
           OAUTH_CODE_CHALLENGE_METHOD = "S256";
           OAUTH_PROVIDER_NAME = "kanidm";
           ENABLE_OAUTH_ROLE_MANAGEMENT = "True";
           ENABLE_OAUTH_GROUP_MANAGEMENT = "True";
+          ENABLE_OAUTH_GROUP_CREATION = "True";
 
           RESET_CONFIG_ON_START = "True";
           ENABLE_OPENAI_API = "False";

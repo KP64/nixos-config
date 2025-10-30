@@ -19,7 +19,6 @@ toplevel@{ inputs, ... }:
             navigation
             ui
 
-            codesnap
             comments
             git
             leetcode

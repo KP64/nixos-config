@@ -14,7 +14,7 @@
 
       services.atuin = {
         enable = true;
-        port = 33195;
+        port = 33196;
         openRegistration = true;
       };
     };

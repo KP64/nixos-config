@@ -10,6 +10,10 @@ toplevel@{ inputs, customLib, ... }:
     {
       programs.firefox = {
         enable = true;
+        # TODO: FIXME: Remove this override once builds again
+        package = pkgs.firefox.overrideAttrs (_: {
+          disallowedRequisites = [ ];
+        });
         profiles.${config.home.username} = {
           extraConfig = builtins.readFile (inputs.better-fox + /user.js);
 
@@ -299,7 +303,7 @@ toplevel@{ inputs, customLib, ... }:
                 "*://gitea.com/*"
                 "*://github.com/*"
                 "*://gitlab.com/*"
-                "*://tangled.sh/*"
+                "*://tangled.org/*"
               ];
               "uBlock0@raymondhill.net" = {
                 settings.selectedFilterLists = [
