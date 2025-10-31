@@ -15,7 +15,7 @@ in
 
       services.playerctld.enable = true;
 
-      # TODO: Set on Per-Host basis (Specialisations could prove helpful?)
+      # TODO: Set on Per-Host basis
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.variables = [ "--all" ];

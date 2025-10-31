@@ -30,7 +30,6 @@
 
       sops.secrets."coder.env" = { };
 
-      # TODO: Use PKCE when it isn't experimental anymore
       services.coder = {
         enable = true;
         package = pkgs.coder.override { channel = "mainline"; };

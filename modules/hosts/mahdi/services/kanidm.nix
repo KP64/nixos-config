@@ -31,6 +31,7 @@
         };
 
       # TODO: Kanidm shouldn't have access to everything nginx related
+      #        - Use different Cert between Nginx and Kanidm
       users.users.kanidm.extraGroups = [ "nginx" ];
 
       # Kanidm requires TLS
