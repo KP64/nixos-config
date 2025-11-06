@@ -27,6 +27,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           hashedPasswordFile = config.sops.secrets.kg_password.path;
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKtrZt+5zMkOVy2RByh713FvkRpYuxdAB0k7th9yxVP kg@sindbad"
           ];
           extraGroups = [
             "networkmanager"
