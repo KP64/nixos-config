@@ -1,5 +1,4 @@
 toplevel: {
-  # FIXME: Fonts aren't working. Even with fontconfig enabled :/
   flake.modules.homeManager."kg@sindbad" =
     { config, pkgs, ... }:
     {
@@ -8,6 +7,8 @@ toplevel: {
         users-kg
       ];
 
+      # Needed for icons
+      home.packages = [ pkgs.noto-fonts-color-emoji ];
       programs.kitty.package = config.lib.nixGL.wrap pkgs.kitty;
 
       # NOTE: Works with HM, but:
