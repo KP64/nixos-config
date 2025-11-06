@@ -14,9 +14,6 @@
 
       networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
-      # FIXME: https://github.com/catppuccin/nix/issues/721
-      catppuccin.forgejo.enable = false;
-
       services.forgejo = {
         enable = true;
         package = pkgs.forgejo; # Newest version ;)
