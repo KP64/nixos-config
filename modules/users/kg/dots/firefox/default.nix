@@ -45,6 +45,9 @@ toplevel@{ inputs, customLib, ... }:
             };
           };
 
+          containersForce = true;
+          bookmarks.force = true;
+
           search = {
             force = true;
             default = "SearXNG";
