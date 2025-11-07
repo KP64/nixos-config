@@ -46,7 +46,10 @@ toplevel@{ inputs, customLib, ... }:
           };
 
           containersForce = true;
-          bookmarks.force = true;
+          bookmarks = {
+            force = true;
+            settings = [ ];
+          };
 
           search = {
             force = true;
