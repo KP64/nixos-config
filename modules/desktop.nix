@@ -42,8 +42,6 @@ toplevel: {
         inherit (config.lib) nixGL;
       in
       {
-        imports = [ toplevel.config.flake.modules.homeManager.wrap-graphics ];
-
         config = {
           # NOTE: When HM warnings are triggered they won't
           #       show when used as a NixOS module

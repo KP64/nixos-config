@@ -37,8 +37,14 @@ in
             }
             {
               users.mutableUsers = false;
-              # Do not install rsync, perl & strace by default
-              environment.defaultPackages = [ ];
+              environment = {
+                # Do not install rsync, perl & strace by default
+                defaultPackages = [ ];
+                pathsToLink = map (d: "/share/${d}") [
+                  "applications"
+                  "xdg-desktop-portal"
+                ];
+              };
               boot.tmp.cleanOnBoot = true;
               networking = {
                 inherit hostName;
