@@ -7,8 +7,11 @@ toplevel: {
         users-kg
       ];
 
-      # Needed for icons
-      home.packages = [ pkgs.noto-fonts-color-emoji ];
+      home.packages = with pkgs; [
+        impala
+        noto-fonts-color-emoji # Needed for icons
+      ];
+
       programs.kitty.package = config.lib.nixGL.wrap pkgs.kitty;
 
       # NOTE: Works with HM, but:
