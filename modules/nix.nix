@@ -50,7 +50,6 @@ in
             programs = {
               nix-index.enable = true;
               nix-index-database.comma.enable = true;
-              nix-init.enable = true;
               direnv = {
                 enable = true;
                 silent = true;
