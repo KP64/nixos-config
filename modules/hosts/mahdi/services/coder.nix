@@ -30,6 +30,8 @@
 
       sops.secrets."coder.env" = { };
 
+      systemd.services.coder.after = [ "kanidm.service" ];
+
       services.coder = {
         enable = true;
         package = pkgs.coder.override { channel = "mainline"; };
