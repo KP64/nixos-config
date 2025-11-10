@@ -100,9 +100,9 @@
             let
               p =
                 {
-                  preview = "n"; # (n)ext
-                  current = "c"; # (c)urrent
-                  parent = "p"; # (p)revious
+                  preview = "n";
+                  current = "c";
+                  parent = "p";
                 }
                 .${pane};
               m = mode |> lib.stringToCharacters |> lib.last;
