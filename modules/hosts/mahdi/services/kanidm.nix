@@ -77,6 +77,9 @@
                   "karakeep.access"
                   "karakeep.admins"
 
+                  "komga.access"
+                  "komga.admins"
+
                   "open-webui.access"
                   "open-webui.admins"
 
@@ -116,6 +119,9 @@
 
               "karakeep.access" = { };
               "karakeep.admins" = { };
+
+              "komga.access" = { };
+              "komga.admins" = { };
 
               "open-webui.access" = { };
               "open-webui.admins" = { };
@@ -244,6 +250,23 @@
                 claimMaps.groups = {
                   joinType = "array";
                   valuesByGroup."zipline.admins" = [ "admins" ];
+                };
+              };
+              komga = {
+                displayName = "komga";
+                imageFile = builtins.path { path = inputs.self + /assets/komga.svg; };
+                public = true;
+                enableLegacyCrypto = true;
+                originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/kanidm";
+                originLanding = "https://komga.${config.networking.domain}";
+                preferShortUsername = true;
+                scopeMaps."komga.access" = [
+                  "email"
+                  "openid"
+                ];
+                claimMaps.groups = {
+                  joinType = "array";
+                  valuesByGroup."komga.admins" = [ "admins" ];
                 };
               };
             };

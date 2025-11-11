@@ -16,7 +16,26 @@
         enable = true;
         settings = {
           server.port = 25600;
-          komga.oauth2-account-creation = false;
+          komga = {
+            oauth2-account-creation = true;
+            oidc-email-verification = false;
+          };
+
+          spring.security.oauth2.client = {
+            registration.kanidm = {
+              provider = "kanidm";
+              client-id = "komga";
+              client-name = "kanidm";
+              scope = "openid,email";
+              authorization-grant-type = "authorization_code";
+              redirect-uri = "{baseUrl}/{action}/oauth2/code/{registrationId}";
+              client-authentication-method = "none";
+            };
+            provider.kanidm = {
+              user-name-attribute = "sub";
+              issuer-uri = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/komga";
+            };
+          };
         };
       };
     };
