@@ -109,6 +109,8 @@
                 groups = [
                   "coder.access"
                   "forgejo.access"
+                  "open-webui.access"
+                  "stirling-pdf.access"
                 ];
               };
             };
@@ -255,7 +257,7 @@
                   imageFile = mkIcon "komga";
                   public = true;
                   enableLegacyCrypto = true;
-                  originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/kanidm";
+                  originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/${config.services.komga.settings.spring.security.oauth2.client.registration.kanidm.provider}";
                   originLanding = "https://komga.${config.networking.domain}";
                   preferShortUsername = true;
                   scopeMaps."komga.access" = [
