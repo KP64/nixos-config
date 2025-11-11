@@ -139,7 +139,6 @@
               "zipline.admins" = { };
             };
 
-            # TODO: Remove unnecessary claimMaps
             systems.oauth2 = {
               coder = {
                 displayName = "coder";
@@ -154,10 +153,6 @@
                   "openid"
                   "profile"
                 ];
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."coder.admins" = [ "admins" ];
-                };
               };
               forgejo = {
                 displayName = "forgejo";
@@ -171,9 +166,13 @@
                   "openid"
                   "profile"
                 ];
+                # TODO: Enable claimMaps in forgejo
                 claimMaps.groups = {
                   joinType = "array";
-                  valuesByGroup."forgejo.admins" = [ "admins" ];
+                  valuesByGroup = {
+                    "forgejo.admins" = [ "admins" ];
+                    "forgejo.access" = [ "users" ];
+                  };
                 };
               };
               karakeep = {
@@ -189,10 +188,6 @@
                   "openid"
                   "profile"
                 ];
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."karakeep.admins" = [ "admins" ];
-                };
               };
               open-webui = {
                 displayName = "open-webui";
@@ -235,10 +230,6 @@
                   "openid"
                   "profile"
                 ];
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."stirling-pdf.admins" = [ "admins" ];
-                };
               };
               zipline = {
                 displayName = "zipline";
@@ -254,10 +245,6 @@
                   "openid"
                   "profile"
                 ];
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."zipline.admins" = [ "admins" ];
-                };
               };
               komga = {
                 displayName = "komga";
@@ -271,10 +258,6 @@
                   "email"
                   "openid"
                 ];
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."komga.admins" = [ "admins" ];
-                };
               };
               immich = {
                 displayName = "immich";
@@ -291,17 +274,11 @@
                   "openid"
                   "profile"
                 ];
-                claimMaps = {
-                  groups = {
-                    joinType = "array";
-                    valuesByGroup."immich.admins" = [ "admins" ];
-                  };
-                  roles = {
-                    joinType = "array";
-                    valuesByGroup = {
-                      "immich.admins" = [ "admin" ];
-                      "immich.access" = [ "user" ];
-                    };
+                claimMaps.roles = {
+                  joinType = "array";
+                  valuesByGroup = {
+                    "immich.admins" = [ "admin" ];
+                    "immich.access" = [ "user" ];
                   };
                 };
               };

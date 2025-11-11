@@ -33,6 +33,7 @@
           OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
           OAUTH_CLIENT_ID = "karakeep";
           OAUTH_PROVIDER_NAME = "Kanidm";
+          OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = "true";
 
           PORT = "43547";
           RATE_LIMITING_ENABLED = "true";
