@@ -23,9 +23,9 @@
         cycle = false;
 
         theme = {
-          window = rec {
+          window = {
             width = 600;
-            height = width;
+            height = 600;
 
             border = 3;
             border-radius = 10;

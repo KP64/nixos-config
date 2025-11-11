@@ -191,10 +191,10 @@
 
               prepend_fetchers =
                 map
-                  (name: rec {
+                  (name: {
                     inherit name;
                     id = "git";
-                    run = id;
+                    run = "git";
                   })
                   [
                     "*"

@@ -1,8 +1,12 @@
 { inputs, ... }:
 {
-  # TODO: Set kanidm for all Services
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       kanidmDomain = config.services.kanidm.serverSettings.domain;
       invisible = import (inputs.nix-invisible + /hosts/${config.networking.hostName}.nix);
@@ -28,6 +32,7 @@
           "kanidm/idm-admin-password" = defaults;
           "kanidm/oauth2/coder" = defaults;
           "kanidm/oauth2/stirling-pdf" = defaults;
+          "kanidm/oauth2/zipline" = defaults;
         };
 
       # TODO: Kanidm shouldn't have access to everything nginx related
@@ -118,26 +123,11 @@
               "stirling-pdf.access" = { };
               "stirling-pdf.admins" = { };
 
+              "zipline.access" = { };
+              "zipline.admins" = { };
             };
 
             systems.oauth2 = {
-              forgejo = {
-                displayName = "forgejo";
-                imageFile = builtins.path { path = inputs.self + /assets/forgejo.svg; };
-                public = true;
-                originUrl = "https://${config.services.forgejo.settings.server.DOMAIN}/user/oauth2/kanidm/callback";
-                originLanding = "https://${config.services.forgejo.settings.server.DOMAIN}/user/login";
-                scopeMaps."forgejo.access" = [
-                  "openid"
-                  "email"
-                  "profile"
-                ];
-                preferShortUsername = true;
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."forgejo.admins" = [ "admins" ];
-                };
-              };
               coder = {
                 displayName = "coder";
                 imageFile = builtins.path { path = inputs.self + /assets/coder.svg; };
@@ -145,15 +135,32 @@
                 allowInsecureClientDisablePkce = true;
                 originUrl = "https://coder.${config.networking.domain}/api/v2/users/oidc/callback";
                 originLanding = "https://coder.${config.networking.domain}";
+                preferShortUsername = true;
                 scopeMaps."coder.access" = [
-                  "openid"
                   "email"
+                  "openid"
                   "profile"
                 ];
-                preferShortUsername = true;
                 claimMaps.groups = {
                   joinType = "array";
                   valuesByGroup."coder.admins" = [ "admins" ];
+                };
+              };
+              forgejo = {
+                displayName = "forgejo";
+                imageFile = builtins.path { path = inputs.self + /assets/forgejo.svg; };
+                public = true;
+                originUrl = "https://${config.services.forgejo.settings.server.DOMAIN}/user/oauth2/kanidm/callback";
+                originLanding = "https://${config.services.forgejo.settings.server.DOMAIN}/user/login";
+                preferShortUsername = true;
+                scopeMaps."forgejo.access" = [
+                  "email"
+                  "openid"
+                  "profile"
+                ];
+                claimMaps.groups = {
+                  joinType = "array";
+                  valuesByGroup."forgejo.admins" = [ "admins" ];
                 };
               };
               karakeep = {
@@ -163,35 +170,15 @@
                 enableLegacyCrypto = true; # Needed because karakeep doesn't support ES256
                 originUrl = "${config.services.karakeep.extraEnvironment.NEXTAUTH_URL}/api/auth/callback/custom";
                 originLanding = "https://karakeep.${config.networking.domain}";
+                preferShortUsername = true;
                 scopeMaps."karakeep.access" = [
-                  "openid"
                   "email"
+                  "openid"
                   "profile"
                 ];
-                preferShortUsername = true;
                 claimMaps.groups = {
                   joinType = "array";
                   valuesByGroup."karakeep.admins" = [ "admins" ];
-                };
-              };
-              # Uhmmmm Stirling... Why are you that insecure? XD
-              stirling-pdf = {
-                displayName = "stirling-pdf";
-                imageFile = builtins.path { path = inputs.self + /assets/stirling-pdf.svg; };
-                basicSecretFile = config.sops.secrets."kanidm/oauth2/stirling-pdf".path;
-                allowInsecureClientDisablePkce = true;
-                enableLegacyCrypto = true; # Needed because Stirling apparently doesn't support ES256
-                originUrl = "https://stirling-pdf.${config.networking.domain}/login/oauth2/code/oidc";
-                originLanding = "https://stirling-pdf.${config.networking.domain}";
-                scopeMaps."stirling-pdf.access" = [
-                  "openid"
-                  "email"
-                  "profile"
-                ];
-                preferShortUsername = true;
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup."stirling-pdf.admins" = [ "admins" ];
                 };
               };
               open-webui = {
@@ -200,12 +187,12 @@
                 public = true;
                 originUrl = "${config.services.open-webui.environment.WEBUI_URL}/oauth/oidc/callback";
                 originLanding = "${config.services.open-webui.environment.WEBUI_URL}/auth";
+                preferShortUsername = true;
                 scopeMaps."open-webui.access" = [
-                  "openid"
                   "email"
+                  "openid"
                   "profile"
                 ];
-                preferShortUsername = true;
                 claimMaps = {
                   groups = {
                     joinType = "array";
@@ -218,6 +205,45 @@
                       "open-webui.access" = [ "user" ];
                     };
                   };
+                };
+              };
+              # Uhmmmm Stirling... Why are you that insecure? XD
+              stirling-pdf = {
+                displayName = "stirling-pdf";
+                imageFile = builtins.path { path = inputs.self + /assets/stirling-pdf.svg; };
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/stirling-pdf".path;
+                allowInsecureClientDisablePkce = true;
+                enableLegacyCrypto = true; # Needed because Stirling apparently doesn't support ES256
+                originUrl = "https://stirling-pdf.${config.networking.domain}/login/oauth2/code/oidc";
+                originLanding = "https://stirling-pdf.${config.networking.domain}";
+                preferShortUsername = true;
+                scopeMaps."stirling-pdf.access" = [
+                  "email"
+                  "openid"
+                  "profile"
+                ];
+                claimMaps.groups = {
+                  joinType = "array";
+                  valuesByGroup."stirling-pdf.admins" = [ "admins" ];
+                };
+              };
+              zipline = {
+                displayName = "zipline";
+                imageFile = builtins.path { path = inputs.self + /assets/zipline.svg; };
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/zipline".path;
+                allowInsecureClientDisablePkce = true;
+                originUrl = config.services.zipline.settings.OAUTH_OIDC_REDIRECT_URI;
+                originLanding = "https://zipline.${config.networking.domain}";
+                preferShortUsername = true;
+                scopeMaps."zipline.access" = [
+                  "email"
+                  "offline_access"
+                  "openid"
+                  "profile"
+                ];
+                claimMaps.groups = {
+                  joinType = "array";
+                  valuesByGroup."zipline.admins" = [ "admins" ];
                 };
               };
             };
