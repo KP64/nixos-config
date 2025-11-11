@@ -8,7 +8,6 @@
       lint
     ];
 
-    # Remove once https://github.com/nix-community/nixvim/issues/2746 is fixed.
     performance.combinePlugins.standalonePlugins = [ "friendly-snippets" ];
 
     plugins = {
