@@ -59,23 +59,65 @@
             adminPasswordFile = config.sops.secrets."kanidm/admin-password".path;
             idmAdminPasswordFile = config.sops.secrets."kanidm/idm-admin-password".path;
 
-            inherit (invisible.kanidm) persons;
+            persons = lib.recursiveUpdate invisible.kanidm.persons {
+              kg = {
+                displayName = "kg";
+                groups = [
+                  "coder.access"
+                  "coder.admins"
+
+                  "forgejo.access"
+                  "forgejo.admins"
+
+                  "karakeep.access"
+                  "karakeep.admins"
+
+                  "open-webui.access"
+                  "open-webui.admins"
+
+                  "stirling-pdf.access"
+                  "stirling-pdf.admins"
+
+                  "zipline.access"
+                  "zipline.admins"
+                ];
+              };
+              jehnsen = {
+                displayName = "jehnsen";
+                groups = [
+                  "coder.access"
+                  "forgejo.access"
+                ];
+              };
+              jodada = {
+                displayName = "jodada";
+                groups = [ "forgejo.access" ];
+              };
+              urmom = {
+                displayName = "urmom";
+                groups = [
+                  "coder.access"
+                  "forgejo.access"
+                ];
+              };
+            };
 
             groups = {
-              "forgejo.access" = { };
-              "forgejo.admins" = { };
-
               "coder.access" = { };
               "coder.admins" = { };
+
+              "forgejo.access" = { };
+              "forgejo.admins" = { };
 
               "karakeep.access" = { };
               "karakeep.admins" = { };
 
+              "open-webui.access" = { };
+              "open-webui.admins" = { };
+
               "stirling-pdf.access" = { };
               "stirling-pdf.admins" = { };
 
-              "open-webui.access" = { };
-              "open-webui.admins" = { };
             };
 
             systems.oauth2 = {
