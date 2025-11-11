@@ -74,6 +74,9 @@
                   "forgejo.access"
                   "forgejo.admins"
 
+                  "immich.access"
+                  "immich.admins"
+
                   "karakeep.access"
                   "karakeep.admins"
 
@@ -117,6 +120,9 @@
               "forgejo.access" = { };
               "forgejo.admins" = { };
 
+              "immich.access" = { };
+              "immich.admins" = { };
+
               "karakeep.access" = { };
               "karakeep.admins" = { };
 
@@ -133,6 +139,7 @@
               "zipline.admins" = { };
             };
 
+            # TODO: Remove unnecessary claimMaps
             systems.oauth2 = {
               coder = {
                 displayName = "coder";
@@ -267,6 +274,35 @@
                 claimMaps.groups = {
                   joinType = "array";
                   valuesByGroup."komga.admins" = [ "admins" ];
+                };
+              };
+              immich = {
+                displayName = "immich";
+                imageFile = builtins.path { path = inputs.self + /assets/immich.svg; };
+                public = true;
+                originUrl = [
+                  "https://immich.${config.networking.domain}/auth/login"
+                  "app.immich:///oauth-callback" # For mobile app
+                ];
+                originLanding = "https://immich.${config.networking.domain}";
+                preferShortUsername = true;
+                scopeMaps."immich.access" = [
+                  "email"
+                  "openid"
+                  "profile"
+                ];
+                claimMaps = {
+                  groups = {
+                    joinType = "array";
+                    valuesByGroup."immich.admins" = [ "admins" ];
+                  };
+                  roles = {
+                    joinType = "array";
+                    valuesByGroup = {
+                      "immich.admins" = [ "admin" ];
+                      "immich.access" = [ "user" ];
+                    };
+                  };
                 };
               };
             };

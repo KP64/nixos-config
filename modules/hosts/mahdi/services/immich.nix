@@ -12,6 +12,18 @@
         };
       };
 
-      services.immich.enable = true;
+      services.immich = {
+        enable = true;
+        settings = {
+          passwordLogin.enabled = false;
+          oauth = {
+            autoLaunch = true;
+            clientId = "immich";
+            enabled = true;
+            issuerUrl = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/immich";
+            signingAlgorithm = "ES256";
+          };
+        };
+      };
     };
 }
