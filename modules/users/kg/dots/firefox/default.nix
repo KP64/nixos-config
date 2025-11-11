@@ -58,7 +58,7 @@ toplevel@{ inputs, customLib, ... }:
             engines =
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
-                nix-snowflake-icon = builtins.path { path = inputs.self + /assets/nix-snowflake.svg; };
+                nix-snowflake-icon = customLib.util.mkIcon "nix-snowflake";
 
                 mkParam = name: value: { inherit name value; };
                 nix-search-params = [
@@ -83,7 +83,7 @@ toplevel@{ inputs, customLib, ... }:
                       ];
                     }
                   ];
-                  icon = builtins.path { path = inputs.self + /assets/searxng.svg; };
+                  icon = customLib.util.mkIcon "searxng";
                   definedAliases = [ "@sx" ];
                 };
                 "Home Manager" = {

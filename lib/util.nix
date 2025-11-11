@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, self }:
 {
   /**
     Recurses the attrsets until the name-value-pair is not an attrset
@@ -68,4 +68,28 @@
       result = flatten attrs;
     }
     .result;
+
+  /**
+    Takes in a name of an icon and returns its path
+
+    # Example
+
+    ```nix
+    mkIcon "open-webui"
+    =>
+    "${self}/assets/icons/open-webui.svg"
+    ```
+
+    # Type
+
+    ```
+    mkIcon :: String -> Path
+    ```
+
+    # Arguments
+
+    iconName
+    : The name of the icon (duh)
+  */
+  mkIcon = iconName: builtins.path { path = self + /assets/icons/${iconName}.svg; };
 }

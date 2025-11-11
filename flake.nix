@@ -212,7 +212,7 @@
   outputs =
     inputs:
     let
-      customLib = import ./lib { inherit (inputs.nixpkgs) lib; };
+      customLib = import ./lib { inherit inputs; };
     in
     inputs.import-tree ./modules
     |> inputs.flake-parts.lib.mkFlake {

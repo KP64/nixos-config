@@ -1,6 +1,14 @@
-{ lib }:
+{ inputs }:
 # TODO: Generate Documentation
-rec {
+let
+  inherit (inputs.nixpkgs) lib;
+
+  util = import ./util.nix {
+    inherit lib;
+    inherit (inputs) self;
+  };
+in
+{
   ai = import ./ai.nix { inherit lib; };
 
   anki = import ./anki.nix { inherit lib; };
@@ -11,5 +19,5 @@ rec {
 
   minecraft = import ./minecraft.nix;
 
-  util = import ./util.nix { inherit lib; };
+  inherit util;
 }
