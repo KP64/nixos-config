@@ -2,14 +2,11 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      services.nginx.virtualHosts."libretranslate.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${config.services.libretranslate.domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
-        locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.libretranslate.port}";
-        };
       };
 
       # NOTE: To manage API keys use the "ltmanage-keys" cli command.
@@ -18,7 +15,8 @@
         enable = true;
         port = 33305;
         domain = "libretranslate.${config.networking.domain}";
-        # updateModels = true; # FIXME: Doesn't work
+        configureNginx = true;
+        updateModels = true;
         enableApiKeys = true;
       };
     };

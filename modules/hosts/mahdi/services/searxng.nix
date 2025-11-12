@@ -9,10 +9,6 @@
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
-        locations."/" = {
-          # Yes this is correct without the ":"
-          proxyPass = "http://localhost${config.services.searx.uwsgiConfig.http}";
-        };
       };
 
       services.searx = {
@@ -20,7 +16,7 @@
         domain = "searxng.${config.networking.domain}";
         environmentFile = config.sops.secrets."searxng.env".path;
         redisCreateLocally = true; # Needed for Rate-Limit & bot protection
-
+        configureNginx = true;
         configureUwsgi = true; # Recommended for public instances
         uwsgiConfig.http = ":8888";
 
@@ -41,7 +37,6 @@
 
           server = {
             secret_key = "$SECRET_KEY";
-            base_url = "https://${config.services.searx.domain}";
             # FIXME: Limiter Settings aren't found according to logs.
             #        They are stored under /etc/searxng/limiter.toml
             #        bu should be stored in /run/searx/limiter.toml
@@ -49,7 +44,7 @@
             # NOTE: Open-Webui Web Search working takes precedence
             public_instance = false; # Enables rate limiting and bot detection
             # Only 1.0 and 1.1 are supported.
-            # 1.0 was the default for whatever reason
+            # 1.0 is the default for whatever reason
             http_protocol_version = "1.1";
             image_proxy = true;
           };
