@@ -6,7 +6,7 @@
     #   onlySSL = true;
     #   kTLS = true;
     #   locations."/" = {
-    #     proxyPass = "http://localhost:${toString config.services.scrutiny.settings.web.listen.port}";
+    #     proxyPass = config.services.scrutiny.settings.api.endpoint;
     #   };
     # };
 

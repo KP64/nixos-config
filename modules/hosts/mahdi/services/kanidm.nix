@@ -222,6 +222,7 @@
                   };
                 };
                 # Uhmmmm Stirling... Why are you that insecure? XD
+                # FIXME: OAuth2
                 stirling-pdf = {
                   displayName = "stirling-pdf";
                   imageFile = mkIcon "stirling-pdf";
