@@ -44,7 +44,7 @@
           # NOTE: The whole name is needed.
           #       llama3.2 alone isn't enough.
           # TODO: Check if model is available. Implement fallback Logic
-          #        - Either "force installe" model or detect if another suitable is installed.
+          #        - Either "force install" model or detect if another suitable is installed.
           INFERENCE_TEXT_MODEL = "llama3.2:3b";
           INFERENCE_IMAGE_MODEL = "gemma3:1b";
           EMBEDDING_TEXT_MODEL = "embeddinggemma:300m";
