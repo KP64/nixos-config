@@ -21,11 +21,8 @@ in
         value = inputs.nixpkgs.lib.nixosSystem {
           modules = [
             module # The actual system config
+            inputs.home-manager.nixosModules.default
           ]
-          ++ (with inputs; [
-            nur.modules.nixos.default
-            home-manager.nixosModules.default
-          ])
           ++ [
             {
               home-manager = {

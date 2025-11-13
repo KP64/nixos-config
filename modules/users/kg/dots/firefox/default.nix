@@ -1,12 +1,13 @@
-toplevel@{ inputs, customLib, ... }:
+toplevel@{
+  inputs,
+  customLib,
+  moduleWithSystem,
+  ...
+}:
 {
-  flake.modules.homeManager.users-kg =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+  flake.modules.homeManager.users-kg = moduleWithSystem (
+    { inputs', ... }:
+    { config, lib, ... }:
     {
       programs.firefox = {
         enable = true;
@@ -122,7 +123,7 @@ toplevel@{ inputs, customLib, ... }:
             force = true;
             exactPermissions = true;
             exhaustivePermissions = true;
-            packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            packages = with inputs'.nur.legacyPackages.repos.rycee.firefox-addons; [
               bitwarden
               catppuccin-web-file-icons
               darkreader
@@ -604,5 +605,6 @@ toplevel@{ inputs, customLib, ... }:
           };
         };
       };
-    };
+    }
+  );
 }
