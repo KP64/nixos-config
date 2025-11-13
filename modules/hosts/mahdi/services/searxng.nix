@@ -39,7 +39,7 @@
             secret_key = "$SECRET_KEY";
             # FIXME: Limiter Settings aren't found according to logs.
             #        They are stored under /etc/searxng/limiter.toml
-            #        bu should be stored in /run/searx/limiter.toml
+            #        but should be stored in /run/searx/limiter.toml
             # TODO: Open Issue in Nixpkgs about this and reenable this
             # NOTE: Open-Webui Web Search working takes precedence
             public_instance = false; # Enables rate limiting and bot detection

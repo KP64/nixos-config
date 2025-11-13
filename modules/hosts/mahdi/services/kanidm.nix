@@ -113,6 +113,16 @@
                   "stirling-pdf.access"
                 ];
               };
+              vx = {
+                displayName = "vx";
+                groups = [
+                  "coder.access"
+                  "forgejo.access"
+                  "open-webui.access"
+                  "stirling-pdf.access"
+                  "zipline.access"
+                ];
+              };
             };
 
             groups = {
