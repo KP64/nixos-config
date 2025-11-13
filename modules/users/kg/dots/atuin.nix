@@ -2,6 +2,7 @@ toplevel: {
   flake.modules.homeManager.users-kg = {
     programs.atuin = {
       enable = true;
+      forceOverwriteSettings = true;
       daemon.enable = true;
       settings = {
         invert = true;
