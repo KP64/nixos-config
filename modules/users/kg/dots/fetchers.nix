@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fetchers =
+  flake.modules.homeManager.users-kg =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
