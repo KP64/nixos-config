@@ -230,7 +230,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "anonymousOverflow": ["https://code.whatever.social"],
+    "anonymousOverflow": ["https://overflow.moneten.cc"],
     "reuters": {
       "enabled": true,
       "unsupportedUrls": "bypass",
