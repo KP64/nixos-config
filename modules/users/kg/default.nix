@@ -52,7 +52,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         ]
         ++ (with toplevel.config.flake.modules.homeManager; [
           catppuccin
-          fetchers
           nix
           shells
           ssh
