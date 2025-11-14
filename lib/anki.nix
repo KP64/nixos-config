@@ -1,8 +1,8 @@
 { lib }:
 {
   /**
-    Returns a list with all users and their
-    corresponding sops secret.
+    Returns a list of all users and the sops secret
+    that is correctly prefixed with "anki/".
 
     # Example
 
