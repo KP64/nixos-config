@@ -197,7 +197,7 @@
                   public = true;
                   enableLegacyCrypto = true; # Needed because karakeep doesn't support ES256
                   originUrl = "${config.services.karakeep.extraEnvironment.NEXTAUTH_URL}/api/auth/callback/custom";
-                  originLanding = "https://karakeep.${config.networking.domain}";
+                  originLanding = config.services.karakeep.extraEnvironment.NEXTAUTH_URL;
                   preferShortUsername = true;
                   scopeMaps."karakeep.access" = [
                     "email"
@@ -210,7 +210,7 @@
                   imageFile = mkIcon "open-webui";
                   public = true;
                   originUrl = "${config.services.open-webui.environment.WEBUI_URL}/oauth/oidc/callback";
-                  originLanding = "${config.services.open-webui.environment.WEBUI_URL}/auth";
+                  originLanding = config.services.open-webui.environment.WEBUI_URL;
                   preferShortUsername = true;
                   scopeMaps."open-webui.access" = [
                     "email"
@@ -254,7 +254,7 @@
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/zipline".path;
                   allowInsecureClientDisablePkce = true;
                   originUrl = config.services.zipline.settings.OAUTH_OIDC_REDIRECT_URI;
-                  originLanding = "https://zipline.${config.networking.domain}";
+                  originLanding = "https://${config.services.zipline.settings.CORE_DEFAULT_DOMAIN}";
                   preferShortUsername = true;
                   scopeMaps."zipline.access" = [
                     "email"

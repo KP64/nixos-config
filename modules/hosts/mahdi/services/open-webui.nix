@@ -7,9 +7,22 @@ toplevel: {
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
-        locations."/" = {
-          proxyWebsockets = true;
-          proxyPass = "http://localhost:${toString config.services.open-webui.port}";
+        locations = {
+          "/" = {
+            proxyWebsockets = true;
+            proxyPass = "http://localhost:${toString config.services.open-webui.port}";
+          };
+          "~* ^/(api|oauth|callback|login|ws|websocket)" = {
+            proxyWebsockets = true;
+            proxyPass = "http://localhost:${toString config.services.open-webui.port}";
+            extraConfig = ''
+              proxy_no_cache 1;
+              proxy_cache_bypass 1;
+              proxy_read_timeout 3600s;
+              proxy_send_timeout 3600s;
+              proxy_set_header Accept-Encoding "";
+            '';
+          };
         };
       };
 

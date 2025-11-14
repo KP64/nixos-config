@@ -2,7 +2,7 @@ toplevel@{ inputs, ... }:
 {
   # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
   # TODO: Systemd Service Hardening
-  # FIXME: TODO: Disable caching from OAUTH endpoints!
+  # FIXME: TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     {
