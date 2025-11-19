@@ -16,12 +16,9 @@
         };
       };
 
+      # TODO: Use rootless docker or switch to podman
       virtualisation.docker = {
         enable = true;
-        rootless = {
-          enable = true;
-          setSocketVariable = true;
-        };
         autoPrune.enable = true;
       };
 
@@ -59,6 +56,9 @@
             CODER_OIDC_ISSUER_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/coder";
             CODER_OIDC_CLIENT_ID = "coder";
             CODER_OIDC_IGNORE_EMAIL_VERIFIED = "1";
+            CODER_OIDC_GROUP_AUTO_CREATE = "1";
+            CODER_OIDC_ALLOW_SIGNUPS = "1";
+            CODER_OIDC_ICON_URL = "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kanidm-light.svg";
           };
         };
       };
