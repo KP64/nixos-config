@@ -103,6 +103,16 @@
     # Bind everything together
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    # Nix binary cache
+    harmonia = {
+      url = "github:nix-community/harmonia";
+      # NOTE: Do not "delete" treefmt-nix -> Harmonia won't build >:(
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # Manage your dotfiles, i.e. your home.
     # Intuitive name right? xD
     home-manager = {
