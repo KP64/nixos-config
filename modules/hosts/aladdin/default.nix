@@ -29,6 +29,11 @@ toplevel@{ inputs, ... }:
           users-kg
         ]);
 
+      programs.obs-studio = {
+        enable = true;
+        enableVirtualCamera = true;
+      };
+
       facter.reportPath = ./facter.json;
 
       hardware.bluetooth.settings.General = {
