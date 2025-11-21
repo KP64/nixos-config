@@ -57,9 +57,9 @@
             OAUTH_BYPASS_LOCAL_LOGIN = "true";
             OAUTH_OIDC_CLIENT_ID = "zipline";
             OAUTH_OIDC_CLIENT_SECRET = "$OAUTH_OIDC_CLIENT_SECRET";
-            OAUTH_OIDC_AUTHORIZE_URL = "https://${config.services.kanidm.serverSettings.domain}/ui/oauth2";
-            OAUTH_OIDC_USERINFO_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/zipline/userinfo";
-            OAUTH_OIDC_TOKEN_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/token";
+            OAUTH_OIDC_AUTHORIZE_URL = "${config.services.kanidm.serverSettings.origin}/ui/oauth2";
+            OAUTH_OIDC_USERINFO_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/zipline/userinfo";
+            OAUTH_OIDC_TOKEN_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/token";
             OAUTH_OIDC_REDIRECT_URI = "https://${CORE_DEFAULT_DOMAIN}/api/auth/oauth/oidc";
           };
       };

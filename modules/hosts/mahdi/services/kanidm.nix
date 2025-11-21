@@ -8,11 +8,10 @@
       ...
     }:
     let
-      kanidmDomain = config.services.kanidm.serverSettings.domain;
       invisible = import (inputs.nix-invisible + /hosts/${config.networking.hostName}.nix);
     in
     {
-      services.nginx.virtualHosts.${kanidmDomain} = {
+      services.nginx.virtualHosts.${config.services.kanidm.serverSettings.domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -42,7 +41,7 @@
       # Kanidm requires TLS
       services.kanidm =
         let
-          certDir = config.security.acme.certs.${kanidmDomain}.directory;
+          certDir = config.security.acme.certs.${config.services.kanidm.serverSettings.domain}.directory;
         in
         {
           package = pkgs.kanidmWithSecretProvisioning_1_7;

@@ -9,7 +9,7 @@
         kTLS = true;
         locations."/" = {
           proxyWebsockets = true;
-          proxyPass = "http://[::1]:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+          proxyPass = "http://localhost:${toString config.services.vaultwarden.config.ROCKET_PORT}";
         };
       };
 

@@ -51,7 +51,7 @@ toplevel: {
           OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "True";
 
           OAUTH_CLIENT_ID = "open-webui";
-          OPENID_PROVIDER_URL = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/open-webui/.well-known/openid-configuration";
+          OPENID_PROVIDER_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/open-webui/.well-known/openid-configuration";
           OAUTH_CODE_CHALLENGE_METHOD = "S256";
           OAUTH_PROVIDER_NAME = "kanidm";
           ENABLE_OAUTH_ROLE_MANAGEMENT = "True";

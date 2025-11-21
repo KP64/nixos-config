@@ -33,7 +33,7 @@
             };
             provider.kanidm = {
               user-name-attribute = "sub";
-              issuer-uri = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/komga";
+              issuer-uri = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/komga";
             };
           };
         };

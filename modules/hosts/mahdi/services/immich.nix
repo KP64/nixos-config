@@ -8,7 +8,7 @@
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://[::1]:${toString config.services.immich.port}";
+          proxyPass = "http://localhost:${toString config.services.immich.port}";
           proxyWebsockets = true;
           extraConfig = ''
             client_max_body_size 50000M;
@@ -27,7 +27,7 @@
             autoLaunch = true;
             clientId = "immich";
             enabled = true;
-            issuerUrl = "https://${config.services.kanidm.serverSettings.domain}/oauth2/openid/immich";
+            issuerUrl = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/immich";
             signingAlgorithm = "ES256";
           };
         };
