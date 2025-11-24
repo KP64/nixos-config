@@ -17,7 +17,6 @@
 
       sops.secrets.harmonia-key = { };
 
-      # NOTE: Settings are broken. Cannot set anything other than default :/
       services.harmonia-dev = {
         daemon.enable = true;
         cache = {

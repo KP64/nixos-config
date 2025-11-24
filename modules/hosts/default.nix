@@ -25,23 +25,22 @@ in
           ]
           ++ [
             {
+              # Custom HM Defaults
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 overwriteBackup = true;
                 backupFileExtension = "hm-backup";
               };
+              environment.pathsToLink = map (d: "/share/${d}") [
+                "applications"
+                "xdg-desktop-portal"
+              ];
             }
             {
+              # Custom NixOS Defaults
               users.mutableUsers = false;
-              environment = {
-                # Do not install rsync, perl & strace by default
-                defaultPackages = [ ];
-                pathsToLink = map (d: "/share/${d}") [
-                  "applications"
-                  "xdg-desktop-portal"
-                ];
-              };
+              environment.defaultPackages = [ ];
               boot.tmp.cleanOnBoot = true;
               networking = {
                 inherit hostName;

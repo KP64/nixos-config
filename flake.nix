@@ -86,7 +86,6 @@
     };
 
     # My custom made "colorscript"
-    # TODO: This should be available in a custom cache
     dotz = {
       url = "github:KP64/dotz";
       inputs = {

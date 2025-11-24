@@ -1,13 +1,69 @@
-{ inputs, ... }:
+{
+  config,
+  customLib,
+  inputs,
+  ...
+}:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
   perSystem =
-    { pkgs, ... }:
+    { lib, pkgs, ... }:
+    let
+      tomlFormat = pkgs.formats.toml { };
+
+      getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
+      nixosConfigs = getConfigs config.flake.nixosConfigurations;
+      hmConfigs = getConfigs config.flake.homeConfigurations;
+
+      getRelativePath =
+        paths:
+        paths
+        |> map (path: path |> toString |> builtins.match ".*(modules/.*)")
+        |> map (stripped: builtins.elemAt stripped 0);
+
+      nixosUserHmConfigs =
+        nixosConfigs
+        |> customLib.util.mapIfAvailable {
+          needs = "home-manager";
+          extraAccess = [ "users" ];
+        }
+        |> map builtins.attrValues
+        |> lib.flatten;
+
+      facterFiles =
+        nixosConfigs
+        |> customLib.util.mapIfAvailable {
+          needs = "facter";
+          extraAccess = [ "reportPath" ];
+        }
+        |> getRelativePath;
+
+      hostSopsFiles =
+        nixosConfigs
+        |> customLib.util.mapIfAvailable {
+          needs = "sops";
+          extraAccess = [ "secrets" ];
+        }
+        |> map customLib.util.getSopsFiles
+        |> lib.flatten
+        |> getRelativePath;
+
+      getHmUserSopsFiles =
+        hmConfig:
+        hmConfig
+        |> lib.filter (user: user ? sops)
+        |> map (user: user.sops.secrets)
+        |> map customLib.util.getSopsFiles
+        |> lib.flatten
+        |> getRelativePath;
+    in
     {
       treefmt = {
         settings = {
-          global.excludes = [ "*secrets.yaml" ];
+          global.excludes =
+            lib.unique
+            <| (getHmUserSopsFiles nixosUserHmConfigs) ++ (getHmUserSopsFiles hmConfigs) ++ hostSopsFiles;
           formatter."svg-optimizer" = {
             command = pkgs.writeShellApplication {
               name = "svg-optimizer";
@@ -70,7 +126,17 @@
             enable = true;
             sort = true;
             isolated = true;
-            configFile = builtins.path { path = inputs.self + /typos.toml; };
+            configFile =
+              toString
+              <| tomlFormat.generate "typos" {
+                default.extend-words = {
+                  noice = "noice";
+                  facter = "facter";
+                  nitch = "nitch";
+                  HAE = "HAE"; # LTT Channel ID
+                };
+                files.extend-exclude = facterFiles;
+              };
           };
         };
       };

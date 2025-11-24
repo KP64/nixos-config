@@ -1,5 +1,7 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
+  # TODO: Split modules so that they are reusable by different users.
+  #       This should pave the way for host-based user configurations too!
   flake.modules = {
     nixos.users-kg =
       { config, ... }:
