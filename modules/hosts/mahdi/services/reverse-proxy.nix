@@ -55,19 +55,6 @@
           # Prevent injection of code in other mime types (XSS Attacks)
           add_header X-Content-Type-Options nosniff;
         '';
-
-        virtualHosts.${config.networking.domain} = {
-          enableACME = true;
-          acmeRoot = null;
-          onlySSL = true;
-          kTLS = true;
-          locations."/" = {
-            return = "200 '<html><body>Amazing. An empty Site! XD</body></html>'";
-            extraConfig = ''
-              default_type text/html;
-            '';
-          };
-        };
       };
     };
 }
