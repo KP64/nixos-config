@@ -7,7 +7,7 @@ let
   wallpaper = builtins.path { path = inputs.self + /assets/wallpapers/catppuccin/retro2_live.png; };
 in
 {
-  flake.modules.homeManager.users-kg = {
+  flake.modules.homeManager.users-kg-hyprpaper = {
     services.hyprpaper = {
       enable = true;
       settings = {

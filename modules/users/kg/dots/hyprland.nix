@@ -5,7 +5,7 @@ let
   bind_shift = b: "${mod} SHIFT, ${b}";
 in
 {
-  flake.modules.homeManager.users-kg =
+  flake.modules.homeManager.users-kg-hyprland =
     { lib, pkgs, ... }:
     {
       home.packages = with pkgs; [

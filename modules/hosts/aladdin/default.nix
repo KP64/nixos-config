@@ -29,6 +29,20 @@ toplevel@{ inputs, ... }:
           users-kg
         ]);
 
+      home-manager.users.kg.imports = with toplevel.config.flake.modules.homeManager; [
+        users-kg-firefox
+        users-kg-glance
+        users-kg-anki
+        users-kg-hypridle
+        users-kg-hyprland
+        users-kg-hyprlock
+        users-kg-hyprpanel
+        users-kg-hyprpaper
+        users-kg-kitty
+        users-kg-rofi
+        users-kg-vesktop
+      ];
+
       programs.obs-studio = {
         enable = true;
         enableVirtualCamera = true;

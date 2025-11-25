@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.users-kg =
+  flake.modules.homeManager.users-kg-glance =
     { config, lib, ... }:
     let
       invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);

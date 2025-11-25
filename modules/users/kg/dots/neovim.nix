@@ -1,6 +1,6 @@
 { config, inputs, ... }:
 {
-  flake.modules.homeManager.users-kg = {
+  flake.modules.homeManager.users-kg-neovim = {
     imports = [ inputs.nixvim.homeModules.nixvim ];
 
     programs.nixvim = {

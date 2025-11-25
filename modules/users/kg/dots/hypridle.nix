@@ -4,7 +4,7 @@ let
   minutes = mins: 60 * mins;
 in
 {
-  flake.modules.homeManager.users-kg = {
+  flake.modules.homeManager.users-kg-hypridle = {
     services.hypridle = {
       enable = true;
       settings = {

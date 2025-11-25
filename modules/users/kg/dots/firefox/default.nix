@@ -5,7 +5,7 @@ toplevel@{
   ...
 }:
 {
-  flake.modules.homeManager.users-kg = moduleWithSystem (
+  flake.modules.homeManager.users-kg-firefox = moduleWithSystem (
     { inputs', ... }:
     { config, lib, ... }:
     {

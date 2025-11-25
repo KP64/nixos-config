@@ -4,7 +4,19 @@ toplevel: {
     {
       imports = with toplevel.config.flake.modules.homeManager; [
         desktop
+
         users-kg
+        users-kg-firefox
+        users-kg-glance
+        users-kg-anki
+        users-kg-hypridle
+        users-kg-hyprland
+        users-kg-hyprlock
+        users-kg-hyprpanel
+        users-kg-hyprpaper
+        users-kg-kitty
+        users-kg-rofi
+        users-kg-vesktop
       ];
 
       home.packages = with pkgs; [

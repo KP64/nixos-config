@@ -1,7 +1,6 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
-  # TODO: Split modules so that they are reusable by different users.
-  #       This should pave the way for host-based user configurations too!
+  # TODO: Split module usage is too cumbersome. Introduce suites?
   flake.modules = {
     nixos.users-kg =
       { config, ... }:
@@ -58,6 +57,16 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           shells
           ssh
           vcs
+        ])
+        ++ (with toplevel.config.flake.modules.homeManager; [
+          users-kg-yazi
+          users-kg-atuin
+          users-kg-delta
+          users-kg-fd
+          users-kg-fetchers
+          users-kg-neovim
+          users-kg-starship
+          users-kg-zoxide
         ]);
 
         vcs.user = {

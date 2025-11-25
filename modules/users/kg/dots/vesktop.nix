@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg = {
+  flake.modules.homeManager.users-kg-vesktop = {
     programs.vesktop = {
       enable = true;
       settings.minimizeToTray = false;
