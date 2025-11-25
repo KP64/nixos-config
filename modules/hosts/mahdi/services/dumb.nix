@@ -2,7 +2,7 @@ toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      imports = [ toplevel.config.flake.nixosModules.dumb ];
+      imports = [ toplevel.config.flake.modules.nixos.dumb ];
 
       services.nginx.virtualHosts."dumb.${config.networking.domain}" = {
         enableACME = true;

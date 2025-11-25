@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.nixosModules.dumb = moduleWithSystem (
+  flake.modules.nixos.dumb = moduleWithSystem (
     { config, ... }:
     nixos@{ lib, ... }:
     let
