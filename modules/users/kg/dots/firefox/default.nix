@@ -55,7 +55,7 @@ toplevel@{
             engines =
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
-                nix-snowflake-icon = customLib.util.mkIcon "nix-snowflake";
+                nix-icon = customLib.util.mkIcon "nix";
 
                 mkParam = name: value: { inherit name value; };
                 nix-search-params = [
@@ -93,7 +93,7 @@ toplevel@{
                       ];
                     }
                   ];
-                  icon = nix-snowflake-icon;
+                  icon = nix-icon;
                   definedAliases = [ "@hm" ];
                 };
                 "Nix Packages" = {
@@ -103,7 +103,7 @@ toplevel@{
                       params = nix-search-params;
                     }
                   ];
-                  icon = nix-snowflake-icon;
+                  icon = nix-icon;
                   definedAliases = [ "@np" ];
                 };
                 "Nix Options" = {
@@ -113,7 +113,7 @@ toplevel@{
                       params = nix-search-params;
                     }
                   ];
-                  icon = nix-snowflake-icon;
+                  icon = nix-icon;
                   definedAliases = [ "@no" ];
                 };
               };
