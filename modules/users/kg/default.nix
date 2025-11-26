@@ -54,7 +54,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         ++ (with toplevel.config.flake.modules.homeManager; [
           catppuccin
           nix
-          shells
           ssh
           vcs
         ])
@@ -65,6 +64,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           users-kg-fd
           users-kg-fetchers
           users-kg-neovim
+          users-kg-shells
           users-kg-starship
           users-kg-zoxide
         ]);

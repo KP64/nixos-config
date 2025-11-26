@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.shells =
+  flake.modules.homeManager.users-kg-shells =
     { lib, pkgs, ... }:
     {
       programs = {
