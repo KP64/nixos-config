@@ -94,11 +94,6 @@
       };
     };
 
-    # Make the outputs compatible with non flake systems (i.e. channels).
-    # The compatibility layer is comprised of the `default.nix`
-    # and the `shell.nix` file in the current working directory.
-    flake-compat.url = "github:edolstra/flake-compat";
-
     # Bind everything together
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -180,7 +175,7 @@
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
-        flake-compat.follows = "flake-compat";
+        flake-compat.follows = "";
         flake-utils.follows = "dedup_flake-utils";
         nixpkgs.follows = "nixpkgs";
       };

@@ -168,21 +168,6 @@
         "type": "github"
       }
     },
-    "flake-compat": {
-      "locked": {
-        "lastModified": 1761588595,
-        "narHash": "sha256-XKUZz9zewJNUj46b4AJdiRZJAvSZ0Dqj2BNfXvFlJC4=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "f387cd2afec9419c8ee37694406ca490c3f34ee5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -346,9 +331,7 @@
     },
     "nix-minecraft": {
       "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
+        "flake-compat": [],
         "flake-utils": [
           "dedup_flake-utils"
         ],
@@ -526,7 +509,6 @@
         "dedup_systems": "dedup_systems",
         "disko": "disko",
         "dotz": "dotz",
-        "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "harmonia": "harmonia",
         "home-manager": "home-manager",
