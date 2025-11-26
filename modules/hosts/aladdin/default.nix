@@ -8,26 +8,24 @@ toplevel@{ inputs, ... }:
       ...
     }:
     {
-      imports =
-        (with inputs; [
-          nixos-facter-modules.nixosModules.facter
-          sops-nix.nixosModules.default
-        ])
-        ++ (with toplevel.config.flake.modules.nixos; [
-          audio
-          bluetooth
-          catppuccin
-          desktop
-          efi
-          gaming
-          nix
-          nvidia
-          ssh
-          sudo
-          tpm
+      imports = [
+        inputs.sops-nix.nixosModules.default
+      ]
+      ++ (with toplevel.config.flake.modules.nixos; [
+        audio
+        bluetooth
+        catppuccin
+        desktop
+        efi
+        gaming
+        nix
+        nvidia
+        ssh
+        sudo
+        tpm
 
-          users-kg
-        ]);
+        users-kg
+      ]);
 
       home-manager.users.kg.imports = with toplevel.config.flake.modules.homeManager; [
         users-kg-firefox
@@ -48,8 +46,6 @@ toplevel@{ inputs, ... }:
         enableVirtualCamera = true;
       };
 
-      facter.reportPath = ./facter.json;
-
       hardware.bluetooth.settings.General = {
         FastConnectable = true;
         Privacy = "network/on";
@@ -63,6 +59,8 @@ toplevel@{ inputs, ... }:
 
       boot.kernelPackages = pkgs.linuxPackages_zen;
 
+      # TODO: Custom predicate option that merges all lists together.
+      #       Useful to compartmentalize the unfree packages to users etc.
       nixpkgs.config.allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
@@ -98,11 +96,6 @@ toplevel@{ inputs, ... }:
           openFirewall = true;
         };
         localsend.enable = true;
-        weylus = {
-          enable = true;
-          openFirewall = true;
-          users = map (user: user.name) (with config.users.users; [ kg ]);
-        };
       };
     };
 }

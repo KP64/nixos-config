@@ -6,22 +6,19 @@ toplevel@{ inputs, ... }:
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     {
-      imports =
-        (with inputs; [
-          nixos-facter-modules.nixosModules.facter
-          sops-nix.nixosModules.default
-        ])
-        ++ (with toplevel.config.flake.modules.nixos; [
-          catppuccin
-          efi
-          nix
-          ssh
-          sudo
+      imports = [
+        inputs.sops-nix.nixosModules.default
+      ]
+      ++ (with toplevel.config.flake.modules.nixos; [
+        catppuccin
+        efi
+        nix
+        ssh
+        sudo
 
-          users-kg
-        ]);
+        users-kg
+      ]);
 
-      facter.reportPath = ./facter.json;
       system.stateVersion = "25.11";
 
       nixpkgs.config.allowUnfreePredicate =

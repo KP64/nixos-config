@@ -21,11 +21,11 @@ in
         value = inputs.nixpkgs.lib.nixosSystem {
           modules = [
             module # The actual system config
-            inputs.home-manager.nixosModules.default
           ]
+          # Custom HM Defaults
           ++ [
+            inputs.home-manager.nixosModules.default
             {
-              # Custom HM Defaults
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -37,8 +37,10 @@ in
                 "xdg-desktop-portal"
               ];
             }
+          ]
+          # Custom NixOS Defaults
+          ++ [
             {
-              # Custom NixOS Defaults
               users.mutableUsers = false;
               environment.defaultPackages = [ ];
               boot.tmp.cleanOnBoot = true;
@@ -51,10 +53,20 @@ in
             }
           ]
           # Adds disko configuration if available
-          ++ lib.optionals (lib.hasAttr hostName config.flake.diskoConfigurations) [
+          ++ (lib.optionals (config.flake.diskoConfigurations |> lib.hasAttr hostName) [
             inputs.disko.nixosModules.default
             config.flake.diskoConfigurations.${hostName}
-          ];
+          ])
+          # Adds facter configuration if available
+          ++ (
+            let
+              facterPath = inputs.self + /modules/hosts/${hostName}/facter.json;
+            in
+            lib.optionals (builtins.pathExists facterPath) [
+              inputs.nixos-facter-modules.nixosModules.facter
+              { facter.reportPath = facterPath; }
+            ]
+          );
         };
       }
     );
