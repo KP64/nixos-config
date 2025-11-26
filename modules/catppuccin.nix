@@ -21,7 +21,6 @@ in
     homeManager.catppuccin =
       {
         osConfig ? null,
-        lib,
         ...
       }:
       {
@@ -30,7 +29,7 @@ in
         catppuccin = {
           enable = true;
           # NOTE: Only include if home-manager isn't used as a module
-          cache.enable = lib.mkIf (osConfig == null) true;
+          cache.enable = osConfig == null;
           inherit accent;
           firefox.force = true;
           cursors = {
