@@ -26,7 +26,7 @@
         enable = true;
 
         # QUIC connection migration -> More privileges but less interruptions
-        package = pkgs.nginxQuic;
+        package = pkgs.nginxMainline;
         enableQuicBPF = true;
 
         recommendedGzipSettings = true;
