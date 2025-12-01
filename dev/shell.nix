@@ -10,6 +10,8 @@
             nil
             yaml-language-server
             vscode-json-languageserver
+
+            nix-melt
           ])
           ++ [
             (pkgs.writers.writeNuBin "upin"
