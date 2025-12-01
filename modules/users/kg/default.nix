@@ -29,6 +29,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKtrZt+5zMkOVy2RByh713FvkRpYuxdAB0k7th9yxVP kg@sindbad"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeOXz+XfNnS01wYjjqNj5t9P20ZLzu8w5vU/0R7bu9R kg@mahdi"
           ];
           extraGroups = [
             "networkmanager"
