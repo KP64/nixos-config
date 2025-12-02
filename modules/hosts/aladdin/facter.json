@@ -2,6 +2,10 @@
   "version": 1,
   "system": "x86_64-linux",
   "virtualisation": "none",
+  "uefi": {
+    "supported": true,
+    "platform_size": 64
+  },
   "hardware": {
     "bios": {
       "apm_info": {
@@ -24,7 +28,7 @@
     "bluetooth": [
       {
         "index": 72,
-        "attached_to": 81,
+        "attached_to": 82,
         "class_list": ["usb", "bluetooth"],
         "bus_type": {
           "hex": "0086",
@@ -100,8 +104,8 @@
         "module_alias": "usb:v8087p0029d0001dcE0dsc01dp01icE0isc01ip01in01"
       },
       {
-        "index": 83,
-        "attached_to": 81,
+        "index": 84,
+        "attached_to": 82,
         "class_list": ["usb", "bluetooth"],
         "bus_type": {
           "hex": "0086",
@@ -1756,7 +1760,7 @@
           "[13]",
           "[14]"
         ],
-        "bogo": 7400,
+        "bogo": 7399,
         "cache": 512,
         "units": 16,
         "page_size": 4096,
@@ -1947,7 +1951,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.17.1-zen1 xhci-hcd",
+          "name": "Linux 6.17.9-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1961,7 +1965,7 @@
           "value": 0
         },
         "serial": "0000:0a:00.3",
-        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.9-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:07.1/0000:0a:00.3/usb6/6-0:1.0",
         "sysfs_bus_id": "6-0:1.0",
         "detail": {
@@ -2017,7 +2021,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.17.1-zen1 xhci-hcd",
+          "name": "Linux 6.17.9-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2031,7 +2035,7 @@
           "value": 0
         },
         "serial": "0000:09:00.2",
-        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.9-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:03.1/0000:09:00.2/usb3/3-0:1.0",
         "sysfs_bus_id": "3-0:1.0",
         "resources": [
@@ -2078,7 +2082,7 @@
         "module_alias": "usb:v1D6Bp0002d0617dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 76,
+        "index": 77,
         "attached_to": 62,
         "class_list": ["usb", "hub"],
         "bus_type": {
@@ -2097,7 +2101,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.17.1-zen1 xhci-hcd",
+          "name": "Linux 6.17.9-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2111,7 +2115,7 @@
           "value": 0
         },
         "serial": "0000:09:00.2",
-        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.9-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:03.1/0000:09:00.2/usb4/4-0:1.0",
         "sysfs_bus_id": "4-0:1.0",
         "detail": {
@@ -2148,7 +2152,7 @@
         "module_alias": "usb:v1D6Bp0003d0617dc09dsc00dp03ic09isc00ip00in00"
       },
       {
-        "index": 81,
+        "index": 82,
         "attached_to": 35,
         "class_list": ["usb", "hub"],
         "bus_type": {
@@ -2167,7 +2171,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.17.1-zen1 xhci-hcd",
+          "name": "Linux 6.17.9-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2181,7 +2185,7 @@
           "value": 0
         },
         "serial": "0000:01:00.0",
-        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.9-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.3/0000:01:00.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -2228,7 +2232,7 @@
         "module_alias": "usb:v1D6Bp0002d0617dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 85,
+        "index": 86,
         "attached_to": 52,
         "class_list": ["usb", "hub"],
         "bus_type": {
@@ -2247,7 +2251,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.17.1-zen1 xhci-hcd",
+          "name": "Linux 6.17.9-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2261,7 +2265,7 @@
           "value": 0
         },
         "serial": "0000:0a:00.3",
-        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.9-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:07.1/0000:0a:00.3/usb5/5-0:1.0",
         "sysfs_bus_id": "5-0:1.0",
         "resources": [
@@ -2308,7 +2312,7 @@
         "module_alias": "usb:v1D6Bp0002d0617dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 86,
+        "index": 88,
         "attached_to": 35,
         "class_list": ["usb", "hub"],
         "bus_type": {
@@ -2327,7 +2331,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.17.1-zen1 xhci-hcd",
+          "name": "Linux 6.17.9-zen1 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -2341,7 +2345,7 @@
           "value": 0
         },
         "serial": "0000:01:00.0",
-        "model": "Linux 6.17.1-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.17.9-zen1 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.3/0000:01:00.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -2381,7 +2385,7 @@
     "keyboard": [
       {
         "index": 68,
-        "attached_to": 81,
+        "attached_to": 82,
         "class_list": ["keyboard", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -2425,7 +2429,7 @@
           "/dev/input/by-id/usb-Corsair_CORSAIR_SLIPSTREAM_WIRELESS_USB_Receiver_D685433E2C97FCE5-if03-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:4:1.3-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:4:1.3-event-kbd",
-          "/dev/input/event8"
+          "/dev/input/event11"
         ],
         "resources": [
           {
@@ -2477,7 +2481,7 @@
       },
       {
         "index": 71,
-        "attached_to": 81,
+        "attached_to": 82,
         "class_list": ["keyboard", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -2519,7 +2523,7 @@
           "/dev/input/by-id/usb-_Akko_2.4G_Wireless_Keyboard-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:10:1.0-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:10:1.0-event-kbd",
-          "/dev/input/event9"
+          "/dev/input/event12"
         ],
         "resources": [
           {
@@ -2570,8 +2574,103 @@
         "module_alias": "usb:v25A7p2420d2000dc00dsc00dp00ic03isc01ip01in00"
       },
       {
-        "index": 79,
-        "attached_to": 81,
+        "index": 76,
+        "attached_to": 82,
+        "class_list": ["keyboard", "usb"],
+        "bus_type": {
+          "hex": "0086",
+          "name": "USB",
+          "value": 134
+        },
+        "slot": {
+          "bus": 0,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0108",
+          "name": "Keyboard",
+          "value": 264
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Keyboard",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "3151",
+          "name": "ROYUAN",
+          "value": 12625
+        },
+        "device": {
+          "hex": "4003",
+          "name": "Akko Multi-modes Keyboard-B",
+          "value": 16387
+        },
+        "revision": {
+          "hex": "0000",
+          "name": "3.02",
+          "value": 0
+        },
+        "model": "ROYUAN Akko Multi-modes Keyboard-B",
+        "sysfs_id": "/devices/pci0000:00/0000:00:01.3/0000:01:00.0/usb1/1-3/1-3:1.0",
+        "sysfs_bus_id": "1-3:1.0",
+        "unix_device_names": [
+          "/dev/input/by-id/usb-ROYUAN_Akko_Multi-modes_Keyboard-B-event-kbd",
+          "/dev/input/by-path/pci-0000:01:00.0-usb-0:3:1.0-event-kbd",
+          "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:3:1.0-event-kbd",
+          "/dev/input/event2"
+        ],
+        "resources": [
+          {
+            "type": "baud",
+            "speed": 12000000,
+            "bits": 0,
+            "stop_bits": 0,
+            "parity": 0,
+            "handshake": 0
+          }
+        ],
+        "detail": {
+          "device_class": {
+            "hex": "0000",
+            "name": "per_interface",
+            "value": 0
+          },
+          "device_subclass": {
+            "hex": "0000",
+            "name": "per_interface",
+            "value": 0
+          },
+          "device_protocol": 0,
+          "interface_class": {
+            "hex": "0003",
+            "name": "hid",
+            "value": 3
+          },
+          "interface_subclass": {
+            "hex": "0001",
+            "name": "audio",
+            "value": 1
+          },
+          "interface_protocol": 1,
+          "interface_number": 0,
+          "interface_alternate_setting": 0
+        },
+        "hotplug": "usb",
+        "driver": "usbhid",
+        "driver_module": "usbhid",
+        "drivers": ["usbhid"],
+        "driver_modules": ["usbhid"],
+        "driver_info": {
+          "type": "keyboard",
+          "xkb_rules": "xfree86",
+          "xkb_model": "pc104"
+        },
+        "module_alias": "usb:v3151p4003d0302dc00dsc00dp00ic03isc01ip01in00"
+      },
+      {
+        "index": 80,
+        "attached_to": 82,
         "class_list": ["keyboard", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -2660,8 +2759,8 @@
         "module_alias": "usb:v25A7p2420d2000dc00dsc00dp00ic03isc01ip01in01"
       },
       {
-        "index": 87,
-        "attached_to": 81,
+        "index": 89,
+        "attached_to": 82,
         "class_list": ["keyboard", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -2705,7 +2804,7 @@
           "/dev/input/by-id/usb-Corsair_CORSAIR_SLIPSTREAM_WIRELESS_USB_Receiver_D685433E2C97FCE5-if05-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:4:1.5-event-kbd",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:4:1.5-event-kbd",
-          "/dev/input/event6"
+          "/dev/input/event9"
         ],
         "resources": [
           {
@@ -3145,7 +3244,7 @@
     "mouse": [
       {
         "index": 69,
-        "attached_to": 85,
+        "attached_to": 86,
         "class_list": ["mouse", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -3183,7 +3282,7 @@
         "sysfs_id": "/devices/pci0000:00/0000:00:07.1/0000:0a:00.3/usb5/5-2/5-2:1.4",
         "sysfs_bus_id": "5-2:1.4",
         "unix_device_names": ["/dev/input/mice"],
-        "unix_device_name2": "/dev/input/mouse0",
+        "unix_device_name2": "/dev/input/mouse3",
         "resources": [
           {
             "type": "baud",
@@ -3236,8 +3335,8 @@
         "module_alias": "usb:v1B1Cp0A6Bd0000dc00dsc00dp00ic03isc00ip00in04"
       },
       {
-        "index": 82,
-        "attached_to": 81,
+        "index": 83,
+        "attached_to": 82,
         "class_list": ["mouse", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -3331,6 +3430,102 @@
           "wheels": -1
         },
         "module_alias": "usb:v1B1Cp1BDCd0504dc00dsc00dp00ic03isc01ip02in00"
+      },
+      {
+        "index": 87,
+        "attached_to": 82,
+        "class_list": ["mouse", "usb"],
+        "bus_type": {
+          "hex": "0086",
+          "name": "USB",
+          "value": 134
+        },
+        "slot": {
+          "bus": 0,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0105",
+          "name": "Mouse",
+          "value": 261
+        },
+        "sub_class": {
+          "hex": "0003",
+          "name": "USB Mouse",
+          "value": 3
+        },
+        "vendor": {
+          "hex": "3151",
+          "name": "ROYUAN",
+          "value": 12625
+        },
+        "device": {
+          "hex": "4003",
+          "name": "Akko Multi-modes Keyboard-B",
+          "value": 16387
+        },
+        "revision": {
+          "hex": "0000",
+          "name": "3.02",
+          "value": 0
+        },
+        "compat_vendor": "Unknown",
+        "compat_device": "Generic USB Mouse",
+        "model": "ROYUAN Akko Multi-modes Keyboard-B",
+        "sysfs_id": "/devices/pci0000:00/0000:00:01.3/0000:01:00.0/usb1/1-3/1-3:1.1",
+        "sysfs_bus_id": "1-3:1.1",
+        "unix_device_names": ["/dev/input/mice"],
+        "unix_device_name2": "/dev/input/mouse0",
+        "resources": [
+          {
+            "type": "baud",
+            "speed": 12000000,
+            "bits": 0,
+            "stop_bits": 0,
+            "parity": 0,
+            "handshake": 0
+          }
+        ],
+        "detail": {
+          "device_class": {
+            "hex": "0000",
+            "name": "per_interface",
+            "value": 0
+          },
+          "device_subclass": {
+            "hex": "0000",
+            "name": "per_interface",
+            "value": 0
+          },
+          "device_protocol": 0,
+          "interface_class": {
+            "hex": "0003",
+            "name": "hid",
+            "value": 3
+          },
+          "interface_subclass": {
+            "hex": "0000",
+            "name": "per_interface",
+            "value": 0
+          },
+          "interface_protocol": 0,
+          "interface_number": 1,
+          "interface_alternate_setting": 0
+        },
+        "hotplug": "usb",
+        "driver": "usbhid",
+        "driver_module": "usbhid",
+        "drivers": ["usbhid"],
+        "driver_modules": ["usbhid"],
+        "driver_info": {
+          "type": "mouse",
+          "db_entry_0": ["explorerps/2", "exps2"],
+          "xf86": "explorerps/2",
+          "gpm": "exps2",
+          "buttons": -1,
+          "wheels": -1
+        },
+        "module_alias": "usb:v3151p4003d0302dc00dsc00dp00ic03isc00ip00in01"
       }
     ],
     "network_controller": [
@@ -3559,25 +3754,7 @@
     ],
     "network_interface": [
       {
-        "index": 88,
-        "attached_to": 0,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": ["lo"]
-      },
-      {
-        "index": 89,
+        "index": 90,
         "attached_to": 30,
         "class_list": ["network_interface"],
         "base_class": {
@@ -3610,7 +3787,25 @@
         "driver_modules": ["r8169"]
       },
       {
-        "index": 90,
+        "index": 91,
+        "attached_to": 0,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": ["lo"]
+      },
+      {
+        "index": 92,
         "attached_to": 48,
         "class_list": ["network_interface"],
         "base_class": {
@@ -4032,7 +4227,7 @@
       },
       {
         "index": 73,
-        "attached_to": 85,
+        "attached_to": 86,
         "class_list": ["sound", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -4112,7 +4307,7 @@
       },
       {
         "index": 75,
-        "attached_to": 85,
+        "attached_to": 86,
         "class_list": ["sound", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -4191,8 +4386,8 @@
         "module_alias": "usb:v1B1Cp0A6Bd0000dc00dsc00dp00ic01isc01ip00in00"
       },
       {
-        "index": 84,
-        "attached_to": 85,
+        "index": 85,
+        "attached_to": 86,
         "class_list": ["sound", "usb"],
         "bus_type": {
           "hex": "0086",
@@ -4542,7 +4737,7 @@
     "usb": [
       {
         "index": 70,
-        "attached_to": 81,
+        "attached_to": 82,
         "class_list": ["usb", "unknown"],
         "bus_type": {
           "hex": "0086",
@@ -4626,8 +4821,8 @@
         "module_alias": "usb:v1B1Cp1BDCd0504dc00dsc00dp00ic03isc00ip00in01"
       },
       {
-        "index": 77,
-        "attached_to": 81,
+        "index": 78,
+        "attached_to": 82,
         "class_list": ["usb", "unknown"],
         "bus_type": {
           "hex": "0086",
@@ -4671,7 +4866,7 @@
           "/dev/input/by-id/usb-Corsair_CORSAIR_SLIPSTREAM_WIRELESS_USB_Receiver_D685433E2C97FCE5-event-if04",
           "/dev/input/by-path/pci-0000:01:00.0-usb-0:4:1.4-event",
           "/dev/input/by-path/pci-0000:01:00.0-usbv2-0:4:1.4-event",
-          "/dev/input/event7"
+          "/dev/input/event10"
         ],
         "resources": [
           {
@@ -4717,8 +4912,8 @@
         "module_alias": "usb:v1B1Cp1BDCd0504dc00dsc00dp00ic03isc00ip02in04"
       },
       {
-        "index": 78,
-        "attached_to": 81,
+        "index": 79,
+        "attached_to": 82,
         "class_list": ["usb", "unknown"],
         "bus_type": {
           "hex": "0086",
@@ -4802,8 +4997,8 @@
         "module_alias": "usb:v1B1Cp1BDCd0504dc00dsc00dp00ic03isc00ip00in02"
       },
       {
-        "index": 80,
-        "attached_to": 85,
+        "index": 81,
+        "attached_to": 86,
         "class_list": ["usb", "unknown"],
         "bus_type": {
           "hex": "0086",
@@ -4838,7 +5033,7 @@
         "model": "Corsair CORSAIR HS80 RGB Wireless Gaming Receiver",
         "sysfs_id": "/devices/pci0000:00/0000:00:07.1/0000:0a:00.3/usb5/5-2/5-2:1.3",
         "sysfs_bus_id": "5-2:1.3",
-        "unix_device_names": ["/dev/input/event3"],
+        "unix_device_names": ["/dev/input/event31"],
         "resources": [
           {
             "type": "baud",
