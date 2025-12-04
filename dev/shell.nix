@@ -1,7 +1,12 @@
 { inputs, ... }:
 {
   perSystem =
-    { lib, pkgs, ... }:
+    {
+      lib,
+      pkgs,
+      inputs',
+      ...
+    }:
     {
       devShells.default = pkgs.mkShell {
         name = "config";
@@ -52,7 +57,7 @@
               ''
                 def main [...ids: string] {
                   $ids
-                    | each { ${lib.getExe pkgs.nixVersions.latest} run github:Infinidoge/nix-minecraft#nix-modrinth-prefetch -- $in }
+                    | par-each { ${lib.getExe inputs'.nix-minecraft.packages.nix-modrinth-prefetch} $in }
                     | print --raw
                 }
               ''
