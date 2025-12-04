@@ -45,7 +45,46 @@ toplevel@{
           containersForce = true;
           bookmarks = {
             force = true;
-            settings = [ ];
+            settings = [
+              {
+                name = "Rust sites";
+                bookmarks = [
+                  {
+                    name = "High assurance";
+                    url = "https://highassurance.rs/";
+                  }
+                  {
+                    name = "Rustonomicon";
+                    url = "https://doc.rust-lang.org/stable/nomicon/";
+                  }
+                  {
+                    name = "Cheats";
+                    url = "https://cheats.rs/";
+                  }
+                  {
+                    name = "Corrode";
+                    url = "https://corrode.dev/";
+                  }
+                ];
+              }
+              {
+                name = "Nix sites";
+                bookmarks = [
+                  {
+                    name = "Wiki";
+                    url = "https://wiki.nixos.org/wiki/NixOS_Wiki";
+                  }
+                  {
+                    name = "Noogle";
+                    url = "https://noogle.dev/";
+                  }
+                  {
+                    name = "NixOS and Flakes";
+                    url = "https://nixos-and-flakes.thiscute.world/";
+                  }
+                ];
+              }
+            ];
           };
 
           search = {
