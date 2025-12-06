@@ -3,7 +3,6 @@ let
   nixpkgs.config.allowAliases = false;
 
   commonSettings = {
-    auto-optimise-store = true;
     experimental-features = [
       "nix-command"
       "flakes"
@@ -12,11 +11,6 @@ let
     ];
     substituters = [ "https://nix-community.cachix.org" ];
     trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
-    # NOTE: This isn't recognized by Home-Manager for whatever reason.
-    #       This causes Home-Manager to emit A LOT of warnings even though
-    #       it still works perfectly fine. Just WTF man.
-    # TODO: Open issue about this
-    trusted-users = [ "@wheel" ];
   };
 in
 {
@@ -28,7 +22,9 @@ in
         inherit nixpkgs;
         nix = {
           package = pkgs.nixVersions.latest;
-          settings = commonSettings;
+          settings = commonSettings // {
+            auto-optimise-store = true;
+          };
           optimise.automatic = true;
           channel.enable = false;
         };
@@ -71,19 +67,13 @@ in
             inherit nixpkgs;
             nix = {
               package = pkgs.nixVersions.latest;
-              # NOTE: For whatever reason this doesn't come with defaults at all.
-              #       Everything must be specified manually.
+              # NOTE: These settings are for the user. If you want to trust users
+              #       etc. you will have to manually edit the /etc/nix/nix.conf file
+              #       with root permissions
               settings = {
-                inherit (commonSettings) auto-optimise-store experimental-features trusted-users;
-                allowed-users = "*";
-                cores = 0;
-                max-jobs = "auto";
-                require-sigs = true;
-                sandbox = true;
-                sandbox-fallback = false;
-                # NOTE: WHY IN THE FUCKING HELL IS THE NIXOS CACHE NOT INCLUDED BY DEFAULT???
-                #       At this point I'm just losing my sanity.
-                #       Is there a genuine good reason for omitting the cache?
+                inherit (commonSettings) experimental-features;
+                #  WHY THE FUCKING HELL IS THE NIXOS CACHE NOT INCLUDED BY DEFAULT???
+                #  Is there a genuine good reason for omitting the cache?
                 substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
                 trusted-public-keys = commonSettings.trusted-public-keys ++ [
                   "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
