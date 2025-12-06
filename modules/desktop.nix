@@ -10,9 +10,6 @@ toplevel: {
 
         programs.hyprland.enable = true;
 
-        # Is only installed if nvidia is supported by the system
-        hardware.nvidia.nvidiaSettings = true;
-
         qt.enable = true;
 
         home-manager.sharedModules =

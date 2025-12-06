@@ -9,16 +9,22 @@ let
 in
 {
   flake.modules = {
-    nixos.nix =
+    nixos.nix-unfree =
       { config, lib, ... }:
       {
         inherit options;
 
-        config.nixpkgs.config.allowUnfreePredicate =
-          pkg: builtins.elem (lib.getName pkg) config.allowedUnfreePackages;
+        config = {
+          # NOTE: Do not remove this. It is necessary for building user hm
+          #       modules in NixOS that would otherwise miss the option.
+          home-manager.sharedModules = [ toplevel.config.flake.modules.homeManager.nix-unfree ];
+
+          nixpkgs.config.allowUnfreePredicate =
+            pkg: builtins.elem (lib.getName pkg) config.allowedUnfreePackages;
+        };
       };
 
-    homeManager.nix =
+    homeManager.nix-unfree =
       {
         osConfig ? null,
         config,

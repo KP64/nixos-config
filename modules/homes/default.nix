@@ -28,8 +28,9 @@ in
         value = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import inputs.nixpkgs { inherit (host) system; };
           modules = [
-            module
+            config.flake.modules.homeManager.nix-unfree
           ]
+          ++ [ module ]
           ++ host.modules
           ++ [
             {

@@ -4,23 +4,27 @@ toplevel@{
   moduleWithSystem,
   ...
 }:
+let
+  allowedUnfreePackages = [
+    "libcublas"
+    "libcurand"
+    "libcusparse"
+    "libnvjitlink"
+    "libcufft"
+    "cudnn"
+    "cuda_nvrtc"
+  ];
+in
 {
   flake.modules = {
-    nixos.users-kg = {
-      allowedUnfreePackages = [
-        "libcurand"
-        "libcusparse"
-        "libnvjitlink"
-        "libcufft"
-        "cudnn"
-        "cuda_nvrtc"
-      ];
-    };
+    nixos.users-kg = { inherit allowedUnfreePackages; };
 
     homeManager.users-kg-firefox = moduleWithSystem (
       { inputs', ... }:
       { config, lib, ... }:
       {
+        inherit allowedUnfreePackages;
+
         programs.firefox = {
           enable = true;
           profiles.${config.home.username} = {

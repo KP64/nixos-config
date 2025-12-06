@@ -4,6 +4,16 @@ let
 in
 {
   flake.modules.nixos.hosts-aladdin = {
+    allowedUnfreePackages = [
+      "libcublas"
+      "libcurand"
+      "libcusparse"
+      "libnvjitlink"
+      "libcufft"
+      "cudnn"
+      "cuda_nvrtc"
+    ];
+
     services.ollama = {
       enable = true;
       host = "0.0.0.0";

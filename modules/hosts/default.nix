@@ -24,10 +24,12 @@ in
         name = hostName;
         value = inputs.nixpkgs.lib.nixosSystem {
           modules = [
-            module # The actual system config
+            # Modules that should be made available for everyone.
+            config.flake.modules.nixos.nix-unfree
           ]
-          # Custom HM Defaults
+          ++ [ module ] # The actual system config
           ++ [
+            # Custom HM Defaults
             inputs.home-manager.nixosModules.default
             {
               home-manager = {

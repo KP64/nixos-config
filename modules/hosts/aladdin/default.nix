@@ -35,15 +35,6 @@ toplevel@{ inputs, ... }:
         users-kg-vesktop
       ];
 
-      allowedUnfreePackages = [
-        "nvidia-x11"
-        "cuda_cudart"
-        "cuda_nvcc"
-        "cuda_cccl"
-        "libcublas"
-        "nvidia-settings"
-      ];
-
       programs.obs-studio = {
         enable = true;
         enableVirtualCamera = true;
