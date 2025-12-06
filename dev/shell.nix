@@ -36,7 +36,7 @@
               }
               # nu
               ''
-                def main [...inputs: string] {
+                def main [...inputs: string]: nothing -> nothing {
                   let selection = if not ($inputs | is-empty) {
                     $inputs
                   } else {
@@ -48,14 +48,14 @@
             )
             (pkgs.writers.writeNuBin "attach" # nu
               ''
-                def main [server: string] {
+                def main [server: string]: nothing -> nothing {
                   sudo ${lib.getExe pkgs.tmux} -S /run/minecraft/($server).sock attach
                 }
               ''
             )
             (pkgs.writers.writeNuBin "prefetch" # nu
               ''
-                def main [...ids: string] {
+                def main [...ids: string]: nothing -> nothing {
                   $ids
                     | par-each { ${lib.getExe inputs'.nix-minecraft.packages.nix-modrinth-prefetch} $in }
                     | print --raw
