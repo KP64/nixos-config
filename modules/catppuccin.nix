@@ -1,6 +1,7 @@
 { inputs, ... }:
 let
   accent = "lavender";
+  cursorAccent = "dark";
 in
 {
   flake.modules = {
@@ -15,6 +16,10 @@ in
           enable = true;
           cache.enable = true;
           inherit accent;
+          cursors = {
+            enable = true;
+            accent = cursorAccent;
+          };
         };
       };
 
@@ -34,7 +39,7 @@ in
           firefox.force = true;
           cursors = {
             enable = true;
-            accent = "dark";
+            accent = cursorAccent;
           };
         };
 
