@@ -1,5 +1,7 @@
+{ moduleWithSystem, ... }:
 {
-  flake.modules.homeManager.users-kg-shells =
+  flake.modules.homeManager.users-kg-shells = moduleWithSystem (
+    { self', ... }:
     { lib, pkgs, ... }:
     {
       programs = {
@@ -10,14 +12,23 @@
         nushell = {
           enable = true;
 
-          plugins = with pkgs.nushellPlugins; [
-            formats
-            gstat
-            hcl
-            query
-            semver
-            skim
-          ];
+          plugins =
+            (with self'.packages; [
+              nu_plugin_compress
+              nu_plugin_dns
+              nu_plugin_emoji
+              nu_plugin_port_extension
+            ])
+            ++ (with pkgs.nushellPlugins; [
+              desktop_notifications
+              formats
+              gstat
+              hcl
+              polars
+              query
+              semver
+              skim
+            ]);
 
           settings = {
             show_banner = false;
@@ -36,5 +47,6 @@
             ];
         };
       };
-    };
+    }
+  );
 }
