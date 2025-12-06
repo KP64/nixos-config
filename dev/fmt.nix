@@ -84,9 +84,6 @@
           };
         };
         programs = {
-          # Just
-          just.enable = true;
-
           # ❄️ Nix
           deadnix.enable = true;
           statix.enable = true;
