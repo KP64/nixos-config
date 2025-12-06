@@ -16,6 +16,8 @@
         };
       };
 
+      allowedUnfreePackages = [ "terraform" ];
+
       # TODO: Use rootless docker or switch to podman
       virtualisation.docker = {
         enable = true;

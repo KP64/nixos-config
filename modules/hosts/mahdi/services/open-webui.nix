@@ -26,6 +26,8 @@ toplevel: {
         };
       };
 
+      allowedUnfreePackages = [ "open-webui" ];
+
       services.open-webui = {
         enable = true;
         port = 11111;

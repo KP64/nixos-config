@@ -1,7 +1,12 @@
 {
-  flake.modules.nixos.gaming =
+  flake.modules.nixos.hosts-aladdin =
     { pkgs, ... }:
     {
+      allowedUnfreePackages = [
+        "steam"
+        "steam-unwrapped"
+      ];
+
       programs = {
         gamemode.enable = true;
         gamescope = {

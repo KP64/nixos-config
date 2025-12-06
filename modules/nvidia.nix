@@ -1,4 +1,5 @@
 {
+  # TODO: Move unfree nvidia packages declared in hosts here
   flake.modules.nixos.nvidia = {
     nixpkgs.config.cudaSupport = true;
     nix.settings = {

@@ -1,12 +1,7 @@
 toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.hosts-aladdin =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+    { config, pkgs, ... }:
     {
       imports = [
         inputs.sops-nix.nixosModules.default
@@ -17,7 +12,6 @@ toplevel@{ inputs, ... }:
         catppuccin
         desktop
         efi
-        gaming
         nix
         nvidia
         ssh
@@ -41,6 +35,15 @@ toplevel@{ inputs, ... }:
         users-kg-vesktop
       ];
 
+      allowedUnfreePackages = [
+        "nvidia-x11"
+        "cuda_cudart"
+        "cuda_nvcc"
+        "cuda_cccl"
+        "libcublas"
+        "nvidia-settings"
+      ];
+
       programs.obs-studio = {
         enable = true;
         enableVirtualCamera = true;
@@ -58,30 +61,6 @@ toplevel@{ inputs, ... }:
       services.xserver.xkb.layout = "de";
 
       boot.kernelPackages = pkgs.linuxPackages_zen;
-
-      # TODO: Custom predicate option that merges all lists together.
-      #       Useful to compartmentalize the unfree packages to users etc.
-      nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "nvidia-x11"
-          "nvidia-settings"
-
-          "steam"
-          "steam-unwrapped"
-
-          # Unfree packages added by home-manager user kg
-          "cuda_cccl"
-          "libcublas"
-          "libcurand"
-          "libcusparse"
-          "libnvjitlink"
-          "libcufft"
-          "cudnn"
-          "cuda_cudart"
-          "cuda_nvcc"
-          "cuda_nvrtc"
-        ];
 
       sops.defaultSopsFile = ./secrets.yaml;
 

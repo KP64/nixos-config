@@ -4,7 +4,7 @@ toplevel@{ inputs, ... }:
   # TODO: Systemd Service Hardening
   # FIXME: TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
-    { config, lib, ... }:
+    { config, ... }:
     {
       imports = [
         inputs.sops-nix.nixosModules.default
@@ -20,13 +20,6 @@ toplevel@{ inputs, ... }:
       ]);
 
       system.stateVersion = "25.11";
-
-      nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "open-webui"
-          "terraform" # Needed by Coder
-        ];
 
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";
