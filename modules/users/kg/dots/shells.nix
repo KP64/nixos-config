@@ -1,7 +1,7 @@
 { moduleWithSystem, ... }:
 {
   flake.modules.homeManager.users-kg-shells = moduleWithSystem (
-    { self', ... }:
+    { config, ... }:
     { lib, pkgs, ... }:
     {
       programs = {
@@ -13,7 +13,7 @@
           enable = true;
 
           plugins =
-            (with self'.packages; [
+            (with config.packages; [
               nu_plugin_compress
               nu_plugin_dns
               nu_plugin_emoji
