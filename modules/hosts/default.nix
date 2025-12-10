@@ -32,8 +32,9 @@ in
             # Custom HM Defaults
             inputs.home-manager.nixosModules.default
             {
+              # TODO: Refine the config to support useGlobalPkgs
+              #       without it being a hassle
               home-manager = {
-                useGlobalPkgs = true;
                 useUserPackages = true;
                 overwriteBackup = true;
                 backupFileExtension = "hm-backup";
@@ -68,6 +69,7 @@ in
             config.flake.diskoConfigurations.${hostName}
           ])
           # Adds facter configuration if available
+          # TODO: Move to inhouse nixpkgs facter modules once facter is finally upstreamed
           ++ (
             let
               facterPath = inputs.self + /modules/hosts/${hostName}/facter.json;

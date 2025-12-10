@@ -3,29 +3,36 @@ toplevel: {
     nixos.desktop =
       { config, lib, ... }:
       {
-        services.displayManager.sddm = {
-          enable = true;
-          wayland.enable = true;
-        };
+        config = lib.mkMerge [
+          {
+            services.displayManager.sddm = {
+              enable = true;
+              wayland.enable = true;
+            };
 
-        programs.hyprland.enable = true;
+            programs.hyprland.enable = true;
 
-        qt.enable = true;
+            qt.enable = true;
 
-        home-manager.sharedModules =
-          let
-            inherit (toplevel.config.flake.modules) homeManager;
-          in
-          [ homeManager.desktop ]
-          ++ lib.optional config.services.blueman.enable homeManager.bluetooth
-          ++ [
-            {
-              wayland.windowManager.hyprland = {
-                package = null;
-                portalPackage = null;
-              };
-            }
-          ];
+            home-manager.sharedModules =
+              let
+                inherit (toplevel.config.flake.modules) homeManager;
+              in
+              [ homeManager.desktop ]
+              ++ [
+                {
+                  wayland.windowManager.hyprland = {
+                    package = null;
+                    portalPackage = null;
+                  };
+                }
+              ];
+          }
+          (lib.mkIf config.hardware.bluetooth.enable {
+            services.blueman.enable = true;
+            home-manager.sharedModules = [ { services.blueman-applet.enable = true; } ];
+          })
+        ];
       };
 
     homeManager.desktop =

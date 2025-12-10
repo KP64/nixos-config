@@ -8,7 +8,6 @@ toplevel@{ inputs, ... }:
       ]
       ++ (with toplevel.config.flake.modules.nixos; [
         audio
-        bluetooth
         catppuccin
         desktop
         efi

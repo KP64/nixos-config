@@ -23,28 +23,22 @@ in
         };
       };
 
-    homeManager.catppuccin =
-      {
-        osConfig ? null,
-        ...
-      }:
-      {
-        imports = [ inputs.catppuccin.homeModules.catppuccin ];
+    homeManager.catppuccin = {
+      imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
-        catppuccin = {
+      catppuccin = {
+        enable = true;
+        cache.enable = true;
+        inherit accent;
+        firefox.force = true;
+        cursors = {
           enable = true;
-          # NOTE: Only include if home-manager isn't used as a module
-          cache.enable = osConfig == null;
-          inherit accent;
-          firefox.force = true;
-          cursors = {
-            enable = true;
-            accent = cursorAccent;
-          };
+          accent = cursorAccent;
         };
-
-        gtk.colorScheme = "dark";
-        qt.style.name = "kvantum";
       };
+
+      gtk.colorScheme = "dark";
+      qt.style.name = "kvantum";
+    };
   };
 }

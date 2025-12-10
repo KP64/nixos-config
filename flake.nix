@@ -95,12 +95,15 @@
     };
 
     # Bind everything together
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     # Nix binary cache
     harmonia = {
       url = "github:nix-community/harmonia";
-      # NOTE: Do not "delete" treefmt-nix -> Harmonia won't build >:(
+      # NOTE: Do not "delete" treefmt-nix or Harmonia won't build >:(
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
@@ -128,16 +131,14 @@
 
     /*
       Nix managed Neovim
-      NOTE: Do not override nixpkgs.
-            They use the latest possible nixpkgs branch.
+      NOTE: They use the latest possible nixpkgs branch.
             Again. nixpkgs and nixos branches are not the same.
-            This causes breakage, even though rarely.
+            Overriding nixpkgs can cause breakage, even though rarely.
     */
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
         flake-parts.follows = "flake-parts";
-        nuschtosSearch.follows = "";
         systems.follows = "dedup_systems";
       };
     };

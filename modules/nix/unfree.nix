@@ -25,19 +25,12 @@ in
       };
 
     homeManager.nix-unfree =
-      {
-        osConfig ? null,
-        config,
-        lib,
-        ...
-      }:
+      { config, lib, ... }:
       {
         inherit options;
 
-        config = lib.mkIf (osConfig == null) {
-          nixpkgs.config.allowUnfreePredicate =
-            pkg: builtins.elem (lib.getName pkg) config.allowedUnfreePackages;
-        };
+        config.nixpkgs.config.allowUnfreePredicate =
+          pkg: builtins.elem (lib.getName pkg) config.allowedUnfreePackages;
       };
   };
 }
