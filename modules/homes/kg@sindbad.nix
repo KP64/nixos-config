@@ -16,6 +16,7 @@ toplevel: {
         users-kg-hyprpaper
         users-kg-kitty
         users-kg-rofi
+        users-kg-thunderbird
         users-kg-vesktop
       ];
 
