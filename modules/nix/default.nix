@@ -3,6 +3,7 @@ let
   nixpkgs.config.allowAliases = false;
 
   commonSettings = {
+    auto-optimise-store = true;
     experimental-features = [
       "nix-command"
       "flakes"
@@ -23,7 +24,7 @@ in
         nix = {
           package = pkgs.nixVersions.latest;
           settings = commonSettings // {
-            auto-optimise-store = true;
+            trusted-users = [ "@wheel" ];
           };
           optimise.automatic = true;
           channel.enable = false;
@@ -48,8 +49,7 @@ in
           # NOTE: These settings are for the user. If you want to trust users
           #       etc. you will have to manually edit the /etc/nix/nix.conf file
           #       with root permissions.
-          settings = {
-            inherit (commonSettings) experimental-features;
+          settings = commonSettings // {
             #  WHY THE FUCKING HELL IS THE NIXOS CACHE NOT INCLUDED BY DEFAULT???
             #  Is there a genuine good reason for omitting the cache?
             substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
