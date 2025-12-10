@@ -25,6 +25,8 @@ toplevel: {
         noto-fonts-color-emoji # Needed for icons
       ];
 
+      services.network-manager-applet.enable = true;
+
       programs.kitty.package = config.lib.nixGL.wrap pkgs.kitty;
 
       # NOTE: Works with HM, but:
