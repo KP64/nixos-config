@@ -1,6 +1,9 @@
 { inputs, ... }:
 let
-  nixpkgs.config.allowAliases = false;
+  nixpkgs.config = {
+    allowAliases = false;
+    checkMeta = true;
+  };
 
   commonSettings = {
     auto-optimise-store = true;
