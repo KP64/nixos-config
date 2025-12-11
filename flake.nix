@@ -62,9 +62,8 @@
     };
 
     # Everything Catppuccin 😺
-    # TODO: Revert to catppuccin when https://github.com/catppuccin/nix/pull/789 lands
     catppuccin = {
-      url = "github:KP64/nix/fix-meta";
+      url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

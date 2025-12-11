@@ -23,16 +23,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1765482227,
+        "lastModified": 1765485905,
         "narHash": "sha256-fk6zFzzcwz6su99K7UTxS2497+z/Cdk3FzNsacsmZKA=",
-        "owner": "KP64",
+        "owner": "catppuccin",
         "repo": "nix",
-        "rev": "1b36a87244bad3fa3fcbeae879ff85d70b2464c3",
+        "rev": "b49c675acd80931fc8b54290920a90189b461dcf",
         "type": "github"
       },
       "original": {
-        "owner": "KP64",
-        "ref": "fix-meta",
+        "owner": "catppuccin",
         "repo": "nix",
         "type": "github"
       }
