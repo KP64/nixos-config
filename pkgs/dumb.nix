@@ -40,7 +40,8 @@ buildGoModule rec {
     description = "Private alternative front-end for Genius";
     homepage = "https://github.com/rramiachraf/dumb";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ KP64 ];
     mainProgram = "dumb";
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ KP64 ];
   };
 }
