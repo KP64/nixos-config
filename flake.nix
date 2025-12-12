@@ -120,6 +120,12 @@
     # Import all needed nix files ;)
     import-tree.url = "github:vic/import-tree";
 
+    # Realtime audio
+    musnix = {
+      url = "github:musnix/musnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Latest neovim version
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
