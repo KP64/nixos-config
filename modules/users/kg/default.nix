@@ -57,6 +57,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           nix
           ssh
           vcs
+          yubikey
         ])
         ++ (with toplevel.config.flake.modules.homeManager; [
           users-kg-yazi
@@ -85,7 +86,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             bluetui
             pavucontrol
             prismlauncher
-            yubikey-manager
             yubioath-flutter
           ]);
         };
@@ -106,10 +106,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           ];
         };
 
-        services = {
-          pueue.enable = true;
-          yubikey-agent.enable = true;
-        };
+        services.pueue.enable = true;
 
         programs = {
           bat.enable = true;

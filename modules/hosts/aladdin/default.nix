@@ -16,6 +16,7 @@ toplevel@{ inputs, ... }:
         ssh
         sudo
         tpm
+        yubikey
 
         users-kg
       ]);
