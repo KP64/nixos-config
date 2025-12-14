@@ -122,7 +122,8 @@ toplevel@{
                 SearXNG = {
                   urls = [
                     {
-                      template = "${mahdi.config.services.searx.settings.server.base_url}/search";
+                      # The base_url contains a trailing slash. This is correct.
+                      template = "${mahdi.config.services.searx.settings.server.base_url}search";
                       params = [
                         (mkParam "q" "{searchTerms}")
                         (mkParam "language" "all")
