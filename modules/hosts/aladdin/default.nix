@@ -56,10 +56,7 @@ toplevel@{ inputs, ... }:
 
       sops.defaultSopsFile = ./secrets.yaml;
 
-      users.users.root = {
-        isSystemUser = true;
-        hashedPasswordFile = config.sops.secrets.kg_password.path;
-      };
+      users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
       programs = {
         ausweisapp = {

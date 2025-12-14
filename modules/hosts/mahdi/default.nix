@@ -39,9 +39,6 @@ toplevel@{ inputs, ... }:
       # communicate with the TPM (v1.2) device
       services.tcsd.enable = true;
 
-      users.users.root = {
-        isSystemUser = true;
-        hashedPasswordFile = config.sops.secrets.kg_password.path;
-      };
+      users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
     };
 }
