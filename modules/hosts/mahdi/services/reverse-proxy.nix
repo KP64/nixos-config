@@ -25,7 +25,6 @@
       services.nginx = {
         enable = true;
 
-        # QUIC connection migration -> More privileges but less interruptions
         package = pkgs.nginxMainline;
         enableQuicBPF = true;
 
