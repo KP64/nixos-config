@@ -2,8 +2,6 @@
   flake.modules.homeManager.users-kg-yazi =
     { lib, pkgs, ... }:
     {
-      allowedUnfreePackages = [ "ouch" ];
-
       programs.yazi = {
         enable = true;
         shellWrapperName = "y";
@@ -11,7 +9,7 @@
         # FIXME: Rich-preview doesn't work?
         extraPackages = with pkgs; [
           exiftool
-          (ouch.override { enableUnfree = true; })
+          ouch
           mediainfo
           rich-cli
         ];
