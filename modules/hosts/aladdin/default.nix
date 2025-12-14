@@ -21,6 +21,11 @@ toplevel@{ inputs, ... }:
         users-kg
       ]);
 
+      boot.binfmt = {
+        preferStaticEmulators = true;
+        emulatedSystems = [ "aarch64-linux" ];
+      };
+
       home-manager.users.kg.imports = with toplevel.config.flake.modules.homeManager; [
         users-kg-firefox
         users-kg-glance
