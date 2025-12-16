@@ -60,7 +60,7 @@
         smartindent = true;
 
         # Keep it on by default
-        signcolumn = "yes";
+        signcolumn = lib.boolToYesNo true;
 
         # Configure how new splits should be opened
         splitright = true;

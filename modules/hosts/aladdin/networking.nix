@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.hosts-aladdin =
-    { config, ... }:
+    { config, lib, ... }:
     {
       sops.secrets."wireless.env" = { };
 
@@ -12,10 +12,7 @@
           secretsFile = config.sops.secrets."wireless.env".path;
           fallbackToWPA2 = false;
           scanOnLowSignal = false;
-          networks.Home-5GHz = {
-            hidden = true;
-            pskRaw = "ext:HOME_WIFI_PASSWORD";
-          };
+          networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
         };
       };
 
@@ -51,11 +48,15 @@
               "2606:4700:4700::1111"
               "2606:4700:4700::1001"
             ];
-          networkConfig = {
-            DNSSEC = "yes";
-            DNSOverTLS = "yes";
-            IPv6PrivacyExtensions = "yes";
-          };
+          networkConfig =
+            let
+              inherit (lib) boolToYesNo;
+            in
+            {
+              DNSSEC = boolToYesNo true;
+              DNSOverTLS = boolToYesNo true;
+              IPv6PrivacyExtensions = boolToYesNo true;
+            };
         };
       };
     };
