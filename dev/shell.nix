@@ -8,6 +8,7 @@
       ...
     }:
     {
+      # TODO: Script that shows all unfree packages and which user/host uses them.
       devShells.default = pkgs.mkShell {
         name = "config";
         packages =
