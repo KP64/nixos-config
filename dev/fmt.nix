@@ -18,9 +18,7 @@
 
       getRelativePath =
         paths:
-        paths
-        |> map (path: path |> toString |> builtins.match ".*(modules/.*)")
-        |> map (stripped: builtins.elemAt stripped 0);
+        paths |> map (path: path |> toString |> builtins.match ".*(modules/.*)") |> map builtins.head;
 
       nixosUserHmConfigs =
         nixosConfigs
