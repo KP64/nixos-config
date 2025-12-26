@@ -10,7 +10,7 @@
     },
     "invidious": [
       "https://invidious.holab.ipv64.de",
-      "https://invidious.nerdvpn.de"
+      "https://invidious.moneten.cc"
     ],
     "materialious": ["https://app.materialio.us"],
     "piped": ["https://pipedapi-libre.kavin.rocks"],
@@ -60,10 +60,7 @@
       "redirectType": "main_frame"
     },
     "libreddit": [],
-    "redlib": [
-      "https://redlib.holab.ipv64.de",
-      "https://redlib.privacyredirect.com"
-    ],
+    "redlib": ["https://redlib.holab.ipv64.de", "https://red.moneten.cc"],
     "teddit": [],
     "eddrit": ["https://eddrit.com"],
     "tumblr": {

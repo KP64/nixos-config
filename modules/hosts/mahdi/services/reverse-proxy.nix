@@ -19,6 +19,7 @@
 
       networking.firewall.allowedTCPPorts = [ 443 ];
 
+      # TODO: Enable ECH. DNS HTTPS Resource is prerequisite though.
       # NOTE: Amazing Websites:
       #  - https://securityheaders.com/
       #  - https://www.ssllabs.com/

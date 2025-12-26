@@ -1,9 +1,12 @@
 keys:
   - &host_aladdin age147qz8tf8tlctz78l4kmgruu032z9jd9v4wku3slpx0m2fek7effqn2tv9u
   - &host_mahdi age1k6hkw62h3js987u666pj4y2ld3p8yvd38e8w8z3sgfc3tflyjq9sru0mf7
+  - &host_sheherazade age17pceh2w752g8k0wd3x7swqn9n9fvd4s26yewzeg0d86y4xxrx3hs3ccgty
+  - &host_zarqa age1492l7x22sacvy0vf8z722twgqwfsxemmwsaempjd3ujnwyx8m5lqq2qa79
 
   - &admin_kg_aladdin age1860xuy8hczqepjr5ys9mm6nshtdkss98uv0pj64d9xy4tyct8gkq4c87gl
   - &admin_kg_mahdi age16xq27lvvv3j7pvkp0rk6jzljdhldevlrucnv906tuq0mfecvuq4q0pznww
+  - &admin_kg_sheherazade age15mkhe3qhvlf6c4034zz5l5n59xtu24zf02jmuz8w0088cp7m3f5se32ns3
   - &admin_kg_sindbad age1wuhm8n9e3vp8yqug3ee0q2apxk72jevjlupep0uhk363rqxlm4psezexxx
 
 creation_rules:
@@ -18,8 +21,22 @@ creation_rules:
       - age:
           - *host_mahdi
           - *admin_kg_mahdi
-          # TODO: There must be a better way... Right?
-          # This is done for when access to "mahdi" is lost
+          - *admin_kg_aladdin
+          - *admin_kg_sindbad
+
+  - path_regex: modules\/hosts\/sheherazade\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *host_sheherazade
+          - *admin_kg_sheherazade
+          - *admin_kg_aladdin
+          - *admin_kg_sindbad
+
+  - path_regex: modules\/hosts\/zarqa\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *host_zarqa
+          - *admin_kg_sheherazade
           - *admin_kg_aladdin
           - *admin_kg_sindbad
 
@@ -28,6 +45,9 @@ creation_rules:
       - age:
           - *host_aladdin
           - *host_mahdi
+          - *host_sheherazade
+          - *host_zarqa
           - *admin_kg_aladdin
           - *admin_kg_mahdi
+          - *admin_kg_sheherazade
           - *admin_kg_sindbad

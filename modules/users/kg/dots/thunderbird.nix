@@ -17,7 +17,7 @@
             privateDefault = "ddg";
             force = true;
           };
-          settings = customLib.firefox.toFirefoxSettingStyle {
+          settings = customLib.util.toFlattenedByDots {
             extensions.autoDisableScopes = 0;
             general.autoScroll = true;
             privacy.donottrackheader.enabled = true;

@@ -107,7 +107,6 @@
             enable = true;
             openFirewall = true;
             package = mcPkgs.velocity-server;
-            stopCommand = "end";
             # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
             jvmOpts = [
               "-Xms2G"

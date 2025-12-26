@@ -44,8 +44,13 @@ toplevel@{ moduleWithSystem, inputs, ... }:
       };
 
     homeManager.users-kg = moduleWithSystem (
-      { inputs', ... }:
-      { config, pkgs, ... }:
+      { inputs', system, ... }:
+      {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
       let
         invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
       in
@@ -78,18 +83,19 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         };
 
         home = {
-          stateVersion = "25.11";
+          stateVersion = "25.11"; # TODO: This shouldn't be hardcoded into the user itself.
           shellAliases.c = "clear";
-          packages = [
-            inputs'.dotz.packages.default
-          ]
-          ++ (with pkgs; [
-            bluetui
-            caligula
-            pavucontrol
-            prismlauncher
-            yubioath-flutter
-          ]);
+          packages =
+            (lib.optionals (system != "aarch64-linux") [
+              inputs'.dotz.packages.default
+              pkgs.prismlauncher
+            ])
+            ++ (with pkgs; [
+              bluetui
+              caligula
+              pavucontrol
+              yubioath-flutter
+            ]);
         };
 
         sops = {
@@ -98,14 +104,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
             generateKey = true;
           };
-        };
-
-        programs.obs-studio = {
-          enable = true;
-          plugins = with pkgs.obs-studio-plugins; [
-            droidcam-obs
-            wlrobs
-          ];
         };
 
         services.pueue.enable = true;

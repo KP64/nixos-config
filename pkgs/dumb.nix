@@ -20,6 +20,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-A9QjEYdjwcB690PVpm0NS5vjxpl12gKtrwIMZbS7ym0=";
 
+  env.CGO_ENABLED = 0;
+
   ldflags = [
     "-X"
     "github.com/rramiachraf/dumb/data.Version=${lib.sources.shortRev src.rev}"

@@ -2,11 +2,6 @@
 # TODO: Generate Documentation
 let
   inherit (inputs.nixpkgs) lib;
-
-  util = import ./util.nix {
-    inherit lib;
-    inherit (inputs) self;
-  };
 in
 {
   ai = import ./ai.nix { inherit lib; };
@@ -15,9 +10,12 @@ in
 
   fs = import ./fs.nix { inherit lib; };
 
-  firefox = import ./firefox.nix { inherit lib util; };
+  firefox = import ./firefox.nix { inherit lib; };
 
   minecraft = import ./minecraft.nix;
 
-  inherit util;
+  util = import ./util.nix {
+    inherit lib;
+    inherit (inputs) self;
+  };
 }
