@@ -78,46 +78,111 @@
             dnsUtil = inputs.dns.util.${system};
           in
           {
-            zones = [
-              {
-                zone = ".";
-                zone_type = "External";
-                stores = {
-                  type = "recursor";
-                  roots = pkgs.dns-root-data + /root.hints;
-                  dnssec_policy.ValidateWithStaticKey.path = pkgs.dns-root-data + /root.key;
-                };
-              }
-              {
-                zone = config.networking.domain;
-                zone_type = "Primary";
-                keys = [
-                  {
-                    algorithm = "RSASHA256";
-                    purpose = "ZoneSigning";
-                    key_path = config.sops.secrets.zone_signing_key.path;
-                  }
-                ];
-                file = dnsUtil.writeZone config.networking.domain rec {
-                  TTL = 60;
-                  SOA = {
-                    nameServer = builtins.head NS;
-                    adminEmail = "lzkfaea17@mozmail.com";
-                    serial = 2025122300;
+            # TODO: Finish Configuration. Look at examples: https://github.com/hickory-dns/hickory-dns/tree/main/tests/test-data/test_configs
+            zones =
+              # NOTE: These "default" zones do not ship with hickory-dns by default.
+              #       Therefore manually specified.
+              [
+                rec {
+                  zone = "localhost";
+                  file = dnsUtil.writeZone zone {
+                    SOA = {
+                      nameServer = "localhost.";
+                      adminEmail = "root@localhost";
+                      serial = 2025122600;
+                    };
+                    NS = [ "localhost." ];
+                    A = [ "127.0.0.1" ];
+                    AAAA = [ "::1" ];
                   };
-                  # TODO: This should generate based on nameserver subdomains
-                  NS = 2 |> builtins.genList (i: "ns${toString <| i + 1}.${config.networking.domain}.");
-                  A = [ "79.245.221.171" ];
-                  AAAA = [ "2003:c2:f708:eace:3378:8295:5534:ce14" ];
-                  CAA = letsEncrypt SOA.adminEmail;
-                  subdomains = {
-                    redlib = host (builtins.head A) (builtins.head AAAA);
-                    ns1 = { inherit A; };
-                    ns2 = { inherit AAAA; };
+                }
+                rec {
+                  zone = dnsLib.mkIPv4ReverseRecord "127.0.0.1";
+                  file = dnsUtil.writeZone zone {
+                    SOA = {
+                      nameServer = "localhost.";
+                      adminEmail = "root@localhost";
+                      serial = 2025122600;
+                    };
+                    NS = [ "localhost." ];
+                    PTR = [ "localhost." ];
                   };
-                };
-              }
-            ];
+                }
+                rec {
+                  zone = dnsLib.mkIPv6ReverseRecord "::1";
+                  file = dnsUtil.writeZone zone {
+                    SOA = {
+                      nameServer = "localhost.";
+                      adminEmail = "root@localhost";
+                      serial = 2025122600;
+                    };
+                    NS = [ "localhost." ];
+                    PTR = [ "localhost." ];
+                  };
+                }
+                rec {
+                  zone = dnsLib.mkIPv4ReverseRecord "255.255.255.255";
+                  file = dnsUtil.writeZone zone {
+                    SOA = {
+                      nameServer = "localhost.";
+                      adminEmail = "root@localhost";
+                      serial = 2025122600;
+                    };
+                    NS = [ "localhost." ];
+                  };
+                }
+                rec {
+                  zone = dnsLib.mkIPv4ReverseRecord "0.0.0.0";
+                  file = dnsUtil.writeZone zone {
+                    SOA = {
+                      nameServer = "localhost.";
+                      adminEmail = "root@localhost";
+                      serial = 2025122600;
+                    };
+                    NS = [ "localhost." ];
+                  };
+                }
+              ]
+              # Custom Zones
+              ++ [
+                {
+                  zone = ".";
+                  zone_type = "External";
+                  stores = {
+                    type = "recursor";
+                    roots = pkgs.dns-root-data + /root.hints;
+                    dnssec_policy.ValidateWithStaticKey.path = pkgs.dns-root-data + /root.key;
+                  };
+                }
+                rec {
+                  zone = config.networking.domain;
+                  keys = [
+                    {
+                      algorithm = "RSASHA256";
+                      purpose = "ZoneSigning";
+                      key_path = config.sops.secrets.zone_signing_key.path;
+                    }
+                  ];
+                  file = dnsUtil.writeZone zone rec {
+                    TTL = 60;
+                    SOA = {
+                      nameServer = builtins.head NS;
+                      adminEmail = "lzkfaea17@mozmail.com";
+                      serial = 2025122300;
+                    };
+                    # TODO: This should generate based on nameserver subdomains
+                    NS = 2 |> builtins.genList (i: "ns${toString <| i + 1}.${config.networking.domain}.");
+                    A = [ "79.245.221.171" ];
+                    AAAA = [ "2003:c2:f708:eace:3378:8295:5534:ce14" ];
+                    CAA = letsEncrypt SOA.adminEmail;
+                    subdomains = {
+                      redlib = host (builtins.head A) (builtins.head AAAA);
+                      ns1 = { inherit A; };
+                      ns2 = { inherit AAAA; };
+                    };
+                  };
+                }
+              ];
           };
       };
     }
