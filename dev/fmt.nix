@@ -127,9 +127,10 @@
               toString
               <| tomlFormat.generate "typos" {
                 default.extend-words = {
-                  noice = "noice";
+                  ede = "ede";
                   facter = "facter";
                   nitch = "nitch";
+                  noice = "noice";
                   HAE = "HAE"; # LTT Channel ID
                 };
                 files.extend-exclude = facterFiles;

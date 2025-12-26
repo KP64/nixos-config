@@ -19,10 +19,32 @@ in
       name: module:
       let
         hostName = name |> lib.removePrefix prefix;
+
+        # TODO: Remove this once https://github.com/nvmd/nixos-raspberrypi/issues/113 is closed
+        inherit (inputs.nixpkgs) lib;
+        baseLib = inputs.nixpkgs.lib;
+        origMkRemovedOptionModule = baseLib.mkRemovedOptionModule;
+        patchedLib = lib.extend (
+          final: _: {
+            mkRemovedOptionModule =
+              optionName: replacementInstructions:
+              let
+                key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
+              in
+              { options, ... }:
+              (origMkRemovedOptionModule optionName replacementInstructions { inherit options; })
+              // {
+                inherit key;
+              };
+          }
+        );
       in
       {
         name = hostName;
         value = inputs.nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            lib = patchedLib;
+          };
           modules = [
             # Modules that should be made available for everyone.
             config.flake.modules.nixos.nix-unfree

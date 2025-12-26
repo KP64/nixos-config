@@ -1,11 +1,13 @@
-{ inputs, ... }:
+{ inputs, moduleWithSystem, ... }:
 let
   accent = "lavender";
   cursorAccent = "dark";
 in
 {
+  # TODO: Refactor in favor of tags
   flake.modules = {
-    nixos.catppuccin =
+    nixos.catppuccin = moduleWithSystem (
+      { system, ... }:
       { pkgs, ... }:
       {
         imports = [ inputs.catppuccin.nixosModules.catppuccin ];
@@ -17,28 +19,32 @@ in
           cache.enable = true;
           inherit accent;
           cursors = {
-            enable = true;
+            enable = system != "aarch64-linux";
             accent = cursorAccent;
           };
         };
-      };
+      }
+    );
 
-    homeManager.catppuccin = {
-      imports = [ inputs.catppuccin.homeModules.catppuccin ];
+    homeManager.catppuccin = moduleWithSystem (
+      { system, ... }:
+      _: {
+        imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
-      catppuccin = {
-        enable = true;
-        cache.enable = true;
-        inherit accent;
-        firefox.force = true;
-        cursors = {
+        catppuccin = {
           enable = true;
-          accent = cursorAccent;
+          cache.enable = true;
+          inherit accent;
+          firefox.force = true;
+          cursors = {
+            enable = system != "aarch64-linux";
+            accent = cursorAccent;
+          };
         };
-      };
 
-      gtk.colorScheme = "dark";
-      qt.style.name = "kvantum";
-    };
+        gtk.colorScheme = "dark";
+        qt.style.name = "kvantum";
+      }
+    );
   };
 }

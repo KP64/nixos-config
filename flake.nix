@@ -85,6 +85,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix DSL for DNS-Zones
+    dns = {
+      url = "github:kirelagin/dns.nix";
+      inputs = {
+        flake-utils.follows = "dedup_flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     # My custom made "colorscript"
     dotz = {
       url = "github:KP64/dotz";
@@ -127,13 +136,8 @@
     };
 
     # Latest neovim version
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    # Do not override inputs. Cache is provided.
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     /*
       Nix managed Neovim
@@ -190,6 +194,10 @@
 
     # Better hardware-configuration replacement
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+
+    # NixOS on the raspberry Pi 🥧
+    # Do not override inputs. It has a binary cache.
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
 
     # AUR Nix edition
     nur = {

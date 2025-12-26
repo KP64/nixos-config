@@ -1,5 +1,5 @@
 { lib, self }:
-{
+rec {
   /**
     Recurses the attrsets until the name-value-pair is not an attrset
     Then appends on it the concatenated paths (names)
@@ -28,6 +28,31 @@
     |> lib.mapAttrsRecursiveCond builtins.isAttrs (
       name: value: { ${builtins.concatStringsSep "." name} = value; }
     );
+
+  /**
+    Converts an Attribute Set to another set
+    where each key is separated by a dot.
+
+    # Example
+
+    ```nix
+    toFlattenedByDots { browser.discovery.enabled = false; }
+    =>
+    { "browser.discovery.enabled" = false; }
+    ```
+
+    # Type
+
+    ```
+    toFlattenedByDots :: AttrSet -> AttrSet
+    ```
+
+    # Arguments
+
+    attrs
+    : The attribute set that will be converted
+  */
+  toFlattenedByDots = attrs: attrs |> appendLastWithFullPath |> collectLastEntries;
 
   /**
     Takes the last entry of each (nested) attrset

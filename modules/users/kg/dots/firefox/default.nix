@@ -24,7 +24,7 @@ toplevel@{
         profiles.${config.home.username} = {
           extraConfig = builtins.readFile (inputs.better-fox + /user.js);
 
-          settings = customLib.firefox.toFirefoxSettingStyle {
+          settings = customLib.util.toFlattenedByDots {
             network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
             media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
             extensions.autoDisableScopes = 0;
@@ -56,6 +56,18 @@ toplevel@{
           bookmarks = {
             force = true;
             settings = [
+              {
+                name = "ServerlessHorrors";
+                tags = [
+                  "horror"
+                  "security"
+                ];
+                url = "https://serverlesshorrors.com/";
+              }
+              {
+                name = "Semantic Scholar";
+                url = "https://www.semanticscholar.org/";
+              }
               {
                 name = "Rust sites";
                 bookmarks = [
