@@ -11,13 +11,18 @@
             dns = [ config.services.hickory-dns.settings.listen_port ];
           in
           {
-            allowedTCPPorts = dns;
+            allowedTCPPorts = dns ++ [
+              853 # DoT
+            ];
             allowedUDPPorts = dns;
           };
       };
 
       sops.secrets = {
-        zone_signing_key = { };
+        zone_signing_key = {
+          owner = config.systemd.services.hickory-dns.serviceConfig.User;
+          group = config.systemd.services.hickory-dns.serviceConfig.Group;
+        };
         # "rfc2136/nameserver" = { };
         # "rfc2136/tsig_algorithm" = { };
         # "rfc2136/tsig_key" = { };
@@ -44,6 +49,12 @@
       #   # certs.${config.networking.domain} = { inherit (config.services.nginx) group; };
       # };
 
+      # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
+      #       This is needed so that we can set an owner to Hickory.
+      systemd.services.hickory-dns.serviceConfig = rec {
+        User = "hickory-dns";
+        Group = User;
+      };
       # TODO: Harden with DoT etc. once ready
       services.hickory-dns = {
         enable = true;
@@ -67,7 +78,6 @@
             dnsUtil = inputs.dns.util.${system};
           in
           {
-            listen_port = 5353;
             zones = [
               {
                 zone = ".";
@@ -75,16 +85,7 @@
                 stores = {
                   type = "recursor";
                   roots = pkgs.dns-root-data + /root.hints;
-                  # NOTE: These are public keys. This is fine to be embedded like this.
-                  dnssec_policy.ValidateWithStaticKey.path = pkgs.writeTextFile {
-                    name = "trusted-key.key";
-                    text = ''
-                      . 14512 IN DNSKEY 256 3 8 AwEAAeuS7hMRZ7muj1c/ew2DoavxkBw3jUG5R79pKVDI39fxv
-                      . 14512 IN DNSKEY 257 3 8 AwEAAaz/tAm8yTn4Mfeh5eyI96WSVexTBAvkMgJzkKTOiW1vk
-                      . 14512 IN DNSKEY 256 3 8 AwEAAbNTVC2+pry4pc37pZI9Oj6b8FHxT3VGrvSPKLE1Tjyfe
-                      . 14512 IN DNSKEY 257 3 8 AwEAAa96jeuknZlaeSrvyAJj6ZHv28hhOKkx3rLGXVaC6rXTs
-                    '';
-                  };
+                  dnssec_policy.ValidateWithStaticKey.path = pkgs.dns-root-data + /root.key;
                 };
               }
               {

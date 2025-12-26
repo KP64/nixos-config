@@ -2,6 +2,7 @@ toplevel@{ inputs, ... }:
 {
   # Pi400
   flake.modules.nixos.hosts-sheherazade =
+    { config, ... }:
     let
       inherit (inputs) nixos-raspberrypi;
     in
@@ -31,6 +32,8 @@ toplevel@{ inputs, ... }:
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";
 
-      users.users.root.password = "12345";
+      sops.defaultSopsFile = ./secrets.yaml;
+
+      users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
     };
 }
