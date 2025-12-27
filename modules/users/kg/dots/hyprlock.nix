@@ -1,13 +1,13 @@
-{ inputs, ... }:
+{ self, ... }:
 {
   flake.modules.homeManager.users-kg-hyprlock =
     { config, ... }:
     {
       home.file.".face".source = builtins.path {
-        path = inputs.self + /modules/users/${config.home.username}/pfp.jpg;
+        path = self + /modules/users/${config.home.username}/pfp.jpg;
       };
       xdg.configFile."background".source = builtins.path {
-        path = inputs.self + /assets/wallpapers/catppuccin/cat-vibin.png;
+        path = self + /assets/wallpapers/catppuccin/cat-vibin.png;
       };
 
       # Prepopulated via Catppuccin

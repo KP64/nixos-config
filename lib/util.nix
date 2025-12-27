@@ -95,12 +95,12 @@ rec {
     .result;
 
   /**
-    Takes in a name of an icon and returns its path
+    Takes in the type and name of the Icon to get.
 
     # Example
 
     ```nix
-    mkIcon "open-webui"
+    getIcon { file = "open-webui"; }
     =>
     "${self}/assets/icons/open-webui.svg"
     ```
@@ -108,15 +108,18 @@ rec {
     # Type
 
     ```
-    mkIcon :: String -> Path
+    getIcon :: { file :: String; type :: String } -> Path
     ```
 
     # Arguments
 
-    iconName
-    : The name of the icon (duh)
+    file
+    : The filename including its extension
+
+    type
+    : The type of asset. One of "icons", "topology"
   */
-  mkIcon = iconName: builtins.path { path = self + /assets/icons/${iconName}.svg; };
+  getIcon = { file, type }: builtins.path { path = self + /assets/${type}/${file}; };
 
   /**
     Filters an array of attrsets containing the needed

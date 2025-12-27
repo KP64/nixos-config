@@ -1,6 +1,6 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   imports = [ inputs.pkgs-by-name-for-flake-parts.flakeModule ];
 
-  perSystem.pkgsDirectory = inputs.self + /pkgs;
+  perSystem.pkgsDirectory = self + /pkgs;
 }

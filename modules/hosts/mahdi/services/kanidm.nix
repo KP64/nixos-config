@@ -152,12 +152,15 @@
 
             systems.oauth2 =
               let
-                inherit (customLib.util) mkIcon;
+                inherit (customLib.util) getIcon;
               in
               {
                 coder = {
                   displayName = "coder";
-                  imageFile = mkIcon "coder";
+                  imageFile = getIcon {
+                    file = "coder";
+                    type = "icons";
+                  };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
                   allowInsecureClientDisablePkce = true;
                   originUrl = "https://coder.${config.networking.domain}/api/v2/users/oidc/callback";
@@ -171,7 +174,10 @@
                 };
                 forgejo = {
                   displayName = "forgejo";
-                  imageFile = mkIcon "forgejo";
+                  imageFile = getIcon {
+                    file = "forgejo";
+                    type = "icons";
+                  };
                   public = true;
                   originUrl = "https://${config.services.forgejo.settings.server.DOMAIN}/user/oauth2/kanidm/callback";
                   originLanding = "https://${config.services.forgejo.settings.server.DOMAIN}/user/login";
@@ -192,7 +198,10 @@
                 };
                 karakeep = {
                   displayName = "karakeep";
-                  imageFile = mkIcon "karakeep";
+                  imageFile = getIcon {
+                    file = "karakeep";
+                    type = "icons";
+                  };
                   public = true;
                   enableLegacyCrypto = true; # Needed because karakeep doesn't support ES256
                   originUrl = "${config.services.karakeep.extraEnvironment.NEXTAUTH_URL}/api/auth/callback/custom";
@@ -206,7 +215,10 @@
                 };
                 open-webui = {
                   displayName = "open-webui";
-                  imageFile = mkIcon "open-webui";
+                  imageFile = getIcon {
+                    file = "open-webui";
+                    type = "icons";
+                  };
                   public = true;
                   originUrl = "${config.services.open-webui.environment.WEBUI_URL}/oauth/oidc/callback";
                   originLanding = config.services.open-webui.environment.WEBUI_URL;
@@ -234,7 +246,10 @@
                 # FIXME: OAuth2
                 stirling-pdf = {
                   displayName = "stirling-pdf";
-                  imageFile = mkIcon "stirling-pdf";
+                  imageFile = getIcon {
+                    file = "stirling-pdf";
+                    type = "icons";
+                  };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/stirling-pdf".path;
                   allowInsecureClientDisablePkce = true;
                   enableLegacyCrypto = true; # Needed because Stirling apparently doesn't support ES256
@@ -249,7 +264,10 @@
                 };
                 zipline = {
                   displayName = "zipline";
-                  imageFile = mkIcon "zipline";
+                  imageFile = getIcon {
+                    file = "zipline";
+                    type = "icons";
+                  };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/zipline".path;
                   allowInsecureClientDisablePkce = true;
                   originUrl = config.services.zipline.settings.OAUTH_OIDC_REDIRECT_URI;
@@ -264,7 +282,10 @@
                 };
                 komga = {
                   displayName = "komga";
-                  imageFile = mkIcon "komga";
+                  imageFile = getIcon {
+                    file = "komga";
+                    type = "icons";
+                  };
                   public = true;
                   enableLegacyCrypto = true;
                   originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/${config.services.komga.settings.spring.security.oauth2.client.registration.kanidm.provider}";
@@ -277,7 +298,10 @@
                 };
                 immich = {
                   displayName = "immich";
-                  imageFile = mkIcon "immich";
+                  imageFile = getIcon {
+                    file = "immich";
+                    type = "icons";
+                  };
                   public = true;
                   originUrl = [
                     "https://immich.${config.networking.domain}/auth/login"

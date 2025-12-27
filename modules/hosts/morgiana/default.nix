@@ -1,7 +1,5 @@
 toplevel@{ inputs, ... }:
 {
-
-  # Pi4b
   flake.modules.nixos.hosts-morgiana =
     let
       inherit (inputs) nixos-raspberrypi;

@@ -7,6 +7,14 @@
       inputs',
       ...
     }:
+    let
+      prefixPath = packages: [
+        "--prefix"
+        "PATH"
+        ":"
+        (lib.makeBinPath packages)
+      ];
+    in
     {
       # TODO: Script that shows all unfree packages and which user/host uses them.
       devShells.default = pkgs.mkShell {
@@ -20,20 +28,48 @@
             nix-melt
           ])
           ++ [
+            (pkgs.writers.writeNuBin "topo"
+              {
+                makeWrapperArgs = prefixPath (
+                  with pkgs;
+                  [
+                    gum
+                    nixVersions.latest
+                    timg
+                  ]
+                );
+              }
+              # nu
+              ''
+                def main [topology?: string]: nothing -> nothing {
+                  let chosen = if $topology == null {
+                    gum choose "main" "network";
+                  } else if ([ "main" "network" ] | any {|t| $t == $topology }) {
+                    $topology
+                  } else {
+                    error make --unspanned { msg: "No such topology. Should be either 'main' or 'network'" }
+                  };
+                  let path: path = $"result/($chosen).svg";
+                  let architecture = uname | get machine;
+                  let kernel_name = uname | get kernel-name | str downcase;
+                  nix build .#topology.($architecture)-($kernel_name).config.output
+                  if ($env.TERM? == "xterm-kitty") {
+                    kitten icat $path;
+                  } else {
+                    timg $path;
+                  }
+                }
+              ''
+            )
             (pkgs.writers.writeNuBin "upin"
               {
-                makeWrapperArgs = [
-                  "--prefix"
-                  "PATH"
-                  ":"
-                  (lib.makeBinPath (
-                    with pkgs;
-                    [
-                      gum
-                      nixVersions.latest
-                    ]
-                  ))
-                ];
+                makeWrapperArgs = prefixPath (
+                  with pkgs;
+                  [
+                    gum
+                    nixVersions.latest
+                  ]
+                );
               }
               # nu
               ''

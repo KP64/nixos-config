@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  # TODO: Include plugins in aarch64 once a fix is found
+  # TODO: Include custom plugins in aarch64 once a fix is found
   flake.modules.homeManager.users-kg-shells = moduleWithSystem (
     { config, system, ... }:
     { lib, pkgs, ... }:

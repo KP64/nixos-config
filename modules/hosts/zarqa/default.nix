@@ -1,8 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  # TODO: Nix-topology. Names are getting unwieldy
   # FIXME: TODO: Do NOT Reuse Passwords
-  # Pi3+
   flake.modules.nixos.hosts-zarqa =
     { config, ... }:
     let

@@ -192,6 +192,17 @@
       };
     };
 
+    # Network Topology based on the nixosConfigurations
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs = {
+        devshell.follows = "";
+        flake-utils.follows = "dedup_flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "";
+      };
+    };
+
     # Better hardware-configuration replacement
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 

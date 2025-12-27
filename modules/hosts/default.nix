@@ -2,16 +2,14 @@
   config,
   lib,
   inputs,
+  self,
   ...
 }:
 let
   prefix = "hosts-";
 in
 {
-  # TODO: Make Sops secrets reload the service
-  # TODO: Use nixos-init
-  #        - Goal is to make this flake activation script less
-  #       system.etc.overlay.enable = true; Breaks the System completely
+  # TODO: Make Sops secrets reload necessary services
   flake.nixosConfigurations =
     config.flake.modules.nixos
     |> lib.filterAttrs (name: _: name |> lib.hasPrefix prefix)
@@ -48,6 +46,7 @@ in
           modules = [
             # Modules that should be made available for everyone.
             config.flake.modules.nixos.nix-unfree
+            inputs.nix-topology.nixosModules.default
           ]
           ++ [ module ] # The actual system config
           ++ [
@@ -94,7 +93,7 @@ in
           # TODO: Move to inhouse nixpkgs facter modules once facter is finally upstreamed
           ++ (
             let
-              facterPath = inputs.self + /modules/hosts/${hostName}/facter.json;
+              facterPath = self + /modules/hosts/${hostName}/facter.json;
             in
             lib.optionals (builtins.pathExists facterPath) [
               inputs.nixos-facter-modules.nixosModules.facter

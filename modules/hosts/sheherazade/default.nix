@@ -1,6 +1,5 @@
 toplevel@{ inputs, ... }:
 {
-  # Pi400
   flake.modules.nixos.hosts-sheherazade =
     { config, ... }:
     let

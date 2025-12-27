@@ -463,6 +463,31 @@
         "type": "github"
       }
     },
+    "nix-topology": {
+      "inputs": {
+        "devshell": [],
+        "flake-utils": [
+          "dedup_flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": []
+      },
+      "locked": {
+        "lastModified": 1765969653,
+        "narHash": "sha256-qVpQxyvdByeDfb+d+jhbyNna2Ie+w85iHpt4Qu0rv/E=",
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "rev": "0ed73e5a1b65eb8ed388d070ebe8dedb9182f466",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "type": "github"
+      }
+    },
     "nixGL": {
       "inputs": {
         "flake-utils": [
@@ -692,6 +717,7 @@
         "nix-index-database": "nix-index-database",
         "nix-invisible": "nix-invisible",
         "nix-minecraft": "nix-minecraft",
+        "nix-topology": "nix-topology",
         "nixGL": "nixGL",
         "nixos-facter-modules": "nixos-facter-modules",
         "nixos-raspberrypi": "nixos-raspberrypi",

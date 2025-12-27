@@ -116,7 +116,10 @@ toplevel@{
             engines =
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
-                nix-icon = customLib.util.mkIcon "nix";
+                nix-icon = customLib.util.getIcon {
+                  file = "nix";
+                  type = "icons";
+                };
 
                 mkParam = name: value: { inherit name value; };
                 nix-search-params = [
@@ -142,7 +145,10 @@ toplevel@{
                       ];
                     }
                   ];
-                  icon = customLib.util.mkIcon "searxng";
+                  icon = customLib.util.getIcon {
+                    file = "searxng";
+                    type = "icons";
+                  };
                   definedAliases = [ "@sx" ];
                 };
                 "Home Manager" = {

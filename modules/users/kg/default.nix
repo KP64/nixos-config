@@ -1,6 +1,5 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
-  # TODO: Split module usage is too cumbersome. Introduce suites?
   # TODO: Utilize tags to optionally add stuff
   flake.modules = {
     nixos.users-kg =

@@ -15,10 +15,10 @@ in
 
       services.playerctld.enable = true;
 
-      # TODO: Set on Per-Host basis
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.variables = [ "--all" ];
+        # TODO: Set on Per-Host basis
         settings = {
           ecosystem = {
             no_update_news = true;
