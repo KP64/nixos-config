@@ -15,6 +15,7 @@ toplevel@{ inputs, ... }:
         nvidia
         ssh
         sudo
+        time
         tpm
         yubikey
 

@@ -20,6 +20,7 @@ toplevel@{ inputs, ... }:
         nix
         ssh
         sudo
+        time
 
         users-kg
       ]);
