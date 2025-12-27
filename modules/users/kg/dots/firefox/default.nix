@@ -117,7 +117,7 @@ toplevel@{
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
                 nix-icon = customLib.util.getIcon {
-                  file = "nix";
+                  file = "nix.svg";
                   type = "icons";
                 };
 
