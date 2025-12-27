@@ -146,7 +146,7 @@ toplevel@{
                     }
                   ];
                   icon = customLib.util.getIcon {
-                    file = "searxng";
+                    file = "searxng.svg";
                     type = "icons";
                   };
                   definedAliases = [ "@sx" ];
