@@ -158,7 +158,7 @@
                 coder = {
                   displayName = "coder";
                   imageFile = getIcon {
-                    file = "coder";
+                    file = "coder.svg";
                     type = "icons";
                   };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
@@ -175,7 +175,7 @@
                 forgejo = {
                   displayName = "forgejo";
                   imageFile = getIcon {
-                    file = "forgejo";
+                    file = "forgejo.svg";
                     type = "icons";
                   };
                   public = true;
@@ -199,7 +199,7 @@
                 karakeep = {
                   displayName = "karakeep";
                   imageFile = getIcon {
-                    file = "karakeep";
+                    file = "karakeep.svg";
                     type = "icons";
                   };
                   public = true;
@@ -216,7 +216,7 @@
                 open-webui = {
                   displayName = "open-webui";
                   imageFile = getIcon {
-                    file = "open-webui";
+                    file = "open-webui.svg";
                     type = "icons";
                   };
                   public = true;
@@ -247,7 +247,7 @@
                 stirling-pdf = {
                   displayName = "stirling-pdf";
                   imageFile = getIcon {
-                    file = "stirling-pdf";
+                    file = "stirling-pdf.svg";
                     type = "icons";
                   };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/stirling-pdf".path;
@@ -265,7 +265,7 @@
                 zipline = {
                   displayName = "zipline";
                   imageFile = getIcon {
-                    file = "zipline";
+                    file = "zipline.svg";
                     type = "icons";
                   };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/zipline".path;
@@ -283,7 +283,7 @@
                 komga = {
                   displayName = "komga";
                   imageFile = getIcon {
-                    file = "komga";
+                    file = "komga.svg";
                     type = "icons";
                   };
                   public = true;
@@ -299,7 +299,7 @@
                 immich = {
                   displayName = "immich";
                   imageFile = getIcon {
-                    file = "immich";
+                    file = "immich.svg";
                     type = "icons";
                   };
                   public = true;
