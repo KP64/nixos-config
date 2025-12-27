@@ -29,7 +29,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # NOTE: nixpkgs templ is too new. Check fails.
+  # nixpkgs templ is too new. Check fails.
   preBuild = ''
     go tool templ generate
     cat $src/style/*.css | esbuild --loader=css --minify > ./static/style.css
