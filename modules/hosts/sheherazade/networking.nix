@@ -1,14 +1,14 @@
 { inputs, moduleWithSystem, ... }:
 {
   flake.modules.nixos.hosts-sheherazade = moduleWithSystem (
-    { system, ... }:
-    { config, pkgs, ... }:
+    { config, system, ... }:
+    nixos@{ pkgs, ... }:
     {
       networking = {
         domain = "srvd.space";
         firewall =
           let
-            dns = [ config.services.hickory-dns.settings.listen_port ];
+            dns = [ nixos.config.services.hickory-dns.settings.listen_port ];
           in
           {
             allowedTCPPorts = dns ++ [
@@ -18,67 +18,69 @@
           };
       };
 
-      sops.secrets = {
-        zone_signing_key = {
-          owner = config.systemd.services.hickory-dns.serviceConfig.User;
-          group = config.systemd.services.hickory-dns.serviceConfig.Group;
+      sops.secrets =
+        let
+          hickory = {
+            owner = nixos.config.users.users.hickory-dns.name;
+            inherit (nixos.config.users.users.hickory-dns) group;
+          };
+        in
+        {
+          "rfc2136/nameserver" = { };
+          "rfc2136/tsig_algorithm" = { };
+          "rfc2136/tsig_key" = { };
+          "rfc2136/tsig_secret" = { };
+          zone_signing_key = hickory;
+          tsig_secret_decoded = hickory // {
+            format = "binary";
+            sopsFile = ./tsig_key.enc;
+          };
         };
-        # "rfc2136/nameserver" = { };
-        # "rfc2136/tsig_algorithm" = { };
-        # "rfc2136/tsig_key" = { };
-        # "rfc2136/tsig_secret" = { };
-      };
 
-      # security.acme = {
-      #   acceptTerms = true;
-      #   defaults = {
-      #     email = "lzkfaea17@mozmail.com";
-      #     dnsProvider = "rfc2136";
-      #     credentialFiles =
-      #       let
-      #         inherit (config.sops) secrets;
-      #       in
-      #       {
-      #         RFC2136_NAMESERVER_FILE = secrets."rfc2136/nameserver".path;
-      #         RFC2136_TSIG_ALGORITHM = secrets."rfc2136/tsig_algorithm".path;
-      #         RFC2136_TSIG_KEY_FILE = secrets."rfc2136/tsig_key".path;
-      #         RFC2136_TSIG_SECRET_FILE = secrets."rfc2136/tsig_secret".path;
-      #       };
-      #     # dnsResolver = "1.1.1.1:53"; # TODO: Right resolver?
-      #   };
-      #   # certs.${config.networking.domain} = { inherit (config.services.nginx) group; };
-      # };
+      security.acme = {
+        acceptTerms = true;
+        defaults = {
+          email = "lzkfaea17@mozmail.com";
+          dnsProvider = "rfc2136";
+          dnsPropagationCheck = false; # Not needed because we are using local Resolver
+          credentialFiles =
+            let
+              inherit (nixos.config.sops) secrets;
+            in
+            {
+              RFC2136_NAMESERVER_FILE = secrets."rfc2136/nameserver".path;
+              RFC2136_TSIG_ALGORITHM_FILE = secrets."rfc2136/tsig_algorithm".path;
+              RFC2136_TSIG_KEY_FILE = secrets."rfc2136/tsig_key".path;
+              RFC2136_TSIG_SECRET_FILE = secrets."rfc2136/tsig_secret".path;
+            };
+        };
+      };
 
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
       #       This is needed so that we can set an owner to Hickory.
-      systemd.services.hickory-dns.serviceConfig = rec {
-        User = "hickory-dns";
-        Group = User;
+      users = {
+        groups.hickory-dns = { };
+        users.hickory-dns = {
+          name = "hickory-dns";
+          group = nixos.config.users.groups.hickory-dns.name;
+          isSystemUser = true;
+        };
+      };
+      systemd.services.hickory-dns.serviceConfig = {
+        User = nixos.config.users.users.hickory-dns.name;
+        Group = nixos.config.users.users.hickory-dns.group;
       };
       # TODO: Harden with DoT etc. once ready
       services.hickory-dns = {
         enable = true;
-        package = pkgs.hickory-dns.overrideAttrs (old: {
-          cargoBuildFeatures = (old.cargoBuildFeatures or [ ]) ++ [
-            "tls-ring" # DoT
-            "https-ring" # DoH
-            "quic-ring" # QUIC
-            "h3-ring" # DoH3
-            "dnssec-ring" # DNSSEC
-            "blocklist" # allow/deny blocklists
-            "recursor" # experimental recursive dns
-            "text-parsing"
-          ];
-        });
-        debug = true; # TODO: Remove
+        package = config.packages.hickory-dns;
         settings =
           let
             dnsLib = inputs.dns.lib;
-            inherit (dnsLib.combinators) host letsEncrypt;
+            inherit (dnsLib.combinators) letsEncrypt;
             dnsUtil = inputs.dns.util.${system};
           in
           {
-            # TODO: Finish Configuration. Look at examples: https://github.com/hickory-dns/hickory-dns/tree/main/tests/test-data/test_configs
             zones =
               # NOTE: These "default" zones do not ship with hickory-dns by default.
               #       Therefore manually specified.
@@ -155,32 +157,47 @@
                   };
                 }
                 rec {
-                  zone = config.networking.domain;
-                  keys = [
-                    {
-                      algorithm = "RSASHA256";
-                      purpose = "ZoneSigning";
-                      key_path = config.sops.secrets.zone_signing_key.path;
-                    }
-                  ];
+                  zone = nixos.config.networking.domain;
                   file = dnsUtil.writeZone zone rec {
                     TTL = 60;
                     SOA = {
                       nameServer = builtins.head NS;
                       adminEmail = "lzkfaea17@mozmail.com";
-                      serial = 2025122300;
+                      serial = 2025122701;
                     };
                     # TODO: This should generate based on nameserver subdomains
-                    NS = 2 |> builtins.genList (i: "ns${toString <| i + 1}.${config.networking.domain}.");
-                    A = [ "79.245.221.171" ];
-                    AAAA = [ "2003:c2:f708:eace:3378:8295:5534:ce14" ];
+                    NS = 2 |> builtins.genList (i: "ns${toString <| i + 1}.${nixos.config.networking.domain}.");
+                    # TODO: These IP's aren't static. Use RFC2136 to update them dynamically
+                    A = [ "91.6.62.126" ];
+                    AAAA = [ "2003:c2:f716:3813:a756:3a4a:8a7b:2ae6" ];
                     CAA = letsEncrypt SOA.adminEmail;
+                    # TODO: load balancing should be done to the machine serving the correct service.
                     subdomains = {
-                      redlib = host (builtins.head A) (builtins.head AAAA);
-                      ns1 = { inherit A; };
-                      ns2 = { inherit AAAA; };
+                      ns1 = { inherit A AAAA; };
+                      ns2 = { inherit A AAAA; }; # TODO: Add another machine that will be the 2nd NS
                     };
                   };
+                  stores = {
+                    type = "sqlite";
+                    zone_file_path = file;
+                    journal_file_path = "${nixos.config.networking.domain}_dnssec_update.jrnl";
+                    allow_update = true;
+                    tsig_keys = [
+                      {
+                        name = "tsig-key";
+                        algorithm = "hmac-sha256";
+                        # NOTE: 💢 Hickory requires the base64-decoded secret.
+                        key_file = nixos.config.sops.secrets.tsig_secret_decoded.path;
+                      }
+                    ];
+                  };
+                  keys = [
+                    {
+                      algorithm = "RSASHA256";
+                      purpose = "ZoneSigning";
+                      key_path = nixos.config.sops.secrets.zone_signing_key.path;
+                    }
+                  ];
                 }
               ];
           };

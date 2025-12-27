@@ -24,7 +24,7 @@ creation_rules:
           - *admin_kg_aladdin
           - *admin_kg_sindbad
 
-  - path_regex: modules\/hosts\/sheherazade\/secrets\.yaml$
+  - path_regex: modules\/hosts\/sheherazade\/\w+\.(yaml|enc|key)$
     key_groups:
       - age:
           - *host_sheherazade
