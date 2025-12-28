@@ -15,7 +15,6 @@ toplevel@{ inputs, ... }:
       ++ (with nixos-raspberrypi.nixosModules; [
         trusted-nix-caches
         nixpkgs-rpi
-        usb-gadget-ethernet
 
         raspberry-pi-4.base
       ])
