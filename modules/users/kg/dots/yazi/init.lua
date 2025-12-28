@@ -7,6 +7,7 @@ require("starship"):setup()
 require("session"):setup({
     sync_yanked = true,
 })
+require("recycle-bin"):setup()
 
 -- Show user/group of files in status bar
 Status:children_add(function()

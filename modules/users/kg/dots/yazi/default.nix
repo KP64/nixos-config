@@ -12,6 +12,7 @@
           ouch
           mediainfo
           rich-cli
+          trash-cli
         ];
 
         plugins = {
@@ -23,6 +24,8 @@
             mount
             piper
             relative-motions
+            recycle-bin
+            restore
             rich-preview
             smart-enter
             smart-filter
@@ -133,7 +136,69 @@
               desc = "Move in relative steps";
             }
           )
-        );
+        )
+        ++ [
+          {
+            on = [
+              "R"
+              "b"
+            ];
+            run = "plugin recycle-bin";
+            desc = "Open Recycle Bin menu";
+          }
+          {
+            on = [
+              "R"
+              "o"
+            ];
+            run = "plugin recycle-bin -- open";
+            desc = "Open Trash";
+          }
+          {
+            on = [
+              "R"
+              "e"
+            ];
+            run = "plugin recycle-bin -- empty";
+            desc = "Empty Trash";
+          }
+          {
+            on = [
+              "R"
+              "D"
+            ];
+            run = "plugin recycle-bin -- emptyDays";
+            desc = "Empty by days deleted";
+          }
+          {
+            on = [
+              "R"
+              "d"
+            ];
+            run = "plugin recycle-bin -- delete";
+            desc = "Delete from Trash";
+          }
+          {
+            on = [
+              "R"
+              "r"
+            ];
+            run = "plugin recycle-bin -- restore";
+            desc = "Restore from Trash";
+          }
+        ]
+        ++ [
+          {
+            on = [ "u" ];
+            run = "plugin restore";
+            desc = "Restore last deleted files/folders";
+          }
+          {
+            on = [ "U" ];
+            run = "plugin restore -- --interactive";
+            desc = "Restore deleted files/folders (Interactive)";
+          }
+        ];
 
         settings = {
           plugin =
