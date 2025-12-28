@@ -193,8 +193,9 @@
     };
 
     # Network Topology based on the nixosConfigurations
+    # TODO: Revert to oddlama's repo
     nix-topology = {
-      url = "github:oddlama/nix-topology";
+      url = "github:KP64/nix-topology";
       inputs = {
         devshell.follows = "";
         flake-utils.follows = "dedup_flake-utils";
