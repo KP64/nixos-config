@@ -111,7 +111,7 @@
 
     # Nix binary cache
     harmonia = {
-      url = "github:nix-community/harmonia";
+      url = "github:nix-community/harmonia/8e4c880987afead7ecc3c9b4a34dbb3ca076a1dc"; # TODO: Unpin
       # NOTE: Do not "delete" treefmt-nix or Harmonia won't build >:(
       inputs = {
         flake-parts.follows = "flake-parts";
@@ -203,9 +203,6 @@
         pre-commit-hooks.follows = "";
       };
     };
-
-    # Better hardware-configuration replacement
-    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
     # NixOS on the raspberry Pi 🥧
     # Do not override inputs. It has a binary cache.

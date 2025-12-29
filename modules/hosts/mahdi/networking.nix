@@ -2,7 +2,7 @@
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     {
-      sops.secrets."wireless.env" = { };
+      sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
         domain = "holab.ipv64.de";

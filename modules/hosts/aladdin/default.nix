@@ -22,6 +22,21 @@ toplevel@{ inputs, ... }:
         users-kg
       ]);
 
+      system.stateVersion = "25.11";
+      hardware = {
+        facter.reportPath = ./facter.json;
+        bluetooth.settings.General = {
+          FastConnectable = true;
+          Privacy = "network/on";
+          SecureConnection = "only";
+        };
+      };
+
+      time.timeZone = "Europe/Berlin";
+      console.keyMap = "de";
+      services.xserver.xkb.layout = "de";
+      boot.kernelPackages = pkgs.linuxPackages_zen;
+
       boot.binfmt = {
         preferStaticEmulators = true;
         emulatedSystems = [ "aarch64-linux" ];
@@ -46,19 +61,6 @@ toplevel@{ inputs, ... }:
         enable = true;
         enableVirtualCamera = true;
       };
-
-      hardware.bluetooth.settings.General = {
-        FastConnectable = true;
-        Privacy = "network/on";
-        SecureConnection = "only";
-      };
-
-      system.stateVersion = "25.11";
-      time.timeZone = "Europe/Berlin";
-      console.keyMap = "de";
-      services.xserver.xkb.layout = "de";
-
-      boot.kernelPackages = pkgs.linuxPackages_zen;
 
       sops.defaultSopsFile = ./secrets.yaml;
 

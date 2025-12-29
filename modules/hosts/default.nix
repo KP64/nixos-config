@@ -2,7 +2,6 @@
   config,
   lib,
   inputs,
-  self,
   ...
 }:
 let
@@ -88,18 +87,7 @@ in
           ++ (lib.optionals (config.flake.diskoConfigurations |> lib.hasAttr hostName) [
             inputs.disko.nixosModules.default
             config.flake.diskoConfigurations.${hostName}
-          ])
-          # Adds facter configuration if available
-          # TODO: Move to inhouse nixpkgs facter modules once facter is finally upstreamed
-          ++ (
-            let
-              facterPath = self + /modules/hosts/${hostName}/facter.json;
-            in
-            lib.optionals (builtins.pathExists facterPath) [
-              inputs.nixos-facter-modules.nixosModules.facter
-              { facter.reportPath = facterPath; }
-            ]
-          );
+          ]);
         };
       }
     );

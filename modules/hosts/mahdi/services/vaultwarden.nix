@@ -1,31 +1,26 @@
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, ... }:
+    { config, lib, ... }:
     {
-      services.nginx.virtualHosts."vaultwarden.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${config.services.vaultwarden.domain} = {
         enableACME = true;
         acmeRoot = null;
+        forceSSL = lib.mkForce false; # This is configured by `configureNginx`
         onlySSL = true;
         kTLS = true;
-        locations."/" = {
-          proxyWebsockets = true;
-          proxyPass = "http://localhost:${toString config.services.vaultwarden.config.ROCKET_PORT}";
-        };
       };
 
       sops.secrets."vaultwarden.env" = { };
 
+      # TODO: Package the newest version until it is in nixpkgs
       # TODO: Implement OAuth once it is stabilized
       #        - Enable Signups
       services.vaultwarden = {
         enable = true;
+        domain = "vaultwarden.${config.networking.domain}";
+        configureNginx = true;
         environmentFile = config.sops.secrets."vaultwarden.env".path;
         config = {
-          ROCKET_ADDRESS = "::1";
-          ROCKET_PORT = 8222;
-          ENABLE_WEBSOCKET = true;
-          DOMAIN = "https://vaultwarden.${config.networking.domain}";
-
           PUSH_ENABLED = false;
 
           SIGNUPS_ALLOWED = false;

@@ -8,10 +8,7 @@
       "unsupportedUrls": "bypass",
       "redirectOnlyInIncognito": false
     },
-    "invidious": [
-      "https://invidious.holab.ipv64.de",
-      "https://yt.moneten.cc"
-    ],
+    "invidious": ["https://invidious.holab.ipv64.de", "https://yt.moneten.cc"],
     "materialious": ["https://app.materialio.us"],
     "piped": ["https://pipedapi-libre.kavin.rocks"],
     "pipedMaterial": ["https://piped-material.xn--17b.net"],

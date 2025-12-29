@@ -26,6 +26,7 @@ toplevel@{ inputs, ... }:
       ]);
 
       system.stateVersion = "25.11";
+      hardware.facter.reportPath = ./facter.json;
 
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";

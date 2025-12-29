@@ -2,7 +2,7 @@
   flake.modules.nixos.hosts-aladdin =
     { config, lib, ... }:
     {
-      sops.secrets."wireless.env" = { };
+      sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
         useNetworkd = true; # Needed so that there aren't two IPv4/6 Addresses.
