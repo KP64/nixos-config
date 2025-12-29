@@ -1,6 +1,5 @@
 {
   flake.modules.homeManager.users-kg-glance = {
-    # TODO: Route videos and reddit to custom owned instances.
     services.glance = {
       enable = true;
       settings = {

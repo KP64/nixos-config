@@ -1,4 +1,4 @@
-{ inputs, ... }:
+toplevel@{ inputs, ... }:
 {
   flake.modules.homeManager.users-kg-glance =
     { config, lib, ... }:
@@ -59,6 +59,8 @@
               widgets = [
                 {
                   type = "videos";
+                  # TODO: Route this to own instance when it works
+                  video-url-template = "https://yt.moneten.cc/watch?v={VIDEO-ID}";
                   channels = [
                     "UCdp4_l1vPmpN-gDbUwhaRUQ" # Branch education
                     "UCsXVk37bltHxD1rDPwtNM8Q" # Kurzgesagt - In a Nutshell
@@ -74,6 +76,7 @@
                       (sub: {
                         type = "reddit";
                         subreddit = sub;
+                        comments-url-template = "${toplevel.config.flake.nixosConfigurations.mahdi.config.services.redlib.settings.REDLIB_FULL_URL}/{POST-PATH}";
                       })
                       [
                         "news"
