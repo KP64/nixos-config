@@ -2,7 +2,6 @@
 {
   imports = [ inputs.nix-topology.flakeModule ];
 
-  # TODO: Include non NixOS systems to topology (i.e. homeConfigurations)
   perSystem =
     { lib, ... }:
     {

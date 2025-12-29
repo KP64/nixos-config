@@ -1,5 +1,29 @@
-toplevel: {
-  flake.modules.homeManager."kg@sindbad" =
+toplevel@{ customLib, ... }:
+let
+  hostName = "sindbad";
+in
+{
+  perSystem.topology.modules = [
+    {
+      nodes.${hostName} = {
+        deviceType = "device";
+        deviceIcon = customLib.util.getIcon {
+          file = "arch.svg";
+          type = "topology";
+        };
+        interfaces."wlan0" = { };
+        hardware = {
+          info = "Lenovo Yoga 370";
+          image = customLib.util.getIcon {
+            file = "lenovo-yoga-370.png";
+            type = "topology";
+          };
+        };
+      };
+    }
+  ];
+
+  flake.modules.homeManager."kg@${hostName}" =
     { config, pkgs, ... }:
     {
       imports = with toplevel.config.flake.modules.homeManager; [
