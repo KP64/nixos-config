@@ -25,6 +25,8 @@ toplevel@{ inputs, ... }:
         users-kg
       ]);
 
+      home-manager.users.kg.home = { inherit (config.system) stateVersion; };
+
       system.stateVersion = "25.11";
       hardware.facter.reportPath = ./facter.json;
 

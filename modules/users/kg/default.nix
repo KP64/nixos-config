@@ -82,7 +82,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         };
 
         home = {
-          stateVersion = "25.11"; # TODO: This shouldn't be hardcoded into the user itself.
           shellAliases.c = "clear";
           packages =
             (lib.optionals (system != "aarch64-linux") [

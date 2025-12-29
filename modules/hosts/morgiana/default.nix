@@ -1,6 +1,7 @@
 toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.hosts-morgiana =
+    { config, ... }:
     let
       inherit (inputs) nixos-raspberrypi;
     in
@@ -27,6 +28,8 @@ toplevel@{ inputs, ... }:
 
         users-kg
       ]);
+
+      home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
       system.stateVersion = "26.05";
       hardware.facter.reportPath = ./facter.json;

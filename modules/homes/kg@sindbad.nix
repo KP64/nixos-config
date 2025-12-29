@@ -20,10 +20,13 @@ toplevel: {
         users-kg-vesktop
       ];
 
-      home.packages = with pkgs; [
-        impala
-        noto-fonts-color-emoji # Needed for icons
-      ];
+      home = {
+        stateVersion = "25.11";
+        packages = with pkgs; [
+          impala
+          noto-fonts-color-emoji # Needed for icons
+        ];
+      };
 
       services.network-manager-applet.enable = true;
 
