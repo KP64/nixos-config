@@ -304,7 +304,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "wikiless": ["https://wikiless.moneten.cc"],
+    "wikiless": ["https://wiki.moneten.cc"],
     "wikimore": ["https://wikimore.private.coffee"],
     "waybackMachine": {
       "enabled": false,
