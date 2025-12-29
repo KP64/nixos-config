@@ -1,4 +1,4 @@
 { customLib, ... }:
 {
-  imports = customLib.fs.scanPath { path = ./.; };
+  imports = customLib.fs.scanPath { p = ./.; };
 }

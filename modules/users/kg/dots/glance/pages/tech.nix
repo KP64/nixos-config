@@ -78,9 +78,9 @@ toplevel: {
                 ]
                 ++
                   map
-                    (sub: {
+                    (subreddit: {
                       type = "reddit";
-                      subreddit = sub;
+                      inherit subreddit;
                       collapse-after = 3;
                     })
                     [

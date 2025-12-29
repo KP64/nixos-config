@@ -12,7 +12,7 @@
     # Example
 
     ```nix
-    scanPath { path = "${self}/modules/hosts/aladdin"; }
+    scanPath { p = "${self}/modules/hosts/aladdin"; }
     =>
     [
       "default.nix"
@@ -29,25 +29,21 @@
 
     # Arguments
 
-    path
+    p
     : The path to be scanned
   */
   scanPath =
     {
-      path,
+      p,
       excludeFlake ? true,
     }:
-    path
+    p
     |> builtins.readDir
     |> lib.filterAttrs (
-      path: type:
+      p: type:
       type == "directory"
-      || (
-        path != "default.nix"
-        |> lib.and (excludeFlake -> path != "flake.nix")
-        |> lib.and (lib.hasSuffix ".nix" path)
-      )
+      || (p != "default.nix" && (excludeFlake -> p != "flake.nix") && lib.hasSuffix ".nix" p)
     )
     |> builtins.attrNames
-    |> map (f: "${path}/${f}");
+    |> map (f: "${p}/${f}");
 }

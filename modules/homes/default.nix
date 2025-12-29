@@ -17,9 +17,9 @@ in
     |> lib.mapAttrs' (
       userHost: module:
       let
-        split = userHost |> lib.splitString infix;
-        username = split |> builtins.head;
-        hostname = split |> lib.last;
+        userHostSplit = userHost |> lib.splitString infix;
+        username = userHostSplit |> builtins.head;
+        hostname = userHostSplit |> lib.last;
 
         host = additionalHosts.${hostname};
       in

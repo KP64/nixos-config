@@ -73,9 +73,9 @@ toplevel@{ inputs, ... }:
                   type = "group";
                   widgets =
                     map
-                      (sub: {
+                      (subreddit: {
                         type = "reddit";
-                        subreddit = sub;
+                        inherit subreddit;
                         comments-url-template = "${toplevel.config.flake.nixosConfigurations.mahdi.config.services.redlib.settings.REDLIB_FULL_URL}/{POST-PATH}";
                       })
                       [

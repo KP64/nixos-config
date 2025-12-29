@@ -17,8 +17,7 @@
       hmConfigs = getConfigs config.flake.homeConfigurations;
 
       getRelativePath =
-        paths:
-        paths |> map (path: path |> toString |> builtins.match ".*(modules/.*)") |> map builtins.head;
+        paths: paths |> map (p: p |> toString |> builtins.match ".*(modules/.*)") |> map builtins.head;
 
       nixosUserHmConfigs =
         nixosConfigs
@@ -31,10 +30,8 @@
 
       facterFiles =
         nixosConfigs
-        |> customLib.util.mapIfAvailable {
-          needs = "facter";
-          extraAccess = [ "reportPath" ];
-        }
+        |> map (c: c.hardware.facter.reportPath)
+        |> builtins.filter (p: p != null)
         |> getRelativePath;
 
       hostSopsFiles =
