@@ -1,37 +1,33 @@
-{ inputs, customLib, ... }:
+toplevel@{ inputs, customLib, ... }:
 {
   imports = [ inputs.nix-topology.flakeModule ];
 
-  perSystem =
-    { lib, ... }:
+  perSystem.topology.modules = toplevel.lib.singleton (
+    { config, ... }:
+    let
+      topologyLib = config.lib.topology;
+    in
     {
-      topology.modules = lib.singleton (
-        { config, ... }:
-        let
-          topologyLib = config.lib.topology;
-        in
-        {
-          nodes = {
-            internet = topologyLib.mkInternet { connections = topologyLib.mkConnectionRev "router" "WAN1"; };
-            router = topologyLib.mkRouter "Speedport" {
-              info = "Smart 4";
-              image = customLib.util.getIcon {
-                file = "speedport.png";
-                type = "topology";
-              };
-              interfaceGroups = [
-                [ "wifi" ]
-                [ "Link/LAN1" ]
-                (3 |> builtins.genList (i: "LAN${toString <| i + 2}"))
-                [ "WAN1" ]
-              ];
-            };
+      nodes = {
+        internet = topologyLib.mkInternet { connections = topologyLib.mkConnectionRev "router" "WAN1"; };
+        router = topologyLib.mkRouter "Speedport" {
+          info = "Smart 4";
+          image = customLib.util.getIcon {
+            file = "speedport.png";
+            type = "topology";
           };
-          networks.home = {
-            name = "Home Network";
-            cidrv4 = "192.168.2.0/24";
-          };
-        }
-      );
-    };
+          interfaceGroups = [
+            [ "wifi" ]
+            [ "Link/LAN1" ]
+            (3 |> builtins.genList (i: "LAN${toString <| i + 2}"))
+            [ "WAN1" ]
+          ];
+        };
+      };
+      networks.home = {
+        name = "Home Network";
+        cidrv4 = "192.168.2.0/24";
+      };
+    }
+  );
 }

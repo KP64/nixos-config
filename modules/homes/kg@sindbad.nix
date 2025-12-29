@@ -3,7 +3,11 @@ let
   hostName = "sindbad";
 in
 {
-  perSystem.topology.modules = [
+  perSystem.topology.modules = toplevel.lib.singleton (
+    { config, ... }:
+    let
+      topologyLib = config.lib.topology;
+    in
     {
       nodes.${hostName} = {
         deviceType = "device";
@@ -11,7 +15,10 @@ in
           file = "arch.svg";
           type = "topology";
         };
-        interfaces."wlan0" = { };
+        interfaces."wlan0" = {
+          physicalConnections = [ (topologyLib.mkConnection "router" "wifi") ];
+          network = "home";
+        };
         hardware = {
           info = "Lenovo Yoga 370";
           image = customLib.util.getIcon {
@@ -21,7 +28,7 @@ in
         };
       };
     }
-  ];
+  );
 
   flake.modules.homeManager."kg@${hostName}" =
     { config, pkgs, ... }:
