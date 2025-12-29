@@ -12,7 +12,7 @@ toplevel@{ inputs, ... }:
       ]
       ++ (with nixos-raspberrypi.lib; [
         inject-overlays
-        # inject-overlays-global # TODO: Reenable? causes lots of rebuilds
+        inject-overlays-global
       ])
       ++ (with nixos-raspberrypi.nixosModules; [
         trusted-nix-caches

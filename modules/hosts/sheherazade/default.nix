@@ -11,7 +11,7 @@ toplevel@{ inputs, ... }:
       ]
       ++ (with nixos-raspberrypi.lib; [
         inject-overlays
-        # inject-overlays-global
+        inject-overlays-global
       ])
       ++ (with nixos-raspberrypi.nixosModules; [
         trusted-nix-caches
