@@ -14,14 +14,8 @@
           };
           info = "Raspberry Pi 400";
         };
-        # TODO: Correct interface once it is on wifi again
-        # interfaces.wlan0 = {
-        #   physicalConnections = [ (mkConnection "router" "wifi") ];
-        #   network = "home";
-        # };
-        # TODO: This should be the Dell remote controller later
-        interfaces.end0 = {
-          physicalConnections = [ (mkConnection "router" "LAN2") ];
+        interfaces.wlan0 = {
+          physicalConnections = [ (mkConnection "router" "wifi") ];
           network = "home";
         };
       };

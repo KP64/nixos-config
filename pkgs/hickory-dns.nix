@@ -28,7 +28,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     "blocklist" # allow/deny blocklists
     "recursor" # experimental recursive dns
+    "toml"
+    "tokio"
+    "serde"
+    "mdns"
     "text-parsing"
+
+    "system-config"
+    "rustls-platform-verifier"
+    "resolver"
+
+    # "metrics"
+    # "prometheus-metrics"
   ];
 
   buildInputs = [ sqlite ];

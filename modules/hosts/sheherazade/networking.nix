@@ -2,10 +2,41 @@
 {
   flake.modules.nixos.hosts-sheherazade = moduleWithSystem (
     { config, system, ... }:
-    nixos@{ pkgs, ... }:
+    nixos@{ lib, ... }:
     {
+      sops.secrets =
+        let
+          hickory = {
+            owner = nixos.config.users.users.hickory-dns.name;
+            inherit (nixos.config.users.users.hickory-dns) group;
+          };
+        in
+        {
+          "wireless.env".owner = nixos.config.users.users.wpa_supplicant.name;
+          "rfc2136/nameserver" = { };
+          "rfc2136/tsig_algorithm" = { };
+          "rfc2136/tsig_key" = { };
+          "rfc2136/tsig_secret" = { };
+          zone_signing_key = hickory;
+          tsig_secret_decoded = hickory // {
+            format = "binary";
+            sopsFile = ./tsig_key.enc;
+          };
+        };
+
+      services.resolved.enable = false;
       networking = {
         domain = "srvd.space";
+        resolvconf.useLocalResolver = true;
+        useNetworkd = true;
+        useDHCP = false;
+        wireless = {
+          enable = true;
+          secretsFile = nixos.config.sops.secrets."wireless.env".path;
+          fallbackToWPA2 = false;
+          scanOnLowSignal = false;
+          networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
+        };
         firewall =
           let
             dns = [ nixos.config.services.hickory-dns.settings.listen_port ];
@@ -18,24 +49,27 @@
           };
       };
 
-      sops.secrets =
-        let
-          hickory = {
-            owner = nixos.config.users.users.hickory-dns.name;
-            inherit (nixos.config.users.users.hickory-dns) group;
-          };
-        in
-        {
-          "rfc2136/nameserver" = { };
-          "rfc2136/tsig_algorithm" = { };
-          "rfc2136/tsig_key" = { };
-          "rfc2136/tsig_secret" = { };
-          zone_signing_key = hickory;
-          tsig_secret_decoded = hickory // {
-            format = "binary";
-            sopsFile = ./tsig_key.enc;
-          };
+      # We don't care which interface is online here
+      systemd.network.wait-online.anyInterface = true;
+      boot.initrd.systemd.network.wait-online.anyInterface = true;
+
+      systemd.network = {
+        enable = true;
+        networks."10-wlan0" = {
+          name = "wlan0";
+          linkConfig.RequiredForOnline = "routable";
+          address = [ "192.168.2.224/24" ];
+          gateway = [ "192.168.2.1" ];
+          networkConfig =
+            let
+              inherit (lib) boolToYesNo;
+            in
+            {
+              DNSSEC = boolToYesNo true;
+              DNSOverTLS = boolToYesNo true;
+            };
         };
+      };
 
       security.acme = {
         acceptTerms = true;
@@ -66,11 +100,14 @@
           isSystemUser = true;
         };
       };
-      systemd.services.hickory-dns.serviceConfig = {
-        User = nixos.config.users.users.hickory-dns.name;
-        Group = nixos.config.users.users.hickory-dns.group;
+      systemd.services.hickory-dns = {
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          User = nixos.config.users.users.hickory-dns.name;
+          Group = nixos.config.users.users.hickory-dns.group;
+        };
       };
-      # TODO: Harden with DoT etc. once ready
       services.hickory-dns = {
         enable = true;
         package = config.packages.hickory-dns;
@@ -150,10 +187,36 @@
                 {
                   zone = ".";
                   zone_type = "External";
+                  # TODO: Once Hickory is ready make this a recursor again and enable DoT
+                  # stores = {
+                  #   type = "recursor";
+                  #   roots = pkgs.dns-root-data + /root.hints;
+                  #   dnssec_policy.ValidateWithStaticKey.path = pkgs.dns-root-data + /root.key;
+                  # };
                   stores = {
-                    type = "recursor";
-                    roots = pkgs.dns-root-data + /root.hints;
-                    dnssec_policy.ValidateWithStaticKey.path = pkgs.dns-root-data + /root.key;
+                    type = "forward";
+                    name_servers =
+                      lib.mapCartesianProduct
+                        (
+                          { protocol, upstream }:
+                          {
+                            socket_addr = "${upstream}:53";
+                            protocol.type = protocol;
+                            trust_negative_responses = false;
+                          }
+                        )
+                        {
+                          protocol = [
+                            "tcp"
+                            "udp"
+                          ];
+                          upstream = [
+                            "9.9.9.9"
+                            "149.112.112.112"
+                            "1.1.1.1"
+                            "1.0.0.1"
+                          ];
+                        };
                   };
                 }
                 rec {
@@ -171,10 +234,9 @@
                     A = [ "91.6.62.126" ];
                     AAAA = [ "2003:c2:f716:3813:a756:3a4a:8a7b:2ae6" ];
                     CAA = letsEncrypt SOA.adminEmail;
-                    # TODO: load balancing should be done to the machine serving the correct service.
                     subdomains = {
                       ns1 = { inherit A AAAA; };
-                      ns2 = { inherit A AAAA; }; # TODO: Add another machine that will be the 2nd NS
+                      ns2 = { inherit A AAAA; };
                     };
                   };
                   stores = {
