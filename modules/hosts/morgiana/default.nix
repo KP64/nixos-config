@@ -37,6 +37,12 @@ toplevel@{ inputs, ... }:
       time.timeZone = "Europe/Berlin";
       console.keyMap = "de";
 
-      users.users.root.password = "12345";
+      sops.defaultSopsFile = ./secrets.yaml;
+      users.users.root.password = config.sops.secrets.kg_password.path;
+
+      documentation = {
+        nixos.enable = false;
+        doc.enable = false;
+      };
     };
 }

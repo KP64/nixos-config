@@ -1,6 +1,7 @@
 keys:
   - &host_aladdin age147qz8tf8tlctz78l4kmgruu032z9jd9v4wku3slpx0m2fek7effqn2tv9u
   - &host_mahdi age1k6hkw62h3js987u666pj4y2ld3p8yvd38e8w8z3sgfc3tflyjq9sru0mf7
+  - &host_morgiana age1ppkactugl7h5yax5ltc78ak4cyva6fq3jclytdzazlakvrmmm9zq6024zv
   - &host_sheherazade age17pceh2w752g8k0wd3x7swqn9n9fvd4s26yewzeg0d86y4xxrx3hs3ccgty
   - &host_zarqa age1492l7x22sacvy0vf8z722twgqwfsxemmwsaempjd3ujnwyx8m5lqq2qa79
 
@@ -20,6 +21,14 @@ creation_rules:
     key_groups:
       - age:
           - *host_mahdi
+          - *admin_kg_aladdin
+          - *admin_kg_mahdi
+          - *admin_kg_sindbad
+
+  - path_regex: modules\/hosts\/morgiana\/secrets\.yaml$
+    key_groups:
+      - age:
+          - *host_morgiana
           - *admin_kg_aladdin
           - *admin_kg_mahdi
           - *admin_kg_sindbad
@@ -45,6 +54,7 @@ creation_rules:
       - age:
           - *host_aladdin
           - *host_mahdi
+          - *host_morgiana
           - *host_sheherazade
           - *host_zarqa
           - *admin_kg_aladdin
