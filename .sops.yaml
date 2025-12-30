@@ -6,7 +6,6 @@ keys:
 
   - &admin_kg_aladdin age1860xuy8hczqepjr5ys9mm6nshtdkss98uv0pj64d9xy4tyct8gkq4c87gl
   - &admin_kg_mahdi age16xq27lvvv3j7pvkp0rk6jzljdhldevlrucnv906tuq0mfecvuq4q0pznww
-  - &admin_kg_sheherazade age15mkhe3qhvlf6c4034zz5l5n59xtu24zf02jmuz8w0088cp7m3f5se32ns3
   - &admin_kg_sindbad age1wuhm8n9e3vp8yqug3ee0q2apxk72jevjlupep0uhk363rqxlm4psezexxx
 
 creation_rules:
@@ -15,20 +14,20 @@ creation_rules:
       - age:
           - *host_aladdin
           - *admin_kg_aladdin
+          - *admin_kg_sindbad
 
   - path_regex: modules\/hosts\/mahdi\/secrets\.yaml$
     key_groups:
       - age:
           - *host_mahdi
-          - *admin_kg_mahdi
           - *admin_kg_aladdin
+          - *admin_kg_mahdi
           - *admin_kg_sindbad
 
   - path_regex: modules\/hosts\/sheherazade\/\w+\.(yaml|enc|key)$
     key_groups:
       - age:
           - *host_sheherazade
-          - *admin_kg_sheherazade
           - *admin_kg_aladdin
           - *admin_kg_mahdi
           - *admin_kg_sindbad
@@ -37,8 +36,8 @@ creation_rules:
     key_groups:
       - age:
           - *host_zarqa
-          - *admin_kg_sheherazade
           - *admin_kg_aladdin
+          - *admin_kg_mahdi
           - *admin_kg_sindbad
 
   - path_regex: modules\/users\/kg\/secrets\.yaml$
@@ -50,5 +49,4 @@ creation_rules:
           - *host_zarqa
           - *admin_kg_aladdin
           - *admin_kg_mahdi
-          - *admin_kg_sheherazade
           - *admin_kg_sindbad
