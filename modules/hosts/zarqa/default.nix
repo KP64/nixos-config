@@ -1,6 +1,5 @@
 toplevel@{ inputs, ... }:
 {
-  # FIXME: TODO: Do NOT Reuse Passwords
   flake.modules.nixos.hosts-zarqa =
     { config, ... }:
     let
