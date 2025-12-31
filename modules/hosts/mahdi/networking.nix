@@ -55,7 +55,6 @@
             {
               DNSSEC = boolToYesNo true;
               DNSOverTLS = boolToYesNo true;
-              IPv6PrivacyExtensions = boolToYesNo true;
             };
         };
       };
