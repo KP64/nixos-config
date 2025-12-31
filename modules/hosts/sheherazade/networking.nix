@@ -226,17 +226,17 @@
                     SOA = {
                       nameServer = builtins.head NS;
                       adminEmail = "lzkfaea17@mozmail.com";
-                      serial = 2025122701;
+                      serial = 2025123101;
                     };
                     # TODO: This should generate based on nameserver subdomains
                     NS = 2 |> builtins.genList (i: "ns${toString <| i + 1}.${nixos.config.networking.domain}.");
                     # TODO: These IP's aren't static. Use RFC2136 to update them dynamically
-                    A = [ "91.6.62.126" ];
-                    AAAA = [ "2003:c2:f716:3813:a756:3a4a:8a7b:2ae6" ];
+                    A = [ "79.245.216.105" ];
                     CAA = letsEncrypt SOA.adminEmail;
                     subdomains = {
-                      ns1 = { inherit A AAAA; };
-                      ns2 = { inherit A AAAA; };
+                      "*" = { inherit A; };
+                      ns1 = { inherit A; };
+                      ns2 = { inherit A; };
                     };
                   };
                   stores = {
