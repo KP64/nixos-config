@@ -14,6 +14,20 @@
 
       networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
+      # NOTE: When running forgejo for the first time run this command:
+      # sudo -u forgejo \
+      #   <the forgejo binary of the systemd service> \
+      #   --config <forgejo statedir>/custom/conf/app.ini \
+      #   admin auth add-oauth \
+      #   --provider=openidConnect \
+      #   --name=kanidm \
+      #   --key=forgejo \
+      #   --secret=bogus \
+      #   --auto-discover-url=https://idm.srvd.space/oauth2/openid/forgejo/.well-known/openid-configuration \
+      #   --scopes="openid email profile
+      #
+      # To Check that it worked here is the sanity check command:
+      # sudo -u forgejo <forgejo binary of systemd service> admin auth list --config <forgejo statedir>/custom/conf/app.ini
       services.forgejo = {
         enable = true;
         package = pkgs.forgejo; # Newest version ;)
@@ -36,6 +50,7 @@
             PASSWORD_COMPLEXITY = "lower,upper,digit,spec";
             PASSWORD_CHECK_PWN = true;
           };
+          oauth2_client.ENABLE_AUTO_REGISTRATION = true;
           session.COOKIE_SECURE = true;
           service = {
             ALLOW_ONLY_EXTERNAL_REGISTRATION = true;
