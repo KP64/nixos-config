@@ -13,10 +13,6 @@
         in
         {
           "wireless.env".owner = nixos.config.users.users.wpa_supplicant.name;
-          "rfc2136/nameserver" = { };
-          "rfc2136/tsig_algorithm" = { };
-          "rfc2136/tsig_key" = { };
-          "rfc2136/tsig_secret" = { };
           zone_signing_key = hickory;
           tsig_secret_decoded = hickory // {
             format = "binary";
@@ -67,25 +63,6 @@
             {
               DNSSEC = boolToYesNo true;
               DNSOverTLS = boolToYesNo true;
-            };
-        };
-      };
-
-      security.acme = {
-        acceptTerms = true;
-        defaults = {
-          email = "lzkfaea17@mozmail.com";
-          dnsProvider = "rfc2136";
-          dnsPropagationCheck = false; # Not needed because we are using local Resolver
-          credentialFiles =
-            let
-              inherit (nixos.config.sops) secrets;
-            in
-            {
-              RFC2136_NAMESERVER_FILE = secrets."rfc2136/nameserver".path;
-              RFC2136_TSIG_ALGORITHM_FILE = secrets."rfc2136/tsig_algorithm".path;
-              RFC2136_TSIG_KEY_FILE = secrets."rfc2136/tsig_key".path;
-              RFC2136_TSIG_SECRET_FILE = secrets."rfc2136/tsig_secret".path;
             };
         };
       };

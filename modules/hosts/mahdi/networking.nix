@@ -1,11 +1,11 @@
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     {
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
-        domain = "holab.ipv64.de";
+        inherit (toplevel.config.flake.nixosConfigurations.sheherazade.config.networking) domain;
         useNetworkd = true; # Needed so that there aren't two IPv4/6 Addresses.
         useDHCP = false; # Let systemd configure everything
         wireless = {
