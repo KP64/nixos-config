@@ -69,6 +69,19 @@ toplevel@{
                 url = "https://www.semanticscholar.org/";
               }
               {
+                name = "Privacy";
+                bookmarks = [
+                  {
+                    name = "Privacy";
+                    url = "https://www.privacy.com/";
+                  }
+                  {
+                    name = "SimpleLogin";
+                    url = "https://simplelogin.io/";
+                  }
+                ];
+              }
+              {
                 name = "Rust sites";
                 bookmarks = [
                   {
