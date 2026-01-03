@@ -8,7 +8,7 @@
       "unsupportedUrls": "bypass",
       "redirectOnlyInIncognito": false
     },
-    "invidious": ["https://invidious.holab.ipv64.de", "https://yt.moneten.cc"],
+    "invidious": ["https://invidious.srvd.space", "https://yt.moneten.cc"],
     "materialious": ["https://app.materialio.us"],
     "piped": ["https://pipedapi-libre.kavin.rocks"],
     "pipedMaterial": ["https://piped-material.xn--17b.net"],
@@ -57,7 +57,7 @@
       "redirectType": "main_frame"
     },
     "libreddit": [],
-    "redlib": ["https://redlib.holab.ipv64.de", "https://red.moneten.cc"],
+    "redlib": ["https://redlib.srvd.space", "https://red.moneten.cc"],
     "teddit": [],
     "eddrit": ["https://eddrit.com"],
     "tumblr": {
@@ -181,7 +181,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "dumb": ["https://dm.vern.cc", "https://dumb.holab.ipv64.de"],
+    "dumb": ["https://dm.vern.cc", "https://dumb.srvd.space"],
     "intellectual": ["https://intellectual.insprill.net"],
     "medium": {
       "frontend": "scribe",
