@@ -35,44 +35,7 @@
           };
           nushell = enableAsFallback;
           ruff = enableAsFallback;
-          rust_analyzer = enableAsFallback // {
-            config = {
-              assist.preferSelf = true;
-              completion = {
-                fullFunctionSignatures.enable = true;
-                termSearch.enable = true;
-              };
-              diagnostics.styleLints.enable = true;
-              hover.actions.references = true;
-              inlayHints = {
-                bindingModeHints.enable = true;
-                closureCaptureHints.enable = true;
-                closureReturnTypeHints.enable = "with_block";
-                discriminantHints.enable = "fieldless";
-                expressionAdjustmentHints = {
-                  enable = "always";
-                  hideOutsideUnsafe = true;
-                  mode = "prefer_prefix";
-                };
-                genericParameterHints = {
-                  lifetime.enable = true;
-                  type.enable = true;
-                };
-                implicitSizedBoundHints.enable = true;
-                lifetimeElisionHints = {
-                  enable = "skip_trivial";
-                  useParameterNames = true;
-                };
-                rangeExclusiveHints.enable = true;
-              };
-              lens.references = {
-                adt.enable = true;
-                enumVariant.enable = true;
-                method.enable = true;
-                trait.enable = true;
-              };
-            };
-          };
+          rust_analyzer = enableAsFallback;
           statix = enableAsFallback;
           taplo = enableAsFallback;
           typos_lsp = enableAsFallback;

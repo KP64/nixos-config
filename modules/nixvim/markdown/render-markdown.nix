@@ -5,7 +5,7 @@
       dependencies.tree-sitter.enable = true;
 
       # Needed for latex support
-      extraPackages = [ pkgs.python313Packages.pylatexenc ];
+      extraPackagesAfter = [ pkgs.python313Packages.pylatexenc ];
 
       plugins = {
         treesitter = {
