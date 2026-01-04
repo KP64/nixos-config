@@ -2,7 +2,7 @@
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     {
-      services.nginx.virtualHosts."forgejo.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;

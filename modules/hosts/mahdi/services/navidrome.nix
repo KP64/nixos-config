@@ -1,8 +1,11 @@
 {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
+    let
+      domain = "navidrome.${config.networking.domain}";
+    in
     {
-      services.nginx.virtualHosts."navidrome.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -18,7 +21,7 @@
         enable = true;
         environmentFile = config.sops.secrets."navidrome.env".path;
         settings = {
-          BaseUrl = "https://navidrome.${config.networking.domain}";
+          BaseUrl = "https://${domain}";
           SearchFullString = true;
         };
       };

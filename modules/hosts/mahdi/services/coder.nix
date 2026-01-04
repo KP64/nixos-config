@@ -1,8 +1,11 @@
 {
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
+    let
+      domain = "coder.${config.networking.domain}";
+    in
     {
-      services.nginx.virtualHosts."coder.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -31,8 +34,8 @@
       services.coder = {
         enable = true;
         package = pkgs.coder.override { channel = "mainline"; };
-        accessUrl = "https://coder.${config.networking.domain}";
-        wildcardAccessUrl = "*.coder.${config.networking.domain}";
+        accessUrl = "https://${domain}";
+        wildcardAccessUrl = "*.${domain}";
         listenAddress = "127.0.0.1:45467";
         environment = {
           file = config.sops.secrets."coder.env".path;

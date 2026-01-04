@@ -1,8 +1,11 @@
 {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
+    let
+      domain = "redlib.${config.networking.domain}";
+    in
     {
-      services.nginx.virtualHosts."redlib.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -18,8 +21,7 @@
         settings = {
           REDLIB_ROBOTS_DISABLE_INDEXING = true;
           REDLIB_ENABLE_RSS = true;
-          REDLIB_FULL_URL = "https://redlib.${config.networking.domain}";
-
+          REDLIB_FULL_URL = "https://${domain}";
           REDLIB_DEFAULT_BLUR_SPOILER = true;
           REDLIB_DEFAULT_SHOW_NSFW = true;
           REDLIB_DEFAULT_BLUR_NSFW = true;

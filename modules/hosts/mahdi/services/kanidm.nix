@@ -164,7 +164,7 @@
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
                   allowInsecureClientDisablePkce = true;
                   originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
-                  originLanding = "https://coder.${config.networking.domain}";
+                  originLanding = config.services.coder.accessUrl;
                   preferShortUsername = true;
                   scopeMaps."coder.access" = [
                     "email"

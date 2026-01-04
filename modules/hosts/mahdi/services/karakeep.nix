@@ -6,8 +6,11 @@
       pkgs,
       ...
     }:
+    let
+      domain = "karakeep.${config.networking.domain}";
+    in
     {
-      services.nginx.virtualHosts."karakeep.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -29,7 +32,7 @@
             OAUTH_CLIENT_ID = "karakeep";
           in
           {
-            NEXTAUTH_URL = "https://karakeep.${config.networking.domain}";
+            NEXTAUTH_URL = "https://${domain}";
 
             DISABLE_PASSWORD_AUTH = "true";
 

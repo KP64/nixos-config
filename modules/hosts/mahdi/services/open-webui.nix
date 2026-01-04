@@ -1,8 +1,11 @@
 toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
+    let
+      domain = "open-webui.${config.networking.domain}";
+    in
     {
-      services.nginx.virtualHosts."open-webui.${config.networking.domain}" = {
+      services.nginx.virtualHosts.${domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -36,7 +39,7 @@ toplevel: {
             OAUTH_CLIENT_ID = "open-webui";
           in
           {
-            WEBUI_URL = "https://open-webui.${config.networking.domain}";
+            WEBUI_URL = "https://${domain}";
 
             OLLAMA_BASE_URLS = builtins.concatStringsSep ";" [
               # TODO: Declarative IP of Desktop
