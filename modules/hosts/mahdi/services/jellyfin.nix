@@ -8,7 +8,7 @@
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://localhost:${toString 8096}"; # HTTP WebUI Port
+          proxyPass = "http://127.0.0.1:${toString 8096}"; # HTTP WebUI Port
         };
       };
 

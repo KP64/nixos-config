@@ -9,7 +9,7 @@
         kTLS = true;
         locations."/" = {
           proxyWebsockets = true;
-          proxyPass = "http://localhost:${toString config.services.code-server.port}";
+          proxyPass = "http://127.0.0.1:${toString config.services.code-server.port}";
         };
       };
 

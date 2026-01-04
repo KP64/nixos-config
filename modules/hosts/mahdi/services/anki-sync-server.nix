@@ -9,7 +9,7 @@
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.anki-sync-server.port}";
+          proxyPass = "http://127.0.0.1:${toString config.services.anki-sync-server.port}";
         };
       };
 

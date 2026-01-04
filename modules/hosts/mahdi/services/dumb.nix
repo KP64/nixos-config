@@ -10,7 +10,7 @@ toplevel: {
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.dumb.port}";
+          proxyPass = "http://127.0.0.1:${toString config.services.dumb.port}";
         };
       };
 

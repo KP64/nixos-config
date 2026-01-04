@@ -32,7 +32,7 @@ toplevel@{
             general.autoScroll = true;
             sidebar.verticalTabs = true;
             browser = {
-              startup.homepage = "http://localhost:${toString config.services.glance.settings.server.port}";
+              startup.homepage = "http://127.0.0.1:${toString config.services.glance.settings.server.port}";
               newtabpage = {
                 enabled = true;
                 activity-stream = {

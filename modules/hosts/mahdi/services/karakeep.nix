@@ -13,7 +13,7 @@
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://localhost:${config.services.karakeep.extraEnvironment.PORT}";
+          proxyPass = "http://127.0.0.1:${config.services.karakeep.extraEnvironment.PORT}";
         };
       };
 

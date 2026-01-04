@@ -9,7 +9,7 @@
       #   onlySSL = true;
       #   kTLS = true;
       #   locations."/" = {
-      #     proxyPass = "http://localhost:${toString config.services.immich.port}";
+      #     proxyPass = "http://127.0.0.1:${toString config.services.immich.port}";
       #     proxyWebsockets = true;
       #     extraConfig = ''
       #       client_max_body_size 50000M;

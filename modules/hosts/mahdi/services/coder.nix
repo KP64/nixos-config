@@ -12,7 +12,7 @@
         kTLS = true;
         locations."/" = {
           proxyWebsockets = true;
-          proxyPass = "http://localhost:${toString port}";
+          proxyPass = "http://127.0.0.1:${toString port}";
         };
       };
 
