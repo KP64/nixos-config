@@ -20,6 +20,7 @@
         settings =
           let
             CORE_DEFAULT_DOMAIN = "zipline.${config.networking.domain}";
+            OAUTH_OIDC_CLIENT_ID = "zipline";
           in
           {
             CORE_PORT = 41355;
@@ -55,10 +56,10 @@
             RATELIMIT_ADMIN_BYPASS = "true";
 
             OAUTH_BYPASS_LOCAL_LOGIN = "true";
-            OAUTH_OIDC_CLIENT_ID = "zipline";
+            inherit OAUTH_OIDC_CLIENT_ID;
             OAUTH_OIDC_CLIENT_SECRET = "$OAUTH_OIDC_CLIENT_SECRET";
             OAUTH_OIDC_AUTHORIZE_URL = "${config.services.kanidm.serverSettings.origin}/ui/oauth2";
-            OAUTH_OIDC_USERINFO_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/zipline/userinfo";
+            OAUTH_OIDC_USERINFO_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${OAUTH_OIDC_CLIENT_ID}/userinfo";
             OAUTH_OIDC_TOKEN_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/token";
             OAUTH_OIDC_REDIRECT_URI = "https://${CORE_DEFAULT_DOMAIN}/api/auth/oauth/oidc";
           };

@@ -20,27 +20,31 @@
       services.stirling-pdf = {
         enable = true;
         environmentFiles = [ config.sops.secrets."stirling-pdf.env".path ];
-        environment = {
-          SERVER_PORT = 34509;
-          SERVER_ADDRESS = "127.0.0.1"; # Default is 0.0.0.0
+        environment =
+          let
+            SECURITY_OAUTH2_CLIENTID = "stirling-pdf";
+          in
+          {
+            SERVER_PORT = 34509;
+            SERVER_ADDRESS = "127.0.0.1"; # Default is 0.0.0.0
 
-          SECURITY_ENABLELOGIN = "true";
-          SECURITY_LOGINMETHOD = "oauth2";
-          SECURITY_OAUTH2_AUTOCREATEUSER = "true";
-          SECURITY_OAUTH2_ENABLED = "true";
-          SECURITY_OAUTH2_ISSUER = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/stirling-pdf";
-          SECURITY_OAUTH2_CLIENTID = "stirling-pdf";
-          SECURITY_OAUTH2_BLOCKREGISTRATION = "false";
-          SECURITY_OAUTH2_PROVIDER = "kanidm";
+            SECURITY_ENABLELOGIN = "true";
+            SECURITY_LOGINMETHOD = "oauth2";
+            SECURITY_OAUTH2_AUTOCREATEUSER = "true";
+            SECURITY_OAUTH2_ENABLED = "true";
+            SECURITY_OAUTH2_ISSUER = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${SECURITY_OAUTH2_CLIENTID}";
+            inherit SECURITY_OAUTH2_CLIENTID;
+            SECURITY_OAUTH2_BLOCKREGISTRATION = "false";
+            SECURITY_OAUTH2_PROVIDER = "kanidm";
 
-          SYSTEM_GOOGLEVISIBILITY = "false";
-          SYSTEM_CUSTOMHTMLFILES = "false";
-          SYSTEM_SHOWUPDATE = "false";
-          SYSTEM_SHOWUPDATEONLYADMIN = "false";
-          # Do not set to true. Security is at play.
-          SYSTEM_ENABLEURLTOPDF = "false";
-          SYSTEM_DISABLESANITIZE = "false";
-        };
+            SYSTEM_GOOGLEVISIBILITY = "false";
+            SYSTEM_CUSTOMHTMLFILES = "false";
+            SYSTEM_SHOWUPDATE = "false";
+            SYSTEM_SHOWUPDATEONLYADMIN = "false";
+            # Do not set to true. Security is at play.
+            SYSTEM_ENABLEURLTOPDF = "false";
+            SYSTEM_DISABLESANITIZE = "false";
+          };
       };
     };
 }

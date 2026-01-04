@@ -12,6 +12,7 @@
         };
       };
 
+      # TODO: Fix OAuth
       services.komga = {
         enable = true;
         settings = {
@@ -21,21 +22,25 @@
             oidc-email-verification = false;
           };
 
-          spring.security.oauth2.client = {
-            registration.kanidm = {
-              provider = "kanidm";
+          spring.security.oauth2.client =
+            let
               client-id = "komga";
-              client-name = "kanidm";
-              scope = "openid,email";
-              authorization-grant-type = "authorization_code";
-              redirect-uri = "{baseUrl}/{action}/oauth2/code/{registrationId}";
-              client-authentication-method = "none";
+            in
+            {
+              registration.kanidm = {
+                provider = "kanidm";
+                inherit client-id;
+                client-name = "kanidm";
+                scope = "openid,email";
+                authorization-grant-type = "authorization_code";
+                redirect-uri = "{baseUrl}/{action}/oauth2/code/{registrationId}";
+                client-authentication-method = "none";
+              };
+              provider.kanidm = {
+                user-name-attribute = "sub";
+                issuer-uri = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${client-id}";
+              };
             };
-            provider.kanidm = {
-              user-name-attribute = "sub";
-              issuer-uri = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/komga";
-            };
-          };
         };
       };
     };

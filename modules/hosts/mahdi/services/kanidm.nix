@@ -163,7 +163,7 @@
                   };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
                   allowInsecureClientDisablePkce = true;
-                  originUrl = "https://coder.${config.networking.domain}/api/v2/users/oidc/callback";
+                  originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
                   originLanding = "https://coder.${config.networking.domain}";
                   preferShortUsername = true;
                   scopeMaps."coder.access" = [
@@ -179,8 +179,8 @@
                     type = "icons";
                   };
                   public = true;
-                  originUrl = "https://${config.services.forgejo.settings.server.DOMAIN}/user/oauth2/kanidm/callback";
-                  originLanding = "https://${config.services.forgejo.settings.server.DOMAIN}/user/login";
+                  originUrl = "${config.services.forgejo.settings.server.ROOT_URL}/user/oauth2/kanidm/callback";
+                  originLanding = "${config.services.forgejo.settings.server.ROOT_URL}/user/login";
                   preferShortUsername = true;
                   scopeMaps."forgejo.access" = [
                     "email"

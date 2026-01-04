@@ -16,7 +16,7 @@
 
       # NOTE: When running forgejo for the first time run this command:
       # sudo -u forgejo \
-      #   <the forgejo binary of the systemd service> \
+      #   <forgejo binary of systemd service> \
       #   --config <forgejo statedir>/custom/conf/app.ini \
       #   admin auth add-oauth \
       #   --provider=openidConnect \
@@ -24,7 +24,7 @@
       #   --key=forgejo \
       #   --secret=bogus \
       #   --auto-discover-url=https://idm.srvd.space/oauth2/openid/forgejo/.well-known/openid-configuration \
-      #   --scopes="openid email profile
+      #   --scopes="openid email profile"
       #
       # To Check that it worked here is the sanity check command:
       # sudo -u forgejo <forgejo binary of systemd service> admin auth list --config <forgejo statedir>/custom/conf/app.ini

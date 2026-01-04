@@ -24,13 +24,17 @@
         enable = true;
         settings = {
           passwordLogin.enabled = false;
-          oauth = {
-            autoLaunch = true;
-            clientId = "immich";
-            enabled = true;
-            issuerUrl = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/immich";
-            signingAlgorithm = "ES256";
-          };
+          oauth =
+            let
+              clientId = "immich";
+            in
+            {
+              autoLaunch = true;
+              inherit clientId;
+              enabled = true;
+              issuerUrl = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${clientId}";
+              signingAlgorithm = "ES256";
+            };
         };
       };
     };

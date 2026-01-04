@@ -24,35 +24,39 @@
           # Default is chromium for whatever reason
           exe = lib.getExe pkgs.ungoogled-chromium;
         };
-        extraEnvironment = {
-          NEXTAUTH_URL = "https://karakeep.${config.networking.domain}";
+        extraEnvironment =
+          let
+            OAUTH_CLIENT_ID = "karakeep";
+          in
+          {
+            NEXTAUTH_URL = "https://karakeep.${config.networking.domain}";
 
-          DISABLE_PASSWORD_AUTH = "true";
+            DISABLE_PASSWORD_AUTH = "true";
 
-          OAUTH_WELLKNOWN_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/karakeep/.well-known/openid-configuration";
-          OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
-          OAUTH_CLIENT_ID = "karakeep";
-          OAUTH_PROVIDER_NAME = "Kanidm";
-          OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = "true";
+            OAUTH_WELLKNOWN_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
+            OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
+            inherit OAUTH_CLIENT_ID;
+            OAUTH_PROVIDER_NAME = "Kanidm";
+            OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = "true";
 
-          PORT = "43547";
-          RATE_LIMITING_ENABLED = "true";
-          DB_WAL_MODE = "true";
+            PORT = "43547";
+            RATE_LIMITING_ENABLED = "true";
+            DB_WAL_MODE = "true";
 
-          OLLAMA_BASE_URL = "http://localhost:${toString config.services.ollama.port}";
-          OLLAMA_KEEP_ALIVE = "5m";
-          # NOTE: The whole name is needed.
-          #       llama3.2 alone isn't enough.
-          # TODO: Check if model is available. Implement fallback Logic
-          #        - Either "force install" model or detect if another suitable is installed.
-          INFERENCE_TEXT_MODEL = "llama3.2:3b";
-          INFERENCE_IMAGE_MODEL = "gemma3:1b";
-          EMBEDDING_TEXT_MODEL = "embeddinggemma:300m";
+            OLLAMA_BASE_URL = "http://127.0.0.1:${toString config.services.ollama.port}";
+            OLLAMA_KEEP_ALIVE = "5m";
+            # NOTE: The whole name is needed.
+            #       llama3.2 alone isn't enough.
+            # TODO: Check if model is available. Implement fallback Logic
+            #        - Either "force install" model or detect if another suitable is installed.
+            INFERENCE_TEXT_MODEL = "llama3.2:3b";
+            INFERENCE_IMAGE_MODEL = "gemma3:1b";
+            EMBEDDING_TEXT_MODEL = "embeddinggemma:300m";
 
-          CRAWLER_FULL_PAGE_SCREENSHOT = "true";
-          CRAWLER_FULL_PAGE_ARCHIVE = "true";
-          CRAWLER_VIDEO_DOWNLOAD = "true";
-        };
+            CRAWLER_FULL_PAGE_SCREENSHOT = "true";
+            CRAWLER_FULL_PAGE_ARCHIVE = "true";
+            CRAWLER_VIDEO_DOWNLOAD = "true";
+          };
       };
     };
 }
