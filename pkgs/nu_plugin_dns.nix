@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "nu_plugin_dns";
-  version = "unstable-2025-10-15";
+  version = "4.0.6";
 
   src = fetchFromGitHub {
     owner = "dead10ck";
     repo = "nu_plugin_dns";
-    rev = "d821970df095338606eee18517d50dd143b913bf";
-    hash = "sha256-DBpPQwLVU/WQGOWLkE+ybzXnMTXkxaHLcUQJAElgV0A=";
+    rev = "v${version}";
+    hash = "sha256-YMkefyXfM+l/6Fk1eGry/fxIahLQW6jQA6nQcQwQwtc=";
   };
 
-  cargoHash = "sha256-IhAKn8U6Cr7jxHWU06hBsXP0hTDnFVJlJsZVQ8cM27k=";
+  cargoHash = "sha256-p2RepMX/zk8ALT+gC8iu/S3tnHY43Pfql6/dBw1c0Oc=";
 
   doCheck = false;
 

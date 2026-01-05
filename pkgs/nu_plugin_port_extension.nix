@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "nu_plugin_port_extension";
-  version = "0.108.0";
+  version = "0.109.1";
 
   src = fetchFromGitHub {
     owner = "fmotalleb";
     repo = "nu_plugin_port_extension";
     rev = "v${version}";
-    hash = "sha256-LpbV3SeGUlWtb/Mk9W9NxNLPpOL3Kvaiy+mSF1AYM98=";
+    hash = "sha256-YMIzmcviUnzwAnsLdnHEYZn9cW3l0ATTZyhem2a62ms=";
   };
 
-  cargoHash = "sha256-jkKgsLm0bYcu6j6BO+Jr3zzNIud5ELFIQSxgbz959MA=";
+  cargoHash = "sha256-DEhIiy3WKnJh6oAHxQIh2ZlMAxaYeO1pPa509oXDFjo=";
 
   meta = {
     description = "A nushell plugin to list all active connections and scanning ports on a target address (replacement of both nu_plugin_port_scan and nu_plugin_port_list since 0.102";

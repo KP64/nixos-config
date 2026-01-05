@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "nu_plugin_emoji";
-  version = "unstable-2025-10-15";
+  version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "fdncred";
     repo = "nu_plugin_emoji";
-    rev = "bbbc08719ebb2563c110bfdd41fc0fbcfb1d6bb9";
-    hash = "sha256-3O/uVWcByC44qtfoWEs/+NWWefcQKvqYyiEbgSG8EnQ=";
+    rev = "v${version}";
+    hash = "sha256-tmkSKPVjDTlJYs2v0sQo17TTDRsTTwiPmc9w4ogB8xk=";
   };
 
-  cargoHash = "sha256-sb9+kONbBle4LvtRSxCmogzmsaZsYAbHRsjL5RqrSg4=";
+  cargoHash = "sha256-eUjw97kNKJCwI7bfCJuX3NggK2TxdK/0PJtKS5GSBnY=";
 
   meta = {
     description = "A nushell plugin that makes finding and printing emojis easy in nushell";

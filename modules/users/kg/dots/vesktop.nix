@@ -1,7 +1,7 @@
 {
   flake.modules.homeManager.users-kg-vesktop = {
     programs.vesktop = {
-      enable = true;
+      # enable = true;
       settings.minimizeToTray = false;
       vencord.settings.plugins = {
         AnonymiseFileNames.enabled = true;
