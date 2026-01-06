@@ -88,6 +88,9 @@
                   "stirling-pdf.access"
                   "stirling-pdf.admins"
 
+                  "vaultwarden.access"
+                  "vaultwarden.admins"
+
                   "zipline.access"
                   "zipline.admins"
                 ];
@@ -119,6 +122,7 @@
                   "forgejo.access"
                   "open-webui.access"
                   "stirling-pdf.access"
+                  "vaultwarden.access"
                   "zipline.access"
                 ];
               };
@@ -146,6 +150,9 @@
               "stirling-pdf.access" = { };
               "stirling-pdf.admins" = { };
 
+              "vaultwarden.access" = { };
+              "vaultwarden.admins" = { };
+
               "zipline.access" = { };
               "zipline.admins" = { };
             };
@@ -155,6 +162,22 @@
                 inherit (customLib.util) getIcon;
               in
               {
+                vaultwarden = {
+                  displayName = "vaultwarden";
+                  imageFile = getIcon {
+                    file = "vaultwarden.svg";
+                    type = "icons";
+                  };
+                  public = true;
+                  originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
+                  originLanding = "https://${config.services.vaultwarden.domain}";
+                  preferShortUsername = true;
+                  scopeMaps."vaultwarden.access" = [
+                    "email"
+                    "openid"
+                    "profile"
+                  ];
+                };
                 coder = {
                   displayName = "coder";
                   imageFile = getIcon {
