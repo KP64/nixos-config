@@ -131,24 +131,24 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "breezeWiki": ["https://breezewiki.com"],
+    "breezeWiki": ["https://breezewiki.moneten.cc", "https://breezewiki.com"],
     "imgur": {
-      "enabled": false,
+      "enabled": true,
       "redirectType": "main_frame",
       "unsupportedUrls": "bypass",
       "frontend": "rimgo",
       "instance": "public",
       "redirectOnlyInIncognito": false
     },
-    "rimgo": ["https://rimgo.vern.cc"],
+    "rimgo": ["https://rimgo.moneten.cc", "https://rimgo.vern.cc"],
     "pinterest": {
-      "enabled": false,
+      "enabled": true,
       "unsupportedUrls": "bypass",
       "redirectType": "main_frame",
       "frontend": "binternet",
       "redirectOnlyInIncognito": false
     },
-    "binternet": ["https://bn.bloat.cat"],
+    "binternet": ["https://binternet.moneten.cc", "https://bn.bloat.cat"],
     "painterest": ["https://pt.bloat.cat"],
     "soundcloud": {
       "enabled": false,

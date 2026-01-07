@@ -139,6 +139,9 @@
     # Do not override inputs. Cache is provided.
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
+    # Niri WM
+    niri-flake.url = "github:sodiboo/niri-flake";
+
     /*
       Nix managed Neovim
       NOTE: They use the latest possible nixpkgs branch.
@@ -195,7 +198,7 @@
     # Network Topology based on the nixosConfigurations
     # TODO: Revert to oddlama's repo
     nix-topology = {
-      url = "github:KP64/nix-topology";
+      url = "github:oddlama/nix-topology";
       inputs = {
         devshell.follows = "";
         flake-utils.follows = "dedup_flake-utils";

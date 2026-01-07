@@ -47,12 +47,8 @@ toplevel@{ inputs, ... }:
           users-kg-firefox
           users-kg-glance
           users-kg-anki
-          users-kg-hypridle
-          users-kg-hyprland
-          users-kg-hyprlock
-          users-kg-hyprpanel
-          users-kg-hyprpaper
           users-kg-kitty
+          users-kg-niri
           users-kg-rofi
           users-kg-thunderbird
           users-kg-vesktop

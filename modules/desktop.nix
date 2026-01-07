@@ -1,6 +1,8 @@
-toplevel: {
+toplevel@{ moduleWithSystem, ... }:
+{
   flake.modules = {
-    nixos.desktop =
+    nixos.desktop = moduleWithSystem (
+      { inputs', ... }:
       { config, lib, ... }:
       {
         config = lib.mkMerge [
@@ -10,7 +12,17 @@ toplevel: {
               wayland.enable = true;
             };
 
-            programs.hyprland.enable = true;
+            programs =
+              let
+                anyHmUser = cond: config.home-manager.users |> builtins.attrValues |> builtins.any cond;
+              in
+              {
+                hyprland.enable = anyHmUser (hmUserCfg: hmUserCfg.wayland.windowManager.hyprland.enable);
+                niri = {
+                  enable = anyHmUser (hmUserCfg: hmUserCfg.programs.niri.enable or false);
+                  package = inputs'.niri-flake.packages.niri-unstable;
+                };
+              };
 
             qt.enable = true;
 
@@ -33,7 +45,8 @@ toplevel: {
             home-manager.sharedModules = [ { services.blueman-applet.enable = true; } ];
           })
         ];
-      };
+      }
+    );
 
     homeManager.desktop =
       {
