@@ -91,6 +91,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             ++ (with pkgs; [
               bluetui
               caligula
+              manga-tui
               pavucontrol
               yubioath-flutter
             ]);
