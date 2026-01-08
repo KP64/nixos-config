@@ -156,7 +156,7 @@
 
             "Mod+O".action.toggle-overview = { };
             "Mod+M".action.quit = { };
-            "Mod+Shift+M".action.quit.skip-confirmation = true;
+            "Mod+Ctrl+Shift+M".action.quit.skip-confirmation = true;
 
             "Mod+P".action.screenshot = { };
             "Mod+Alt+P".action.screenshot-screen.show-pointer = false;
@@ -171,11 +171,6 @@
             "Mod+Shift+J".action.move-window-down-or-to-workspace-down = { };
             "Mod+Shift+K".action.move-window-up-or-to-workspace-up = { };
             "Mod+Shift+L".action.move-column-right = { };
-
-            "Mod+Ctrl+H".action.focus-monitor-left = { };
-            "Mod+Ctrl+J".action.focus-monitor-down = { };
-            "Mod+Ctrl+K".action.focus-monitor-up = { };
-            "Mod+Ctrl+L".action.focus-monitor-right = { };
 
             "Mod+Minus".action.set-column-width = "-10%";
             "Mod+Plus".action.set-column-width = "+10%";
@@ -267,6 +262,39 @@
               ];
             };
           }
+          // (
+            {
+              key = [
+                "H"
+                "J"
+                "K"
+                "L"
+              ];
+              cmd = [
+                "focus-monitor"
+                "move-column-to-monitor"
+                "move-workspace-to-monitor"
+              ];
+            }
+            |> lib.mapCartesianProduct (
+              { key, cmd }:
+              let
+                direction = builtins.getAttr key {
+                  H = "left";
+                  J = "down";
+                  K = "up";
+                  L = "right";
+                };
+                combination = builtins.getAttr cmd {
+                  focus-monitor = "Ctrl";
+                  move-column-to-monitor = "Shift+Ctrl";
+                  move-workspace-to-monitor = "Shift+Alt";
+                };
+              in
+              lib.nameValuePair "Mod+${combination}+${key}" { action."${cmd}-${direction}" = { }; }
+            )
+            |> builtins.listToAttrs
+          )
           // (
             9
             |> builtins.genList (
