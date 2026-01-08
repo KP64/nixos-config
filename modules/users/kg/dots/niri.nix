@@ -104,11 +104,13 @@
                 };
             }
             {
-              matches = [
-                { app-id = "firefox"; }
-                { app-id = "vesktop"; }
-              ];
+              matches = [ { app-id = "^firefox$"; } ];
               open-maximized = true;
+            }
+            {
+              matches = [ { app-id = "^vesktop$"; } ];
+              open-maximized = true;
+              block-out-from = "screencast";
             }
           ];
           binds = {
