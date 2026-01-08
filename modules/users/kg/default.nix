@@ -54,27 +54,34 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
       in
       {
-        imports = [
-          inputs.sops-nix.homeModules.default
-        ]
-        ++ (with toplevel.config.flake.modules.homeManager; [
-          catppuccin
-          nix
-          ssh
-          vcs
-          yubikey
-        ])
-        ++ (with toplevel.config.flake.modules.homeManager; [
-          users-kg-yazi
-          users-kg-atuin
-          users-kg-delta
-          users-kg-fd
-          users-kg-fetchers
-          users-kg-neovim
-          users-kg-shells
-          users-kg-starship
-          users-kg-zoxide
-        ]);
+        imports =
+          (with inputs; [
+            sops-nix.homeModules.default
+            eilmeldung.homeManager.default
+          ])
+          ++ (with toplevel.config.flake.modules.homeManager; [
+            catppuccin
+            nix
+            ssh
+            vcs
+            yubikey
+          ])
+          ++ (with toplevel.config.flake.modules.homeManager; [
+            users-kg-yazi
+            users-kg-atuin
+            users-kg-delta
+            users-kg-fd
+            users-kg-fetchers
+            users-kg-neovim
+            users-kg-shells
+            users-kg-starship
+            users-kg-zoxide
+          ]);
+
+        programs.eilmeldung = {
+          enable = true;
+          package = inputs'.eilmeldung.packages.default;
+        };
 
         vcs.user = {
           name = "KP64";

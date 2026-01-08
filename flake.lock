@@ -185,6 +185,29 @@
         "type": "github"
       }
     },
+    "eilmeldung": {
+      "inputs": {
+        "flake-utils": [
+          "dedup_flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767791007,
+        "narHash": "sha256-NE6pPA0L/ZBDzuvj2XjyZsbQzx6Ej8pNDykIzd65vbk=",
+        "owner": "christo-auer",
+        "repo": "eilmeldung",
+        "rev": "4eb4229a6a7886ffb91319a4d5f0801b0aef7592",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christo-auer",
+        "repo": "eilmeldung",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -782,6 +805,7 @@
         "disko": "disko",
         "dns": "dns",
         "dotz": "dotz",
+        "eilmeldung": "eilmeldung",
         "flake-parts": "flake-parts",
         "harmonia": "harmonia",
         "home-manager": "home-manager",
