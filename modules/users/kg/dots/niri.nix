@@ -21,8 +21,6 @@
         wl-clipboard
       ];
 
-      # TODO: Window rules
-      #         - to block specifics from screensharing
       programs.niri = {
         enable = true;
         package = niri-unstable;
