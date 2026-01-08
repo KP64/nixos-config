@@ -175,7 +175,9 @@
             "Mod+Ctrl+Minus".action.set-window-height = "-10%";
             "Mod+Ctrl+Plus".action.set-window-height = "+10%";
 
-            "Mod+F".action.fullscreen-window = { };
+            "Mod+F".action.maximize-column = { };
+            "Mod+Shift+F".action.fullscreen-window = { };
+            "Mod+Ctrl+F".action.expand-column-to-available-width = { };
             "Mod+V".action.toggle-window-floating = { };
 
             XF86AudioMute = {
