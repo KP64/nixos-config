@@ -37,15 +37,22 @@
           };
           layout = {
             always-center-single-column = true;
-            gaps = 4;
-            focus-ring = {
+            gaps = 8;
+            border = {
+              enable = true;
               width = 2;
-              active.color = "#7287fd"; # Catppuccin Mocha Lavender
+              active.color = "#9399b2"; # Catppuccin Mocha Overlay 2
               inactive.color = "#11111b"; # Catppuccin Mocha Crust
               urgent.color = "#74c7ec"; # Catppuccin Mocha Sapphire
             };
-            # TODO:
-            # preset-column-width = [ ];
+            focus-ring.enable = false;
+            preset-column-widths = [
+              { proportion = 1.0 / 4.0; }
+              { proportion = 1.0 / 3.0; }
+              { proportion = 1.0 / 2.0; }
+              { proportion = 2.0 / 3.0; }
+              { proportion = 5.0 / 6.0; }
+            ];
             default-column-width.proportion = 1.0 / 3.0;
           };
           input = {
@@ -55,6 +62,7 @@
             };
             mouse.scroll-button-lock = true;
           };
+          # TODO: Set on Per-Host basis
           outputs =
             let
               cfg = config.programs.niri.settings.outputs;
@@ -80,12 +88,35 @@
             hide-after-inactive-ms = 1000;
             size = 32;
           };
+          window-rules = [
+            {
+              draw-border-with-background = false;
+              clip-to-geometry = true;
+              geometry-corner-radius =
+                let
+                  radius = 8.0;
+                in
+                {
+                  top-left = radius;
+                  top-right = radius;
+                  bottom-left = radius;
+                  bottom-right = radius;
+                };
+            }
+            {
+              matches = [
+                { app-id = "firefox"; }
+                { app-id = "vesktop"; }
+              ];
+              open-maximized = true;
+            }
+          ];
           binds = {
             "Mod+T" = {
               repeat = false;
               action.spawn = "kitty";
             };
-            "Mod+D" = {
+            "Mod+Q" = {
               repeat = false;
               action.spawn = [
                 "kitten"
@@ -93,10 +124,13 @@
               ];
             };
 
+            "Mod+D".action.spawn = "vesktop";
             "Mod+B".action.spawn = "firefox";
             "Mod+C".action.close-window = { };
 
-            "Mod+R".action.spawn = [
+            "Mod+R".action.switch-preset-column-width = { };
+
+            "Mod+Space".action.spawn = [
               "rofi"
               "-show"
               "drun"
