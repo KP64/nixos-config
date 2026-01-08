@@ -133,9 +133,13 @@
 
             "Mod+D".action.spawn = "vesktop";
             "Mod+B".action.spawn = "firefox";
-            "Mod+C".action.close-window = { };
+            "Mod+BackSpace".action.close-window = { };
+            "Mod+C".action.center-column = { };
+            "Mod+Ctrl+C".action.center-visible-columns = { };
 
             "Mod+R".action.switch-preset-column-width = { };
+            "Mod+Shift+R".action.switch-preset-window-height = { };
+            "Mod+Ctrl+R".action.reset-window-height = { };
 
             "Mod+Space".action.spawn = [
               "rofi"
@@ -158,7 +162,7 @@
             "Mod+M".action.quit = { };
             "Mod+Ctrl+Shift+M".action.quit.skip-confirmation = true;
 
-            "Mod+P".action.screenshot = { };
+            "Mod+P".action.screenshot.show-pointer = false;
             "Mod+Alt+P".action.screenshot-screen.show-pointer = false;
             "Mod+Shift+P".action.screenshot-window = { };
 
@@ -180,7 +184,9 @@
             "Mod+F".action.maximize-column = { };
             "Mod+Shift+F".action.fullscreen-window = { };
             "Mod+Ctrl+F".action.expand-column-to-available-width = { };
+
             "Mod+V".action.toggle-window-floating = { };
+            "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = { };
 
             XF86AudioMute = {
               allow-when-locked = true;
