@@ -106,6 +106,13 @@
               open-maximized = true;
             }
             {
+              matches = lib.singleton {
+                app-id = "^firefox$";
+                title = "^Picture-in-Picture$";
+              };
+              open-floating = true;
+            }
+            {
               matches = [ { app-id = "^vesktop$"; } ];
               open-maximized = true;
               block-out-from = "screencast";
