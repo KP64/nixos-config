@@ -209,10 +209,8 @@
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {
-        devshell.follows = "";
-        flake-utils.follows = "dedup_flake-utils";
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "";
       };
     };
 

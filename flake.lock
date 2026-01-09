@@ -545,21 +545,19 @@
     },
     "nix-topology": {
       "inputs": {
-        "devshell": [],
-        "flake-utils": [
-          "dedup_flake-utils"
+        "flake-parts": [
+          "flake-parts"
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "pre-commit-hooks": []
+        ]
       },
       "locked": {
-        "lastModified": 1767739457,
-        "narHash": "sha256-+jDF0zOnlqxhrnEX1MlYm8eU48syOgxMRqFlwxZUzto=",
+        "lastModified": 1767976632,
+        "narHash": "sha256-Hjg61Zwa7llaPMxVYdZAuQ2SjlahR6kPJ9uAuWg7Sx0=",
         "owner": "oddlama",
         "repo": "nix-topology",
-        "rev": "bccedc433102a28f79d2b5ea3b921018b97e8d6a",
+        "rev": "85c1bf39e695f7db85af86989d9ef4779cdef94e",
         "type": "github"
       },
       "original": {
