@@ -98,6 +98,11 @@
               open-maximized = true;
               block-out-from = "screencast";
             }
+            {
+              matches = [ { app-id = "^kitty$"; } ];
+              default-column-width.proportion = 1.0 / 2.0;
+              default-window-height = { };
+            }
           ];
           binds = {
             "Mod+T" = {
