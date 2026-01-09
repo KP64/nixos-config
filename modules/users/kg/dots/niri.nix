@@ -2,12 +2,7 @@
 {
   flake.modules.homeManager.users-kg-niri = moduleWithSystem (
     { inputs', ... }:
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+    { lib, pkgs, ... }:
     let
       inherit (inputs'.niri-flake.packages) niri-unstable xwayland-satellite-unstable;
     in
@@ -27,8 +22,10 @@
         settings = {
           xwayland-satellite.path = lib.getExe xwayland-satellite-unstable;
           prefer-no-csd = true;
+          environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";
           clipboard.disable-primary = true; # Disable middle click paste
           gestures.hot-corners.enable = false;
+          hotkey-overlay.skip-at-startup = true;
           overview = {
             backdrop-color = "#11111b";
             workspace-shadow.enable = false;
@@ -60,32 +57,16 @@
             };
             mouse.scroll-button-lock = true;
           };
-          # TODO: Set on Per-Host basis
-          outputs =
-            let
-              cfg = config.programs.niri.settings.outputs;
-            in
-            {
-              DP-3 = {
-                focus-at-startup = true;
-                variable-refresh-rate = "on-demand";
-                position.x = 0;
-                position.y = 0;
-                mode = {
-                  width = 1920;
-                  height = 1080;
-                  refresh = 239.757;
-                };
-              };
-              HDMI-A-1 = {
-                position.x = cfg.DP-3.mode.width;
-                position.y = 500;
-              };
-            };
           cursor = {
             hide-after-inactive-ms = 1000;
             size = 32;
           };
+          layer-rules = [
+            {
+              matches = [ { namespace = "^notifications$"; } ];
+              block-out-from = "screencast";
+            }
+          ];
           window-rules = [
             {
               draw-border-with-background = false;

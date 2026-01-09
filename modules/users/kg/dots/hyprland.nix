@@ -18,7 +18,6 @@ in
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.variables = [ "--all" ];
-        # TODO: Set on Per-Host basis
         settings = {
           ecosystem = {
             no_update_news = true;
@@ -27,19 +26,6 @@ in
 
           # Discourages XWayland to be used. Useful for discord & stuff
           env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
-
-          monitorv2 = [
-            {
-              output = "DP-3";
-              mode = "highrr";
-              vrr = 2;
-            }
-            {
-              output = "HDMI-A-1";
-              mode = "preferred";
-              position = "1920x500";
-            }
-          ];
 
           workspace = [
             "1, monitor:DP-3, default:true"
