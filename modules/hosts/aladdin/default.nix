@@ -45,7 +45,7 @@ toplevel@{ inputs, ... }:
       home-manager = {
         sharedModules = [
           {
-            monitorv2 = [
+            wayland.windowManager.hyprland.settings.monitorv2 = [
               {
                 output = "DP-3";
                 mode = "highrr";
