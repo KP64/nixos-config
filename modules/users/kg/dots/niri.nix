@@ -279,8 +279,8 @@
                 };
                 combination = builtins.getAttr cmd {
                   focus-monitor = "Ctrl";
-                  move-column-to-monitor = "Shift+Ctrl";
-                  move-workspace-to-monitor = "Shift+Alt";
+                  move-column-to-monitor = "Shift+Alt";
+                  move-workspace-to-monitor = "Shift+Ctrl";
                 };
               in
               lib.nameValuePair "Mod+${combination}+${key}" { action."${cmd}-${direction}" = { }; }
