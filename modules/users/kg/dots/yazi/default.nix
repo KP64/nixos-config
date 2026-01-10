@@ -22,26 +22,28 @@
             git
             mediainfo
             mount
+            ouch
             piper
-            relative-motions
             recycle-bin
+            relative-motions
             restore
             rich-preview
             smart-enter
             smart-filter
             starship
             toggle-pane
-            ouch
             vcs-files
             ;
         };
 
-        # The readFile seems unnecessary but it makes
-        # rebuilding fail when the file doesn't exist
-        # instead of silently failing.
-        initLua = builtins.readFile ./init.lua;
+        initLua = ./init.lua;
 
         keymap.mgr.prepend_keymap = [
+          {
+            on = "<F9>";
+            run = "plugin mediainfo -- toggle-metadata";
+            dedsc = "Toggle media preview metadata";
+          }
           {
             on = "M";
             run = "plugin mount";
@@ -201,17 +203,20 @@
         ];
 
         settings = {
+          tasks.image_alloc = 1024 * 1024 * 1024; # 1024MB needed for large media(info) files
           plugin =
             let
               mediainfo =
                 map
                   (mime: {
+                    # TODO: change mime?
                     inherit mime;
                     run = "mediainfo";
                   })
                   [
                     "{audio,video,image}/*"
                     "application/subrip"
+                    "application/postscript"
                   ];
             in
             {
@@ -220,7 +225,7 @@
               prepend_previewers =
                 (map
                   (ext: {
-                    name = "*.${ext}";
+                    url = "*.${ext}";
                     run = "rich-preview";
                   })
                   [
@@ -239,26 +244,27 @@
                   })
                   [
                     "*zip"
-                    "x-tar"
-                    "x-bzip2"
-                    "x-7z-compressed"
-                    "x-rar"
-                    "x-xz"
+                    "tar"
+                    "bzip2"
+                    "7z*"
+                    "rar"
                     "xz"
+                    "zstd"
+                    "java-archive"
                   ]
                 );
 
               append_previewers = [
                 {
-                  name = "*";
+                  url = "*";
                   run = ''piper -- ${lib.getExe pkgs.hexyl} --border=none --terminal-width=$w "$1"'';
                 }
               ];
 
               prepend_fetchers =
                 map
-                  (name: {
-                    inherit name;
+                  (url: {
+                    inherit url;
                     id = "git";
                     run = "git";
                   })
