@@ -218,6 +218,12 @@
     # Do not override inputs. It has a binary cache.
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
 
+    # Quickshell preconfiguration for niri
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # AUR Nix edition
     nur = {
       url = "github:nix-community/nur";

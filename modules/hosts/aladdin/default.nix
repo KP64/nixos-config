@@ -92,6 +92,7 @@ toplevel@{ inputs, ... }:
             users-kg-anki
             users-kg-kitty
             users-kg-niri
+            users-kg-noctalia-shell
             users-kg-rofi
             users-kg-thunderbird
             users-kg-vesktop
