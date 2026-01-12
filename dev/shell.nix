@@ -19,11 +19,21 @@
       # TODO: Script that shows all unfree packages and which user/host uses them.
       devShells.default = pkgs.mkShell {
         name = "config";
+        # Required for qmlls to find the correct type declarations
+        QMLLS_BUILD_DIRS = lib.concatMapStringsSep ":" (p: "${p}/lib/qt-6/qml/") (
+          with pkgs;
+          [
+            kdePackages.qtdeclarative
+            quickshell
+          ]
+        );
+
         packages =
           (with pkgs; [
             nil
             yaml-language-server
             vscode-json-languageserver
+            kdePackages.qtdeclarative # qmlls
 
             nix-melt
           ])

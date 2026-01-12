@@ -103,6 +103,8 @@
           taplo.enable = true;
           toml-sort.enable = true;
 
+          qmlformat.enable = true;
+
           # 🪐 Lua
           stylua = {
             enable = true;

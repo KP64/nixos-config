@@ -34,6 +34,7 @@
             config.nix.flake.autoEvalInputs = true;
           };
           nushell = enableAsFallback;
+          qmlls = enableAsFallback;
           ruff = enableAsFallback;
           rust_analyzer = enableAsFallback;
           statix = enableAsFallback;
