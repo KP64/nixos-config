@@ -12,7 +12,6 @@
         };
       };
 
-      # TODO: Fix OAuth
       services.komga = {
         enable = true;
         settings = {
