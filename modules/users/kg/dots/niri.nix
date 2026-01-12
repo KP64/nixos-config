@@ -117,6 +117,14 @@
               ];
             };
 
+            "Mod+Ctrl+Shift+Alt+L".action.spawn = [
+              "noctalia-shell"
+              "ipc"
+              "call"
+              "lockScreen"
+              "lock"
+            ];
+
             "Mod+D".action.spawn = "vesktop";
             "Mod+B".action.spawn = "firefox";
             "Mod+BackSpace".action.close-window = { };
