@@ -56,7 +56,7 @@
             warningColor = "#fab387";
             criticalColor = "#f38ba8";
           };
-          dock.colorizeIcons = true;
+          dock.enabled = false;
           bar.widgets = {
             left = [
               { id = "Launcher"; }
