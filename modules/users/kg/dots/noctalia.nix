@@ -57,20 +57,23 @@
             criticalColor = "#f38ba8";
           };
           dock.enabled = false;
-          bar.widgets = {
-            left = [
-              { id = "Launcher"; }
-              {
-                id = "Clock";
-                useMonospacedFont = true;
-              }
-              { id = "SystemMonitor"; }
-              { id = "MediaMini"; }
-            ];
-            center = lib.singleton {
-              hideUnoccupied = true;
-              id = "Workspace";
-              labelMode = "none";
+          bar = {
+            position = "left";
+            widgets = {
+              left = [
+                { id = "Launcher"; }
+                {
+                  id = "Clock";
+                  useMonospacedFont = true;
+                }
+                { id = "SystemMonitor"; }
+                { id = "MediaMini"; }
+              ];
+              center = lib.singleton {
+                hideUnoccupied = true;
+                id = "Workspace";
+                labelMode = "none";
+              };
             };
           };
         };
