@@ -55,6 +55,7 @@ in
               # TODO: Refine the config to support useGlobalPkgs
               #       without it being a hassle
               home-manager = {
+                startAsUserService = true;
                 useUserPackages = true;
                 overwriteBackup = true;
                 backupFileExtension = "hm-backup";
