@@ -70,7 +70,7 @@
               text = ''
                 for file in "$@"; do
                   scour --enable-viewboxing -i "$file" -o tmp.svg
-                  svgo -i tmp.svg -o "$file"
+                  svgo --multipass -i tmp.svg -o "$file"
                 done
                 rm tmp.svg
               '';
