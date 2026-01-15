@@ -1,8 +1,7 @@
 { moduleWithSystem, ... }:
 {
-  # TODO: Include custom plugins in aarch64 once a fix is found
   flake.modules.homeManager.users-kg-shells = moduleWithSystem (
-    { config, system, ... }:
+    { config, ... }:
     { lib, pkgs, ... }:
     {
       programs = {
@@ -16,21 +15,18 @@
           enable = true;
 
           plugins =
-            (lib.optionals (system != "aarch64-linux") (
-              with config.packages;
-              [
-                nu_plugin_compress
-                nu_plugin_desktop_notifications
-                nu_plugin_dns
-                nu_plugin_emoji
-                nu_plugin_hcl
-                nu_plugin_image
-                nu_plugin_port_extension
-                nu_plugin_regex
-                nu_plugin_semver
-                nu_plugin_skim
-              ]
-            ))
+            (with config.packages; [
+              nu_plugin_compress
+              nu_plugin_desktop_notifications
+              nu_plugin_dns
+              nu_plugin_emoji
+              nu_plugin_hcl
+              nu_plugin_image
+              nu_plugin_port_extension
+              nu_plugin_regex
+              nu_plugin_semver
+              nu_plugin_skim
+            ])
             ++ (with pkgs.nushellPlugins; [
               formats
               gstat
