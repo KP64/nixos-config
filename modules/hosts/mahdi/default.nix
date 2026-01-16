@@ -9,7 +9,7 @@ toplevel@{ inputs, ... }:
   # TODO: Systemd Service Hardening
   # FIXME: TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    { config, ... }:
     {
       imports = [
         inputs.sops-nix.nixosModules.default
@@ -37,12 +37,11 @@ toplevel@{ inputs, ... }:
       console.keyMap = "de";
       services.xserver.xkb.layout = "de";
 
-      boot = {
-        kernelPackages = pkgs.linuxPackages_zen;
-        binfmt = {
-          preferStaticEmulators = true;
-          emulatedSystems = [ "aarch64-linux" ];
-        };
+      # FIXME: iwlwifi kernel Module takes whole system down
+      # boot.kernelPackages = pkgs.linuxPackages-zen;
+      boot.binfmt = {
+        preferStaticEmulators = true;
+        emulatedSystems = [ "aarch64-linux" ];
       };
 
       security = {

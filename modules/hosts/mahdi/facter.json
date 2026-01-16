@@ -1167,7 +1167,6 @@
           "/dev/disk/by-path/pci-0000:00:1f.2-ata-6.0",
           "/dev/sr0"
         ],
-        "unix_device_name2": "/dev/sg1",
         "driver": "ahci",
         "driver_module": "ahci",
         "drivers": ["ahci", "sr"],
@@ -1299,11 +1298,10 @@
           "swapgs",
           "itlb_multihit",
           "mmio_stale_data",
-          "spectre_v2_user",
           "vmscape"
         ],
         "power_management": [""],
-        "bogo": 4600,
+        "bogo": 4599,
         "cache": 40960,
         "units": 32,
         "page_size": 4096,
@@ -1314,6 +1312,7 @@
         "fpu_exception": false,
         "cpuid_level": 15,
         "write_protect": false,
+        "tlb_size": 32767,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -1445,11 +1444,10 @@
           "swapgs",
           "itlb_multihit",
           "mmio_stale_data",
-          "spectre_v2_user",
           "vmscape"
         ],
         "power_management": [""],
-        "bogo": 4600,
+        "bogo": 4599,
         "cache": 40960,
         "units": 32,
         "page_size": 4096,
@@ -1460,6 +1458,7 @@
         "fpu_exception": false,
         "cpuid_level": 15,
         "write_protect": false,
+        "tlb_size": 32767,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -1518,7 +1517,6 @@
           "/dev/disk/by-path/pci-0000:02:00.0-scsi-0:2:0:0",
           "/dev/sda"
         ],
-        "unix_device_name2": "/dev/sg0",
         "rom_id": "0x80",
         "resources": [
           {
@@ -1708,7 +1706,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.18.4-zen1 xhci-hcd",
+          "name": "Linux 6.12.59 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1718,11 +1716,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.18",
+          "name": "6.12",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.18.4-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.12.59 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-0:1.0",
         "sysfs_bus_id": "3-0:1.0",
         "resources": [
@@ -1766,7 +1764,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0618dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0612dc09dsc00dp01ic09isc00ip00in00"
       },
       {
         "index": 270,
@@ -1788,7 +1786,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.18.4-zen1 xhci-hcd",
+          "name": "Linux 6.12.59 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1798,11 +1796,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.18",
+          "name": "6.12",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.18.4-zen1 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.12.59 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb4/4-0:1.0",
         "sysfs_bus_id": "4-0:1.0",
         "detail": {
@@ -1836,7 +1834,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0003d0618dc09dsc00dp03ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0003d0612dc09dsc00dp03ic09isc00ip00in00"
       },
       {
         "index": 271,
@@ -1858,7 +1856,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.18.4-zen1 ehci_hcd",
+          "name": "Linux 6.12.59 ehci_hcd",
           "value": 7531
         },
         "device": {
@@ -1868,11 +1866,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.18",
+          "name": "6.12",
           "value": 0
         },
         "serial": "0000:00:1d.0",
-        "model": "Linux 6.18.4-zen1 ehci_hcd EHCI Host Controller",
+        "model": "Linux 6.12.59 ehci_hcd EHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:1d.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -1916,7 +1914,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0618dc09dsc00dp00ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0612dc09dsc00dp00ic09isc00ip00in00"
       },
       {
         "index": 272,
@@ -2090,7 +2088,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.18.4-zen1 ehci_hcd",
+          "name": "Linux 6.12.59 ehci_hcd",
           "value": 7531
         },
         "device": {
@@ -2100,11 +2098,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.18",
+          "name": "6.12",
           "value": 0
         },
         "serial": "0000:00:1a.0",
-        "model": "Linux 6.18.4-zen1 ehci_hcd EHCI Host Controller",
+        "model": "Linux 6.12.59 ehci_hcd EHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:1a.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "resources": [
@@ -2148,7 +2146,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0618dc09dsc00dp00ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0612dc09dsc00dp00ic09isc00ip00in00"
       }
     ],
     "memory": [
@@ -2554,7 +2552,7 @@
     "network_interface": [
       {
         "index": 275,
-        "attached_to": 149,
+        "attached_to": 222,
         "class_list": ["network_interface"],
         "base_class": {
           "hex": "0107",
@@ -2567,42 +2565,9 @@
           "value": 1
         },
         "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/eno3",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:1c.4/0000:07:00.0",
-        "unix_device_names": ["eno3"],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 98
-          },
-          {
-            "type": "phwaddr",
-            "address": 98
-          }
-        ],
-        "driver": "igb",
-        "driver_module": "igb",
-        "drivers": ["igb"],
-        "driver_modules": ["igb"]
-      },
-      {
-        "index": 276,
-        "attached_to": 139,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/eno1",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:03.0/0000:01:00.0",
-        "unix_device_names": ["eno1"],
+        "sysfs_id": "/class/net/eno2",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:03.0/0000:01:00.1",
+        "unix_device_names": ["eno2"],
         "resources": [
           {
             "type": "hwaddr",
@@ -2620,24 +2585,6 @@
       },
       {
         "index": 277,
-        "attached_to": 0,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": ["lo"]
-      },
-      {
-        "index": 278,
         "attached_to": 151,
         "class_list": ["network_interface"],
         "base_class": {
@@ -2670,7 +2617,91 @@
         "driver_modules": ["iwlwifi"]
       },
       {
+        "index": 278,
+        "attached_to": 0,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": ["lo"]
+      },
+      {
         "index": 279,
+        "attached_to": 149,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/eno3",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:1c.4/0000:07:00.0",
+        "unix_device_names": ["eno3"],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 98
+          },
+          {
+            "type": "phwaddr",
+            "address": 98
+          }
+        ],
+        "driver": "igb",
+        "driver_module": "igb",
+        "drivers": ["igb"],
+        "driver_modules": ["igb"]
+      },
+      {
+        "index": 280,
+        "attached_to": 139,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/eno1",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:03.0/0000:01:00.0",
+        "unix_device_names": ["eno1"],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 98
+          },
+          {
+            "type": "phwaddr",
+            "address": 98
+          }
+        ],
+        "driver": "ixgbe",
+        "driver_module": "ixgbe",
+        "drivers": ["ixgbe"],
+        "driver_modules": ["ixgbe"]
+      },
+      {
+        "index": 281,
         "attached_to": 231,
         "class_list": ["network_interface"],
         "base_class": {
@@ -2701,39 +2732,6 @@
         "driver_module": "igb",
         "drivers": ["igb"],
         "driver_modules": ["igb"]
-      },
-      {
-        "index": 280,
-        "attached_to": 222,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/eno2",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:03.0/0000:01:00.1",
-        "unix_device_names": ["eno2"],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 98
-          },
-          {
-            "type": "phwaddr",
-            "address": 98
-          }
-        ],
-        "driver": "ixgbe",
-        "driver_module": "ixgbe",
-        "drivers": ["ixgbe"],
-        "driver_modules": ["ixgbe"]
       }
     ],
     "pci": [
