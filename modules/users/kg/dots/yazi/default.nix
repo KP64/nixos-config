@@ -209,7 +209,6 @@
               mediainfo =
                 map
                   (mime: {
-                    # TODO: change mime?
                     inherit mime;
                     run = "mediainfo";
                   })

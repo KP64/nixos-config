@@ -14,7 +14,6 @@
           };
           info = "Raspberry Pi 3 Model B+";
         };
-        # TODO: Enable once ready
         interfaces.wlan0 = {
           physicalConnections = [ (mkConnection "router" "wifi") ];
           network = "home";

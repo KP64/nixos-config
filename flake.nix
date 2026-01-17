@@ -205,7 +205,6 @@
     };
 
     # Network Topology based on the nixosConfigurations
-    # TODO: Revert to oddlama's repo
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {

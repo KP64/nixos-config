@@ -1,6 +1,5 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
-  # TODO: Utilize tags to optionally add stuff
   flake.modules = {
     nixos.users-kg =
       { config, ... }:
