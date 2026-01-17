@@ -50,6 +50,7 @@
       # NOTE: All paths should be fully qualified. There is some janky behaviour if not.
       services.hickory-dns = {
         enable = true;
+        quiet = true; # They are logging wayyy too much (not a bad thing)
         package = config.packages.hickory-dns;
         settings =
           let
