@@ -120,7 +120,7 @@
 
     # Nix binary cache
     harmonia = {
-      url = "github:nix-community/harmonia/8e4c880987afead7ecc3c9b4a34dbb3ca076a1dc"; # TODO: Unpin
+      url = "github:nix-community/harmonia";
       # NOTE: Do not "delete" treefmt-nix or Harmonia won't build >:(
       inputs = {
         flake-parts.follows = "flake-parts";
