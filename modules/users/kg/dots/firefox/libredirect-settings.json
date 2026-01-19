@@ -105,7 +105,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "libremdb": ["https://libremdb.iket.me"],
+    "libremdb": ["https://imdb.moneten.cc", "https://libremdb.iket.me"],
     "bilibili": {
       "enabled": false,
       "unsupportedUrls": "bypass",
@@ -181,7 +181,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "dumb": ["https://dm.vern.cc", "https://dumb.srvd.space"],
+    "dumb": ["https://dumb.moneten.cc", "https://dumb.srvd.space"],
     "intellectual": ["https://intellectual.insprill.net"],
     "medium": {
       "frontend": "scribe",
@@ -201,14 +201,14 @@
       "instance": "public",
       "redirectOnlyInIncognito": false
     },
-    "quetre": ["https://quetre.iket.me"],
+    "quetre": ["https://quetre.moneten.cc", "https://quetre.iket.me"],
     "github": {
       "enabled": false,
       "unsupportedUrls": "bypass",
       "frontend": "gothub",
       "redirectOnlyInIncognito": false
     },
-    "gothub": [],
+    "gothub": ["https://gothub.moneten.cc"],
     "gitlab": {
       "enabled": false,
       "unsupportedUrls": "bypass",
@@ -278,7 +278,10 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "biblioReads": ["https://biblioreads.ducks.party"],
+    "biblioReads": [
+      "https://reads.moneten.cc",
+      "https://biblioreads.ducks.party"
+    ],
     "wolframAlpha": {
       "enabled": false,
       "unsupportedUrls": "bypass",
@@ -329,22 +332,30 @@
       "instance": "public",
       "redirectOnlyInIncognito": false
     },
-    "searxng": ["https://nyc1.sx.ggtyler.dev"],
+    "searxng": [
+      "https://search.moneten.cc",
+      "https://searxng.srvd.space",
+      "https://nyc1.sx.ggtyler.dev"
+    ],
     "searx": [],
     "whoogle": [],
     "librey": [],
     "4get": ["https://4get.ca"],
     "websurfx": ["https://alamin655-spacex.hf.space"],
     "translate": {
-      "enabled": false,
-      "frontend": "simplyTranslate",
+      "enabled": true,
+      "frontend": "libreTranslate",
       "unsupportedUrls": "bypass",
       "instance": "public",
       "redirectOnlyInIncognito": false
     },
     "simplyTranslate": ["https://simplytranslate.org"],
     "mozhi": ["https://mozhi.aryak.me"],
-    "libreTranslate": ["https://libretranslate.com"],
+    "libreTranslate": [
+      "https://libretranslate.com",
+      "https://translate.moneten.cc",
+      "https://libretranslate.srvd.space"
+    ],
     "translite": ["https://tl.bloat.cat"],
     "maps": {
       "redirectType": "main_frame",
