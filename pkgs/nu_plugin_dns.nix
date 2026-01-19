@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu_plugin_dns";
   version = "4.0.6";
 
   src = fetchFromGitHub {
     owner = "dead10ck";
     repo = "nu_plugin_dns";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-YMkefyXfM+l/6Fk1eGry/fxIahLQW6jQA6nQcQwQwtc=";
   };
 
@@ -22,9 +22,9 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "DNS utility for nushell";
     homepage = "https://github.com/dead10ck/nu_plugin_dns";
-    changelog = "https://github.com/dead10ck/nu_plugin_dns/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/dead10ck/nu_plugin_dns/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ KP64 ];
-    mainProgram = pname;
+    mainProgram = "nu_plugin_dns";
   };
-}
+})

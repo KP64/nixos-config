@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu_plugin_desktop_notifications";
   version = "0.109.1";
 
   src = fetchFromGitHub {
     owner = "FMotalleb";
     repo = "nu_plugin_desktop_notifications";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-eNdaaOgQWd5qZQG9kypzpMsHiKX7J5BXPSsNLJYCVTo=";
   };
 
@@ -24,4 +24,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ KP64 ];
     mainProgram = "nu_plugin_desktop_notifications";
   };
-}
+})

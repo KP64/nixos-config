@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "nu_plugin_compress";
   version = "unstable-2025-11-30";
 
@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/yybit/nu_plugin_compress";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ KP64 ];
-    mainProgram = pname;
+    mainProgram = "nu_plugin_compress";
   };
 }

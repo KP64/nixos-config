@@ -5,7 +5,7 @@
   esbuild,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "dumb";
   version = "unstable-2025-07-06";
 
@@ -24,7 +24,7 @@ buildGoModule rec {
 
   ldflags = [
     "-X"
-    "github.com/rramiachraf/dumb/data.Version=${lib.sources.shortRev src.rev}"
+    "github.com/rramiachraf/dumb/data.Version=${lib.sources.shortRev finalAttrs.src.rev}"
     "-s"
     "-w"
   ];
@@ -46,4 +46,4 @@ buildGoModule rec {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ KP64 ];
   };
-}
+})

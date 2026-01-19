@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu_plugin_emoji";
   version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "fdncred";
     repo = "nu_plugin_emoji";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-tmkSKPVjDTlJYs2v0sQo17TTDRsTTwiPmc9w4ogB8xk=";
   };
 
@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/fdncred/nu_plugin_emoji";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ KP64 ];
-    mainProgram = pname;
+    mainProgram = "nu_plugin_emoji";
   };
-}
+})

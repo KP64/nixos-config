@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu_plugin_image";
   version = "0.109.1";
 
   src = fetchFromGitHub {
     owner = "fmotalleb";
     repo = "nu_plugin_image";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-buTy84i/8wK+Lj14sqsUaP0Vj+qU1qWGa1P5WyKXZPc=";
   };
 
@@ -23,4 +23,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ KP64 ];
     mainProgram = "nu_plugin_image";
   };
-}
+})

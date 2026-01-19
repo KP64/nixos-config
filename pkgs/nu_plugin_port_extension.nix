@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu_plugin_port_extension";
   version = "0.109.1";
 
   src = fetchFromGitHub {
     owner = "fmotalleb";
     repo = "nu_plugin_port_extension";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-YMIzmcviUnzwAnsLdnHEYZn9cW3l0ATTZyhem2a62ms=";
   };
 
@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/fmotalleb/nu_plugin_port_extension";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ KP64 ];
-    mainProgram = pname;
+    mainProgram = "nu_plugin_port_extension";
   };
-}
+})
