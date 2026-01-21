@@ -8,6 +8,10 @@
         forceSSL = lib.mkForce false; # This is configured by `configureNginx`
         onlySSL = true;
         kTLS = true;
+        extraConfig = # nginx
+          ''
+            add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+          '';
       };
 
       sops.secrets."vaultwarden.env" = { };

@@ -1,4 +1,5 @@
-toplevel: {
+toplevel@{ customLib, ... }:
+{
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
@@ -10,23 +11,65 @@ toplevel: {
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
-        locations = {
-          "/" = {
-            proxyWebsockets = true;
-            proxyPass = "http://127.0.0.1:${toString config.services.open-webui.port}";
+        locations =
+          let
+            inherit (config.services.open-webui) host port;
+          in
+          {
+            "/" = {
+              proxyWebsockets = true;
+              proxyPass = "http://${host}:${toString port}";
+            };
+            "~* ^/(api|oauth|callback|login|ws|websocket)" = {
+              proxyWebsockets = true;
+              proxyPass = "http://${host}:${toString port}";
+              extraConfig = ''
+                proxy_no_cache 1;
+                proxy_cache_bypass 1;
+                proxy_read_timeout 3600s;
+                proxy_send_timeout 3600s;
+                proxy_set_header Accept-Encoding "";
+              '';
+            };
           };
-          "~* ^/(api|oauth|callback|login|ws|websocket)" = {
-            proxyWebsockets = true;
-            proxyPass = "http://127.0.0.1:${toString config.services.open-webui.port}";
-            extraConfig = ''
-              proxy_no_cache 1;
-              proxy_cache_bypass 1;
-              proxy_read_timeout 3600s;
-              proxy_send_timeout 3600s;
-              proxy_set_header Accept-Encoding "";
-            '';
-          };
-        };
+        extraConfig = # nginx
+          ''
+            add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+            add_header Content-Security-Policy "${
+              customLib.nginx.mkCSP {
+                default-src = "none";
+                img-src = "self";
+                font-src = "self";
+                connect-src = "self";
+                style-src = [
+                  "self"
+                  "unsafe-inline"
+                ];
+                script-src = [
+                  "self"
+                  "unsafe-inline"
+                ];
+              }
+            }" always;
+            add_header X-Frame-Options SAMEORIGIN always;
+            add_header X-Content-Type-Options nosniff always;
+            add_header Referrer-Policy no-referrer always;
+            add_header Permissions-Policy "${
+              customLib.nginx.mkPP {
+                camera = "()";
+                geolocation = "()";
+                usb = "()";
+                bluetooth = "()";
+                payment = "()";
+                accelerometer = "()";
+                gyroscope = "()";
+                magnetometer = "()";
+                midi = "()";
+                serial = "()";
+                hid = "()";
+              }
+            }" always;
+          '';
       };
 
       allowedUnfreePackages = [ "open-webui" ];

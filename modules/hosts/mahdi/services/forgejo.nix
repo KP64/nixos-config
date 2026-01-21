@@ -1,6 +1,11 @@
+{ customLib, ... }:
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      ...
+    }:
     {
       services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
         enableACME = true;
@@ -9,6 +14,43 @@
         kTLS = true;
         locations."/" = {
           proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
+          extraConfig = # nginx
+            ''
+              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+              add_header Content-Security-Policy "${
+                customLib.nginx.mkCSP {
+                  default-src = "none";
+                  connect-src = "self";
+                  style-src = [
+                    "self"
+                    "unsafe-inline"
+                  ];
+                  script-src = [
+                    "self"
+                    "unsafe-inline"
+                  ];
+                  img-src = "self";
+                }
+              }" always;
+              add_header X-Content-Type-Options nosniff always;
+              add_header Referrer-Policy no-referrer always;
+              add_header Permissions-Policy "${
+                customLib.nginx.mkPP {
+                  camera = "()";
+                  microphone = "()";
+                  geolocation = "()";
+                  usb = "()";
+                  bluetooth = "()";
+                  payment = "()";
+                  accelerometer = "()";
+                  gyroscope = "()";
+                  magnetometer = "()";
+                  midi = "()";
+                  serial = "()";
+                  hid = "()";
+                }
+              }" always;
+            '';
         };
       };
 

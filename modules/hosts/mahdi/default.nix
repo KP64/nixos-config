@@ -5,9 +5,7 @@ toplevel@{ inputs, ... }:
   #        - When someone visits one of my websites via TOR, that is available
   #          via an .onion address let crowdsec TOR Blocklist redirect to a
   #          static Website that tells them all services with the respective onion address.
-  # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
   # TODO: Systemd Service Hardening
-  # FIXME: TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {

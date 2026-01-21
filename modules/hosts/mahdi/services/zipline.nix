@@ -1,14 +1,61 @@
+{ customLib, ... }:
 {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
+    let
+      cfg = config.services.zipline;
+    in
     {
-      services.nginx.virtualHosts.${config.services.zipline.settings.CORE_DEFAULT_DOMAIN} = {
+      services.nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.zipline.settings.CORE_PORT}";
+          proxyPass = "http://${cfg.settings.CORE_HOSTNAME}:${toString cfg.settings.CORE_PORT}";
+          extraConfig = # nginx
+            ''
+              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+              add_header Content-Security-Policy "${
+                customLib.nginx.mkCSP {
+                  default-src = "none";
+                  style-src = [
+                    "self"
+                    "unsafe-inline"
+                  ];
+                  img-src = [
+                    "self"
+                    "https://getsharex.com"
+                    "https://flameshot.org"
+                    "https://raw.githubusercontent.com"
+                  ];
+                  connect-src = "self";
+                  script-src = [
+                    "self"
+                    "unsafe-inline"
+                  ];
+                }
+              }" always;
+              add_header X-Frame-Options SAMEORIGIN always;
+              add_header X-Content-Type-Options nosniff always;
+              add_header Referrer-Policy no-referrer always;
+              add_header Permissions-Policy "${
+                customLib.nginx.mkPP {
+                  camera = "()";
+                  microphone = "()";
+                  geolocation = "()";
+                  usb = "()";
+                  bluetooth = "()";
+                  payment = "()";
+                  accelerometer = "()";
+                  gyroscope = "()";
+                  magnetometer = "()";
+                  midi = "()";
+                  serial = "()";
+                  hid = "()";
+                }
+              }" always;
+            '';
         };
       };
 

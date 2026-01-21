@@ -1,3 +1,4 @@
+{ customLib, ... }:
 {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
@@ -10,9 +11,33 @@
         acmeRoot = null;
         onlySSL = true;
         kTLS = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString config.services.navidrome.settings.Port}";
-        };
+        locations."/" =
+          let
+            inherit (config.services.navidrome.settings) Address Port;
+          in
+          {
+            proxyPass = "http://${Address}:${toString Port}";
+            extraConfig = # nginx
+              ''
+                add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+                add_header Content-Security-Policy "${
+                  customLib.nginx.mkCSP {
+                    default-src = "none";
+                    img-src = "self";
+                    media-src = "self";
+                    style-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                    script-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                    connect-src = "self";
+                  }
+                }" always; 
+              '';
+          };
       };
 
       sops.secrets."navidrome.env" = { };
