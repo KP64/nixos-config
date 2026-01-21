@@ -126,11 +126,6 @@ toplevel: {
                       url = mahdi.config.services.open-webui.environment.WEBUI_URL;
                       icon = "sh:open-webui";
                     }
-                    {
-                      title = "Stirling PDF";
-                      url = "https://stirling-pdf.${mahdi.config.networking.domain}";
-                      icon = "sh:stirling-pdf";
-                    }
                   ];
               }
             ];
