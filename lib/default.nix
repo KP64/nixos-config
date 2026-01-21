@@ -14,6 +14,8 @@ in
 
   minecraft = import ./minecraft.nix;
 
+  nginx = import ./nginx.nix { inherit lib; };
+
   util = import ./util.nix {
     inherit lib;
     inherit (inputs) self;
