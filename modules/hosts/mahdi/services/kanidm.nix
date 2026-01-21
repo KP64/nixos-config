@@ -30,7 +30,6 @@
           "kanidm/admin-password" = defaults;
           "kanidm/idm-admin-password" = defaults;
           "kanidm/oauth2/coder" = defaults;
-          "kanidm/oauth2/stirling-pdf" = defaults;
           "kanidm/oauth2/zipline" = defaults;
         };
 
@@ -85,9 +84,6 @@
                   "open-webui.access"
                   "open-webui.admins"
 
-                  "stirling-pdf.access"
-                  "stirling-pdf.admins"
-
                   "vaultwarden.access"
                   "vaultwarden.admins"
 
@@ -112,7 +108,6 @@
                   "coder.access"
                   "forgejo.access"
                   "open-webui.access"
-                  "stirling-pdf.access"
                 ];
               };
               vx = {
@@ -121,7 +116,6 @@
                   "coder.access"
                   "forgejo.access"
                   "open-webui.access"
-                  "stirling-pdf.access"
                   "vaultwarden.access"
                   "zipline.access"
                 ];
@@ -146,9 +140,6 @@
 
               "open-webui.access" = { };
               "open-webui.admins" = { };
-
-              "stirling-pdf.access" = { };
-              "stirling-pdf.admins" = { };
 
               "vaultwarden.access" = { };
               "vaultwarden.admins" = { };
@@ -264,26 +255,6 @@
                       };
                     };
                   };
-                };
-                # Uhmmmm Stirling... Why are you that insecure? XD
-                # FIXME: OAuth2
-                stirling-pdf = {
-                  displayName = "stirling-pdf";
-                  imageFile = getIcon {
-                    file = "stirling-pdf.svg";
-                    type = "icons";
-                  };
-                  basicSecretFile = config.sops.secrets."kanidm/oauth2/stirling-pdf".path;
-                  allowInsecureClientDisablePkce = true;
-                  enableLegacyCrypto = true; # Needed because Stirling apparently doesn't support ES256
-                  originUrl = "https://stirling-pdf.${config.networking.domain}/login/oauth2/code/oidc";
-                  originLanding = "https://stirling-pdf.${config.networking.domain}";
-                  preferShortUsername = true;
-                  scopeMaps."stirling-pdf.access" = [
-                    "email"
-                    "openid"
-                    "profile"
-                  ];
                 };
                 zipline = {
                   displayName = "zipline";
