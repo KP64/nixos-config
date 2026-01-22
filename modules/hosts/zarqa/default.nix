@@ -39,10 +39,5 @@ toplevel@{ inputs, ... }:
       sops.defaultSopsFile = ./secrets.yaml;
 
       users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
-
-      documentation = {
-        nixos.enable = false;
-        doc.enable = false;
-      };
     };
 }
