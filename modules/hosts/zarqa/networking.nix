@@ -5,8 +5,8 @@
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
-        useNetworkd = true;
         useDHCP = false;
+        dhcpcd.enable = false;
         wireless = {
           enable = true;
           secretsFile = config.sops.secrets."wireless.env".path;
@@ -14,12 +14,6 @@
           scanOnLowSignal = false;
           networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
         };
-      };
-
-      services.resolved = {
-        dnssec = "true";
-        dnsovertls = "true";
-        fallbackDns = [ ];
       };
 
       systemd.network.wait-online.anyInterface = true;
@@ -45,14 +39,12 @@
               "2606:4700:4700::1111"
               "2606:4700:4700::1001"
             ];
-          networkConfig =
-            let
-              inherit (lib) boolToYesNo;
-            in
-            {
-              DNSSEC = boolToYesNo true;
-              DNSOverTLS = true;
-            };
+          networkConfig = {
+            DNSSEC = "allow-downgrade";
+            DNSOverTLS = "opportunistic";
+            MulticastDNS = lib.boolToYesNo true;
+            LLMNR = lib.boolToYesNo false;
+          };
         };
       };
     };

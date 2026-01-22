@@ -1,12 +1,11 @@
 {
   flake.modules.nixos.hosts-sheherazade =
-    { config, lib, ... }:
+    { config, ... }:
     {
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
         domain = "srvd.space";
-        resolvconf.useLocalResolver = true;
         useNetworkd = true;
         useDHCP = false;
         wireless = {
@@ -29,14 +28,6 @@
           linkConfig.RequiredForOnline = "routable";
           address = [ "192.168.2.224/24" ];
           gateway = [ "192.168.2.1" ];
-          networkConfig =
-            let
-              inherit (lib) boolToYesNo;
-            in
-            {
-              DNSSEC = boolToYesNo true;
-              DNSOverTLS = boolToYesNo true;
-            };
         };
       };
     };

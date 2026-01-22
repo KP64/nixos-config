@@ -5,8 +5,10 @@
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
-        useNetworkd = true; # Needed so that there aren't two IPv4/6 Addresses.
-        useDHCP = false; # Let systemd configure everything
+        # Let systemd configure everything
+        useDHCP = false;
+        dhcpcd.enable = false;
+
         wireless = {
           enable = true;
           secretsFile = config.sops.secrets."wireless.env".path;
@@ -14,18 +16,6 @@
           scanOnLowSignal = false;
           networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
         };
-      };
-
-      # This is a Desktop first and foremost.
-      # Networking really isn't required.
-      systemd.network.wait-online.enable = false;
-      boot.initrd.systemd.network.wait-online.enable = false;
-
-      services.resolved = {
-        enable = true;
-        dnssec = "true";
-        dnsovertls = "true";
-        fallbackDns = [ ]; # No fallbacks
       };
 
       systemd.network = {
@@ -55,6 +45,8 @@
             {
               DNSSEC = boolToYesNo true;
               DNSOverTLS = boolToYesNo true;
+              MulticastDNS = boolToYesNo true;
+              LLMNR = boolToYesNo false;
             };
         };
       };

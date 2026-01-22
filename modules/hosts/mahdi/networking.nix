@@ -6,8 +6,8 @@ toplevel: {
 
       networking = {
         inherit (toplevel.config.flake.nixosConfigurations.sheherazade.config.networking) domain;
-        useNetworkd = true; # Needed so that there aren't two IPv4/6 Addresses.
-        useDHCP = false; # Let systemd configure everything
+        useDHCP = false;
+        dhcpcd.enable = false;
         wireless = {
           enable = true;
           secretsFile = config.sops.secrets."wireless.env".path;
@@ -15,13 +15,6 @@ toplevel: {
           scanOnLowSignal = false;
           networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
         };
-      };
-
-      services.resolved = {
-        enable = true;
-        dnssec = "true";
-        dnsovertls = "true";
-        fallbackDns = [ ]; # No fallbacks
       };
 
       # We don't care which interface is online here
@@ -55,6 +48,8 @@ toplevel: {
             {
               DNSSEC = boolToYesNo true;
               DNSOverTLS = boolToYesNo true;
+              MulticastDNS = boolToYesNo true;
+              LLMNR = boolToYesNo false;
             };
         };
       };

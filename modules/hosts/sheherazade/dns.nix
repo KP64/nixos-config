@@ -4,8 +4,6 @@
     { config, system, ... }:
     nixos@{ lib, pkgs, ... }:
     {
-      services.resolved.enable = false;
-
       sops.secrets =
         let
           hickory = {
@@ -21,17 +19,21 @@
           };
         };
 
-      networking.firewall =
-        let
-          inherit (nixos.config.services) hickory-dns;
-          dns = [ hickory-dns.settings.listen_port ];
-          usesDoT =
-            hickory-dns.settings.zones |> builtins.any (zone: zone ? stores.opportunistic_encryption.enabled);
-        in
-        {
-          allowedTCPPorts = dns ++ lib.optional usesDoT 853;
-          allowedUDPPorts = dns;
-        };
+      services.resolved.enable = false;
+      networking = {
+        resolvconf.useLocalResolver = true;
+        firewall =
+          let
+            inherit (nixos.config.services) hickory-dns;
+            dns = [ hickory-dns.settings.listen_port ];
+            usesDoT =
+              hickory-dns.settings.zones |> builtins.any (zone: zone ? stores.opportunistic_encryption.enabled);
+          in
+          {
+            allowedTCPPorts = dns ++ lib.optional usesDoT 853;
+            allowedUDPPorts = dns;
+          };
+      };
 
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
       #       This is needed so that we can set an owner to Hickory.
