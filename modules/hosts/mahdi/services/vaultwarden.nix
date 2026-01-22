@@ -14,7 +14,7 @@
           '';
       };
 
-      sops.secrets."vaultwarden.env" = { };
+      sops.secrets."vaultwarden.env".owner = config.users.users.vaultwarden.name;
 
       services.vaultwarden = {
         enable = true;

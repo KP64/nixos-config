@@ -3,7 +3,7 @@
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     {
-      sops.secrets."searxng.env" = { };
+      sops.secrets."searxng.env".owner = config.users.users.searx.name;
 
       services.nginx.virtualHosts.${config.services.searx.domain} = {
         enableACME = true;

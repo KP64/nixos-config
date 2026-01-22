@@ -31,7 +31,7 @@
       # Doesn't have permission to access the socket otherway
       users.users.coder.extraGroups = [ "docker" ];
 
-      sops.secrets."coder.env" = { };
+      sops.secrets."coder.env".owner = config.users.users.coder.name;
 
       systemd.services.coder.after = [ "kanidm.service" ];
 

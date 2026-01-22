@@ -40,7 +40,7 @@
           };
       };
 
-      sops.secrets."navidrome.env" = { };
+      sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;
 
       services.navidrome = {
         enable = true;

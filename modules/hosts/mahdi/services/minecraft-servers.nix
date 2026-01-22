@@ -96,7 +96,7 @@
     {
       imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
-      sops.secrets."minecraft-server.env" = { };
+      sops.secrets."minecraft-server.env".owner = config.users.users.minecraft.name;
 
       services.minecraft-servers = {
         enable = true;

@@ -21,16 +21,13 @@
 
       sops.secrets =
         let
-          defaults = {
-            owner = "kanidm";
-            group = "kanidm";
-          };
+          owner = config.users.users.kanidm.name;
         in
         {
-          "kanidm/admin-password" = defaults;
-          "kanidm/idm-admin-password" = defaults;
-          "kanidm/oauth2/coder" = defaults;
-          "kanidm/oauth2/zipline" = defaults;
+          "kanidm/admin-password" = { inherit owner; };
+          "kanidm/idm-admin-password" = { inherit owner; };
+          "kanidm/oauth2/coder" = { inherit owner; };
+          "kanidm/oauth2/zipline" = { inherit owner; };
         };
 
       # TODO: Kanidm shouldn't have access to everything nginx related
