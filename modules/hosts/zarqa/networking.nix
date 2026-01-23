@@ -16,14 +16,10 @@
         };
       };
 
-      systemd.network.wait-online.anyInterface = true;
-      boot.initrd.systemd.network.wait-online.anyInterface = true;
-
       systemd.network = {
         enable = true;
         networks."10-wlan0" = {
           name = "wlan0";
-          linkConfig.RequiredForOnline = "routable";
           address = [ "192.168.2.201/24" ];
           gateway = [ "192.168.2.1" ];
           dns =

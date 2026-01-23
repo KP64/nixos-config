@@ -77,11 +77,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             users-kg-zoxide
           ]);
 
-        programs.eilmeldung = {
-          enable = true;
-          package = inputs'.eilmeldung.packages.default;
-        };
-
         vcs.user = {
           name = "KP64";
           inherit (invisible) email;
@@ -117,6 +112,10 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           bat.enable = true;
           btop.enable = true;
           cava.enable = true;
+          eilmeldung = {
+            enable = true;
+            package = inputs'.eilmeldung.packages.default;
+          };
           fzf.enable = true;
           ripgrep.enable = true;
           zellij.enable = true;

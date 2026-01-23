@@ -23,23 +23,24 @@ toplevel@{ inputs, ... }:
         users-kg
       ]);
 
-      # Firmware is locked
-      services.fwupd.enable = false;
-
       home-manager.users.kg.home = { inherit (config.system) stateVersion; };
+
+      sops.defaultSopsFile = ./secrets.yaml;
+      users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
       system.stateVersion = "25.11";
       hardware.facter.reportPath = ./facter.json;
 
       time.timeZone = "Europe/Berlin";
-      console.keyMap = "de";
-      services.xserver.xkb.layout = "de";
+      console.keyMap = config.services.xserver.xkb.layout;
 
-      # FIXME: iwlwifi kernel Module takes whole system down
-      # boot.kernelPackages = pkgs.linuxPackages-zen;
-      boot.binfmt = {
-        preferStaticEmulators = true;
-        emulatedSystems = [ "aarch64-linux" ];
+      boot = {
+        # FIXME: iwlwifi kernel Module takes whole system down
+        # kernelPackages = pkgs.linuxPackages-zen;
+        binfmt = {
+          preferStaticEmulators = true;
+          emulatedSystems = [ "aarch64-linux" ];
+        };
       };
 
       security = {
@@ -47,12 +48,13 @@ toplevel@{ inputs, ... }:
         protectKernelImage = true;
       };
 
-      sops.defaultSopsFile = ./secrets.yaml;
-
-      # This service is the "only" way to
-      # communicate with the TPM (v1.2) device
-      services.tcsd.enable = true;
-
-      users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
+      services = {
+        xserver.xkb.layout = "de";
+        # This service is the "only" way to
+        # communicate with the TPM (v1.2) device
+        tcsd.enable = true;
+        # Firmware is locked
+        fwupd.enable = false;
+      };
     };
 }

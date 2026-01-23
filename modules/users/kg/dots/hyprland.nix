@@ -27,6 +27,7 @@ in
           # Discourages XWayland to be used. Useful for discord & stuff
           env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
 
+          # TODO: Find a better solution to workspace and window management
           workspace = [
             "1, monitor:DP-3, default:true"
             "2, monitor:HDMI-A-1, default:true"

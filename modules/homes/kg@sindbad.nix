@@ -61,7 +61,13 @@ in
 
       services.network-manager-applet.enable = true;
 
-      programs.kitty.package = config.lib.nixGL.wrap pkgs.kitty;
+      programs = {
+        kitty.package = config.lib.nixGL.wrap pkgs.kitty;
+
+        # TODO: Revert once https://github.com/nix-community/home-manager/issues/7027 is fixed
+        #       This will need the user to install hyprlock via pacman
+        hyprlock.package = null;
+      };
 
       # NOTE: Works with HM, but:
       #   - SDDM won't find it.
@@ -70,9 +76,5 @@ in
         package = null;
         portalPackage = null;
       };
-
-      # TODO: Revert once https://github.com/nix-community/home-manager/issues/7027 is fixed
-      #       This will need the user to install hyprlock via pacman
-      programs.hyprlock.package = null;
     };
 }

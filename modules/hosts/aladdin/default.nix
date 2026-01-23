@@ -33,13 +33,14 @@ toplevel@{ inputs, ... }:
       };
 
       time.timeZone = "Europe/Berlin";
-      console.keyMap = "de";
+      console.keyMap = config.services.xserver.xkb.layout;
       services.xserver.xkb.layout = "de";
-      boot.kernelPackages = pkgs.linuxPackages_zen;
-
-      boot.binfmt = {
-        preferStaticEmulators = true;
-        emulatedSystems = [ "aarch64-linux" ];
+      boot = {
+        kernelPackages = pkgs.linuxPackages_zen;
+        binfmt = {
+          preferStaticEmulators = true;
+          emulatedSystems = [ "aarch64-linux" ];
+        };
       };
 
       home-manager = {
@@ -101,11 +102,6 @@ toplevel@{ inputs, ... }:
         };
       };
 
-      programs.obs-studio = {
-        enable = true;
-        enableVirtualCamera = true;
-      };
-
       sops.defaultSopsFile = ./secrets.yaml;
 
       users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
@@ -116,6 +112,10 @@ toplevel@{ inputs, ... }:
           openFirewall = true;
         };
         localsend.enable = true;
+        obs-studio = {
+          enable = true;
+          enableVirtualCamera = true;
+        };
       };
     };
 }
