@@ -4,19 +4,6 @@
     { config, system, ... }:
     nixos@{ lib, pkgs, ... }:
     {
-      sops.secrets =
-        let
-          owner = nixos.config.users.users.hickory-dns.name;
-        in
-        {
-          zone_signing_key = { inherit owner; };
-          tsig_secret_decoded = {
-            inherit owner;
-            format = "binary";
-            sopsFile = ./tsig_key.enc;
-          };
-        };
-
       networking = {
         resolvconf.useLocalResolver = true;
         firewall =
@@ -32,21 +19,21 @@
           };
       };
 
-      # TODO: Try out whether LoadCredential works.
-      #       Benefit: Removal of Hickory User.
-      # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
-      #       This is needed so that we can set an owner to Hickory.
-      users = {
-        groups.hickory-dns = { };
-        users.hickory-dns = {
-          group = nixos.config.users.groups.hickory-dns.name;
-          isSystemUser = true;
+      sops.secrets = {
+        zone_signing_key = { };
+        tsig_secret_decoded = {
+          format = "binary";
+          sopsFile = ./tsig_key.enc;
         };
       };
-      systemd.services.hickory-dns.serviceConfig = {
-        User = nixos.config.users.users.hickory-dns.name;
-        Group = nixos.config.users.users.hickory-dns.group;
-      };
+
+      # NOTE: Hickory is denied permission to secrets otherwise.
+      systemd.services.hickory-dns.serviceConfig.LoadCredential =
+        map (cred: "${cred}:${nixos.config.sops.secrets.${cred}.path}")
+          [
+            "zone_signing_key"
+            "tsig_secret_decoded"
+          ];
 
       services = {
         resolved.enable = false;
@@ -61,6 +48,7 @@
               dnsLib = inputs.dns.lib;
               inherit (dnsLib.combinators) letsEncrypt;
               dnsUtil = inputs.dns.util.${system};
+              secretsDir = "/run/credentials/hickory-dns.service";
             in
             {
               zones =
@@ -167,22 +155,18 @@
                       zone_path = file;
                       journal_path = "${nixos.config.networking.domain}_dnssec_update.jrnl";
                       allow_update = true;
-                      tsig_keys = [
-                        {
-                          name = "tsig-key";
-                          algorithm = "hmac-sha256";
-                          # NOTE: 💢 Hickory requires the base64-DECODED secret.
-                          key_file = nixos.config.sops.secrets.tsig_secret_decoded.path;
-                        }
-                      ];
+                      tsig_keys = lib.singleton {
+                        name = "tsig-key";
+                        algorithm = "hmac-sha256";
+                        # NOTE: 💢 Hickory requires the base64-DECODED secret.
+                        key_file = "${secretsDir}/tsig_secret_decoded";
+                      };
                     };
-                    keys = [
-                      {
-                        algorithm = "RSASHA256";
-                        purpose = "ZoneSigning";
-                        key_path = nixos.config.sops.secrets.zone_signing_key.path;
-                      }
-                    ];
+                    keys = lib.singleton {
+                      algorithm = "RSASHA256";
+                      purpose = "ZoneSigning";
+                      key_path = "${secretsDir}/zone_signing_key";
+                    };
                   }
                 ];
             };
