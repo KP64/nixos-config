@@ -17,6 +17,10 @@
         };
       };
 
+      # We don't care which interface is online here
+      systemd.network.wait-online.anyInterface = true;
+      boot.initrd.systemd.network.wait-online.anyInterface = true;
+
       systemd.network = {
         enable = true;
         networks."10-wlan0" = {

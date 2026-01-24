@@ -32,8 +32,6 @@
           };
       };
 
-      # TODO: Try out whether LoadCredential works.
-      #       Benefit: Removal of Hickory User.
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
       #       This is needed so that we can set an owner to Hickory.
       users = {
@@ -146,7 +144,7 @@
                       SOA = {
                         nameServer = builtins.head NS;
                         adminEmail = "lzkfaea17@mozmail.com";
-                        serial = 2026011600;
+                        serial = 2026012400;
                       };
                       NS =
                         subdomains
@@ -154,7 +152,7 @@
                         |> builtins.filter (lib.hasPrefix "ns")
                         |> map (subdomain: "${subdomain}.${nixos.config.networking.domain}.");
                       # TODO: These IP's aren't static. Use RFC2136 to update them dynamically
-                      A = [ "79.245.222.16" ];
+                      A = [ "91.6.58.66" ];
                       CAA = letsEncrypt SOA.adminEmail;
                       subdomains = {
                         "*" = { inherit A; };
