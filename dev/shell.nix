@@ -29,6 +29,9 @@
         );
 
         packages =
+          let
+            inherit (pkgs.writers) writeNuBin;
+          in
           (with pkgs; [
             nil
             yaml-language-server
@@ -38,84 +41,93 @@
             nix-melt
           ])
           ++ [
-            (pkgs.writers.writeNuBin "topo"
+            (writeNuBin "topo"
               {
                 makeWrapperArgs = prefixPath (
                   with pkgs;
                   [
                     gum
-                    nixVersions.latest
+                    nix-output-monitor
                     timg
                   ]
                 );
-              }
-              # nu
+              } # nu
               ''
                 def main [topology?: string]: nothing -> nothing {
+                  const choices = [ "main" "network" ]
                   let chosen = if $topology == null {
-                    gum choose "main" "network";
-                  } else if ([ "main" "network" ] | any {|t| $t == $topology }) {
+                    gum choose ...$choices
+                  } else if ($choices | any {|t| $t == $topology }) {
                     $topology
                   } else {
-                    error make --unspanned { msg: "No such topology. Should be either 'main' or 'network'" }
-                  };
-                  let path: path = $"result/($chosen).svg";
-                  let architecture = uname | get machine;
-                  let kernel_name = uname | get kernel-name | str downcase;
-                  nix build .#topology.($architecture)-($kernel_name).config.output
-                  if ($env.TERM? == "xterm-kitty") {
-                    kitten icat $path;
+                    let choosable = $choices | each {|choice| $"'($choice)'" } | str join " or "
+                    error make --unspanned {msg: $"No such topology. Should be either ($choosable)" }
+                  }
+
+                  let architecture = uname | get machine
+                  let kernel_name = uname | get kernel-name | str downcase
+                  nom build .#topology.($architecture)-($kernel_name).config.output
+
+                  let path: path = $"result/($chosen).svg"
+                  if $env.TERM? == "xterm-kitty" {
+                    kitten icat $path
                   } else {
-                    timg $path;
+                    timg $path
                   }
                 }
               ''
             )
-            (pkgs.writers.writeNuBin "upin"
-              {
-                makeWrapperArgs = prefixPath (
-                  with pkgs;
-                  [
-                    gum
-                    nixVersions.latest
-                  ]
-                );
-              }
-              # nu
-              ''
-                def main [...inputs: string]: nothing -> nothing {
-                  let selection = if not ($inputs | is-empty) {
-                    $inputs
-                  } else {
-                    gum choose --no-limit ${lib.concatStringsSep " " (builtins.attrNames inputs)} | lines
+            (
+              let
+                flakeInputs = inputs |> builtins.attrNames |> toString;
+              in
+              writeNuBin "upin" { makeWrapperArgs = prefixPath [ pkgs.gum ]; } # nu
+                ''
+                  def main [...inputs: string]: nothing -> nothing {
+                    let selection = if not ($inputs | is-empty) {
+                      $inputs
+                    } else {
+                      # If nothing is chosen then a list with an empty string is returned...
+                      let chosen = gum choose --no-limit --header "Inputs" ${flakeInputs} | lines --skip-empty
+                      if $chosen == [ "" ] {
+                        [ ]
+                      } else {
+                        $chosen
+                      }
+                    }
+
+                    if ($selection | is-empty) {
+                      return
+                    }
+
+                    if $selection == [${flakeInputs}] {
+                      gum confirm "Update all Inputs?" ; nix flake update
+                    } else {
+                      gum confirm "Update?" ; nix flake update ...$selection
+                    }
                   }
-                  gum confirm "Update?" ; nix flake update ...$selection
-                }
-              ''
+                ''
             )
-            (pkgs.writers.writeNuBin "attach" # nu
+            (writeNuBin "attach" # nu
               ''
                 def main [server: string]: nothing -> nothing {
                   sudo ${lib.getExe pkgs.tmux} -S /run/minecraft/($server).sock attach
                 }
               ''
             )
-            (pkgs.writers.writeNuBin "prefetch" # nu
-              ''
-                def main [...ids: string]: nothing -> nothing {
-                  $ids
-                    | par-each { ${lib.getExe inputs'.nix-minecraft.packages.nix-modrinth-prefetch} $in }
-                    | print --raw
-                }
-              ''
+            (
+              let
+                prefetch = lib.getExe inputs'.nix-minecraft.packages.nix-modrinth-prefetch;
+              in
+              writeNuBin "prefetch" # nu
+                ''
+                  def main [...ids: string]: nothing -> nothing {
+                    $ids
+                      | par-each {|id| ${prefetch} $id }
+                      | print --raw
+                  }
+                ''
             )
-            (pkgs.writeShellApplication {
-              name = "repair";
-              runtimeInputs = [ pkgs.nixVersions.latest ];
-              text = ''
-                nix-store --verify --check-contents --repair
-              '';
-            })
           ];
       };
     };
