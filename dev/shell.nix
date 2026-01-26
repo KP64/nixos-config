@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ config, inputs, ... }:
 {
   perSystem =
     {
@@ -7,16 +7,7 @@
       inputs',
       ...
     }:
-    let
-      prefixPath = packages: [
-        "--prefix"
-        "PATH"
-        ":"
-        (lib.makeBinPath packages)
-      ];
-    in
     {
-      # TODO: Script that shows all unfree packages and which user/host uses them.
       devShells.default = pkgs.mkShell {
         name = "config";
         # Required for qmlls to find the correct type declarations
@@ -41,22 +32,12 @@
             nix-melt
           ])
           ++ [
-            (writeNuBin "topo"
-              {
-                makeWrapperArgs = prefixPath (
-                  with pkgs;
-                  [
-                    gum
-                    nix-output-monitor
-                    timg
-                  ]
-                );
-              } # nu
+            (writeNuBin "topo" # nu
               ''
                 def main [topology?: string]: nothing -> nothing {
                   const choices = [ "main" "network" ]
                   let chosen = if $topology == null {
-                    gum choose ...$choices
+                    $choices | input list -f "Topology"
                   } else if ($choices | any {|t| $t == $topology }) {
                     $topology
                   } else {
@@ -64,15 +45,19 @@
                     error make --unspanned {msg: $"No such topology. Should be either ($choosable)" }
                   }
 
+                  if ($chosen | is-empty) {
+                    return
+                  }
+
                   let architecture = uname | get machine
                   let kernel_name = uname | get kernel-name | str downcase
-                  nom build .#topology.($architecture)-($kernel_name).config.output
+                  ${lib.getExe pkgs.nix-output-monitor} build .#topology.($architecture)-($kernel_name).config.output
 
                   let path: path = $"result/($chosen).svg"
                   if $env.TERM? == "xterm-kitty" {
                     kitten icat $path
                   } else {
-                    timg $path
+                    ${lib.getExe pkgs.timg} $path
                   }
                 }
               ''
@@ -81,30 +66,27 @@
               let
                 flakeInputs = inputs |> builtins.attrNames |> toString;
               in
-              writeNuBin "upin" { makeWrapperArgs = prefixPath [ pkgs.gum ]; } # nu
+              writeNuBin "upin" # nu
                 ''
                   def main [...inputs: string]: nothing -> nothing {
-                    let selection = if not ($inputs | is-empty) {
+                    const all_choices = [${flakeInputs}]
+
+                    let selection = if ($inputs | is-not-empty) {
                       $inputs
                     } else {
-                      # If nothing is chosen then a list with an empty string is returned...
-                      let chosen = gum choose --no-limit --header "Inputs" ${flakeInputs} | lines --skip-empty
-                      if $chosen == [ "" ] {
-                        [ ]
-                      } else {
-                        $chosen
-                      }
+                      $all_choices | input list -m "Inputs"
                     }
 
                     if ($selection | is-empty) {
                       return
                     }
 
-                    if $selection == [${flakeInputs}] {
-                      gum confirm "Update all Inputs?" ; nix flake update
-                    } else {
-                      gum confirm "Update?" ; nix flake update ...$selection
-                    }
+                    $selection
+                      | where {|input| $input not-in $all_choices}
+                      | each {|input| error make --unspanned {msg: $"There is no Input named '($input)'" }}
+
+                    ${lib.getExe pkgs.gum} confirm "Update?"
+                    nix flake update ...(if $selection == $all_choices { [] } else { $selection })
                   }
                 ''
             )
@@ -125,6 +107,70 @@
                     $ids
                       | par-each {|id| ${prefetch} $id }
                       | print --raw
+                  }
+                ''
+            )
+            (
+              let
+                inherit (config.flake) nixosConfigurations homeConfigurations;
+                nixosConfigs =
+                  nixosConfigurations
+                  |> lib.mapAttrsToList (
+                    hostName: value:
+                    let
+                      cfg = value.config;
+                    in
+                    {
+                      host.${hostName} = cfg.allowedUnfreePackages;
+                      users = cfg.home-manager.users |> lib.mapAttrs (_: uvalue: uvalue.allowedUnfreePackages);
+                    }
+                  );
+                homeConfigs =
+                  homeConfigurations
+                  |> lib.mapAttrsToList (
+                    homeName: value:
+                    let
+                      homeUser = lib.splitString "@" homeName;
+                      username = builtins.head homeUser;
+                      hostname = lib.last homeUser;
+                    in
+                    {
+                      host = hostname;
+                      users.${username} = value.config.allowedUnfreePackages;
+                    }
+                  );
+              in
+              writeNuBin "identify-unfree" { } # nu
+                ''
+                  def main [--json (-j)]: nothing -> oneof<table, string> {
+                    let cfg_json = '${nixosConfigs ++ homeConfigs |> builtins.toJSON}'
+                    if $json {
+                      $cfg_json
+                    } else {
+                      $cfg_json | from json --strict
+                    }
+                  }
+
+                  def "main host" [host: string]: nothing -> list<string> {
+                    let data = identify-unfree -j | from json --strict
+
+                    let host_exists = $data | any {|row|
+                      $host == if ($row.host | describe | str contains "record") {
+                        $row.host | columns | get 0
+                      } else {
+                        $row.host
+                      }
+                    }
+
+                    if not $host_exists {
+                      error make --unspanned {msg: (
+                        $"Host '($host)' not found" | ansi gradient --fgstart "0xf9e2af" --fgend "0xf38ba8"
+                      )}
+                    }
+
+                    $data
+                      | where {|row| $row.host | describe | str starts-with "record" }
+                      | each --flatten {|row| $row.host | get --optional $host }
                   }
                 ''
             )
