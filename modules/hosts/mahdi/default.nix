@@ -31,7 +31,6 @@ toplevel@{ inputs, ... }:
       system.stateVersion = "25.11";
       hardware.facter.reportPath = ./facter.json;
 
-      time.timeZone = "Europe/Berlin";
       console.keyMap = config.services.xserver.xkb.layout;
 
       boot = {

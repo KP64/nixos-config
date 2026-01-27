@@ -73,6 +73,7 @@ in
                 users.mutableUsers = false;
                 environment.defaultPackages = [ ];
                 boot.tmp.cleanOnBoot = true;
+                services.automatic-timezoned.enable = true;
 
                 # From perlless profile
                 boot.initrd.systemd.enable = true;

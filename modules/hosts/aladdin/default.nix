@@ -32,7 +32,6 @@ toplevel@{ inputs, ... }:
         };
       };
 
-      time.timeZone = "Europe/Berlin";
       console.keyMap = config.services.xserver.xkb.layout;
       services.xserver.xkb.layout = "de";
       boot = {
