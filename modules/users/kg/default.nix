@@ -125,10 +125,6 @@ toplevel@{
           bat.enable = true;
           btop.enable = true;
           cava.enable = true;
-          eilmeldung = {
-            enable = true;
-            package = inputs'.eilmeldung.packages.default;
-          };
           fzf.enable = true;
           ripgrep.enable = true;
           zellij.enable = true;

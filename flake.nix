@@ -103,15 +103,6 @@
       };
     };
 
-    # Terminal RSS Reader
-    eilmeldung = {
-      url = "github:christo-auer/eilmeldung";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "dedup_flake-utils";
-      };
-    };
-
     # Bind everything together
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
