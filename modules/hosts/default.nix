@@ -60,6 +60,10 @@ in
                   useUserPackages = true;
                   overwriteBackup = true;
                   backupFileExtension = "hm-backup";
+                  sharedModules = [
+                    config.flake.modules.homeManager.hostname
+                    { hostname = hostName; }
+                  ];
                 };
                 environment.pathsToLink = map (d: "/share/${d}") [
                   "applications"

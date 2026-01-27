@@ -1,4 +1,9 @@
-toplevel@{ moduleWithSystem, inputs, ... }:
+toplevel@{
+  moduleWithSystem,
+  customLib,
+  inputs,
+  ...
+}:
 {
   flake.modules = {
     nixos.users-kg =
@@ -42,40 +47,33 @@ toplevel@{ moduleWithSystem, inputs, ... }:
       };
 
     homeManager.users-kg = moduleWithSystem (
-      { inputs', system, ... }:
-      {
-        config,
-        lib,
-        pkgs,
-        ...
-      }:
+      { inputs', ... }:
+      { config, pkgs, ... }:
       let
         invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
       in
       {
-        imports =
-          (with inputs; [
-            sops-nix.homeModules.default
-            eilmeldung.homeManager.default
-          ])
-          ++ (with toplevel.config.flake.modules.homeManager; [
-            catppuccin
-            nix
-            ssh
-            vcs
-            yubikey
-          ])
-          ++ (with toplevel.config.flake.modules.homeManager; [
-            users-kg-yazi
-            users-kg-atuin
-            users-kg-delta
-            users-kg-fd
-            users-kg-fetchers
-            users-kg-neovim
-            users-kg-shells
-            users-kg-starship
-            users-kg-zoxide
-          ]);
+        imports = [
+          inputs.sops-nix.homeModules.default
+        ]
+        ++ (with toplevel.config.flake.modules.homeManager; [
+          catppuccin
+          nix
+          ssh
+          vcs
+          yubikey
+        ])
+        ++ (with toplevel.config.flake.modules.homeManager; [
+          users-kg-yazi
+          users-kg-atuin
+          users-kg-delta
+          users-kg-fd
+          users-kg-fetchers
+          users-kg-neovim
+          users-kg-shells
+          users-kg-starship
+          users-kg-zoxide
+        ]);
 
         vcs.user = {
           name = "KP64";
@@ -85,17 +83,32 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         home = {
           shellAliases.c = "clear";
           packages =
-            (lib.optionals (system != "aarch64-linux") [
-              inputs'.dotz.packages.default
-              pkgs.prismlauncher
-            ])
-            ++ (with pkgs; [
+            (with pkgs; [
               bluetui
               caligula
-              manga-tui
-              pavucontrol
-              yubioath-flutter
-            ]);
+            ])
+            ++ customLib.packages.activatePerHosts {
+              inherit config;
+              list = [
+                {
+                  packages = [
+                    inputs'.dotz.packages.default
+                  ]
+                  ++ (with pkgs; [
+                    manga-tui
+                    yubioath-flutter
+                  ]);
+                  hosts = [
+                    "aladdin"
+                    "sindbad"
+                  ];
+                }
+                {
+                  packages = [ pkgs.prismlauncher ];
+                  hosts = [ "aladdin" ];
+                }
+              ];
+            };
         };
 
         sops = {

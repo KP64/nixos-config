@@ -125,7 +125,8 @@ toplevel@{ customLib, ... }:
 
               PDF_EXTRACT_IMAGES = "True";
 
-              # TODO: Image Generation (Comfyui)
+              # TODO: Image Generation. No need for comfyui anymore.
+              #       Ollama supports image gen (note its experimental)
               ENABLE_IMAGE_GENERATION = "True";
 
               RAG_FULL_CONTEXT = "True";

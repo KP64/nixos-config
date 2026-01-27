@@ -16,6 +16,8 @@ in
 
   nginx = import ./nginx.nix { inherit lib; };
 
+  packages = import ./packages.nix { inherit lib; };
+
   util = import ./util.nix {
     inherit lib;
     inherit (inputs) self;

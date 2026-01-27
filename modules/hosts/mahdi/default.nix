@@ -1,6 +1,5 @@
 toplevel@{ inputs, ... }:
 {
-  # TODO: Utilize system.nixos.tags (https://search.nixos.org/options?channel=unstable&show=system.nixos.tags&query=system.nixos.tags)
   # TODO: TOR Redirection links.
   #        - When someone visits one of my websites via TOR, that is available
   #          via an .onion address let crowdsec TOR Blocklist redirect to a

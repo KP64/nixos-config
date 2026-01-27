@@ -26,19 +26,15 @@ toplevel@{ moduleWithSystem, ... }:
 
             qt.enable = true;
 
-            home-manager.sharedModules =
-              let
-                inherit (toplevel.config.flake.modules) homeManager;
-              in
-              [ homeManager.desktop ]
-              ++ [
-                {
-                  wayland.windowManager.hyprland = {
-                    package = null;
-                    portalPackage = null;
-                  };
-                }
-              ];
+            home-manager.sharedModules = [
+              toplevel.config.flake.modules.homeManager.desktop
+              {
+                wayland.windowManager.hyprland = {
+                  package = null;
+                  portalPackage = null;
+                };
+              }
+            ];
           }
           (lib.mkIf config.hardware.bluetooth.enable {
             services.blueman.enable = true;
@@ -67,6 +63,8 @@ toplevel@{ moduleWithSystem, ... }:
             Set the hyprland portalPackage to null and install it via your favourite package manager!
           '';
 
+          # nixGL wrappings are no-ops when nixGL packages aren't included.
+          # This can stay as is.
           wayland.windowManager.hyprland.package = lib.mkDefault <| nixGL.wrap <| pkgs.hyprland;
 
           gtk.enable = true;

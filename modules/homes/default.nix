@@ -21,22 +21,27 @@ in
           userHostSplit = userHost |> lib.splitString infix;
           username = userHostSplit |> builtins.head;
           hostname = userHostSplit |> lib.last;
-
-          host = additionalHosts.${hostname};
         in
         {
           name = userHost;
           value = inputs.home-manager.lib.homeManagerConfiguration {
-            pkgs = import inputs.nixpkgs { inherit (host) system; };
+            pkgs = import inputs.nixpkgs { inherit (additionalHosts.${hostname}) system; };
             modules = [
               config.flake.modules.homeManager.nix-unfree
             ]
             ++ [ module ]
-            ++ host.modules
+            ++ [
+              config.flake.modules.homeManager.hostname
+              { inherit hostname; }
+            ]
             ++ [
               {
                 # Allow graphical applications like hyprland to be wrapped
                 # on non NixOS systems. This allows them to run correctly.
+                # TODO: Instruction on how to genericLinux.gpu
+                #       Benefits:
+                #         - recommended method for graphical applications
+                #         - Removes dependency on nixGL
                 targets.genericLinux.nixGL = { inherit (inputs.nixGL) packages; };
               }
               {
