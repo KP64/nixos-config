@@ -27,5 +27,4 @@
     lib.genAttrs list (_: {
       metaData.hidden = true;
     });
-
 }
