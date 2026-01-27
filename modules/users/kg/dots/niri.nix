@@ -2,7 +2,12 @@
 {
   flake.modules.homeManager.users-kg-niri = moduleWithSystem (
     { inputs', ... }:
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       inherit (inputs'.niri-flake.packages) niri-unstable xwayland-satellite-unstable;
     in
@@ -61,6 +66,29 @@
             hide-after-inactive-ms = 1000;
             size = 32;
           };
+          outputs =
+            let
+              outputCfg = config.programs.niri.settings.outputs;
+            in
+            builtins.getAttr config.hostname {
+              aladdin = {
+                DP-3 = {
+                  focus-at-startup = true;
+                  variable-refresh-rate = "on-demand";
+                  position.x = 0;
+                  position.y = 0;
+                  mode = {
+                    width = 1920;
+                    height = 1080;
+                    refresh = 239.757;
+                  };
+                };
+                HDMI-A-1 = {
+                  position.x = outputCfg.DP-3.mode.width;
+                  position.y = 500;
+                };
+              };
+            };
           layer-rules = [
             {
               matches = [ { namespace = "^notifications$"; } ];

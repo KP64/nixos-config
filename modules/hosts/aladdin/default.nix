@@ -42,63 +42,19 @@ toplevel@{ inputs, ... }:
         };
       };
 
-      home-manager = {
-        sharedModules = [
-          {
-            wayland.windowManager.hyprland.settings.monitorv2 = [
-              {
-                output = "DP-3";
-                mode = "highrr";
-                vrr = 2;
-              }
-              {
-                output = "HDMI-A-1";
-                mode = "preferred";
-                position = "1920x500";
-              }
-            ];
-          }
-          (
-            { config, ... }:
-            {
-              programs.niri.settings.outputs =
-                let
-                  cfg = config.programs.niri.settings.outputs;
-                in
-                {
-                  DP-3 = {
-                    focus-at-startup = true;
-                    variable-refresh-rate = "on-demand";
-                    position.x = 0;
-                    position.y = 0;
-                    mode = {
-                      width = 1920;
-                      height = 1080;
-                      refresh = 239.757;
-                    };
-                  };
-                  HDMI-A-1 = {
-                    position.x = cfg.DP-3.mode.width;
-                    position.y = 500;
-                  };
-                };
-            }
-          )
+      home-manager.users.kg = {
+        imports = with toplevel.config.flake.modules.homeManager; [
+          users-kg-firefox
+          users-kg-glance
+          users-kg-anki
+          users-kg-kitty
+          users-kg-niri
+          users-kg-noctalia-shell
+          users-kg-rofi
+          users-kg-thunderbird
+          users-kg-vesktop
         ];
-        users.kg = {
-          imports = with toplevel.config.flake.modules.homeManager; [
-            users-kg-firefox
-            users-kg-glance
-            users-kg-anki
-            users-kg-kitty
-            users-kg-niri
-            users-kg-noctalia-shell
-            users-kg-rofi
-            users-kg-thunderbird
-            users-kg-vesktop
-          ];
-          home = { inherit (config.system) stateVersion; };
-        };
+        home = { inherit (config.system) stateVersion; };
       };
 
       sops.defaultSopsFile = ./secrets.yaml;
