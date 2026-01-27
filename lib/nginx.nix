@@ -1,5 +1,28 @@
 { lib }:
 {
+  /**
+    Generate a string with values of the
+    Content-Security-Policy http header.
+
+    # Example
+
+    ```nix
+    mkCSP { default-src = "none"; }
+    =>
+    "default-src 'none';"
+    ```
+
+    # Type
+
+    ```
+    mkCSP :: AttrSet
+    ```
+
+    # Arguments
+
+    policyAttr
+    : key value pairs of header
+  */
   mkCSP =
     policyAttr:
     policyAttr
@@ -22,6 +45,29 @@
     )
     |> builtins.concatStringsSep " ";
 
+  /**
+    Generate a string with values of the
+    Permission-Policy http header.
+
+    # Example
+
+    ```nix
+    mkPP { camera = "()"; microphone = "()";}
+    =>
+    "camera=(), microphone=();"
+    ```
+
+    # Type
+
+    ```
+    mkPP :: AttrSet
+    ```
+
+    # Arguments
+
+    policies
+    : key value pairs of header
+  */
   mkPP =
     policies:
     policies
