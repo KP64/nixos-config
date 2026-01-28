@@ -36,28 +36,21 @@
               ''
                 def main [topology?: string]: nothing -> nothing {
                   const choices = [ "main" "network" ]
+
                   let chosen = if $topology == null {
                     $choices | input list -f "Topology"
-                  } else if ($choices | any {|t| $t == $topology }) {
+                  } else if ($topology in $choices) {
                     $topology
                   } else {
-                    let choosable = $choices | each {|choice| $"'($choice)'" } | str join " or "
-                    error make --unspanned {msg: $"No such topology. Should be either ($choosable)" }
+                    $choices
+                      | each { $"'($in)'" }
+                      | str join " or "
+                      | error make --unspanned {msg: $"No such topology. Should be either ($in)" }
                   }
 
                   if ($chosen | is-empty) {
-                    return
-                  }
-
-                  let architecture = uname | get machine
-                  let kernel_name = uname | get kernel-name | str downcase
-                  ${lib.getExe pkgs.nix-output-monitor} build .#topology.($architecture)-($kernel_name).config.output
-
-                  let path: path = $"result/($chosen).svg"
-                  if $env.TERM? == "xterm-kitty" {
-                    kitten icat $path
-                  } else {
-                    ${lib.getExe pkgs.timg} $path
+                    uname | ${lib.getExe pkgs.nix-output-monitor} build .#topology.($in.machine)-($in.kernel-name | str downcase).config.output
+                    kitten icat $"result/($chosen).svg"
                   }
                 }
               ''
@@ -82,8 +75,8 @@
                     }
 
                     $selection
-                      | where {|input| $input not-in $all_choices}
-                      | each {|input| error make --unspanned {msg: $"There is no Input named '($input)'" }}
+                      | where $it not-in $all_choices
+                      | each { error make --unspanned {msg: $"There is no Input named '($in)'" }}
 
                     ${lib.getExe pkgs.gum} confirm "Update?"
                     nix flake update ...(if $selection == $all_choices { [] } else { $selection })
@@ -105,7 +98,7 @@
                 ''
                   def main [...ids: string]: nothing -> nothing {
                     $ids
-                      | par-each {|id| ${prefetch} $id }
+                      | par-each { ${prefetch} $in }
                       | print --raw
                   }
                 ''
@@ -169,8 +162,8 @@
                     }
 
                     $data
-                      | where {|row| $row.host | describe | str starts-with "record" }
-                      | each --flatten {|row| $row.host | get --optional $host }
+                      | where { $in.host | describe | str starts-with "record" }
+                      | each --flatten { $in.host | get --optional $host }
                   }
                 ''
             )
