@@ -148,17 +148,18 @@
                     let data = identify-unfree -j | from json --strict
 
                     let host_exists = $data | any {|row|
-                      $host == if ($row.host | describe | str contains "record") {
+                      if ($row.host | describe | str contains "record") {
                         $row.host | columns | get 0
                       } else {
                         $row.host
                       }
+                      | $host == $in
                     }
 
                     if not $host_exists {
-                      error make --unspanned {msg: (
-                        $"Host '($host)' not found" | ansi gradient --fgstart "0xf9e2af" --fgend "0xf38ba8"
-                      )}
+                      $"Host '($host)' not found"
+                        | ansi gradient --fgstart "0xf9e2af" --fgend "0xf38ba8"
+                        | error make --unspanned {msg: $in }
                     }
 
                     $data
