@@ -77,6 +77,8 @@ in
                 users.mutableUsers = false;
                 environment.defaultPackages = [ ];
                 boot.tmp.cleanOnBoot = true;
+
+                security.polkit.enable = true;
                 services.automatic-timezoned.enable = true;
 
                 # From perlless profile
