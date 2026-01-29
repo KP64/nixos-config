@@ -43,9 +43,9 @@
                     $topology
                   } else {
                     $choices
-                      | each { $"'($in)'" }
-                      | str join " or "
-                      | error make --unspanned {msg: $"No such topology. Should be either ($in)" }
+                    | each { $"'($in)'" }
+                    | str join " or "
+                    | error make --unspanned {msg: $"No such topology. Should be either ($in)" }
                   }
 
                   if ($chosen | is-empty) {
@@ -75,8 +75,8 @@
                     }
 
                     $selection
-                      | where $it not-in $all_choices
-                      | each { error make --unspanned {msg: $"There is no Input named '($in)'" }}
+                    | where $it not-in $all_choices
+                    | each { error make --unspanned {msg: $"There is no Input named '($in)'" }}
 
                     ${lib.getExe pkgs.gum} confirm "Update?"
                     nix flake update ...(if $selection == $all_choices { [] } else { $selection })
@@ -98,8 +98,8 @@
                 ''
                   def main [...ids: string]: nothing -> nothing {
                     $ids
-                      | par-each { ${prefetch} $in }
-                      | print --raw
+                    | par-each { ${prefetch} $in }
+                    | print --raw
                   }
                 ''
             )
@@ -158,13 +158,13 @@
 
                     if not $host_exists {
                       $"Host '($host)' not found"
-                        | ansi gradient --fgstart "0xf9e2af" --fgend "0xf38ba8"
-                        | error make --unspanned {msg: $in }
+                      | ansi gradient --fgstart "0xf9e2af" --fgend "0xf38ba8"
+                      | error make --unspanned {msg: $in }
                     }
 
                     $data
-                      | where { $in.host | describe | str starts-with "record" }
-                      | each --flatten { $in.host | get --optional $host }
+                    | where { $in.host | describe | str starts-with "record" }
+                    | each --flatten { $in.host | get --optional $host }
                   }
                 ''
             )
