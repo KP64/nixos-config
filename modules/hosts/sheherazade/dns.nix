@@ -165,22 +165,17 @@
                       zone_path = file;
                       journal_path = "${nixos.config.networking.domain}_dnssec_update.jrnl";
                       allow_update = true;
-                      tsig_keys = [
-                        {
-                          name = "tsig-key";
-                          algorithm = "hmac-sha256";
-                          # NOTE: 💢 Hickory requires the base64-DECODED secret.
-                          key_file = nixos.config.sops.secrets.tsig_secret_decoded.path;
-                        }
-                      ];
+                      tsig_keys = lib.singleton {
+                        name = "tsig-key";
+                        algorithm = "hmac-sha256";
+                        # NOTE: 💢 Hickory requires the base64-DECODED secret.
+                        key_file = nixos.config.sops.secrets.tsig_secret_decoded.path;
+                      };
                     };
-                    keys = [
-                      {
-                        algorithm = "RSASHA256";
-                        purpose = "ZoneSigning";
-                        key_path = nixos.config.sops.secrets.zone_signing_key.path;
-                      }
-                    ];
+                    keys = lib.singleton {
+                      algorithm = "RSASHA256";
+                      key_path = nixos.config.sops.secrets.zone_signing_key.path;
+                    };
                   }
                 ];
             };
