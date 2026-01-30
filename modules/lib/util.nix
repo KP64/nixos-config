@@ -76,11 +76,11 @@
         arr
         |> lib.filter (builtins.hasAttr needs)
         |> map (conf: conf |> lib.getAttrFromPath ([ needs ] ++ extraAccess));
+      description = ''
+        Filters an array of attrsets containing the needed
+        attribute and maps to subattributes via extraAccess
+      '';
     };
-    description = ''
-      Filters an array of attrsets containing the needed
-      attribute and maps to subattributes via extraAccess
-    '';
 
     getSopsFiles = {
       type = with lib.types; functionTo <| listOf path;
