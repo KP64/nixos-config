@@ -120,13 +120,13 @@
             configFile =
               toString
               <| tomlFormat.generate "typos" {
-                default.extend-words = {
-                  ede = "ede";
-                  facter = "facter";
-                  nitch = "nitch";
-                  noice = "noice";
-                  HAE = "HAE"; # LTT Channel ID
-                };
+                default.extend-words = lib.genAttrs [
+                  "ede"
+                  "facter"
+                  "nitch"
+                  "noice"
+                  "HAE" # LTT Channel ID
+                ] (name: name);
                 files.extend-exclude = facterFiles;
               };
           };
