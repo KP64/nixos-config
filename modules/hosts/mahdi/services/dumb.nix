@@ -1,7 +1,9 @@
-toplevel@{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
+    let
+      inherit (toplevel.config.flake.nixos) mkPP;
+    in
     {
       imports = [ toplevel.config.flake.modules.nixos.dumb ];
 
@@ -18,7 +20,7 @@ toplevel@{ customLib, ... }:
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
                 add_header X-Frame-Options SAMEORIGIN always;
                 add_header Permissions-Policy "${
-                  customLib.nginx.mkPP {
+                  mkPP {
                     camera = "()";
                     microphone = "()";
                     geolocation = "()";

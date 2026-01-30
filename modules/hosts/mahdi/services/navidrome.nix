@@ -1,9 +1,9 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       domain = "navidrome.${config.networking.domain}";
+      inherit (toplevel.config.flake.nixos) mkCSP;
     in
     {
       sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;
@@ -24,7 +24,7 @@
                 ''
                   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
                   add_header Content-Security-Policy "${
-                    customLib.nginx.mkCSP {
+                    mkCSP {
                       default-src = "none";
                       img-src = "self";
                       media-src = "self";

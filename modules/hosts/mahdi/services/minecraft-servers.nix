@@ -1,23 +1,11 @@
-{
-  moduleWithSystem,
-  inputs,
-  customLib,
-  ...
-}:
+{ moduleWithSystem, inputs, ... }:
 {
   flake.modules.nixos.hosts-mahdi = moduleWithSystem (
-    { inputs', ... }:
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
+    { config, inputs', ... }:
+    nixos@{ lib, ... }:
     let
       velocityPort = 25565;
       mcPkgs = inputs'.nix-minecraft.legacyPackages;
-
-      inherit (customLib.minecraft) collectMods;
 
       commonMods = {
         ALTERNATE_CURRENT = {
@@ -96,12 +84,12 @@
     {
       imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
-      sops.secrets."minecraft-server.env".owner = config.users.users.minecraft.name;
+      sops.secrets."minecraft-server.env".owner = nixos.config.users.users.minecraft.name;
 
       services.minecraft-servers = {
         enable = true;
         eula = true;
-        environmentFile = config.sops.secrets."minecraft-server.env".path;
+        environmentFile = nixos.config.sops.secrets."minecraft-server.env".path;
         servers = {
           Proxy = {
             enable = true;
@@ -122,7 +110,7 @@
               let
                 servers =
                   let
-                    inherit (config.services.minecraft-servers.servers) Creative Survival;
+                    inherit (nixos.config.services.minecraft-servers.servers) Creative Survival;
                   in
                   {
                     survival = "127.0.0.1:${toString Survival.serverProperties.server-port}";
@@ -157,7 +145,7 @@
                 forced-hosts =
                   servers
                   |> lib.filterAttrs (n: _: n != "try")
-                  |> lib.mapAttrs' (n: _: lib.nameValuePair "${n}.${config.networking.domain}" [ n ]);
+                  |> lib.mapAttrs' (n: _: lib.nameValuePair "${n}.${nixos.config.networking.domain}" [ n ]);
 
                 advanced = {
                   compression-threshold = 256;
@@ -223,10 +211,7 @@
                   secret = "@velocity_forward_secret@";
                 };
               };
-            symlinks.mods = collectMods {
-              inherit pkgs;
-              mods = commonMods;
-            };
+            symlinks.mods = config.lib.collectMods commonMods;
           };
           Creative = {
             enable = true;
@@ -260,10 +245,7 @@
                   secret = "@velocity_forward_secret@";
                 };
               };
-            symlinks.mods = collectMods {
-              inherit pkgs;
-              mods = commonMods;
-            };
+            symlinks.mods = config.lib.collectMods commonMods;
           };
         };
       };
