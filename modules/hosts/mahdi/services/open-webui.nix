@@ -1,9 +1,9 @@
-toplevel@{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       domain = "open-webui.${config.networking.domain}";
+      inherit (toplevel.config.flake.nixos) mkCSP mkPP;
     in
     {
       allowedUnfreePackages = [ "open-webui" ];
@@ -40,7 +40,7 @@ toplevel@{ customLib, ... }:
             ''
               add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
               add_header Content-Security-Policy "${
-                customLib.nginx.mkCSP {
+                mkCSP {
                   default-src = "none";
                   img-src = "self";
                   font-src = "self";
@@ -59,7 +59,7 @@ toplevel@{ customLib, ... }:
               add_header X-Content-Type-Options nosniff always;
               add_header Referrer-Policy no-referrer always;
               add_header Permissions-Policy "${
-                customLib.nginx.mkPP {
+                mkPP {
                   camera = "()";
                   geolocation = "()";
                   usb = "()";

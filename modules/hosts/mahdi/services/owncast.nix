@@ -1,7 +1,9 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
+    let
+      inherit (toplevel.config.flake.nixos) mkPP;
+    in
     {
       services = {
         nginx.virtualHosts."owncast.${config.networking.domain}" = {
@@ -19,7 +21,7 @@
                 add_header X-Content-Type-Options nosniff always;
                 add_header Referrer-Policy no-referrer always;
                 add_header Permissions-Policy "${
-                  customLib.nginx.mkPP {
+                  mkPP {
                     camera = "()";
                     microphone = "()";
                     geolocation = "()";

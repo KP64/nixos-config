@@ -1,9 +1,9 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       domain = "redlib.${config.networking.domain}";
+      inherit (toplevel.config.flake.nixos) mkPP;
     in
     {
       services = {
@@ -17,7 +17,7 @@
             extraConfig = # nginx
               ''
                 add_header Permissions-Policy "${
-                  customLib.nginx.mkPP {
+                  mkPP {
                     camera = "()";
                     microphone = "()";
                     geolocation = "()";

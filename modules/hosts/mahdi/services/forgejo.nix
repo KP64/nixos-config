@@ -1,7 +1,9 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
+    let
+      inherit (toplevel.config.flake.nixos) mkCSP mkPP;
+    in
     {
       services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
         enableACME = true;
@@ -14,7 +16,7 @@
             ''
               add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
               add_header Content-Security-Policy "${
-                customLib.nginx.mkCSP {
+                mkCSP {
                   default-src = "none";
                   connect-src = "self";
                   style-src = [
@@ -31,7 +33,7 @@
               add_header X-Content-Type-Options nosniff always;
               add_header Referrer-Policy no-referrer always;
               add_header Permissions-Policy "${
-                customLib.nginx.mkPP {
+                mkPP {
                   camera = "()";
                   microphone = "()";
                   geolocation = "()";

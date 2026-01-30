@@ -1,7 +1,9 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
+    let
+      inherit (toplevel.config.flake.nixos) mkCSP mkPP;
+    in
     {
       sops.secrets.searxng.owner = config.users.users.searx.name;
 
@@ -15,7 +17,7 @@
             ''
               add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
               add_header Content-Security-Policy "${
-                customLib.nginx.mkCSP {
+                mkCSP {
                   default-src = "none";
                   script-src = "self";
                   style-src = [
@@ -36,7 +38,7 @@
               }" always;
               add_header X-Frame-Options SAMEORIGIN always;
               add_header Permissions-Policy "${
-                customLib.nginx.mkPP {
+                mkPP {
                   camera = "()";
                   microphone = "()";
                   geolocation = "()";
