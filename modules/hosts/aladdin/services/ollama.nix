@@ -16,6 +16,7 @@ in
 
     services.ollama = {
       enable = true;
+      syncModels = true;
       host = "0.0.0.0";
       openFirewall = true;
       loadModels = [

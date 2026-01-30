@@ -6,6 +6,7 @@ in
   flake.modules.nixos.hosts-mahdi = {
     services.ollama = {
       enable = true;
+      syncModels = true;
       loadModels = [
         "embeddinggemma:300m"
         "llama3.1:8b"
