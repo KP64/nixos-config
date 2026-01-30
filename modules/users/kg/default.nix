@@ -1,9 +1,4 @@
-toplevel@{
-  moduleWithSystem,
-  customLib,
-  inputs,
-  ...
-}:
+toplevel@{ moduleWithSystem, inputs, ... }:
 {
   flake.modules = {
     nixos.users-kg =
@@ -83,11 +78,14 @@ toplevel@{
         home = {
           shellAliases.c = "clear";
           packages =
+            let
+              inherit (toplevel.config.flake.lib.flake) activatePerHosts;
+            in
             (with pkgs; [
               bluetui
               caligula
             ])
-            ++ customLib.packages.activatePerHosts {
+            ++ activatePerHosts {
               inherit config;
               list = [
                 {

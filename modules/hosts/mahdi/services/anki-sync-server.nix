@@ -1,9 +1,8 @@
-toplevel@{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
-      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
+      inherit (toplevel.config.flake.lib.flake) genUsers mkCSP mkPP;
     in
     {
       services = {
@@ -45,7 +44,7 @@ toplevel@{ customLib, ... }:
         #       and not the email as instructed. Unless the username is an email ofc...
         anki-sync-server = {
           enable = true;
-          users = customLib.anki.genUsers config.sops.secrets;
+          users = genUsers config.sops.secrets;
         };
       };
     };

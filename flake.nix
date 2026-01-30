@@ -256,20 +256,7 @@
     The outputs are akin to "results" that this flake produces.
     This ranges from a simple Network Topology all the way to
     full blown NixOS Configs.
-
-    First we import our custom library that will be exported to all our flake-parts
-    modules via the specialArgs attributes of the `mkFlake` function.
-    Then we import all modules with the help of import-tree
-    and finally make the flake with flake-part's `mkFlake` function.
   */
   outputs =
-    inputs:
-    let
-      customLib = import ./lib { inherit inputs; };
-    in
-    inputs.import-tree ./modules
-    |> inputs.flake-parts.lib.mkFlake {
-      inherit inputs;
-      specialArgs = { inherit customLib; };
-    };
+    inputs: inputs.import-tree ./modules |> inputs.flake-parts.lib.mkFlake { inherit inputs; };
 }

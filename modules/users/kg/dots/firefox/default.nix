@@ -1,11 +1,6 @@
-toplevel@{
-  inputs,
-  customLib,
-  moduleWithSystem,
-  ...
-}:
+toplevel@{ inputs, moduleWithSystem, ... }:
 let
-  inherit (toplevel.config.flake.lib.flake) toFlattenedByDots getIcon;
+  inherit (toplevel.config.flake.lib.flake) hideEngines toFlattenedByDots getIcon;
 in
 {
   flake.modules.homeManager.users-kg-firefox = moduleWithSystem (
@@ -143,7 +138,7 @@ in
                   (mkParam "query" "{searchTerms}")
                 ];
               in
-              customLib.firefox.hideEngines [
+              hideEngines [
                 "bing"
                 "ecosia"
                 "google"
