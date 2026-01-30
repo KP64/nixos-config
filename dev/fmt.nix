@@ -121,6 +121,7 @@
               toString
               <| tomlFormat.generate "typos" {
                 default.extend-words = lib.genAttrs [
+                  "enew"
                   "ede"
                   "facter"
                   "nitch"
