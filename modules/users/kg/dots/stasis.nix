@@ -14,7 +14,7 @@
       home.packages = [ pkgs.libnotify ];
 
       services.stasis = {
-        enable = true;
+        enable = config.wayland.windowManager.hyprland.enable || (config.programs.niri.enable or false);
         extraConfig =
           let
             lockCMD =
