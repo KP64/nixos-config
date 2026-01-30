@@ -6,8 +6,8 @@
 
       networking = {
         domain = "srvd.space";
-        useNetworkd = true;
         useDHCP = false;
+        dhcpcd.enable = false;
         wireless = {
           enable = true;
           secretsFile = config.sops.secrets."wireless.env".path;
