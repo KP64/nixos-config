@@ -21,11 +21,13 @@
       systemd.network.wait-online.anyInterface = true;
       boot.initrd.systemd.network.wait-online.anyInterface = true;
 
+      staticIPv4 = "192.168.2.224";
+
       systemd.network = {
         enable = true;
         networks."10-wlan0" = {
           name = "wlan0";
-          address = [ "192.168.2.224/24" ];
+          address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.2.1" ];
         };
       };

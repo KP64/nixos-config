@@ -43,60 +43,62 @@ in
             specialArgs = {
               lib = patchedLib;
             };
-            modules = [
+            modules =
               # Modules that should be made available for everyone.
-              config.flake.modules.nixos.nix-unfree
-              inputs.nix-topology.nixosModules.default
-            ]
-            ++ [ module ] # The actual system config
-            ++ [
-              # Custom HM Defaults
-              inputs.home-manager.nixosModules.default
-              {
-                # TODO: Refine the config to support useGlobalPkgs
-                #       without it being a hassle
-                home-manager = {
-                  startAsUserService = true;
-                  useUserPackages = true;
-                  overwriteBackup = true;
-                  backupFileExtension = "hm-backup";
-                  sharedModules = [
-                    config.flake.modules.homeManager.hostname
-                    { hostname = hostName; }
+              (with config.flake.modules.nixos; [
+                nix-unfree
+                ip
+              ])
+              ++ [ inputs.nix-topology.nixosModules.default ]
+              ++ [ module ] # The actual system config
+              ++ [
+                # Custom HM Defaults
+                inputs.home-manager.nixosModules.default
+                {
+                  # TODO: Refine the config to support useGlobalPkgs
+                  #       without it being a hassle
+                  home-manager = {
+                    startAsUserService = true;
+                    useUserPackages = true;
+                    overwriteBackup = true;
+                    backupFileExtension = "hm-backup";
+                    sharedModules = [
+                      config.flake.modules.homeManager.hostname
+                      { hostname = hostName; }
+                    ];
+                  };
+                  environment.pathsToLink = map (d: "/share/${d}") [
+                    "applications"
+                    "xdg-desktop-portal"
                   ];
-                };
-                environment.pathsToLink = map (d: "/share/${d}") [
-                  "applications"
-                  "xdg-desktop-portal"
-                ];
-              }
-            ]
-            # Custom NixOS Defaults
-            ++ [
-              {
-                users.mutableUsers = false;
-                environment.defaultPackages = [ ];
-                boot.tmp.cleanOnBoot = true;
+                }
+              ]
+              # Custom NixOS Defaults
+              ++ [
+                {
+                  users.mutableUsers = false;
+                  environment.defaultPackages = [ ];
+                  boot.tmp.cleanOnBoot = true;
 
-                security.polkit.enable = true;
-                services.automatic-timezoned.enable = true;
+                  security.polkit.enable = true;
+                  services.automatic-timezoned.enable = true;
 
-                # From perlless profile
-                boot.initrd.systemd.enable = true;
-                services.userborn.enable = true;
-                system.tools.nixos-generate-config.enable = false;
+                  # From perlless profile
+                  boot.initrd.systemd.enable = true;
+                  services.userborn.enable = true;
+                  system.tools.nixos-generate-config.enable = false;
 
-                networking = {
-                  inherit hostName;
-                  nftables.enable = true;
-                };
-              }
-            ]
-            # Adds disko configuration if available
-            ++ (lib.optionals (config.flake.diskoConfigurations |> lib.hasAttr hostName) [
-              inputs.disko.nixosModules.default
-              config.flake.diskoConfigurations.${hostName}
-            ]);
+                  networking = {
+                    inherit hostName;
+                    nftables.enable = true;
+                  };
+                }
+              ]
+              # Adds disko configuration if available
+              ++ (lib.optionals (config.flake.diskoConfigurations |> lib.hasAttr hostName) [
+                inputs.disko.nixosModules.default
+                config.flake.diskoConfigurations.${hostName}
+              ]);
           };
         }
       );

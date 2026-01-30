@@ -18,11 +18,13 @@
         };
       };
 
+      staticIPv4 = "192.168.2.221";
+
       systemd.network = {
         enable = true;
         networks."10-wlp6s0" = {
           name = "wlp6s0";
-          address = [ "192.168.2.221/24" ];
+          address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.2.1" ];
           dns =
             map (qdns: "${qdns}#dns.quad9.net") [

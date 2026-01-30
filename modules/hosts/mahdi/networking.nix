@@ -17,11 +17,13 @@ toplevel: {
         };
       };
 
+      staticIPv4 = "192.168.2.220";
+
       systemd.network = {
         enable = true;
         networks."10-wlp130s0f0" = {
           name = "wlp130s0f0";
-          address = [ "192.168.2.220/24" ];
+          address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.2.1" ];
           dns =
             map (qdns: "${qdns}#dns.quad9.net") [
