@@ -817,7 +817,8 @@
         "noctalia": "noctalia",
         "nur": "nur",
         "pkgs-by-name-for-flake-parts": "pkgs-by-name-for-flake-parts",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "stasis": "stasis"
       }
     },
     "rust-analyzer-src": {
@@ -854,6 +855,29 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "stasis": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769564959,
+        "narHash": "sha256-O1VODu+TwLAQjb3t3WVp+EtmPBsLU7WOQaRigASGr7E=",
+        "owner": "saltnpepper97",
+        "repo": "stasis",
+        "rev": "10a014d0d1ff9db2c12c7520822261136e6af957",
+        "type": "github"
+      },
+      "original": {
+        "owner": "saltnpepper97",
+        "repo": "stasis",
         "type": "github"
       }
     },
