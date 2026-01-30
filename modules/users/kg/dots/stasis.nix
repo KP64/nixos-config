@@ -39,6 +39,8 @@
 
             systemctl = lib.getExe' pkgs.systemdMinimal "systemctl";
             brightnessctl = lib.getExe pkgs.brightnessctl;
+
+            minutes = min: toString (min * 60);
           in
           ''
             @author "${config.home.username}"
@@ -62,7 +64,7 @@
               end
 
               lock_screen:
-                timeout 120
+                timeout ${minutes 5}
                 use_loginctl true
                 command "${lockCMD}"
                 resume_command "notify-send 'Welcome Back $env.USER!'"
@@ -70,14 +72,15 @@
                 notify_seconds_before 10
               end
 
+              # DPMS timeout after lock_screen is initiated
               dpms:
-                timeout 60
+                timeout ${minutes 1}
                 command "${dpmsCMD.off}"
                 resume_command "${dpmsCMD.on}"
               end
 
               suspend:
-                timeout 1800
+                timeout ${minutes 60}
                 command "${systemctl} suspend"
               end
 
@@ -89,18 +92,18 @@
                 end
 
                 brightness:
-                  timeout 120
+                  timeout ${minutes 2}
                   command "${brightnessctl} set 30%"
                 end
 
                 dpms:
-                  timeout 60
+                  timeout ${minutes 1}
                   command "${dpmsCMD.off}"
                   resume_command "${dpmsCMD.on}"
                 end
 
                 lock_screen:
-                  timeout 120
+                  timeout ${minutes 5}
                   use_loginctl true
                   command "${lockCMD}"
                   notification "Locking on AC in 10s"
@@ -108,7 +111,7 @@
                 end
 
                 suspend:
-                  timeout 300
+                  timeout ${minutes 60}
                   command "${systemctl} suspend"
                 end
               end
@@ -120,25 +123,25 @@
                 end
 
                 brightness:
-                  timeout 60
+                  timeout ${minutes 1}
                   command "${brightnessctl} set 20%"
                 end
 
                 dpms:
-                  timeout 30
+                  timeout ${minutes 1}
                   command "${dpmsCMD.off}"
                   resume_command "${dpmsCMD.on}"
                 end
 
                 lock_screen:
-                  timeout 120
+                  timeout ${minutes 5}
                   use_loginctl true
                   command "${lockCMD}"
                   resume_command "notify-send 'Welcome back $env.USER!'"
                 end
 
                 suspend:
-                  timeout 120
+                  timeout ${minutes 60}
                   command "${systemctl} suspend"
                 end
               end
