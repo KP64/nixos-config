@@ -1,14 +1,14 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
+      inherit (toplevel.config.flake.lib.flake) getIcon;
     in
     {
       topology.self = {
         hardware = {
-          image = customLib.util.getIcon {
+          image = getIcon {
             file = "poweredge-r730.png";
             type = "topology";
           };
