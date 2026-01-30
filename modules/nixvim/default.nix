@@ -24,6 +24,7 @@ toplevel@{ inputs, ... }:
             leetcode
             markdown
             movement
+            no-neck-pain
             treesitter
             trouble
             which-key

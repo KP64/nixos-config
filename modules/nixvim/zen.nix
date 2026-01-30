@@ -11,10 +11,6 @@
           enable = true;
           lazyLoad.settings.cmd = "Twilight";
         };
-        no-neck-pain = {
-          enable = true;
-          lazyLoad.settings.cmd = "NoNeckPain";
-        };
         zen-mode = {
           enable = true;
           lazyLoad.settings = {
@@ -25,7 +21,6 @@
                 ''
                   function()
                     require("lz.n").trigger_load("twilight.nvim")
-                    require("lz.n").trigger_load("no-neck-pain.nvim")
                   end
                 '';
           };
