@@ -1,9 +1,9 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.homeManager.users-kg-thunderbird =
     { config, ... }:
     let
       inherit (config.home) username;
+      inherit (toplevel.config.flake.lib.flake) toFlattenedByDots;
     in
     {
       catppuccin.thunderbird.profile = username;
@@ -17,7 +17,7 @@
             privateDefault = "ddg";
             force = true;
           };
-          settings = customLib.util.toFlattenedByDots {
+          settings = toFlattenedByDots {
             extensions.autoDisableScopes = 0;
             general.autoScroll = true;
             privacy.donottrackheader.enabled = true;

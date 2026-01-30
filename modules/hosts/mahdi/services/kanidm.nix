@@ -1,4 +1,4 @@
-{ customLib, inputs, ... }:
+toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.hosts-mahdi =
     {
@@ -151,7 +151,7 @@
 
           systems.oauth2 =
             let
-              inherit (customLib.util) getIcon;
+              inherit (toplevel.config.flake.lib.flake) getIcon;
             in
             {
               vaultwarden = {

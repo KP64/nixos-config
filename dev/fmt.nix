@@ -1,9 +1,4 @@
-{
-  config,
-  customLib,
-  inputs,
-  ...
-}:
+{ config, inputs, ... }:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
@@ -11,6 +6,8 @@
     { lib, pkgs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };
+
+      inherit (config.flake.lib.flake) getSopsFiles mapIfAvailable;
 
       getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
       nixosConfigs = getConfigs config.flake.nixosConfigurations;
@@ -21,7 +18,7 @@
 
       nixosUserHmConfigs =
         nixosConfigs
-        |> customLib.util.mapIfAvailable {
+        |> mapIfAvailable {
           needs = "home-manager";
           extraAccess = [ "users" ];
         }
@@ -36,11 +33,11 @@
 
       hostSopsFiles =
         nixosConfigs
-        |> customLib.util.mapIfAvailable {
+        |> mapIfAvailable {
           needs = "sops";
           extraAccess = [ "secrets" ];
         }
-        |> map customLib.util.getSopsFiles
+        |> map getSopsFiles
         |> lib.flatten
         |> getRelativePath;
 
@@ -49,7 +46,7 @@
         hmConfig
         |> lib.filter (user: user ? sops)
         |> map (user: user.sops.secrets)
-        |> map customLib.util.getSopsFiles
+        |> map getSopsFiles
         |> lib.flatten
         |> getRelativePath;
     in

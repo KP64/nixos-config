@@ -1,14 +1,14 @@
-{ customLib, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-morgiana =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
+      inherit (toplevel.config.flake.lib.flake) getIcon;
     in
     {
       topology.self = {
         hardware = {
-          image = customLib.util.getIcon {
+          image = getIcon {
             file = "rpi4.png";
             type = "topology";
           };
