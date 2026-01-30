@@ -11,7 +11,7 @@
       imports = [ inputs.stasis.homeModules.default ];
 
       # Needed for the notify_before commands
-      home.packages = [ pkgs.libnotify ];
+      home.packages = lib.optional config.services.stasis.enable pkgs.libnotify;
 
       services.stasis = {
         enable = config.wayland.windowManager.hyprland.enable || (config.programs.niri.enable or false);
