@@ -21,7 +21,7 @@
               if (config.programs.noctalia-shell.enable or false) then
                 "noctalia-shell ipc call lockScreen lock"
               else
-                "${lib.getExe pkgs.systemdMinimal "loginctl"} lock-session";
+                "${lib.getExe' pkgs.systemdMinimal "loginctl"} lock-session";
 
             dpmsCMD =
               if config.wayland.windowManager.hyprland.enable then
