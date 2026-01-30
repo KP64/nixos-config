@@ -1,6 +1,6 @@
-{ customLib, ... }:
+toplevel:
 let
-  inherit (customLib.ai) genModelTypes;
+  inherit (toplevel.config.flake.lib.nixos) genModelTypes;
 in
 {
   flake.modules.nixos.hosts-aladdin = {
