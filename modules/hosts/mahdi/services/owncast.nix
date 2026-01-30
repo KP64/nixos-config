@@ -2,7 +2,7 @@ toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
-      inherit (toplevel.config.flake.nixos) mkPP;
+      inherit (toplevel.config.flake.lib.nixos) mkPP;
     in
     {
       services = {

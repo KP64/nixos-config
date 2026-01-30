@@ -3,7 +3,7 @@ toplevel: {
     { config, ... }:
     let
       cfg = config.services.zipline;
-      inherit (toplevel.config.flake.nixos) mkCSP mkPP;
+      inherit (toplevel.config.flake.lib.nixos) mkCSP mkPP;
     in
     {
       sops.secrets."zipline.env" = { };
