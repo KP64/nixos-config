@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hickory-dns";
-  version = "unstable-2026-01-15";
+  version = "unstable-2026-01-29";
 
   src = fetchFromGitHub {
     owner = "hickory-dns";
     repo = "hickory-dns";
-    rev = "47e67972514e2c3d1657338ce592cb3692607e90";
-    hash = "sha256-q4wu3NUwDJzUsYDYlG0WT7fAOCltVVP2AAsCabpys5w=";
+    rev = "db923c347b22ed8e4ddec0e88ccb5f14a4b1b1a2";
+    hash = "sha256-Y/IRoLtFPQYUvx+o2qix1xwoX4FR6sdeJESkcXCbd5c=";
   };
 
-  cargoHash = "sha256-TDNcQS78tbalNfHx5wC2v1PxEdxrC4eFdJSTetk1CsI=";
+  cargoHash = "sha256-WPrikiBllkZb+pUNWgKLPBsDCRbh0caBqSVan3RAz8g=";
 
   buildFeatures = [
     "tls-ring" # DoT
@@ -37,8 +37,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "rustls-platform-verifier"
     "resolver"
 
-    # "metrics"
-    # "prometheus-metrics"
+    "metrics"
+    "prometheus-metrics"
   ];
 
   buildInputs = [ sqlite ];
