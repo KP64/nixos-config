@@ -2,7 +2,7 @@ toplevel: {
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     let
-      inherit (toplevel.config.flake.lib.nixos) mkCSP mkPP;
+      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
     in
     {
       sops.secrets.searxng.owner = config.users.users.searx.name;

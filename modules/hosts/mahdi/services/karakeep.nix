@@ -8,7 +8,7 @@ toplevel: {
     }:
     let
       domain = "karakeep.${config.networking.domain}";
-      inherit (toplevel.config.flake.lib.nixos) mkCSP mkPP;
+      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
     in
     {
       services = {

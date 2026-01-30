@@ -1,4 +1,4 @@
-toplevel@{ inputs, customLib, ... }:
+toplevel@{ inputs, ... }:
 {
   imports = [ inputs.nix-topology.flakeModule ];
 
@@ -6,13 +6,14 @@ toplevel@{ inputs, customLib, ... }:
     { config, ... }:
     let
       topologyLib = config.lib.topology;
+      inherit (toplevel.config.flake.lib.flake) getIcon;
     in
     {
       nodes = {
         internet = topologyLib.mkInternet { connections = topologyLib.mkConnectionRev "router" "WAN1"; };
         router = topologyLib.mkRouter "Speedport" {
           info = "Smart 4";
-          image = customLib.util.getIcon {
+          image = getIcon {
             file = "speedport.png";
             type = "topology";
           };

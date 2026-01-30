@@ -4,6 +4,9 @@ toplevel@{
   moduleWithSystem,
   ...
 }:
+let
+  inherit (toplevel.config.flake.lib.flake) toFlattenedByDots getIcon;
+in
 {
   flake.modules.homeManager.users-kg-firefox = moduleWithSystem (
     { inputs', ... }:
@@ -24,7 +27,7 @@ toplevel@{
         profiles.${config.home.username} = {
           extraConfig = builtins.readFile (inputs.better-fox + /user.js);
 
-          settings = customLib.util.toFlattenedByDots {
+          settings = toFlattenedByDots {
             network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
             media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
             extensions.autoDisableScopes = 0;
@@ -129,7 +132,7 @@ toplevel@{
             engines =
               let
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi;
-                nix-icon = customLib.util.getIcon {
+                nix-icon = getIcon {
                   file = "nix.svg";
                   type = "icons";
                 };
@@ -158,7 +161,7 @@ toplevel@{
                       ];
                     }
                   ];
-                  icon = customLib.util.getIcon {
+                  icon = getIcon {
                     file = "searxng.svg";
                     type = "icons";
                   };

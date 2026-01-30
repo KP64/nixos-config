@@ -1,6 +1,6 @@
 toplevel:
 let
-  inherit (toplevel.config.flake.lib.nixos) genModelTypes;
+  inherit (toplevel.config.flake.lib.flake) genModelTypes;
 in
 {
   flake.modules.nixos.hosts-aladdin = {

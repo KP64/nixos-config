@@ -3,7 +3,7 @@ toplevel@{ inputs, ... }:
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
-      inherit (toplevel.config.flake.lib.nixos) mkCSP mkPP;
+      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
     in
     {
       imports = [ inputs.harmonia.nixosModules.harmonia ];

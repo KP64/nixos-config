@@ -46,7 +46,6 @@ in
             modules =
               # Modules that should be made available for everyone.
               (with config.flake.modules.nixos; [
-                customLib
                 nix-unfree
                 ip
               ])

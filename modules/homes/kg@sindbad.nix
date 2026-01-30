@@ -1,4 +1,4 @@
-toplevel@{ customLib, ... }:
+toplevel:
 let
   hostName = "sindbad";
 in
@@ -7,11 +7,12 @@ in
     { config, ... }:
     let
       topologyLib = config.lib.topology;
+      inherit (toplevel.config.flake.lib.flake) getIcon;
     in
     {
       nodes.${hostName} = {
         deviceType = "device";
-        deviceIcon = customLib.util.getIcon {
+        deviceIcon = getIcon {
           file = "arch.svg";
           type = "topology";
         };
@@ -21,7 +22,7 @@ in
         };
         hardware = {
           info = "Lenovo Yoga 370";
-          image = customLib.util.getIcon {
+          image = getIcon {
             file = "lenovo-yoga-370.png";
             type = "topology";
           };

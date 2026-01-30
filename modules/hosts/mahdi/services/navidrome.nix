@@ -3,7 +3,7 @@ toplevel: {
     { config, ... }:
     let
       domain = "navidrome.${config.networking.domain}";
-      inherit (toplevel.config.flake.lib.nixos) mkCSP;
+      inherit (toplevel.config.flake.lib.flake) mkCSP;
     in
     {
       sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;
