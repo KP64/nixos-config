@@ -203,8 +203,8 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs = {
         flake-compat.follows = "";
-        flake-utils.follows = "dedup_flake-utils";
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "dedup_systems";
       };
     };
 
