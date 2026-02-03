@@ -1,10 +1,6 @@
-toplevel@{ inputs, ... }:
-{
+toplevel: {
   flake.modules.homeManager.users-kg-glance =
     { config, lib, ... }:
-    let
-      invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
-    in
     {
       # The mkBefore is to "set" the default page
       services.glance.settings.pages = lib.mkBefore [
@@ -91,7 +87,7 @@ toplevel@{ inputs, ... }:
                 {
                   type = "weather";
                   hour-format = "24h";
-                  inherit (invisible) location;
+                  inherit (config.invisible) location;
                 }
                 {
                   type = "markets";

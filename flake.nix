@@ -177,10 +177,12 @@
 
     # Stuff that shouldn't be visible to the naked eye,
     # but doesn't have to be or can't be encrypted.
+    # NOTE: Shallow Cloning because .git directory could leak.
     nix-invisible = {
-      url = "git+ssh://git@github.com/KP64/nix-invisible";
+      url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";
       inputs = {
         flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";
       };
     };

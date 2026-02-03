@@ -563,20 +563,24 @@
         "flake-parts": [
           "flake-parts"
         ],
+        "import-tree": [
+          "import-tree"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1762982913,
-        "narHash": "sha256-5bv31LSgSItusZQF7lTccde/ma7fO45T9pVSOhIhNHs=",
+        "lastModified": 1770144722,
+        "narHash": "sha256-Rb3xgMv7Q30MGkKIB4wJdrbfuxbCkO7PcHQ84+JOD8g=",
         "ref": "refs/heads/main",
-        "rev": "bcba8df86386e9d9928ac1b8cb4323cb693db73a",
-        "revCount": 13,
+        "rev": "116577a1cc578afc547d850316339ec1641968a2",
+        "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
       },
       "original": {
+        "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
       }

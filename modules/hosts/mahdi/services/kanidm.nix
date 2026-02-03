@@ -1,5 +1,4 @@
-toplevel@{ inputs, ... }:
-{
+toplevel: {
   flake.modules.nixos.hosts-mahdi =
     {
       config,
@@ -9,7 +8,6 @@ toplevel@{ inputs, ... }:
     }:
     let
       cfg = config.services.kanidm;
-      invisible = import (inputs.nix-invisible + /hosts/${config.networking.hostName}.nix);
     in
     {
       sops.secrets =
@@ -63,7 +61,7 @@ toplevel@{ inputs, ... }:
           adminPasswordFile = config.sops.secrets."kanidm/admin-password".path;
           idmAdminPasswordFile = config.sops.secrets."kanidm/idm-admin-password".path;
 
-          persons = lib.recursiveUpdate invisible.kanidm.persons {
+          persons = lib.recursiveUpdate config.invisible.kanidm.persons {
             kg = {
               displayName = "kg";
               groups = [

@@ -2,9 +2,6 @@
 {
   flake.modules.homeManager.users-kg-noctalia-shell =
     { config, lib, ... }:
-    let
-      invisible = import (inputs.nix-invisible + /users/${config.home.username}.nix);
-    in
     {
       imports = [ inputs.noctalia.homeModules.default ];
 
@@ -43,7 +40,7 @@
           };
           uifontDefault = "JetBrainsMono Nerd Font";
           location = {
-            name = invisible.location;
+            name = config.invisible.location;
             showWeekNumberInCalendar = false;
           };
           wallpaper = {

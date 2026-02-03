@@ -50,9 +50,14 @@ in
                 nix-unfree
                 ip
               ])
-              ++ [ inputs.nix-topology.nixosModules.default ]
-              ++ [ module ] # The actual system config
               ++ [
+                inputs.nix-topology.nixosModules.default
+
+                inputs.nix-invisible.modules.nixos.invisibility
+                { home-manager.sharedModules = [ inputs.nix-invisible.modules.homeManager.invisibility ]; }
+
+                module # The actual system config
+
                 # Custom HM Defaults
                 inputs.home-manager.nixosModules.default
                 {
@@ -73,9 +78,8 @@ in
                     "xdg-desktop-portal"
                   ];
                 }
-              ]
-              # Custom NixOS Defaults
-              ++ [
+
+                # Custom NixOS Defaults
                 {
                   users.mutableUsers = false;
                   environment.defaultPackages = [ ];
