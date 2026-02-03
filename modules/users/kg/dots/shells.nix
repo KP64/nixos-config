@@ -14,22 +14,18 @@
 
           plugins =
             (with config.packages; [
-              nu_plugin_compress
-              nu_plugin_desktop_notifications
-              nu_plugin_dns
-              nu_plugin_emoji
-              nu_plugin_hcl
-              nu_plugin_image
               nu_plugin_port_extension
               nu_plugin_regex
-              nu_plugin_semver
-              nu_plugin_skim
             ])
             ++ (with pkgs.nushellPlugins; [
+              desktop_notifications
               formats
+              hcl
               gstat
               polars
               query
+              semver
+              skim
             ]);
 
           settings = {
