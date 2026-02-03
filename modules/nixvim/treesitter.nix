@@ -21,13 +21,6 @@
         enable = true;
         settings.max_lines = 7;
       };
-      treesitter-refactor = {
-        enable = true;
-        settings.smart_rename = {
-          enable = true;
-          keymaps.smart_rename = "gR";
-        };
-      };
       # TODO: Mappings
       treesitter-textobjects = {
         enable = true;
