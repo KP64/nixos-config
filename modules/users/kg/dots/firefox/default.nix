@@ -1,11 +1,14 @@
 toplevel@{ inputs, moduleWithSystem, ... }:
 let
-  inherit (toplevel.config.flake.lib.flake) hideEngines toFlattenedByDots getIcon;
+  inherit (toplevel.config.lib.flake.util) getIcon toFlattenedByDots;
 in
 {
   flake.modules.homeManager.users-kg-firefox = moduleWithSystem (
     { inputs', ... }:
     { config, lib, ... }:
+    let
+      inherit (config.lib.firefox) hideEngines;
+    in
     {
       allowedUnfreePackages = lib.optionals (config.nixpkgs.config.cudaSupport or false) [
         "libcublas"

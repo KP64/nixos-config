@@ -7,6 +7,8 @@
       velocityPort = 25565;
       mcPkgs = inputs'.nix-minecraft.legacyPackages;
 
+      mcLib = config.lib.minecraft;
+
       commonMods = {
         ALTERNATE_CURRENT = {
           url = "https://cdn.modrinth.com/data/r0v8vy1s/versions/eTNKfjl1/alternate-current-mc1.21.5-1.9.0.jar";
@@ -211,7 +213,7 @@
                   secret = "@velocity_forward_secret@";
                 };
               };
-            symlinks.mods = config.lib.collectMods commonMods;
+            symlinks.mods = mcLib.collectMods commonMods;
           };
           Creative = {
             enable = true;
@@ -245,7 +247,7 @@
                   secret = "@velocity_forward_secret@";
                 };
               };
-            symlinks.mods = config.lib.collectMods commonMods;
+            symlinks.mods = mcLib.collectMods commonMods;
           };
         };
       };

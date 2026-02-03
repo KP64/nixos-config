@@ -1,8 +1,8 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
-      inherit (toplevel.config.flake.lib.flake) genUsers mkCSP mkPP;
+      inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       services = {
@@ -44,7 +44,7 @@ toplevel: {
         #       and not the email as instructed. Unless the username is an email ofc...
         anki-sync-server = {
           enable = true;
-          users = genUsers config.sops.secrets;
+          users = config.lib.anki.genUsers;
         };
       };
     };

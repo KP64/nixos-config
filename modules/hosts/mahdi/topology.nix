@@ -3,7 +3,7 @@ toplevel: {
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
-      inherit (toplevel.config.flake.lib.flake) getIcon;
+      inherit (toplevel.config.lib.flake.util) getIcon;
     in
     {
       topology.self = {

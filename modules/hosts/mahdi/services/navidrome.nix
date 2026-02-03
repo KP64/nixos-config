@@ -1,9 +1,9 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       domain = "navidrome.${config.networking.domain}";
-      inherit (toplevel.config.flake.lib.flake) mkCSP;
+      inherit (config.lib.nginx) mkCSP;
     in
     {
       sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;

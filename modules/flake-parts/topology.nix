@@ -6,7 +6,7 @@ toplevel@{ inputs, ... }:
     { config, ... }:
     let
       topologyLib = config.lib.topology;
-      inherit (toplevel.config.flake.lib.flake) getIcon;
+      inherit (toplevel.config.lib.flake.util) getIcon;
     in
     {
       nodes = {

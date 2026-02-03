@@ -1,9 +1,9 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       domain = "redlib.${config.networking.domain}";
-      inherit (toplevel.config.flake.lib.flake) mkPP;
+      inherit (config.lib.nginx) mkPP;
     in
     {
       services = {

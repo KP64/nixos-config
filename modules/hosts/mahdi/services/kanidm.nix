@@ -151,7 +151,7 @@ toplevel@{ inputs, ... }:
 
           systems.oauth2 =
             let
-              inherit (toplevel.config.flake.lib.flake) getIcon;
+              inherit (toplevel.config.lib.flake.util) getIcon;
             in
             {
               vaultwarden = {

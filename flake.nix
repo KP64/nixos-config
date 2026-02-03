@@ -142,16 +142,6 @@
     # Niri WM
     niri-flake.url = "github:sodiboo/niri-flake";
 
-    nlib = {
-      url = "github:Dauliac/nlib";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        import-tree.follows = "import-tree";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "dedup_systems";
-      };
-    };
-
     /*
       Nix managed Neovim
       NOTE: They use the latest possible nixpkgs branch.
@@ -192,6 +182,18 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    # Custom Library functions framework
+    # TODO: revert to original repo once fixed
+    nix-lib = {
+      url = "github:KP64/nix-lib";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "dedup_systems";
       };
     };
 

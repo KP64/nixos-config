@@ -1,9 +1,9 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
       cfg = config.services.zipline;
-      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
+      inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       sops.secrets."zipline.env" = { };

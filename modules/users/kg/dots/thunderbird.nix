@@ -3,7 +3,7 @@ toplevel: {
     { config, ... }:
     let
       inherit (config.home) username;
-      inherit (toplevel.config.flake.lib.flake) toFlattenedByDots;
+      inherit (toplevel.config.lib.flake.util) toFlattenedByDots;
     in
     {
       catppuccin.thunderbird.profile = username;

@@ -26,32 +26,34 @@ in
           name = userHost;
           value = inputs.home-manager.lib.homeManagerConfiguration {
             pkgs = import inputs.nixpkgs { inherit (additionalHosts.${hostname}) system; };
-            modules = [
-              config.flake.modules.homeManager.nix-unfree
-            ]
-            ++ [ module ]
-            ++ [
-              config.flake.modules.homeManager.hostname
-              { inherit hostname; }
-            ]
-            ++ [
-              {
-                # Allow graphical applications like hyprland to be wrapped
-                # on non NixOS systems. This allows them to run correctly.
-                # TODO: Instruction on how to genericLinux.gpu
-                #       Benefits:
-                #         - recommended method for graphical applications
-                #         - Removes dependency on nixGL
-                targets.genericLinux.nixGL = { inherit (inputs.nixGL) packages; };
-              }
-              {
-                programs.home-manager.enable = true;
-                home = {
-                  inherit username;
-                  homeDirectory = "/home/${username}";
-                };
-              }
-            ];
+            modules =
+              (with config.flake.modules.homeManager; [
+                customLib
+                nix-unfree
+              ])
+              ++ [ module ]
+              ++ [
+                config.flake.modules.homeManager.hostname
+                { inherit hostname; }
+              ]
+              ++ [
+                {
+                  # Allow graphical applications like hyprland to be wrapped
+                  # on non NixOS systems. This allows them to run correctly.
+                  # TODO: Instruction on how to genericLinux.gpu
+                  #       Benefits:
+                  #         - recommended method for graphical applications
+                  #         - Removes dependency on nixGL
+                  targets.genericLinux.nixGL = { inherit (inputs.nixGL) packages; };
+                }
+                {
+                  programs.home-manager.enable = true;
+                  home = {
+                    inherit username;
+                    homeDirectory = "/home/${username}";
+                  };
+                }
+              ];
           };
         }
       );

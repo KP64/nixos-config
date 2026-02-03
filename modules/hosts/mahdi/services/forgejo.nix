@@ -1,8 +1,8 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     let
-      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
+      inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {

@@ -79,34 +79,31 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           shellAliases.c = "clear";
           packages =
             let
-              inherit (toplevel.config.flake.lib.flake) activatePerHosts;
+              inherit (config.lib.packages) activatePerHosts;
             in
             (with pkgs; [
               bluetui
               caligula
             ])
-            ++ activatePerHosts {
-              inherit config;
-              list = [
-                {
-                  packages = [
-                    inputs'.dotz.packages.default
-                  ]
-                  ++ (with pkgs; [
-                    manga-tui
-                    yubioath-flutter
-                  ]);
-                  hosts = [
-                    "aladdin"
-                    "sindbad"
-                  ];
-                }
-                {
-                  packages = [ pkgs.prismlauncher ];
-                  hosts = [ "aladdin" ];
-                }
-              ];
-            };
+            ++ activatePerHosts [
+              {
+                packages = [
+                  inputs'.dotz.packages.default
+                ]
+                ++ (with pkgs; [
+                  manga-tui
+                  yubioath-flutter
+                ]);
+                hosts = [
+                  "aladdin"
+                  "sindbad"
+                ];
+              }
+              {
+                packages = [ pkgs.prismlauncher ];
+                hosts = [ "aladdin" ];
+              }
+            ];
         };
 
         sops = {

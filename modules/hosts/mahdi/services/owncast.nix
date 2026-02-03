@@ -1,8 +1,8 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
-      inherit (toplevel.config.flake.lib.flake) mkPP;
+      inherit (config.lib.nginx) mkPP;
     in
     {
       services = {

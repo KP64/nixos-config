@@ -1,4 +1,4 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
     {
       config,
@@ -8,7 +8,7 @@ toplevel: {
     }:
     let
       domain = "karakeep.${config.networking.domain}";
-      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
+      inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       services = {

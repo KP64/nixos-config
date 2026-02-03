@@ -117,6 +117,22 @@
         "type": "github"
       }
     },
+    "devour-flake": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761148089,
+        "narHash": "sha256-Cd9aWk4P2VGYrK2X28D3vVub2kQIaba7tCTVg+G0AII=",
+        "owner": "srid",
+        "repo": "devour-flake",
+        "rev": "03d5d9112a79aa6ef80495b325fd015d806b98eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "devour-flake",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -209,6 +225,21 @@
     },
     "flake-compat": {
       "locked": {
+        "lastModified": 1733328505,
+        "narHash": "sha256-NeCCThCEP3eCl2l/+27kNNK7QrwZB1IJCrXfrbv5oqU=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_2": {
+      "locked": {
         "lastModified": 1767039857,
         "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
         "owner": "edolstra",
@@ -278,25 +309,21 @@
         "type": "github"
       }
     },
-    "flake-parts_3": {
+    "get-flake": {
       "inputs": {
-        "nixpkgs-lib": [
-          "nlib",
-          "nix-unit",
-          "nixpkgs"
-        ]
+        "flake-compat": "flake-compat"
       },
       "locked": {
-        "lastModified": 1762440070,
-        "narHash": "sha256-xxdepIcb39UJ94+YydGP221rjnpkDZUlykKuF54PsqI=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "26d05891e14c88eb4a5d5bee659c0db5afb609d8",
+        "lastModified": 1745945175,
+        "narHash": "sha256-JGDbJRl5v1snA4JX+yp6m3UA6Mazr59Hrgz+UhhP91M=",
+        "owner": "ursi",
+        "repo": "get-flake",
+        "rev": "38401aa2b3a99c77d0c02727471e99e7de2fc366",
         "type": "github"
       },
       "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
+        "owner": "ursi",
+        "repo": "get-flake",
         "type": "github"
       }
     },
@@ -492,7 +519,7 @@
     "nix-github-actions": {
       "inputs": {
         "nixpkgs": [
-          "nlib",
+          "nix-lib",
           "nix-unit",
           "nixpkgs"
         ]
@@ -554,6 +581,44 @@
         "url": "ssh://git@github.com/KP64/nix-invisible"
       }
     },
+    "nix-lib": {
+      "inputs": {
+        "devour-flake": "devour-flake",
+        "flake-file": "flake-file",
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "get-flake": "get-flake",
+        "import-tree": [
+          "import-tree"
+        ],
+        "nix-unit": "nix-unit",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-lib": [
+          "nix-lib",
+          "nixpkgs"
+        ],
+        "systems": [
+          "dedup_systems"
+        ],
+        "treefmt-nix": "treefmt-nix_3"
+      },
+      "locked": {
+        "lastModified": 1770117559,
+        "narHash": "sha256-QkZj1zNli5Bt4RUW5qAi0QT2tFytqdOwbuetx/uQzyk=",
+        "owner": "KP64",
+        "repo": "nix-lib",
+        "rev": "e26f0d1a13d9883863a1f154331f555209671728",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KP64",
+        "repo": "nix-lib",
+        "type": "github"
+      }
+    },
     "nix-minecraft": {
       "inputs": {
         "flake-compat": [],
@@ -603,10 +668,13 @@
     },
     "nix-unit": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": [
+          "nix-lib",
+          "flake-parts"
+        ],
         "nix-github-actions": "nix-github-actions",
         "nixpkgs": [
-          "nlib",
+          "nix-lib",
           "nixpkgs"
         ],
         "treefmt-nix": "treefmt-nix_2"
@@ -677,7 +745,7 @@
     "nixos-raspberrypi": {
       "inputs": {
         "argononed": "argononed",
-        "flake-compat": "flake-compat",
+        "flake-compat": "flake-compat_2",
         "nixos-images": "nixos-images",
         "nixpkgs": "nixpkgs_3"
       },
@@ -815,42 +883,6 @@
         "type": "github"
       }
     },
-    "nlib": {
-      "inputs": {
-        "flake-file": "flake-file",
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "import-tree": [
-          "import-tree"
-        ],
-        "nix-unit": "nix-unit",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixpkgs-lib": [
-          "nlib",
-          "nixpkgs"
-        ],
-        "systems": [
-          "dedup_systems"
-        ],
-        "treefmt-nix": "treefmt-nix_3"
-      },
-      "locked": {
-        "lastModified": 1769653427,
-        "narHash": "sha256-rS6uBB90Pl4ijeBgTMGDE2475aE333ACTgMXRVzpXQQ=",
-        "owner": "Dauliac",
-        "repo": "nlib",
-        "rev": "a71549ce0d23f0ef3454c08c0a07717648ecf60a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Dauliac",
-        "repo": "nlib",
-        "type": "github"
-      }
-    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -927,13 +959,13 @@
         "niri-flake": "niri-flake",
         "nix-index-database": "nix-index-database",
         "nix-invisible": "nix-invisible",
+        "nix-lib": "nix-lib",
         "nix-minecraft": "nix-minecraft",
         "nix-topology": "nix-topology",
         "nixGL": "nixGL",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_4",
         "nixvim": "nixvim",
-        "nlib": "nlib",
         "noctalia": "noctalia",
         "nur": "nur",
         "pkgs-by-name-for-flake-parts": "pkgs-by-name-for-flake-parts",
@@ -1025,7 +1057,7 @@
     "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
-          "nlib",
+          "nix-lib",
           "nix-unit",
           "nixpkgs"
         ]
@@ -1047,7 +1079,7 @@
     "treefmt-nix_3": {
       "inputs": {
         "nixpkgs": [
-          "nlib",
+          "nix-lib",
           "nixpkgs"
         ]
       },

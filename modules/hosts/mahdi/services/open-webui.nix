@@ -3,7 +3,7 @@ toplevel: {
     { config, ... }:
     let
       domain = "open-webui.${config.networking.domain}";
-      inherit (toplevel.config.flake.lib.flake) mkCSP mkPP;
+      inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       allowedUnfreePackages = [ "open-webui" ];

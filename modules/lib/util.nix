@@ -5,7 +5,7 @@
   ...
 }:
 {
-  nlib.lib = {
+  nix-lib.lib.util = {
     appendLastWithFullPath = {
       type = with lib.types; functionTo attrs;
       fn =
@@ -22,7 +22,7 @@
 
     toFlattenedByDots =
       let
-        inherit (config.flake.lib.flake) appendLastWithFullPath collectLastEntries;
+        inherit (config.lib.flake.util) appendLastWithFullPath collectLastEntries;
       in
       {
         type = with lib.types; functionTo attrs;

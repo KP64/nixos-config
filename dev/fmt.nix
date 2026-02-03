@@ -7,14 +7,14 @@
     let
       tomlFormat = pkgs.formats.toml { };
 
-      inherit (config.flake.lib.flake) getSopsFiles mapIfAvailable;
+      inherit (config.lib.flake.util) getSopsFiles mapIfAvailable;
 
       getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
       nixosConfigs = getConfigs config.flake.nixosConfigurations;
       hmConfigs = getConfigs config.flake.homeConfigurations;
 
       getRelativePath =
-        paths: paths |> map (p: p |> toString |> builtins.match ".*(modules/.*)") |> map builtins.head;
+        paths: paths |> map (p: p |> toString |> builtins.match ".*(modules/.*)" |> builtins.head);
 
       nixosUserHmConfigs =
         nixosConfigs
