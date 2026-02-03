@@ -186,9 +186,8 @@
     };
 
     # Custom Library functions framework
-    # TODO: revert to original repo once fixed
     nix-lib = {
-      url = "github:KP64/nix-lib";
+      url = "github:Dauliac/nix-lib";
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";

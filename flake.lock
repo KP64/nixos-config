@@ -606,15 +606,15 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1770117559,
-        "narHash": "sha256-QkZj1zNli5Bt4RUW5qAi0QT2tFytqdOwbuetx/uQzyk=",
-        "owner": "KP64",
+        "lastModified": 1770123973,
+        "narHash": "sha256-723j1ZPm0rhE4LmWJV9ruzy5ggQaLlvbkwHPGsxIaV8=",
+        "owner": "Dauliac",
         "repo": "nix-lib",
-        "rev": "e26f0d1a13d9883863a1f154331f555209671728",
+        "rev": "50206ad0d8436e7ce6e38283609c10145ef0db01",
         "type": "github"
       },
       "original": {
-        "owner": "KP64",
+        "owner": "Dauliac",
         "repo": "nix-lib",
         "type": "github"
       }
