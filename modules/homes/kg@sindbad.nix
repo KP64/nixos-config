@@ -33,11 +33,7 @@ in
 
   flake.modules.homeManager."kg@${hostName}" = moduleWithSystem (
     { inputs', ... }:
-    {
-      config,
-      pkgs,
-      ...
-    }:
+    { config, pkgs, ... }:
     {
       imports = with toplevel.config.flake.modules.homeManager; [
         desktop
