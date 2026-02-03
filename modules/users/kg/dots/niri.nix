@@ -1,5 +1,14 @@
 { moduleWithSystem, inputs, ... }:
 {
+  # TODO: remove once niri is upstreamed to home-manager
+  #       Also sync HM-Package with host pkg
+  flake.modules.nixos.users-kg = moduleWithSystem (
+    { inputs', ... }:
+    _: {
+      programs.niri.package = inputs'.niri-flake.packages.niri-unstable;
+    }
+  );
+
   flake.modules.homeManager.users-kg-niri = moduleWithSystem (
     { inputs', ... }:
     {
