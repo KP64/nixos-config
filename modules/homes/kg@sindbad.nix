@@ -1,4 +1,4 @@
-toplevel:
+toplevel@{ moduleWithSystem, ... }:
 let
   hostName = "sindbad";
 in
@@ -31,8 +31,13 @@ in
     }
   );
 
-  flake.modules.homeManager."kg@${hostName}" =
-    { config, pkgs, ... }:
+  flake.modules.homeManager."kg@${hostName}" = moduleWithSystem (
+    { inputs', ... }:
+    {
+      config,
+      pkgs,
+      ...
+    }:
     {
       imports = with toplevel.config.flake.modules.homeManager; [
         desktop
@@ -41,12 +46,9 @@ in
         users-kg-firefox
         users-kg-glance
         users-kg-anki
-        users-kg-hypridle
         users-kg-hyprland
-        users-kg-hyprlock
-        users-kg-hyprpanel
-        users-kg-hyprpaper
         users-kg-kitty
+        users-kg-noctalia-shell
         users-kg-rofi
         users-kg-thunderbird
         users-kg-vesktop
@@ -62,15 +64,14 @@ in
 
       targets.genericLinux.enable = true;
 
-      services.network-manager-applet.enable = true;
-
-      programs = {
-        kitty.package = config.lib.nixGL.wrap pkgs.kitty;
-
-        # TODO: Revert once https://github.com/nix-community/home-manager/issues/7027 is fixed
-        #       This will need the user to install hyprlock via pacman
-        hyprlock.package = null;
-      };
+      programs =
+        let
+          inherit (config.lib.nixGL) wrap;
+        in
+        {
+          noctalia-shell.package = wrap inputs'.noctalia.packages.default;
+          kitty.package = wrap pkgs.kitty;
+        };
 
       # NOTE: Works with HM, but:
       #   - SDDM won't find it.
@@ -79,5 +80,6 @@ in
         package = null;
         portalPackage = null;
       };
-    };
+    }
+  );
 }

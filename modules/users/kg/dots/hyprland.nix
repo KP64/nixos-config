@@ -44,7 +44,6 @@ in
               ];
             };
             sindbad = {
-              workspace = [ "1, monitor:eDP-1, default: true" ];
               monitorv2 = lib.singleton {
                 output = "eDP-1";
                 mode = "preferred";

@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.users-kg =
+  flake.modules.homeManager.users-kg-stasis =
     {
       config,
       lib,
