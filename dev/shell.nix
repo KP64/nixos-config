@@ -30,6 +30,7 @@
             kdePackages.qtdeclarative # qmlls
 
             nix-melt
+            nix-output-monitor
           ])
           ++ [
             (writeNuBin "topo" # nu
