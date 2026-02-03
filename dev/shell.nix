@@ -22,6 +22,11 @@
         packages =
           let
             inherit (pkgs.writers) writeNuBin;
+
+            catppuccinMocha = {
+              yellow = "0xf9e2af";
+              red = "0xf38ba8";
+            };
           in
           (with pkgs; [
             nil
@@ -44,15 +49,14 @@
                     $topology
                   } else {
                     $choices
+                    | each {|| ansi gradient --fgstart "${catppuccinMocha.yellow}" --fgend "${catppuccinMocha.red}" }
                     | each { $"'($in)'" }
                     | str join " or "
-                    | error make --unspanned {msg: $"No such topology. Should be either ($in)" }
+                    | error make --unspanned $"No such topology. Should be either ($in)"
                   }
 
-                  if ($chosen | is-empty) {
-                    uname | ${lib.getExe pkgs.nix-output-monitor} build .#topology.($in.machine)-($in.kernel-name | str downcase).config.output
-                    kitten icat $"result/($chosen).svg"
-                  }
+                  uname | ${lib.getExe pkgs.nix-output-monitor} build .#topology.($in.machine)-($in.kernel-name | str downcase).config.output
+                  kitten icat $"result/($chosen).svg"
                 }
               ''
             )
@@ -77,7 +81,8 @@
 
                     $selection
                     | where $it not-in $all_choices
-                    | each { error make --unspanned {msg: $"There is no Input named '($in)'" }}
+                    | each {|| ansi gradient --fgstart "${catppuccinMocha.yellow}" --fgend "${catppuccinMocha.red}" }
+                    | each { error make --unspanned $"There is no Input named '($in)'" }
 
                     ${lib.getExe pkgs.gum} confirm "Update?"
                     nix flake update ...(if $selection == $all_choices { [] } else { $selection })
@@ -158,9 +163,10 @@
                     }
 
                     if not $host_exists {
-                      $"Host '($host)' not found"
-                      | ansi gradient --fgstart "0xf9e2af" --fgend "0xf38ba8"
-                      | error make --unspanned {msg: $in }
+                      $host
+                      | ansi gradient --fgstart "${catppuccinMocha.yellow}" --fgend "${catppuccinMocha.red}"
+                      | $"Host '($in)' not found"
+                      | error make --unspanned $in
                     }
 
                     $data
