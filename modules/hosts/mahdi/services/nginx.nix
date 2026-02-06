@@ -3,9 +3,9 @@
   # TODO: Add more/missing Security headers
   # TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
-      networking.firewall.allowedTCPPorts = [ 443 ];
+      networking.firewall.allowedTCPPorts = [ config.services.nginx.defaultSSLListenPort ];
 
       # TODO: Enable ECH. DNS HTTPS Resource is prerequisite though.
       # NOTE: Amazing Websites:
