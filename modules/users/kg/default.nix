@@ -49,7 +49,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         imports =
           (with inputs; [
             sops-nix.homeModules.default
-            nix-invisible.modules.homeManager.invisible-user-kg
+            nix-invisible.modules.homeManager.user-kg
           ])
           ++ (with toplevel.config.flake.modules.homeManager; [
             catppuccin

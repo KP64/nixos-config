@@ -8,19 +8,21 @@ toplevel@{ inputs, ... }:
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {
-      imports = [
-        inputs.sops-nix.nixosModules.default
-      ]
-      ++ (with toplevel.config.flake.modules.nixos; [
-        catppuccin
-        efi
-        nix
-        ssh
-        sudo
-        time
+      imports =
+        (with inputs; [
+          sops-nix.nixosModules.default
+          nix-invisible.modules.nixos.host-mahdi
+        ])
+        ++ (with toplevel.config.flake.modules.nixos; [
+          catppuccin
+          efi
+          nix
+          ssh
+          sudo
+          time
 
-        users-kg
-      ]);
+          users-kg
+        ]);
 
       home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
