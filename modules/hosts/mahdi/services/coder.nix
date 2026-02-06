@@ -14,7 +14,7 @@
         autoPrune.enable = true;
       };
       # Doesn't have permission to access the socket otherway
-      users.users.coder.extraGroups = [ "docker" ];
+      users.users.coder.extraGroups = [ config.users.groups.docker.name ];
       # Coder fails a lot without this
       systemd.services.coder = {
         after = [ "kanidm.service" ];
