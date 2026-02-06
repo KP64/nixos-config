@@ -50,6 +50,7 @@ toplevel@{ inputs, ... }:
           users-kg-kitty
           users-kg-niri
           users-kg-noctalia-shell
+          users-kg-prismlauncher
           users-kg-rofi
           users-kg-stasis
           users-kg-thunderbird

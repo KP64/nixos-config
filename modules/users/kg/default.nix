@@ -98,10 +98,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                   "sindbad"
                 ];
               }
-              {
-                packages = [ pkgs.prismlauncher ];
-                hosts = [ "aladdin" ];
-              }
             ];
         };
 
