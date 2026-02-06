@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  inputs,
-  ...
-}:
+toplevel@{ lib, inputs, ... }:
 let
   prefix = "hosts-";
 in
@@ -11,7 +6,7 @@ in
   # TODO: Make Sops secrets reload necessary services
   flake = {
     nixosConfigurations =
-      config.flake.modules.nixos
+      toplevel.config.flake.modules.nixos
       |> lib.filterAttrs (name: _: name |> lib.hasPrefix prefix)
       |> lib.mapAttrs' (
         name: module:
@@ -45,7 +40,7 @@ in
             };
             modules =
               # Modules that should be made available for everyone.
-              (with config.flake.modules.nixos; [
+              (with toplevel.config.flake.modules.nixos; [
                 customLib
                 nix-unfree
                 ip
@@ -60,24 +55,27 @@ in
 
                 # Custom HM Defaults
                 inputs.home-manager.nixosModules.default
-                {
-                  # TODO: Refine the config to support useGlobalPkgs
-                  #       without it being a hassle
-                  home-manager = {
-                    startAsUserService = true;
-                    useUserPackages = true;
-                    overwriteBackup = true;
-                    backupFileExtension = "hm-backup";
-                    sharedModules = [
-                      config.flake.modules.homeManager.hostname
-                      { hostname = hostName; }
+                (
+                  { config, ... }:
+                  {
+                    # TODO: Refine the config to support useGlobalPkgs
+                    #       without it being a hassle
+                    home-manager = {
+                      startAsUserService = true;
+                      useUserPackages = true;
+                      overwriteBackup = true;
+                      backupFileExtension = "hm-backup";
+                      sharedModules = [
+                        toplevel.config.flake.modules.homeManager.hostname
+                        { hostname = config.networking.hostName; }
+                      ];
+                    };
+                    environment.pathsToLink = map (d: "/share/${d}") [
+                      "applications"
+                      "xdg-desktop-portal"
                     ];
-                  };
-                  environment.pathsToLink = map (d: "/share/${d}") [
-                    "applications"
-                    "xdg-desktop-portal"
-                  ];
-                }
+                  }
+                )
 
                 # Custom NixOS Defaults
                 {
@@ -100,16 +98,16 @@ in
                 }
               ]
               # Adds disko configuration if available
-              ++ (lib.optionals (config.flake.diskoConfigurations |> lib.hasAttr hostName) [
+              ++ (lib.optionals (toplevel.config.flake.diskoConfigurations |> lib.hasAttr hostName) [
                 inputs.disko.nixosModules.default
-                config.flake.diskoConfigurations.${hostName}
+                toplevel.config.flake.diskoConfigurations.${hostName}
               ]);
           };
         }
       );
 
     checks =
-      config.flake.nixosConfigurations
+      toplevel.config.flake.nixosConfigurations
       |> lib.mapAttrsToList (
         name: nixos: {
           ${nixos.config.nixpkgs.hostPlatform.system}."nixosConfigurations-${name}" =
