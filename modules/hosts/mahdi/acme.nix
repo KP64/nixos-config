@@ -13,10 +13,11 @@
           "rfc2136/tsig_secret" = { inherit owner; };
         };
 
+      # TODO: Use security.acme.certs.<name>.reloadServices (same kind of the sops todo)
       security.acme = {
         acceptTerms = true;
         defaults = {
-          email = "lzkfaea17@mozmail.com";
+          inherit (config.invisible) email;
           dnsProvider = "rfc2136";
           credentialFiles =
             let
