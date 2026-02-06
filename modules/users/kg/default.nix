@@ -25,6 +25,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         users.users.kg = {
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets.kg_password.path;
+          description = with config.home-manager.users.kg.invisible; "${firstName} ${lastName}";
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGlAyglgR4yyhiIy0K4hzu0syefzRE/IsKkx+IskC7xF kg@aladdin"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKtrZt+5zMkOVy2RByh713FvkRpYuxdAB0k7th9yxVP kg@sindbad"
