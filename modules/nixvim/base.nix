@@ -26,11 +26,18 @@
       globals.mapleader = " ";
 
       # Needed for vim.health
-      dependencies = {
-        curl.enable = true;
-        git.enable = true;
-        ripgrep.enable = true;
-      };
+      dependencies =
+        let
+          defaultEnable = {
+            enable = true;
+            packageFallback = true;
+          };
+        in
+        {
+          curl = defaultEnable;
+          git = defaultEnable;
+          ripgrep = defaultEnable;
+        };
 
       plugins = {
         lz-n.enable = true;

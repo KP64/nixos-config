@@ -1,6 +1,9 @@
 {
   flake.modules.nixvim.image = {
-    dependencies.imagemagick.enable = true;
+    dependencies.imagemagick = {
+      enable = true;
+      packageFallback = true;
+    };
 
     plugins.image = {
       enable = true;

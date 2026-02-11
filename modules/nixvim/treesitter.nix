@@ -1,11 +1,18 @@
 {
   flake.modules.nixvim.treesitter = {
-    dependencies = {
-      gcc.enable = true;
-      git.enable = true;
-      nodejs.enable = true;
-      tree-sitter.enable = true;
-    };
+    dependencies =
+      let
+        defaultEnable = {
+          enable = true;
+          packageFallback = true;
+        };
+      in
+      {
+        gcc = defaultEnable;
+        git = defaultEnable;
+        nodejs = defaultEnable;
+        tree-sitter = defaultEnable;
+      };
 
     # Prevents everything to be folded on start
     opts.foldlevelstart = 99;

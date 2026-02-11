@@ -14,10 +14,17 @@
           '';
     in
     {
-      dependencies = {
-        curl.enable = true;
-        git.enable = true;
-      };
+      dependencies =
+        let
+          defaultEnable = {
+            enable = true;
+            packageFallback = true;
+          };
+        in
+        {
+          curl = defaultEnable;
+          git = defaultEnable;
+        };
 
       plugins = {
         colorful-menu = {

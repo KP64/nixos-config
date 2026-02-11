@@ -1,10 +1,17 @@
 {
   flake.modules.nixvim.telescope = {
-    dependencies = {
-      fd.enable = true;
-      ripgrep.enable = true;
-      tree-sitter.enable = true;
-    };
+    dependencies =
+      let
+        defaultEnable = {
+          enable = true;
+          packageFallback = true;
+        };
+      in
+      {
+        fd = defaultEnable;
+        ripgrep = defaultEnable;
+        tree-sitter = defaultEnable;
+      };
 
     plugins = {
       treesitter.enable = true;

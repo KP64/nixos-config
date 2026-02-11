@@ -2,7 +2,10 @@
   flake.modules.nixvim.render-markdown =
     { pkgs, ... }:
     {
-      dependencies.tree-sitter.enable = true;
+      dependencies.tree-sitter = {
+        enable = true;
+        packageFallback = true;
+      };
 
       # Needed for latex support
       extraPackagesAfter = [ pkgs.python313Packages.pylatexenc ];

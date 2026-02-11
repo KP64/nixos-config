@@ -1,6 +1,9 @@
 {
   flake.modules.nixvim.git = {
-    dependencies.git.enable = true;
+    dependencies.git = {
+      enable = true;
+      packageFallback = true;
+    };
 
     # TODO: Keybinds
     plugins = {
