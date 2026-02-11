@@ -63,7 +63,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             users-kg-atuin
             users-kg-delta
             users-kg-fd
-            users-kg-fetchers
             users-kg-neovim
             users-kg-shells
             users-kg-starship
@@ -116,6 +115,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           bat.enable = true;
           btop.enable = true;
           cava.enable = true;
+          fastfetch.enable = true;
           ripgrep.enable = true;
           zellij.enable = true;
         };
