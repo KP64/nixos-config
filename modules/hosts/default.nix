@@ -43,7 +43,6 @@ in
               (with toplevel.config.flake.modules.nixos; [
                 customLib
                 nix-unfree
-                ip
               ])
               ++ [
                 inputs.nix-topology.nixosModules.default

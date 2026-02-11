@@ -1,7 +1,9 @@
-{
+toplevel: {
   flake.modules.nixos.hosts-sheherazade =
     { config, ... }:
     {
+      imports = [ toplevel.config.flake.modules.nixos.ip ];
+
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
