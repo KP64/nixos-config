@@ -24,7 +24,7 @@
 
       home.packages = with pkgs; [
         brightnessctl
-        wl-clipboard
+        wl-clipboard-rs
       ];
 
       programs.niri = {
