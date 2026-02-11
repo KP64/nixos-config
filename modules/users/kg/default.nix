@@ -116,7 +116,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           bat.enable = true;
           btop.enable = true;
           cava.enable = true;
-          fzf.enable = true;
           ripgrep.enable = true;
           zellij.enable = true;
         };
