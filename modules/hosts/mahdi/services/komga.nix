@@ -80,7 +80,7 @@
                 };
                 provider.kanidm = {
                   user-name-attribute = "sub";
-                  issuer-uri = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${client-id}";
+                  issuer-uri = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${client-id}";
                 };
               };
           };

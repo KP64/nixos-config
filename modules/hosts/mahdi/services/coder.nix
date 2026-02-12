@@ -66,7 +66,7 @@
                 CODER_OAUTH2_GITHUB_DEFAULT_PROVIDER_ENABLE = "0";
 
                 CODER_OIDC_SIGN_IN_TEXT = "Sign in with Kanidm";
-                CODER_OIDC_ISSUER_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${CODER_OIDC_CLIENT_ID}";
+                CODER_OIDC_ISSUER_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${CODER_OIDC_CLIENT_ID}";
                 inherit CODER_OIDC_CLIENT_ID;
                 CODER_OIDC_IGNORE_EMAIL_VERIFIED = "1";
                 CODER_OIDC_GROUP_AUTO_CREATE = "1";

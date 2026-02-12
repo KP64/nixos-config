@@ -33,7 +33,7 @@
                 autoLaunch = true;
                 inherit clientId;
                 enabled = true;
-                issuerUrl = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${clientId}";
+                issuerUrl = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${clientId}";
                 signingAlgorithm = "ES256";
               };
           };

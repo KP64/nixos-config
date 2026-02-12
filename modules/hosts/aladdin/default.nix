@@ -52,7 +52,6 @@ toplevel@{ inputs, ... }:
           users-kg-noctalia-shell
           users-kg-prismlauncher
           users-kg-rofi
-          users-kg-stasis
           users-kg-thunderbird
           users-kg-vesktop
         ];

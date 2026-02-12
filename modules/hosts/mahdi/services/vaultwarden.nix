@@ -33,7 +33,7 @@
               SSO_ENABLED = true;
               SSO_ONLY = true;
               SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION = true;
-              SSO_AUTHORITY = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${SSO_CLIENT_ID}";
+              SSO_AUTHORITY = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${SSO_CLIENT_ID}";
               inherit SSO_CLIENT_ID;
               SSO_CLIENT_SECRET = "bogus";
             };

@@ -106,7 +106,7 @@ toplevel: {
               OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "True";
 
               inherit OAUTH_CLIENT_ID;
-              OPENID_PROVIDER_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
+              OPENID_PROVIDER_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
               OAUTH_CODE_CHALLENGE_METHOD = "S256";
               OAUTH_PROVIDER_NAME = "kanidm";
               ENABLE_OAUTH_ROLE_MANAGEMENT = "True";

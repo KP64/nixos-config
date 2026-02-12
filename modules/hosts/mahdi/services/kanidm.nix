@@ -21,7 +21,7 @@ toplevel: {
           "kanidm/oauth2/zipline" = { inherit owner; };
         };
 
-      services.nginx.virtualHosts.${cfg.serverSettings.domain} = {
+      services.nginx.virtualHosts.${cfg.server.settings.domain} = {
         enableACME = true;
         acmeRoot = null;
         onlySSL = true;
@@ -30,10 +30,10 @@ toplevel: {
       };
 
       systemd.services.kanidm = {
-        wants = [ "acme-${cfg.serverSettings.domain}.service" ];
-        after = [ "acme-${cfg.serverSettings.domain}.service" ];
+        wants = [ "acme-${cfg.server.settings.domain}.service" ];
+        after = [ "acme-${cfg.server.settings.domain}.service" ];
         serviceConfig.LoadCredential =
-          map (cred: "${cred}:${config.security.acme.certs.${cfg.serverSettings.domain}.directory}/${cred}")
+          map (cred: "${cred}:${config.security.acme.certs.${cfg.server.settings.domain}.directory}/${cred}")
             [
               "key.pem"
               "fullchain.pem"
@@ -43,17 +43,21 @@ toplevel: {
       # NOTE: Kanidm requires TLS
       services.kanidm = {
         package = pkgs.kanidmWithSecretProvisioning_1_8;
-        enableServer = true;
 
-        enableClient = true;
-        clientSettings.uri = config.services.kanidm.serverSettings.origin;
+        client = {
+          enable = true;
+          settings.uri = config.services.kanidm.server.settings.origin;
+        };
 
-        serverSettings = {
-          origin = "https://${config.services.kanidm.serverSettings.domain}";
-          domain = "idm.${config.networking.domain}";
-          online_backup.versions = 7; # Number of backups
-          tls_key = "/run/credentials/kanidm.service/key.pem";
-          tls_chain = "/run/credentials/kanidm.service/fullchain.pem";
+        server = {
+          enable = true;
+          settings = {
+            origin = "https://${config.services.kanidm.server.settings.domain}";
+            domain = "idm.${config.networking.domain}";
+            online_backup.versions = 7; # Number of backups
+            tls_key = "/run/credentials/kanidm.service/key.pem";
+            tls_chain = "/run/credentials/kanidm.service/fullchain.pem";
+          };
         };
         provision = {
           enable = true;
@@ -152,28 +156,14 @@ toplevel: {
               inherit (toplevel.config.lib.flake.util) getIcon;
             in
             {
-              vaultwarden = {
-                displayName = "vaultwarden";
-                imageFile = getIcon {
-                  file = "vaultwarden.svg";
-                  type = "icons";
-                };
-                public = true;
-                originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
-                originLanding = "https://${config.services.vaultwarden.domain}";
-                preferShortUsername = true;
-                scopeMaps."vaultwarden.access" = [
-                  "email"
-                  "openid"
-                  "profile"
-                ];
-              };
               coder = {
                 displayName = "coder";
                 imageFile = getIcon {
                   file = "coder.svg";
                   type = "icons";
                 };
+                # TODO: Coder now supports PKCE. Get rid of the basic secret and make public.
+                # https://github.com/coder/coder/pull/21215
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
                 allowInsecureClientDisablePkce = true;
                 originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
@@ -314,6 +304,22 @@ toplevel: {
                     "immich.access" = [ "user" ];
                   };
                 };
+              };
+              vaultwarden = {
+                displayName = "vaultwarden";
+                imageFile = getIcon {
+                  file = "vaultwarden.svg";
+                  type = "icons";
+                };
+                public = true;
+                originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
+                originLanding = "https://${config.services.vaultwarden.domain}";
+                preferShortUsername = true;
+                scopeMaps."vaultwarden.access" = [
+                  "email"
+                  "openid"
+                  "profile"
+                ];
               };
             };
         };

@@ -77,7 +77,7 @@
 
               DISABLE_PASSWORD_AUTH = "true";
 
-              OAUTH_WELLKNOWN_URL = "${config.services.kanidm.serverSettings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
+              OAUTH_WELLKNOWN_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
               OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
               inherit OAUTH_CLIENT_ID;
               OAUTH_PROVIDER_NAME = "Kanidm";
