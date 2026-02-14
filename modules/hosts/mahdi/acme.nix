@@ -18,6 +18,7 @@
         acceptTerms = true;
         defaults = {
           inherit (config.invisible) email;
+          dnsResolver = "1.1.1.1:53";
           dnsProvider = "rfc2136";
           credentialFiles =
             let
