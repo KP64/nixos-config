@@ -4,6 +4,8 @@
       services.openssh = {
         enable = true;
         startWhenNeeded = true;
+        # Only trust users.users.<name>.openssh.authorizedKeys.keys
+        authorizedKeysInHomedir = false;
         settings = {
           PermitRootLogin = "no";
           PasswordAuthentication = false;
