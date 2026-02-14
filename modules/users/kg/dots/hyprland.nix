@@ -133,11 +133,10 @@ in
             bind = [
               "${mod} SHIFT, S, swapsplit"
             ]
+            ++ lib.optional (config.programs.noctalia-shell.enable or false) (
+              bind "R, exec, noctalia-shell ipc call launcher toggle"
+            )
             ++ map bind [
-              "R, exec, rofi -show drun -show-icons"
-              "E, exec, rofi -show emoji"
-              "W, exec, rofi -show calc"
-
               "C, killactive,"
               "M, exit,"
               "V, togglefloating,"

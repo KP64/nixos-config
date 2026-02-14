@@ -45,7 +45,6 @@ in
         users-kg-hyprland
         users-kg-kitty
         users-kg-noctalia-shell
-        users-kg-rofi
         users-kg-thunderbird
         users-kg-vesktop
       ];
