@@ -5,7 +5,15 @@
   flake.modules.nixos.hosts-mahdi =
     { config, pkgs, ... }:
     {
-      networking.firewall.allowedTCPPorts = [ config.services.nginx.defaultSSLListenPort ];
+      networking.firewall =
+        let
+          inherit (config.services.nginx) defaultSSLListenPort;
+        in
+        {
+          allowedTCPPorts = [ defaultSSLListenPort ];
+          # QUIC uses UDP
+          allowedUDPPorts = [ defaultSSLListenPort ];
+        };
 
       # TODO: Enable ECH. DNS HTTPS Resource is prerequisite though.
       # NOTE: Amazing Websites:
