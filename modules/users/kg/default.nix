@@ -32,12 +32,15 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeOXz+XfNnS01wYjjqNj5t9P20ZLzu8w5vU/0R7bu9R kg@mahdi"
           ];
           extraGroups =
-            (with config.users.groups; [
-              wheel.name
-              input.name
-              audio.name
-              video.name
-            ])
+            (map (group: group.name) (
+              with config.users.groups;
+              [
+                wheel
+                input
+                audio
+                video
+              ]
+            ))
             ++ lib.optional config.security.tpm2.enable config.security.tpm2.tssGroup
             ++ lib.optional config.services.tcsd.enable config.services.tcsd.group;
         };
