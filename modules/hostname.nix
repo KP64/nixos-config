@@ -11,7 +11,7 @@
 
       config.assertions = lib.singleton {
         assertion = config.hostname != null;
-        message = "The hostname of the Home-Manager host is missing";
+        message = "The name of the Home-Manager host is missing";
       };
     };
 }
