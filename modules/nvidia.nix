@@ -1,5 +1,7 @@
 toplevel:
 let
+  inherit (toplevel.config.flake) modules;
+
   nixpkgs.config.cudaSupport = true;
 
   nix.settings = {
@@ -15,36 +17,48 @@ let
 in
 {
   flake.modules = {
-    nixos.nvidia = {
-      allowedUnfreePackages = sharedUnfreePackages ++ [
-        "nvidia-x11"
-        "nvidia-settings"
-      ];
+    nixos = {
+      nvidia-cache = {
+        inherit nix;
+        home-manager.sharedModules = [ modules.homeManager.nvidia-cache ];
+      };
 
-      inherit nixpkgs nix;
+      nvidia = {
+        allowedUnfreePackages = sharedUnfreePackages ++ [
+          "nvidia-x11"
+          "nvidia-settings"
+        ];
 
-      home-manager.sharedModules = [ toplevel.config.flake.modules.homeManager.nvidia ];
+        inherit nixpkgs nix;
 
-      services.xserver.videoDrivers = [ "nvidia" ];
+        home-manager.sharedModules = [ modules.homeManager.nvidia ];
 
-      hardware = {
-        nvidia = {
-          open = true;
-          nvidiaPersistenced = true;
-          powerManagement.enable = true;
-          prime.allowExternalGpu = true;
-        };
-        nvidia-container-toolkit.enable = true;
-        graphics = {
-          enable = true;
-          enable32Bit = true;
+        services.xserver.videoDrivers = [ "nvidia" ];
+
+        hardware = {
+          nvidia = {
+            open = true;
+            nvidiaPersistenced = true;
+            powerManagement.enable = true;
+            prime.allowExternalGpu = true;
+          };
+          nvidia-container-toolkit.enable = true;
+          graphics = {
+            enable = true;
+            enable32Bit = true;
+          };
         };
       };
     };
-    homeManager.nvidia = {
-      allowedUnfreePackages = sharedUnfreePackages;
 
-      inherit nixpkgs nix;
+    homeManager = {
+      nvidia-cache = { inherit nix; };
+
+      nvidia = {
+        allowedUnfreePackages = sharedUnfreePackages;
+
+        inherit nixpkgs nix;
+      };
     };
   };
 }

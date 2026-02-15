@@ -21,6 +21,7 @@ toplevel@{ inputs, ... }:
       ])
       ++ (with toplevel.config.flake.modules.nixos; [
         nix
+        rpi-cache
         ssh
         sudo
         time

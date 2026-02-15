@@ -21,6 +21,10 @@ toplevel@{ inputs, ... }:
           sudo
           time
 
+          # Needed to test config without much pain
+          nvidia-cache
+          rpi-cache
+
           users-kg
         ]);
 
