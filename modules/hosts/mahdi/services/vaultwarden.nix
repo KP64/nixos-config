@@ -1,11 +1,11 @@
 {
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
-    {
-      sops.secrets."vaultwarden.env".owner = config.users.users.vaultwarden.name;
+    lib.mkMerge [
+      (lib.mkIf config.services.vaultwarden.enable {
+        sops.secrets."vaultwarden.env".owner = config.users.users.vaultwarden.name;
 
-      services = {
-        nginx.virtualHosts.${config.services.vaultwarden.domain} = {
+        services.nginx.virtualHosts.${config.services.vaultwarden.domain} = {
           enableACME = true;
           acmeRoot = null;
           forceSSL = lib.mkForce false; # This is configured by `configureNginx`
@@ -16,8 +16,9 @@
               add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
             '';
         };
-
-        vaultwarden = {
+      })
+      {
+        services.vaultwarden = {
           enable = true;
           domain = "vaultwarden.${config.networking.domain}";
           configureNginx = true;
@@ -38,6 +39,6 @@
               SSO_CLIENT_SECRET = "bogus";
             };
         };
-      };
-    };
+      }
+    ];
 }

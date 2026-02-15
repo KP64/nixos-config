@@ -1,71 +1,79 @@
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       inherit (config.lib.nginx) mkCSP mkPP;
     in
-    {
-      services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
-        enableACME = true;
-        acmeRoot = null;
-        onlySSL = true;
-        kTLS = true;
-        locations."/" = {
-          proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
-          extraConfig = # nginx
-            ''
-              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-              add_header Content-Security-Policy "${
-                mkCSP {
-                  default-src = "none";
-                  connect-src = "self";
-                  style-src = [
-                    "self"
-                    "unsafe-inline"
-                  ];
-                  script-src = [
-                    "self"
-                    "unsafe-inline"
-                  ];
-                  img-src = "self";
-                }
-              }" always;
-              add_header X-Content-Type-Options nosniff always;
-              add_header Referrer-Policy no-referrer always;
-              add_header Permissions-Policy "${
-                mkPP {
-                  camera = "()";
-                  microphone = "()";
-                  geolocation = "()";
-                  usb = "()";
-                  bluetooth = "()";
-                  payment = "()";
-                  accelerometer = "()";
-                  gyroscope = "()";
-                  magnetometer = "()";
-                  midi = "()";
-                  serial = "()";
-                  hid = "()";
-                }
-              }" always;
-            '';
+    lib.mkMerge [
+      (lib.mkIf config.services.forgejo.enable {
+        services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
+          enableACME = true;
+          acmeRoot = null;
+          onlySSL = true;
+          kTLS = true;
+          locations."/" = {
+            proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
+            extraConfig = # nginx
+              ''
+                add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+                add_header Content-Security-Policy "${
+                  mkCSP {
+                    default-src = "none";
+                    connect-src = "self";
+                    style-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                    script-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                    img-src = "self";
+                  }
+                }" always;
+                add_header X-Content-Type-Options nosniff always;
+                add_header Referrer-Policy no-referrer always;
+                add_header Permissions-Policy "${
+                  mkPP {
+                    camera = "()";
+                    microphone = "()";
+                    geolocation = "()";
+                    usb = "()";
+                    bluetooth = "()";
+                    payment = "()";
+                    accelerometer = "()";
+                    gyroscope = "()";
+                    magnetometer = "()";
+                    midi = "()";
+                    serial = "()";
+                    hid = "()";
+                  }
+                }" always;
+              '';
+          };
         };
-      };
 
-      networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
+        networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
-      # NOTE: Either podman or Docker needed for runners
-      virtualisation.podman = {
-        enable = true;
-        autoPrune.enable = true;
-      };
-      services = {
+        # NOTE: Either podman or Docker needed for runners
+        virtualisation.podman = {
+          enable = true;
+          autoPrune.enable = true;
+        };
+
         # TODO: Add Runners
-        gitea-actions-runner = {
+        services.gitea-actions-runner = {
           package = pkgs.forgejo-runner;
           instances = { };
         };
+      })
 
+      {
         # NOTE: When running forgejo for the first time run this command:
         # sudo -u forgejo \
         #   <forgejo binary of systemd service> \
@@ -80,7 +88,7 @@
         #
         # To Check that it worked here is the sanity check command:
         # sudo -u forgejo <forgejo binary of systemd service> admin auth list --config <forgejo statedir>/custom/conf/app.ini
-        forgejo = {
+        services.forgejo = {
           enable = true;
           package = pkgs.forgejo; # Newest version ;)
           lfs.enable = true;
@@ -98,10 +106,6 @@
               SSH_PORT = 2222; # High port so that forgejo user can bind to it ;)
             };
             repository.DISABLE_HTTP_GIT = true;
-            security = {
-              PASSWORD_COMPLEXITY = "lower,upper,digit,spec";
-              PASSWORD_CHECK_PWN = true;
-            };
             oauth2_client.ENABLE_AUTO_REGISTRATION = true;
             session.COOKIE_SECURE = true;
             service = {
@@ -111,6 +115,6 @@
             };
           };
         };
-      };
-    };
+      }
+    ];
 }

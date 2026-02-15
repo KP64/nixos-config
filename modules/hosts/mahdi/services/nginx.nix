@@ -3,16 +3,21 @@
   # TODO: Add more/missing Security headers
   # TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       networking.firewall =
         let
-          inherit (config.services.nginx) defaultSSLListenPort;
+          ssl = lib.optional config.services.nginx.enable config.services.nginx.defaultSSLListenPort;
         in
         {
-          allowedTCPPorts = [ defaultSSLListenPort ];
+          allowedTCPPorts = ssl;
           # QUIC uses UDP
-          allowedUDPPorts = [ defaultSSLListenPort ];
+          allowedUDPPorts = ssl;
         };
 
       # TODO: Enable ECH. DNS HTTPS Resource is prerequisite though.

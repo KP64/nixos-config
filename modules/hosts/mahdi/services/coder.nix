@@ -1,28 +1,28 @@
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       domain = "coder.${config.networking.domain}";
     in
-    {
-      allowedUnfreePackages = [ "terraform" ];
-      sops.secrets."coder.env".owner = config.users.users.coder.name;
+    lib.mkMerge [
+      (lib.mkIf config.services.coder.enable {
+        allowedUnfreePackages = [ "terraform" ];
+        sops.secrets."coder.env".owner = config.users.users.coder.name;
 
-      # TODO: Use rootless docker or switch to podman
-      virtualisation.docker = {
-        enable = true;
-        autoPrune.enable = true;
-      };
-      # Doesn't have permission to access the socket otherway
-      users.users.coder.extraGroups = [ config.users.groups.docker.name ];
-      # Coder fails a lot without this
-      systemd.services.coder = {
-        after = [ "kanidm.service" ];
-        wants = [ "kanidm.service" ];
-      };
+        # TODO: Use rootless docker or switch to podman
+        virtualisation.docker = {
+          enable = true;
+          autoPrune.enable = true;
+        };
+        # Doesn't have permission to access the socket otherway
+        users.users.coder.extraGroups = lib.optional config.virtualisation.docker.enable config.users.groups.docker.name;
 
-      services = {
-        nginx.virtualHosts.${domain} = {
+        services.nginx.virtualHosts.${domain} = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -36,8 +36,16 @@
               '';
           };
         };
+      })
 
-        coder = {
+      {
+        # Coder fails a lot without this
+        systemd.services.coder = {
+          after = [ "kanidm.service" ];
+          wants = [ "kanidm.service" ];
+        };
+
+        services.coder = {
           enable = true;
           package = pkgs.coder.override { channel = "mainline"; };
           accessUrl = "https://${domain}";
@@ -74,6 +82,6 @@
               };
           };
         };
-      };
-    };
+      }
+    ];
 }

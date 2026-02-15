@@ -1,13 +1,13 @@
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, ... }:
+    { config, lib, ... }:
     let
       domain = "redlib.${config.networking.domain}";
       inherit (config.lib.nginx) mkPP;
     in
     {
       services = {
-        nginx.virtualHosts.${domain} = {
+        nginx.virtualHosts.${domain} = lib.mkIf config.services.redlib.enable {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;

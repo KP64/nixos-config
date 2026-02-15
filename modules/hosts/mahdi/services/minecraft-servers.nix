@@ -183,7 +183,6 @@
 
           Survival = {
             enable = true;
-            openFirewall = false;
             package = mcPkgs.minecraftServers.fabric-1_21_8;
             jvmOpts = [
               "-Xms16G"
@@ -217,7 +216,6 @@
           };
           Creative = {
             enable = true;
-            openFirewall = false;
             package = mcPkgs.minecraftServers.fabric-1_21_8;
             jvmOpts = [
               "-Xms16G"

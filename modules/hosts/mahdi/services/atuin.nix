@@ -1,12 +1,12 @@
 {
   flake.modules.nixos.hosts-mahdi =
-    { config, ... }:
+    { config, lib, ... }:
     let
       inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       services = {
-        nginx.virtualHosts."atuin.${config.networking.domain}" = {
+        nginx.virtualHosts."atuin.${config.networking.domain}" = lib.mkIf config.services.atuin.enable {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;

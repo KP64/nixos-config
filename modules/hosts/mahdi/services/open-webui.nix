@@ -1,15 +1,15 @@
-toplevel: {
+{
   flake.modules.nixos.hosts-mahdi =
-    { config, ... }:
+    { config, lib, ... }:
     let
       domain = "open-webui.${config.networking.domain}";
       inherit (config.lib.nginx) mkCSP mkPP;
     in
-    {
-      allowedUnfreePackages = [ "open-webui" ];
+    lib.mkMerge [
+      (lib.mkIf config.services.open-webui.enable {
+        allowedUnfreePackages = [ "open-webui" ];
 
-      services = {
-        nginx.virtualHosts.${domain} = {
+        services.nginx.virtualHosts.${domain} = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -75,23 +75,25 @@ toplevel: {
               }" always;
             '';
         };
-
-        open-webui = {
+      })
+      {
+        services.open-webui = {
           enable = true;
           port = 11111;
           environment =
             let
               OAUTH_CLIENT_ID = "open-webui";
-              inherit (toplevel.config.flake.nixosConfigurations) aladdin;
             in
             {
               WEBUI_URL = "https://${domain}";
 
-              OLLAMA_BASE_URLS = builtins.concatStringsSep ";" [
-                # TODO: Declarative IP of Desktop
-                "http://192.168.2.221:${toString aladdin.config.services.ollama.port}"
-                "http://${config.services.ollama.host}:${toString config.services.ollama.port}"
-              ];
+              OLLAMA_BASE_URLS =
+                let
+                  local = lib.optional config.services.ollama.enable "http://${config.services.ollama.host}:${toString config.services.ollama.port}";
+                  instances = local ++ config.lib.ai.getOtherOllamaUrls;
+                in
+                lib.warnIf (instances == [ ]) "Open-webui missing Ollama endpoints"
+                <| lib.mkIf (instances != [ ]) (builtins.concatStringsSep ";" instances);
 
               SHOW_ADMIN_DETAILS = "False";
 
@@ -133,10 +135,13 @@ toplevel: {
               ENABLE_RAG_LOCAL_WEB_FETCH = "True";
               ENABLE_WEB_SEARCH = "True";
               ENABLE_RAG_WEB_SEARCH = "True";
+              WEB_SEARCH_ENGINE = "duckduckgo";
+            }
+            // (lib.optionalAttrs config.services.searx.enable {
               WEB_SEARCH_ENGINE = "searxng";
               SEARXNG_QUERY_URL = "${config.services.searx.settings.server.base_url}/search?q=<query>";
-            };
+            });
         };
-      };
-    };
+      }
+    ];
 }
