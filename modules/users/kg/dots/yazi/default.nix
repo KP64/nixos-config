@@ -4,7 +4,6 @@
     {
       programs.yazi = {
         enable = true;
-        shellWrapperName = "y";
 
         # FIXME: Rich-preview doesn't work?
         extraPackages = with pkgs; [
