@@ -1,12 +1,12 @@
 {
   flake.aspects.hosts-mahdi.nixos =
-    { config, ... }:
+    { config, lib, ... }:
     let
       inherit (config.lib.nginx) mkCSP mkPP;
     in
     {
       services = {
-        nginx.virtualHosts."komga.${config.networking.domain}" = {
+        nginx.virtualHosts."komga.${config.networking.domain}" = lib.mkIf config.services.komga.enable {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;

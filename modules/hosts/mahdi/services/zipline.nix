@@ -1,15 +1,16 @@
 {
   flake.aspects.hosts-mahdi.nixos =
-    { config, ... }:
+    { config, lib, ... }:
     let
       cfg = config.services.zipline;
+      kanidmOrigin = config.services.kanidm.server.settings.origin;
       inherit (config.lib.nginx) mkCSP mkPP;
     in
-    {
-      sops.secrets."zipline.env" = { };
+    lib.mkMerge [
+      (lib.mkIf config.services.zipline.enable {
+        sops.secrets."zipline.env" = { };
 
-      services = {
-        nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {
+        services.nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -61,8 +62,10 @@
               '';
           };
         };
+      })
+      {
 
-        zipline = {
+        services.zipline = {
           enable = true;
           environmentFiles = [ config.sops.secrets."zipline.env".path ];
           settings =
@@ -106,12 +109,12 @@
               OAUTH_BYPASS_LOCAL_LOGIN = "true";
               inherit OAUTH_OIDC_CLIENT_ID;
               OAUTH_OIDC_CLIENT_SECRET = "$OAUTH_OIDC_CLIENT_SECRET";
-              OAUTH_OIDC_AUTHORIZE_URL = "${config.services.kanidm.server.settings.origin}/ui/oauth2";
-              OAUTH_OIDC_USERINFO_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OAUTH_OIDC_CLIENT_ID}/userinfo";
-              OAUTH_OIDC_TOKEN_URL = "${config.services.kanidm.server.settings.origin}/oauth2/token";
+              OAUTH_OIDC_AUTHORIZE_URL = "${kanidmOrigin}/ui/oauth2";
+              OAUTH_OIDC_USERINFO_URL = "${kanidmOrigin}/oauth2/openid/${OAUTH_OIDC_CLIENT_ID}/userinfo";
+              OAUTH_OIDC_TOKEN_URL = "${kanidmOrigin}/oauth2/token";
               OAUTH_OIDC_REDIRECT_URI = "https://${CORE_DEFAULT_DOMAIN}/api/auth/oauth/oidc";
             };
         };
-      };
-    };
+      }
+    ];
 }

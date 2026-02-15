@@ -3,7 +3,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
   # TODO: Check if aspect automatically adds this user including homeManager (no need for sharedModules?)
   flake.aspects.users-kg = {
     nixos =
-      { config, ... }:
+      { config, lib, ... }:
       {
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
@@ -32,14 +32,18 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKtrZt+5zMkOVy2RByh713FvkRpYuxdAB0k7th9yxVP kg@sindbad"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeOXz+XfNnS01wYjjqNj5t9P20ZLzu8w5vU/0R7bu9R kg@mahdi"
           ];
-          extraGroups = [
-            "networkmanager"
-            "wheel"
-            "input"
-            "audio"
-            "video"
-            "tss" # TPM
-          ];
+          extraGroups =
+            (map (group: group.name) (
+              with config.users.groups;
+              [
+                wheel
+                input
+                audio
+                video
+              ]
+            ))
+            ++ lib.optional config.security.tpm2.enable config.security.tpm2.tssGroup
+            ++ lib.optional config.services.tcsd.enable config.services.tcsd.group;
         };
       };
 

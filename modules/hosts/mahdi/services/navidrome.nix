@@ -1,15 +1,15 @@
 {
   flake.aspects.hosts-mahdi.nixos =
-    { config, ... }:
+    { config, lib, ... }:
     let
       domain = "navidrome.${config.networking.domain}";
       inherit (config.lib.nginx) mkCSP;
     in
-    {
-      sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;
+    lib.mkMerge [
+      (lib.mkIf config.services.navidrome.enable {
+        sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;
 
-      services = {
-        nginx.virtualHosts.${domain} = {
+        services.nginx.virtualHosts.${domain} = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -42,8 +42,9 @@
                 '';
             };
         };
-
-        navidrome = {
+      })
+      {
+        services.navidrome = {
           enable = true;
           environmentFile = config.sops.secrets."navidrome.env".path;
           settings = {
@@ -51,6 +52,6 @@
             SearchFullString = true;
           };
         };
-      };
-    };
+      }
+    ];
 }

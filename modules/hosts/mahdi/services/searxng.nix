@@ -4,11 +4,11 @@
     let
       inherit (config.lib.nginx) mkCSP mkPP;
     in
-    {
-      sops.secrets.searxng.owner = config.users.users.searx.name;
+    lib.mkMerge [
+      (lib.mkIf config.services.searx.enable {
+        sops.secrets.searxng.owner = config.users.users.searx.name;
 
-      services = {
-        nginx.virtualHosts.${config.services.searx.domain} = {
+        services.nginx.virtualHosts.${config.services.searx.domain} = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -55,8 +55,9 @@
               }" always;
             '';
         };
-
-        searx = {
+      })
+      {
+        services.searx = {
           enable = true;
           domain = "searxng.${config.networking.domain}";
           redisCreateLocally = true; # Needed for Rate-Limit & bot protection
@@ -125,6 +126,6 @@
             };
           };
         };
-      };
-    };
+      }
+    ];
 }

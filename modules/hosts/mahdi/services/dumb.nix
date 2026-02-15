@@ -1,6 +1,6 @@
 toplevel: {
   flake.aspects.hosts-mahdi.nixos =
-    { config, ... }:
+    { config, lib, ... }:
     let
       inherit (config.lib.nginx) mkPP;
     in
@@ -8,7 +8,7 @@ toplevel: {
       imports = [ toplevel.config.flake.modules.nixos.dumb ];
 
       services = {
-        nginx.virtualHosts."dumb.${config.networking.domain}" = {
+        nginx.virtualHosts."dumb.${config.networking.domain}" = lib.mkIf config.services.dumb.enable {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;

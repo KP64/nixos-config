@@ -12,13 +12,13 @@
     in
     {
       services = {
-        nginx.virtualHosts.${domain} = {
+        nginx.virtualHosts.${domain} = lib.mkIf config.services.karakeep.enable {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
           kTLS = true;
           locations."/" = {
-            proxyPass = "http://127.0.0.1:${config.services.karakeep.extraEnvironment.PORT}";
+            proxyPass = config.systemd.services.karakeep-web.environment.BROWSER_WEB_URL;
             extraConfig = # nginx
               ''
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
@@ -87,7 +87,18 @@
               RATE_LIMITING_ENABLED = "true";
               DB_WAL_MODE = "true";
 
-              OLLAMA_BASE_URL = "http://${config.services.ollama.host}:${toString config.services.ollama.port}";
+              OLLAMA_BASE_URL =
+                let
+                  instance =
+                    if config.services.ollama.enable then
+                      [ "http://${config.services.ollama.host}:${toString config.services.ollama.port}" ]
+                    else
+                      config.lib.ai.getOtherOllamaUrls;
+                in
+                lib.warnIf (instance == [ ])
+                  "Karakeep missing AI inference. That is the whole point of it though..."
+                  (lib.mkIf (instance != [ ]) <| builtins.head instance);
+
               OLLAMA_KEEP_ALIVE = "5m";
               # NOTE: The whole name is needed.
               #       llama3.2 alone isn't enough.

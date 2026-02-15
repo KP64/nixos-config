@@ -1,6 +1,6 @@
-{
+toplevel: {
   flake.aspects.customLib.nixos =
-    { lib, ... }:
+    { config, lib, ... }:
     {
       nix-lib.lib.ai = {
         genModelTypes = {
@@ -24,6 +24,25 @@
           description = ''
             Generates a list of a model with
             different parameter counts.
+          '';
+        };
+
+        getOtherOllamaUrls = {
+          type = with lib.types; listOf nonEmptyStr;
+          fn =
+            toplevel.config.flake.nixosConfigurations
+            |> builtins.attrValues
+            |> map (host: host.config)
+            |> builtins.filter (nixosCfg: nixosCfg.networking.hostName != config.networking.hostName)
+            |> builtins.filter (
+              nixosCfg:
+              nixosCfg.services.ollama.enable && nixosCfg.services.ollama.openFirewall && nixosCfg ? staticIPv4
+            )
+            |> map (nixosCfg: "http://${nixosCfg.staticIPv4}:${toString nixosCfg.services.ollama.port}");
+          description = ''
+            Return a list Ollama IPs of every host
+            configured in this config except for the
+            current host (localhost).
           '';
         };
       };

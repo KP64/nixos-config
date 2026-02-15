@@ -1,12 +1,13 @@
 {
+  # TODO: Check that this works as intended
   flake.aspects.hosts-mahdi.nixos =
-    { config, ... }:
+    { config, lib, ... }:
     let
       inherit (config.lib.nginx) mkPP;
     in
     {
       services = {
-        nginx.virtualHosts."owncast.${config.networking.domain}" = {
+        nginx.virtualHosts."owncast.${config.networking.domain}" = lib.mkIf config.services.owncast.enable {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;

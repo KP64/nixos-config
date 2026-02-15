@@ -1,11 +1,11 @@
 {
   flake.aspects.hosts-aladdin.nixos =
-    { config, ... }:
+    { config, lib, ... }:
     let
       inherit (config.lib.ai) genModelTypes;
     in
     {
-      allowedUnfreePackages = [
+      allowedUnfreePackages = lib.optionals config.services.ollama.enable [
         "libcublas"
         "libcurand"
         "libcusparse"

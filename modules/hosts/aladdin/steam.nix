@@ -1,8 +1,13 @@
 {
   flake.aspects.hosts-aladdin.nixos =
-    { pkgs, ... }:
     {
-      allowedUnfreePackages = [
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      allowedUnfreePackages = lib.optionals config.programs.steam.enable [
         "steam"
         "steam-unwrapped"
       ];
