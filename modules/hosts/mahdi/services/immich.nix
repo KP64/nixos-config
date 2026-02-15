@@ -1,13 +1,8 @@
 {
-<<<<<<< HEAD
-  flake.aspects.hosts-mahdi.nixos =
-    { config, ... }:
-=======
   # TODO: Reenable immich once mTLS is implemented
   #       and only public proxy is forwarded
-  flake.modules.nixos.hosts-mahdi =
+  flake.aspects.hosts-mahdi.nixos =
     { config, lib, ... }:
->>>>>>> main
     {
       services = {
         # TODO: Hardening
