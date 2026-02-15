@@ -103,6 +103,9 @@
       };
     };
 
+    # flake-parts module transposition of class and name
+    flake-aspects.url = "github:vic/flake-aspects";
+
     # Bind everything together
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

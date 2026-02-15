@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.hlchunk = {
+  flake.aspects.hlchunk.nixvim = {
     plugins.hlchunk = {
       enable = true;
       lazyLoad.settings.event = [

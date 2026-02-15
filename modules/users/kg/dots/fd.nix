@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-fd = {
+  flake.aspects.users-kg-fd.homeManager = {
     programs.fd = {
       enable = true;
       hidden = true;

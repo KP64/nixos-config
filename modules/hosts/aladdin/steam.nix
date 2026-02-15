@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-aladdin =
+  flake.aspects.hosts-aladdin.nixos =
     { pkgs, ... }:
     {
       allowedUnfreePackages = [

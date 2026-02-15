@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.dap =
+  flake.aspects.dap.nixvim =
     { lib, ... }:
     let
       mkRequire =

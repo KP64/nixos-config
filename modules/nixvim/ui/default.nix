@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  flake.modules.nixvim.ui = {
+  flake.aspects.ui.nixvim = {
     imports = with config.flake.modules.nixvim; [
       bufferline
       dashboard

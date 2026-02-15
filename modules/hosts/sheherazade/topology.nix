@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-sheherazade =
+  flake.aspects.hosts-sheherazade.nixos =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;

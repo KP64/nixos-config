@@ -1,7 +1,8 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
-  flake.modules = {
-    nixos.users-kg =
+  # TODO: Check if aspect automatically adds this user including homeManager (no need for sharedModules?)
+  flake.aspects.users-kg = {
+    nixos =
       { config, ... }:
       {
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
@@ -42,7 +43,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         };
       };
 
-    homeManager.users-kg = moduleWithSystem (
+    homeManager = moduleWithSystem (
       { inputs', ... }:
       { config, pkgs, ... }:
       {

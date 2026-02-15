@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-aladdin =
+  flake.aspects.hosts-aladdin.nixos =
     { config, pkgs, ... }:
     {
       imports = [

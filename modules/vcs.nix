@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.vcs =
+  flake.aspects.vcs.homeManager =
     { config, lib, ... }:
     {
       options.vcs.user = {

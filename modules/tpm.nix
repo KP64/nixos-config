@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.tpm = {
+  flake.aspects.tpm.nixos = {
     security.tpm2 = {
       enable = true;
       abrmd.enable = true;

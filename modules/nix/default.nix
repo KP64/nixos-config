@@ -25,8 +25,8 @@ let
 in
 {
 
-  flake.modules = {
-    nixos.nix =
+  flake.aspects.nix = {
+    nixos =
       { pkgs, ... }:
       {
         inherit nixpkgs;
@@ -40,7 +40,7 @@ in
         };
       };
 
-    homeManager.nix =
+    homeManager =
       {
         osConfig ? null,
         config,

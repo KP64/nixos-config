@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-zarqa =
+  flake.aspects.hosts-zarqa.nixos =
     { config, lib, ... }:
     {
       imports = [ toplevel.config.flake.modules.nixos.ip ];

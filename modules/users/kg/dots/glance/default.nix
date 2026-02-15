@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-glance = {
+  flake.aspects.users-kg-glance.homeManager = {
     services.glance = {
       enable = true;
       settings = {

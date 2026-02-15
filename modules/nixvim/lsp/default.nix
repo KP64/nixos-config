@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  flake.modules.nixvim.lsp = {
+  flake.aspects.lsp.nixvim = {
     imports = with config.flake.modules.nixvim; [
       blink
       conform

@@ -2,7 +2,7 @@
   # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
   # TODO: Add more/missing Security headers
   # TODO: Disable caching from OAauth endpoints!
-  flake.modules.nixos.hosts-mahdi =
+  flake.aspects.hosts-mahdi.nixos =
     { config, pkgs, ... }:
     {
       networking.firewall =

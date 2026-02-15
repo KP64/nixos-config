@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-morgiana =
+  flake.aspects.hosts-morgiana.nixos =
     { config, lib, ... }:
     {
       imports = [ toplevel.config.flake.modules.nixos.ip ];

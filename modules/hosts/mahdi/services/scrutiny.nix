@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi = {
+  flake.aspects.hosts-mahdi.nixos = {
     # services.nginx.virtualHosts."scrutiny.${config.networking.domain}" = {
     #   enableACME = true;
     #   acmeRoot = null;

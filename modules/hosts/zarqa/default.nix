@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-zarqa =
+  flake.aspects.hosts-zarqa.nixos =
     { config, ... }:
     let
       inherit (inputs) nixos-raspberrypi;

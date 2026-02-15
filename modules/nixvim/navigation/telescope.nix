@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.telescope = {
+  flake.aspects.telescope.nixvim = {
     dependencies =
       let
         defaultEnable = {

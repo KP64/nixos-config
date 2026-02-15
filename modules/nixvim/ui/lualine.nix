@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.lualine = {
+  flake.aspects.lualine.nixvim = {
     plugins.lualine = {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";

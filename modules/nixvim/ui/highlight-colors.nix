@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.highlight-colors = {
+  flake.aspects.highlight-colors.nixvim = {
     opts.termguicolors = true;
 
     plugins.highlight-colors = {

@@ -1,6 +1,6 @@
 { moduleWithSystem, inputs, ... }:
 {
-  flake.modules.nixos.hosts-sheherazade = moduleWithSystem (
+  flake.aspects.hosts-sheherazade.nixos = moduleWithSystem (
     { config, system, ... }:
     nixos@{ lib, pkgs, ... }:
     {

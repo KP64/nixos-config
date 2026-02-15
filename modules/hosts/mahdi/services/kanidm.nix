@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-mahdi =
+  flake.aspects.hosts-mahdi.nixos =
     {
       config,
       lib,

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.customLib =
+  flake.aspects.customLib.homeManager =
     { lib, ... }:
     {
       nix-lib.lib.firefox = {

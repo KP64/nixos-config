@@ -8,8 +8,8 @@ let
   };
 in
 {
-  flake.modules = {
-    nixos.nix-unfree =
+  flake.aspects.nix-unfree = {
+    nixos =
       { config, lib, ... }:
       {
         inherit options;
@@ -24,7 +24,7 @@ in
         };
       };
 
-    homeManager.nix-unfree =
+    homeManager =
       { config, lib, ... }:
       {
         inherit options;

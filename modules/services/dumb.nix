@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.nixos.dumb = moduleWithSystem (
+  flake.aspects.dumb.nixos = moduleWithSystem (
     { config, ... }:
     nixos@{ lib, ... }:
     let

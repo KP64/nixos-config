@@ -3,7 +3,7 @@ let
   inherit (toplevel.config.lib.flake.util) getIcon toFlattenedByDots;
 in
 {
-  flake.modules.homeManager.users-kg-firefox = moduleWithSystem (
+  flake.aspects.users-kg-firefox.homeManager = moduleWithSystem (
     { inputs', ... }:
     { config, lib, ... }:
     let

@@ -223,6 +223,21 @@
         "type": "github"
       }
     },
+    "flake-aspects": {
+      "locked": {
+        "lastModified": 1769723924,
+        "narHash": "sha256-U15OaMr9AcJiB1wW2uCFzFO+DnQ3jJSvln+ZR/+Q0vE=",
+        "owner": "vic",
+        "repo": "flake-aspects",
+        "rev": "61524836788ef6991a82e7d34ebb0ccc05d374ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "flake-aspects",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1733328505,
@@ -954,6 +969,7 @@
         "disko": "disko",
         "dns": "dns",
         "dotz": "dotz",
+        "flake-aspects": "flake-aspects",
         "flake-parts": "flake-parts",
         "harmonia": "harmonia",
         "home-manager": "home-manager",

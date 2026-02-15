@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-neovim =
+  flake.aspects.users-kg-neovim.homeManager =
     { lib, pkgs, ... }:
     {
       programs.nixvim = {

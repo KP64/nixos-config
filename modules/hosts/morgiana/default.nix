@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-morgiana =
+  flake.aspects.hosts-morgiana.nixos =
     { config, ... }:
     let
       inherit (inputs) nixos-raspberrypi;

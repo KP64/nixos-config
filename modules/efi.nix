@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.efi =
+  flake.aspects.efi.nixos =
     { lib, ... }:
     {
       services.fwupd.enable = lib.mkDefault true;

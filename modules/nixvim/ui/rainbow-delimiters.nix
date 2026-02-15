@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.rainbow-delimiters = {
+  flake.aspects.rainbow-delimiters.nixvim = {
     plugins.rainbow-delimiters = {
       enable = true;
       lazyLoad.settings.event = [

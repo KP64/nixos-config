@@ -4,8 +4,8 @@ let
   cursorAccent = "dark";
 in
 {
-  flake.modules = {
-    nixos.catppuccin =
+  flake.aspects.catppuccin = {
+    nixos =
       { pkgs, ... }:
       {
         imports = [ inputs.catppuccin.nixosModules.catppuccin ];
@@ -25,7 +25,7 @@ in
         };
       };
 
-    homeManager.catppuccin =
+    homeManager =
       { config, ... }:
       {
         imports = [ inputs.catppuccin.homeModules.catppuccin ];

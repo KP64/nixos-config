@@ -1,6 +1,6 @@
 {
-  flake.modules = {
-    nixos.ssh = {
+  flake.aspects.ssh = {
+    nixos = {
       services.openssh = {
         enable = true;
         startWhenNeeded = true;
@@ -14,7 +14,7 @@
       };
     };
 
-    homeManager.ssh =
+    homeManager =
       { pkgs, ... }:
       {
         home.packages = [ pkgs.openssh ];

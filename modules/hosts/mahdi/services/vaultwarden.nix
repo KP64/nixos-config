@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  flake.aspects.hosts-mahdi.nixos =
     { config, lib, ... }:
     {
       sops.secrets."vaultwarden.env".owner = config.users.users.vaultwarden.name;

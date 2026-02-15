@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.movement =
+  flake.aspects.movement.nixvim =
     { lib, ... }:
     let
       lazyLoad.settings.event = "DeferredUIEnter";
@@ -12,7 +12,6 @@
               require("flash").${func}()
             end
           '';
-
     in
     {
       plugins = {

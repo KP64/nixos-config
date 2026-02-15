@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  flake.aspects.hosts-mahdi.nixos =
     { config, ... }:
     let
       domain = "redlib.${config.networking.domain}";

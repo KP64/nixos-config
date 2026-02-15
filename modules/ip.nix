@@ -2,7 +2,7 @@
   # This module only exists because there is no easy
   # way to extract the IP Address of a host
   # TODO: Find a better way
-  flake.modules.nixos.ip =
+  flake.aspects.ip.nixos =
     { lib, ... }:
     {
       options.staticIPv4 = lib.mkOption {

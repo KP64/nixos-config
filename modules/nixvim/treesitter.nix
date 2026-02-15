@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.treesitter = {
+  flake.aspects.treesitter.nixvim = {
     dependencies =
       let
         defaultEnable = {

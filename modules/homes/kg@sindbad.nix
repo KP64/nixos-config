@@ -31,7 +31,7 @@ in
     }
   );
 
-  flake.modules.homeManager."kg@${hostName}" = moduleWithSystem (
+  flake.aspects."kg@${hostName}".homeManager = moduleWithSystem (
     { inputs', ... }:
     { config, pkgs, ... }:
     {

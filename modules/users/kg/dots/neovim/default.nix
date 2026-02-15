@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.homeManager.users-kg-neovim =
+  flake.aspects.users-kg-neovim.homeManager =
     { config, ... }:
     {
       imports = [ inputs.nixvim.homeModules.nixvim ];

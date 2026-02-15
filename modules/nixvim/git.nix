@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.git = {
+  flake.aspects.git.nixvim = {
     dependencies.git = {
       enable = true;
       packageFallback = true;

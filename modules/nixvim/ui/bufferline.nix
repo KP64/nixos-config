@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.bufferline =
+  flake.aspects.bufferline.nixvim =
     { lib, ... }:
     {
       plugins.bufferline = {

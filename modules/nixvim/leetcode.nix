@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.leetcode = {
+  flake.aspects.leetcode.nixvim = {
     plugins.leetcode = {
       enable = true;
       settings.lang = "rust";

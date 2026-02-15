@@ -5,7 +5,7 @@ let
   bind_shift = b: "${mod} SHIFT, ${b}";
 in
 {
-  flake.modules.homeManager.users-kg-hyprland =
+  flake.aspects.users-kg-hyprland.homeManager =
     {
       config,
       lib,

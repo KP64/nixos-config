@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-starship = {
+  flake.aspects.users-kg-starship.homeManager = {
     programs.starship = {
       enable = true;
       settings = {

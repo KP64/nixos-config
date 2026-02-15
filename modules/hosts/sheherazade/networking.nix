@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-sheherazade =
+  flake.aspects.hosts-sheherazade.nixos =
     { config, ... }:
     {
       imports = [ toplevel.config.flake.modules.nixos.ip ];

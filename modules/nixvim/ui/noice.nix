@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.noice = {
+  flake.aspects.noice.nixvim = {
     plugins = {
       notify.enable = true;
       noice = {

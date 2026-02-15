@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.hosts-mahdi =
+  flake.aspects.hosts-mahdi.nixos =
     { config, ... }:
     let
       inherit (config.lib.nginx) mkCSP mkPP;

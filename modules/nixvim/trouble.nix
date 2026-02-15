@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.trouble = {
+  flake.aspects.trouble.nixvim = {
     plugins.trouble = {
       enable = true;
       lazyLoad.settings.cmd = "Trouble";

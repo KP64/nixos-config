@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.no-neck-pain =
+  flake.aspects.no-neck-pain.nixvim =
     let
       keymap = "<leader>nn";
       cmd = "NoNeckPain";

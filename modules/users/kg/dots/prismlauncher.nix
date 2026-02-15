@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-prismlauncher = {
+  flake.aspects.users-kg-prismlauncher.homeManager = {
     programs.prismlauncher.enable = true;
   };
 }

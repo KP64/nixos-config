@@ -1,6 +1,6 @@
 {
-  flake.modules = {
-    nixos.yubikey =
+  flake.aspects.yubikey = {
+    nixos =
       {
         config,
         lib,
@@ -59,7 +59,7 @@
         ];
       };
 
-    homeManager.yubikey = {
+    homeManager = {
       services.yubikey-agent.enable = true;
     };
   };

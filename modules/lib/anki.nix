@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.customLib =
+  flake.aspects.customLib.nixos =
     { config, lib, ... }:
     {
       nix-lib.lib.anki = {

@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.nixvim.base = moduleWithSystem (
+  flake.aspects.base.nixvim = moduleWithSystem (
     { inputs', ... }:
     { lib, ... }:
     {

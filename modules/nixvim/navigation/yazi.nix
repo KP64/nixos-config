@@ -3,7 +3,7 @@
   #        - This is useful for those that use the plugin but
   #          don't have yazi installed.
   # TODO: Open issue about dependency taking precedence over locally installed.
-  flake.modules.nixvim.yazi = {
+  flake.aspects.yazi.nixvim = {
     plugins.yazi = {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";

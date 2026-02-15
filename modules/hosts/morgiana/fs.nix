@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-morgiana = {
+  flake.aspects.hosts-morgiana.nixos = {
     fileSystems = {
       "/boot/firmware" = {
         device = "/dev/disk/by-label/FIRMWARE";

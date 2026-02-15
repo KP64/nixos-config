@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.image = {
+  flake.aspects.image.nixvim = {
     dependencies.imagemagick = {
       enable = true;
       packageFallback = true;

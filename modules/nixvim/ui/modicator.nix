@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.modicator = {
+  flake.aspects.modicator.nixvim = {
     opts = {
       cursorline = true;
       number = true;

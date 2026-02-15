@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.homeManager.users-kg-thunderbird =
+  flake.aspects.users-kg-thunderbird.homeManager =
     { config, ... }:
     let
       inherit (config.home) username;

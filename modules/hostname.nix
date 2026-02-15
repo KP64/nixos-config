@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hostname =
+  flake.aspects.hostname.homeManager =
     { config, lib, ... }:
     {
       options.hostname = lib.mkOption {

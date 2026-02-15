@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-yazi =
+  flake.aspects.users-kg-yazi.homeManager =
     { lib, pkgs, ... }:
     {
       programs.yazi = {

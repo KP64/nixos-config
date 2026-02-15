@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  flake.modules.nixvim.navigation = {
+  flake.aspects.navigation.nixvim = {
     imports = with config.flake.modules.nixvim; [
       oil
       telescope

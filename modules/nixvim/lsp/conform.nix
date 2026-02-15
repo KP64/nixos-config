@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.conform = {
+  flake.aspects.conform.nixvim = {
     plugins.conform-nvim = {
       enable = true;
       lazyLoad.settings = {

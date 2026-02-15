@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.render-markdown =
+  flake.aspects.render-markdown.nixvim =
     { pkgs, ... }:
     {
       dependencies.tree-sitter = {

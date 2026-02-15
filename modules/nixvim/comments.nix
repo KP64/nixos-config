@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.comments = {
+  flake.aspects.comments.nixvim = {
     plugins.comment = {
       enable = true;
       lazyLoad.settings.keys =

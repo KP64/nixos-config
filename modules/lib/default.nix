@@ -5,8 +5,8 @@ toplevel@{ inputs, ... }:
 
   nix-lib.enable = true;
 
-  flake.modules = {
-    nixos.customLib = {
+  flake.aspects.customLib = {
+    nixos = {
       imports = [ inputs.nix-lib.nixosModules.default ];
 
       home-manager.sharedModules = [ toplevel.config.flake.modules.homeManager.customLib ];
@@ -14,7 +14,7 @@ toplevel@{ inputs, ... }:
       nix-lib.enable = true;
     };
 
-    homeManager.customLib = {
+    homeManager = {
       imports = [ inputs.nix-lib.homeModules.default ];
 
       nix-lib.enable = true;

@@ -1,6 +1,6 @@
 toplevel: {
-  flake.modules = {
-    nixos.desktop =
+  flake.aspects.desktop = {
+    nixos =
       { config, lib, ... }:
       {
         config = lib.mkMerge [
@@ -38,7 +38,7 @@ toplevel: {
         ];
       };
 
-    homeManager.desktop = {
+    homeManager = {
       gtk.enable = true;
       qt.enable = true;
 

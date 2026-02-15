@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-aladdin =
+  flake.aspects.hosts-aladdin.nixos =
     { config, lib, ... }:
     {
       imports = [ toplevel.config.flake.modules.nixos.ip ];

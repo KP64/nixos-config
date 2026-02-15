@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.audio = {
+  flake.aspects.audio.nixos = {
     imports = [ inputs.musnix.nixosModules.default ];
 
     musnix = {

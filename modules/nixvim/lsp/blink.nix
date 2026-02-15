@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.blink =
+  flake.aspects.blink.nixvim =
     { lib, ... }:
     let
       lazyLoad.settings.event = "InsertEnter";

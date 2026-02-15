@@ -1,6 +1,6 @@
 { self, inputs, ... }:
 {
-  flake.modules.homeManager.users-kg-noctalia-shell =
+  flake.aspects.users-kg-noctalia-shell.homeManager =
     { config, lib, ... }:
     {
       imports = [ inputs.noctalia.homeModules.default ];

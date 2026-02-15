@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.oil =
+  flake.aspects.oil.nixvim =
     { lib, ... }:
     {
       plugins = {

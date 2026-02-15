@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  flake.modules.nixvim.markdown = {
+  flake.aspects.markdown.nixvim = {
     imports = with config.flake.modules.nixvim; [
       image
       render-markdown

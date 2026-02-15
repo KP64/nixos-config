@@ -1,6 +1,6 @@
 { moduleWithSystem, inputs, ... }:
 {
-  flake.modules.nixos.hosts-mahdi = moduleWithSystem (
+  flake.aspects.hosts-mahdi.nixos = moduleWithSystem (
     { config, inputs', ... }:
     nixos@{ lib, ... }:
     let

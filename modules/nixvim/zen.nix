@@ -1,5 +1,5 @@
 {
-  flake.modules.nixvim.zen =
+  flake.aspects.zen.nixvim =
     { lib, ... }:
     let
       zenModeKeymap = "<leader>zn";

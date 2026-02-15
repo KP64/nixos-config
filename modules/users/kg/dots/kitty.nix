@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-kitty =
+  flake.aspects.users-kg-kitty.homeManager =
     {
       config,
       lib,
