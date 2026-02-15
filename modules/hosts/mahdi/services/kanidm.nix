@@ -190,14 +190,6 @@ toplevel: {
                   "openid"
                   "profile"
                 ];
-                # TODO: Enable claimMaps in forgejo
-                claimMaps.groups = {
-                  joinType = "array";
-                  valuesByGroup = {
-                    "forgejo.admins" = [ "admins" ];
-                    "forgejo.access" = [ "users" ];
-                  };
-                };
               };
               karakeep = {
                 displayName = "karakeep";

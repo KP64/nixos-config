@@ -1,6 +1,5 @@
 toplevel@{ inputs, ... }:
 {
-  # TODO: Tests
   imports = [ inputs.nix-lib.flakeModules.default ];
 
   nix-lib.enable = true;
