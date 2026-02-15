@@ -120,6 +120,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           btop.enable = true;
           cava.enable = true;
           fastfetch.enable = true;
+          less.enable = true;
           pay-respects.enable = true;
           ripgrep.enable = true;
           zellij.enable = true;
