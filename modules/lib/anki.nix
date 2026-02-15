@@ -4,7 +4,7 @@
     {
       nix-lib.lib.anki = {
         genUsers = {
-          type = with lib.types; listOf attrs;
+          type = with lib.types; listOf <| attrsOf anything;
           fn =
             let
               prefix = "anki/";

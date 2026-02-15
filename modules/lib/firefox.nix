@@ -4,7 +4,7 @@
     {
       nix-lib.lib.firefox = {
         hideEngines = {
-          type = with lib.types; functionTo attrs;
+          type = with lib.types; functionTo <| attrsOf anything;
           fn =
             list:
             lib.genAttrs list (_: {

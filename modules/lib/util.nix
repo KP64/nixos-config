@@ -7,7 +7,7 @@
 {
   nix-lib.lib.util = {
     appendLastWithFullPath = {
-      type = with lib.types; functionTo attrs;
+      type = with lib.types; functionTo <| attrsOf anything;
       fn =
         attrs:
         attrs
@@ -25,7 +25,7 @@
         inherit (config.lib.flake.util) appendLastWithFullPath collectLastEntries;
       in
       {
-        type = with lib.types; functionTo attrs;
+        type = with lib.types; functionTo <| attrsOf anything;
         fn = attrs: attrs |> appendLastWithFullPath |> collectLastEntries;
         description = ''
           Converts an Attribute Set to another set
@@ -34,7 +34,7 @@
       };
 
     collectLastEntries = {
-      type = with lib.types; functionTo attrs;
+      type = with lib.types; functionTo <| attrsOf anything;
       fn =
         attrs:
         rec {
@@ -66,7 +66,7 @@
     };
 
     mapIfAvailable = {
-      type = with lib.types; functionTo <| listOf attrs;
+      type = with lib.types; functionTo <| listOf <| attrsOf anything;
       fn =
         {
           needs,
