@@ -22,7 +22,7 @@ toplevel@{ inputs, ... }:
         users-kg
       ]);
 
-      system.stateVersion = "25.11";
+      system.stateVersion = "26.05";
       hardware = {
         facter.reportPath = ./facter.json;
         bluetooth.settings.General = {

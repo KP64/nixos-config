@@ -29,7 +29,7 @@ toplevel@{ inputs, ... }:
       sops.defaultSopsFile = ./secrets.yaml;
       users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
-      system.stateVersion = "25.11";
+      system.stateVersion = "26.05";
       hardware.facter.reportPath = ./facter.json;
 
       console.keyMap = config.services.xserver.xkb.layout;

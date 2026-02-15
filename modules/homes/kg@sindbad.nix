@@ -50,7 +50,7 @@ in
       ];
 
       home = {
-        stateVersion = "25.11";
+        stateVersion = "26.05";
         packages = with pkgs; [
           impala
           noto-fonts-color-emoji # Needed for icons
