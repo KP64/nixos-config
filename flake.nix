@@ -164,17 +164,6 @@
       };
     };
 
-    # This provides package wrapping functions, that are
-    # especially important for home-manager setups on non
-    # NixOS systems when trying to get graphical applications working.
-    nixGL = {
-      url = "github:nix-community/nixGL";
-      inputs = {
-        flake-utils.follows = "dedup_flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # Weekly updated nixpkgs database
     # Useful for Comma (https://github.com/nix-community/comma)
     # and replacing command-not-found

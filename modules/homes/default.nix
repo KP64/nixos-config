@@ -42,14 +42,6 @@ in
                   config.flake.modules.homeManager.hostname
                   { inherit hostname; }
 
-                  # Allow graphical applications like hyprland to be wrapped
-                  # on non NixOS systems. This allows them to run correctly.
-                  # TODO: Instruction on how to genericLinux.gpu
-                  #       Benefits:
-                  #         - recommended method for graphical applications
-                  #         - Removes dependency on nixGL
-                  { targets.genericLinux.nixGL = { inherit (inputs.nixGL) packages; }; }
-
                   {
                     programs.home-manager.enable = true;
                     home = {
