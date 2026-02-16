@@ -4,8 +4,6 @@ let
 
   nixpkgs.config.cudaSupport = true;
 
-  # TODO: Put this in a separate nvidia module that is only loaded by servers.
-  #       Useful for servers that check the flake and have to build the configs of other hosts.
   nix.settings = {
     substituters = [ "https://cache.nixos-cuda.org" ];
     trusted-public-keys = [ "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" ];
