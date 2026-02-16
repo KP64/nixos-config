@@ -1,5 +1,7 @@
 toplevel:
 let
+  inherit (toplevel.config.flake) modules;
+
   nixpkgs.config.cudaSupport = true;
 
   # TODO: Put this in a separate nvidia module that is only loaded by servers.
@@ -16,37 +18,48 @@ let
   ];
 in
 {
-  flake.aspects.nvidia = {
-    nixos = {
-      allowedUnfreePackages = sharedUnfreePackages ++ [
-        "nvidia-x11"
-        "nvidia-settings"
-      ];
+  flake.aspects = {
+    nvidia-cache = {
+      nixos = {
+        inherit nix;
+        home-manager.sharedModules = [ modules.homeManager.nvidia-cache ];
+      };
+      homeManager = { inherit nix; };
+    };
 
-      inherit nixpkgs nix;
+    nvidia = {
+      nixos = {
+        allowedUnfreePackages = sharedUnfreePackages ++ [
+          "nvidia-x11"
+          "nvidia-settings"
+        ];
 
-      home-manager.sharedModules = [ toplevel.config.flake.modules.homeManager.nvidia ];
+        inherit nixpkgs nix;
 
-      services.xserver.videoDrivers = [ "nvidia" ];
+        home-manager.sharedModules = [ modules.homeManager.nvidia ];
 
-      hardware = {
-        nvidia = {
-          open = true;
-          nvidiaPersistenced = true;
-          powerManagement.enable = true;
-          prime.allowExternalGpu = true;
-        };
-        nvidia-container-toolkit.enable = true;
-        graphics = {
-          enable = true;
-          enable32Bit = true;
+        services.xserver.videoDrivers = [ "nvidia" ];
+
+        hardware = {
+          nvidia = {
+            open = true;
+            nvidiaPersistenced = true;
+            powerManagement.enable = true;
+            prime.allowExternalGpu = true;
+          };
+          nvidia-container-toolkit.enable = true;
+          graphics = {
+            enable = true;
+            enable32Bit = true;
+          };
         };
       };
-    };
-    homeManager = {
-      allowedUnfreePackages = sharedUnfreePackages;
 
-      inherit nixpkgs nix;
+      homeManager = {
+        allowedUnfreePackages = sharedUnfreePackages;
+
+        inherit nixpkgs nix;
+      };
     };
   };
 }

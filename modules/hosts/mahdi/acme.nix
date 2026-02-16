@@ -13,7 +13,6 @@
           "rfc2136/tsig_secret" = { inherit owner; };
         };
 
-      # TODO: Use security.acme.certs.<name>.reloadServices (same kind of the sops todo)
       security.acme = {
         acceptTerms = true;
         defaults = {

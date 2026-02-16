@@ -4,7 +4,8 @@ let
 in
 {
   # TODO: Make Sops secrets reload necessary services
-  # TODO: Aspects allow deeply nester structures. Check if strings with prefixes aren't necessary anymore.
+  # TODO: Use custom option for configs (nixos + hm) instead of flake module with prefix
+  #       Could be that aspects will be the solution here
   flake = {
     nixosConfigurations =
       toplevel.config.flake.modules.nixos

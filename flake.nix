@@ -143,7 +143,15 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     # Niri WM
-    niri-flake.url = "github:sodiboo/niri-flake";
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        # I don't care what nixpkgs is used. Just use one for both.
+        # The size of the lockfile takes precedence at this point.
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
+    };
 
     /*
       Nix managed Neovim
@@ -156,17 +164,6 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         systems.follows = "dedup_systems";
-      };
-    };
-
-    # This provides package wrapping functions, that are
-    # especially important for home-manager setups on non
-    # NixOS systems when trying to get graphical applications working.
-    nixGL = {
-      url = "github:nix-community/nixGL";
-      inputs = {
-        flake-utils.follows = "dedup_flake-utils";
-        nixpkgs.follows = "nixpkgs";
       };
     };
 
@@ -194,8 +191,14 @@
     nix-lib = {
       url = "github:Dauliac/nix-lib";
       inputs = {
+        devour-flake.follows = "";
         flake-parts.follows = "flake-parts";
+        get-flake.follows = "";
         import-tree.follows = "import-tree";
+        nix-unit.inputs = {
+          nix-github-actions.follows = "";
+          treefmt-nix.follows = "";
+        };
         nixpkgs.follows = "nixpkgs";
         systems.follows = "dedup_systems";
       };
@@ -221,8 +224,11 @@
     };
 
     # NixOS on the raspberry Pi 🥧
-    # Do not override inputs. It has a binary cache.
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
+    # Do not override important inputs. It has a binary cache.
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.flake-compat.follows = "";
+    };
 
     # Quickshell preconfiguration for niri
     noctalia = {

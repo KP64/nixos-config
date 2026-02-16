@@ -1,4 +1,4 @@
-toplevel@{ moduleWithSystem, ... }:
+toplevel:
 let
   hostName = "sindbad";
 in
@@ -31,9 +31,8 @@ in
     }
   );
 
-  flake.aspects."kg@${hostName}".homeManager = moduleWithSystem (
-    { inputs', ... }:
-    { config, pkgs, ... }:
+  flake.aspects."kg@${hostName}".homeManager =
+    { pkgs, ... }:
     {
       imports = with toplevel.config.flake.modules.homeManager; [
         desktop
@@ -59,15 +58,6 @@ in
 
       targets.genericLinux.enable = true;
 
-      programs =
-        let
-          inherit (config.lib.nixGL) wrap;
-        in
-        {
-          noctalia-shell.package = wrap inputs'.noctalia.packages.default;
-          kitty.package = wrap pkgs.kitty;
-        };
-
       # NOTE: Works with HM, but:
       #   - SDDM won't find it.
       #   - pacman installed portal doesn't work with HM hyprland
@@ -75,6 +65,5 @@ in
         package = null;
         portalPackage = null;
       };
-    }
-  );
+    };
 }

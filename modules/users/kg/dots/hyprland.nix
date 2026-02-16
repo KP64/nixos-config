@@ -47,6 +47,7 @@ in
               monitorv2 = lib.singleton {
                 output = "eDP-1";
                 mode = "preferred";
+                scale = 1.25;
               };
             };
           })
