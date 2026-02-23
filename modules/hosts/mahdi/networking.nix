@@ -7,7 +7,7 @@ toplevel: {
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
-        inherit (toplevel.config.flake.nixosConfigurations.sheherazade.config.networking) domain;
+        inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         useDHCP = false;
         dhcpcd.enable = false;
         wireless = {

@@ -7,6 +7,7 @@ toplevel: {
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
+        inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         # Let systemd configure everything
         useDHCP = false;
         dhcpcd.enable = false;
