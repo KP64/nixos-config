@@ -1,6 +1,4 @@
 {
-  # TODO: RTC for ALL Pis. Needed for Sane time on startup.
-  #       Benefit: Learning Experience & Uncompromising DNSSEC and DoT
   # NOTE: Only enable if DNS isn't too strict or Device has an RTC.
   #       If the DNS strictly needs DoT and DNSSEC and there is no RTC then
   #       then no time can be fetched. Without the correct time

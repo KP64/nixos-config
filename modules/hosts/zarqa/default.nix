@@ -29,6 +29,11 @@ toplevel@{ inputs, ... }:
         users-kg
       ]);
 
+      # TODO: Enable once RTC is installed
+      # Is needed for RTC.
+      # hardware.i2c.enable = true;
+      # environment.systemPackages = [ pkgs.i2c-tools ];
+
       home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
       system.stateVersion = "26.05";
