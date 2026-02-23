@@ -97,9 +97,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                   manga-tui
                   yubioath-flutter
                 ]);
-                hosts = [
-                  "aladdin"
-                  "sindbad"
+                hosts = with toplevel.config; [
+                  flake.nixosConfigurations.aladdin
+                  additionalHosts.sindbad
                 ];
               }
             ];

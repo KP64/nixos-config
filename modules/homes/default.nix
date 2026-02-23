@@ -7,7 +7,6 @@
 }:
 let
   infix = "@";
-  additionalHosts = import ./_additional_hosts.nix;
 in
 {
   imports = [ inputs.home-manager.flakeModules.home-manager ];
@@ -25,7 +24,7 @@ in
         in
         {
           name = userHost;
-          value = withSystem additionalHosts.${hostname}.system (
+          value = withSystem config.additionalHosts.${hostname}.system (
             { pkgs, ... }:
             inputs.home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
