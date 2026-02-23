@@ -212,6 +212,7 @@ in
               dearrow
               facebook-container
               firefox-color
+              greasemonkey
               indie-wiki-buddy
               libredirect
               private-grammar-checker-harper
@@ -682,6 +683,20 @@ in
                 "https://www.google.co.zm/search*"
                 "https://www.google.co.zw/search*"
                 "https://www.google.cat/search*"
+              ];
+              # Greasemonkey
+              "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}".permissions = [
+                "<all_urls>"
+                "clipboardWrite"
+                "cookies"
+                "downloads"
+                "notifications"
+                "storage"
+                "tabs"
+                "unlimitedStorage"
+                "webNavigation"
+                "webRequest"
+                "webRequestBlocking"
               ];
             };
           };
