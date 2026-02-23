@@ -6,28 +6,30 @@ toplevel@{ inputs, ... }:
       inherit (inputs) nixos-raspberrypi;
     in
     {
-      imports = [
-        inputs.sops-nix.nixosModules.default
-      ]
-      ++ (with nixos-raspberrypi.lib; [
-        inject-overlays
-        inject-overlays-global
-      ])
-      ++ (with nixos-raspberrypi.nixosModules; [
-        trusted-nix-caches
-        nixpkgs-rpi
+      imports =
+        (with inputs; [
+          sops-nix.nixosModules.default
+          nix-invisible.modules.nixos.host-mahdi
+        ])
+        ++ (with nixos-raspberrypi.lib; [
+          inject-overlays
+          inject-overlays-global
+        ])
+        ++ (with nixos-raspberrypi.nixosModules; [
+          trusted-nix-caches
+          nixpkgs-rpi
 
-        raspberry-pi-3.base
-      ])
-      ++ (with toplevel.config.flake.modules.nixos; [
-        nix
-        rpi-cache
-        ssh
-        sudo
-        time
+          raspberry-pi-3.base
+        ])
+        ++ (with toplevel.config.flake.modules.nixos; [
+          nix
+          rpi-cache
+          ssh
+          sudo
+          time
 
-        users-kg
-      ]);
+          users-kg
+        ]);
 
       # TODO: Enable once RTC is installed
       # Is needed for RTC.

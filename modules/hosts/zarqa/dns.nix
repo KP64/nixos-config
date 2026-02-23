@@ -143,7 +143,7 @@
                       TTL = 60;
                       SOA = {
                         nameServer = builtins.head NS;
-                        adminEmail = "lzkfaea17@mozmail.com";
+                        adminEmail = nixos.config.invisible.email;
                         serial = 2026012400;
                       };
                       NS =

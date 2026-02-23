@@ -13,7 +13,6 @@ toplevel: {
         wireless = {
           enable = true;
           secretsFile = config.sops.secrets."wireless.env".path;
-          fallbackToWPA2 = false;
           scanOnLowSignal = false;
           networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
         };
