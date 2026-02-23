@@ -38,13 +38,9 @@ toplevel@{ inputs, ... }:
 
       console.keyMap = config.services.xserver.xkb.layout;
 
-      boot = {
-        # FIXME: iwlwifi kernel Module takes whole system down
-        # kernelPackages = pkgs.linuxPackages-zen;
-        binfmt = {
-          preferStaticEmulators = true;
-          emulatedSystems = [ "aarch64-linux" ];
-        };
+      boot.binfmt = {
+        preferStaticEmulators = true;
+        emulatedSystems = [ "aarch64-linux" ];
       };
 
       security = {
