@@ -40,6 +40,7 @@ toplevel: {
               "2606:4700:4700::1111"
               "2606:4700:4700::1001"
             ];
+          linkConfig.RequiredForOnline = "routable";
           networkConfig =
             let
               inherit (lib) boolToYesNo;

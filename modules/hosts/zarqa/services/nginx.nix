@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  flake.modules.nixos.hosts-zarqa =
     {
       config,
       lib,
