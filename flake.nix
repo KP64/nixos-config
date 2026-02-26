@@ -55,6 +55,9 @@
     */
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # TODO: Remove this once https://github.com/NixOS/nixpkgs/pull/483203 is merged
+    nixpkgs-coder.url = "github:NixOS/nixpkgs?ref=pull/483203/head";
+
     # Firefox Hardening
     better-fox = {
       url = "github:yokoffing/Betterfox";

@@ -678,6 +678,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-coder": {
+      "locked": {
+        "lastModified": 1770405088,
+        "narHash": "sha256-Jfcs+IwutuliXwmTml4K69p13GmQ0jWdGZU4aeNESKQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c623d4a232c3aec55a90159be1c1e4ced519c970",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/483203/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1771714954,
@@ -831,6 +847,7 @@
         "nix-topology": "nix-topology",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-coder": "nixpkgs-coder",
         "nixvim": "nixvim",
         "noctalia": "noctalia",
         "nur": "nur",

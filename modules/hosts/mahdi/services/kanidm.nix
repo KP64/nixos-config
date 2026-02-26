@@ -17,7 +17,6 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner; };
           "kanidm/idm-admin-password" = { inherit owner; };
-          "kanidm/oauth2/coder" = { inherit owner; };
           "kanidm/oauth2/zipline" = { inherit owner; };
         };
 
@@ -162,10 +161,7 @@ toplevel: {
                   file = "coder.svg";
                   type = "icons";
                 };
-                # TODO: Coder now supports PKCE. Get rid of the basic secret and make public.
-                # https://github.com/coder/coder/pull/21215
-                basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
-                allowInsecureClientDisablePkce = true;
+                public = true;
                 originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
                 originLanding = config.services.coder.accessUrl;
                 preferShortUsername = true;
