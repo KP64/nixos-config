@@ -62,6 +62,7 @@ toplevel@{ inputs, ... }:
       users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
       programs = {
+        thunar.enable = true;
         ausweisapp = {
           enable = true;
           openFirewall = true;
