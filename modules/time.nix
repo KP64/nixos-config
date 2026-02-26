@@ -1,7 +1,7 @@
 {
   # NOTE: Only enable if DNS isn't too strict or Device has an RTC.
   #       If the DNS strictly needs DoT and DNSSEC and there is no RTC then
-  #       then no time can be fetched. Without the correct time
+  #       no time can be fetched. Without the correct time
   #       DoT and DNSSEC fail causing a deadlock.
   flake.modules.nixos.time = {
     services.ntpd-rs = {
