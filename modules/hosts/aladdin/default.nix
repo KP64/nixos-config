@@ -18,7 +18,6 @@ toplevel@{ inputs, ... }:
         tpm
         yubikey
 
-        efi
         secure-boot
 
         users-kg
