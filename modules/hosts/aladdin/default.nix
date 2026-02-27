@@ -10,7 +10,6 @@ toplevel@{ inputs, ... }:
         audio
         catppuccin
         desktop
-        efi
         nix
         nvidia
         ssh
@@ -18,6 +17,9 @@ toplevel@{ inputs, ... }:
         time
         tpm
         yubikey
+
+        efi
+        secure-boot
 
         users-kg
       ]);
