@@ -132,6 +132,15 @@
     # Import all needed nix files ;)
     import-tree.url = "github:vic/import-tree";
 
+    # Experimental Secure boot for NixOS
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "";
+      };
+    };
+
     # Realtime audio
     musnix = {
       url = "github:musnix/musnix";
