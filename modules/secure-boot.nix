@@ -3,7 +3,7 @@
   flake.modules.nixos.secure-boot =
     { lib, pkgs, ... }:
     {
-      imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+      imports = [ inputs.lanzaboote.nixosModules.default ];
 
       environment.systemPackages = [ pkgs.sbctl ];
 
