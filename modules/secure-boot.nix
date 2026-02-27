@@ -1,9 +1,12 @@
-{ inputs, ... }:
+toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.secure-boot =
     { lib, pkgs, ... }:
     {
-      imports = [ inputs.lanzaboote.nixosModules.default ];
+      imports = [
+        inputs.lanzaboote.nixosModules.default
+        toplevel.config.flake.modules.nixos.efi
+      ];
 
       environment.systemPackages = [ pkgs.sbctl ];
 
