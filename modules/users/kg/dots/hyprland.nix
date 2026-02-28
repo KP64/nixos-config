@@ -57,7 +57,7 @@ in
               no_donation_nag = true;
             };
 
-            # Discourages XWayland to be used. Useful for discord & stuff
+            # Discourages XWayland to be used.
             env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
 
             decoration = {
