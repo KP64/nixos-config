@@ -45,7 +45,6 @@ in
         users-kg-kitty
         users-kg-noctalia-shell
         users-kg-thunderbird
-        users-kg-vesktop
       ];
 
       home = {

@@ -133,11 +133,6 @@
               open-floating = true;
             }
             {
-              matches = [ { app-id = "^vesktop$"; } ];
-              open-maximized = true;
-              block-out-from = "screencast";
-            }
-            {
               matches = [ { app-id = "^kitty$"; } ];
               default-column-width.proportion = 1.0 / 2.0;
               default-window-height = { };
@@ -176,7 +171,6 @@
                 ];
               };
 
-              "Mod+D".action.spawn = "vesktop";
               "Mod+B".action.spawn = "firefox";
               "Mod+BackSpace".action.close-window = { };
               "Mod+C".action.center-column = { };
