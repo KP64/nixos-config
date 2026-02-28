@@ -17,6 +17,7 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner; };
           "kanidm/idm-admin-password" = { inherit owner; };
+          "kanidm/oauth2/opengist" = { inherit owner; };
           "kanidm/oauth2/zipline" = { inherit owner; };
         };
 
@@ -86,6 +87,9 @@ toplevel: {
                 "open-webui.access"
                 "open-webui.admins"
 
+                "opengist.access"
+                "opengist.admins"
+
                 "vaultwarden.access"
                 "vaultwarden.admins"
 
@@ -142,6 +146,9 @@ toplevel: {
 
             "open-webui.access" = { };
             "open-webui.admins" = { };
+
+            "opengist.access" = { };
+            "opengist.admins" = { };
 
             "vaultwarden.access" = { };
             "vaultwarden.admins" = { };
@@ -232,6 +239,24 @@ toplevel: {
                     };
                   };
                 };
+              };
+              opengist = {
+                displayName = "opengist";
+                imageFile = getIcon {
+                  file = "opengist.svg";
+                  type = "icons";
+                };
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/opengist".path;
+                allowInsecureClientDisablePkce = true;
+                originUrl = "${config.services.opengist.settings.external-url}/oauth/openid-connect/callback";
+                originLanding = config.services.opengist.settings.external-url;
+                preferShortUsername = true;
+                scopeMaps."opengist.access" = [
+                  "email"
+                  "groups"
+                  "openid"
+                  "profile"
+                ];
               };
               zipline = {
                 displayName = "zipline";
