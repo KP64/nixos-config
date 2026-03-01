@@ -11,17 +11,20 @@ toplevel: {
         enable = true;
         style = "anki";
         theme = "dark";
-        sync =
-          let
-            inherit (config.sops) secrets;
-          in
-          {
-            autoSync = true;
-            syncMedia = true;
-            url = "https://anki.${toplevel.config.flake.nixosConfigurations.mahdi.config.networking.domain}";
-            usernameFile = secrets."anki/username".path;
-            keyFile = secrets."anki/sync_key".path;
-          };
+        profiles.${config.home.username} = {
+          default = true;
+          sync =
+            let
+              inherit (config.sops) secrets;
+            in
+            {
+              autoSync = true;
+              syncMedia = true;
+              url = "https://anki.${toplevel.config.flake.nixosConfigurations.mahdi.config.networking.domain}";
+              usernameFile = secrets."anki/username".path;
+              keyFile = secrets."anki/sync_key".path;
+            };
+        };
       };
     };
 }
