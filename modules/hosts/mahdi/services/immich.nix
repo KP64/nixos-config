@@ -5,7 +5,6 @@
     { config, lib, ... }:
     {
       services = {
-        # TODO: Hardening
         nginx.virtualHosts."immich.${config.networking.domain}" = lib.mkIf config.services.immich.enable {
           enableACME = true;
           acmeRoot = null;
