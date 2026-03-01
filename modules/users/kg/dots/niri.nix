@@ -138,6 +138,9 @@
               default-window-height = { };
             }
           ];
+          spawn-at-startup = lib.optional (config.programs.noctalia-shell.enable or false) {
+            sh = "noctalia-shell";
+          };
           binds =
             (
               let

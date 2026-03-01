@@ -8,7 +8,6 @@
       # TODO: Replace with custom Quickshell config
       programs.noctalia-shell = {
         enable = true;
-        systemd.enable = true;
         colors = {
           mError = "#f38ba8"; # red
           mOnError = "#1e1e2e"; # base
