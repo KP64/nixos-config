@@ -95,6 +95,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 ]
                 ++ (with pkgs; [
                   manga-tui
+                  signal-desktop
                   yubioath-flutter
                 ]);
                 hosts = with toplevel.config; [
