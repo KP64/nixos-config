@@ -10,20 +10,12 @@
         syncModels = true;
         loadModels = [
           "embeddinggemma:300m"
-          "llama3.1:8b"
-          "mistral:7b"
+          "glm-ocr:q8_0"
+          "glm-ocr:bf16"
           "gpt-oss:20b"
+          "llama3.1:8b"
           "llama3.2-vision:11b"
-        ]
-        ++ genModelTypes "qwen3" [
-          "0.6"
-          "1.7"
-          4
-          8
-        ]
-        ++ genModelTypes "llama3.2" [
-          1
-          3
+          "mistral:7b"
         ]
         ++ genModelTypes "deepseek-r1" [
           "1.5"
@@ -34,6 +26,28 @@
           "270m"
           1
           4
+        ]
+        ++ genModelTypes "llama3.2" [
+          1
+          3
+        ]
+        ++ genModelTypes "ministral-3" [
+          3
+          8
+        ]
+        ++ genModelTypes "qwen3" [
+          "0.6"
+          "1.7"
+          4
+          8
+        ]
+        ++ genModelTypes "qwen3-embedding" [
+          "0.6"
+          4
+        ]
+        ++ genModelTypes "translategemma" [
+          4
+          12
         ];
       };
     };
