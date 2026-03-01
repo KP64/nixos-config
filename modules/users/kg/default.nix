@@ -118,6 +118,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
         programs = {
           bat.enable = true;
+          bottom.enable = true;
           btop.enable = true;
           cava.enable = true;
           fastfetch.enable = true;
