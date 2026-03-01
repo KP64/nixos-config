@@ -5,7 +5,6 @@
       packageFallback = true;
     };
 
-    # TODO: Keybinds
     plugins = {
       fugitive.enable = true;
       git-conflict.enable = true;

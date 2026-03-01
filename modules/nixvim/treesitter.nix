@@ -28,7 +28,6 @@
         enable = true;
         settings.max_lines = 7;
       };
-      # TODO: Mappings
       treesitter-textobjects = {
         enable = true;
         settings = {
