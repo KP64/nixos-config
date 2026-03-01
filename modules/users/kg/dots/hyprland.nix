@@ -60,6 +60,8 @@ in
             # Discourages XWayland to be used.
             env = [ "ELECTRON_OZONE_PLATFORM_HINT,auto" ];
 
+            exec-once = lib.optional (config.programs.noctalia-shell.enable or false) "noctalia-shell";
+
             decoration = {
               rounding = 8;
 
