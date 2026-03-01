@@ -71,6 +71,15 @@
           extraEnvironment =
             let
               OAUTH_CLIENT_ID = "karakeep";
+
+              warnIfModelNotLoaded =
+                model:
+                let
+                  inherit (config.services) ollama;
+                in
+                lib.warnIfNot (ollama.enable && (builtins.elem model ollama.loadModels))
+                  "Either Ollama is disabled or the ${model} model is not loaded in Ollama config. Karakeep needs it"
+                  model;
             in
             {
               NEXTAUTH_URL = "https://${domain}";
@@ -102,11 +111,9 @@
               OLLAMA_KEEP_ALIVE = "5m";
               # NOTE: The whole name is needed.
               #       llama3.2 alone isn't enough.
-              # TODO: Check if model is available. Implement fallback Logic
-              #        - Either "force install" model or detect if another suitable is installed.
-              INFERENCE_TEXT_MODEL = "llama3.2:3b";
-              INFERENCE_IMAGE_MODEL = "gemma3:1b";
-              EMBEDDING_TEXT_MODEL = "embeddinggemma:300m";
+              INFERENCE_TEXT_MODEL = warnIfModelNotLoaded "llama3.2:3b";
+              INFERENCE_IMAGE_MODEL = warnIfModelNotLoaded "gemma3:1b";
+              EMBEDDING_TEXT_MODEL = warnIfModelNotLoaded "embeddinggemma:300m";
 
               CRAWLER_FULL_PAGE_SCREENSHOT = "true";
               CRAWLER_FULL_PAGE_ARCHIVE = "true";
