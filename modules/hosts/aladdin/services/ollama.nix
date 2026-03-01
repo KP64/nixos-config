@@ -21,19 +21,13 @@
         host = "0.0.0.0";
         openFirewall = true;
         loadModels = [
+          "embeddinggemma:300m"
+          "glm-ocr:q8_0"
+          "glm-ocr:bf16"
+          "lfm2.5-thinking:1.2b"
           "llama3.1:8b"
           "mistral:7b"
-          "embeddinggemma:300m"
-        ]
-        ++ genModelTypes "qwen3" [
-          "0.6"
-          "1.7"
-          4
-          8
-        ]
-        ++ genModelTypes "llama3.2" [
-          1
-          3
+          "x/flux2-klein:4b"
         ]
         ++ genModelTypes "deepseek-r1" [
           "1.5"
@@ -44,6 +38,28 @@
           "270m"
           1
           4
+        ]
+        ++ genModelTypes "llama3.2" [
+          1
+          3
+        ]
+        ++ genModelTypes "ministral-3" [
+          3
+          8
+        ]
+        ++ genModelTypes "qwen3" [
+          "0.6"
+          "1.7"
+          4
+          8
+        ]
+        ++ genModelTypes "qwen3-embedding" [
+          "0.6"
+          4
+        ]
+        ++ genModelTypes "translategemma" [
+          4
+          12
         ];
       };
     };
