@@ -15,6 +15,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-DAvkem1H9sozj5FIW6yc5++ch6gFlPScz6T0eyCHWLY=";
   };
 
+  __structuredAttrs = true;
+
   cargoHash = "sha256-9Qet8nROOYxnD4NHp0BGeYedKu4zQYj9EK9lMI4kLlM=";
 
   meta = {

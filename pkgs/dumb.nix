@@ -16,6 +16,8 @@ buildGoModule (finalAttrs: {
     hash = "sha256-rrIyAVt9TuNedt7BkZZbJx/JoMLeG9agKP63pCxTsKA=";
   };
 
+  __structuredAttrs = true;
+
   nativeBuildInputs = [ esbuild ];
 
   vendorHash = "sha256-A9QjEYdjwcB690PVpm0NS5vjxpl12gKtrwIMZbS7ym0=";
