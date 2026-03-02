@@ -224,7 +224,10 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "anonymousOverflow": ["https://overflow.moneten.cc"],
+    "anonymousOverflow": [
+      "https://overflow.srvd.space",
+      "https://overflow.moneten.cc"
+    ],
     "reuters": {
       "enabled": true,
       "unsupportedUrls": "bypass",
