@@ -1,4 +1,4 @@
-{ moduleWithSystem, ... }:
+toplevel@{ moduleWithSystem, ... }:
 {
   flake.modules.nixos.dumb = moduleWithSystem (
     { config, ... }:
@@ -23,6 +23,19 @@
       };
 
       config = lib.mkIf cfg.enable {
+        topology = lib.mkIf (nixos.config ? topology) {
+          self.services.dumb = {
+            name = "Dumb";
+            icon = toplevel.config.lib.flake.util.getIcon {
+              file = "dumb.png";
+              type = "icons";
+            };
+            details.listen = lib.mkIf cfg.openFirewall {
+              text = "http://127.0.0.1:${toString cfg.port}";
+            };
+          };
+        };
+
         networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
         systemd.services.dumb = {

@@ -1,4 +1,4 @@
-{ moduleWithSystem, ... }:
+toplevel@{ moduleWithSystem, ... }:
 {
   flake.modules.nixos.anonymousoverflow = moduleWithSystem (
     { config, ... }:
@@ -43,6 +43,19 @@
       };
 
       config = lib.mkIf cfg.enable {
+        topology = lib.mkIf (nixos.config ? topology) {
+          self.services.anonymousoverflow = {
+            name = "Anonymousoverflow";
+            icon = toplevel.config.lib.flake.util.getIcon {
+              file = "anonymousoverflow.svg";
+              type = "icons";
+            };
+            details.listen = lib.mkIf cfg.openFirewall {
+              text = "http://${cfg.host}:${toString cfg.port}";
+            };
+          };
+        };
+
         networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
         systemd.services.anonymousoverflow = {

@@ -1,4 +1,4 @@
-{
+toplevel: {
   flake.modules.nixos.opengist =
     {
       config,
@@ -71,6 +71,19 @@
       };
 
       config = lib.mkIf cfg.enable {
+        topology = lib.mkIf (config ? topology) {
+          self.services.opengist = {
+            name = "Opengist";
+            icon = toplevel.config.lib.flake.util.getIcon {
+              file = "opengist.svg";
+              type = "icons";
+            };
+            details.listen = lib.mkIf cfg.openFirewall {
+              text = "http://${cfg.settings."http.host"}:${toString cfg.settings."http.port"}";
+            };
+          };
+        };
+
         networking.firewall = lib.mkIf cfg.openFirewall {
           allowedTCPPorts = [
             cfg.settings."http.port"
