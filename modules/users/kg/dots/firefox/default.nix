@@ -1,12 +1,11 @@
 toplevel@{ inputs, moduleWithSystem, ... }:
-let
-  inherit (toplevel.config.lib.flake.util) getIcon toFlattenedByDots;
-in
 {
   flake.modules.homeManager.users-kg-firefox = moduleWithSystem (
     { inputs', ... }:
     { config, lib, ... }:
     let
+      inherit (toplevel.config.lib.flake.util) getIcon toFlattenedByDots;
+      inherit (toplevel.config.flake.nixosConfigurations) mahdi;
       inherit (config.lib.firefox) hideEngines;
     in
     {
@@ -30,6 +29,7 @@ in
             # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
             extensions.autoDisableScopes = 0;
             dom.security.https_only_mode = true;
+            identity.sync.tokenserver.uri = "${mahdi.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
             general.autoScroll = true;
             sidebar.verticalTabs = true;
             browser = {
@@ -129,7 +129,6 @@ in
             privateDefault = "SearXNG";
             engines =
               let
-                inherit (toplevel.config.flake.nixosConfigurations) mahdi;
                 nix-icon = getIcon {
                   file = "nix.svg";
                   type = "icons";
