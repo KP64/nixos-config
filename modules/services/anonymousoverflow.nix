@@ -36,7 +36,7 @@
         environmentFile = lib.mkOption {
           type = lib.types.path;
           description = ''
-            Path to the file containing the JSWT_SIGNING_SECRET variable.
+            Path to the file containing the JWT_SIGNING_SECRET variable.
             To generate the variable run `openssl rand -base64 32`.
           '';
         };
@@ -46,14 +46,14 @@
         networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
         systemd.services.anonymousoverflow = {
-          description = "Private alternative front-end for Genius";
+          description = "View StackOverflow in privacy and without the clutter.";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           enableStrictShellChecks = true;
 
           environment = {
             HOST = cfg.host;
-            PORT = cfg.port;
+            PORT = toString cfg.port;
             APP_URL = cfg.appUrl;
           };
 
