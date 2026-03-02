@@ -1,0 +1,71 @@
+diff --git a/main.go b/main.go
+index c9cc96c..3d5b8b2 100644
+--- a/main.go
++++ b/main.go
+@@ -6,6 +6,10 @@ import (
+ 	"anonymousoverflow/src/routes"
+ 	"fmt"
+ 	"os"
++	"embed"
++	"html/template"
++	"io/fs"
++	"net/http"
+ 
+ 	"github.com/gin-gonic/gin"
+ 	healthcheck "github.com/tavsec/gin-healthcheck"
+@@ -13,6 +17,12 @@ import (
+ 	"github.com/tavsec/gin-healthcheck/config"
+ )
+ 
++//go:embed public/*
++var publicFS embed.FS
++
++//go:embed templates/*
++var templatesFS embed.FS
++
+ func main() {
+ 
+ 	env.RunChecks()
+@@ -34,14 +44,20 @@ func main() {
+ 
+ 	r := gin.Default()
+ 
+-	r.LoadHTMLGlob("templates/*")
++	r.SetHTMLTemplate(template.Must(
++		template.New("").ParseFS(templatesFS, "templates/*"),
++	))
+ 
+ 	r.Use(gin.Recovery())
+ 	r.Use(middleware.XssPreventionHeaders())
+ 	r.Use(middleware.OptionsMiddleware())
+ 	r.Use(middleware.Ratelimit())
+ 
+-	r.GET("/static/*filepath", routes.StaticContent)
++	staticFS, err := fs.Sub(publicFS, "public")
++	if err != nil {
++		panic(err)
++	}
++	r.StaticFS("/static", http.FS(staticFS))
+ 
+ 	r.GET("/robots.txt", func(c *gin.Context) {
+ 		c.String(200, "User-agent: *\nDisallow: /")
+diff --git a/src/routes/static.go b/src/routes/static.go
+deleted file mode 100644
+index b5934a3..0000000
+--- a/src/routes/static.go
++++ /dev/null
+@@ -1,14 +0,0 @@
+-package routes
+-
+-import (
+-	"fmt"
+-	"strings"
+-
+-	"github.com/gin-gonic/gin"
+-)
+-
+-func StaticContent(c *gin.Context) {
+-	cleanFilePath := strings.ReplaceAll(c.Param("filepath"), "..", "")
+-
+-	c.File(fmt.Sprintf("./public/%s", cleanFilePath))
+-}
