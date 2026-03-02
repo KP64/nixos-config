@@ -26,7 +26,6 @@
         services.firefox-syncserver = {
           enable = true;
           secrets = config.sops.secrets."firefox-syncserver.env".path;
-          # settings = { };
           singleNode = {
             enable = true;
             hostname = "firefox-sync.${config.networking.domain}";
