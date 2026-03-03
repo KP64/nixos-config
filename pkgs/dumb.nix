@@ -3,8 +3,19 @@
   buildGoModule,
   fetchFromGitHub,
   esbuild,
+  stdenv,
 }:
-
+let
+  # nixpkgs templ is too new. Check fails.
+  # import newest yet compatible nixpkgs.
+  oldNixpkgs = fetchFromGitHub {
+    owner = "NixOS";
+    repo = "nixpkgs";
+    rev = "a19cd4ffb1f4b953a76f3ac29c6520d0b1877108";
+    hash = "sha256-ytHMMsgrwPIZz2xoQKKktb1p3EiUhkTTH1NxbtxaIMI=";
+  };
+  oldPkgs = import oldNixpkgs { inherit (stdenv.hostPlatform) system; };
+in
 buildGoModule (finalAttrs: {
   pname = "dumb";
   version = "unstable-2025-07-06";
@@ -18,7 +29,10 @@ buildGoModule (finalAttrs: {
 
   __structuredAttrs = true;
 
-  nativeBuildInputs = [ esbuild ];
+  nativeBuildInputs = [
+    esbuild
+    oldPkgs.templ
+  ];
 
   vendorHash = "sha256-A9QjEYdjwcB690PVpm0NS5vjxpl12gKtrwIMZbS7ym0=";
 
@@ -31,9 +45,8 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  # nixpkgs templ is too new. Check fails.
   preBuild = ''
-    go tool templ generate
+    templ generate
     cat $src/style/*.css | esbuild --loader=css --minify > ./static/style.css
   '';
 
