@@ -50,9 +50,7 @@ toplevel@{ moduleWithSystem, ... }:
               file = "anonymousoverflow.svg";
               type = "icons";
             };
-            details.listen = lib.mkIf cfg.openFirewall {
-              text = "http://${cfg.host}:${toString cfg.port}";
-            };
+            details.listen = lib.mkIf cfg.openFirewall { text = "http://${cfg.host}:${toString cfg.port}"; };
           };
         };
 
