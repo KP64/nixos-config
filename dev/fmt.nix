@@ -124,7 +124,6 @@
                   "enew"
                   "ede"
                   "facter"
-                  "nitch"
                   "noice"
                   "HAE" # LTT Channel ID
                 ] (name: name);
