@@ -14,6 +14,7 @@
                 prefixes = [
                   "https:"
                   "data:"
+                  "blob:"
                 ];
                 processPolicyValue =
                   val: if (builtins.any (prefix: lib.hasPrefix prefix val) prefixes) then val else "'${val}'";

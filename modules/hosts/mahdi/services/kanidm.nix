@@ -19,6 +19,7 @@ toplevel: {
           "kanidm/idm-admin-password" = { inherit owner; };
           "kanidm/oauth2/opengist" = { inherit owner; };
           "kanidm/oauth2/zipline" = { inherit owner; };
+          "kanidm/oauth2/stirling-pdf" = { inherit owner; };
         };
 
       services.nginx.virtualHosts.${cfg.server.settings.domain} = {
@@ -90,6 +91,9 @@ toplevel: {
                 "opengist.access"
                 "opengist.admins"
 
+                "stirling-pdf.access"
+                "stirling-pdf.admins"
+
                 "vaultwarden.access"
                 "vaultwarden.admins"
 
@@ -149,6 +153,9 @@ toplevel: {
 
             "opengist.access" = { };
             "opengist.admins" = { };
+
+            "stirling-pdf.access" = { };
+            "stirling-pdf.admins" = { };
 
             "vaultwarden.access" = { };
             "vaultwarden.admins" = { };
@@ -318,6 +325,28 @@ toplevel: {
                   };
                 };
               };
+              stirling-pdf =
+                let
+                  inherit (config.services.stirling-pdf.environment) SYSTEM_FRONTENDURL SECURITY_OAUTH2_PROVIDER;
+                in
+                {
+                  displayName = "stirling-pdf";
+                  imageFile = getIcon {
+                    file = "stirling-pdf.svg";
+                    type = "icons";
+                  };
+                  basicSecretFile = config.sops.secrets."kanidm/oauth2/stirling-pdf".path;
+                  allowInsecureClientDisablePkce = true;
+                  enableLegacyCrypto = true;
+                  originUrl = "${SYSTEM_FRONTENDURL}/login/oauth2/code/${SECURITY_OAUTH2_PROVIDER}";
+                  originLanding = SYSTEM_FRONTENDURL;
+                  preferShortUsername = true;
+                  scopeMaps."stirling-pdf.access" = [
+                    "email"
+                    "openid"
+                    "profile"
+                  ];
+                };
               vaultwarden = {
                 displayName = "vaultwarden";
                 imageFile = getIcon {
