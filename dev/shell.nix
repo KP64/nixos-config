@@ -43,8 +43,12 @@
                 def main [topology?: string]: nothing -> nothing {
                   const choices = [ "main" "network" ]
 
-                  let chosen = if $topology == null {
-                    $choices | input list -f "Topology"
+                  let chosen = if ($topology | is-empty) {
+                    let temp = $choices | input list -f "Topology"
+                    if ($temp | is-empty) {
+                      return
+                    }
+                    $temp
                   } else if ($topology in $choices) {
                     $topology
                   } else {
@@ -67,7 +71,7 @@
               writeNuBin "upin" # nu
                 ''
                   def main [...inputs: string]: nothing -> nothing {
-                    const all_choices = [${flakeInputs}]
+                    const all_choices = [ ${flakeInputs} ]
 
                     let selection = if ($inputs | is-not-empty) {
                       $inputs

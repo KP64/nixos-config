@@ -6,18 +6,18 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nu_plugin_regex";
-  version = "0.19.0";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "fdncred";
     repo = "nu_plugin_regex";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-DAvkem1H9sozj5FIW6yc5++ch6gFlPScz6T0eyCHWLY=";
+    hash = "sha256-E0CnjckAY176cdn8ZwlzM/opGieGqr7iA5NhEJnlOWc=";
   };
 
   __structuredAttrs = true;
 
-  cargoHash = "sha256-9Qet8nROOYxnD4NHp0BGeYedKu4zQYj9EK9lMI4kLlM=";
+  cargoHash = "sha256-u5bdrITNJanj+5DG+FmnKClivQ2qrZ2JtdHlw70UmXY=";
 
   meta = {
     description = "Nushell plugin to search text with regular expressions";

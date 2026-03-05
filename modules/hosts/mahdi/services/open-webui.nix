@@ -106,6 +106,8 @@
               OAUTH_UPDATE_PICTURE_ON_LOGIN = "True";
               ENABLE_OAUTH_PERSISTENT_CONFIG = "False"; # That's why we are using NixOS ;)
               OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "True";
+              OAUTH_UPDATE_NAME_ON_LOGIN = "True";
+              OAUTH_UPDATE_EMAIL_ON_LOGIN = "True";
 
               inherit OAUTH_CLIENT_ID;
               OPENID_PROVIDER_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";

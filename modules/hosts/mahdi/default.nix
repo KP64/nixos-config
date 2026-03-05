@@ -5,6 +5,7 @@ toplevel@{ inputs, ... }:
   #          via an .onion address let crowdsec TOR Blocklist redirect to a
   #          static Website that tells them all services with the respective onion address.
   # TODO: Systemd Service Hardening
+  # TODO: Set CORS and other Security related stuff for Services
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     {

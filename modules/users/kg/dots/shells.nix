@@ -18,14 +18,10 @@
               nu_plugin_regex
             ])
             ++ (with pkgs.nushellPlugins; [
-              desktop_notifications
               formats
-              hcl
               gstat
               polars
               query
-              semver
-              skim
             ]);
 
           settings = {

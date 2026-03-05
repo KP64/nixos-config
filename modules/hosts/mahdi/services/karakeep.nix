@@ -91,6 +91,7 @@
               inherit OAUTH_CLIENT_ID;
               OAUTH_PROVIDER_NAME = "Kanidm";
               OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = "true";
+              OAUTH_AUTO_REDIRECT = "true";
 
               PORT = "43547";
               RATE_LIMITING_ENABLED = "true";
