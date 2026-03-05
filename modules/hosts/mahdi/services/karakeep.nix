@@ -18,7 +18,7 @@
           onlySSL = true;
           kTLS = true;
           locations."/" = {
-            proxyPass = config.systemd.services.karakeep-web.environment.BROWSER_WEB_URL;
+            proxyPass = "http://127.0.0.1:${config.services.karakeep.extraEnvironment.PORT}";
             extraConfig = # nginx
               ''
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
