@@ -41,11 +41,6 @@ toplevel: {
           type = lib.types.submodule {
             freeformType = format.type;
             options = {
-              opengist-home = lib.mkOption {
-                type = lib.types.nonEmptyStr;
-                default = "/var/lib/opengist";
-                description = "StateDirectory of the service";
-              };
               "http.host" = lib.mkOption {
                 readOnly = true;
                 type = lib.types.nonEmptyStr;
@@ -91,15 +86,6 @@ toplevel: {
           ++ lib.optional (cfg.settings."ssh.port" != null) cfg.settings."ssh.port";
         };
 
-        users = {
-          users.opengist = {
-            group = config.users.groups.opengist.name;
-            isSystemUser = true;
-            home = cfg.settings.opengist-home;
-          };
-          groups.opengist = { };
-        };
-
         systemd.services.opengist = {
           description = "opengist Server";
           after = [ "network.target" ];
@@ -115,8 +101,7 @@ toplevel: {
             (lib.optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; })
             // {
               ExecStart = "${lib.getExe cfg.package} --config ${format.generate "config.yml" cfg.settings}";
-              User = config.users.users.opengist.name;
-              Group = config.users.groups.opengist.name;
+              DynamicUser = true;
               UMask = "0077";
               RemoveIPC = true;
               LockPersonality = true;
@@ -129,7 +114,9 @@ toplevel: {
 
               RuntimeDirectory = "opengist";
               RuntimeDirectoryMode = "0755";
-              StateDirectory = baseNameOf cfg.settings.opengist-home;
+              StateDirectory = "opengist";
+              CacheDirectory = "opengist";
+              LogsDirectory = "opengist";
 
               RestrictSUIDSGID = true;
               RestrictRealtime = true;
