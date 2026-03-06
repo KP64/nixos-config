@@ -10,7 +10,7 @@ toplevel: {
 
       config = lib.mkMerge [
         (lib.mkIf config.services.opengist.enable {
-          sops.secrets."opengist.env".owner = config.users.users.opengist.name;
+          sops.secrets."opengist.env" = { };
 
           services.nginx.virtualHosts.${domain} = {
             enableACME = true;
