@@ -16,9 +16,7 @@ toplevel@{ inputs, ... }:
           inject-overlays-global
         ])
         ++ (with nixos-raspberrypi.nixosModules; [
-          trusted-nix-caches
           nixpkgs-rpi
-
           raspberry-pi-3.base
         ])
         ++ (with toplevel.config.flake.modules.nixos; [
