@@ -8,7 +8,6 @@ toplevel: {
     }:
     let
       cfg = config.services.opengist;
-      format = pkgs.formats.yaml { };
     in
     {
       options.services.opengist = {
@@ -31,37 +30,25 @@ toplevel: {
           '';
         };
 
-        settings = lib.mkOption {
+        environment = lib.mkOption {
           default = { };
-          description = ''
-            Defines the config.yml file to be passed in to the Service.
-            For Secrets pass them in as Environment Variables in the
-            environmentFile option!
-          '';
           type = lib.types.submodule {
-            freeformType = format.type;
+            freeformType = with lib.types; attrsOf anything;
             options = {
-              "http.host" = lib.mkOption {
-                readOnly = true;
+              OG_HTTP_HOST = lib.mkOption {
                 type = lib.types.nonEmptyStr;
                 default = "/run/opengist/opengist.sock";
-                description = ''
-                  The host on which the HTTP server should bind.
-                  Use an IP address for network binding.
-                  Use a path for Unix socket binding (e.g. /run/opengist.sock)
-                '';
               };
-              "http.port" = lib.mkOption {
+              OG_HTTP_PORT = lib.mkOption {
                 type = lib.types.port;
                 default = 6157;
-                description = "The port on which the HTTP server should listen";
-              };
-              "ssh.port" = lib.mkOption {
-                type = with lib.types; nullOr port;
-                default = 2222;
               };
             };
           };
+          description = ''
+            The environment variables to be passed in.
+            For secrets use the environmentFile option.
+          '';
         };
       };
 
@@ -74,17 +61,18 @@ toplevel: {
               type = "icons";
             };
             details.listen = lib.mkIf cfg.openFirewall {
-              text = "http://${cfg.settings."http.host"}:${toString cfg.settings."http.port"}";
+              text = "http://${cfg.environment.OG_HTTP_HOST}:${toString cfg.environment.OG_HTTP_PORT}";
             };
           };
         };
 
-        networking.firewall = lib.mkIf cfg.openFirewall {
-          allowedTCPPorts = [
-            cfg.settings."http.port"
+        networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall (
+          with cfg.environment;
+          [
+            OG_HTTP_PORT
+            OG_SSH_PORT
           ]
-          ++ lib.optional (cfg.settings."ssh.port" != null) cfg.settings."ssh.port";
-        };
+        );
 
         systemd.services.opengist = {
           description = "opengist Server";
@@ -92,15 +80,19 @@ toplevel: {
           wantedBy = [ "multi-user.target" ];
           enableStrictShellChecks = true;
 
-          path = with pkgs; [
-            git
-            openssh
-          ];
+          path = [ pkgs.gitMinimal ];
+
+          environment =
+            (lib.mapAttrs (_: v: if (builtins.isInt v) then toString v else v) cfg.environment)
+            // {
+              OG_OPENGIST_HOME = "/var/lib/opengist";
+              OG_SSH_KEYGEN_EXECUTABLE = lib.getExe' pkgs.openssh "ssh-keygen";
+            };
 
           serviceConfig =
             (lib.optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; })
             // {
-              ExecStart = "${lib.getExe cfg.package} --config ${format.generate "config.yml" cfg.settings}";
+              ExecStart = lib.getExe cfg.package;
               DynamicUser = true;
               UMask = "0077";
               RemoveIPC = true;

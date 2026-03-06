@@ -255,8 +255,8 @@ toplevel: {
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/opengist".path;
                 allowInsecureClientDisablePkce = true;
-                originUrl = "${config.services.opengist.settings.external-url}/oauth/openid-connect/callback";
-                originLanding = config.services.opengist.settings.external-url;
+                originUrl = "${config.services.opengist.environment.OG_EXTERNAL_URL}/oauth/openid-connect/callback";
+                originLanding = config.services.opengist.environment.OG_EXTERNAL_URL;
                 preferShortUsername = true;
                 scopeMaps."opengist.access" = [
                   "email"

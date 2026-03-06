@@ -12,13 +12,15 @@ toplevel: {
         (lib.mkIf config.services.opengist.enable {
           sops.secrets."opengist.env" = { };
 
+          networking.firewall.allowedTCPPorts = [ config.services.opengist.environment.OG_SSH_PORT ];
+
           services.nginx.virtualHosts.${domain} = {
             enableACME = true;
             acmeRoot = null;
             onlySSL = true;
             kTLS = true;
             locations."/" = {
-              proxyPass = "http://unix:${config.services.opengist.settings."http.host"}";
+              proxyPass = "http://unix:${config.services.opengist.environment.OG_HTTP_HOST}";
               extraConfig = # nginx
                 ''
                   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
@@ -66,19 +68,18 @@ toplevel: {
           services.opengist = {
             enable = true;
             environmentFile = config.sops.secrets."opengist.env".path;
-            settings =
+            environment =
               let
-                clientKey = "opengist";
+                OG_OIDC_CLIENT_KEY = "opengist";
               in
               {
-                external-url = "https://${domain}";
-                "ssh.port" = 2223;
-                "oidc.provider-name" = "Kanidm";
-                "oidc.client-key" = clientKey;
-                "oidc.discovery-url" =
-                  "${config.services.kanidm.server.settings.origin}/oauth2/openid/${clientKey}/.well-known/openid-configuration";
-                "oidc.group-claim-name" = "groups";
-                "oidc.admin-group" = "opengist.admins";
+                OG_EXTERNAL_URL = "https://${domain}";
+                OG_SSH_PORT = 2223;
+                OG_OIDC_PROVIDER_NAME = "Kanidm";
+                inherit OG_OIDC_CLIENT_KEY;
+                OG_OIDC_DISCOVERY_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OG_OIDC_CLIENT_KEY}/.well-known/openid-configuration";
+                OG_OIDC_GROUP_CLAIM_NAME = "groups";
+                OG_OIDC_ADMIN_GROUP = "opengist.admins";
               };
           };
         }
