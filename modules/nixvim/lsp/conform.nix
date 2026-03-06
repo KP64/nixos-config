@@ -14,18 +14,21 @@
       settings = {
         default_format_opts.lsp_format = "fallback";
         format_on_save.timeoutMs = 500;
-        formatters_by_ft = rec {
+        formatters_by_ft = {
           html = [ "prettier" ];
-          css = html;
-          javascript = html;
-          typescript = html;
-          markdown = html;
+          css = [ "prettier" ];
+          javascript = [ "prettier" ];
+          typescript = [ "prettier" ];
+          markdown = [ "prettier" ];
 
           bash = [
             "shellcheck"
             "shfmt"
           ];
-          sh = bash;
+          sh = [
+            "shellcheck"
+            "shfmt"
+          ];
 
           java = [ "google-java-format" ];
           lua = [ "stylua" ];

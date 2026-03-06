@@ -20,9 +20,9 @@
             hadolint
             ;
         };
-        lintersByFt = rec {
+        lintersByFt = {
           bash = [ "shellcheck" ];
-          sh = bash;
+          sh = [ "shellcheck" ];
           docker = [ "hadolint" ];
           rust = [ "clippy" ];
           nix = [
