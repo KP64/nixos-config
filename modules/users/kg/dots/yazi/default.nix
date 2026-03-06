@@ -1,18 +1,21 @@
+{ moduleWithSystem, ... }:
 {
-  flake.modules.homeManager.users-kg-yazi =
+  flake.modules.homeManager.users-kg-yazi = moduleWithSystem (
+    { config, ... }:
     { lib, pkgs, ... }:
     {
       programs.yazi = {
         enable = true;
 
-        # FIXME: Rich-preview doesn't work?
-        extraPackages = with pkgs; [
+        extraPackages = [
+          config.packages.rich-cli
+        ]
+        ++ (with pkgs; [
           exiftool
           ouch
           mediainfo
-          rich-cli
           trash-cli
-        ];
+        ]);
 
         plugins = {
           inherit (pkgs.yaziPlugins)
@@ -284,5 +287,6 @@
           ];
         };
       };
-    };
+    }
+  );
 }
