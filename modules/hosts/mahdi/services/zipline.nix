@@ -70,43 +70,44 @@
           environmentFiles = [ config.sops.secrets."zipline.env".path ];
           settings =
             let
+              inherit (lib) boolToString;
               CORE_DEFAULT_DOMAIN = "zipline.${config.networking.domain}";
               OAUTH_OIDC_CLIENT_ID = "zipline";
             in
             {
               CORE_PORT = 41355;
               CORE_SECRET = "$CORE_SECRET";
-              CORE_RETURN_HTTPS_URLS = "true";
+              CORE_RETURN_HTTPS_URLS = boolToString true;
               inherit CORE_DEFAULT_DOMAIN;
-              CORE_RETURN_TRUST_PROXY = "true";
+              CORE_RETURN_TRUST_PROXY = boolToString true;
 
-              CHUNKS_ENABLED = "true";
+              CHUNKS_ENABLED = boolToString true;
 
-              MFA_PASSKEYS = "true";
-              MFA_TOTP_ENABLED = "true";
+              MFA_PASSKEYS = boolToString true;
+              MFA_TOTP_ENABLED = boolToString true;
               MFA_TOTP_ISSUER = "Zipline";
 
-              FEATURES_IMAGE_COMPRESSION = "true";
-              FEATURES_ROBOTS_TXT = "true";
-              FEATURES_HEALTHCHECK = "true";
-              FEATURES_USER_REGISTRATION = "false";
-              FEATURES_OAUTH_REGISTRATION = "true";
-              FEATURES_DELETE_ON_MAX_VIEWS = "true";
-              FEATURES_THUMBNAILS_ENABLED = "true";
-              FEATURES_METRICS_ENABLED = "true";
-              FEATURES_METRICS_ADMIN_ONLY = "true";
-              FEATURES_METRICS_SHOW_USER_SPECIFIC = "true";
-              FEATURES_VERSION_CHECKING = "false";
+              FEATURES_IMAGE_COMPRESSION = boolToString true;
+              FEATURES_ROBOTS_TXT = boolToString true;
+              FEATURES_HEALTHCHECK = boolToString true;
+              FEATURES_USER_REGISTRATION = boolToString false;
+              FEATURES_OAUTH_REGISTRATION = boolToString true;
+              FEATURES_DELETE_ON_MAX_VIEWS = boolToString true;
+              FEATURES_THUMBNAILS_ENABLED = boolToString true;
+              FEATURES_METRICS_ENABLED = boolToString true;
+              FEATURES_METRICS_ADMIN_ONLY = boolToString true;
+              FEATURES_METRICS_SHOW_USER_SPECIFIC = boolToString true;
+              FEATURES_VERSION_CHECKING = boolToString false;
 
-              FILES_ASSUME_MIMETYPES = "true";
-              FILES_REMOVE_GPS_METADATA = "true";
+              FILES_ASSUME_MIMETYPES = boolToString true;
+              FILES_REMOVE_GPS_METADATA = boolToString true;
 
-              INVITES_ENABLED = "true";
+              INVITES_ENABLED = boolToString true;
 
-              RATELIMIT_ENABLED = "true";
-              RATELIMIT_ADMIN_BYPASS = "true";
+              RATELIMIT_ENABLED = boolToString true;
+              RATELIMIT_ADMIN_BYPASS = boolToString true;
 
-              OAUTH_BYPASS_LOCAL_LOGIN = "true";
+              OAUTH_BYPASS_LOCAL_LOGIN = boolToString true;
               inherit OAUTH_OIDC_CLIENT_ID;
               OAUTH_OIDC_CLIENT_SECRET = "$OAUTH_OIDC_CLIENT_SECRET";
               OAUTH_OIDC_AUTHORIZE_URL = "${kanidmOrigin}/ui/oauth2";

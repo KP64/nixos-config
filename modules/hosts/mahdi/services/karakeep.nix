@@ -70,6 +70,8 @@
           };
           extraEnvironment =
             let
+              inherit (lib) boolToString;
+
               OAUTH_CLIENT_ID = "karakeep";
 
               warnIfModelNotLoaded =
@@ -84,18 +86,18 @@
             {
               NEXTAUTH_URL = "https://${domain}";
 
-              DISABLE_PASSWORD_AUTH = "true";
+              DISABLE_PASSWORD_AUTH = boolToString true;
 
               OAUTH_WELLKNOWN_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
               OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
               inherit OAUTH_CLIENT_ID;
               OAUTH_PROVIDER_NAME = "Kanidm";
-              OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = "true";
-              OAUTH_AUTO_REDIRECT = "true";
+              OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = boolToString true;
+              OAUTH_AUTO_REDIRECT = boolToString true;
 
               PORT = "43547";
-              RATE_LIMITING_ENABLED = "true";
-              DB_WAL_MODE = "true";
+              RATE_LIMITING_ENABLED = boolToString true;
+              DB_WAL_MODE = boolToString true;
 
               OLLAMA_BASE_URL =
                 let
@@ -116,9 +118,9 @@
               INFERENCE_IMAGE_MODEL = warnIfModelNotLoaded "gemma3:1b";
               EMBEDDING_TEXT_MODEL = warnIfModelNotLoaded "embeddinggemma:300m";
 
-              CRAWLER_FULL_PAGE_SCREENSHOT = "true";
-              CRAWLER_FULL_PAGE_ARCHIVE = "true";
-              CRAWLER_VIDEO_DOWNLOAD = "true";
+              CRAWLER_FULL_PAGE_SCREENSHOT = boolToString true;
+              CRAWLER_FULL_PAGE_ARCHIVE = boolToString true;
+              CRAWLER_VIDEO_DOWNLOAD = boolToString true;
             };
         };
       };
