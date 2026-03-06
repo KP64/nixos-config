@@ -12,6 +12,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   version = "1.8.1";
   pyproject = true;
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "Textualize";
     repo = "rich-cli";
