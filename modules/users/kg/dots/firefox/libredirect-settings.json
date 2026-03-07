@@ -8,7 +8,7 @@
       "unsupportedUrls": "bypass",
       "redirectOnlyInIncognito": false
     },
-    "invidious": ["https://invidious.srvd.space", "https://yt.moneten.cc"],
+    "invidious": ["https://yt.moneten.cc"],
     "materialious": ["https://app.materialio.us"],
     "piped": ["https://pipedapi-libre.kavin.rocks"],
     "pipedMaterial": ["https://piped-material.xn--17b.net"],
@@ -57,7 +57,7 @@
       "redirectType": "main_frame"
     },
     "libreddit": [],
-    "redlib": ["https://redlib.srvd.space", "https://red.moneten.cc"],
+    "redlib": ["https://redlib.srvd.space"],
     "teddit": [],
     "eddrit": ["https://eddrit.com"],
     "tumblr": {
@@ -181,7 +181,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "dumb": ["https://dumb.moneten.cc", "https://dumb.srvd.space"],
+    "dumb": ["https://dumb.srvd.space"],
     "intellectual": ["https://intellectual.insprill.net"],
     "medium": {
       "frontend": "scribe",
@@ -224,10 +224,7 @@
       "redirectOnlyInIncognito": false,
       "redirectType": "main_frame"
     },
-    "anonymousOverflow": [
-      "https://overflow.srvd.space",
-      "https://overflow.moneten.cc"
-    ],
+    "anonymousOverflow": ["https://overflow.srvd.space"],
     "reuters": {
       "enabled": true,
       "unsupportedUrls": "bypass",
@@ -335,11 +332,7 @@
       "instance": "public",
       "redirectOnlyInIncognito": false
     },
-    "searxng": [
-      "https://search.moneten.cc",
-      "https://searxng.srvd.space",
-      "https://nyc1.sx.ggtyler.dev"
-    ],
+    "searxng": ["https://search.moneten.cc", "https://searxng.srvd.space"],
     "searx": [],
     "whoogle": [],
     "librey": [],
@@ -356,7 +349,6 @@
     "mozhi": ["https://mozhi.aryak.me"],
     "libreTranslate": [
       "https://libretranslate.com",
-      "https://translate.moneten.cc",
       "https://libretranslate.srvd.space"
     ],
     "translite": ["https://tl.bloat.cat"],
