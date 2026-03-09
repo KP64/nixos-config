@@ -44,7 +44,7 @@
                   const choices = [ "main" "network" ]
 
                   let chosen = if ($topology | is-empty) {
-                    let temp = $choices | input list -f "Topology"
+                    let temp = $choices | input list --fuzzy "Topology"
                     if ($temp | is-empty) {
                       return
                     }
@@ -76,7 +76,7 @@
                     let selection = if ($inputs | is-not-empty) {
                       $inputs
                     } else {
-                      $all_choices | input list -m "Inputs"
+                      $all_choices | input list --fuzzy --multi "Inputs"
                     }
 
                     if ($selection | is-empty) {
