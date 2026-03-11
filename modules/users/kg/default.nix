@@ -85,6 +85,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               inherit (config.lib.packages) activatePerHosts;
             in
             (with pkgs; [
+              igrep
               bluetui
               caligula
             ])
@@ -125,6 +126,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           less.enable = true;
           pay-respects.enable = true;
           ripgrep.enable = true;
+          skim.enable = true;
           zellij.enable = true;
         };
       }
