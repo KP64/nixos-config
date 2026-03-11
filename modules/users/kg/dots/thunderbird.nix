@@ -1,13 +1,13 @@
 toplevel: {
   # TODO: Add email auth, encryption and signing
   flake.modules.homeManager.users-kg-thunderbird =
-    { config, ... }:
+    { config, lib, ... }:
     let
       inherit (config.home) username;
       inherit (toplevel.config.lib.flake.util) toFlattenedByDots;
     in
     {
-      catppuccin.thunderbird.profile = username;
+      catppuccin = lib.mkIf (config ? catppuccin) { thunderbird.profile = username; };
 
       programs.gpg = {
         enable = true;
