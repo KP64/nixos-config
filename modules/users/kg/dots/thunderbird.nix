@@ -30,7 +30,7 @@ toplevel: {
       accounts.email.accounts.${username} = {
         primary = true;
         address = config.invisible.email;
-        realName = "${config.invisible.firstName} ${config.invisible.lastName}";
+        realName = with config.invisible; "${firstName} ${lastName}";
         userName = username;
         # gpg = {
         #   encryptByDefault = true;
