@@ -146,7 +146,7 @@
               writeNuBin "identify-unfree" { } # nu
                 ''
                   def main [--json (-j)]: nothing -> oneof<table, string> {
-                    let cfg_json = '${nixosConfigs ++ homeConfigs |> builtins.toJSON}'
+                    let cfg_json = '${builtins.toJSON (nixosConfigs ++ homeConfigs)}'
                     if $json {
                       $cfg_json
                     } else {

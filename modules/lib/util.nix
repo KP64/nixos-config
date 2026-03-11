@@ -7,13 +7,12 @@
 {
   nix-lib.lib.util = {
     appendLastWithFullPath = {
-      type = with lib.types; functionTo <| attrsOf anything;
+      type = with lib.types; functionTo (attrsOf anything);
       fn =
         attrs:
-        attrs
-        |> lib.mapAttrsRecursiveCond builtins.isAttrs (
-          name: value: { ${builtins.concatStringsSep "." name} = value; }
-        );
+        lib.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
+          ${builtins.concatStringsSep "." name} = value;
+        }) attrs;
       description = ''
         Recurses the attrsets until the name-value-pair is not an attrset
         Then appends on it the concatenated paths (names)
@@ -25,7 +24,7 @@
         inherit (config.lib.flake.util) appendLastWithFullPath collectLastEntries;
       in
       {
-        type = with lib.types; functionTo <| attrsOf anything;
+        type = with lib.types; functionTo (attrsOf anything);
         fn = attrs: attrs |> appendLastWithFullPath |> collectLastEntries;
         description = ''
           Converts an Attribute Set to another set
@@ -34,7 +33,7 @@
       };
 
     collectLastEntries = {
-      type = with lib.types; functionTo <| attrsOf anything;
+      type = with lib.types; functionTo (attrsOf anything);
       fn =
         attrs:
         rec {
@@ -73,9 +72,7 @@
           extraAccess ? [ ],
         }:
         arr:
-        arr
-        |> lib.filter (builtins.hasAttr needs)
-        |> map (conf: conf |> lib.getAttrFromPath ([ needs ] ++ extraAccess));
+        arr |> lib.filter (builtins.hasAttr needs) |> map (lib.getAttrFromPath ([ needs ] ++ extraAccess));
       description = ''
         Filters an array of attrsets containing the needed
         attribute and maps to subattributes via extraAccess
@@ -83,7 +80,7 @@
     };
 
     getSopsFiles = {
-      type = with lib.types; functionTo <| listOf path;
+      type = with lib.types; functionTo (listOf path);
       fn = secrets: secrets |> builtins.attrValues |> map (secret: secret.sopsFile);
       description = ''
         Gets all files used for sops secrets for the

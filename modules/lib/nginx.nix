@@ -20,7 +20,7 @@
                   val: if (builtins.any (prefix: lib.hasPrefix prefix val) prefixes) then val else "'${val}'";
                 pv =
                   if (builtins.isList value) then
-                    value |> lib.concatMapStringsSep " " processPolicyValue
+                    lib.concatMapStringsSep " " processPolicyValue value
                   else
                     processPolicyValue value;
               in

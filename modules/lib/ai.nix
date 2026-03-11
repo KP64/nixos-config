@@ -7,8 +7,7 @@ toplevel: {
           type = with lib.types; functionTo <| functionTo <| listOf nonEmptyStr;
           fn =
             modelName: parameters:
-            parameters
-            |> map (
+            lib.forEach parameters (
               p:
               let
                 modelType = "${modelName}:${toString p}";

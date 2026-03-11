@@ -109,7 +109,7 @@
                 in
                 lib.warnIf (instance == [ ])
                   "Karakeep missing AI inference. That is the whole point of it though..."
-                  (lib.mkIf (instance != [ ]) <| builtins.head instance);
+                  (lib.mkIf (instance != [ ]) (builtins.head instance));
 
               OLLAMA_KEEP_ALIVE = "5m";
               # NOTE: The whole name is needed.

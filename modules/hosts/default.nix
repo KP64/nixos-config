@@ -9,11 +9,11 @@ in
   flake = {
     nixosConfigurations =
       toplevel.config.flake.modules.nixos
-      |> lib.filterAttrs (name: _: name |> lib.hasPrefix prefix)
+      |> lib.filterAttrs (name: _: lib.hasPrefix prefix name)
       |> lib.mapAttrs' (
         name: module:
         let
-          hostName = name |> lib.removePrefix prefix;
+          hostName = lib.removePrefix prefix name;
         in
         {
           name = hostName;
@@ -77,7 +77,7 @@ in
                 }
               ]
               # Adds disko configuration if available
-              ++ (lib.optionals (toplevel.config.flake.diskoConfigurations |> lib.hasAttr hostName) [
+              ++ (lib.optionals (lib.hasAttr hostName toplevel.config.flake.diskoConfigurations) [
                 inputs.disko.nixosModules.default
                 toplevel.config.flake.diskoConfigurations.${hostName}
               ]);

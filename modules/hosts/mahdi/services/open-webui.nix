@@ -92,8 +92,9 @@
                   local = lib.optional config.services.ollama.enable "http://${config.services.ollama.host}:${toString config.services.ollama.port}";
                   instances = local ++ config.lib.ai.getOtherOllamaUrls;
                 in
-                lib.warnIf (instances == [ ]) "Open-webui missing Ollama endpoints"
-                <| lib.mkIf (instances != [ ]) (builtins.concatStringsSep ";" instances);
+                lib.warnIf (instances == [ ]) "Open-webui missing Ollama endpoints" (
+                  lib.mkIf (instances != [ ]) (builtins.concatStringsSep ";" instances)
+                );
 
               SHOW_ADMIN_DETAILS = "False";
 

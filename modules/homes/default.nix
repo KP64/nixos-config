@@ -14,13 +14,13 @@ in
   flake = {
     homeConfigurations =
       config.flake.modules.homeManager
-      |> lib.filterAttrs (name: _: name |> lib.hasInfix infix)
+      |> lib.filterAttrs (name: _: lib.hasInfix infix name)
       |> lib.mapAttrs' (
         userHost: module:
         let
-          userHostSplit = userHost |> lib.splitString infix;
-          username = userHostSplit |> builtins.head;
-          hostname = userHostSplit |> lib.last;
+          userHostSplit = lib.splitString infix userHost;
+          username = builtins.head userHostSplit;
+          hostname = lib.last userHostSplit;
         in
         {
           name = userHost;

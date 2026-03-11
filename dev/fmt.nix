@@ -53,9 +53,9 @@
     {
       treefmt = {
         settings = {
-          global.excludes =
-            lib.unique
-            <| (getHmUserSopsFiles nixosUserHmConfigs) ++ (getHmUserSopsFiles hmConfigs) ++ hostSopsFiles;
+          global.excludes = lib.unique (
+            (getHmUserSopsFiles nixosUserHmConfigs) ++ (getHmUserSopsFiles hmConfigs) ++ hostSopsFiles
+          );
           formatter."svg-optimizer" = {
             command = pkgs.writeShellApplication {
               name = "svg-optimizer";
@@ -117,9 +117,8 @@
             enable = true;
             sort = true;
             isolated = true;
-            configFile =
-              toString
-              <| tomlFormat.generate "typos" {
+            configFile = toString (
+              tomlFormat.generate "typos" {
                 default.extend-words = lib.genAttrs [
                   "enew"
                   "ede"
@@ -128,7 +127,8 @@
                   "HAE" # LTT Channel ID
                 ] (name: name);
                 files.extend-exclude = facterFiles;
-              };
+              }
+            );
           };
         };
       };

@@ -4,7 +4,7 @@
     {
       nix-lib.lib.packages = {
         activatePerHosts = {
-          type = with lib.types; functionTo <| listOf package;
+          type = with lib.types; functionTo (listOf package);
           fn =
             list:
             list

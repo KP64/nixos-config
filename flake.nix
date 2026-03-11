@@ -269,6 +269,5 @@
     This ranges from a simple Network Topology all the way to
     full blown NixOS Configs.
   */
-  outputs =
-    inputs: inputs.import-tree ./modules |> inputs.flake-parts.lib.mkFlake { inherit inputs; };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
