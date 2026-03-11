@@ -23,8 +23,9 @@
           let
             inherit (nixos.config.services) hickory-dns;
             dns = [ hickory-dns.settings.listen_port ];
-            usesDoT =
-              hickory-dns.settings.zones |> builtins.any (zone: zone ? stores.opportunistic_encryption.enabled);
+            usesDoT = builtins.any (
+              zone: zone ? stores.opportunistic_encryption.enabled
+            ) hickory-dns.settings.zones;
           in
           {
             allowedTCPPorts = dns ++ lib.optional usesDoT 853;
