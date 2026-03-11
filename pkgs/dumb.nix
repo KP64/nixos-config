@@ -3,7 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   esbuild,
-  stdenv,
+  stdenvNoCC,
 }:
 let
   # nixpkgs templ is too new. Check fails.
@@ -14,7 +14,7 @@ let
     rev = "a19cd4ffb1f4b953a76f3ac29c6520d0b1877108";
     hash = "sha256-ytHMMsgrwPIZz2xoQKKktb1p3EiUhkTTH1NxbtxaIMI=";
   };
-  oldPkgs = import oldNixpkgs { inherit (stdenv.hostPlatform) system; };
+  oldPkgs = import oldNixpkgs { inherit (stdenvNoCC.hostPlatform) system; };
 in
 buildGoModule (finalAttrs: {
   pname = "dumb";
