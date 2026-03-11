@@ -1,7 +1,12 @@
 toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.hosts-aladdin =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       imports = [
         inputs.sops-nix.nixosModules.default
@@ -22,6 +27,27 @@ toplevel@{ inputs, ... }:
 
         users-kg
       ]);
+
+      # TODO: Reenable sddm once https://github.com/NixOS/nixpkgs/issues/496361 is fixed
+      services = {
+        displayManager.sddm.enable = lib.mkForce false;
+        greetd = {
+          enable = true;
+          useTextGreeter = true;
+          settings.default_session.command =
+            let
+              inherit (config.programs) niri hyprland;
+            in
+            "${lib.getExe pkgs.tuigreet} --time --cmd ${
+              if niri.enable then
+                "niri"
+              else if hyprland.enable then
+                "hyprland"
+              else
+                throw "My man. You've to enable at least one WM"
+            }";
+        };
+      };
 
       system.stateVersion = "26.05";
       hardware = {
