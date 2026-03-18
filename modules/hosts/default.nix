@@ -18,6 +18,7 @@ in
         {
           name = hostName;
           value = inputs.nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit (inputs) nixos-raspberrypi; };
             modules =
               # Modules that should be made available for everyone.
               (with toplevel.config.flake.modules.nixos; [
