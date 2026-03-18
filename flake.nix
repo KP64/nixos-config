@@ -242,7 +242,13 @@
     # Quickshell preconfiguration for niri
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        noctalia-qs.inputs = {
+          systems.follows = "dedup_systems";
+          treefmt-nix.follows = "";
+        };
+      };
     };
 
     # AUR Nix edition
