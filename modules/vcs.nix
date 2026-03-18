@@ -27,20 +27,24 @@
         git-cliff.enable = true;
 
         gitui.enable = true;
-        git = {
-          enable = true;
-          lfs.enable = true;
-          settings = {
-            inherit (config.vcs) user;
-            init.defaultBranch = "main";
-            gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+        git =
+          let
+            sshDir = "${config.home.homeDirectory}/.ssh";
+          in
+          {
+            enable = true;
+            lfs.enable = true;
+            settings = {
+              inherit (config.vcs) user;
+              init.defaultBranch = "main";
+              gpg.ssh.allowedSignersFile = "${sshDir}/allowed_signers";
+            };
+            signing = {
+              signByDefault = true;
+              format = "ssh";
+              key = "${sshDir}/id_ed25519.pub";
+            };
           };
-          signing = {
-            signByDefault = true;
-            format = "ssh";
-            key = "~/.ssh/id_ed25519.pub";
-          };
-        };
 
         jjui.enable = true;
         jujutsu =
