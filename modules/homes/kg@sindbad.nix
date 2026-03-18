@@ -38,11 +38,11 @@ in
         desktop
 
         users-kg
+        users-kg-anki
         users-kg-firefox
         users-kg-glance
-        users-kg-anki
-        users-kg-hyprland
         users-kg-kitty
+        users-kg-niri
         users-kg-noctalia-shell
         users-kg-thunderbird
       ];
