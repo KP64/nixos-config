@@ -9,7 +9,6 @@
       lualine
       modicator
       noice
-      rainbow-delimiters
       tiny-inline-diagnostic
     ];
   };
