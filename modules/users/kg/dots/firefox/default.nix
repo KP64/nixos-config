@@ -334,6 +334,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
                 "storage"
                 "tabs"
                 "<all_urls>"
+                "https://docs.google.com/document/*"
               ];
               "private-relay@firefox.com".permissions = [
                 "<all_urls>"
