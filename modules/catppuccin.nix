@@ -5,25 +5,21 @@ let
 in
 {
   flake.modules = {
-    nixos.catppuccin =
-      { pkgs, ... }:
-      {
-        imports = [ inputs.catppuccin.nixosModules.catppuccin ];
+    nixos.catppuccin = {
+      imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
-        services.displayManager.sddm.package = pkgs.kdePackages.sddm;
-
-        catppuccin = {
+      catppuccin = {
+        enable = true;
+        cache.enable = true;
+        inherit accent;
+        cursors = {
+          # only actually enabled when desktopManager.gnome or
+          # displayManager.gdm are enabled
           enable = true;
-          cache.enable = true;
-          inherit accent;
-          cursors = {
-            # only actually enabled when desktopManager.gnome or
-            # displayManager.gdm are enabled
-            enable = true;
-            accent = cursorAccent;
-          };
+          accent = cursorAccent;
         };
       };
+    };
 
     homeManager.catppuccin =
       { config, ... }:
