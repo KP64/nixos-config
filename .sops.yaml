@@ -15,6 +15,7 @@ creation_rules:
       - age:
           - *host_aladdin
           - *admin_kg_aladdin
+          - *admin_kg_mahdi
           - *admin_kg_sindbad
 
   - path_regex: modules\/hosts\/mahdi\/secrets\.yaml$
