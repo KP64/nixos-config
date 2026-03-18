@@ -1,5 +1,13 @@
 {
   flake.diskoConfigurations.aladdin = {
+    services.btrfs.autoScrub = {
+      enable = true;
+      # By default scrubs all mountpoints.
+      # We use subvolumes so no need to scrub all of them.
+      # Top level is enough (it will scrub the others too).
+      fileSystems = [ "/" ];
+    };
+
     disko.devices.disk.main = {
       type = "disk";
       device = "/dev/sda";
@@ -17,15 +25,48 @@
               mountOptions = [ "umask=0077" ];
             };
           };
-          root = {
+          swap = {
+            priority = 2;
+            size = "8G";
+            content = {
+              type = "swap";
+              randomEncryption = true;
+              priority = 100; # Always encrypt as long there is space for it
+            };
+          };
+          luks = {
+            priority = 3;
             size = "100%";
             content = {
-              type = "btrfs";
-              extraArgs = [ "-f" ];
-              subvolumes = {
-                "/root".mountpoint = "/";
-                "/home".mountpoint = "/home";
-                "/nix".mountpoint = "/nix";
+              type = "luks";
+              name = "cryptroot";
+              settings.allowDiscards = true;
+              content = {
+                type = "btrfs";
+                extraArgs = [ "-f" ];
+                subvolumes = {
+                  "@root" = {
+                    mountpoint = "/";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@home" = {
+                    mountpoint = "/home";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "@nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                };
               };
             };
           };
