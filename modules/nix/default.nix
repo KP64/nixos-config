@@ -10,11 +10,14 @@ let
     experimental-features = [
       "nix-command"
       "flakes"
-      "no-url-literals"
       "pipe-operators"
     ];
     substituters = [ "https://nix-community.cachix.org" ];
     trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+
+    # lint-short-path-literals = "fatal";
+    # lint-absolute-path-literals = "fatal";
+    lint-url-literals = "fatal";
   };
 in
 {
