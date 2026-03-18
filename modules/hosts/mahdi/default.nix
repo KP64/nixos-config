@@ -47,6 +47,7 @@ toplevel@{ inputs, ... }:
       security = {
         lockKernelModules = true;
         protectKernelImage = true;
+        forcePageTableIsolation = true;
       };
 
       services = {
