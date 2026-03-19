@@ -3,7 +3,6 @@ let
   prefix = "hosts-";
 in
 {
-  # TODO: Make Sops secrets reload necessary services
   # TODO: Use custom option for configs (nixos + hm) instead of flake module with prefix
   #       Could be that aspects will be the solution here
   flake = {

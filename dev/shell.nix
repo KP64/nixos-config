@@ -179,6 +179,9 @@
                   }
                 ''
             )
+            # TODO: Add after deployment steps:
+            #       1. User/Admin sops should be configured correctly
+            #       2. Reboot after installation again, because home-manager is weird
             (writeNuBin "deploy"
               {
                 makeWrapperArgs = [
