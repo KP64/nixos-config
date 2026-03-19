@@ -49,6 +49,10 @@ in
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
         inherit nixpkgs;
+
+        # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 is merged
+        home.packages = lib.optional (osConfig == null) config.nix.package;
+
         nix = {
           # when hm is used as a module it syncs the package with the host automatically.
           package = lib.mkIf (osConfig == null) pkgs.nixVersions.latest;
