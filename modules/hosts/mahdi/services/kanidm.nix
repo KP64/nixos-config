@@ -108,10 +108,6 @@ toplevel: {
                 "forgejo.access"
               ];
             };
-            jodada = {
-              displayName = "jodada";
-              groups = [ "forgejo.access" ];
-            };
             urmom = {
               displayName = "urmom";
               groups = [
