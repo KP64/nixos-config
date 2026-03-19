@@ -5,47 +5,39 @@
     {
       imports = [ inputs.noctalia.homeModules.default ];
 
+      home.file.".cache/noctalia/wallpapers.json" = lib.mkIf config.programs.noctalia-shell.enable {
+        text = builtins.toJSON {
+          defaultWallpaper = builtins.path {
+            name = "wp";
+            path = self + /assets/wallpapers/catppuccin/cabin.png;
+            recursive = false;
+          };
+        };
+      };
+
       # TODO: Replace with custom Quickshell config
       programs.noctalia-shell = {
         enable = true;
-        colors = {
-          mError = "#f38ba8"; # red
-          mOnError = "#1e1e2e"; # base
-
-          mPrimary = "#b4befe"; # lavender
-          mOnPrimary = "#1e1e2e"; # base
-
-          mSecondary = "#89b4fa"; # blue
-          mOnSecondary = "#1e1e2e"; # base
-
-          mTertiary = "#f5c2e7"; # pink
-          mOnTertiary = "#1e1e2e"; # base
-
-          mSurface = "#1e1e2e"; # base
-          mOnSurface = "#cdd6f4"; # text
-
-          mSurfaceVariant = "#313244"; # surface0
-          mOnSurfaceVariant = "#bac2de"; # subtext1
-
-          mHover = "#45475a"; # surface1
-          mOnHover = "#f5e0dc"; # rosewater
-
-          mOutline = "#585b70"; # surface2
-          mShadow = "#11111b"; # mantle
-        };
         settings = {
+          # NOTE: Catppuccin Lavender Scheme isn't installed by default.
+          #       Imperative downloading from Noctalia UI is needed on first boot.
+          colorSchemes = lib.mkIf config.catppuccin.enable {
+            predefinedScheme = "Catppuccin${
+              lib.optionalString (config.catppuccin.accent == "lavender") "Lavender"
+            }";
+          };
           general.avatarImage = builtins.path {
+            name = "profile-pic";
             path = self + /modules/users/${config.home.username}/pfp.jpg;
+            recursive = false;
           };
           uifontDefault = "JetBrainsMono Nerd Font";
           location = {
             name = config.invisible.location;
             showWeekNumberInCalendar = false;
           };
-          wallpaper = {
-            overviewEnabled = true;
-            directory = builtins.path { path = self + /assets/wallpapers/catppuccin; };
-          };
+          idle.enabled = true;
+          wallpaper.overviewEnabled = true;
           appLauncher.enableClipboardHistory = true;
           systemMonitor = {
             useCustomColors = true;

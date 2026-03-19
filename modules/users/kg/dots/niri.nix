@@ -139,7 +139,7 @@
             }
           ];
           spawn-at-startup = lib.optional (config.programs.noctalia-shell.enable or false) {
-            sh = "noctalia-shell";
+            command = [ "noctalia-shell" ];
           };
           binds =
             (
