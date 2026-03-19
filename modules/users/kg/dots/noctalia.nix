@@ -23,7 +23,7 @@
           #       Imperative downloading from Noctalia UI is needed on first boot.
           colorSchemes = lib.mkIf config.catppuccin.enable {
             predefinedScheme = "Catppuccin${
-              lib.optionalString (config.catppuccin.accent == "lavender") "Lavender"
+              lib.optionalString (config.catppuccin.accent == "lavender") " Lavender"
             }";
           };
           general.avatarImage = builtins.path {
