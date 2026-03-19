@@ -76,9 +76,6 @@ toplevel: {
                 "forgejo.access"
                 "forgejo.admins"
 
-                "immich.access"
-                "immich.admins"
-
                 "karakeep.access"
                 "karakeep.admins"
 
@@ -134,9 +131,6 @@ toplevel: {
 
             "forgejo.access" = { };
             "forgejo.admins" = { };
-
-            "immich.access" = { };
-            "immich.admins" = { };
 
             "karakeep.access" = { };
             "karakeep.admins" = { };
@@ -294,32 +288,6 @@ toplevel: {
                   "email"
                   "openid"
                 ];
-              };
-              immich = {
-                displayName = "immich";
-                imageFile = getIcon {
-                  file = "immich.svg";
-                  type = "icons";
-                };
-                public = true;
-                originUrl = [
-                  "https://immich.${config.networking.domain}/auth/login"
-                  "app.immich:///oauth-callback" # For mobile app
-                ];
-                originLanding = "https://immich.${config.networking.domain}";
-                preferShortUsername = true;
-                scopeMaps."immich.access" = [
-                  "email"
-                  "openid"
-                  "profile"
-                ];
-                claimMaps.roles = {
-                  joinType = "array";
-                  valuesByGroup = {
-                    "immich.admins" = [ "admin" ];
-                    "immich.access" = [ "user" ];
-                  };
-                };
               };
               stirling-pdf =
                 let
