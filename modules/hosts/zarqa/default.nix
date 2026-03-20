@@ -11,10 +11,7 @@ toplevel@{ inputs, ... }:
           sops-nix.nixosModules.default
           nix-invisible.modules.nixos.host-mahdi
         ])
-        ++ (with nixos-raspberrypi.lib; [
-          inject-overlays
-          inject-overlays-global
-        ])
+        ++ [ nixos-raspberrypi.lib.inject-overlays ]
         ++ (with nixos-raspberrypi.nixosModules; [
           nixpkgs-rpi
           raspberry-pi-3.base
