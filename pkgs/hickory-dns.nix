@@ -12,13 +12,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "hickory-dns";
     repo = "hickory-dns";
-    rev = "6aaeb47366bbb4181ce3b2cd7aae39bfcc1c9ca3";
-    hash = "sha256-cSDhqJ+nXg97faNZJ+R+z49QU5eD56QGx1NY+ngn6ro=";
+    rev = "517398f78fc22699fcd798c9bc18c4d0fc94d763";
+    hash = "sha256-WAGt5EcK8CPDBsRqTS5/jfGnkaZ3xT1kajtQQA0nw+4=";
   };
 
   __structuredAttrs = true;
 
-  cargoHash = "sha256-ikyUyadmRxHx/KhuZzWiZgmY2BTyuNGZ/C+keyLpsfE=";
+  cargoHash = "sha256-eSAhiUdm41hnxbCe3lltEufcucrCie133v86guKpk60=";
 
   buildFeatures = [
     "tls-ring" # DoT
