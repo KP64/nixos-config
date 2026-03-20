@@ -1,7 +1,7 @@
 toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.hosts-zarqa =
-    { config, ... }:
+    { config, pkgs, ... }:
     let
       inherit (inputs) nixos-raspberrypi;
     in
@@ -26,10 +26,20 @@ toplevel@{ inputs, ... }:
           users-kg
         ]);
 
-      # TODO: Enable once RTC is installed
-      # Is needed for RTC.
-      # hardware.i2c.enable = true;
-      # environment.systemPackages = [ pkgs.i2c-tools ];
+      hardware = {
+        i2c.enable = true;
+        raspberry-pi.config.all = {
+          dt-overlays."i2c-rtc,ds3231" = {
+            enable = true;
+            params = { };
+          };
+          base-dt-params.i2c_arm = {
+            enable = true;
+            value = "on";
+          };
+        };
+      };
+      environment.systemPackages = [ pkgs.i2c-tools ];
 
       home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
