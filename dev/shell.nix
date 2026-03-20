@@ -202,7 +202,7 @@
               }
               # nu
               ''
-                def main [host: string, ip: string, ...args: string]: nothing -> nothing {
+                def main [host: string, ip: string, --generate-hardware-report]: nothing -> nothing {
                   # Work on raw YAML text for anchors
                   let raw = open --raw .sops.yaml
 
@@ -256,7 +256,7 @@
                     print # needed so that updatekeys output is shown
                   }
 
-                  nixos-anywhere --flake $".#($host)" --target-host $"root@($ip)" --extra-files $tempdir ...$args
+                  nixos-anywhere --flake $".#($host)" (if $generate_hardware_report { $"--generate-hardware-config nixos-facter ./modules/hosts/($host)/facter.json" } else { "" }) --target-host $"root@($ip)" --extra-files $tempdir
 
                   # Remove lingering temp directory.
                   # We only care about the successful case because
