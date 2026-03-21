@@ -9,7 +9,7 @@ toplevel@{ inputs, ... }:
       imports =
         (with inputs; [
           sops-nix.nixosModules.default
-          nix-invisible.modules.nixos.host-mahdi
+          nix-invisible.modules.nixos.host-zarqa
         ])
         ++ [ nixos-raspberrypi.lib.inject-overlays ]
         ++ (with nixos-raspberrypi.nixosModules; [
