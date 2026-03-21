@@ -18,13 +18,13 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "dumb";
-  version = "unstable-2025-07-06";
+  version = "unstable-2026-03-14";
 
   src = fetchFromGitHub {
     owner = "rramiachraf";
     repo = "dumb";
-    rev = "132af50dd6ac4994dd9f4f7dffa144be74f9c0f1";
-    hash = "sha256-rrIyAVt9TuNedt7BkZZbJx/JoMLeG9agKP63pCxTsKA=";
+    rev = "ad6571d242a8a22adf5259a97c6afb711dfc0717";
+    hash = "sha256-MSjk/gpLtdlOVL7h7hcjlcAyUGhu1ZpguT1ZZwHfHNs=";
   };
 
   __structuredAttrs = true;
