@@ -108,10 +108,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
         sops = {
           defaultSopsFile = ./secrets.yaml;
-          age = {
-            keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
-            generateKey = true;
-          };
+          age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
         };
 
         services.pueue.enable = true;
