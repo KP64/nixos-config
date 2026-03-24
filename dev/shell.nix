@@ -30,6 +30,7 @@
             vscode-json-languageserver
             kdePackages.qtdeclarative # qmlls
 
+            nix-init
             nix-melt
             nix-output-monitor
           ])
