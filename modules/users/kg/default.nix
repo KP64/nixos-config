@@ -68,6 +68,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             users-kg-neovim
             users-kg-shells
             users-kg-starship
+            users-kg-zellij
             users-kg-zoxide
           ]);
 
@@ -125,7 +126,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           pay-respects.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
-          zellij.enable = true;
         };
       }
     );

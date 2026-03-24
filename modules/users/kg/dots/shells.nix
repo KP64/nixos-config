@@ -29,7 +29,7 @@
             edit_mode = "vi";
           };
 
-          configFile.text =
+          extraConfig =
             let
               nuScriptsDir = builtins.path { path = pkgs.nu_scripts + /share/nu_scripts; };
             in
