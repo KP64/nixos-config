@@ -1,5 +1,5 @@
 # Starts Zellij depending on its configuration
-def start_zellij []: nothing -> nothing {
+def start-zellij []: nothing -> nothing {
   if "ZELLIJ" in $env {
     return
   }
@@ -15,4 +15,4 @@ def start_zellij []: nothing -> nothing {
   }
 }
 
-start_zellij
+start-zellij
