@@ -1,17 +1,22 @@
-{ config, inputs, ... }:
+toplevel@{ inputs, ... }:
 {
   imports = [ inputs.treefmt-nix.flakeModule ];
 
   perSystem =
-    { lib, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     let
       tomlFormat = pkgs.formats.toml { };
 
-      inherit (config.lib.flake.util) getSopsFiles mapIfAvailable;
+      inherit (toplevel.config.lib.flake.util) getSopsFiles mapIfAvailable;
 
       getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
-      nixosConfigs = getConfigs config.flake.nixosConfigurations;
-      hmConfigs = getConfigs config.flake.homeConfigurations;
+      nixosConfigs = getConfigs toplevel.config.flake.nixosConfigurations;
+      hmConfigs = getConfigs toplevel.config.flake.homeConfigurations;
 
       getRelativePath =
         paths: paths |> map (p: p |> toString |> builtins.match ".*(modules/.*)" |> builtins.head);
@@ -56,23 +61,42 @@
           global.excludes = lib.unique (
             (getHmUserSopsFiles nixosUserHmConfigs) ++ (getHmUserSopsFiles hmConfigs) ++ hostSopsFiles
           );
-          formatter."svg-optimizer" = {
-            command = pkgs.writeShellApplication {
-              name = "svg-optimizer";
-              runtimeInputs = with pkgs; [
-                scour
-                svgo
-              ];
-              # Intermediary file is unfortunately needed
-              text = ''
-                for file in "$@"; do
-                  scour --enable-viewboxing -i "$file" -o tmp.svg
-                  svgo --multipass -i tmp.svg -o "$file"
-                done
-                rm tmp.svg
-              '';
+          formatter = {
+            svg-optimizer = {
+              command = pkgs.writeShellApplication {
+                name = "svg-optimizer";
+                runtimeInputs = with pkgs; [
+                  scour
+                  svgo
+                ];
+                # Intermediary file is unfortunately needed
+                text = ''
+                  for file in "$@"; do
+                    # Save original timestamp
+                    ts="$(stat -c %y "$file")"
+
+                    tmp="$(mktemp)"
+
+                    scour --enable-viewboxing -i "$file" -o "$tmp"
+                    svgo --multipass -i "$tmp" -o "$tmp"
+
+                    if ! cmp -s "$file" "$tmp"; then
+                      mv "$tmp" "$file"
+                    else
+                      rm "$tmp"
+                    fi
+
+                    # Restore timestamp
+                    touch -d "$ts" "$file"
+                  done
+                '';
+              };
+              includes = [ "*.svg" ];
             };
-            includes = [ "*.svg" ];
+            nufmt = {
+              command = lib.getExe config.packages.nufmt;
+              includes = [ "*.nu" ];
+            };
           };
         };
         programs = {
