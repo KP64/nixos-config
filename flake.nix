@@ -256,6 +256,17 @@
       };
     };
 
+    # Nushell file formatter
+    # TODO: Remove once nufmt is back in treefmt-nix
+    nufmt = {
+      url = "github:nushell/nufmt";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "dedup_flake-utils";
+        treefmt-nix.follows = "";
+      };
+    };
+
     # AUR Nix edition
     nur = {
       url = "github:nix-community/nur";

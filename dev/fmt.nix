@@ -4,9 +4,9 @@ toplevel@{ inputs, ... }:
 
   perSystem =
     {
-      config,
       lib,
       pkgs,
+      inputs',
       ...
     }:
     let
@@ -94,7 +94,7 @@ toplevel@{ inputs, ... }:
               includes = [ "*.svg" ];
             };
             nufmt = {
-              command = lib.getExe config.packages.nufmt;
+              command = lib.getExe' inputs'.nufmt.packages.default "nufmt";
               includes = [ "*.nu" ];
             };
           };
