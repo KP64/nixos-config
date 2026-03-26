@@ -233,6 +233,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
                 "unlimitedStorage"
                 "alarms"
                 "https://sponsor.ajay.app/*"
+                "https://dearrow.ajay.app/*"
                 "https://dearrow-thumb.ajay.app/*"
                 "https://*.googlevideo.com/*"
                 "https://*.youtube.com/*"
