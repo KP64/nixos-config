@@ -63,34 +63,25 @@ toplevel@{ inputs, ... }:
           );
           formatter = {
             svg-optimizer = {
-              command = pkgs.writeShellApplication {
-                name = "svg-optimizer";
-                runtimeInputs = with pkgs; [
-                  scour
-                  svgo
-                ];
-                # Intermediary file is unfortunately needed
-                text = ''
-                  for file in "$@"; do
-                    # Save original timestamp
-                    ts="$(stat -c %y "$file")"
+              command =
+                pkgs.writers.writeNuBin "svg-optimizer" # nu
+                  ''
+                    def main [...files: string]: nothing -> nothing {
+                        for file in $files {
+                            let tmp = mktemp
 
-                    tmp="$(mktemp)"
+                            ${lib.getExe pkgs.scour} --enable-viewboxing -i $file -o $tmp
+                            ${lib.getExe pkgs.svgo} --multipass -i $tmp -o $tmp
 
-                    scour --enable-viewboxing -i "$file" -o "$tmp"
-                    svgo --multipass -i "$tmp" -o "$tmp"
-
-                    if ! cmp -s "$file" "$tmp"; then
-                      mv "$tmp" "$file"
-                    else
-                      rm "$tmp"
-                    fi
-
-                    # Restore timestamp
-                    touch -d "$ts" "$file"
-                  done
-                '';
-              };
+                            let is_changed = (${lib.getExe' pkgs.uutils-diffutils "cmp"} $file $tmp | complete | get exit_code) != 0
+                            if $is_changed {
+                                mv $tmp $file
+                            } else {
+                                rm $tmp
+                            }
+                        }
+                    }
+                  '';
               includes = [ "*.svg" ];
             };
             nufmt = {
