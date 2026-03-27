@@ -244,15 +244,11 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        noctalia-qs.follows = "noctalia-qs";
-      };
-    };
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "dedup_systems";
-        treefmt-nix.follows = "";
+        noctalia-qs.inputs = {
+          nixpkgs.follows = "nixpkgs";
+          systems.follows = "dedup_systems";
+          treefmt-nix.follows = "";
+        };
       };
     };
 

@@ -53,6 +53,7 @@ toplevel@{ inputs, ... }:
           users-kg-noctalia-shell
           users-kg-prismlauncher
           users-kg-thunderbird
+          users-kg-ttyper
         ];
         home = { inherit (config.system) stateVersion; };
       };

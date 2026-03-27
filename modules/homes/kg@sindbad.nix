@@ -45,6 +45,7 @@ in
         users-kg-niri
         users-kg-noctalia-shell
         users-kg-thunderbird
+        users-kg-ttyper
       ];
 
       home = {
