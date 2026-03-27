@@ -55,7 +55,7 @@ toplevel: {
               widgets = [
                 {
                   type = "videos";
-                  video-url-template = "https://invidious.srvd.space/watch?v={VIDEO-ID}";
+                  video-url-template = "https://yt.moneten.cc/watch?v={VIDEO-ID}";
                   channels = [
                     "UCdp4_l1vPmpN-gDbUwhaRUQ" # Branch education
                     "UCsXVk37bltHxD1rDPwtNM8Q" # Kurzgesagt - In a Nutshell
