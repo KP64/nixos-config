@@ -30,7 +30,6 @@
                     img-src = [
                       "self"
                       "https://getsharex.com"
-                      "https://flameshot.org"
                       "https://raw.githubusercontent.com"
                     ];
                     connect-src = "self";
