@@ -23,8 +23,8 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "rramiachraf";
     repo = "dumb";
-    rev = "ad6571d242a8a22adf5259a97c6afb711dfc0717";
-    hash = "sha256-MSjk/gpLtdlOVL7h7hcjlcAyUGhu1ZpguT1ZZwHfHNs=";
+    rev = "188d5f7e41e5fdafab88f30e1b2c3e558399b53d";
+    hash = "sha256-g+MBVqdPtG8ugBfYxjIrJgGcDnikzHgHnjcCYC5vx2Y=";
   };
 
   __structuredAttrs = true;
