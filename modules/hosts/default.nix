@@ -26,6 +26,7 @@ in
               ])
               ++ [
                 inputs.nix-topology.nixosModules.default
+                { topology.self.services.openssh.hidden = false; }
 
                 inputs.nix-invisible.modules.nixos.invisibility
                 { home-manager.sharedModules = [ inputs.nix-invisible.modules.homeManager.invisibility ]; }
