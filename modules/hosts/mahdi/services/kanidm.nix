@@ -98,6 +98,13 @@ toplevel: {
                 "zipline.admins"
               ];
             };
+            ja = {
+              displayName = "ja";
+              groups = [
+                "open-webui.access"
+                "stirling-pdf.access"
+              ];
+            };
             jehnsen = {
               displayName = "jehnsen";
               groups = [
