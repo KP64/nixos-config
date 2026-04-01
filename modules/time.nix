@@ -3,24 +3,27 @@
   #       If the DNS strictly needs DoT and DNSSEC and there is no RTC then
   #       no time can be fetched. Without the correct time
   #       DoT and DNSSEC fail causing a deadlock.
-  flake.modules.nixos.time = {
-    services.ntpd-rs = {
-      enable = true;
-      settings.source =
-        map
-          (address: {
-            # We only care about nts servers ;D
-            # (if we exclude the nixos pool that is)
-            mode = "nts";
-            inherit address;
-          })
-          (
-            [
-              "nts.netnod.se"
-              "time.cloudflare.com"
-            ]
-            ++ (builtins.genList (i: "ptbtime${toString (i + 1)}.ptb.de") 4)
-          );
+  flake.modules.nixos.time =
+    { lib, ... }:
+    {
+      services.ntpd-rs = {
+        enable = true;
+        useNetworkingTimeServers = lib.mkDefault false;
+        settings.source =
+          map
+            (address: {
+              # We only care about nts servers ;D
+              # (if we exclude the nixos pool that is)
+              mode = "nts";
+              inherit address;
+            })
+            (
+              [
+                "nts.netnod.se"
+                "time.cloudflare.com"
+              ]
+              ++ (builtins.genList (i: "ptbtime${toString (i + 1)}.ptb.de") 4)
+            );
+      };
     };
-  };
 }
