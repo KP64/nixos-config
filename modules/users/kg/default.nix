@@ -68,6 +68,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             users-kg-neovim
             users-kg-shells
             users-kg-starship
+            users-kg-tealdeer
             users-kg-zellij
             users-kg-zoxide
           ]);
