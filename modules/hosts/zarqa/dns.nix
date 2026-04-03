@@ -1,8 +1,8 @@
-{ moduleWithSystem, inputs, ... }:
+toplevel@{ moduleWithSystem, inputs, ... }:
 {
   flake.modules.nixos.hosts-zarqa = moduleWithSystem (
     { config, system, ... }:
-    nixos@{ lib, pkgs, ... }:
+    nixos@{ lib, ... }:
     {
       sops.secrets =
         let
@@ -10,12 +10,6 @@
         in
         {
           zone_signing_key = { inherit owner; };
-          # FIXME: This isn't decrypted correctly -> Causes sops-nix to crash
-          # tsig_secret_decoded = {
-          #   inherit owner;
-          #   format = "binary";
-          #   sopsFile = ./tsig_key.enc;
-          # };
         };
 
       networking = {
@@ -133,52 +127,48 @@
                     zone = ".";
                     zone_type = "External";
                     stores = {
-                      type = "recursor";
-                      roots = pkgs.dns-root-data + /root.hints;
-                      dnssec_policy.ValidateWithStaticKey.path = pkgs.dns-root-data + /root.key;
-                      opportunistic_encryption.enabled.persistence.path = "${nixos.config.services.hickory-dns.settings.directory}/opp_enc_state.toml";
+                      type = "forward";
+                      name_servers =
+                        map
+                          (ip: {
+                            inherit ip;
+                            trust_negative_responses = false;
+                            connections = [
+                              { protocol.type = "udp"; }
+                              { protocol.type = "tcp"; }
+                            ];
+                          })
+                          [
+                            "9.9.9.9"
+                            "149.112.112.112"
+                            "1.1.1.1"
+                            "1.0.0.1"
+                          ];
                     };
                   }
-                  # rec {
-                  #   zone = nixos.config.networking.domain;
-                  #   file = dnsUtil.writeZone zone rec {
-                  #     TTL = 60;
-                  #     SOA = {
-                  #       nameServer = builtins.head NS;
-                  #       adminEmail = nixos.config.invisible.email;
-                  #       serial = 2026012400;
-                  #     };
-                  #     NS =
-                  #       subdomains
-                  #       |> builtins.attrNames
-                  #       |> builtins.filter (lib.hasPrefix "ns")
-                  #       |> map (subdomain: "${subdomain}.${nixos.config.networking.domain}.");
-                  #     # TODO: These IP's aren't static. Use RFC2136 to update them dynamically
-                  #     A = [ "91.6.58.66" ];
-                  #     CAA = letsEncrypt SOA.adminEmail;
-                  #     subdomains = {
-                  #       "*" = { inherit A; };
-                  #       ns1 = { inherit A; };
-                  #       ns2 = { inherit A; };
-                  #     };
-                  #   };
-                  #   stores = {
-                  #     type = "sqlite";
-                  #     zone_path = file;
-                  #     journal_path = "${nixos.config.networking.domain}_dnssec_update.jrnl";
-                  #     allow_update = true;
-                  #     tsig_keys = lib.singleton {
-                  #       name = "tsig-key";
-                  #       algorithm = "hmac-sha256";
-                  #       # NOTE: 💢 Hickory requires the base64-DECODED secret.
-                  #       key_file = nixos.config.sops.secrets.tsig_secret_decoded.path;
-                  #     };
-                  #   };
-                  #   keys = lib.singleton {
-                  #     algorithm = "RSASHA256";
-                  #     key_path = nixos.config.sops.secrets.zone_signing_key.path;
-                  #   };
-                  # }
+                  rec {
+                    zone = "home.arpa";
+                    file = dnsUtil.writeZone zone rec {
+                      TTL = 60;
+                      SOA = {
+                        nameServer = builtins.head NS;
+                        adminEmail = nixos.config.invisible.email;
+                        serial = 2026040200;
+                      };
+                      NS = [ "ns.home.arpa." ];
+                      A = [ nixos.config.staticIPv4 ];
+                      subdomains =
+                        let
+                          mahdiIp = toplevel.config.flake.nixosConfigurations.mahdi.config.staticIPv4;
+                        in
+                        {
+                          "ns" = { inherit A; };
+                          "overflow" = { inherit A; };
+                          "dumb" = { inherit A; };
+                          "*".A = [ mahdiIp ];
+                        };
+                    };
+                  }
                 ];
             };
         };
