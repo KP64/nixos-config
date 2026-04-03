@@ -8,7 +8,7 @@
     }:
     let
       domain = "karakeep.${config.networking.domain}";
-      inherit (config.lib.nginx) mkCSP mkPP;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     {
       services = {

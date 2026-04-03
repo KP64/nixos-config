@@ -2,7 +2,7 @@
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
     let
-      inherit (config.lib.nginx) mkCSP mkPP;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     {
       services = {
