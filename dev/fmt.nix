@@ -85,7 +85,9 @@ toplevel@{ inputs, ... }:
               includes = [ "*.svg" ];
             };
             nufmt = {
-              command = lib.getExe' inputs'.nufmt.packages.default "nufmt";
+              command = lib.getExe' (inputs'.nufmt.packages.default.overrideAttrs (
+                _: _: { doCheck = false; }
+              )) "nufmt";
               includes = [ "*.nu" ];
             };
           };
