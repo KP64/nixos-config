@@ -3,7 +3,7 @@
   flake.modules.nixos.hosts-mahdi =
     { config, ... }:
     let
-      inherit (config.lib.nginx) mkCSP mkPP;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
       commonHeaders = # nginx
         ''
           add_header Cross-Origin-Resource-Policy "cross-origin" always;

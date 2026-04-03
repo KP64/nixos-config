@@ -3,7 +3,7 @@
     { config, lib, ... }:
     let
       domain = "open-webui.${config.networking.domain}";
-      inherit (config.lib.nginx) mkCSP mkPP;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     lib.mkMerge [
       (lib.mkIf config.services.open-webui.enable {

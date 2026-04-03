@@ -3,7 +3,7 @@
     { config, lib, ... }:
     let
       domain = "redlib.${config.networking.domain}";
-      inherit (config.lib.nginx) mkPP;
+      inherit (config.lib.securityHeader) mkPP;
     in
     {
       services = {

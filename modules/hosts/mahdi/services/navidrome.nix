@@ -3,7 +3,7 @@
     { config, lib, ... }:
     let
       domain = "navidrome.${config.networking.domain}";
-      inherit (config.lib.nginx) mkCSP;
+      inherit (config.lib.securityHeader) mkCSP;
     in
     lib.mkMerge [
       (lib.mkIf config.services.navidrome.enable {

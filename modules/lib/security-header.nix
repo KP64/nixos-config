@@ -2,7 +2,7 @@
   flake.modules.nixos.customLib =
     { lib, ... }:
     {
-      nix-lib.lib.nginx = {
+      nix-lib.lib.securityHeader = {
         mkCSP = {
           type = with lib.types; functionTo nonEmptyStr;
           fn =
