@@ -2,6 +2,9 @@
   "version": 1,
   "system": "aarch64-linux",
   "virtualisation": "none",
+  "uefi": {
+    "supported": false
+  },
   "hardware": {
     "cpu": [
       {
@@ -583,7 +586,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.12.34 dwc_otg_hcd",
+          "name": "Linux 6.12.47 dwc_otg_hcd",
           "value": 7531
         },
         "device": {
@@ -597,7 +600,7 @@
           "value": 0
         },
         "serial": "3f980000.usb",
-        "model": "Linux 6.12.34 dwc_otg_hcd DWC OTG Controller",
+        "model": "Linux 6.12.47 dwc_otg_hcd DWC OTG Controller",
         "sysfs_id": "/devices/platform/soc/3f980000.usb/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -839,7 +842,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 53
+            "address": 98
           },
           {
             "type": "phwaddr",
@@ -859,9 +862,15 @@
               "9",
               "10",
               "11",
+              "12",
+              "13",
+              "34",
               "36",
+              "38",
               "40",
+              "42",
               "44",
+              "46",
               "48",
               "52",
               "56",
@@ -873,13 +882,7 @@
               "112",
               "116",
               "120",
-              "124",
-              "128",
-              "132",
-              "136",
-              "140",
-              "144",
-              "149"
+              "124"
             ],
             "frequencies": [
               "2.412",
@@ -893,9 +896,15 @@
               "2.452",
               "2.457",
               "2.462",
+              "2.467",
+              "2.472",
+              "5.17",
               "5.18",
+              "5.19",
               "5.2",
+              "5.21",
               "5.22",
+              "5.23",
               "5.24",
               "5.26",
               "5.28",
@@ -907,13 +916,7 @@
               "5.56",
               "5.58",
               "5.6",
-              "5.62",
-              "5.64",
-              "5.66",
-              "5.68",
-              "5.7",
-              "5.72",
-              "5.745"
+              "5.62"
             ],
             "auth_modes": ["open", "sharedkey", "wpa-psk", "wpa-eap"],
             "enc_modes": ["WEP40", "WEP104", "TKIP", "CCMP"]
@@ -980,6 +983,57 @@
     "network_interface": [
       {
         "index": 34,
+        "attached_to": 8,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "000a",
+          "name": "WLAN",
+          "value": 10
+        },
+        "model": "WLAN network interface",
+        "sysfs_id": "/class/net/wlan0",
+        "sysfs_device_link": "/devices/platform/soc/3f300000.mmcnr/mmc_host/mmc1/mmc1:0001/mmc1:0001:1",
+        "unix_device_names": ["wlan0"],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 98
+          },
+          {
+            "type": "phwaddr",
+            "address": 98
+          }
+        ],
+        "driver": "brcmfmac",
+        "driver_module": "brcmfmac",
+        "drivers": ["brcmfmac"],
+        "driver_modules": ["brcmfmac", "brcmfmac", "brcmfmac"]
+      },
+      {
+        "index": 35,
+        "attached_to": 0,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": ["lo"]
+      },
+      {
+        "index": 36,
         "attached_to": 10,
         "class_list": ["network_interface"],
         "base_class": {
@@ -1010,57 +1064,6 @@
         "driver_module": "lan78xx",
         "drivers": ["lan78xx"],
         "driver_modules": ["lan78xx"]
-      },
-      {
-        "index": 35,
-        "attached_to": 8,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "000a",
-          "name": "WLAN",
-          "value": 10
-        },
-        "model": "WLAN network interface",
-        "sysfs_id": "/class/net/wlan0",
-        "sysfs_device_link": "/devices/platform/soc/3f300000.mmcnr/mmc_host/mmc1/mmc1:0001/mmc1:0001:1",
-        "unix_device_names": ["wlan0"],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 53
-          },
-          {
-            "type": "phwaddr",
-            "address": 98
-          }
-        ],
-        "driver": "brcmfmac",
-        "driver_module": "brcmfmac",
-        "drivers": ["brcmfmac"],
-        "driver_modules": ["brcmfmac", "brcmfmac", "brcmfmac"]
-      },
-      {
-        "index": 36,
-        "attached_to": 0,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": ["lo"]
       }
     ],
     "system": {},
