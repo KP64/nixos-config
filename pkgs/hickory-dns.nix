@@ -7,18 +7,18 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hickory-dns";
-  version = "unstable-2026-03-31";
+  version = "unstable-2026-04-02";
 
   src = fetchFromGitHub {
     owner = "hickory-dns";
     repo = "hickory-dns";
-    rev = "b57b7aec2c6c18d64b90f01c97595171963e0e56";
-    hash = "sha256-SZBkXqe0MRO4TLFcVNDvTo6MX2zwG+zZ5OBQkZOxE/Y=";
+    rev = "54a81deefb24bb97df466b9032d5928345fffdde";
+    hash = "sha256-jD9P1bf7X15VSuBAc1HOjLqIVsy9cXKoLfyLjYMtz1o=";
   };
 
   __structuredAttrs = true;
 
-  cargoHash = "sha256-FfckN+qhSqbc8jnL0xThdAMQEgluocSY1ksEyT8rFFY=";
+  cargoHash = "sha256-jewXZkVNQhSngFFn5BlyEsmTeJzHkgvPK0f65wiQrU4=";
 
   buildFeatures = [
     "tls-ring" # DoT
