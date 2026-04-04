@@ -1,13 +1,16 @@
 toplevel: {
   flake.modules.nixos.hosts-aladdin =
     { config, lib, ... }:
+    let
+      zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;
+    in
     {
       imports = [ toplevel.config.flake.modules.nixos.ip ];
 
       sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
       networking = {
-        inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
+        inherit (zarqaCfg.networking) domain;
         # Let systemd configure everything
         useDHCP = false;
         dhcpcd.enable = false;
@@ -29,26 +32,23 @@ toplevel: {
           name = "wlp6s0";
           address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.2.1" ];
-          dns =
-            map (qdns: "${qdns}#dns.quad9.net") [
-              "9.9.9.9"
-              "149.112.112.112"
-              "2620:fe::fe"
-              "2620:fe::9"
-            ]
-            ++ map (cdns: "${cdns}#cloudflare-dns.com") [
-              "1.1.1.1"
-              "1.0.0.1"
-              "2606:4700:4700::1111"
-              "2606:4700:4700::1001"
-            ];
+          dns = [ zarqaCfg.staticIPv4 ];
+          dhcpV4Config.UseDNS = false;
+          dhcpV6Config.UseDNS = false;
+          ipv6AcceptRAConfig.UseDNS = false;
           networkConfig =
             let
               inherit (lib) boolToYesNo;
             in
             {
-              DNSSEC = boolToYesNo true;
-              DNSOverTLS = boolToYesNo true;
+              DHCP = boolToYesNo true;
+              IPv6AcceptRA = true;
+
+              DNSSEC = "allow-downgrade";
+              DNSOverTLS = "opportunistic";
+              # TODO: Reenforce when I figure Hickory DNS out.
+              # DNSSEC = boolToYesNo true;
+              # DNSOverTLS = boolToYesNo true;
               MulticastDNS = boolToYesNo true;
               LLMNR = boolToYesNo false;
             };
