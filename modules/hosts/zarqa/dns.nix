@@ -147,7 +147,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     };
                   }
                   rec {
-                    zone = "home.arpa";
+                    zone = "srvd.space";
                     file = dnsUtil.writeZone zone rec {
                       TTL = 60;
                       SOA = {
@@ -155,16 +155,21 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                         adminEmail = nixos.config.invisible.email;
                         serial = 2026040200;
                       };
-                      NS = [ "ns.home.arpa." ];
+                      NS =
+                        subdomains
+                        |> builtins.attrNames
+                        |> lib.filter (lib.hasPrefix "ns")
+                        |> map (nsdomain: "${nsdomain}.${zone}.");
                       A = [ nixos.config.staticIPv4 ];
                       subdomains =
                         let
                           mahdiIp = toplevel.config.flake.nixosConfigurations.mahdi.config.staticIPv4;
                         in
                         {
-                          "ns" = { inherit A; };
-                          "overflow" = { inherit A; };
-                          "dumb" = { inherit A; };
+                          ns = { inherit A; };
+                          overflow = { inherit A; };
+                          dumb = { inherit A; };
+
                           "*".A = [ mahdiIp ];
                         };
                     };
