@@ -12,14 +12,23 @@ toplevel@{ inputs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };
 
-      inherit (toplevel.config.lib.flake.util) getSopsFiles mapIfAvailable;
+      inherit (toplevel.config.lib.flake.util) mapIfAvailable;
 
       getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
       nixosConfigs = getConfigs toplevel.config.flake.nixosConfigurations;
       hmConfigs = getConfigs toplevel.config.flake.homeConfigurations;
 
+      mapCfgToSecrets = mapIfAvailable {
+        needs = "sops";
+        extraAccess = [ "secrets" ];
+      };
+
       getRelativePath =
         paths: paths |> map (p: p |> toString |> builtins.match ".*(modules/.*)" |> builtins.head);
+
+      getSecretsPaths =
+        secrets:
+        secrets |> builtins.attrValues |> map (secret: secret.sopsFile) |> lib.flatten |> getRelativePath;
 
       nixosUserHmConfigs =
         nixosConfigs
@@ -36,24 +45,8 @@ toplevel@{ inputs, ... }:
         |> builtins.filter (p: p != null)
         |> getRelativePath;
 
-      hostSopsFiles =
-        nixosConfigs
-        |> mapIfAvailable {
-          needs = "sops";
-          extraAccess = [ "secrets" ];
-        }
-        |> map getSopsFiles
-        |> lib.flatten
-        |> getRelativePath;
-
-      getHmUserSopsFiles =
-        hmConfig:
-        hmConfig
-        |> lib.filter (user: user ? sops)
-        |> map (user: user.sops.secrets)
-        |> map getSopsFiles
-        |> lib.flatten
-        |> getRelativePath;
+      hostSopsFiles = nixosConfigs |> mapCfgToSecrets |> getSecretsPaths;
+      getHmUserSopsFiles = hmConfig: hmConfig |> mapCfgToSecrets |> getSecretsPaths;
     in
     {
       treefmt = {
