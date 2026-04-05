@@ -58,9 +58,5 @@
           })
         ];
       };
-
-    homeManager.yubikey = {
-      services.yubikey-agent.enable = true;
-    };
   };
 }
