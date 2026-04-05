@@ -84,14 +84,5 @@
         attribute and maps to subattributes via extraAccess
       '';
     };
-
-    getSopsFiles = {
-      type = with lib.types; functionTo (listOf path);
-      fn = secrets: secrets |> builtins.attrValues |> map (secret: secret.sopsFile);
-      description = ''
-        Gets all files used for sops secrets for the
-        passed in configuration.
-      '';
-    };
   };
 }
