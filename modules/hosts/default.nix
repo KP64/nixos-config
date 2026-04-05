@@ -21,6 +21,7 @@ in
             modules =
               # Modules that should be made available for everyone.
               (with toplevel.config.flake.modules.nixos; [
+                auto-timezone
                 customLib
                 nix-unfree
               ])
@@ -64,7 +65,6 @@ in
                   boot.tmp.cleanOnBoot = true;
 
                   security.polkit.enable = true;
-                  services.automatic-timezoned.enable = true;
 
                   # From perlless profile
                   boot.initrd.systemd.enable = true;
