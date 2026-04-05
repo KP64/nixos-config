@@ -21,11 +21,6 @@ toplevel: {
         # settings = {
         # };
       };
-      services.gpg-agent = {
-        enable = true;
-        enableSshSupport = true;
-        # sshKeys = null;
-      };
 
       accounts.email.accounts.${username} = {
         primary = true;
