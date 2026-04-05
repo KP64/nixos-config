@@ -28,7 +28,11 @@ toplevel@{ inputs, ... }:
 
       getSecretsPaths =
         secrets:
-        secrets |> builtins.attrValues |> map (secret: secret.sopsFile) |> lib.flatten |> getRelativePath;
+        secrets
+        |> map builtins.attrValues
+        |> lib.flatten
+        |> map (secret: secret.sopsFile)
+        |> getRelativePath;
 
       nixosUserHmConfigs =
         nixosConfigs
