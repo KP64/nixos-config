@@ -2,6 +2,9 @@ toplevel: {
   flake.modules = {
     nixos.desktop =
       { config, lib, ... }:
+      let
+        anyHmUser = cond: config.home-manager.users |> builtins.attrValues |> builtins.any cond;
+      in
       {
         config = lib.mkMerge [
           {
@@ -10,14 +13,21 @@ toplevel: {
               wayland.enable = true;
             };
 
-            programs =
+            environment.pathsToLink =
               let
-                anyHmUser = cond: config.home-manager.users |> builtins.attrValues |> builtins.any cond;
+                portalActivated = anyHmUser (hmUserCfg: hmUserCfg.xdg.portal.enable);
               in
-              {
-                hyprland.enable = anyHmUser (hmUserCfg: hmUserCfg.wayland.windowManager.hyprland.enable);
-                niri.enable = anyHmUser (hmUserCfg: hmUserCfg.programs.niri.enable or false);
-              };
+              lib.optionals (config.home-manager.useUserPackages && portalActivated) (
+                map (d: "/share/${d}") [
+                  "applications"
+                  "xdg-desktop-portal"
+                ]
+              );
+
+            programs = {
+              hyprland.enable = anyHmUser (hmUserCfg: hmUserCfg.wayland.windowManager.hyprland.enable);
+              niri.enable = anyHmUser (hmUserCfg: hmUserCfg.programs.niri.enable or false);
+            };
 
             qt.enable = true;
 
