@@ -3,9 +3,9 @@
   #       and only public proxy is forwarded
   flake.modules.nixos.hosts-mahdi =
     { config, lib, ... }:
-    {
-      services = {
-        nginx.virtualHosts."immich.${config.networking.domain}" = lib.mkIf config.services.immich.enable {
+    lib.mkMerge [
+      (lib.mkIf config.services.immich.enable {
+        services.nginx.virtualHosts."immich.${config.networking.domain}" = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -22,7 +22,33 @@
           };
         };
 
-        immich = {
+        users.users.immich.extraGroups = lib.optionals config.hardware.graphics.enable (
+          map (group: group.name) (
+            with config.users.groups;
+            [
+              video
+              render
+            ]
+          )
+        );
+
+        # TODO: Check that this assertion works
+        assertions = [
+          {
+            assertion =
+              (config.services.immich.enable && config.hardware.graphics.enable)
+              -> (config.services.immich.accelerationDevice != [ ]);
+            message = ''
+              You already have graphics. Allow immich to use them.
+              To allow all graphics devices set accelerationDevice to null.
+              To allow specific devices set accelerationDevice to your preferred devices.
+              Note: Devices are under /dev/dri/render...
+            '';
+          }
+        ];
+      })
+      {
+        services.immich = {
           enable = false;
           settings = {
             passwordLogin.enabled = false;
@@ -39,6 +65,6 @@
               };
           };
         };
-      };
-    };
+      }
+    ];
 }
