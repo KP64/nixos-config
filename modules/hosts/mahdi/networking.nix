@@ -31,16 +31,12 @@ toplevel: {
           linkConfig.RequiredForOnline = "routable";
           address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.2.1" ];
-          dns = [ zarqaCfg.staticIPv4 ];
-          dhcpV4Config.UseDNS = false;
-          dhcpV6Config.UseDNS = false;
-          ipv6AcceptRAConfig.UseDNS = false;
+          dns = [ "192.168.2.1" ];
           networkConfig =
             let
               inherit (lib) boolToYesNo;
             in
             {
-              DHCP = boolToYesNo true;
               IPv6AcceptRA = true;
 
               DNSSEC = "allow-downgrade";
