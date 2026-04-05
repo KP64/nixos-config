@@ -58,7 +58,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             nix
             ssh
             vcs
-            yubikey
           ])
           ++ (with toplevel.config.flake.modules.homeManager; [
             users-kg-yazi
