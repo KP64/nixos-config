@@ -37,8 +37,6 @@ toplevel: {
               inherit (lib) boolToYesNo;
             in
             {
-              IPv6AcceptRA = true;
-
               DNSSEC = "allow-downgrade";
               DNSOverTLS = "opportunistic";
               # TODO: Reenforce when I figure Hickory DNS out.
