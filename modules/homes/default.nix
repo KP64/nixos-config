@@ -31,6 +31,7 @@ in
               modules =
                 (with config.flake.modules.homeManager; [
                   customLib
+                  home-manager
                   nix-unfree
                 ])
                 ++ [
@@ -42,7 +43,6 @@ in
                   { inherit hostname; }
 
                   {
-                    programs.home-manager.enable = true;
                     home = {
                       inherit username;
                       homeDirectory = "/home/${username}";

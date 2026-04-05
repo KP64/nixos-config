@@ -23,6 +23,7 @@ in
               (with toplevel.config.flake.modules.nixos; [
                 auto-timezone
                 customLib
+                home-manager
                 nix-unfree
               ])
               ++ [
@@ -33,30 +34,6 @@ in
                 { home-manager.sharedModules = [ inputs.nix-invisible.modules.homeManager.invisibility ]; }
 
                 module # The actual system config
-
-                # Custom HM Defaults
-                inputs.home-manager.nixosModules.default
-                (
-                  { config, ... }:
-                  {
-                    # TODO: Refine the config to support useGlobalPkgs
-                    #       without it being a hassle
-                    home-manager = {
-                      startAsUserService = true;
-                      useUserPackages = true;
-                      overwriteBackup = true;
-                      backupFileExtension = "hm-backup";
-                      sharedModules = [
-                        toplevel.config.flake.modules.homeManager.hostname
-                        { hostname = config.networking.hostName; }
-                      ];
-                    };
-                    environment.pathsToLink = map (d: "/share/${d}") [
-                      "applications"
-                      "xdg-desktop-portal"
-                    ];
-                  }
-                )
 
                 # Custom NixOS Defaults
                 {
