@@ -10,8 +10,8 @@
     {
       devShells.default = pkgs.mkShell {
         name = "config";
+
         # Required for qmlls to find the correct type declarations
-        # TODO: Check if this shouldn't better be done with makeLibraryPath
         QMLLS_BUILD_DIRS = lib.concatMapStringsSep ":" (p: "${p}/lib/qt-6/qml/") (
           with pkgs;
           [
