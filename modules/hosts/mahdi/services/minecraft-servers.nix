@@ -1,5 +1,6 @@
 { moduleWithSystem, inputs, ... }:
 {
+  # FIXME: Servers don't work anymore after update.
   flake.modules.nixos.hosts-mahdi = moduleWithSystem (
     { config, inputs', ... }:
     nixos@{ lib, ... }:
@@ -95,6 +96,8 @@
         servers = {
           Proxy = {
             enable = true;
+            # TODO: Figure out if it makes sense to introduce L4 Reverse Proxy
+            #       (possibly replacing caddy) So that this port can be closed.
             openFirewall = true;
             package = mcPkgs.velocity-server;
             # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
