@@ -34,7 +34,7 @@
           xwayland-satellite.path = lib.getExe xwayland-satellite-unstable;
           prefer-no-csd = true;
           environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";
-          clipboard.disable-primary = true; # Disable middle click paste
+          clipboard.disable-primary = true; # Disables middle click paste
           gestures.hot-corners.enable = false;
           hotkey-overlay.skip-at-startup = true;
           overview = {
@@ -294,20 +294,8 @@
               };
             }
             // (
-              {
-                key = [
-                  "H"
-                  "J"
-                  "K"
-                  "L"
-                ];
-                cmd = [
-                  "focus-monitor"
-                  "move-column-to-monitor"
-                  "move-workspace-to-monitor"
-                ];
-              }
-              |> lib.mapCartesianProduct (
+              builtins.listToAttrs
+              <| lib.mapCartesianProduct (
                 { key, cmd }:
                 let
                   direction = builtins.getAttr key {
@@ -324,7 +312,19 @@
                 in
                 lib.nameValuePair "Mod+${combination}+${key}" { action."${cmd}-${direction}" = { }; }
               )
-              |> builtins.listToAttrs
+              <| {
+                key = [
+                  "H"
+                  "J"
+                  "K"
+                  "L"
+                ];
+                cmd = [
+                  "focus-monitor"
+                  "move-column-to-monitor"
+                  "move-workspace-to-monitor"
+                ];
+              }
             )
             // (
               9
