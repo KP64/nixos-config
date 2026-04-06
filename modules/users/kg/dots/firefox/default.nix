@@ -24,34 +24,40 @@ toplevel@{ inputs, moduleWithSystem, ... }:
         profiles.${config.home.username} = {
           extraConfig = builtins.readFile (inputs.better-fox + /user.js);
 
-          settings = toFlattenedByDots {
-            network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
-            # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
-            extensions.autoDisableScopes = 0;
-            dom.security.https_only_mode = true;
-            identity.sync.tokenserver.uri = "${mahdi.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
-            general.autoScroll = true;
-            sidebar.verticalTabs = true;
-            browser = {
-              startup.homepage = "http://127.0.0.1:${toString config.services.glance.settings.server.port}";
-              newtabpage = {
-                enabled = true;
-                activity-stream = {
-                  showSearch = false;
-                  showSponsoredCheckboxes = false;
-                  showSponsoredTopSites = false;
-                  showSponsored = false;
-                  feeds = {
-                    topsites = false;
-                    section = {
-                      topstories = false;
-                      highlights = false;
+          settings =
+            toFlattenedByDots
+            <| lib.recursiveUpdate (
+              lib.optionalAttrs config.services.glance.enable {
+                browser.startup.homepage = "http://127.0.0.1:${toString config.services.glance.settings.server.port}";
+              }
+            )
+            <| {
+              network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
+              # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
+              extensions.autoDisableScopes = 0;
+              dom.security.https_only_mode = true;
+              identity.sync.tokenserver.uri = "${mahdi.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
+              general.autoScroll = true;
+              sidebar.verticalTabs = true;
+              browser = {
+                newtabpage = {
+                  enabled = true;
+                  activity-stream = {
+                    showSearch = false;
+                    showSponsoredCheckboxes = false;
+                    showSponsoredTopSites = false;
+                    showSponsored = false;
+                    feeds = {
+                      topsites = false;
+                      section = {
+                        topstories = false;
+                        highlights = false;
+                      };
                     };
                   };
                 };
               };
             };
-          };
 
           containersForce = true;
           bookmarks = {
