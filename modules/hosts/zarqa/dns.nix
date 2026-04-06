@@ -14,18 +14,19 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
       networking = {
         resolvconf.useLocalResolver = true;
-        firewall =
-          let
-            inherit (nixos.config.services) hickory-dns;
-            dns = [ hickory-dns.settings.listen_port ];
-            usesDoT = builtins.any (
-              zone: zone ? stores.opportunistic_encryption.enabled
-            ) hickory-dns.settings.zones;
-          in
-          {
-            allowedTCPPorts = dns ++ lib.optional usesDoT 853;
-            allowedUDPPorts = dns;
-          };
+        # TODO: Reenable once DNS should be public
+        # firewall =
+        #   let
+        #     inherit (nixos.config.services) hickory-dns;
+        #     dns = [ hickory-dns.settings.listen_port ];
+        #     usesDoT = builtins.any (
+        #       zone: zone ? stores.opportunistic_encryption.enabled
+        #     ) hickory-dns.settings.zones;
+        #   in
+        #   {
+        #     allowedTCPPorts = dns ++ lib.optional usesDoT 853;
+        #     allowedUDPPorts = dns;
+        #   };
       };
 
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
