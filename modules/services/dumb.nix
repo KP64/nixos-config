@@ -26,7 +26,7 @@ toplevel@{ moduleWithSystem, ... }:
         topology = lib.mkIf (nixos.config ? topology) {
           self.services.dumb = {
             name = "Dumb";
-            icon = toplevel.config.lib.flake.util.getIcon {
+            icon = toplevel.config.lib.flake.util.getAsset {
               file = "dumb.png";
               type = "icons";
             };

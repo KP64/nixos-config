@@ -56,7 +56,7 @@
       '';
     };
 
-    getIcon = {
+    getAsset = {
       type = with lib.types; functionTo path;
       fn =
         { file, type }:

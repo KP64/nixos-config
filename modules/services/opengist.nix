@@ -56,7 +56,7 @@ toplevel: {
         topology = lib.mkIf (config ? topology) {
           self.services.opengist = {
             name = "Opengist";
-            icon = toplevel.config.lib.flake.util.getIcon {
+            icon = toplevel.config.lib.flake.util.getAsset {
               file = "opengist.svg";
               type = "icons";
             };
