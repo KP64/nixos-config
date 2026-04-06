@@ -4,7 +4,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
     { inputs', ... }:
     { config, lib, ... }:
     let
-      inherit (toplevel.config.lib.flake.util) getIcon toFlattenedByDots;
+      inherit (toplevel.config.lib.flake.util) getAsset toFlattenedByDots;
       inherit (toplevel.config.flake.nixosConfigurations) mahdi;
       inherit (config.lib.firefox) hideEngines;
     in
@@ -129,7 +129,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
             privateDefault = "SearXNG";
             engines =
               let
-                nix-icon = getIcon {
+                nix-icon = getAsset {
                   file = "nix.svg";
                   type = "icons";
                 };
@@ -158,7 +158,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
                       ];
                     }
                   ];
-                  icon = getIcon {
+                  icon = getAsset {
                     file = "searxng.svg";
                     type = "icons";
                   };

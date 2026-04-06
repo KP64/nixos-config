@@ -3,12 +3,12 @@ toplevel: {
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
-      inherit (toplevel.config.lib.flake.util) getIcon;
+      inherit (toplevel.config.lib.flake.util) getAsset;
     in
     {
       topology.self = {
         hardware = {
-          image = getIcon {
+          image = getAsset {
             file = "rpi4.png";
             type = "topology";
           };

@@ -163,12 +163,12 @@ toplevel: {
 
           systems.oauth2 =
             let
-              inherit (toplevel.config.lib.flake.util) getIcon;
+              inherit (toplevel.config.lib.flake.util) getAsset;
             in
             {
               coder = {
                 displayName = "coder";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "coder.svg";
                   type = "icons";
                 };
@@ -184,7 +184,7 @@ toplevel: {
               };
               forgejo = {
                 displayName = "forgejo";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "forgejo.svg";
                   type = "icons";
                 };
@@ -200,7 +200,7 @@ toplevel: {
               };
               karakeep = {
                 displayName = "karakeep";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "karakeep.svg";
                   type = "icons";
                 };
@@ -217,7 +217,7 @@ toplevel: {
               };
               open-webui = {
                 displayName = "open-webui";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "open-webui.svg";
                   type = "icons";
                 };
@@ -246,7 +246,7 @@ toplevel: {
               };
               opengist = {
                 displayName = "opengist";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "opengist.svg";
                   type = "icons";
                 };
@@ -264,7 +264,7 @@ toplevel: {
               };
               zipline = {
                 displayName = "zipline";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "zipline.svg";
                   type = "icons";
                 };
@@ -282,7 +282,7 @@ toplevel: {
               };
               komga = {
                 displayName = "komga";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "komga.svg";
                   type = "icons";
                 };
@@ -302,7 +302,7 @@ toplevel: {
                 in
                 {
                   displayName = "stirling-pdf";
-                  imageFile = getIcon {
+                  imageFile = getAsset {
                     file = "stirling-pdf.svg";
                     type = "icons";
                   };
@@ -320,7 +320,7 @@ toplevel: {
                 };
               vaultwarden = {
                 displayName = "vaultwarden";
-                imageFile = getIcon {
+                imageFile = getAsset {
                   file = "vaultwarden.svg";
                   type = "icons";
                 };

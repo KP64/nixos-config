@@ -7,12 +7,12 @@ in
     { config, ... }:
     let
       topologyLib = config.lib.topology;
-      inherit (toplevel.config.lib.flake.util) getIcon;
+      inherit (toplevel.config.lib.flake.util) getAsset;
     in
     {
       nodes.${hostName} = {
         deviceType = "device";
-        deviceIcon = getIcon {
+        deviceIcon = getAsset {
           file = "arch.svg";
           type = "topology";
         };
@@ -22,7 +22,7 @@ in
         };
         hardware = {
           info = "Lenovo Yoga 370";
-          image = getIcon {
+          image = getAsset {
             file = "lenovo-yoga-370.png";
             type = "topology";
           };

@@ -6,14 +6,14 @@ toplevel@{ inputs, ... }:
     { config, ... }:
     let
       topologyLib = config.lib.topology;
-      inherit (toplevel.config.lib.flake.util) getIcon;
+      inherit (toplevel.config.lib.flake.util) getAsset;
     in
     {
       nodes = {
         internet = topologyLib.mkInternet { connections = topologyLib.mkConnectionRev "router" "WAN1"; };
         router = topologyLib.mkRouter "Speedport" {
           info = "Smart 4";
-          image = getIcon {
+          image = getAsset {
             file = "speedport.png";
             type = "topology";
           };
