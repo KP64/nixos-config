@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+toplevel@{ self, inputs, ... }:
 {
   flake.modules.homeManager.users-kg-noctalia-shell =
     { config, lib, ... }:
@@ -7,10 +7,9 @@
 
       home.file.".cache/noctalia/wallpapers.json" = lib.mkIf config.programs.noctalia-shell.enable {
         text = builtins.toJSON {
-          defaultWallpaper = builtins.path {
-            name = "wp";
-            path = self + /assets/wallpapers/catppuccin/cabin.png;
-            recursive = false;
+          defaultWallpaper = toplevel.config.lib.flake.util.getAsset {
+            file = "cabin.png";
+            type = "wallpapers/catppuccin";
           };
         };
       };
