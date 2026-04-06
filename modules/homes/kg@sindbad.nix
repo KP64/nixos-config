@@ -56,8 +56,6 @@ in
         ];
       };
 
-      targets.genericLinux.enable = true;
-
       # NOTE: Works with HM, but:
       #   - SDDM won't find it.
       #   - pacman installed portal doesn't work with HM hyprland

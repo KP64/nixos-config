@@ -21,10 +21,12 @@ in
           userHostSplit = lib.splitString infix userHost;
           username = builtins.head userHostSplit;
           hostname = lib.last userHostSplit;
+
+          host = config.additionalHosts.${hostname};
         in
         {
           name = userHost;
-          value = withSystem config.additionalHosts.${hostname}.system (
+          value = withSystem host.system (
             { pkgs, ... }:
             inputs.home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
@@ -34,14 +36,14 @@ in
                   home-manager
                   nix-unfree
                 ])
+                ++ host.modules
                 ++ [
-                  module
-
-                  inputs.nix-invisible.modules.homeManager.invisibility
-
                   config.flake.modules.homeManager.hostname
                   { inherit hostname; }
-
+                ]
+                ++ [
+                  module
+                  inputs.nix-invisible.modules.homeManager.invisibility
                   {
                     home = {
                       inherit username;
