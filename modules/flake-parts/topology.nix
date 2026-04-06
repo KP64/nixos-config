@@ -20,7 +20,7 @@ toplevel@{ inputs, ... }:
           interfaceGroups = [
             [ "wifi" ]
             [ "Link/LAN1" ]
-            (3 |> builtins.genList (i: "LAN${toString <| i + 2}"))
+            (3 |> builtins.genList (i: "LAN${toString (i + 2)}"))
             [ "WAN1" ]
           ];
         };
