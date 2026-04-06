@@ -55,13 +55,5 @@ in
           noto-fonts-color-emoji # Needed for icons
         ];
       };
-
-      # NOTE: Works with HM, but:
-      #   - SDDM won't find it.
-      #   - pacman installed portal doesn't work with HM hyprland
-      wayland.windowManager.hyprland = {
-        package = null;
-        portalPackage = null;
-      };
     };
 }
