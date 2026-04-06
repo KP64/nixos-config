@@ -6,7 +6,7 @@
         collectMods = {
           type = with lib.types; functionTo package;
           fn = mods: mods |> builtins.attrValues |> map pkgs.fetchurl |> pkgs.linkFarmFromDrvs "mods";
-          description = "Takes in an Attribute of mods and generates a derivation out of them.";
+          description = "Converts an Attrset to a derivation of mods";
         };
       };
     };

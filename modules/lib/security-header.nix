@@ -11,10 +11,10 @@
             |> lib.mapAttrsToList (
               policy: value:
               let
-                prefixes = [
-                  "https:"
-                  "data:"
-                  "blob:"
+                prefixes = map (prefix: "${prefix}:") [
+                  "https"
+                  "data"
+                  "blob"
                 ];
                 processPolicyValue =
                   val: if (builtins.any (prefix: lib.hasPrefix prefix val) prefixes) then val else "'${val}'";
