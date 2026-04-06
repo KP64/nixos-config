@@ -16,9 +16,8 @@
     in
     {
       # This will use "${self}/dev/flake.nix"
-      extraInputsFlake = devPath; # devPath;
-      # While this will use "${self}/dev/default.nix"
-      module = devPath;
+      extraInputsFlake = devPath;
+      module = { inherit (inputs.import-tree (devPath + /modules)) imports; };
     };
 
   # Moving dev related stuff to the appropriate partition
