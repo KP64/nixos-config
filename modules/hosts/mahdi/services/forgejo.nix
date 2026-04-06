@@ -102,8 +102,9 @@
               DOMAIN = "forgejo.${config.networking.domain}";
               ROOT_URL = "https://${config.services.forgejo.settings.server.DOMAIN}";
 
-              START_SSH_SERVER = true; # Needed because isn't started by default.
-              SSH_PORT = 2222; # High port so that forgejo user can bind to it ;)
+              # TODO: Reenable once SSH hardening is figured out
+              # START_SSH_SERVER = true; # Needed because isn't started by default.
+              # SSH_PORT = 2222; # High port so that forgejo user can bind to it ;)
             };
             repository.DISABLE_HTTP_GIT = true;
             oauth2_client.ENABLE_AUTO_REGISTRATION = true;
