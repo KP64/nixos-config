@@ -28,7 +28,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
             toFlattenedByDots
             <| lib.recursiveUpdate (
               lib.optionalAttrs config.services.glance.enable {
-                browser.startup.homepage = "http://127.0.0.1:${toString config.services.glance.settings.server.port}";
+                browser.startup.homepage = "http://${config.services.glance.settings.server.host}:${toString config.services.glance.settings.server.port}";
               }
             )
             <| {
