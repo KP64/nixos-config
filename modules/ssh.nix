@@ -1,12 +1,19 @@
 {
   flake.modules = {
     nixos.ssh = {
-      # TODO: Add a banner
       services.openssh = {
         enable = true;
         startWhenNeeded = true;
         # Only trust users.users.<name>.openssh.authorizedKeys.*
         authorizedKeysInHomedir = false;
+        banner = ''
+          Unauthorized connection is disallowed.
+          This connection may be monitored.
+          Even then I can't stop you since you've come so far ¯\_(ツ)_/¯.
+          Although you are most likely an adversary I can only
+          ask you to be a bro and disclose how you got in after
+          you've finished with your shenanigans X).
+        '';
         settings = {
           PermitRootLogin = "no";
           PasswordAuthentication = false;
