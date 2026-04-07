@@ -4,7 +4,10 @@
       enable = true;
       settings = {
         # Not necessary but nice for firefox
-        server.port = 8080;
+        server = {
+          host = "[::1]";
+          port = 8080;
+        };
 
         branding = {
           hide-footer = true;
