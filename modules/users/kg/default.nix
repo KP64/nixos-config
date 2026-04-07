@@ -6,10 +6,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
       {
         home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
 
-        # NOTE: kg (where defined) is usually admin of the device.
-        #       If this is undesired find a different solution.
-        services.openssh.settings.AllowUsers = [ config.users.users.kg.name ];
-
         sops.secrets =
           let
             sopsFile = ./secrets.yaml;
