@@ -1,26 +1,8 @@
-toplevel@{ moduleWithSystem, inputs, ... }:
+{ moduleWithSystem, inputs, ... }:
 {
   flake.modules.nixos.hosts-zarqa = moduleWithSystem (
     { config, system, ... }:
-    nixos@{ lib, ... }:
-    {
-      networking = {
-        resolvconf.useLocalResolver = true;
-        # TODO: Reenable once DNS should be public
-        # firewall =
-        #   let
-        #     inherit (nixos.config.services) hickory-dns;
-        #     dns = [ hickory-dns.settings.listen_port ];
-        #     usesDoT = builtins.any (
-        #       zone: zone ? stores.opportunistic_encryption.enabled
-        #     ) hickory-dns.settings.zones;
-        #   in
-        #   {
-        #     allowedTCPPorts = dns ++ lib.optional usesDoT 853;
-        #     allowedUDPPorts = dns;
-        #   };
-      };
-
+    nixos: {
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
       #       This is needed so that we can set an owner to Hickory.
       users = {
@@ -35,18 +17,19 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         Group = nixos.config.users.users.hickory-dns.group;
       };
 
+      networking.resolvconf.useLocalResolver = true;
+
       services = {
         resolved.enable = false;
 
         # NOTE: All paths should be fully qualified. There is some janky behaviour if not.
         hickory-dns = {
           enable = true;
-          quiet = true; # They are logging wayyy too much (not a bad thing)
+          quiet = true;
           package = config.packages.hickory-dns;
           settings =
             let
               dnsLib = inputs.dns.lib;
-              # inherit (dnsLib.combinators) letsEncrypt;
               dnsUtil = inputs.dns.util.${system};
             in
             {
@@ -137,34 +120,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                             "1.1.1.1"
                             "1.0.0.1"
                           ];
-                    };
-                  }
-                  rec {
-                    zone = "srvd.space";
-                    file = dnsUtil.writeZone zone rec {
-                      TTL = 60;
-                      SOA = {
-                        nameServer = builtins.head NS;
-                        adminEmail = nixos.config.invisible.email;
-                        serial = 2026040200;
-                      };
-                      NS =
-                        subdomains
-                        |> builtins.attrNames
-                        |> lib.filter (lib.hasPrefix "ns")
-                        |> map (nsdomain: "${nsdomain}.${zone}.");
-                      A = [ nixos.config.staticIPv4 ];
-                      subdomains =
-                        let
-                          mahdiIp = toplevel.config.flake.nixosConfigurations.mahdi.config.staticIPv4;
-                        in
-                        {
-                          ns = { inherit A; };
-                          overflow = { inherit A; };
-                          dumb = { inherit A; };
-
-                          "*".A = [ mahdiIp ];
-                        };
                     };
                   }
                 ];
