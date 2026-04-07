@@ -27,7 +27,7 @@ toplevel@{ moduleWithSystem, ... }:
           self.services.dumb = {
             name = "Dumb";
             icon = toplevel.config.lib.flake.util.getAsset {
-              file = "dumb.png";
+              file = "dumb.svg";
               type = "icons";
             };
             details.listen = lib.mkIf cfg.openFirewall { text = "http://127.0.0.1:${toString cfg.port}"; };
