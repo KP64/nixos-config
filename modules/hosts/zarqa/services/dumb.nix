@@ -10,7 +10,7 @@ toplevel: {
       services = {
         caddy.virtualHosts."dumb.${config.networking.domain}".extraConfig = # caddy
           ''
-            reverse_proxy http://127.0.0.1:${toString config.services.dumb.port}
+            reverse_proxy http://[::1]:${toString config.services.dumb.port}
 
             header {
                 Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"

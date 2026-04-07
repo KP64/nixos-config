@@ -12,7 +12,7 @@ toplevel@{ moduleWithSystem, ... }:
         package = lib.mkPackageOption config.packages "anonymousoverflow" { };
         host = lib.mkOption {
           type = with lib.types; nullOr nonEmptyStr;
-          default = "127.0.0.1";
+          default = "[::1]";
           example = "0.0.0.0";
           description = "Where it should listen.";
         };
