@@ -4,14 +4,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
     { config, system, ... }:
     nixos@{ lib, ... }:
     {
-      sops.secrets =
-        let
-          owner = nixos.config.users.users.hickory-dns.name;
-        in
-        {
-          zone_signing_key = { inherit owner; };
-        };
-
       networking = {
         resolvconf.useLocalResolver = true;
         # TODO: Reenable once DNS should be public
