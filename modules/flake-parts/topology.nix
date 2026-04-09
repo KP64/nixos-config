@@ -28,6 +28,7 @@ toplevel@{ inputs, ... }:
       networks.home = {
         name = "Home Network";
         cidrv4 = "192.168.2.0/24";
+        cidrv6 = "fdef:fa6a:4724:1::/64";
       };
     }
   );
