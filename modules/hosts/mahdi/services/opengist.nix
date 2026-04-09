@@ -12,8 +12,7 @@ toplevel: {
         (lib.mkIf config.services.opengist.enable {
           sops.secrets."opengist.env" = { };
 
-          # TODO: Reenable once SSH hardening is figured out
-          # networking.firewall.allowedTCPPorts = [ config.services.opengist.environment.OG_SSH_PORT ];
+          networking.firewall.allowedTCPPorts = [ config.services.opengist.environment.OG_SSH_PORT ];
 
           services.nginx.virtualHosts.${domain} = {
             enableACME = true;
