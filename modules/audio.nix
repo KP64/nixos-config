@@ -12,7 +12,6 @@
 
     services.pipewire = {
       enable = true;
-      raopOpenFirewall = true;
       alsa = {
         enable = true;
         support32Bit = true;
