@@ -25,6 +25,7 @@ toplevel: {
       };
 
       staticIPv4 = "192.168.2.221";
+      staticIPv6 = "fdef:fa6a:4724:1:cab2:9bff:fe3b:a3d";
 
       systemd.network = {
         enable = true;
