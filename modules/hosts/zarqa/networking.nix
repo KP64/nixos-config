@@ -24,6 +24,7 @@ toplevel: {
       boot.initrd.systemd.network.wait-online.anyInterface = true;
 
       staticIPv4 = "192.168.2.201";
+      staticIPv6 = "fdef:fa6a:4724:1:ba27:ebff:fe50:dae2";
 
       systemd.network = {
         enable = true;
