@@ -7,6 +7,7 @@
     {
       services.ollama = {
         enable = true;
+        host = "[::1]";
         syncModels = true;
         loadModels = [
           "embeddinggemma:300m"
