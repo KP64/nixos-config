@@ -1,7 +1,6 @@
 {
   # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
   # TODO: Add more/missing Security headers
-  # TODO: Disable caching from OAauth endpoints!
   flake.modules.nixos.hosts-mahdi =
     {
       config,
@@ -12,9 +11,9 @@
     {
       networking.firewall =
         let
-          ssl = lib.optional config.services.nginx.enable config.services.nginx.defaultSSLListenPort;
+          ssl = [ config.services.nginx.defaultSSLListenPort ];
         in
-        {
+        lib.mkIf config.services.nginx.enable {
           allowedTCPPorts = ssl;
           # QUIC uses UDP
           allowedUDPPorts = ssl;
@@ -26,6 +25,11 @@
       #  - https://www.ssllabs.com/
       services.nginx = {
         enable = true;
+
+        defaultListenAddresses = [
+          config.staticIPv4
+        ]
+        ++ lib.optional config.networking.enableIPv6 "[${config.staticIPv6}]";
 
         package = pkgs.nginxMainline;
         enableQuicBPF = true;

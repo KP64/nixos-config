@@ -1,4 +1,4 @@
-{
+toplevel: {
   flake.modules.nixos.hosts-zarqa =
     {
       config,
@@ -33,6 +33,23 @@
                 api_secret_key {env.PORKBUN_SECRET_API_KEY}
             }
           '';
+        virtualHosts =
+          let
+            mahdiCfg = toplevel.config.flake.nixosConfigurations.mahdi.config;
+          in
+          lib.mkIf mahdiCfg.services.nginx.enable (
+            mahdiCfg.services.nginx.virtualHosts
+            |> lib.filterAttrs (n: _: lib.hasSuffix ".${config.networking.domain}" n)
+            |> lib.mapAttrs' (
+              vhostDomain: _: {
+                name = vhostDomain;
+                value.extraConfig = # caddy
+                  ''
+                    reverse_proxy https://${vhostDomain}
+                  '';
+              }
+            )
+          );
       };
     };
 }
