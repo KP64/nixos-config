@@ -1,8 +1,9 @@
-{ moduleWithSystem, inputs, ... }:
+toplevel@{ moduleWithSystem, inputs, ... }:
 {
   flake.modules.nixos.hosts-zarqa = moduleWithSystem (
     { config, system, ... }:
-    nixos: {
+    nixos@{ lib, ... }:
+    {
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
       #       This is needed so that we can set an owner to Hickory.
       users = {
@@ -120,6 +121,38 @@
                             "1.1.1.1"
                             "1.0.0.1"
                           ];
+                    };
+                  }
+                  rec {
+                    zone = "srvd.space";
+                    file = dnsUtil.writeZone zone rec {
+                      TTL = 60;
+                      SOA = {
+                        nameServer = builtins.head NS;
+                        adminEmail = nixos.config.invisible.email;
+                        serial = 2026040900;
+                      };
+                      NS =
+                        subdomains
+                        |> builtins.attrNames
+                        |> lib.filter (lib.hasPrefix "ns")
+                        |> map (nsdomain: "${nsdomain}.${zone}.");
+                      A = [ nixos.config.staticIPv4 ];
+                      AAAA = [ nixos.config.staticIPv6 ];
+                      subdomains =
+                        let
+                          mahdiCfg = toplevel.config.flake.nixosConfigurations.mahdi.config;
+                        in
+                        {
+                          ns = { inherit A AAAA; };
+                          overflow = { inherit A AAAA; };
+                          dumb = { inherit A AAAA; };
+                          redlib = { inherit A AAAA; };
+                          "*" = {
+                            A = [ mahdiCfg.staticIPv4 ];
+                            AAAA = [ mahdiCfg.staticIPv6 ];
+                          };
+                        };
                     };
                   }
                 ];
