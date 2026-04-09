@@ -133,13 +133,14 @@ toplevel@{ inputs, ... }:
             isolated = true;
             configFile = toString (
               tomlFormat.generate "typos" {
-                default.extend-words = lib.genAttrs [
+                default.extend-words = lib.flip lib.genAttrs (w: w) [
                   "enew"
                   "ede"
                   "facter"
                   "noice"
                   "HAE" # LTT Channel ID
-                ] (name: name);
+                  "ba" # Part of zarqa's IPv6 address
+                ];
                 files.extend-exclude = facterFiles;
               }
             );
