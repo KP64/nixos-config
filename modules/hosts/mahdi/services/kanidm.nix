@@ -96,9 +96,7 @@ toplevel: {
             };
             ja = {
               displayName = "ja";
-              groups = [
-                "open-webui.access"
-              ];
+              groups = [ "open-webui.access" ];
             };
             jehnsen = {
               displayName = "jehnsen";
