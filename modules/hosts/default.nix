@@ -50,7 +50,10 @@ in
 
                   networking = {
                     inherit hostName;
-                    nftables.enable = true;
+                    nftables = {
+                      enable = true;
+                      flattenRulesetFile = true;
+                    };
                   };
                 }
               ]
