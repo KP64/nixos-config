@@ -39,6 +39,10 @@
           1
           4
         ]
+        ++ genModelTypes "gemma4" [
+          "e2"
+          "e4"
+        ]
         ++ genModelTypes "llama3.2" [
           1
           3
