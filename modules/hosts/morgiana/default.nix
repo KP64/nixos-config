@@ -18,7 +18,6 @@ toplevel@{ inputs, ... }:
         raspberry-pi-4.base
       ])
       ++ (with toplevel.config.flake.modules.nixos; [
-        catppuccin
         nix
         rpi-cache
         ssh

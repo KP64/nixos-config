@@ -19,6 +19,9 @@ toplevel: {
         };
       };
 
+      systemd.network.wait-online.anyInterface = true;
+      boot.initrd.systemd.network.wait-online.anyInterface = true;
+
       staticIPv4 = "192.168.2.212";
 
       systemd.network = {
@@ -27,19 +30,7 @@ toplevel: {
           name = "wlan0";
           address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.2.1" ];
-          dns =
-            map (qdns: "${qdns}#dns.quad9.net") [
-              "9.9.9.9"
-              "149.112.112.112"
-              "2620:fe::fe"
-              "2620:fe::9"
-            ]
-            ++ map (cdns: "${cdns}#cloudflare-dns.com") [
-              "1.1.1.1"
-              "1.0.0.1"
-              "2606:4700:4700::1111"
-              "2606:4700:4700::1001"
-            ];
+          dns = [ "192.168.2.1" ];
           networkConfig = {
             DNSSEC = "allow-downgrade";
             DNSOverTLS = "opportunistic";
