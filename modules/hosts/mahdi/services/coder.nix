@@ -55,7 +55,7 @@
               { channel = "mainline"; };
           accessUrl = "https://${domain}";
           wildcardAccessUrl = "*.${domain}";
-          listenAddress = "127.0.0.1:45467";
+          listenAddress = "[::1]:45467";
           environment.extra =
             let
               CODER_OIDC_CLIENT_ID = "coder";

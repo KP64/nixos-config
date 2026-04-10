@@ -78,7 +78,7 @@
             ip_lists = {
               pass_searxng_org = true;
               pass_ip = [
-                "192.168.0.0/16"
+                "192.168.2.0/24"
                 "fe80::/10"
               ];
             };

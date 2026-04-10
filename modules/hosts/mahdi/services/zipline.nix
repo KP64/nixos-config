@@ -16,7 +16,7 @@
           onlySSL = true;
           kTLS = true;
           locations."/" = {
-            proxyPass = "http://${cfg.settings.CORE_HOSTNAME}:${toString cfg.settings.CORE_PORT}";
+            proxyPass = "http://[${cfg.settings.CORE_HOSTNAME}]:${toString cfg.settings.CORE_PORT}";
             extraConfig = # nginx
               ''
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
@@ -74,6 +74,7 @@
               OAUTH_OIDC_CLIENT_ID = "zipline";
             in
             {
+              CORE_HOSTNAME = "::1";
               CORE_PORT = 41355;
               CORE_SECRET = "$CORE_SECRET";
               CORE_RETURN_HTTPS_URLS = boolToString true;

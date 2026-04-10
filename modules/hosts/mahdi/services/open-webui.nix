@@ -17,7 +17,7 @@
           locations =
             let
               inherit (config.services.open-webui) host port;
-              proxyPass = "http://${host}:${toString port}";
+              proxyPass = "http://[${host}]:${toString port}";
             in
             {
               "/" = {
@@ -79,6 +79,7 @@
       {
         services.open-webui = {
           enable = true;
+          host = "::1";
           port = 11111;
           environment =
             let

@@ -48,6 +48,7 @@
           enable = true;
           environmentFile = config.sops.secrets."navidrome.env".path;
           settings = {
+            Address = "[::1]";
             BaseUrl = "https://${domain}";
             SearchFullString = true;
           };

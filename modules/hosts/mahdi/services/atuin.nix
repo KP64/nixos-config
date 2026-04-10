@@ -12,7 +12,7 @@
           onlySSL = true;
           kTLS = true;
           locations."/" = {
-            proxyPass = "http://${config.services.atuin.host}:${toString config.services.atuin.port}";
+            proxyPass = "http://[${config.services.atuin.host}]:${toString config.services.atuin.port}";
             extraConfig = # nginx
               ''
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
@@ -42,6 +42,7 @@
 
         atuin = {
           enable = true;
+          host = "::1";
           port = 33196;
           openRegistration = true;
         };
