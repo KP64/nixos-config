@@ -25,13 +25,16 @@ toplevel: {
       };
 
       staticIPv4 = "192.168.2.221";
-      staticIPv6 = "fdef:fa6a:4724:1:cab2:9bff:fe3b:a3d";
+      staticIPv6 = "fdef:fa6a:4724:1::221";
 
       systemd.network = {
         enable = true;
         networks."10-wlp6s0" = {
           name = "wlp6s0";
-          address = [ "${config.staticIPv4}/24" ];
+          address = [
+            "${config.staticIPv4}/24"
+            "${config.staticIPv6}/64"
+          ];
           gateway = [ "192.168.2.1" ];
           dns = [ "192.168.2.1" ];
           networkConfig =

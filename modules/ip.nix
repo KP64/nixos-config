@@ -13,12 +13,11 @@
           example = "192.168.2.204";
           description = "The static IPv4 Address of the machine";
         };
-        # TODO: Disallow null once other hosts are ready
         staticIPv6 = lib.mkOption {
-          default = null;
-          type = with lib.types; nullOr nonEmptyStr;
+          readOnly = true;
+          type = lib.types.nonEmptyStr;
           example = "fdef:fa6a:4724:1:56b0:de23:1635:e77f";
-          description = "The stable ULA of the machine";
+          description = "A random static IPv6 in the ULA Range";
         };
       };
     };

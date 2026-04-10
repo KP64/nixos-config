@@ -23,14 +23,17 @@ toplevel: {
       };
 
       staticIPv4 = "192.168.2.220";
-      staticIPv6 = "fdef:fa6a:4724:1:ca15:4eff:fed6:7789";
+      staticIPv6 = "fdef:fa6a:4724:1::220";
 
       systemd.network = {
         enable = true;
         networks."10-wlp130s0f0" = {
           name = "wlp130s0f0";
           linkConfig.RequiredForOnline = "routable";
-          address = [ "${config.staticIPv4}/24" ];
+          address = [
+            "${config.staticIPv4}/24"
+            "${config.staticIPv6}/64"
+          ];
           gateway = [ "192.168.2.1" ];
           dns = [ "192.168.2.1" ];
           networkConfig =
