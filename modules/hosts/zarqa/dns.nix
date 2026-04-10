@@ -34,6 +34,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               dnsUtil = inputs.dns.util.${system};
             in
             {
+              listen_addrs_ipv4 = [ "127.0.0.1" ];
+              listen_addrs_ipv6 = [ "::1" ];
+
               zones =
                 # NOTE: These "default" zones do not ship with hickory-dns by default.
                 #       Therefore manually specified.
