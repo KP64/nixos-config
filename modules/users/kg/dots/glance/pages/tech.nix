@@ -103,7 +103,7 @@ toplevel: {
                 title = "Services";
                 sites =
                   let
-                    inherit (toplevel.config.flake.nixosConfigurations) mahdi zarqa;
+                    inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
                   in
                   [
                     {
@@ -113,7 +113,7 @@ toplevel: {
                     }
                     {
                       title = "Redlib";
-                      url = zarqa.config.services.redlib.settings.REDLIB_FULL_URL;
+                      url = morgiana.config.services.redlib.settings.REDLIB_FULL_URL;
                       icon = "sh:redlib";
                     }
                     {

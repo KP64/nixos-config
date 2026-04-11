@@ -71,7 +71,7 @@ toplevel: {
                       (subreddit: {
                         type = "reddit";
                         inherit subreddit;
-                        comments-url-template = "${toplevel.config.flake.nixosConfigurations.zarqa.config.services.redlib.settings.REDLIB_FULL_URL}/{POST-PATH}";
+                        comments-url-template = "${toplevel.config.flake.nixosConfigurations.morgiana.config.services.redlib.settings.REDLIB_FULL_URL}/{POST-PATH}";
                       })
                       [
                         "news"
