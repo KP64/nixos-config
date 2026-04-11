@@ -1,4 +1,4 @@
-{ moduleWithSystem, inputs, ... }:
+toplevel@{ moduleWithSystem, inputs, ... }:
 {
   # TODO: remove once niri is upstreamed to home-manager
   #       Also sync HM-Package with host pkg
@@ -16,6 +16,11 @@
     }:
     let
       inherit (inputs'.niri-flake.packages) niri-unstable xwayland-satellite-unstable;
+
+      # this is only done like that to generate eval errors should
+      # these hosts not be available anymore.
+      aladdin = toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName;
+      sindbad = toplevel.config.additionalHosts.sindbad.networkName;
     in
     {
       imports = [ inputs.niri-flake.homeModules.niri ];
@@ -77,10 +82,10 @@
               outputCfg = config.programs.niri.settings.outputs;
             in
             builtins.getAttr config.hostname {
-              sindbad = {
+              ${sindbad} = {
                 eDP-1.focus-at-startup = true;
               };
-              aladdin = {
+              ${aladdin} = {
                 DP-3 = {
                   focus-at-startup = true;
                   variable-refresh-rate = "on-demand";
@@ -136,6 +141,11 @@
               matches = [ { app-id = "^kitty$"; } ];
               default-column-width.proportion = 1.0 / 2.0;
               default-window-height = { };
+            }
+            {
+              matches = [ { app-id = "^Minecraft\*"; } ];
+              variable-refresh-rate = true;
+              open-on-output = lib.mkIf (config.hostname == aladdin) "DP-3";
             }
           ];
           spawn-at-startup = lib.optional (config.programs.noctalia-shell.enable or false) {
