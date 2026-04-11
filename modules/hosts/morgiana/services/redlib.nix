@@ -1,16 +1,18 @@
+{ moduleWithSystem, ... }:
 {
-  flake.modules.nixos.hosts-morgiana =
-    { config, lib, ... }:
+  flake.modules.nixos.hosts-morgiana = moduleWithSystem (
+    { config, ... }:
+    nixos@{ lib, ... }:
     let
-      domain = "redlib.${config.networking.domain}";
-      inherit (config.lib.securityHeader) mkPP;
+      domain = "redlib.${nixos.config.networking.domain}";
+      inherit (nixos.config.lib.securityHeader) mkPP;
     in
     {
       services = {
-        caddy.virtualHosts.${domain} = lib.mkIf config.services.redlib.enable {
+        caddy.virtualHosts.${domain} = lib.mkIf nixos.config.services.redlib.enable {
           extraConfig = # caddy
             ''
-              reverse_proxy http://[::1]:${toString config.services.redlib.port}
+              reverse_proxy http://[::1]:${toString nixos.config.services.redlib.port}
               header {
                   Permissions-Policy "${
                     mkPP {
@@ -34,6 +36,7 @@
 
         redlib = {
           enable = true;
+          package = config.packages.redlib;
           address = "[::1]";
           port = 41297;
           settings = {
@@ -47,5 +50,6 @@
           };
         };
       };
-    };
+    }
+  );
 }
