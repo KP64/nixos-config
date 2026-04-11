@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  flake.modules.nixos.hosts-morgiana =
     { config, lib, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;
@@ -8,60 +8,62 @@
       (lib.mkIf config.services.searx.enable {
         sops.secrets.searxng.owner = config.users.users.searx.name;
 
-        services.nginx.virtualHosts.${config.services.searx.domain} = {
-          enableACME = true;
-          acmeRoot = null;
-          onlySSL = true;
-          kTLS = true;
-          extraConfig = # nginx
-            ''
-              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-              add_header Content-Security-Policy "${
-                mkCSP {
-                  default-src = "none";
-                  script-src = "self";
-                  style-src = [
-                    "self"
-                    "unsafe-inline"
-                  ];
-                  img-src = [
-                    "self"
-                    "data:"
-                    "https:"
-                  ];
-                  font-src = "self";
-                  connect-src = "self";
-                  frame-ancestors = "none";
-                  base-uri = "none";
-                  form-action = "self";
-                }
-              }" always;
-              add_header X-Frame-Options SAMEORIGIN always;
-              add_header Permissions-Policy "${
-                mkPP {
-                  camera = "()";
-                  microphone = "()";
-                  geolocation = "()";
-                  usb = "()";
-                  bluetooth = "()";
-                  payment = "()";
-                  accelerometer = "()";
-                  gyroscope = "()";
-                  magnetometer = "()";
-                  midi = "()";
-                  serial = "()";
-                  hid = "()";
-                }
-              }" always;
-            '';
-        };
+        services.caddy.virtualHosts.${config.services.searx.domain}.extraConfig = # caddy
+          ''
+            handle_path /static/* {
+                root * ${config.services.searx.package}/share/static/
+                file_server
+            }
+            reverse_proxy 127.0.0.1${config.services.searx.uwsgiConfig.http}
+
+            header {
+                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                Content-Security-Policy "${
+                  mkCSP {
+                    default-src = "none";
+                    script-src = "self";
+                    style-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                    img-src = [
+                      "self"
+                      "data:"
+                      "https:"
+                    ];
+                    font-src = "self";
+                    connect-src = "self";
+                    frame-ancestors = "none";
+                    base-uri = "none";
+                    form-action = "self";
+                  }
+                }"
+                X-Frame-Options SAMEORIGIN
+                Permissions-Policy "${
+                  mkPP {
+                    camera = "()";
+                    microphone = "()";
+                    geolocation = "()";
+                    usb = "()";
+                    bluetooth = "()";
+                    payment = "()";
+                    accelerometer = "()";
+                    gyroscope = "()";
+                    magnetometer = "()";
+                    midi = "()";
+                    serial = "()";
+                    hid = "()";
+                  }
+                }"
+            }
+          '';
       })
       {
         services.searx = {
           enable = true;
           domain = "searxng.${config.networking.domain}";
           redisCreateLocally = true; # Needed for Rate-Limit & bot protection
-          configureNginx = true;
+          configureUwsgi = true;
           uwsgiConfig.http = ":8888";
 
           limiterSettings.botdetection = {
@@ -95,6 +97,7 @@
             ];
 
             server = {
+              base_url = "https://${config.services.searx.domain}";
               secret_key = config.sops.secrets.searxng.path;
               public_instance = true;
             };

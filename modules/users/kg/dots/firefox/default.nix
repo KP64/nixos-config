@@ -5,7 +5,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
     { config, lib, ... }:
     let
       inherit (toplevel.config.lib.flake.util) getAsset toFlattenedByDots;
-      inherit (toplevel.config.flake.nixosConfigurations) mahdi;
+      inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
       inherit (config.lib.firefox) hideEngines;
     in
     {
@@ -156,8 +156,7 @@ toplevel@{ inputs, moduleWithSystem, ... }:
                 SearXNG = {
                   urls = [
                     {
-                      # The base_url contains a trailing slash. This is correct.
-                      template = "${mahdi.config.services.searx.settings.server.base_url}search";
+                      template = "${morgiana.config.services.searx.settings.server.base_url}/search";
                       params = [
                         (mkParam "q" "{searchTerms}")
                         (mkParam "language" "all")

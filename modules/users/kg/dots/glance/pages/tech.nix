@@ -118,7 +118,7 @@ toplevel: {
                     }
                     {
                       title = "SearXNG";
-                      url = mahdi.config.services.searx.settings.server.base_url;
+                      url = morgiana.config.services.searx.settings.server.base_url;
                       icon = "sh:searxng";
                     }
                     {

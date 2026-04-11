@@ -13,7 +13,8 @@ toplevel@{ inputs, ... }:
         ])
         ++ (with nixos-raspberrypi.lib; [
           inject-overlays
-          inject-overlays-global
+          # TODO: Inject when packages aren't broken
+          # inject-overlays-global
         ])
         ++ (with nixos-raspberrypi.nixosModules; [
           nixpkgs-rpi

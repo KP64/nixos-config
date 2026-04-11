@@ -155,7 +155,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                           inherit A AAAA;
                         })
                         # Morgiana Services
-                        // lib.genAttrs [ "redlib" ] (_: {
+                        // lib.genAttrs [ "bentopdf" "redlib" "searxng" ] (_: {
                           A = [ morgiana.config.staticIPv4 ];
                           AAAA = [ morgiana.config.staticIPv6 ];
                         })
