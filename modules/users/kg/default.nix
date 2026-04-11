@@ -84,9 +84,10 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               inherit (config.lib.packages) activatePerHosts;
             in
             (with pkgs; [
-              igrep
               bluetui
               caligula
+              igrep
+              systemctl-tui
             ])
             ++ activatePerHosts [
               {
