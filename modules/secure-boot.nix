@@ -1,5 +1,6 @@
 toplevel@{ inputs, ... }:
 {
+  # TODO: Research measured boot
   flake.modules.nixos.secure-boot =
     { lib, pkgs, ... }:
     {

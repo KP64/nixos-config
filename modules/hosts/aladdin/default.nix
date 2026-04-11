@@ -62,6 +62,7 @@ toplevel@{ inputs, ... }:
 
       users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
+      # TODO: Secure the ports opened by localsend and ausweisapp
       programs = {
         thunar.enable = true;
         ausweisapp = {

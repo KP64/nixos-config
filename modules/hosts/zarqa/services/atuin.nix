@@ -2,16 +2,21 @@
   flake.modules.nixos.hosts-zarqa =
     { config, lib, ... }:
     let
-      domain = "redlib.${config.networking.domain}";
-      inherit (config.lib.securityHeader) mkPP;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     {
       services = {
-        caddy.virtualHosts.${domain} = lib.mkIf config.services.redlib.enable {
+        caddy.virtualHosts."atuin.${config.networking.domain}" = lib.mkIf config.services.atuin.enable {
           extraConfig = # caddy
             ''
-              reverse_proxy http://[::1]:${toString config.services.redlib.port}
+              reverse_proxy http://[${config.services.atuin.host}]:${toString config.services.atuin.port}
+
               header {
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Content-Security-Policy "${mkCSP { default-src = "none"; }}"
+                  X-Frame-Options SAMEORIGIN
+                  X-Content-Type-Options nosniff
+                  Referrer-Policy no-referrer
                   Permissions-Policy "${
                     mkPP {
                       camera = "()";
@@ -32,19 +37,11 @@
             '';
         };
 
-        redlib = {
+        atuin = {
           enable = true;
-          address = "[::1]";
-          port = 41297;
-          settings = {
-            REDLIB_ROBOTS_DISABLE_INDEXING = true;
-            REDLIB_ENABLE_RSS = true;
-            REDLIB_FULL_URL = "https://${domain}";
-
-            REDLIB_DEFAULT_BLUR_SPOILER = true;
-            REDLIB_DEFAULT_SHOW_NSFW = true;
-            REDLIB_DEFAULT_BLUR_NSFW = true;
-          };
+          host = "::1";
+          port = 33196;
+          openRegistration = true;
         };
       };
     };

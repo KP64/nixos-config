@@ -6,26 +6,27 @@ toplevel@{ inputs, ... }:
       inherit (inputs) nixos-raspberrypi;
     in
     {
-      imports = [
-        inputs.sops-nix.nixosModules.default
-      ]
-      ++ (with nixos-raspberrypi.lib; [
-        inject-overlays
-        inject-overlays-global
-      ])
-      ++ (with nixos-raspberrypi.nixosModules; [
-        nixpkgs-rpi
-        raspberry-pi-4.base
-      ])
-      ++ (with toplevel.config.flake.modules.nixos; [
-        nix
-        rpi-cache
-        ssh
-        sudo
-        time
+      imports =
+        (with inputs; [
+          sops-nix.nixosModules.default
+          nix-invisible.modules.nixos.host-morgiana
+        ])
+        ++ (with nixos-raspberrypi.lib; [
+          inject-overlays
+          inject-overlays-global
+        ])
+        ++ (with nixos-raspberrypi.nixosModules; [
+          nixpkgs-rpi
+          raspberry-pi-4.base
+        ])
+        ++ (with toplevel.config.flake.modules.nixos; [
+          nix
+          rpi-cache
+          ssh
+          sudo
 
-        users-kg
-      ]);
+          users-kg
+        ]);
 
       home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 

@@ -1,8 +1,8 @@
 {
   flake.modules.nixos.hosts-zarqa =
-    { config, ... }:
+    { config, lib, ... }:
     {
-      sops.secrets = {
+      sops.secrets = lib.mkIf config.services.oink.enable {
         "porkbun/api_key" = { };
         "porkbun/secret_api_key" = { };
       };

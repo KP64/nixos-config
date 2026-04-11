@@ -1,3 +1,4 @@
+# TODO: Improve Secret structure -> Secret deduplication
 keys:
   - &host_aladdin age1m4dvcu582jypml9078gylaexxpkf83hjc63ay6swm3e036wj2pxsk7n0al
   - &host_mahdi age1k6hkw62h3js987u666pj4y2ld3p8yvd38e8w8z3sgfc3tflyjq9sru0mf7

@@ -10,7 +10,7 @@ toplevel: {
         style = "auto";
         update_check = false;
         enter_accept = true;
-        sync_address = "https://atuin.${toplevel.config.flake.nixosConfigurations.mahdi.config.networking.domain}";
+        sync_address = "https://atuin.${toplevel.config.flake.nixosConfigurations.zarqa.config.networking.domain}";
       };
     };
   };

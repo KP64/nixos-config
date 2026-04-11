@@ -142,18 +142,28 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                         |> map (nsdomain: "${nsdomain}.${zone}.");
                       A = [ nixos.config.staticIPv4 ];
                       AAAA = [ nixos.config.staticIPv6 ];
+                      # TODO: Find a better way for this.
                       subdomains =
                         let
-                          mahdiCfg = toplevel.config.flake.nixosConfigurations.mahdi.config;
+                          inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
                         in
                         {
                           ns = { inherit A AAAA; };
-                          overflow = { inherit A AAAA; };
-                          dumb = { inherit A AAAA; };
-                          redlib = { inherit A AAAA; };
+                        }
+                        # Zarqa Services
+                        // lib.genAttrs [ "atuin" "dumb" "overflow" ] (_: {
+                          inherit A AAAA;
+                        })
+                        # Morgiana Services
+                        // lib.genAttrs [ "redlib" ] (_: {
+                          A = [ morgiana.config.staticIPv4 ];
+                          AAAA = [ morgiana.config.staticIPv6 ];
+                        })
+                        # Mahdi Services (for now wildcard as a default)
+                        // {
                           "*" = {
-                            A = [ mahdiCfg.staticIPv4 ];
-                            AAAA = [ mahdiCfg.staticIPv6 ];
+                            A = [ mahdi.config.staticIPv4 ];
+                            AAAA = [ mahdi.config.staticIPv6 ];
                           };
                         };
                     };

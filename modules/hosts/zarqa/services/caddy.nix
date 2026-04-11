@@ -35,21 +35,30 @@ toplevel: {
           '';
         virtualHosts =
           let
-            mahdiCfg = toplevel.config.flake.nixosConfigurations.mahdi.config;
+            inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
+
+            proxyServices =
+              vhosts:
+              vhosts
+              |> lib.filterAttrs (n: _: lib.hasSuffix ".${config.networking.domain}" n)
+              |> lib.mapAttrs' (
+                vhostDomain: _: {
+                  name = vhostDomain;
+                  value.extraConfig = # caddy
+                    ''
+                      reverse_proxy https://${vhostDomain}
+                    '';
+                }
+              );
           in
-          lib.mkIf mahdiCfg.services.nginx.enable (
-            mahdiCfg.services.nginx.virtualHosts
-            |> lib.filterAttrs (n: _: lib.hasSuffix ".${config.networking.domain}" n)
-            |> lib.mapAttrs' (
-              vhostDomain: _: {
-                name = vhostDomain;
-                value.extraConfig = # caddy
-                  ''
-                    reverse_proxy https://${vhostDomain}
-                  '';
-              }
-            )
-          );
+          lib.mkMerge [
+            (lib.mkIf mahdi.config.services.nginx.enable (
+              proxyServices mahdi.config.services.nginx.virtualHosts
+            ))
+            (lib.mkIf morgiana.config.services.caddy.enable (
+              proxyServices morgiana.config.services.caddy.virtualHosts
+            ))
+          ];
       };
     };
 }
