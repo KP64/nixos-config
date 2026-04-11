@@ -20,6 +20,25 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
       networking.resolvconf.useLocalResolver = true;
 
+      topology = lib.mkIf (nixos.config ? topology) {
+        self.services.hickory-dns.details."Primary Zones".text =
+          let
+            # These self-evident zones only clutter the topology
+            ignoredZones = [
+              "localhost"
+              "1.0.0.127.in-addr.arpa"
+              "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa"
+              "255.255.255.255.in-addr.arpa"
+              "0.0.0.0.in-addr.arpa"
+            ];
+          in
+          nixos.config.services.hickory-dns.settings.zones
+          |> builtins.filter (z: z.zone_type == "Primary")
+          |> map (z: z.zone)
+          |> builtins.filter (z: !builtins.elem z ignoredZones)
+          |> toString;
+      };
+
       services = {
         resolved.enable = false;
 
