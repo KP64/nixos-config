@@ -110,7 +110,7 @@
                 config-version = "2.7";
 
                 bind = "[::]:${toString velocityPort}";
-                motd = "<yellow>Hello</yellow> <green>Minecraft Enthusiasts</green><yellow>!</yellow>";
+                motd = "<rainbow>Hello Minecraft Enthusiasts!</rainbow>";
 
                 show-max-players = 500;
                 online-mode = true;
