@@ -162,6 +162,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                       A = [ nixos.config.staticIPv4 ];
                       AAAA = [ nixos.config.staticIPv6 ];
                       # TODO: Find a better way for this.
+                      #       Use virtualHosts of reverse proxy with recursiveUpdate?
                       subdomains =
                         let
                           inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
@@ -174,7 +175,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                           inherit A AAAA;
                         })
                         # Morgiana Services
-                        // lib.genAttrs [ "bentopdf" "redlib" "searxng" ] (_: {
+                        // lib.genAttrs [ "anki" "bentopdf" "redlib" "searxng" ] (_: {
                           A = [ morgiana.config.staticIPv4 ];
                           AAAA = [ morgiana.config.staticIPv6 ];
                         })
