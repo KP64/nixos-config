@@ -46,7 +46,7 @@
         };
       };
 
-      whitelist = (operators |> lib.mapAttrs (_: v: v.uuid)) // {
+      whitelist = (builtins.mapAttrs (_: v: v.uuid) operators) // {
         Schmalzheimer = "e3e97e3d-dab1-4b4b-9e9c-00eda78506eb";
       };
     in
