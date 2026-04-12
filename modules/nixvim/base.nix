@@ -16,7 +16,7 @@
         byteCompileLua = {
           enable = true;
           configs = true;
-          # luaLib = true; # TODO: Reenable once unbroken
+          luaLib = true;
           nvimRuntime = true;
           plugins = true;
         };
