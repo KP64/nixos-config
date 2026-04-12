@@ -33,47 +33,45 @@
         };
       };
 
-      # NOTE: If this gets annoying. Just leak the names & IDs. I don't care at this point.
-      ops."ops.json".value = [
-        {
-          name = "@player1_name@";
-          uuid = "@player1_id@";
+      operators = {
+        KGamer_64 = {
+          uuid = "dae6014c-cd91-4038-830f-99c8c986e997";
           level = 4;
           bypassesPlayerLimit = true;
-        }
-        {
-          name = "@player2_name@";
-          uuid = "@player2_id@";
+        };
+        macoreix = {
+          uuid = "65fe7054-52d1-4418-bca5-4177238180b2";
           level = 3;
           bypassesPlayerLimit = true;
-        }
-      ];
+        };
+      };
 
-      allowedPlayers."whitelist.json".value = [
-        {
-          name = "@player1_name@";
-          uuid = "@player1_id@";
-        }
-        {
-          name = "@player2_name@";
-          uuid = "@player2_id@";
-        }
-        {
-          name = "@player3_name@";
-          uuid = "@player3_id@";
-        }
-      ];
+      whitelist = (operators |> lib.mapAttrs (_: v: v.uuid)) // {
+        Schmalzheimer = "e3e97e3d-dab1-4b4b-9e9c-00eda78506eb";
+      };
     in
     {
       imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
-      # TODO: Find a better way to manage the envs
-      sops.secrets."minecraft-server.env".owner = nixos.config.users.users.minecraft.name;
+      sops = {
+        secrets."minecraft/velocity-forwarding-secret" = { };
+        templates."minecraft-server.env" = {
+          owner = nixos.config.users.users.minecraft.name;
+          content =
+            let
+              inherit (nixos.config.sops) placeholder;
+            in
+            ''
+              VELOCITY_FORWARDING_SECRET=${placeholder."minecraft/velocity-forwarding-secret"}
+              FABRIC_PROXY_SECRET=${placeholder."minecraft/velocity-forwarding-secret"}
+            '';
+        };
+      };
 
       services.minecraft-servers = {
         enable = true;
         eula = true;
-        environmentFile = nixos.config.sops.secrets."minecraft-server.env".path;
+        environmentFile = nixos.config.sops.templates."minecraft-server.env".path;
         servers = {
           Proxy = {
             enable = true;
@@ -188,7 +186,7 @@
               white-list = true;
               enforce-whitelist = true;
             };
-            files = ops // allowedPlayers;
+            inherit operators whitelist;
             symlinks.mods = mcLib.collectMods commonMods;
           };
           Creative = {
@@ -213,7 +211,7 @@
               white-list = true;
               enforce-whitelist = true;
             };
-            files = ops // allowedPlayers;
+            inherit operators whitelist;
             symlinks.mods = mcLib.collectMods commonMods;
           };
         };
