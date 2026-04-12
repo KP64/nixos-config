@@ -67,6 +67,7 @@
     {
       imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
+      # TODO: Find a better way to manage the envs
       sops.secrets."minecraft-server.env".owner = nixos.config.users.users.minecraft.name;
 
       services.minecraft-servers = {
@@ -111,7 +112,7 @@
                 config-version = "2.7";
 
                 bind = "[::]:${toString velocityPort}";
-                motd = "<#09add3>A Velocity Server";
+                motd = "<yellow>Hello</yellow> <green>Minecraft Enthusiasts</green><yellow>!</yellow>";
 
                 show-max-players = 500;
                 online-mode = true;
@@ -140,7 +141,7 @@
                   connection-timeout = 5000;
                   read-timeout = 30000;
                   haproxy-protocol = false;
-                  tcp-fast-open = true; # Linux only
+                  tcp-fast-open = pkgs.stdenv.isLinux;
                   bungee-plugin-message-channel = true;
                   show-ping-requests = true;
                   failover-on-unexpected-server-disconnect = true;
@@ -148,7 +149,7 @@
                   log-command-executions = true;
                   log-player-connections = true;
                   accepts-transfers = false;
-                  enable-reuse-port = true; # Linux & macOS only
+                  enable-reuse-port = with pkgs.stdenv; isLinux || isDarwin;
                   command-rate-limit = 50;
                   forward-commands-if-rate-limited = true;
                   kick-after-rate-limited-commands = 0;
@@ -187,18 +188,7 @@
               white-list = true;
               enforce-whitelist = true;
             };
-            files =
-              ops
-              // allowedPlayers
-              // {
-                "config/FabricProxy-Lite.toml".value = {
-                  hackOnlineMode = true;
-                  hackEarlySend = false;
-                  hackMessageChain = false;
-                  disconnectMessage = "You have to Connect via the Velocity Proxy Server";
-                  secret = "@velocity_forward_secret@";
-                };
-              };
+            files = ops // allowedPlayers;
             symlinks.mods = mcLib.collectMods commonMods;
           };
           Creative = {
@@ -223,18 +213,7 @@
               white-list = true;
               enforce-whitelist = true;
             };
-            files =
-              ops
-              // allowedPlayers
-              // {
-                "config/FabricProxy-Lite.toml".value = {
-                  hackOnlineMode = true;
-                  hackEarlySend = false;
-                  hackMessageChain = false;
-                  disconnectMessage = "You have to Connect via the Velocity Proxy Server";
-                  secret = "@velocity_forward_secret@";
-                };
-              };
+            files = ops // allowedPlayers;
             symlinks.mods = mcLib.collectMods commonMods;
           };
         };
