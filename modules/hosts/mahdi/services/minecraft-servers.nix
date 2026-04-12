@@ -1,8 +1,12 @@
 { moduleWithSystem, inputs, ... }:
 {
-  # FIXME: Servers don't work anymore after update.
   flake.modules.nixos.hosts-mahdi = moduleWithSystem (
-    { config, inputs', ... }:
+    {
+      config,
+      inputs',
+      pkgs,
+      ...
+    }:
     nixos@{ lib, ... }:
     let
       velocityPort = 25565;
@@ -11,45 +15,21 @@
       mcLib = config.lib.minecraft;
 
       commonMods = {
-        ALTERNATE_CURRENT = {
-          url = "https://cdn.modrinth.com/data/r0v8vy1s/versions/eTNKfjl1/alternate-current-mc1.21.5-1.9.0.jar";
-          sha512 = "3e4088170917846b30275825420b553e3fc3befb52bb259848853b93343bae3b39cd592902c0c79f05b17381d80170784990d9c4e110ff3b6c552e5508b40d67";
-        };
-        BETTER_FABRIC_CONSOLE = {
-          url = "https://cdn.modrinth.com/data/Y8o1j1Sf/versions/DMBZUPjK/better-fabric-console-mc1.21.8-1.2.5.jar";
-          sha512 = "d0de1aec66add0158e5a97424a21fc4bd0d26c54457d1bf15cd19e60939ed5d8b4dc4120a6aeec00925723b7dc431a9b84f60ad96d56a9e50620ef34b091cae6";
-        };
-        C2ME = {
-          url = "https://cdn.modrinth.com/data/VSNURh3q/versions/7lwPGYpL/c2me-fabric-mc1.21.8-0.3.5%2Balpha.0.8.jar";
-          sha512 = "d02ce60e3816326657e40a4cff8e1fdaea1911d8b429e82b23cde997f61c78ed0f68f32f7f57a58069cda624b688cabb863cba17a3d251eed32d6b17dabf70fc";
-        };
-        DEBUGIFY = {
-          url = "https://cdn.modrinth.com/data/QwxR6Gcd/versions/WLSwJeXa/debugify-1.21.8%2B1.0.jar";
-          sha512 = "5cbb7551e83abcc712a2d4b544d7f19cc1855eaede2350588b3f909966ae9248a7cdfd0c4d3cf53b796477f4327d735dadf83eddf40403a338d96ea9b9d727ca";
-        };
         FABRIC_API = {
-          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/CF23l2iP/fabric-api-0.133.4%2B1.21.8.jar";
-          sha512 = "e3cc9f8f60d655c916b2d31ca2a77fc15187e443e3bb8a5977dcff7a704401e8a39d633e12a649207a5923e540b6474e90f08c95655d07ae1c790d5c8aff41a5";
+          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/fm7UYECV/fabric-api-0.145.4%2B26.1.2.jar";
+          sha512 = "ffd5ef62a745f76cd2e5481252cb7bc67006c809b4f436827d05ea22c01d19279e94a3b24df3d57e127af1cd08440b5de6a92a4ea8f39b2dcbbe1681275564c3";
         };
         FABRIC_PROXY_LITE = {
-          url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/KqB3UA0q/FabricProxy-Lite-2.10.1.jar";
-          sha512 = "9c0c1d44ba27ed3483bb607f95441bea9fb1c65be26aa5dc0af743167fb7933623ba6129344738b084056aef7cb5a7db0db477348d07672d5c67a2e1204e9c94";
+          url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/CsEpiziv/FabricProxy-Lite-2.12.0.jar";
+          sha512 = "b479c3ed1fe83929cad40e5c925ae2702da879b88a0271a24266cd21ecc037953f347cbe61ac7b7334e087544ee2ce5bf1f041fc3e64f50474404ad564c146f7";
         };
         FERRITE_CORE = {
-          url = "https://cdn.modrinth.com/data/uXXizFIs/versions/CtMpt7Jr/ferritecore-8.0.0-fabric.jar";
-          sha512 = "131b82d1d366f0966435bfcb38c362d604d68ecf30c106d31a6261bfc868ca3a82425bb3faebaa2e5ea17d8eed5c92843810eb2df4790f2f8b1e6c1bdc9b7745";
-        };
-        KRYPTON = {
-          url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/neW85eWt/krypton-0.2.9.jar";
-          sha512 = "2e2304b1b17ecf95783aee92e26e54c9bfad325c7dfcd14deebf9891266eb2933db00ff77885caa083faa96f09c551eb56f93cf73b357789cb31edad4939ffeb";
+          url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar";
+          sha512 = "d81fa97e11784c19d42f89c2f433831d007603dd7193cee45fa177e4a6a9c52b384b198586e04a0f7f63cd996fed713322578bde9a8db57e1188854ae5cbe584";
         };
         LITHIUM = {
-          url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/qxIL7Kb8/lithium-fabric-0.18.1%2Bmc1.21.8.jar";
-          sha512 = "ef3e0820c7c831c352cbd5afa4a1f4ff73db0fa3c4e4428ba35ad2faeb8e7bce8ae4805a04934be82099012444a70c0a2cf2049f2af95fe688ca84d94d1c4672";
-        };
-        TAB_TPS = {
-          url = "https://cdn.modrinth.com/data/cUhi3iB2/versions/w0oIAEFo/tabtps-fabric-mc1.21.8-1.3.28.jar";
-          sha512 = "b29e19114efdadeadf5fedbf5b743aa35f36ab6fa8c32a1cbaa6591106677a3163801ba8010142899822298fefebb9621aa5db54db49ecc58719b7ef5dcbde85";
+          url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/kHXOBNih/lithium-fabric-0.23.0%2Bmc26.1.1.jar";
+          sha512 = "9d7e92ea2af7d024cfe09bfc7eacf236e551da024f4ddeb3a20d88b01bc3620ee1c5a3355299c9dbfcc76406fb0b8e121a989651e6a73c8c2632290f84db8448";
         };
       };
 
@@ -99,7 +79,8 @@
             # TODO: Figure out if it makes sense to introduce L4 Reverse Proxy
             #       (possibly replacing caddy) So that this port can be closed.
             openFirewall = true;
-            package = mcPkgs.velocity-server;
+            # NOTE: This is a nixpkgs package
+            package = pkgs.velocity;
             # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
             jvmOpts = [
               "-Xms2G"
@@ -118,8 +99,8 @@
                     inherit (nixos.config.services.minecraft-servers.servers) Creative Survival;
                   in
                   {
-                    survival = "127.0.0.1:${toString Survival.serverProperties.server-port}";
-                    creative = "127.0.0.1:${toString Creative.serverProperties.server-port}";
+                    survival = "[::1]:${toString Survival.serverProperties.server-port}";
+                    creative = "[::1]:${toString Creative.serverProperties.server-port}";
                     try = [
                       "creative"
                       "survival"
@@ -129,7 +110,7 @@
               {
                 config-version = "2.7";
 
-                bind = "0.0.0.0:${toString velocityPort}";
+                bind = "[::]:${toString velocityPort}";
                 motd = "<#09add3>A Velocity Server";
 
                 show-max-players = 500;
@@ -186,12 +167,15 @@
 
           Survival = {
             enable = true;
-            package = mcPkgs.minecraftServers.fabric-1_21_8;
+            package = mcPkgs.minecraftServers.fabric-26_1_1.override {
+              jre_headless = pkgs.openjdk25.headless;
+            };
             jvmOpts = [
               "-Xms16G"
               "-Xmx16G"
             ];
             serverProperties = {
+              server-ip = "::1";
               server-port = 25566;
               difficulty = "hard";
               motd = "One Heck of a Server";
@@ -219,12 +203,15 @@
           };
           Creative = {
             enable = true;
-            package = mcPkgs.minecraftServers.fabric-1_21_8;
+            package = mcPkgs.minecraftServers.fabric-26_1_1.override {
+              jre_headless = pkgs.openjdk25.headless;
+            };
             jvmOpts = [
               "-Xms16G"
               "-Xmx16G"
             ];
             serverProperties = {
+              server-ip = "::1";
               server-port = 25567;
               difficulty = "hard";
               motd = "One Heck of a Server";
