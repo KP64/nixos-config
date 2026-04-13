@@ -42,7 +42,10 @@
               add_header Content-Security-Policy "${
                 mkCSP {
                   default-src = "none";
-                  img-src = "self";
+                  img-src = [
+                    "self"
+                    "data:"
+                  ];
                   font-src = "self";
                   connect-src = "self";
                   style-src = [
@@ -51,7 +54,12 @@
                   ];
                   script-src = [
                     "self"
-                    "unsafe-inline"
+                  ];
+                  script-src-elem = [
+                    "self"
+                    "sha256-IwbGmoRaOLT2V3cavVXQBCapN9X3Jy2mX1vd0rYDIHI="
+                    "sha256-0hNLbvbST7rRlQ4OTVBLFpOktWuZU0Xqs3dLVQEpfGo="
+                    "sha256-l2tE40TYf1YdqU3c2thwSlpWfR/rB5RLN+vxI6xWWCU="
                   ];
                 }
               }" always;

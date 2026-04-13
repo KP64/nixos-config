@@ -33,7 +33,10 @@
                       "self"
                       "unsafe-inline"
                     ];
-                    img-src = "self";
+                    img-src = [
+                      "self"
+                      "data:"
+                    ];
                   }
                 }" always;
                 add_header X-Content-Type-Options nosniff always;

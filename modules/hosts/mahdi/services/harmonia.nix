@@ -26,7 +26,7 @@
                     mkCSP {
                       default-src = "none";
                       img-src = "self";
-                      style-src = "unsafe-inline";
+                      style-src = "sha256-vH51d+jQVG4ixznlvoAz0qhElwpeG9xvknvU+YT7Tn8=";
                     }
                   }" always;
                   add_header X-Frame-Options SAMEORIGIN always;

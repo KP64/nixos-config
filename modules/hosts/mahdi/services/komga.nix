@@ -25,9 +25,10 @@
                       "self"
                       "unsafe-inline"
                     ];
-                    script-src = [
+                    script-src = "self";
+                    script-src-elem = [
                       "self"
-                      "unsafe-inline"
+                      "sha256-gXksiB92wKm7zMDMFbEACh+/f5jBT8PucQAwK4VGinA="
                     ];
                     connect-src = "self";
                   }
