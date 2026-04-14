@@ -83,7 +83,6 @@
             {
               CORE_HOSTNAME = "::1";
               CORE_PORT = 41355;
-              CORE_SECRET = "$CORE_SECRET";
               CORE_RETURN_HTTPS_URLS = boolToString true;
               inherit CORE_DEFAULT_DOMAIN;
               CORE_RETURN_TRUST_PROXY = boolToString true;
@@ -116,7 +115,6 @@
 
               OAUTH_BYPASS_LOCAL_LOGIN = boolToString true;
               inherit OAUTH_OIDC_CLIENT_ID;
-              OAUTH_OIDC_CLIENT_SECRET = "$OAUTH_OIDC_CLIENT_SECRET";
               OAUTH_OIDC_AUTHORIZE_URL = "${kanidmOrigin}/ui/oauth2";
               OAUTH_OIDC_USERINFO_URL = "${kanidmOrigin}/oauth2/openid/${OAUTH_OIDC_CLIENT_ID}/userinfo";
               OAUTH_OIDC_TOKEN_URL = "${kanidmOrigin}/oauth2/token";
