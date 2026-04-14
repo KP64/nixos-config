@@ -19,6 +19,7 @@ toplevel: {
           "kanidm/idm-admin-password" = { inherit owner; };
           "kanidm/oauth2/opengist" = { inherit owner; };
           "kanidm/oauth2/zipline" = { inherit owner; };
+          "kanidm/oauth2/vaultwarden" = { inherit owner; };
         };
 
       services.nginx.virtualHosts.${cfg.server.settings.domain} = {
@@ -291,7 +292,7 @@ toplevel: {
                   file = "vaultwarden.svg";
                   type = "icons";
                 };
-                public = true;
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/vaultwarden".path;
                 originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
                 originLanding = "https://${config.services.vaultwarden.domain}";
                 preferShortUsername = true;

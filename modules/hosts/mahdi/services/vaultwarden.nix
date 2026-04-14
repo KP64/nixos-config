@@ -3,7 +3,16 @@
     { config, lib, ... }:
     lib.mkMerge [
       (lib.mkIf config.services.vaultwarden.enable {
-        sops.secrets."vaultwarden.env".owner = config.users.users.vaultwarden.name;
+        sops = {
+          secrets.vaultwarden-admin-token = { };
+          templates."vaultwarden.env" = {
+            owner = config.users.users.vaultwarden.name;
+            content = ''
+              ADMIN_TOKEN=${config.sops.placeholder."vaultwarden-admin-token"}
+              SSO_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/vaultwarden"}
+            '';
+          };
+        };
 
         services.nginx.virtualHosts.${config.services.vaultwarden.domain} = {
           enableACME = true;
@@ -22,7 +31,7 @@
           enable = true;
           domain = "vaultwarden.${config.networking.domain}";
           configureNginx = true;
-          environmentFile = config.sops.secrets."vaultwarden.env".path;
+          environmentFile = config.sops.templates."vaultwarden.env".path;
           config =
             let
               SSO_CLIENT_ID = "vaultwarden";
@@ -36,7 +45,6 @@
               SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION = true;
               SSO_AUTHORITY = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${SSO_CLIENT_ID}";
               inherit SSO_CLIENT_ID;
-              SSO_CLIENT_SECRET = "bogus";
             };
         };
       }
