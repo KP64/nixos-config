@@ -17,6 +17,7 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner; };
           "kanidm/idm-admin-password" = { inherit owner; };
+          "kanidm/oauth2/open-webui" = { inherit owner; };
           "kanidm/oauth2/opengist" = { inherit owner; };
           "kanidm/oauth2/zipline" = { inherit owner; };
           "kanidm/oauth2/vaultwarden" = { inherit owner; };
@@ -212,7 +213,7 @@ toplevel: {
                   file = "open-webui.svg";
                   type = "icons";
                 };
-                public = true;
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/open-webui".path;
                 originUrl = "${config.services.open-webui.environment.WEBUI_URL}/oauth/oidc/callback";
                 originLanding = config.services.open-webui.environment.WEBUI_URL;
                 preferShortUsername = true;

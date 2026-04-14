@@ -9,6 +9,10 @@
       (lib.mkIf config.services.open-webui.enable {
         allowedUnfreePackages = [ "open-webui" ];
 
+        sops.templates."open-webui.env".content = ''
+          OAUTH_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/open-webui"}
+        '';
+
         services.nginx.virtualHosts.${domain} = {
           enableACME = true;
           acmeRoot = null;
@@ -89,6 +93,7 @@
           enable = true;
           host = "::1";
           port = 11111;
+          environmentFile = config.sops.templates."open-webui.env".path;
           environment =
             let
               OAUTH_CLIENT_ID = "open-webui";
