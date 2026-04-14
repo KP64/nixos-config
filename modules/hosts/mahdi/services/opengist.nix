@@ -10,7 +10,9 @@ toplevel: {
 
       config = lib.mkMerge [
         (lib.mkIf config.services.opengist.enable {
-          sops.secrets."opengist.env" = { };
+          sops.templates."opengist.env".content = ''
+            OG_OIDC_SECRET=${config.sops.placeholder."kanidm/oauth2/opengist"}
+          '';
 
           networking.firewall.allowedTCPPorts = [ config.services.opengist.environment.OG_SSH_PORT ];
 
@@ -98,7 +100,7 @@ toplevel: {
         {
           services.opengist = {
             enable = true;
-            environmentFile = config.sops.secrets."opengist.env".path;
+            environmentFile = config.sops.templates."opengist.env".path;
             environment =
               let
                 OG_OIDC_CLIENT_KEY = "opengist";

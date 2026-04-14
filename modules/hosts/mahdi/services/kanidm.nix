@@ -17,6 +17,7 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner; };
           "kanidm/idm-admin-password" = { inherit owner; };
+          "kanidm/oauth2/coder" = { inherit owner; };
           "kanidm/oauth2/karakeep" = { inherit owner; };
           "kanidm/oauth2/open-webui" = { inherit owner; };
           "kanidm/oauth2/opengist" = { inherit owner; };
@@ -165,7 +166,7 @@ toplevel: {
                   file = "coder.svg";
                   type = "icons";
                 };
-                public = true;
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
                 originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
                 originLanding = config.services.coder.accessUrl;
                 preferShortUsername = true;

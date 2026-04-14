@@ -4,11 +4,11 @@
     lib.mkMerge [
       (lib.mkIf config.services.vaultwarden.enable {
         sops = {
-          secrets.vaultwarden-admin-token = { };
+          secrets."vaultwarden/admin-token" = { };
           templates."vaultwarden.env" = {
             owner = config.users.users.vaultwarden.name;
             content = ''
-              ADMIN_TOKEN=${config.sops.placeholder."vaultwarden-admin-token"}
+              ADMIN_TOKEN=${config.sops.placeholder."vaultwarden/admin-token"}
               SSO_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/vaultwarden"}
             '';
           };

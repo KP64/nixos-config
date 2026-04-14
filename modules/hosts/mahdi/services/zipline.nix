@@ -10,7 +10,13 @@
     in
     lib.mkMerge [
       (lib.mkIf nixos.config.services.zipline.enable {
-        sops.secrets."zipline.env" = { };
+        sops = {
+          secrets."zipline/core-secret" = { };
+          templates."zipline.env".content = ''
+            CORE_SECRET=${nixos.config.sops.placeholder."zipline/core-secret"}
+            OAUTH_OIDC_CLIENT_SECRET=${nixos.config.sops.placeholder."kanidm/oauth2/zipline"}
+          '';
+        };
 
         services.nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {
           enableACME = true;
@@ -73,7 +79,7 @@
         services.zipline = {
           enable = true;
           package = config.packages.zipline;
-          environmentFiles = [ nixos.config.sops.secrets."zipline.env".path ];
+          environmentFiles = [ nixos.config.sops.templates."zipline.env".path ];
           settings =
             let
               inherit (lib) boolToString;
