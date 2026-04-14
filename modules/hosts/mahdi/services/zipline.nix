@@ -1,13 +1,15 @@
+{ moduleWithSystem, ... }:
 {
-  flake.modules.nixos.hosts-mahdi =
-    { config, lib, ... }:
+  flake.modules.nixos.hosts-mahdi = moduleWithSystem (
+    { config, ... }:
+    nixos@{ lib, ... }:
     let
-      cfg = config.services.zipline;
-      kanidmOrigin = config.services.kanidm.server.settings.origin;
-      inherit (config.lib.securityHeader) mkCSP mkPP;
+      cfg = nixos.config.services.zipline;
+      kanidmOrigin = nixos.config.services.kanidm.server.settings.origin;
+      inherit (nixos.config.lib.securityHeader) mkCSP mkPP;
     in
     lib.mkMerge [
-      (lib.mkIf config.services.zipline.enable {
+      (lib.mkIf nixos.config.services.zipline.enable {
         sops.secrets."zipline.env" = { };
 
         services.nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {
@@ -70,11 +72,12 @@
 
         services.zipline = {
           enable = true;
-          environmentFiles = [ config.sops.secrets."zipline.env".path ];
+          package = config.packages.zipline;
+          environmentFiles = [ nixos.config.sops.secrets."zipline.env".path ];
           settings =
             let
               inherit (lib) boolToString;
-              CORE_DEFAULT_DOMAIN = "zipline.${config.networking.domain}";
+              CORE_DEFAULT_DOMAIN = "zipline.${nixos.config.networking.domain}";
               OAUTH_OIDC_CLIENT_ID = "zipline";
             in
             {
@@ -121,5 +124,6 @@
             };
         };
       }
-    ];
+    ]
+  );
 }

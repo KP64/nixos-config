@@ -259,7 +259,6 @@ toplevel: {
                   type = "icons";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/zipline".path;
-                allowInsecureClientDisablePkce = true;
                 originUrl = config.services.zipline.settings.OAUTH_OIDC_REDIRECT_URI;
                 originLanding = "https://${config.services.zipline.settings.CORE_DEFAULT_DOMAIN}";
                 preferShortUsername = true;
