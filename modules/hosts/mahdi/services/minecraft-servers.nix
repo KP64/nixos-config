@@ -59,11 +59,11 @@
           owner = nixos.config.users.users.minecraft.name;
           content =
             let
-              inherit (nixos.config.sops) placeholder;
+              inherit (nixos.config) sops;
             in
             ''
-              VELOCITY_FORWARDING_SECRET=${placeholder."minecraft/velocity-forwarding-secret"}
-              FABRIC_PROXY_SECRET=${placeholder."minecraft/velocity-forwarding-secret"}
+              VELOCITY_FORWARDING_SECRET=${sops.placeholder."minecraft/velocity-forwarding-secret"}
+              FABRIC_PROXY_SECRET=${sops.placeholder."minecraft/velocity-forwarding-secret"}
             '';
         };
       };
