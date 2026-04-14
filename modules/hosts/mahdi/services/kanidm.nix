@@ -17,6 +17,7 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner; };
           "kanidm/idm-admin-password" = { inherit owner; };
+          "kanidm/oauth2/karakeep" = { inherit owner; };
           "kanidm/oauth2/open-webui" = { inherit owner; };
           "kanidm/oauth2/opengist" = { inherit owner; };
           "kanidm/oauth2/zipline" = { inherit owner; };
@@ -196,7 +197,7 @@ toplevel: {
                   file = "karakeep.svg";
                   type = "icons";
                 };
-                public = true;
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/karakeep".path;
                 enableLegacyCrypto = true; # Needed because karakeep doesn't support ES256
                 originUrl = "${config.services.karakeep.extraEnvironment.NEXTAUTH_URL}/api/auth/callback/custom";
                 originLanding = config.services.karakeep.extraEnvironment.NEXTAUTH_URL;

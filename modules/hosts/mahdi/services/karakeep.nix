@@ -10,9 +10,13 @@
       domain = "karakeep.${config.networking.domain}";
       inherit (config.lib.securityHeader) mkCSP mkPP;
     in
-    {
-      services = {
-        nginx.virtualHosts.${domain} = lib.mkIf config.services.karakeep.enable {
+    lib.mkMerge [
+      (lib.mkIf config.services.karakeep.enable {
+        sops.templates."karakeep.env".content = ''
+          OAUTH_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/karakeep"}
+        '';
+
+        services.nginx.virtualHosts.${domain} = {
           enableACME = true;
           acmeRoot = null;
           onlySSL = true;
@@ -60,14 +64,16 @@
               '';
           };
         };
-
-        karakeep = {
+      })
+      {
+        services.karakeep = {
           enable = true;
           browser = {
             port = 9222;
             # Default is chromium for whatever reason
             exe = lib.getExe pkgs.ungoogled-chromium;
           };
+          environmentFile = config.sops.templates."karakeep.env".path;
           extraEnvironment =
             let
               inherit (lib) boolToString;
@@ -89,7 +95,6 @@
               DISABLE_PASSWORD_AUTH = boolToString true;
 
               OAUTH_WELLKNOWN_URL = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${OAUTH_CLIENT_ID}/.well-known/openid-configuration";
-              OAUTH_CLIENT_SECRET = "bogus_secret"; # Needed to work, but isn't actually used. (AS LONG AS IT'S A PUBLIC SERVICE IN KANIDM)
               inherit OAUTH_CLIENT_ID;
               OAUTH_PROVIDER_NAME = "Kanidm";
               OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING = boolToString true;
@@ -123,6 +128,6 @@
               CRAWLER_VIDEO_DOWNLOAD = boolToString true;
             };
         };
-      };
-    };
+      }
+    ];
 }
