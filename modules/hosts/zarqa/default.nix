@@ -1,7 +1,7 @@
 toplevel@{ inputs, ... }:
 {
   flake.modules.nixos.hosts-zarqa =
-    { config, pkgs, ... }:
+    { config, ... }:
     let
       inherit (inputs) nixos-raspberrypi;
     in
@@ -22,27 +22,13 @@ toplevel@{ inputs, ... }:
         ++ (with toplevel.config.flake.modules.nixos; [
           nix
           rpi-cache
+          rpi-rtc
           ssh
           sudo
           time
 
           users-kg
         ]);
-
-      hardware = {
-        i2c.enable = true;
-        raspberry-pi.config.all = {
-          dt-overlays."i2c-rtc,ds3231" = {
-            enable = true;
-            params = { };
-          };
-          base-dt-params.i2c_arm = {
-            enable = true;
-            value = "on";
-          };
-        };
-      };
-      environment.systemPackages = [ pkgs.i2c-tools ];
 
       home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 

@@ -23,6 +23,7 @@ toplevel@{ inputs, ... }:
         ++ (with toplevel.config.flake.modules.nixos; [
           nix
           rpi-cache
+          rpi-rtc
           ssh
           sudo
 
