@@ -1,5 +1,7 @@
+{ moduleWithSystem, ... }:
 {
-  flake.modules.nixvim.lint =
+  flake.modules.nixvim.lint = moduleWithSystem (
+    { inputs', ... }:
     { lib, pkgs, ... }:
     {
       plugins.lint = {
@@ -12,9 +14,9 @@
         # project uses lints from 1.89.0, then Clippy will error out.
         linters = builtins.mapAttrs (_: v: { cmd = lib.getExe v; }) {
           markdownlint = pkgs.markdownlint-cli;
+          statix = inputs'.statix.packages.default;
           inherit (pkgs)
             deadnix
-            statix
             shellcheck
             ruff
             hadolint
@@ -33,5 +35,6 @@
           markdown = [ "markdownlint" ];
         };
       };
-    };
+    }
+  );
 }

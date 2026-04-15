@@ -280,6 +280,17 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Nix linter
+    # TODO: remove once newer versions supporting pipes are in nixpkgs
+    statix = {
+      url = "github:oppiliappan/statix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "dedup_systems";
+      };
+    };
   };
 
   /*
