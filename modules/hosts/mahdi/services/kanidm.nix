@@ -209,6 +209,22 @@ toplevel: {
                   "profile"
                 ];
               };
+              komga = {
+                displayName = "komga";
+                imageFile = getAsset {
+                  file = "komga.svg";
+                  type = "icons";
+                };
+                public = true;
+                enableLegacyCrypto = true;
+                originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/${config.services.komga.settings.spring.security.oauth2.client.registration.kanidm.provider}";
+                originLanding = "https://komga.${config.networking.domain}";
+                preferShortUsername = true;
+                scopeMaps."komga.access" = [
+                  "email"
+                  "openid"
+                ];
+              };
               open-webui = {
                 displayName = "open-webui";
                 imageFile = getAsset {
@@ -256,6 +272,22 @@ toplevel: {
                   "profile"
                 ];
               };
+              vaultwarden = {
+                displayName = "vaultwarden";
+                imageFile = getAsset {
+                  file = "vaultwarden.svg";
+                  type = "icons";
+                };
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/vaultwarden".path;
+                originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
+                originLanding = "https://${config.services.vaultwarden.domain}";
+                preferShortUsername = true;
+                scopeMaps."vaultwarden.access" = [
+                  "email"
+                  "openid"
+                  "profile"
+                ];
+              };
               zipline = {
                 displayName = "zipline";
                 imageFile = getAsset {
@@ -269,38 +301,6 @@ toplevel: {
                 scopeMaps."zipline.access" = [
                   "email"
                   "offline_access"
-                  "openid"
-                  "profile"
-                ];
-              };
-              komga = {
-                displayName = "komga";
-                imageFile = getAsset {
-                  file = "komga.svg";
-                  type = "icons";
-                };
-                public = true;
-                enableLegacyCrypto = true;
-                originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/${config.services.komga.settings.spring.security.oauth2.client.registration.kanidm.provider}";
-                originLanding = "https://komga.${config.networking.domain}";
-                preferShortUsername = true;
-                scopeMaps."komga.access" = [
-                  "email"
-                  "openid"
-                ];
-              };
-              vaultwarden = {
-                displayName = "vaultwarden";
-                imageFile = getAsset {
-                  file = "vaultwarden.svg";
-                  type = "icons";
-                };
-                basicSecretFile = config.sops.secrets."kanidm/oauth2/vaultwarden".path;
-                originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
-                originLanding = "https://${config.services.vaultwarden.domain}";
-                preferShortUsername = true;
-                scopeMaps."vaultwarden.access" = [
-                  "email"
                   "openid"
                   "profile"
                 ];
