@@ -8,7 +8,7 @@ keys:
 
   - &admin_kg_aladdin age17rrd3vwz7353l5mzsteujc2qdmp89sk5ldrvppa9cayav5k4u5pqm8tdpt
   - &admin_kg_mahdi age16xq27lvvv3j7pvkp0rk6jzljdhldevlrucnv906tuq0mfecvuq4q0pznww
-  - &admin_kg_sindbad age1wuhm8n9e3vp8yqug3ee0q2apxk72jevjlupep0uhk363rqxlm4psezexxx
+  - &admin_kg_sindbad age1dgxc76ehxl0dygcrgh7kyqwfe6wyjx3m5wqj8pm5vt37c4j96g8qhle37c
 
 creation_rules:
   - path_regex: modules\/hosts\/aladdin\/secrets\.yaml$
