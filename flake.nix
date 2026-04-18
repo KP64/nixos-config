@@ -117,8 +117,8 @@
       url = "github:nix-community/harmonia";
       # NOTE: Do not "delete" treefmt-nix or Harmonia won't build >:(
       inputs = {
-        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "";
       };
     };
 
