@@ -12,17 +12,15 @@
         nushell = {
           enable = true;
 
-          plugins =
-            (with config.packages; [
-              nu_plugin_port_extension
-              nu_plugin_regex
-            ])
-            ++ (with pkgs.nushellPlugins; [
-              formats
-              gstat
-              polars
-              query
-            ]);
+          plugins = [
+            config.packages.nu_plugin_port_extension
+          ]
+          ++ (with pkgs.nushellPlugins; [
+            formats
+            gstat
+            polars
+            query
+          ]);
 
           settings = {
             show_banner = false;
