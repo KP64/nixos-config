@@ -2,10 +2,10 @@
 {
   flake.modules.nixvim.ui = {
     imports = with config.flake.modules.nixvim; [
+      blink-indent
       bufferline
       dashboard
       highlight-colors
-      hlchunk
       lualine
       modicator
       noice
