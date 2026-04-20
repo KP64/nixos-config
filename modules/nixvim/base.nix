@@ -44,10 +44,7 @@
         mini-icons.enable = true;
         web-devicons.enable = true;
         guess-indent.enable = true;
-        nvim-autopairs = {
-          enable = true;
-          lazyLoad.settings.event = "InsertEnter";
-        };
+        blink-pairs.enable = true;
       };
 
       clipboard.register = "unnamedplus";
