@@ -25,6 +25,7 @@ toplevel@{ inputs, ... }:
             markdown
             movement
             no-neck-pain
+            tex
             treesitter
             trouble
             which-key

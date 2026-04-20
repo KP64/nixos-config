@@ -19,8 +19,9 @@ toplevel@{ inputs, ... }:
           leetcode
           markdown
           movement
-          telescope
           no-neck-pain
+          telescope
+          tex
           treesitter
           trouble
           which-key
