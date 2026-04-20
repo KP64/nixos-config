@@ -12,6 +12,7 @@ toplevel@{ inputs, ... }:
         desktop
         nix
         nvidia
+        obs-studio
         ssh
         sudo
         time
@@ -70,10 +71,6 @@ toplevel@{ inputs, ... }:
           openFirewall = true;
         };
         localsend.enable = true;
-        obs-studio = {
-          enable = true;
-          enableVirtualCamera = true;
-        };
       };
     };
 }
