@@ -6,6 +6,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
     { inputs', ... }: _: { programs.niri.package = inputs'.niri-flake.packages.niri-unstable; }
   );
 
+  # NOTE: Don't forget to install wireplumber on the device
+  #       Reason: without it volume keybinds won't work
   flake.modules.homeManager.users-kg-niri = moduleWithSystem (
     { inputs', ... }:
     {
@@ -27,10 +29,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
       services.playerctld.enable = true;
 
-      home.packages = with pkgs; [
-        brightnessctl
-        wl-clipboard-rs
-      ];
+      home.packages = [ pkgs.wl-clipboard-rs ];
 
       programs.niri = {
         enable = true;
@@ -152,6 +151,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             command = [ "noctalia-shell" ];
           };
           binds =
+            let
+              brightnessctl = lib.getExe pkgs.brightnessctl;
+            in
             (
               let
                 noctaliaIpcCall = [
@@ -264,9 +266,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               XF86MonBrightnessUp = {
                 allow-when-locked = true;
                 action.spawn = [
-                  "sh"
-                  "-c"
-                  "brightnessctl"
+                  brightnessctl
                   "set"
                   "5%+"
                 ];
@@ -274,9 +274,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               XF86MonBrightnessDown = {
                 allow-when-locked = true;
                 action.spawn = [
-                  "sh"
-                  "-c"
-                  "brightnessctl"
+                  brightnessctl
                   "set"
                   "5%-"
                 ];

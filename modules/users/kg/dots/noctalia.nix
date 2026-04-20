@@ -35,7 +35,7 @@ toplevel@{ self, inputs, ... }:
             name = config.invisible.location;
             showWeekNumberInCalendar = false;
           };
-          idle.enabled = true;
+          idle.enabled = false;
           wallpaper.overviewEnabled = true;
           appLauncher.enableClipboardHistory = true;
           systemMonitor = {
