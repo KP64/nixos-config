@@ -1,4 +1,4 @@
-{
+toplevel: {
   flake.modules.nixvim.blink =
     { lib, ... }:
     let
@@ -14,6 +14,12 @@
           '';
     in
     {
+      imports = with toplevel.config.flake.modules.nixvim; [
+        blink-emoji
+        blink-git
+        blink-latex
+      ];
+
       dependencies =
         let
           defaultEnable = {
@@ -37,8 +43,14 @@
           settings = {
             keymap.preset = "super-tab";
             signature.enabled = true;
+            sources.default = [
+              "lsp"
+              "path"
+              "snippets"
+              "buffer"
+            ];
             completion = {
-              documentation.auto_show = true;
+              ghost_text.enabled = true;
               menu.draw = {
                 columns =
                   lib.nixvim.mkRaw # lua
