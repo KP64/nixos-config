@@ -1,7 +1,12 @@
 toplevel@{ self, inputs, ... }:
 {
   flake.modules.homeManager.users-kg-noctalia-shell =
-    { config, lib, ... }:
+    {
+      osConfig ? null,
+      config,
+      lib,
+      ...
+    }:
     {
       imports = [ inputs.noctalia.homeModules.default ];
 
@@ -35,7 +40,8 @@ toplevel@{ self, inputs, ... }:
             name = config.invisible.location;
             showWeekNumberInCalendar = false;
           };
-          idle.enabled = false;
+          # PAM doesn't work when hm-only.
+          idle.enabled = osConfig != null;
           wallpaper.overviewEnabled = true;
           appLauncher.enableClipboardHistory = true;
           systemMonitor = {
