@@ -16,8 +16,6 @@
     in
     {
       plugins = {
-        hardtime.enable = true;
-
         spider = {
           enable = true;
           keymaps = {

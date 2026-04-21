@@ -29,7 +29,11 @@ toplevel@{ inputs, ... }:
           zen
         ];
 
-        colorschemes.catppuccin.enable = true;
+        colorschemes.catppuccin = {
+          enable = true;
+          lazyLoad.enable = true;
+        };
+
         neovim-dashboard = [
           "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
           "  ██  ██  ██              ██  ██  ██          "

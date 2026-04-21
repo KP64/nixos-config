@@ -44,7 +44,10 @@
         mini-icons.enable = true;
         web-devicons.enable = true;
         guess-indent.enable = true;
-        blink-pairs.enable = true;
+        blink-pairs = {
+          enable = true;
+          settings.highlights.enabled = false;
+        };
       };
 
       clipboard.register = "unnamedplus";
@@ -53,7 +56,7 @@
         number = true;
         relativenumber = true;
 
-        breakindent = true;
+        cindent = true;
 
         undofile = true;
 
@@ -61,17 +64,11 @@
         ignorecase = true;
         smartcase = true;
 
-        smartindent = true;
-
-        # Keep it on by default
-        signcolumn = lib.boolToYesNo true;
-
         # Configure how new splits should be opened
         splitright = true;
         splitbelow = true;
 
         wrap = false;
-        cursorline = true;
 
         inccommand = "split";
 
@@ -81,8 +78,6 @@
         # and :help 'listchars'
         list = true;
         listchars = lib.nixvim.mkRaw "{ tab = '» ', trail = '·', nbsp = '␣' }";
-
-        confirm = true;
       };
 
       keymaps = [
