@@ -30,6 +30,8 @@
             "shfmt"
           ];
 
+          tex = [ "tex-fmt" ];
+
           java = [ "google-java-format" ];
           lua = [ "stylua" ];
           python = [ "ruff" ];

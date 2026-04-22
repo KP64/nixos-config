@@ -53,16 +53,14 @@ toplevel@{ inputs, ... }:
 
         keymaps = [
           {
-            action =
-              config.lib.nixvim.mkRaw # lua
-                ''
-                  function()
-                    vim.cmd("enew")
-                    vim.bo.buftype = "nofile"
-                    vim.bo.bufhidden = "hide"
-                    vim.bo.swapfile = false
-                  end
-                '';
+            action = config.lib.nixvim.mkRaw ''
+              function()
+                vim.cmd("enew")
+                vim.bo.buftype = "nofile"
+                vim.bo.bufhidden = "hide"
+                vim.bo.swapfile = false
+              end
+            '';
             key = "<leader>sp";
             options.desc = "Scratchpad";
           }

@@ -52,9 +52,7 @@ toplevel: {
             completion = {
               ghost_text.enabled = true;
               menu.draw = {
-                columns =
-                  lib.nixvim.mkRaw # lua
-                    ''{ { "kind_icon" }, { "label", gap = 1 } }'';
+                columns = lib.nixvim.mkRaw ''{ { "kind_icon" }, { "label", gap = 1 } }'';
                 components.label = {
                   text = mkRequire "blink_components_text";
                   highlight = mkRequire "blink_components_highlight";

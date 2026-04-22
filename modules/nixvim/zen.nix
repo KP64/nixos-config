@@ -16,13 +16,11 @@
           lazyLoad.settings = {
             cmd = zenModeCmd;
             keys = [ zenModeKeymap ];
-            before =
-              lib.nixvim.mkRaw # lua
-                ''
-                  function()
-                    require("lz.n").trigger_load("twilight.nvim")
-                  end
-                '';
+            before = lib.nixvim.mkRaw ''
+              function()
+                require("lz.n").trigger_load("twilight.nvim")
+              end
+            '';
           };
         };
       };

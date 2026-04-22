@@ -61,24 +61,20 @@
           {
             mode = "v";
             key = "<leader>hs";
-            action =
-              lib.nixvim.mkRaw # lua
-                ''
-                  function()
-                    require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                  end
-                '';
+            action = lib.nixvim.mkRaw ''
+              function()
+                require('gitsigns').stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+              end
+            '';
           }
           {
             mode = "v";
             key = "<leader>hr";
-            action =
-              lib.nixvim.mkRaw # lua
-                ''
-                  function()
-                    require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                  end
-                '';
+            action = lib.nixvim.mkRaw ''
+              function()
+                require('gitsigns').reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+              end
+            '';
           }
           {
             mode = "n";
@@ -103,13 +99,11 @@
           {
             mode = "n";
             key = "<leader>hb";
-            action =
-              lib.nixvim.mkRaw # lua
-                ''
-                  function()
-                    require('gitsigns').blame_line({ full = true })
-                  end
-                '';
+            action = lib.nixvim.mkRaw ''
+              function()
+                require('gitsigns').blame_line({ full = true })
+              end
+            '';
           }
           {
             mode = "n";
@@ -119,13 +113,11 @@
           {
             mode = "n";
             key = "<leader>hD";
-            action =
-              lib.nixvim.mkRaw # lua
-                ''
-                  function()
-                    require('gitsigns').diffthis('~')
-                  end
-                '';
+            action = lib.nixvim.mkRaw ''
+              function()
+                require('gitsigns').diffthis('~')
+              end
+            '';
           }
           {
             mode = "n";
