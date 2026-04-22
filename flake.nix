@@ -284,11 +284,10 @@
     # Nix linter
     # TODO: remove once newer versions supporting pipes are in nixpkgs
     statix = {
-      url = "github:oppiliappan/statix";
+      url = "github:molybdenumsoftware/statix";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "dedup_systems";
       };
     };
   };

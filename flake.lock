@@ -1029,21 +1029,18 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "systems": [
-          "dedup_systems"
         ]
       },
       "locked": {
-        "lastModified": 1760596293,
-        "narHash": "sha256-duH6Il124g+CdYX+HCqOGnpJxyxOCgWYcrcK0CBnA2M=",
-        "owner": "oppiliappan",
+        "lastModified": 1776868585,
+        "narHash": "sha256-dosMUsEk8KQbR7mg7FvLKCHQLfTGs90Pee96Z8V9L8I=",
+        "owner": "molybdenumsoftware",
         "repo": "statix",
-        "rev": "e9df54ce918457f151d2e71993edeca1a7af0132",
+        "rev": "7bc3ff54928ea681d6104eb1ae8a8f5538490a3c",
         "type": "github"
       },
       "original": {
-        "owner": "oppiliappan",
+        "owner": "molybdenumsoftware",
         "repo": "statix",
         "type": "github"
       }
