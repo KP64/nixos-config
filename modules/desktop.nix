@@ -3,7 +3,7 @@ toplevel: {
     nixos.desktop =
       { config, lib, ... }:
       let
-        anyHmUser = cond: config.home-manager.users |> builtins.attrValues |> builtins.any cond;
+        inherit (config.lib.hm) anyHmUser;
       in
       {
         config = lib.mkMerge [
