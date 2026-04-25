@@ -18,12 +18,6 @@
       };
 
       config.programs = {
-        gh = {
-          enable = true;
-          settings.git_protocol = "ssh";
-        };
-        gh-dash.enable = true;
-
         git-cliff.enable = true;
 
         gitui.enable = true;
