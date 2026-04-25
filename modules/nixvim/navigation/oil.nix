@@ -1,7 +1,9 @@
 {
   flake.modules.nixvim.oil =
-    { lib, ... }:
+    { config, lib, ... }:
     {
+      performance.combinePlugins.standalonePlugins = lib.optional config.plugins.blink-cmp.enable "oil.nvim";
+
       plugins = {
         oil-git-status.enable = true;
         oil = {
