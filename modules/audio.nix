@@ -1,7 +1,10 @@
 { inputs, ... }:
 {
   flake.modules.nixos.audio = {
-    imports = [ inputs.musnix.nixosModules.default ];
+    # NOTE: Imports as little as possible
+    #       The default module makes use of
+    #       unnecessary options and overlays
+    imports = [ (inputs.musnix + /modules/base.nix) ];
 
     musnix = {
       enable = true;
