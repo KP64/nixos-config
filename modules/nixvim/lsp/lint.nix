@@ -2,7 +2,6 @@
 {
   flake.modules.nixvim.lint = moduleWithSystem (
     { inputs', ... }:
-    { lib, pkgs, ... }:
     {
       plugins.lint = {
         enable = true;
@@ -12,15 +11,12 @@
         # E.g.:
         # Let's say Clippy 1.88.0 is installed by nixpkgs but the rust
         # project uses lints from 1.89.0, then Clippy will error out.
-        linters = builtins.mapAttrs (_: v: { cmd = lib.getExe v; }) {
-          markdownlint = pkgs.markdownlint-cli;
-          statix = inputs'.statix.packages.default;
-          inherit (pkgs)
-            deadnix
-            shellcheck
-            ruff
-            hadolint
-            ;
+        autoInstall = {
+          enable = true;
+          overrides = {
+            statix = inputs'.statix.packages.default;
+            clippy = null;
+          };
         };
         lintersByFt = {
           bash = [ "shellcheck" ];

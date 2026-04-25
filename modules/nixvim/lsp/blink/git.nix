@@ -3,7 +3,10 @@
     { pkgs, ... }:
     {
       extraPackagesAfter = [ pkgs.glab ];
-      dependencies.gh.enable = true;
+      dependencies.gh = {
+        enable = true;
+        packageFallback = true;
+      };
       plugins = {
         blink-cmp-git.enable = true;
         blink-cmp.settings.sources = {
