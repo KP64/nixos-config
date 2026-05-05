@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.rpi4-ext4 = {
+  flake.diskoConfigurations.rpi-ext4 = {
     disko.devices.disk.main = {
       type = "disk";
       device = "/dev/mmcblk0";
