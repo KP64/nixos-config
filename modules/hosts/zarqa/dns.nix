@@ -3,6 +3,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
   flake.modules.nixos.hosts-zarqa = moduleWithSystem (
     { config, system, ... }:
     nixos@{ lib, ... }:
+    let
+      inherit (nixos.config) staticIPv4 staticIPv6;
+    in
     {
       # NOTE: Hickory is denied permission to secrets. It also uses a DynamicUser.
       #       This is needed so that we can set an owner to Hickory.
@@ -18,7 +21,17 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         Group = nixos.config.users.users.hickory-dns.group;
       };
 
-      networking.resolvconf.useLocalResolver = true;
+      networking = {
+        resolvconf.useLocalResolver = true;
+        firewall =
+          let
+            dnsPort = 53;
+          in
+          {
+            allowedTCPPorts = [ dnsPort ];
+            allowedUDPPorts = [ dnsPort ];
+          };
+      };
 
       topology = lib.mkIf (nixos.config ? topology) {
         self.services.hickory-dns.details."Primary Zones".text =
@@ -53,8 +66,14 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               dnsUtil = inputs.dns.util.${system};
             in
             {
-              listen_addrs_ipv4 = [ "127.0.0.1" ];
-              listen_addrs_ipv6 = [ "::1" ];
+              listen_addrs_ipv4 = [
+                "127.0.0.1"
+                staticIPv4
+              ];
+              listen_addrs_ipv6 = [
+                "::1"
+                staticIPv6
+              ];
 
               zones =
                 # NOTE: These "default" zones do not ship with hickory-dns by default.
@@ -159,8 +178,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                         |> builtins.attrNames
                         |> lib.filter (lib.hasPrefix "ns")
                         |> map (nsdomain: "${nsdomain}.${zone}.");
-                      A = [ nixos.config.staticIPv4 ];
-                      AAAA = [ nixos.config.staticIPv6 ];
+                      A = [ staticIPv4 ];
+                      AAAA = [ staticIPv6 ];
                       # TODO: Find a better way for this.
                       #       Use virtualHosts of reverse proxy with recursiveUpdate?
                       subdomains =
