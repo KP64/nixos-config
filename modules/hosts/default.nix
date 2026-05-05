@@ -56,12 +56,7 @@ in
                     };
                   };
                 }
-              ]
-              # Adds disko configuration if available
-              ++ (lib.optionals (lib.hasAttr hostName toplevel.config.flake.diskoConfigurations) [
-                inputs.disko.nixosModules.default
-                toplevel.config.flake.diskoConfigurations.${hostName}
-              ]);
+              ];
           };
         }
       );

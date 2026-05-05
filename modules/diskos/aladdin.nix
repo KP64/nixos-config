@@ -1,13 +1,5 @@
 {
   flake.diskoConfigurations.aladdin = {
-    services.btrfs.autoScrub = {
-      enable = true;
-      # By default scrubs all mountpoints.
-      # We use subvolumes so no need to scrub all of them.
-      # Top level is enough (it will scrub the others too).
-      fileSystems = [ "/" ];
-    };
-
     disko.devices.disk.main = {
       type = "disk";
       device = "/dev/sda";

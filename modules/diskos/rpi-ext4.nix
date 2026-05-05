@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.morgiana = {
+  flake.diskoConfigurations.rpi4-ext4 = {
     disko.devices.disk.main = {
       type = "disk";
       device = "/dev/mmcblk0";
