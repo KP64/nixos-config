@@ -29,9 +29,11 @@ toplevel: {
       staticIPv4 = "192.168.2.224";
       staticIPv6 = "fdef:fa6a:4724:1::224";
 
-      services.resolved.dnsDelegates."homelab".Delegate = {
-        DNS = [ zarqaCfg.staticIPv4 ];
-        DefaultRoute = true;
+      services.resolved.dnsDelegates.homelab.Delegate = {
+        DNS = with zarqaCfg; [
+          staticIPv4
+          staticIPv6
+        ];
         Domains = [ config.networking.domain ];
       };
 
