@@ -230,8 +230,6 @@ toplevel@{ inputs, moduleWithSystem, ... }:
               vimium
             ];
 
-            # Libredirect Settings
-            # it's actually a ".js" file, but importing it as JSON is easier :P
             settings = {
               "deArrow@ajay.app".permissions = [
                 "storage"
