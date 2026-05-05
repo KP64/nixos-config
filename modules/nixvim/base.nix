@@ -1,11 +1,12 @@
-{ inputs, ... }:
+{ moduleWithSystem, ... }:
 {
-  flake.modules.nixvim.base =
+  flake.modules.nixvim.base = moduleWithSystem (
+    { inputs', ... }:
     { lib, ... }:
     {
       # NOTE: Overlay is preferred over using the package only.
       #       The overlay works around different fixed output hash issues.
-      nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
+      package = inputs'.neovim-nightly-overlay.packages.default;
 
       withNodeJs = true;
 
@@ -104,5 +105,6 @@
           upper = "k";
         }
       );
-    };
+    }
+  );
 }
