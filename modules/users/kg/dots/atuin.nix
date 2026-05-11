@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.homeManager.users-kg-atuin = {
+  den.aspects.kg._.atuin.homeManager = {
     programs.atuin = {
       enable = true;
       forceOverwriteSettings = true;

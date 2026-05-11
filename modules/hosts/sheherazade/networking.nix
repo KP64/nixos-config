@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-sheherazade =
+  den.aspects.sheherazade.nixos =
     { config, lib, ... }:
     let
       zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;

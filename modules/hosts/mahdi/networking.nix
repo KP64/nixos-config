@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, lib, ... }:
     let
       zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;

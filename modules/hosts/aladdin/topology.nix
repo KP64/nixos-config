@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-aladdin =
+  den.aspects.aladdin.nixos =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;

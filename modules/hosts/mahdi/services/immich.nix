@@ -1,7 +1,7 @@
 {
   # TODO: Reenable immich once mTLS is implemented
   #       and only public proxy is forwarded
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, lib, ... }:
     lib.mkMerge [
       (lib.mkIf config.services.immich.enable {

@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.nixos.hosts-mahdi = moduleWithSystem (
+  den.aspects.mahdi.nixos = moduleWithSystem (
     { config, ... }:
     nixos@{ lib, ... }:
     let

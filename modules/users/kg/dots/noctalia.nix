@@ -1,6 +1,6 @@
 toplevel@{ self, inputs, ... }:
 {
-  flake.modules.homeManager.users-kg-noctalia-shell =
+  den.aspects.kg._.noctalia-shell.homeManager =
     {
       osConfig ? null,
       config,
@@ -15,6 +15,7 @@ toplevel@{ self, inputs, ... }:
           defaultWallpaper = toplevel.config.lib.flake.util.getAsset {
             file = "cabin.png";
             type = "wallpapers/catppuccin";
+            sha256 = "sha256-UKm2+z2ASkAS8w+0ukJ6Pa6gTysd1YCVszkZPXLkVKo=";
           };
         };
       };
@@ -32,8 +33,9 @@ toplevel@{ self, inputs, ... }:
           };
           general.avatarImage = builtins.path {
             name = "profile-pic";
-            path = self + /modules/users/${config.home.username}/pfp.jpg;
+            path = "${self}/modules/to_migrate/users/${config.home.username}/pfp.jpg";
             recursive = false;
+            sha256 = "sha256-Ah71B03bSn7MeHt/weKxp6aKoXxSre/ncXsCJ4MzLfg=";
           };
           uifontDefault = "JetBrainsMono Nerd Font";
           location = {

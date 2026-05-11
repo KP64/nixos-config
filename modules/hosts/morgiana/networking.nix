@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-morgiana =
+  den.aspects.morgiana.nixos =
     { config, lib, ... }:
     let
       zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;

@@ -106,6 +106,9 @@
       };
     };
 
+    den.url = "github:denful/den";
+    flake-file.url = "github:denful/flake-file";
+
     # Bind everything together
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -252,17 +255,6 @@
       };
     };
 
-    # Nushell file formatter
-    # TODO: Remove once nufmt is back in treefmt-nix
-    nufmt = {
-      url = "github:nushell/nufmt";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "dedup_flake-utils";
-        treefmt-nix.follows = "";
-      };
-    };
-
     # AUR Nix edition
     nur = {
       url = "github:nix-community/nur";
@@ -279,16 +271,6 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Nix linter
-    # TODO: remove once newer versions supporting pipes are in nixpkgs
-    statix = {
-      url = "github:molybdenumsoftware/statix";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
     };
   };
 

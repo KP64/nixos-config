@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.homeManager.users-kg-glance =
+  den.aspects.kg._.glance.homeManager =
     { config, lib, ... }:
     {
       # The mkBefore is to "set" the default page

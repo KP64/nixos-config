@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-morgiana = {
+  den.aspects.morgiana.nixos = {
     imports = [
       inputs.disko.nixosModules.default
       toplevel.config.flake.diskoConfigurations.rpi-ext4

@@ -1,6 +1,6 @@
 { moduleWithSystem, inputs, ... }:
 {
-  flake.modules.nixos.hosts-mahdi = moduleWithSystem (
+  den.aspects.mahdi.nixos = moduleWithSystem (
     {
       config,
       inputs',

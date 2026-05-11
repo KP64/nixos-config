@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.homeManager.users-kg-yazi = moduleWithSystem (
+  den.aspects.kg._.yazi.homeManager = moduleWithSystem (
     { config, ... }:
     { lib, pkgs, ... }:
     {

@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
@@ -11,6 +11,7 @@ toplevel: {
           image = getAsset {
             file = "poweredge-r730.png";
             type = "topology";
+            sha256 = "sha256-aS3wAebz8cZrF7Vov3wT/Q69AD/tmrC2EIrrZGimGA0=";
           };
           info = "DELL Poweredge R730";
         };

@@ -40,12 +40,7 @@
       };
 
     homeManager.ssh =
-      {
-        config,
-        osConfig ? null,
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         home.packages = [ pkgs.openssh ];
 
@@ -54,15 +49,7 @@
           enableDefaultConfig = false;
         };
 
-        services = {
-          ssh-agent.enable = true;
-          ssh-tpm-agent.enable =
-            let
-              inherit (osConfig.security) tpm2;
-              groups = osConfig.users.users.${config.home.username}.extraGroups;
-            in
-            (osConfig != null) && tpm2.enable && (builtins.elem tpm2.tssGroup groups);
-        };
+        services.ssh-agent.enable = true;
       };
   };
 }

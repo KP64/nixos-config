@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-glance = {
+  den.aspects.kg._.glance.homeManager = {
     services.glance = {
       enable = true;
       settings = {

@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-sheherazade =
+  den.aspects.sheherazade.nixos =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
@@ -11,6 +11,7 @@ toplevel: {
           image = getAsset {
             file = "rpi400.png";
             type = "topology";
+            sha256 = "sha256-B9frbraTDwtBlundqLEPbm3X8IjH/i9yk5CQJ8k4kgE=";
           };
           info = "Raspberry Pi 400";
         };

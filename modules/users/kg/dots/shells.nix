@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.homeManager.users-kg-shells = moduleWithSystem (
+  den.aspects.kg._.shells.homeManager = moduleWithSystem (
     { config, ... }:
     { lib, pkgs, ... }:
     {

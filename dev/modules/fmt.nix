@@ -92,10 +92,7 @@ toplevel@{ inputs, ... }:
         programs = {
           # ❄️ Nix
           deadnix.enable = true;
-          statix = {
-            enable = true;
-            package = inputs'.statix.packages.default;
-          };
+          statix.enable = true;
           nixf-diagnose.enable = true;
           nixfmt = {
             enable = true;

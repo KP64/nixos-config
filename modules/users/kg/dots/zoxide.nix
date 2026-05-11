@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-zoxide = {
+  den.aspects.kg._.zoxide.homeManager = {
     programs.zoxide = {
       enable = true;
       options = [ "--cmd cd" ];

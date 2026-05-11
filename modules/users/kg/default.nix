@@ -1,11 +1,32 @@
-toplevel@{ moduleWithSystem, inputs, ... }:
+toplevel@{
+  den,
+  moduleWithSystem,
+  inputs,
+  ...
+}:
 {
-  flake.modules = {
-    nixos.users-kg =
+  den.aspects.kg = {
+    includes =
+      (with den.batteries; [
+        primary-user
+        (user-shell "bash")
+      ])
+      ++ (with den.aspects.kg._; [
+        atuin
+        delta
+        fd
+        neovim
+        shells
+        starship
+        tealdeer
+        yazi
+        zellij
+        zoxide
+      ]);
+
+    nixos =
       { config, lib, ... }:
       {
-        home-manager.users.kg.imports = [ toplevel.config.flake.modules.homeManager.users-kg ];
-
         sops.secrets =
           let
             sopsFile = ./secrets.yaml;
@@ -32,19 +53,17 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             (map (group: group.name) (
               with config.users.groups;
               [
-                wheel
                 input
                 audio
                 video
               ]
             ))
-            ++ lib.optional config.security.tpm2.enable config.security.tpm2.tssGroup
             ++ lib.optional config.services.tcsd.enable config.services.tcsd.group
             ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group;
         };
       };
 
-    homeManager.users-kg = moduleWithSystem (
+    homeManager = moduleWithSystem (
       { inputs', ... }:
       { config, pkgs, ... }:
       {
@@ -58,18 +77,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             nix
             ssh
             vcs
-          ])
-          ++ (with toplevel.config.flake.modules.homeManager; [
-            users-kg-yazi
-            users-kg-atuin
-            users-kg-delta
-            users-kg-fd
-            users-kg-neovim
-            users-kg-shells
-            users-kg-starship
-            users-kg-tealdeer
-            users-kg-zellij
-            users-kg-zoxide
           ]);
 
         vcs.user = {

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-zarqa =
+  den.aspects.zarqa.nixos =
     { config, lib, ... }:
     {
       sops.secrets = lib.mkIf config.services.oink.enable {

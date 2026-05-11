@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.homeManager.users-kg-anki =
+  den.aspects.kg._.anki.homeManager =
     { config, ... }:
     {
       sops.secrets = {

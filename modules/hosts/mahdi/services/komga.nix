@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, lib, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;

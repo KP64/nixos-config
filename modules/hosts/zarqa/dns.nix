@@ -1,6 +1,6 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
-  flake.modules.nixos.hosts-zarqa = moduleWithSystem (
+  den.aspects.zarqa.nixos = moduleWithSystem (
     { config, system, ... }:
     nixos@{ lib, ... }:
     let

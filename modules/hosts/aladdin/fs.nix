@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-aladdin = {
+  den.aspects.aladdin.nixos = {
     imports = [
       inputs.disko.nixosModules.default
       toplevel.config.flake.diskoConfigurations.aladdin

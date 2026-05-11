@@ -1,4 +1,4 @@
-toplevel:
+toplevel@{ den, ... }:
 let
   inherit (toplevel.config.flake) modules;
 
@@ -16,6 +16,18 @@ let
   ];
 in
 {
+  # TODO: Aspect to make integration easier
+  den.schema.host.includes = [
+    (den.batteries.unfree (
+      sharedUnfreePackages
+      ++ [
+        "nvidia-x11"
+        "nvidia-settings"
+        # TODO: Revert
+        "nvidia-kernel-modules"
+      ]
+    ))
+  ];
   flake.modules = {
     nixos = {
       nvidia-cache = {
@@ -24,11 +36,6 @@ in
       };
 
       nvidia = {
-        allowedUnfreePackages = sharedUnfreePackages ++ [
-          "nvidia-x11"
-          "nvidia-settings"
-        ];
-
         inherit nixpkgs nix;
 
         home-manager.sharedModules = [ modules.homeManager.nvidia ];
@@ -37,7 +44,9 @@ in
 
         hardware = {
           nvidia = {
-            open = true;
+            # TODO: Revert
+            # open = true;
+            open = false;
             nvidiaPersistenced = true;
             powerManagement.enable = true;
             prime.allowExternalGpu = true;
@@ -54,11 +63,7 @@ in
     homeManager = {
       nvidia-cache = { inherit nix; };
 
-      nvidia = {
-        allowedUnfreePackages = sharedUnfreePackages;
-
-        inherit nixpkgs nix;
-      };
+      nvidia = { inherit nixpkgs nix; };
     };
   };
 }
