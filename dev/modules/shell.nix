@@ -1,4 +1,3 @@
-{ config, ... }:
 {
   perSystem =
     {
@@ -11,15 +10,6 @@
       devShells.default = pkgs.mkShell {
         name = "config";
 
-        # Required for qmlls to find the correct type declarations
-        QMLLS_BUILD_DIRS = lib.concatMapStringsSep ":" (p: "${p}/lib/qt-6/qml/") (
-          with pkgs;
-          [
-            kdePackages.qtdeclarative
-            quickshell
-          ]
-        );
-
         packages =
           let
             inherit (pkgs.writers) writeNuBin;
@@ -28,7 +18,6 @@
             nil
             yaml-language-server
             vscode-json-languageserver
-            kdePackages.qtdeclarative # qmlls
 
             nix-init
             nix-melt
@@ -117,171 +106,6 @@
                       $mod_ids | par-each { ${prefetch} $in } | print --raw
                   }
                 ''
-            )
-            (
-              let
-                inherit (config.flake) nixosConfigurations homeConfigurations;
-                nixosConfigs =
-                  nixosConfigurations
-                  |> lib.mapAttrsToList (
-                    hostName: value:
-                    let
-                      cfg = value.config;
-                    in
-                    {
-                      host.${hostName} = cfg.allowedUnfreePackages;
-                      users = cfg.home-manager.users |> lib.mapAttrs (_: uvalue: uvalue.allowedUnfreePackages);
-                    }
-                  );
-                homeConfigs =
-                  homeConfigurations
-                  |> lib.mapAttrsToList (
-                    homeName: value:
-                    let
-                      homeUser = lib.splitString "@" homeName;
-                      username = builtins.head homeUser;
-                      hostname = lib.last homeUser;
-                    in
-                    {
-                      host = hostname;
-                      users.${username} = value.config.allowedUnfreePackages;
-                    }
-                  );
-              in
-              # TODO: This is really bad. Update it.
-              writeNuBin "identify-unfree" { } # nu
-                ''
-                  # Prints a table of all unfree packages used within a NixOS configuration
-                  # HomeManager configuration hosts are empty because unfree packages depend on the current user
-                  @example "Table view" {identify-unfree}
-                  @example "Tangible table" {identify-unfree --json}
-                  def main [
-                    --json (-j) # Return table's json output
-                  ]: nothing -> oneof<table, string> {
-                      const cfg_json = "${builtins.toJSON (nixosConfigs ++ homeConfigs)}"
-                      if $json {
-                          $cfg_json
-                      } else {
-                          $cfg_json | from json --strict
-                      }
-                  }
-
-                  # Prints the unfree packages of the specified host
-                  @example "Aladdin's unfree packages" {identify-unfree host aladdin}
-                  def "main host" [host: string]: nothing -> list<string> {
-                      let data = identify-unfree -j | from json --strict
-
-                      let host_exists = $data | any {|row|
-                          if ($row.host | describe | str contains "record") {
-                            $row.host | columns | get 0
-                          } else {
-                            $row.host
-                          }
-                          | $host == $in
-                      }
-
-                      if not $host_exists {
-                          error make --unspanned $"Host (ansi yellow)($host)(ansi reset) not found"
-                      }
-
-                      $data
-                      | where { $in.host | describe | str starts-with "record" }
-                      | each --flatten { $in.host | get --optional $host }
-                  }
-                ''
-            )
-            # TODO: Add after deployment steps:
-            #       1. User/Admin sops should be configured correctly
-            #       2. Reboot after installation again, because home-manager is weird
-            (writeNuBin "deploy"
-              {
-                makeWrapperArgs = [
-                  "--prefix"
-                  "PATH"
-                  ":"
-                  (lib.makeBinPath (
-                    with pkgs;
-                    [
-                      sops
-                      gitMinimal
-                      ssh-to-age
-                      nixos-anywhere
-                      openssh
-                    ]
-                  ))
-                ];
-              }
-              # nu
-              ''
-                # A deployment script utilizing nixos-anywhere
-                #
-                # 1. Generates new SSH and Age Keys
-                # 2. Updates all secrets of that host
-                # 3. Deploys config with new Keys
-                @example "Deploy Zarqa" {deploy zarqa 192.168.2.201}
-                @example "Deploy Zarqa and generate facter.json" {deploy zarqa 192.168.2.201 --generate-hardware-report}
-                def main [host: string, ip: string, --generate-hardware-report]: nothing -> nothing {
-                    # Work on raw YAML text for anchors
-                    let raw = open --raw .sops.yaml
-
-                    let anchor = $"host_($host)"
-                    if not ($raw | str contains $"&($anchor)") {
-                        error make $"Host anchor ($anchor) not found in .sops.yaml"
-                    }
-
-                    let old_age_key = $raw | parse --regex $"&($anchor) \(?<key>age[0-9a-z]+\)" | get key.0
-                    if ($old_age_key | is-empty) {
-                        error make $"Failed to extract old age key for ($anchor)"
-                    }
-
-                    # Create temp dir
-                    let tempdir = mktemp -d
-                    let ssh_dir = ($tempdir)/etc/ssh
-                    mkdir $ssh_dir
-
-                    let rsa_key = $"($ssh_dir)/ssh_host_rsa_key"
-                    let ed25519_key = $"($ssh_dir)/ssh_host_ed25519_key"
-
-                    ssh-keygen -t rsa -b 4096 -f $rsa_key -N "" -C $host
-                    ssh-keygen -t ed25519 -f $ed25519_key -N "" -C $host
-
-                    let age_pub = open --raw $"($ed25519_key).pub" | ssh-to-age
-
-                    # Replace anchor in raw YAML
-                    $raw
-                    | str replace -r $"&($anchor) age[0-9a-z]+" $"&($anchor) ($age_pub)"
-                    | save --force .sops.yaml
-
-                    print $"Updated .sops.yaml for ($host)"
-
-                    let git_files = git ls-files | lines
-
-                    ".sops.yaml"
-                    | open
-                    | get creation_rules
-                    | where {|rule|
-                        $rule.key_groups | any {|kg|
-                            $kg.age | any {|k| $k == $age_pub }
-                        }
-                    }
-                    | get path_regex
-                    | par-each {|regex| $git_files | where {|f| $f =~ $regex } }
-                    | flatten
-                    | uniq
-                    | each {|file_to_reencrypt|
-                        print $"Re-encrypting ($file_to_reencrypt)"
-                        sops updatekeys $file_to_reencrypt
-                        print # needed so that updatekeys output is shown
-                    }
-
-                    nixos-anywhere --flake $".#($host)" (if $generate_hardware_report { $"--generate-hardware-config nixos-facter ./modules/hosts/($host)/facter.json" } else { "" }) --target-host $"root@($ip)" --extra-files $tempdir
-
-                    # Remove lingering temp directory.
-                    # We only care about the successful case because
-                    # failing means the keys won't be used anyway
-                    rm -rf $tempdir
-                }
-              ''
             )
           ];
       };

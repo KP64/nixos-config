@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi = {
+  den.aspects.mahdi.nixos = {
     services.clamav = {
       clamonacc.enable = true;
       daemon = {

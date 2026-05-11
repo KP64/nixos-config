@@ -6,11 +6,10 @@ toplevel@{ inputs, ... }:
       {
         imports = [ inputs.home-manager.nixosModules.default ];
 
-        # TODO: Refine the config to support useGlobalPkgs
-        #       without it being a hassle
         home-manager = {
           startAsUserService = true;
           useUserPackages = true;
+          useGlobalPkgs = true;
           overwriteBackup = true;
           backupFileExtension = "hm-backup";
           sharedModules = [

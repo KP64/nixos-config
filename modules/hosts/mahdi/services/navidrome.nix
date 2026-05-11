@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, lib, ... }:
     let
       domain = "navidrome.${config.networking.domain}";

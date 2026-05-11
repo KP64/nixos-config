@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-starship = {
+  den.aspects.kg._.starship.homeManager = {
     programs.starship = {
       enable = true;
       presets = [ "bracketed-segments" ];

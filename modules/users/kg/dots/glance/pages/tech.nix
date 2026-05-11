@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.homeManager.users-kg-glance = {
+  den.aspects.kg._.glance.homeManager = {
     services.glance.settings.pages = [
       {
         name = "Tech";

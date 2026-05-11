@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-morgiana =
+  den.aspects.morgiana.nixos =
     { config, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;

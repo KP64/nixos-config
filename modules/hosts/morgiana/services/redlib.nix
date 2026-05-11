@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.nixos.hosts-morgiana = moduleWithSystem (
+  den.aspects.morgiana.nixos = moduleWithSystem (
     { config, ... }:
     nixos@{ lib, ... }:
     let

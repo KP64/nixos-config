@@ -6,57 +6,57 @@ toplevel@{ inputs, ... }:
   #          static Website that tells them all services with the respective onion address.
   # TODO: Systemd Service Hardening
   # TODO: Set CORS and other Security related stuff for Services
-  flake.modules.nixos.hosts-mahdi =
-    { config, ... }:
-    {
-      imports =
-        (with inputs; [
-          sops-nix.nixosModules.default
-          nix-invisible.modules.nixos.host-mahdi
-        ])
+
+  den = {
+    hosts.x86_64-linux.mahdi.users.kg.classes = [ "homeManager" ];
+
+    aspects.mahdi.nixos =
+      { config, ... }:
+      {
+        imports = [
+          inputs.nix-invisible.modules.nixos.host-mahdi
+        ]
         ++ (with toplevel.config.flake.modules.nixos; [
           catppuccin
           efi
           nix
           ssh
-          sudo
           time
 
           # Needed to test config without much pain
           nvidia-cache
           rpi-cache
-
-          users-kg
         ]);
 
-      home-manager.users.kg.home = { inherit (config.system) stateVersion; };
+        home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
-      sops.defaultSopsFile = ./secrets.yaml;
-      users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
+        sops.defaultSopsFile = ./secrets.yaml;
+        users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
-      system.stateVersion = "26.05";
-      hardware.facter.reportPath = ./facter.json;
+        system.stateVersion = "26.05";
+        hardware.facter.reportPath = ./facter.json;
 
-      console.keyMap = config.services.xserver.xkb.layout;
+        console.keyMap = config.services.xserver.xkb.layout;
 
-      boot.binfmt = {
-        preferStaticEmulators = true;
-        emulatedSystems = [ "aarch64-linux" ];
+        boot.binfmt = {
+          preferStaticEmulators = true;
+          emulatedSystems = [ "aarch64-linux" ];
+        };
+
+        security = {
+          lockKernelModules = true;
+          protectKernelImage = true;
+          forcePageTableIsolation = true;
+        };
+
+        services = {
+          xserver.xkb.layout = "de";
+          # This service is the "only" way to
+          # communicate with the TPM (v1.2) device
+          tcsd.enable = true;
+          # Firmware is locked
+          fwupd.enable = false;
+        };
       };
-
-      security = {
-        lockKernelModules = true;
-        protectKernelImage = true;
-        forcePageTableIsolation = true;
-      };
-
-      services = {
-        xserver.xkb.layout = "de";
-        # This service is the "only" way to
-        # communicate with the TPM (v1.2) device
-        tcsd.enable = true;
-        # Firmware is locked
-        fwupd.enable = false;
-      };
-    };
+  };
 }

@@ -29,6 +29,7 @@ toplevel@{ moduleWithSystem, ... }:
             icon = toplevel.config.lib.flake.util.getAsset {
               file = "dumb.svg";
               type = "icons";
+              sha256 = "sha256-Nq+L1pdwKrnxIihF/o/1j7wTUdQ98TnVPPYh9PLW0Mo=";
             };
             details.listen = lib.mkIf cfg.openFirewall { text = "http://[::1]:${toString cfg.port}"; };
           };

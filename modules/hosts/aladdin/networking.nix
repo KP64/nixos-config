@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-aladdin =
+  den.aspects.aladdin.nixos =
     { config, lib, ... }:
     let
       zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;

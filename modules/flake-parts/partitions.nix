@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [ inputs.flake-parts.flakeModules.partitions ];
 
@@ -21,9 +21,5 @@
     };
 
   # Moving dev related stuff to the appropriate partition
-  partitionedAttrs = {
-    checks = "dev";
-    devShells = "dev";
-    formatter = "dev";
-  };
+  partitionedAttrs = lib.genAttrs [ "checks" "devShells" "formatter" ] (_: "dev");
 }

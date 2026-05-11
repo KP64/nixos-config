@@ -1,7 +1,7 @@
 {
   # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
   # TODO: Add more/missing Security headers
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     {
       config,
       lib,

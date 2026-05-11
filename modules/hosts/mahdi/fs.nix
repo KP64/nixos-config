@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-mahdi = {
+  den.aspects.mahdi.nixos = {
     imports = [
       inputs.disko.nixosModules.default
       toplevel.config.flake.diskoConfigurations.mahdi

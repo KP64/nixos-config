@@ -1,6 +1,6 @@
 {
   # TODO: Reenable once oauth proxy is implemented
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, lib, ... }:
     {
       services.nginx.virtualHosts."scrutiny.${config.networking.domain}" =

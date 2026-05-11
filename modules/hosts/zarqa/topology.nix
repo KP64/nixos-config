@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-zarqa =
+  den.aspects.zarqa.nixos =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
@@ -11,6 +11,7 @@ toplevel: {
           image = getAsset {
             file = "rpi3bp.png";
             type = "topology";
+            sha256 = "sha256-M1hSQ67UY5vRbCLJ7AhUdV/V+wkSoiuKDNskTFtDGGs=";
           };
           info = "Raspberry Pi 3 Model B+";
         };

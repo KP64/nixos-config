@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-zellij =
+  den.aspects.kg._.zellij.homeManager =
     { config, lib, ... }:
     {
       # TODO: Reenable Integrations once Zellij has better (kitty) SSH support.

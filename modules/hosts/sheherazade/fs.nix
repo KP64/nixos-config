@@ -1,6 +1,6 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-sheherazade = {
+  den.aspects.sheherazade.nixos = {
     imports = [
       inputs.disko.nixosModules.default
       toplevel.config.flake.diskoConfigurations.rpi-ext4

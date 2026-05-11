@@ -1,6 +1,6 @@
 toplevel: {
   # TODO: Add email auth, encryption and signing
-  flake.modules.homeManager.users-kg-thunderbird =
+  den.aspects.kg._.thunderbird.homeManager =
     { config, lib, ... }:
     let
       inherit (config.home) username;

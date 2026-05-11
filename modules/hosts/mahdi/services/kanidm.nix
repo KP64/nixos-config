@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     {
       config,
       lib,
@@ -165,6 +165,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "coder.svg";
                   type = "icons";
+                  sha256 = "sha256-jUEadSgtU/hRpx21aZsI+k2iuKsHGTo1RV5B/TP511g=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
                 originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
@@ -181,6 +182,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "forgejo.svg";
                   type = "icons";
+                  sha256 = "sha256-OIP5UvHrWweyDQqNtDILGKvWTJQ2BxaiyRDbYzRTawg=";
                 };
                 public = true;
                 originUrl = "${config.services.forgejo.settings.server.ROOT_URL}/user/oauth2/kanidm/callback";
@@ -197,6 +199,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "karakeep.svg";
                   type = "icons";
+                  sha256 = "sha256-9MYbNA8a+/mKS3gut3xEJV5TPBtmXcE7Fo3mfx7F76U=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/karakeep".path;
                 enableLegacyCrypto = true; # Needed because karakeep doesn't support ES256
@@ -214,6 +217,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "komga.svg";
                   type = "icons";
+                  sha256 = "sha256-g9YjBj9+I6Uor4FRDiuQlygs7DkVWVmbjdtdLx87Pok=";
                 };
                 public = true;
                 enableLegacyCrypto = true;
@@ -230,6 +234,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "open-webui.svg";
                   type = "icons";
+                  sha256 = "sha256-gkgmeLLHvvB/QqzfFvh73YOqnyIG8ntknAOgI5NKNqM=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/open-webui".path;
                 originUrl = "${config.services.open-webui.environment.WEBUI_URL}/oauth/oidc/callback";
@@ -259,6 +264,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "opengist.svg";
                   type = "icons";
+                  sha256 = "sha256-5BzhYqlg1OK1T+kPRtwH8KV0e5obj/jm3DLb+Cgl150=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/opengist".path;
                 allowInsecureClientDisablePkce = true;
@@ -277,6 +283,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "vaultwarden.svg";
                   type = "icons";
+                  sha256 = "sha256-25xe1e5fH3h0tW51ALIz3SHTDL3wKmwLdzZDYtQMCZU=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/vaultwarden".path;
                 originUrl = "https://${config.services.vaultwarden.domain}/identity/connect/oidc-signin";
@@ -293,6 +300,7 @@ toplevel: {
                 imageFile = getAsset {
                   file = "zipline.svg";
                   type = "icons";
+                  sha256 = "sha256-fupvhvO/kr/8VuN07uHlp1UuCxLx4QlAb63wqn5somI=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/zipline".path;
                 originUrl = config.services.zipline.settings.OAUTH_OIDC_REDIRECT_URI;

@@ -59,11 +59,16 @@
     getAsset = {
       type = with lib.types; functionTo path;
       fn =
-        { file, type }:
+        {
+          file,
+          type,
+          sha256,
+        }:
         builtins.path {
           name = "asset-${file}";
-          path = self + /assets/${type}/${file};
+          path = "${self}/assets/${type}/${file}";
           recursive = false;
+          inherit sha256;
         };
       description = ''
         Takes in the type and name of the Icon to get.

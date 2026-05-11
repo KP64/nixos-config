@@ -34,7 +34,6 @@ in
                 (with config.flake.modules.homeManager; [
                   customLib
                   home-manager
-                  nix-unfree
                 ])
                 ++ host.modules
                 ++ [

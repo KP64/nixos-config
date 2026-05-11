@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.users-kg-tealdeer = {
+  den.aspects.kg._.tealdeer.homeManager = {
     programs.tealdeer = {
       enable = true;
       settings.updates = {

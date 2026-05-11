@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-zarqa =
+  den.aspects.zarqa.nixos =
     { config, lib, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;

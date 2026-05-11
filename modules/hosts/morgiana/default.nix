@@ -1,16 +1,17 @@
 toplevel@{ inputs, ... }:
 {
-  flake.modules.nixos.hosts-morgiana =
-    { config, ... }:
-    let
-      inherit (inputs) nixos-raspberrypi;
-    in
-    {
-      imports =
-        (with inputs; [
-          sops-nix.nixosModules.default
-          nix-invisible.modules.nixos.host-morgiana
-        ])
+  den = {
+    hosts.aarch64-linux.morgiana.users.kg.classes = [ "homeManager" ];
+
+    aspects.morgiana.nixos =
+      { config, ... }:
+      let
+        inherit (inputs) nixos-raspberrypi;
+      in
+      {
+        imports = [
+          inputs.nix-invisible.modules.nixos.host-morgiana
+        ]
         ++ (with nixos-raspberrypi.lib; [
           inject-overlays
           # TODO: Inject when packages aren't broken
@@ -25,19 +26,17 @@ toplevel@{ inputs, ... }:
           rpi-cache
           rpi-rtc
           ssh
-          sudo
-
-          users-kg
         ]);
 
-      home-manager.users.kg.home = { inherit (config.system) stateVersion; };
+        home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
-      system.stateVersion = "26.05";
-      hardware.facter.reportPath = ./facter.json;
+        system.stateVersion = "26.05";
+        hardware.facter.reportPath = ./facter.json;
 
-      console.keyMap = "de";
+        console.keyMap = "de";
 
-      sops.defaultSopsFile = ./secrets.yaml;
-      users.users.root.password = config.sops.secrets.kg_password.path;
-    };
+        sops.defaultSopsFile = ./secrets.yaml;
+        users.users.root.password = config.sops.secrets.kg_password.path;
+      };
+  };
 }

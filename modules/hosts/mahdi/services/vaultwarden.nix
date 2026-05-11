@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, lib, ... }:
     lib.mkMerge [
       (lib.mkIf config.services.vaultwarden.enable {

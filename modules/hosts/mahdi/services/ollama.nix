@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-mahdi =
+  den.aspects.mahdi.nixos =
     { config, ... }:
     let
       inherit (config.lib.ai) genModelTypes;

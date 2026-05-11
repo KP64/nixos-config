@@ -1,5 +1,5 @@
 toplevel: {
-  flake.modules.nixos.hosts-morgiana =
+  den.aspects.morgiana.nixos =
     { config, ... }:
     let
       inherit (config.lib.topology) mkConnection;
@@ -11,6 +11,7 @@ toplevel: {
           image = getAsset {
             file = "rpi4.png";
             type = "topology";
+            sha256 = "sha256-TqpeMOAwZ903voIGQhLheQyt5mAqKPJJj0Zfe1kof7M=";
           };
           info = "Raspberry Pi 4 Model B";
         };
