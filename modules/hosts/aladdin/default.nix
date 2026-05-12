@@ -7,12 +7,9 @@ toplevel@{ den, ... }:
     aspects.aladdin = {
       includes = with den.aspects; [
         gaming
+        nvidia
         tpm
 
-        # TODO: Find a better way for this
-        kg._.niri
-      ];
-      _.kg.includes = with den.aspects; [
         kg._.firefox
         kg._.glance
         kg._.anki
@@ -32,7 +29,6 @@ toplevel@{ den, ... }:
             catppuccin
             desktop
             nix
-            nvidia
             obs-studio
             ssh
             time
