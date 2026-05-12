@@ -1,62 +1,57 @@
-toplevel@{ inputs, ... }:
+toplevel@{ den, inputs, ... }:
 {
   # TODO: TOR Redirection links.
   #        - When someone visits one of my websites via TOR, that is available
   #          via an .onion address let crowdsec TOR Blocklist redirect to a
   #          static Website that tells them all services with the respective onion address.
-  # TODO: Systemd Service Hardening
   # TODO: Set CORS and other Security related stuff for Services
-
   den = {
     hosts.x86_64-linux.mahdi.users.kg.classes = [ "homeManager" ];
 
-    aspects.mahdi.nixos =
-      { config, ... }:
-      {
-        imports = [
-          inputs.nix-invisible.modules.nixos.host-mahdi
-        ]
-        ++ (with toplevel.config.flake.modules.nixos; [
-          catppuccin
-          efi
-          nix
-          ssh
-          time
+    aspects.mahdi = {
+      includes = [ den.aspects.nvidia._.cache ];
 
-          # Needed to test config without much pain
-          nvidia-cache
-          rpi-cache
-        ]);
+      nixos =
+        { config, ... }:
+        {
+          imports = [
+            inputs.nix-invisible.modules.nixos.host-mahdi
+          ]
+          ++ (with toplevel.config.flake.modules.nixos; [
+            catppuccin
+            efi
+            nix
+            ssh
+            time
 
-        home-manager.users.kg.home = { inherit (config.system) stateVersion; };
+            # Needed to test config without much pain
+            rpi-cache
+          ]);
 
-        sops.defaultSopsFile = ./secrets.yaml;
-        users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
+          home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
-        system.stateVersion = "26.05";
-        hardware.facter.reportPath = ./facter.json;
+          sops.defaultSopsFile = ./secrets.yaml;
+          users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
-        console.keyMap = config.services.xserver.xkb.layout;
+          system.stateVersion = "26.05";
+          hardware.facter.reportPath = ./facter.json;
 
-        boot.binfmt = {
-          preferStaticEmulators = true;
-          emulatedSystems = [ "aarch64-linux" ];
+          console.keyMap = config.services.xserver.xkb.layout;
+
+          boot.binfmt = {
+            preferStaticEmulators = true;
+            emulatedSystems = [ "aarch64-linux" ];
+          };
+
+          services = {
+            xserver.xkb.layout = "de";
+            # This service is the "only" way to
+            # communicate with the TPM (v1.2) device
+            tcsd.enable = true;
+            # Firmware is locked
+            fwupd.enable = false;
+          };
         };
-
-        security = {
-          lockKernelModules = true;
-          protectKernelImage = true;
-          forcePageTableIsolation = true;
-        };
-
-        services = {
-          xserver.xkb.layout = "de";
-          # This service is the "only" way to
-          # communicate with the TPM (v1.2) device
-          tcsd.enable = true;
-          # Firmware is locked
-          fwupd.enable = false;
-        };
-      };
+    };
   };
 }

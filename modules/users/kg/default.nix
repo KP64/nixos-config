@@ -67,17 +67,15 @@ toplevel@{
       { inputs', ... }:
       { config, pkgs, ... }:
       {
-        imports =
-          (with inputs; [
-            sops-nix.homeModules.default
-            nix-invisible.modules.homeManager.user-kg
-          ])
-          ++ (with toplevel.config.flake.modules.homeManager; [
-            catppuccin
-            nix
-            ssh
-            vcs
-          ]);
+        imports = [
+          inputs.nix-invisible.modules.homeManager.user-kg
+        ]
+        ++ (with toplevel.config.flake.modules.homeManager; [
+          catppuccin
+          nix
+          ssh
+          vcs
+        ]);
 
         vcs.user = {
           name = "KP64";

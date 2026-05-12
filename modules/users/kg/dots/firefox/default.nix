@@ -30,7 +30,7 @@ toplevel@{
         programs.firefox = {
           enable = true;
           profiles.${config.home.username} = {
-            extraConfig = builtins.readFile (inputs.better-fox + /user.js);
+            extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
 
             settings =
               toFlattenedByDots
