@@ -2,6 +2,7 @@
   flake.modules.nixvim.highlight-colors =
     { lib, ... }:
     {
+      # TODO: Replace with den unfree battery
       nixpkgs.config.allowUnfreePredicate =
         pkg: builtins.elem (lib.getName pkg) [ "nvim-highlight-colors" ];
 

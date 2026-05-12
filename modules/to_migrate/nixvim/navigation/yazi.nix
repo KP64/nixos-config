@@ -1,7 +1,4 @@
 {
-  # TODO: Add self-contained customized wrapped yazi binary
-  #        - This is useful for those that use the plugin but
-  #          don't have yazi installed.
   flake.modules.nixvim.yazi = {
     plugins.yazi = {
       enable = true;
