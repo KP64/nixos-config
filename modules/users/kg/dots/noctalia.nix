@@ -20,7 +20,6 @@ toplevel@{ self, inputs, ... }:
         };
       };
 
-      # TODO: Replace with custom Quickshell config
       programs.noctalia-shell = {
         enable = true;
         settings = {

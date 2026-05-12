@@ -1,6 +1,4 @@
 {
-  # TODO: From Reverse Proxy to Service should preferably be HTTPS too!
-  # TODO: Add more/missing Security headers
   den.aspects.mahdi.nixos =
     {
       config,

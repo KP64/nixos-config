@@ -52,9 +52,6 @@ toplevel: {
             {
               DNSSEC = "allow-downgrade";
               DNSOverTLS = "opportunistic";
-              # TODO: Reenforce when I figure Hickory DNS out.
-              # DNSSEC = boolToYesNo true;
-              # DNSOverTLS = boolToYesNo true;
               MulticastDNS = boolToYesNo true;
               LLMNR = boolToYesNo false;
             };
