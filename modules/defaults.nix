@@ -59,6 +59,9 @@ toplevel@{ den, inputs, ... }:
             enable = true;
             execWheelOnly = true;
           };
+          lockKernelModules = true;
+          protectKernelImage = true;
+          forcePageTableIsolation = true;
         };
         services.userborn.enable = true;
         system.tools.nixos-generate-config.enable = false;
