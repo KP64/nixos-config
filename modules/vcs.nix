@@ -19,7 +19,6 @@
 
       config.programs = {
         git-cliff.enable = true;
-
         gitui.enable = true;
         git =
           let

@@ -1,6 +1,5 @@
 { den, inputs, ... }:
 {
-
   flake-file.inputs.lanzaboote = {
     type = "github";
     owner = "nix-community";
