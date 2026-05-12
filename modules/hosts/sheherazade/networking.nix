@@ -1,71 +1,73 @@
-toplevel: {
-  den.aspects.sheherazade.nixos =
-    { config, lib, ... }:
-    let
-      zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;
-    in
-    {
-      imports = [ toplevel.config.flake.modules.nixos.ip ];
+toplevel@{ den, ... }:
+{
+  den.aspects.sheherazade = {
+    includes = [ den.aspects.ip ];
+    nixos =
+      { config, lib, ... }:
+      let
+        zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;
+      in
+      {
+        sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
-      sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
-
-      networking = {
-        inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
-        useDHCP = false;
-        dhcpcd.enable = false;
-        wireless = {
-          enable = true;
-          secretsFile = config.sops.secrets."wireless.env".path;
-          fallbackToWPA2 = false;
-          scanOnLowSignal = false;
-          networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
+        networking = {
+          inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
+          useDHCP = false;
+          dhcpcd.enable = false;
+          wireless = {
+            enable = true;
+            secretsFile = config.sops.secrets."wireless.env".path;
+            fallbackToWPA2 = false;
+            scanOnLowSignal = false;
+            networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
+          };
         };
-      };
 
-      # We don't care which interface is online here
-      systemd.network.wait-online.anyInterface = true;
-      boot.initrd.systemd.network.wait-online.anyInterface = true;
+        # We don't care which interface is online here
+        systemd.network.wait-online.anyInterface = true;
+        boot.initrd.systemd.network.wait-online.anyInterface = true;
 
-      staticIPv4 = "192.168.2.224";
-      staticIPv6 = "fdef:fa6a:4724:1::224";
+        staticIPv4 = "192.168.2.224";
+        staticIPv6 = "fdef:fa6a:4724:1::224";
 
-      services.resolved.dnsDelegates.homelab.Delegate = {
-        DNS = with zarqaCfg; [
-          staticIPv4
-          staticIPv6
-        ];
-        Domains = [ config.networking.domain ];
-      };
-
-      systemd.network = {
-        enable = true;
-        networks."10-wlan0" = {
-          name = "wlan0";
-          address = [
-            "${config.staticIPv4}/24"
-            "${config.staticIPv6}/64"
+        services.resolved.dnsDelegates.homelab.Delegate = {
+          DNS = with zarqaCfg; [
+            staticIPv4
+            staticIPv6
           ];
-          gateway = [ "192.168.2.1" ];
-          dns =
-            map (qdns: "${qdns}#dns.quad9.net") [
-              "9.9.9.9"
-              "149.112.112.112"
-              "2620:fe::fe"
-              "2620:fe::9"
-            ]
-            ++ map (cdns: "${cdns}#cloudflare-dns.com") [
-              "1.1.1.1"
-              "1.0.0.1"
-              "2606:4700:4700::1111"
-              "2606:4700:4700::1001"
+          Domains = [ config.networking.domain ];
+        };
+
+        systemd.network = {
+          enable = true;
+          networks."10-wlan0" = {
+            name = "wlan0";
+            address = [
+              "${config.staticIPv4}/24"
+              "${config.staticIPv6}/64"
             ];
-          networkConfig = {
-            DNSSEC = "allow-downgrade";
-            DNSOverTLS = "opportunistic";
-            MulticastDNS = lib.boolToYesNo true;
-            LLMNR = lib.boolToYesNo false;
+            gateway = [ "192.168.2.1" ];
+            dns =
+              map (qdns: "${qdns}#dns.quad9.net") [
+                "9.9.9.9"
+                "149.112.112.112"
+                "2620:fe::fe"
+                "2620:fe::9"
+              ]
+              ++ map (cdns: "${cdns}#cloudflare-dns.com") [
+                "1.1.1.1"
+                "1.0.0.1"
+                "2606:4700:4700::1111"
+                "2606:4700:4700::1001"
+              ];
+            networkConfig = {
+              DNSSEC = "allow-downgrade";
+              DNSOverTLS = "opportunistic";
+              MulticastDNS = lib.boolToYesNo true;
+              LLMNR = lib.boolToYesNo false;
+            };
           };
         };
       };
-    };
+  };
 }

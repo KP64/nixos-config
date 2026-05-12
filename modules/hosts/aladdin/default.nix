@@ -1,14 +1,22 @@
-toplevel@{ den, ... }:
+{ den, ... }:
 {
   den = {
-    # TODO: Find a better way for this
-    hosts.x86_64-linux.aladdin.users.kg.classes = [ "homeManager" ];
+    hosts.x86_64-linux.aladdin.users.kg = { };
 
     aspects.aladdin = {
       includes = with den.aspects; [
+        audio
+        auto-timezone
+        catppuccin
+        desktop
         gaming
         nvidia
+        obs-studio
+        secure-boot
+        ssh
+        time
         tpm
+        yubikey
 
         kg._.firefox
         kg._.glance
@@ -24,19 +32,6 @@ toplevel@{ den, ... }:
       nixos =
         { config, pkgs, ... }:
         {
-          imports = with toplevel.config.flake.modules.nixos; [
-            audio
-            catppuccin
-            desktop
-            nix
-            obs-studio
-            ssh
-            time
-            yubikey
-
-            secure-boot
-          ];
-
           system.stateVersion = "26.05";
           hardware = {
             facter.reportPath = ./facter.json;

@@ -11,7 +11,6 @@ in
   den.aspects.nvidia = {
     includes = [
       den.aspects.nvidia._.cache
-
       (den.batteries.unfree [
         "nvidia-x11"
         "nvidia-settings"
@@ -27,7 +26,15 @@ in
       homeManager = { inherit nix; };
     };
 
-    homeManager = { inherit nixpkgs; };
+    homeManager =
+      {
+        lib,
+        osConfig ? null,
+        ...
+      }:
+      {
+        config = lib.mkIf (osConfig == null) { inherit nixpkgs; };
+      };
 
     nixos = {
       inherit nixpkgs;

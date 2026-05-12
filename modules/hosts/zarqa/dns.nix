@@ -1,5 +1,12 @@
 toplevel@{ moduleWithSystem, inputs, ... }:
 {
+  flake-file.inputs.dns = {
+    type = "github";
+    owner = "kirelagin";
+    repo = "dns.nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   den.aspects.zarqa.nixos = moduleWithSystem (
     { config, system, ... }:
     nixos@{ lib, ... }:

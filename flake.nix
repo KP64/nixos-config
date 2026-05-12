@@ -1,195 +1,96 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
-  description = ''
-    KP64's Wannabe All-In-One Nix Flake
+  description = "KP64's Overengineered Nix Flake";
 
-    This flake aims to include everything.
-    Ranging from "simple" dotfile management with Home Manager
-    all the way to managing multiple services
-    for a fault-tolerant homelab.
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
-    Is it a good Flake?
-    Absolutely not, but I'm not a jugde.
-    You are... yes, YOU!
-    Roast this Flake (and by extension me) however you like!
-  '';
-
-  /*
-    Think of inputs like dependencies that
-    are used throughout the project
-
-    The "url" specifies, Where this dependency lives.
-    It could be a Repository, a file or a path, it doesn't matter.
-    Your imagination is the limit.
-
-    `inputs.<name>.follows` means sharing an input `<name>`.
-    The most common example is `inputs.nixpkgs.follows = "nixpkgs"`
-    This indicates that the input that in turn has a dependency on
-    nixpkgs shouldn't bring its own copy of it, but reuse the one
-    already specified in this very flake.
-
-    If you are hellbent on keeping your lockfile as small as Possible
-    you can "delete" inputs too, by using `inputs.<name>.follows = "";`.
-    NOTE: IIRC this should only be done for inputs that are only for dev
-          purposes and do not affect the consuming/usage of said flake.
-          An example would be `treefmt-nix`.
-  */
   inputs = {
-    /*
-      There are multiple branches of nixpkgs.
-      The most important distinction is between
-      `nixos` and `nixpkgs` imho.
-      Without going into details, think of the branches
-      starting with `nixos` as intended to be used in flakes
-      that configure your system, while branches starting with
-      `nixpkgs` are used for flakes that only package programs.
-
-      Compare this flake (which uses the nixos-unstable branch),
-      with the dotz flake (github repo: https://github.com/KP64/dotz)
-
-      FYI. Don't shy away from using the unstable branches.
-      In the worst case NixOS rollbacks come in clutch!
-      Unstable it is Baby 🥳
-
-      NOTE: It is USUALLY alright to follow a "nixpkgs" input
-            even if the branch is different
-    */
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # TODO: Remove this once https://github.com/NixOS/nixpkgs/pull/483203 is merged
-    nixpkgs-coder.url = "github:NixOS/nixpkgs?ref=pull/483203/head";
-
-    # Firefox Hardening
     better-fox = {
-      url = "github:yokoffing/Betterfox";
+      type = "github";
+      owner = "yokoffing";
+      repo = "Betterfox";
       flake = false;
     };
-
-    # Everything Catppuccin 😺
     catppuccin = {
-      url = "github:catppuccin/nix";
+      type = "github";
+      owner = "catppuccin";
+      repo = "nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    /*
-      Just for the deduplication of inputs
-      NOTE: Guys. Please AVOID using these in your projects!
-            If you need something similar just use flake-parts (https://github.com/hercules-ci/flake-parts).
-            But most of the time you will not need ANY of them.
-    */
-    dedup_systems.url = "github:nix-systems/default";
-    dedup_flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "dedup_systems";
+    den = {
+      type = "github";
+      owner = "denful";
+      repo = "den";
     };
-
-    # Declarative Disk partitioning
     disko = {
-      url = "github:nix-community/disko";
+      type = "github";
+      owner = "nix-community";
+      repo = "disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Nix DSL for DNS-Zones
     dns = {
-      url = "github:kirelagin/dns.nix";
-      inputs = {
-        flake-utils.follows = "dedup_flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
+      type = "github";
+      owner = "kirelagin";
+      repo = "dns.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # My custom made "colorscript"
-    dotz = {
-      url = "github:KP64/dotz";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
-    den.url = "github:denful/den";
     flake-file.url = "github:denful/flake-file";
-
-    # Bind everything together
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    # Nix binary cache
     harmonia = {
-      url = "github:nix-community/harmonia";
-      # NOTE: Do not "delete" treefmt-nix or Harmonia won't build >:(
+      type = "github";
+      owner = "nix-community";
+      repo = "harmonia";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "";
       };
     };
-
-    # Manage your dotfiles, i.e. your home.
-    # Intuitive name right? xD
     home-manager = {
-      url = "github:nix-community/home-manager";
+      type = "github";
+      owner = "nix-community";
+      repo = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Import all needed nix files ;)
     import-tree.url = "github:vic/import-tree";
-
-    # Experimental Secure boot for NixOS
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      type = "github";
+      owner = "nix-community";
+      repo = "lanzaboote";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         pre-commit.follows = "";
       };
     };
-
-    # Realtime audio
     musnix = {
-      url = "github:musnix/musnix";
+      type = "github";
+      owner = "musnix";
+      repo = "musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Latest neovim version
-    # Do not override inputs. Cache is provided.
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
-    # Niri WM
+    neovim-nightly-overlay = {
+      type = "github";
+      owner = "nix-community";
+      repo = "neovim-nightly-overlay";
+    };
     niri-flake = {
-      url = "github:sodiboo/niri-flake";
+      type = "github";
+      owner = "sodiboo";
+      repo = "niri-flake";
       inputs = {
-        # I don't care what nixpkgs is used. Just use one for both.
-        # The size of the lockfile takes precedence at this point.
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
       };
     };
-
-    /*
-      Nix managed Neovim
-      NOTE: They use the latest possible nixpkgs branch.
-            Again. nixpkgs and nixos branches are not the same.
-            Overriding nixpkgs can cause breakage, even though rarely.
-    */
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        systems.follows = "dedup_systems";
-      };
-    };
-
-    # Weekly updated nixpkgs database
-    # Useful for Comma (https://github.com/nix-community/comma)
-    # and replacing command-not-found
     nix-index-database = {
-      url = "github:nix-community/nix-index-database";
+      type = "github";
+      owner = "nix-community";
+      repo = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Stuff that shouldn't be visible to the naked eye,
-    # but doesn't have to be or can't be encrypted.
-    # NOTE: Shallow Cloning because .git directory could leak.
     nix-invisible = {
       url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";
       inputs = {
@@ -198,10 +99,10 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    # Custom Library functions framework
     nix-lib = {
-      url = "github:Dauliac/nix-lib";
+      type = "github";
+      owner = "Dauliac";
+      repo = "nix-lib";
       inputs = {
         devour-flake.follows = "";
         flake-parts.follows = "flake-parts";
@@ -212,21 +113,17 @@
           treefmt-nix.follows = "";
         };
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "dedup_systems";
       };
     };
-
-    # Nix managed Minecraft Servers.
     nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
+      type = "github";
+      owner = "Infinidoge";
+      repo = "nix-minecraft";
       inputs = {
         flake-compat.follows = "";
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "dedup_systems";
       };
     };
-
-    # Network Topology based on the nixosConfigurations
     nix-topology = {
       url = "github:oddlama/nix-topology";
       inputs = {
@@ -234,50 +131,54 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    # NixOS on the raspberry Pi 🥧
-    # Do not override important inputs. It has a binary cache.
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi";
+      type = "github";
+      owner = "nvmd";
+      repo = "nixos-raspberrypi";
       inputs.flake-compat.follows = "";
     };
-
-    # Quickshell preconfiguration for niri
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-coder = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "pull/483203/head";
+    };
+    nixvim = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nixvim";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      type = "github";
+      owner = "noctalia-dev";
+      repo = "noctalia-shell";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         noctalia-qs.inputs = {
           nixpkgs.follows = "nixpkgs";
-          systems.follows = "dedup_systems";
           treefmt-nix.follows = "";
         };
       };
     };
-
-    # AUR Nix edition
     nur = {
-      url = "github:nix-community/nur";
+      type = "github";
+      owner = "nix-community";
+      repo = "nur";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    # Utility to call all custom packages of this flake
-    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
-
-    # Secrets management
+    pkgs-by-name-for-flake-parts = {
+      type = "github";
+      owner = "drupol";
+      repo = "pkgs-by-name-for-flake-parts";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  /*
-    The outputs are akin to "results" that this flake produces.
-    This ranges from a simple Network Topology all the way to
-    full blown NixOS Configs.
-  */
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
