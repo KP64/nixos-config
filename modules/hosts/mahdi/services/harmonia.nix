@@ -1,5 +1,15 @@
 { inputs, ... }:
 {
+  flake-file.inputs.harmonia = {
+    type = "github";
+    owner = "nix-community";
+    repo = "harmonia";
+    inputs = {
+      nixpkgs.follows = "nixpkgs";
+      treefmt-nix.follows = "";
+    };
+  };
+
   den.aspects.mahdi.nixos =
     { config, lib, ... }:
     let

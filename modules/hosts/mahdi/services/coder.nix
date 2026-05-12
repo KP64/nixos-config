@@ -5,6 +5,14 @@
   ...
 }:
 {
+  # TODO: Remove this once https://github.com/NixOS/nixpkgs/pull/483203 is merged
+  flake-file.inputs.nixpkgs-coder = {
+    type = "github";
+    owner = "NixOS";
+    repo = "nixpkgs";
+    ref = "pull/483203/head";
+  };
+
   den.aspects.mahdi = {
     includes = [ (den.batteries.unfree [ "terraform" ]) ];
 

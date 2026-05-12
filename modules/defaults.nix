@@ -1,13 +1,32 @@
-toplevel@{ den, inputs, ... }:
 {
-  # TODO: Namespaces
+  den,
+  lib,
+  inputs,
+  ...
+}:
+{
+  flake-file.inputs.nix-invisible = {
+    # NOTE: Shallow Cloning because .git directory could leak.
+    # TODO: Full form
+    url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";
+    inputs = {
+      flake-parts.follows = "flake-parts";
+      import-tree.follows = "import-tree";
+      nixpkgs.follows = "nixpkgs";
+    };
+  };
+
   den = {
     schema = {
       host = {
         strict = true;
         includes = [ den.batteries.host-aspects ];
       };
-      user.includes = [ den.batteries.mutual-provider ];
+      user = {
+        includes = [ den.batteries.mutual-provider ];
+        classes = lib.mkDefault [ "homeManager" ];
+      };
+      home.includes = [ den.batteries.mutual-provider ];
     };
 
     default = {
@@ -18,36 +37,18 @@ toplevel@{ den, inputs, ... }:
         hostname
       ];
 
-      homeManager.imports = with inputs; [
-        nix-invisible.modules.homeManager.invisibility
-        sops-nix.homeModules.default
-      ];
+      homeManager.imports = [ inputs.nix-invisible.modules.homeManager.invisibility ];
 
       nixos = {
-        imports =
-          (with inputs; [
-            nix-invisible.modules.nixos.invisibility
-            nix-topology.nixosModules.default
-            sops-nix.nixosModules.default
-          ])
-          ++ (with toplevel.config.flake.modules.nixos; [
-            auto-timezone
-            customLib
-            home-manager
-          ]);
-        topology.self.services.openssh.hidden = false;
+        imports = [
+          inputs.nix-invisible.modules.nixos.invisibility
+        ];
 
         boot = {
           tmp.cleanOnBoot = true;
           initrd.systemd.enable = true;
         };
-        documentation = {
-          enable = false;
-          doc.enable = false;
-          man.enable = false;
-          info.enable = false;
-          nixos.enable = false;
-        };
+        documentation.enable = false;
         environment.defaultPackages = [ ];
         networking.nftables = {
           enable = true;

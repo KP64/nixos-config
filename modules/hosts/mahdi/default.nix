@@ -1,4 +1,4 @@
-toplevel@{ den, inputs, ... }:
+{ den, inputs, ... }:
 {
   # TODO: TOR Redirection links.
   #        - When someone visits one of my websites via TOR, that is available
@@ -6,27 +6,25 @@ toplevel@{ den, inputs, ... }:
   #          static Website that tells them all services with the respective onion address.
   # TODO: Set CORS and other Security related stuff for Services
   den = {
-    hosts.x86_64-linux.mahdi.users.kg.classes = [ "homeManager" ];
+    hosts.x86_64-linux.mahdi.users.kg = { };
 
     aspects.mahdi = {
-      includes = [ den.aspects.nvidia._.cache ];
+      includes = with den.aspects; [
+        auto-timezone
+        catppuccin
+        efi
+        rpi-cache
+        ssh
+        time
+        nvidia._.cache
+      ];
 
       nixos =
         { config, ... }:
         {
           imports = [
             inputs.nix-invisible.modules.nixos.host-mahdi
-          ]
-          ++ (with toplevel.config.flake.modules.nixos; [
-            catppuccin
-            efi
-            nix
-            ssh
-            time
-
-            # Needed to test config without much pain
-            rpi-cache
-          ]);
+          ];
 
           home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 

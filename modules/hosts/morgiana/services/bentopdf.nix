@@ -23,6 +23,7 @@
                   Content-Security-Policy "${
                     mkCSP {
                       default-src = "none";
+                      frame-src = "self";
                       script-src = [
                         "self"
                         "unsafe-inline"

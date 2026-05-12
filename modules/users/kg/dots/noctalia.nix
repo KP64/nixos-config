@@ -1,5 +1,18 @@
 toplevel@{ self, inputs, ... }:
 {
+  flake-file.inputs.noctalia = {
+    type = "github";
+    owner = "noctalia-dev";
+    repo = "noctalia-shell";
+    inputs = {
+      nixpkgs.follows = "nixpkgs";
+      noctalia-qs.inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "";
+      };
+    };
+  };
+
   den.aspects.kg._.noctalia-shell.homeManager =
     {
       osConfig ? null,

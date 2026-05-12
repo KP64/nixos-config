@@ -5,6 +5,24 @@ toplevel@{
   ...
 }:
 {
+  flake-file.inputs = {
+    better-fox = {
+      type = "github";
+      owner = "yokoffing";
+      repo = "Betterfox";
+      flake = false;
+    };
+    nur = {
+      type = "github";
+      owner = "nix-community";
+      repo = "nur";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+  };
+
   den.aspects.kg = {
     includes = [
       (den.batteries.unfree [
