@@ -18,7 +18,7 @@
       backupFileExtension = "hm-backup";
     };
 
-    # TODO: Import
+    # TODO: Check if home-manager is enabled on Homes. Import if not.
     # NOTE: This should be imported by HM-Only devices
     # homeManager.home-manager = {
     #   programs.home-manager.enable = true;

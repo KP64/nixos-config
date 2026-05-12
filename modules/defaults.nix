@@ -7,7 +7,6 @@
 {
   flake-file.inputs.nix-invisible = {
     # NOTE: Shallow Cloning because .git directory could leak.
-    # TODO: Full form
     url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";
     inputs = {
       flake-parts.follows = "flake-parts";
@@ -40,9 +39,7 @@
       homeManager.imports = [ inputs.nix-invisible.modules.homeManager.invisibility ];
 
       nixos = {
-        imports = [
-          inputs.nix-invisible.modules.nixos.invisibility
-        ];
+        imports = [ inputs.nix-invisible.modules.nixos.invisibility ];
 
         boot = {
           tmp.cleanOnBoot = true;

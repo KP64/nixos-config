@@ -1,11 +1,7 @@
 {
-  # This module only exists because there is no easy
-  # way to extract the IP Address of a host
   den.aspects.ip.nixos =
     { lib, ... }:
     {
-      # TODO: Find a way to not have to hardcode the values.
-      #       Would allow the usage of rotating IPs (e.g. temporary ULAs)
       options = {
         staticIPv4 = lib.mkOption {
           readOnly = true;

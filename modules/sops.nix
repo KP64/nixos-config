@@ -1,7 +1,9 @@
 { inputs, ... }:
 {
   flake-file.inputs.sops-nix = {
-    url = "github:Mic92/sops-nix";
+    type = "github";
+    owner = "Mic92";
+    repo = "sops-nix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 

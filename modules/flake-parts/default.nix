@@ -14,9 +14,7 @@
 
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      flake-file = {
-        url = "github:denful/flake-file";
-      };
+      flake-file.url = "github:denful/flake-file";
       den = {
         type = "github";
         owner = "denful";

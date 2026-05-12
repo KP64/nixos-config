@@ -20,8 +20,6 @@ in
         cache.enable = true;
         inherit accent;
         cursors = {
-          # only actually enabled when desktopManager.gnome or
-          # displayManager.gdm are enabled
           enable = true;
           accent = cursorAccent;
         };
@@ -39,7 +37,7 @@ in
           inherit accent;
           firefox.force = true;
           cursors = {
-            enable = config.wayland.windowManager.hyprland.enable || (config.programs.niri.enable or false);
+            enable = config.wayland.windowManager.hyprland.enable || config.programs.niri.enable;
             accent = cursorAccent;
           };
         };

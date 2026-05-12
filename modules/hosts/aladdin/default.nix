@@ -4,30 +4,32 @@
     hosts.x86_64-linux.aladdin.users.kg = { };
 
     aspects.aladdin = {
-      includes = with den.aspects; [
-        audio
-        auto-timezone
-        catppuccin
-        desktop
-        gaming
-        nvidia
-        obs-studio
-        secure-boot
-        ssh
-        time
-        tpm
-        yubikey
-
-        kg._.firefox
-        kg._.glance
-        kg._.anki
-        kg._.kitty
-        kg._.niri
-        kg._.noctalia-shell
-        kg._.prismlauncher
-        kg._.thunderbird
-        kg._.ttyper
-      ];
+      includes =
+        (with den.aspects; [
+          audio
+          auto-timezone
+          catppuccin
+          desktop
+          gaming
+          nvidia
+          obs-studio
+          secure-boot
+          ssh
+          time
+          tpm
+          yubikey
+        ])
+        ++ (with den.aspects.kg._; [
+          firefox
+          glance
+          anki
+          kitty
+          niri
+          noctalia-shell
+          prismlauncher
+          thunderbird
+          ttyper
+        ]);
 
       nixos =
         { config, pkgs, ... }:

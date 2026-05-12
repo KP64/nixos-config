@@ -6,26 +6,30 @@
       pkgs,
       ...
     }:
+    let
+      normal = "normal";
+      strict = "stirct";
+    in
     {
       options.yubi = lib.mkOption {
-        default.mode = "normal";
+        default.mode = normal;
         example = {
-          mode = "strict";
+          mode = strict;
           logoutOnRemoval = false;
         };
         type = lib.types.submodule (submod: {
           options = {
             mode = lib.mkOption {
-              default = "normal";
+              default = normal;
               type = lib.types.enum [
-                "normal"
-                "strict"
+                normal
+                strict
               ];
-              example = "strict";
+              example = strict;
               description = "The mode determines predefined values of yubikey rules";
             };
             logoutOnRemoval = lib.mkOption {
-              default = submod.config.mode == "strict";
+              default = submod.config.mode == strict;
               type = lib.types.bool;
               example = false;
               description = "Whether to lock the session on yubikey removal";
@@ -41,7 +45,7 @@
           security.pam.yubico = {
             enable = true;
             mode = "challenge-response";
-            control = if config.yubi.mode == "strict" then "required" else "sufficient";
+            control = if config.yubi.mode == strict then "required" else "sufficient";
           };
         }
         # Taken from: https://wiki.nixos.org/wiki/Yubikey#Locking_the_screen_when_a_Yubikey_is_unplugged

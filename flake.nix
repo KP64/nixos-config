@@ -125,7 +125,9 @@
       };
     };
     nix-topology = {
-      url = "github:oddlama/nix-topology";
+      type = "github";
+      owner = "oddlama";
+      repo = "nix-topology";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
@@ -177,7 +179,9 @@
       repo = "pkgs-by-name-for-flake-parts";
     };
     sops-nix = {
-      url = "github:Mic92/sops-nix";
+      type = "github";
+      owner = "Mic92";
+      repo = "sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
