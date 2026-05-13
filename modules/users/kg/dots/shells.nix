@@ -7,8 +7,6 @@
       programs = {
         carapace.enable = true;
 
-        bash.enable = true;
-
         nushell = {
           enable = true;
 

@@ -10,15 +10,10 @@
     An example would be a development flake that handles
     everything about further developing this flake like formatters etc.
   */
-  partitions.dev =
-    let
-      devPath = ../../dev;
-    in
-    {
-      # This will use "${self}/dev/flake.nix"
-      extraInputsFlake = devPath;
-      module = { inherit (inputs.import-tree (devPath + /modules)) imports; };
-    };
+  partitions.dev = {
+    extraInputsFlake = ../../dev;
+    module = { inherit (inputs.import-tree ../../dev/modules) imports; };
+  };
 
   # Moving dev related stuff to the appropriate partition
   partitionedAttrs = lib.genAttrs [ "checks" "devShells" "formatter" ] (_: "dev");

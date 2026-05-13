@@ -1,37 +1,19 @@
 toplevel: {
   # TODO: Add email auth, encryption and signing
   den.aspects.kg._.thunderbird.homeManager =
-    { config, lib, ... }:
+    { config, ... }:
     let
       inherit (config.home) username;
       inherit (toplevel.config.lib.flake.util) toFlattenedByDots;
     in
     {
-      catppuccin = lib.mkIf (config ? catppuccin) { thunderbird.profile = username; };
-
-      programs.gpg = {
-        enable = true;
-        # publicKeys = [
-        #   {
-        #     source = ./.;
-        #     text = null;
-        #     trust = null;
-        #   }
-        # ];
-        # settings = {
-        # };
-      };
+      programs.gpg.enable = true;
 
       accounts.email.accounts.${username} = {
         primary = true;
         address = config.invisible.email;
         realName = with config.invisible; "${firstName} ${lastName}";
         userName = username;
-        # gpg = {
-        #   encryptByDefault = true;
-        #   signByDefault = true;
-        #   key = config.sops.secrets.email_gpg.path;
-        # };
         thunderbird.enable = true;
       };
 
