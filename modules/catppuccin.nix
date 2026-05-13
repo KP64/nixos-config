@@ -37,9 +37,10 @@ in
           inherit accent;
           firefox.force = true;
           cursors = {
-            enable = config.wayland.windowManager.hyprland.enable || config.programs.niri.enable;
+            enable = config.programs.niri.enable or false;
             accent = cursorAccent;
           };
+          thunderbird.profile = config.home.username;
         };
 
         gtk.colorScheme = "dark";
