@@ -46,7 +46,7 @@ toplevel: {
 
       # NOTE: Kanidm requires TLS
       services.kanidm = {
-        package = pkgs.kanidmWithSecretProvisioning_1_9;
+        package = pkgs.kanidmWithSecretProvisioning_1_10;
 
         client = {
           enable = true;
