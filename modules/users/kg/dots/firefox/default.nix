@@ -200,11 +200,8 @@ toplevel@{
                   "Home Manager" = {
                     urls = [
                       {
-                        template = "https://home-manager-options.extranix.com";
-                        params = [
-                          (mkParam "query" "{searchTerms}")
-                          (mkParam "release" "master")
-                        ];
+                        template = "https://search.nixos.org/options";
+                        params = nix-search-params ++ [ (mkParam "source" "home_manager") ];
                       }
                     ];
                     icon = nix-icon;
