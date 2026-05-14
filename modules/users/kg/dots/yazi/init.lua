@@ -1,13 +1,6 @@
-require("full-border"):setup()
-require("git"):setup()
-require("relative-motions"):setup({
-    show_numbers = "relative",
-})
-require("starship"):setup()
 require("session"):setup({
     sync_yanked = true,
 })
-require("recycle-bin"):setup()
 
 -- Show user/group of files in status bar
 Status:children_add(function()

@@ -2,7 +2,7 @@
 {
   den.aspects.kg._.yazi.homeManager = moduleWithSystem (
     { config, ... }:
-    { lib, pkgs, ... }:
+    hm@{ lib, pkgs, ... }:
     {
       programs.yazi = {
         enable = true;
@@ -17,34 +17,101 @@
           trash-cli
         ]);
 
-        plugins = {
-          inherit (pkgs.yaziPlugins)
-            chmod
-            full-border
-            git
-            mediainfo
-            mount
-            ouch
-            piper
-            recycle-bin
-            relative-motions
-            restore
-            rich-preview
-            smart-enter
-            smart-filter
-            starship
-            toggle-pane
-            vcs-files
-            ;
-        };
+        plugins =
+          let
+            inherit (pkgs) yaziPlugins;
+          in
+          {
+            inherit (yaziPlugins)
+              chmod
+              mediainfo
+              mount
+              ouch
+              piper
+              restore
+              rich-preview
+              smart-enter
+              smart-filter
+              toggle-pane
+              vcs-files
+              ;
+
+            full-border = {
+              package = yaziPlugins.full-border;
+              setup = true;
+            };
+            git = {
+              package = yaziPlugins.git;
+              setup = true;
+            };
+            recycle-bin = {
+              package = yaziPlugins.recycle-bin;
+              setup = true;
+            };
+            relative-motions = {
+              package = yaziPlugins.relative-motions;
+              setup = true;
+              settings.show_numbers = "relative";
+            };
+            starship = {
+              package = yaziPlugins.starship;
+              setup = true;
+              settings.config_file = hm.config.programs.starship.configPath;
+            };
+          };
 
         initLua = ./init.lua;
 
         keymap.mgr.prepend_keymap = [
           {
-            on = "<F9>";
+            on = "<F3>";
             run = "plugin mediainfo -- toggle-metadata";
-            dedsc = "Toggle media preview metadata";
+            desc = "Toggle media preview metadata";
+          }
+          {
+            on = "<F4>";
+            run = "plugin mediainfo -- toggle-preview";
+            desc = "Toggle media preview image";
+          }
+          {
+            on = "<F6>";
+            run = "plugin mediainfo -- hide-metadata";
+            desc = "Hide media preview metadata";
+          }
+          {
+            on = "<F7>";
+            run = "plugin mediainfo -- hide-preview";
+            desc = "Hide media preview image";
+          }
+          {
+            on = "<F8>";
+            run = "plugin mediainfo -- show-metadata";
+            desc = "Show media preview metadata";
+          }
+          {
+            on = "<F9>";
+            run = "plugin mediainfo -- show-preview";
+            desc = "Show media preview image";
+          }
+          {
+            on = "<F5>";
+            run = "plugin mediainfo -- reset";
+            desc = "Reset media preview to default settings";
+          }
+          {
+            on = "<F10>";
+            run = "plugin mediainfo -- --toggle-preview --toggle-metadata";
+            desc = "Toggle both media preview image and metadata";
+          }
+          {
+            on = "<F11>";
+            run = "plugin mediainfo -- --show-preview --hide-metadata";
+            desc = "Show media preview image and hide metadata";
+          }
+          {
+            on = "<F12>";
+            run = "plugin mediainfo -- --show-preview --hide-metadata --reset --show-metadata --hide-preview";
+            desc = "Show media preview image and hide metadata";
           }
           {
             on = "M";
@@ -127,20 +194,17 @@
             }
           )
         )
-        ++ (
-          9
-          |> builtins.genList (
-            n:
-            let
-              steps = n + 1 |> toString;
-            in
-            {
-              on = steps;
-              run = "plugin relative-motions ${steps}";
-              desc = "Move in relative steps";
-            }
-          )
-        )
+        ++ (builtins.genList (
+          n:
+          let
+            steps = n + 1 |> toString;
+          in
+          {
+            on = steps;
+            run = "plugin relative-motions ${steps}";
+            desc = "Move in relative steps";
+          }
+        ) 9)
         ++ [
           {
             on = [
@@ -218,43 +282,27 @@
                     "{audio,video,image}/*"
                     "application/subrip"
                     "application/postscript"
+                    "application/illustrator"
+                    "application/dvb.ait"
+                    "application/vnd.adobe.illustrator"
+                    "image/x-eps"
+                    "application/eps"
+                    "*.{ai,eps,ait}"
                   ];
             in
             {
               prepend_preloaders = mediainfo;
 
-              prepend_previewers =
-                (map
-                  (ext: {
-                    url = "*.${ext}";
-                    run = "rich-preview";
-                  })
-                  [
-                    "csv"
-                    "md"
-                    "rst"
-                    "ipynb"
-                    "json"
-                  ]
-                )
-                ++ mediainfo
-                ++ (map
-                  (arch: {
-                    mime = "application/${arch}";
-                    run = "ouch";
-                  })
-                  [
-                    "*zip"
-                    "tar"
-                    "bzip2"
-                    "7z*"
-                    "rar"
-                    "xz"
-                    "zstd"
-                    "java-archive"
-                  ]
-                );
-
+              prepend_previewers = mediainfo ++ [
+                {
+                  url = "*.{csv,md,rst,ipynb,json}";
+                  run = "rich-preview";
+                }
+                {
+                  mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}";
+                  run = "ouch --show-file-icons";
+                }
+              ];
               append_previewers = [
                 {
                   url = "*";
@@ -263,16 +311,19 @@
               ];
 
               prepend_fetchers =
-                map
-                  (url: {
-                    inherit url;
-                    id = "git";
-                    run = "git";
-                  })
-                  [
-                    "*"
-                    "*/"
-                  ];
+                if (lib.versionAtLeast (lib.getVersion hm.config.programs.yazi.package) "26.5.6") then
+                  throw "Remove these yazi options now."
+                else
+                  map
+                    (url: {
+                      inherit url;
+                      id = "git";
+                      run = "git";
+                    })
+                    [
+                      "*"
+                      "*/"
+                    ];
             };
 
           opener.extract = map (attrs: attrs // { desc = "Extract here with ouch"; }) [
