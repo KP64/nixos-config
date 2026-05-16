@@ -28,6 +28,7 @@
                         "self"
                         "unsafe-inline"
                         "wasm-unsafe-eval"
+                        "https://snippet.embedpdf.com"
                       ];
                       style-src = [
                         "self"

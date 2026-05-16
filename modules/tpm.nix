@@ -9,15 +9,13 @@
       };
     };
 
-    _.to-users =
-      { user, ... }:
-      {
-        nixos =
-          { config, ... }:
-          {
-            users.users.${user.name}.extraGroups = [ config.security.tpm2.tssGroup ];
-          };
-        homeManager.services.ssh-tpm-agent.enable = true;
-      };
+    _.to-users = {
+      user =
+        { config, ... }:
+        {
+          extraGroups = [ config.security.tpm2.tssGroup ];
+        };
+      homeManager.services.ssh-tpm-agent.enable = true;
+    };
   };
 }

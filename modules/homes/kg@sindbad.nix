@@ -1,5 +1,4 @@
-toplevel@{ den, ... }:
-{
+toplevel: {
   perSystem.topology.modules = [
     (
       { config, ... }:
@@ -32,36 +31,6 @@ toplevel@{ den, ... }:
     )
   ];
 
-  den = {
-    homes.x86_64-linux."kg@sindbad" = { };
-
-    # FIX: this
-    aspects.kg._.sindbad = {
-      includes = [
-        den.aspects.desktop
-      ]
-      ++ (with den.aspects.kg._; [
-        anki
-        firefox
-        glance
-        kitty
-        niri
-        noctalia-shell
-        thunderbird
-        ttyper
-      ]);
-      homeManager =
-        { pkgs, ... }:
-        {
-          targets.genericLinux.enable = true;
-          home = {
-            stateVersion = "26.05";
-            packages = with pkgs; [
-              impala
-              noto-fonts-color-emoji # Needed for icons
-            ];
-          };
-        };
-    };
-  };
+  # TODO: Find a solution
+  den.homes.x86_64-linux.kg = { };
 }

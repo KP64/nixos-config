@@ -5,8 +5,8 @@
   ...
 }:
 {
+  # NOTE: Shallow Cloning because .git directory could leak.
   flake-file.inputs.nix-invisible = {
-    # NOTE: Shallow Cloning because .git directory could leak.
     url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";
     inputs = {
       flake-parts.follows = "flake-parts";
@@ -16,16 +16,9 @@
   };
 
   den = {
-    schema = {
-      host = {
-        strict = true;
-        includes = [ den.batteries.host-aspects ];
-      };
-      user = {
-        includes = [ den.batteries.mutual-provider ];
-        classes = lib.mkDefault [ "homeManager" ];
-      };
-      home.includes = [ den.batteries.mutual-provider ];
+    schema.user = {
+      includes = [ den.batteries.host-aspects ];
+      classes = lib.mkDefault [ "homeManager" ];
     };
 
     default = {

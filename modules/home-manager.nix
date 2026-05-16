@@ -9,19 +9,11 @@
 
   imports = [ inputs.home-manager.flakeModules.home-manager ];
 
-  den.default.nixos = {
-    home-manager = {
-      startAsUserService = true;
-      useUserPackages = true;
-      useGlobalPkgs = true;
-      overwriteBackup = true;
-      backupFileExtension = "hm-backup";
-    };
-
-    # TODO: Check if home-manager is enabled on Homes. Import if not.
-    # NOTE: This should be imported by HM-Only devices
-    # homeManager.home-manager = {
-    #   programs.home-manager.enable = true;
-    # };
+  den.default.nixos.home-manager = {
+    startAsUserService = true;
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    overwriteBackup = true;
+    backupFileExtension = "hm-backup";
   };
 }
