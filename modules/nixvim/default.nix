@@ -1,4 +1,4 @@
-toplevel@{ inputs, ... }:
+{ config, inputs, ... }:
 {
   # TODO: Migrate to aspects
   flake-file.inputs = {
@@ -28,7 +28,7 @@ toplevel@{ inputs, ... }:
       nixvimConfigurations.default = inputs.nixvim.lib.evalNixvim {
         inherit system;
         modules =
-          (with toplevel.config.flake.modules.nixvim; [
+          (with config.flake.modules.nixvim; [
             base
             lsp
             navigation
