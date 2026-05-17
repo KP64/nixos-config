@@ -12,7 +12,7 @@
       includes = with den.aspects; [
         auto-timezone
         catppuccin
-        efi
+        boot._.efi
         rpi-cache
         ssh
         time

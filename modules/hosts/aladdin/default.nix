@@ -8,12 +8,12 @@
         (with den.aspects; [
           audio
           auto-timezone
+          boot._.secure
           catppuccin
           desktop
           gaming
           nvidia
           obs-studio
-          secure-boot
           ssh
           time
           tpm
