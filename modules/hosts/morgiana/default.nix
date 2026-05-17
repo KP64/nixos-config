@@ -1,7 +1,16 @@
 { den, inputs, ... }:
 {
   den = {
-    hosts.aarch64-linux.morgiana.users.kg = { };
+    hosts.aarch64-linux.morgiana = {
+      instantiate =
+        { modules, ... }:
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit modules;
+          specialArgs = { inherit (inputs) nixos-raspberrypi; };
+        };
+
+      users.kg = { };
+    };
 
     aspects.morgiana = {
       includes = with den.aspects; [

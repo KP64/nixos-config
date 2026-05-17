@@ -1,7 +1,16 @@
 { den, inputs, ... }:
 {
   den = {
-    hosts.aarch64-linux.sheherazade.users.kg = { };
+    hosts.aarch64-linux.sheherazade = {
+      instantiate =
+        { modules, ... }:
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit modules;
+          specialArgs = { inherit (inputs) nixos-raspberrypi; };
+        };
+
+      users.kg = { };
+    };
 
     aspects.sheherazade = {
       includes = with den.aspects; [
