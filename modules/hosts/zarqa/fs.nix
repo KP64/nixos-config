@@ -1,9 +1,8 @@
-toplevel@{ inputs, ... }:
+toplevel@{ den, ... }:
 {
-  den.aspects.zarqa.nixos = {
-    imports = [
-      inputs.disko.nixosModules.default
-      toplevel.config.flake.diskoConfigurations.rpi-ext4
-    ];
+  den.aspects.zarqa = {
+    includes = [ den.aspects.fs ];
+
+    nixos.imports = [ toplevel.config.flake.diskoConfigurations.rpi-ext4 ];
   };
 }
