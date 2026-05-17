@@ -1,14 +1,11 @@
-toplevel@{ inputs, ... }:
+toplevel@{ den, ... }:
 {
-  den.aspects.aladdin.nixos = {
-    imports = [
-      inputs.disko.nixosModules.default
-      toplevel.config.flake.diskoConfigurations.aladdin
+  den.aspects.aladdin = {
+    includes = with den.aspects; [
+      fs
+      fs._.btrfs
     ];
 
-    services.btrfs.autoScrub = {
-      enable = true;
-      fileSystems = [ "/" ];
-    };
+    nixos.imports = [ toplevel.config.flake.diskoConfigurations.aladdin ];
   };
 }

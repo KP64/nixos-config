@@ -1,14 +1,11 @@
-toplevel@{ inputs, ... }:
+toplevel@{ den, ... }:
 {
-  den.aspects.mahdi.nixos = {
-    imports = [
-      inputs.disko.nixosModules.default
-      toplevel.config.flake.diskoConfigurations.mahdi
+  den.aspects.mahdi = {
+    includes = with den.aspects; [
+      fs
+      fs._.btrfs
     ];
 
-    services.btrfs.autoScrub = {
-      enable = true;
-      fileSystems = [ "/" ];
-    };
+    nixos.imports = [ toplevel.config.flake.diskoConfigurations.mahdi ];
   };
 }
