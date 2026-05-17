@@ -1,7 +1,16 @@
 { den, inputs, ... }:
 {
   den = {
-    hosts.aarch64-linux.zarqa.users.kg = { };
+    hosts.aarch64-linux.zarqa = {
+      instantiate =
+        { modules, ... }:
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit modules;
+          specialArgs = { inherit (inputs) nixos-raspberrypi; };
+        };
+
+      users.kg = { };
+    };
 
     aspects.zarqa = {
       includes = with den.aspects; [
