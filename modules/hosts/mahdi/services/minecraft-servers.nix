@@ -170,8 +170,8 @@
               jre_headless = pkgs.openjdk25.headless;
             };
             jvmOpts = [
-              "-Xms16G"
-              "-Xmx16G"
+              "-Xms8G"
+              "-Xmx8G"
             ];
             serverProperties = {
               server-ip = "::1";
@@ -195,8 +195,8 @@
               jre_headless = pkgs.openjdk25.headless;
             };
             jvmOpts = [
-              "-Xms16G"
-              "-Xmx16G"
+              "-Xms8G"
+              "-Xmx8G"
             ];
             serverProperties = {
               server-ip = "::1";
