@@ -60,12 +60,16 @@ toplevel@{ den, ... }:
                 "2606:4700:4700::1111"
                 "2606:4700:4700::1001"
               ];
-            networkConfig = {
-              DNSSEC = "allow-downgrade";
-              DNSOverTLS = "opportunistic";
-              MulticastDNS = lib.boolToYesNo true;
-              LLMNR = lib.boolToYesNo false;
-            };
+            networkConfig =
+              let
+                inherit (lib) boolToYesNo;
+              in
+              {
+                DNSSEC = boolToYesNo true;
+                DNSOverTLS = boolToYesNo true;
+                MulticastDNS = boolToYesNo true;
+                LLMNR = boolToYesNo false;
+              };
           };
         };
       };
