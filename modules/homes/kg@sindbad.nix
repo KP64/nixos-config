@@ -32,5 +32,5 @@ toplevel: {
   ];
 
   # TODO: Find a solution
-  den.homes.x86_64-linux.kg = { };
+  # den.homes.x86_64-linux.kg = { };
 }
