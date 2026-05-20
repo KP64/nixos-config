@@ -22,9 +22,7 @@
       nixos =
         { config, ... }:
         {
-          imports = [
-            inputs.nix-invisible.modules.nixos.host-mahdi
-          ];
+          imports = [ inputs.nix-invisible.modules.nixos.host-mahdi ];
 
           home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 

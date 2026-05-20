@@ -1,8 +1,4 @@
-toplevel@{
-  den,
-  inputs,
-  ...
-}:
+toplevel@{ den, inputs, ... }:
 {
   den.aspects.kg =
     { host, ... }:
