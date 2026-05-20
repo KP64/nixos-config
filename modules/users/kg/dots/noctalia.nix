@@ -45,7 +45,7 @@ toplevel@{ self, inputs, ... }:
           };
           general.avatarImage = builtins.path {
             name = "profile-pic";
-            path = "${self}/modules/to_migrate/users/${config.home.username}/pfp.jpg";
+            path = "${self}/modules/users/${config.home.username}/pfp.jpg";
             recursive = false;
             sha256 = "sha256-Ah71B03bSn7MeHt/weKxp6aKoXxSre/ncXsCJ4MzLfg=";
           };
