@@ -1,21 +1,22 @@
-{ moduleWithSystem, ... }:
 {
-  den.aspects.kg._.yazi.homeManager = moduleWithSystem (
-    { config, ... }:
-    hm@{ lib, pkgs, ... }:
+  den.aspects.kg._.yazi.homeManager =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       programs.yazi = {
         enable = true;
 
-        extraPackages = [
-          config.packages.rich-cli
-        ]
-        ++ (with pkgs; [
+        extraPackages = with pkgs; [
           exiftool
-          ouch
           mediainfo
+          ouch
+          rich-cli
           trash-cli
-        ]);
+        ];
 
         plugins =
           let
@@ -56,7 +57,7 @@
             starship = {
               package = yaziPlugins.starship;
               setup = true;
-              settings.config_file = hm.config.programs.starship.configPath;
+              settings.config_file = config.programs.starship.configPath;
             };
           };
 
@@ -323,6 +324,5 @@
           ];
         };
       };
-    }
-  );
+    };
 }
