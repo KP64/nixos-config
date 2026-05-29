@@ -31,7 +31,10 @@
         # TODO: Temporary. Remove once confident in the Security aspect.
         services.fail2ban = {
           enable = true;
-          ignoreIP = [ "192.168.2.0/24" ];
+          ignoreIP = [
+            "192.168.2.0/24"
+            "fdef:fa6a:4724:1::/64"
+          ];
           bantime-increment = {
             enable = true;
             rndtime = "10m";
