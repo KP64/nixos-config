@@ -15,10 +15,15 @@ let
     substituters = [ "https://nix-community.cachix.org" ];
     trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
 
-    # TODO: Enable these when the ecosystem is ready
-    # lint-short-path-literals = "fatal";
-    # lint-absolute-path-literals = "fatal";
+    lint-absolute-path-literals = "warn";
+    lint-short-path-literals = "warn";
     lint-url-literals = "fatal";
+
+    fsync-store-paths = true;
+    preallocate-contents = true;
+    # NOTE: Really really expensive. https://github.com/NixOS/nix/issues/1218#issuecomment-277990880
+    # sync-before-registering = true;
+    use-xdg-base-directories = true;
   };
 in
 {
@@ -76,6 +81,8 @@ in
             };
           })
           {
+            nix.assumeXdg = osConfig != null && commonSettings.use-xdg-base-directories;
+
             programs = {
               nix-index.enable = true;
               nix-index-database.comma.enable = true;

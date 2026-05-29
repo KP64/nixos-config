@@ -1,4 +1,5 @@
 {
+  # TODO: Git and jj aspects
   den.aspects.vcs.homeManager =
     { config, lib, ... }:
     {
