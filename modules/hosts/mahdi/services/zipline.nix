@@ -1,20 +1,18 @@
-{ moduleWithSystem, ... }:
 {
-  den.aspects.mahdi.nixos = moduleWithSystem (
-    { config, ... }:
-    nixos@{ lib, ... }:
+  den.aspects.mahdi.nixos =
+    { config, lib, ... }:
     let
-      cfg = nixos.config.services.zipline;
-      kanidmOrigin = nixos.config.services.kanidm.server.settings.origin;
-      inherit (nixos.config.lib.securityHeader) mkCSP mkPP;
+      cfg = config.services.zipline;
+      kanidmOrigin = config.services.kanidm.server.settings.origin;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     lib.mkMerge [
-      (lib.mkIf nixos.config.services.zipline.enable {
+      (lib.mkIf config.services.zipline.enable {
         sops = {
           secrets."zipline/core-secret" = { };
           templates."zipline.env".content = ''
-            CORE_SECRET=${nixos.config.sops.placeholder."zipline/core-secret"}
-            OAUTH_OIDC_CLIENT_SECRET=${nixos.config.sops.placeholder."kanidm/oauth2/zipline"}
+            CORE_SECRET=${config.sops.placeholder."zipline/core-secret"}
+            OAUTH_OIDC_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/zipline"}
           '';
         };
 
@@ -76,14 +74,16 @@
       })
       {
 
+        # TODO: Upgrade to 4.6.0
+        #         - Set HOSTNAME to Unix Path
+        #         - Remove selfmanaged package
         services.zipline = {
           enable = true;
-          package = config.packages.zipline;
-          environmentFiles = [ nixos.config.sops.templates."zipline.env".path ];
+          environmentFiles = [ config.sops.templates."zipline.env".path ];
           settings =
             let
               inherit (lib) boolToString;
-              CORE_DEFAULT_DOMAIN = "zipline.${nixos.config.networking.domain}";
+              CORE_DEFAULT_DOMAIN = "zipline.${config.networking.domain}";
               OAUTH_OIDC_CLIENT_ID = "zipline";
             in
             {
@@ -128,6 +128,5 @@
             };
         };
       }
-    ]
-  );
+    ];
 }

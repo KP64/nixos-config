@@ -78,8 +78,7 @@
             # TODO: Figure out if it makes sense to introduce L4 Reverse Proxy
             #       (possibly replacing caddy) So that this port can be closed.
             openFirewall = true;
-            # NOTE: This is a nixpkgs package
-            package = pkgs.velocity;
+            package = mcPkgs.velocity-server;
             # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
             jvmOpts = [
               "-Xms2G"
@@ -98,8 +97,8 @@
                     inherit (nixos.config.services.minecraft-servers.servers) Creative Survival;
                   in
                   {
-                    survival = "[::1]:${toString Survival.serverProperties.server-port}";
-                    creative = "[::1]:${toString Creative.serverProperties.server-port}";
+                    survival = "[${Survival.serverProperties.server-ip}]:${toString Survival.serverProperties.server-port}";
+                    creative = "[${Creative.serverProperties.server-ip}]:${toString Creative.serverProperties.server-port}";
                     try = [
                       "creative"
                       "survival"
@@ -167,11 +166,13 @@
           Survival = {
             enable = true;
             package = mcPkgs.minecraftServers.fabric-26_1_1.override {
-              jre_headless = pkgs.openjdk25.headless;
+              jre_headless = pkgs.openjdk25_headless;
             };
             jvmOpts = [
               "-Xms8G"
               "-Xmx8G"
+              "-XX:+UseZGC"
+              "-XX:+UseCompactObjectHeaders"
             ];
             serverProperties = {
               server-ip = "::1";
@@ -192,11 +193,13 @@
           Creative = {
             enable = true;
             package = mcPkgs.minecraftServers.fabric-26_1_1.override {
-              jre_headless = pkgs.openjdk25.headless;
+              jre_headless = pkgs.openjdk25_headless;
             };
             jvmOpts = [
               "-Xms8G"
               "-Xmx8G"
+              "-XX:+UseZGC"
+              "-XX:+UseCompactObjectHeaders"
             ];
             serverProperties = {
               server-ip = "::1";

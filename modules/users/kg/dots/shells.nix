@@ -1,7 +1,5 @@
-{ moduleWithSystem, ... }:
 {
-  den.aspects.kg._.shells.homeManager = moduleWithSystem (
-    { config, ... }:
+  den.aspects.kg._.shells.homeManager =
     { lib, pkgs, ... }:
     {
       programs = {
@@ -10,15 +8,12 @@
         nushell = {
           enable = true;
 
-          plugins = [
-            config.packages.nu_plugin_port_extension
-          ]
-          ++ (with pkgs.nushellPlugins; [
+          plugins = with pkgs.nushellPlugins; [
             formats
             gstat
             polars
             query
-          ]);
+          ];
 
           settings = {
             show_banner = false;
@@ -36,6 +31,5 @@
             ];
         };
       };
-    }
-  );
+    };
 }

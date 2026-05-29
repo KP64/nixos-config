@@ -309,21 +309,6 @@
                   run = ''piper -- ${lib.getExe pkgs.hexyl} --border=none --terminal-width=$w "$1"'';
                 }
               ];
-
-              prepend_fetchers =
-                if (lib.versionAtLeast (lib.getVersion hm.config.programs.yazi.package) "26.5.6") then
-                  throw "Remove these yazi options now."
-                else
-                  map
-                    (url: {
-                      inherit url;
-                      id = "git";
-                      run = "git";
-                    })
-                    [
-                      "*"
-                      "*/"
-                    ];
             };
 
           opener.extract = map (attrs: attrs // { desc = "Extract here with ouch"; }) [

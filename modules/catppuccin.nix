@@ -27,13 +27,17 @@ in
     };
 
     homeManager =
-      { config, ... }:
+      {
+        osConfig ? null,
+        config,
+        ...
+      }:
       {
         imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
         catppuccin = {
           enable = true;
-          cache.enable = true;
+          cache.enable = osConfig == null;
           inherit accent;
           firefox.force = true;
           cursors = {

@@ -58,7 +58,10 @@ toplevel@{
                 }
               )
               <| {
-                network.trr.mode = 5; # Off by choice -> Uses system DNS resolver
+                network = {
+                  trr.mode = 5; # Off by choice -> Uses system DNS resolver
+                  proxy.type = 0; # Disable proxy
+                };
                 # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
                 extensions.autoDisableScopes = 0;
                 dom.security.https_only_mode = true;
@@ -132,6 +135,22 @@ toplevel@{
                     {
                       name = "Corrode";
                       url = "https://corrode.dev/";
+                    }
+                    {
+                      name = "Microslop Patterns";
+                      url = "https://microsoft.github.io/RustTraining/rust-patterns-book/";
+                    }
+                    {
+                      name = "Microslop Async";
+                      url = "https://microsoft.github.io/RustTraining/async-book/";
+                    }
+                    {
+                      name = "Microslop Type-Driven Correctness";
+                      url = "https://microsoft.github.io/RustTraining/type-driven-correctness-book/";
+                    }
+                    {
+                      name = "Microslop Engineering";
+                      url = "https://microsoft.github.io/RustTraining/engineering-book/";
                     }
                   ];
                 }
