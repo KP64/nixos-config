@@ -24,7 +24,13 @@ in
 
     _.cache = {
       nixos = { inherit nix; };
-      homeManager = { inherit nix; };
+      homeManager =
+        {
+          lib,
+          osConfig ? null,
+          ...
+        }:
+        lib.mkIf (osConfig == null) { inherit nix; };
     };
 
     homeManager =

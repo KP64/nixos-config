@@ -14,11 +14,7 @@ toplevel: {
           '';
     in
     {
-      imports = with toplevel.config.flake.modules.nixvim; [
-        blink-emoji
-        blink-git
-        blink-latex
-      ];
+      imports = [ toplevel.config.flake.modules.nixvim.blink-latex ];
 
       dependencies =
         let
