@@ -28,7 +28,7 @@ toplevel@{ lib, inputs, ... }:
             else if item == acc then
               acc
             else
-              throw "Cannot merge values of type ${builtins.typeOf item}"
+              throw "Cannot merge values of type ${builtins.typeOf acc} and ${builtins.typeOf item}"
           ) null;
       in
       getSettings [
