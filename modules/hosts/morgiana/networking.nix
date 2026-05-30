@@ -4,9 +4,6 @@ toplevel@{ den, ... }:
     includes = [ den.aspects.ip ];
     nixos =
       { config, lib, ... }:
-      let
-        zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;
-      in
       {
         sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
 
@@ -28,14 +25,6 @@ toplevel@{ den, ... }:
 
         staticIPv4 = "192.168.2.212";
         staticIPv6 = "fdef:fa6a:4724:1::212";
-
-        services.resolved.dnsDelegates.homelab.Delegate = {
-          DNS = with zarqaCfg; [
-            staticIPv4
-            staticIPv6
-          ];
-          Domains = [ config.networking.domain ];
-        };
 
         systemd.network = {
           enable = true;
