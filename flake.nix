@@ -5,6 +5,38 @@
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
+  nixConfig = {
+    auto-optimise-store = true;
+    experimental-features = [
+      "flakes"
+      "nix-command"
+      "pipe-operators"
+    ];
+    extra-substituters = [ "https://catppuccin.cachix.org" ];
+    extra-trusted-public-keys = [
+      "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
+    ];
+    fsync-store-paths = true;
+    lint-absolute-path-literals = "warn";
+    lint-short-path-literals = "warn";
+    lint-url-literals = "fatal";
+    preallocate-contents = true;
+    substituters = [
+      "https://cache.nixos-cuda.org"
+      "https://cache.nixos.org/"
+      "https://nix-community.cachix.org"
+      "https://nixos-raspberrypi.cachix.org"
+    ];
+    sync-before-registering = true;
+    trusted-public-keys = [
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
+    use-xdg-base-directories = true;
+  };
+
   inputs = {
     better-fox = {
       type = "github";

@@ -1,4 +1,4 @@
-{ inputs, ... }:
+toplevel@{ lib, inputs, ... }:
 {
   imports = with inputs; [
     den.flakeModule
@@ -8,9 +8,46 @@
   flake-file = {
     description = "KP64's Overengineered Nix Flake";
 
-    # TODO: Gather all settings from configs
-    #       Allows faster first boot with --accept-flake-config
-    # nixConfig = {  };
+    # TODO: Extend to HomeConfigurations
+    nixConfig =
+      let
+        getSettings =
+          includedSettings:
+          toplevel.config.flake.nixosConfigurations
+          |> builtins.attrValues
+          |> map (cfg: cfg.config.nix.settings)
+          |> map (lib.filterAttrs (setting: _: builtins.elem setting includedSettings))
+          |> lib.foldAttrs (
+            item: acc:
+            if acc == null then
+              item
+            else if builtins.isBool item && builtins.isBool acc then
+              acc || item
+            else if builtins.isList item && builtins.isList acc then
+              acc ++ item |> lib.unique |> lib.naturalSort
+            else if item == acc then
+              acc
+            else
+              throw "Cannot merge values of type ${builtins.typeOf item}"
+          ) null;
+      in
+      getSettings [
+        "auto-optimise-store"
+        "fsync-store-paths"
+        "preallocate-contents"
+        "sync-before-registering"
+        "use-xdg-base-directories"
+
+        "experimental-features"
+        "substituters"
+        "trusted-public-keys"
+        "extra-substituters"
+        "extra-trusted-public-keys"
+
+        "lint-absolute-path-literals"
+        "lint-short-path-literals"
+        "lint-url-literals"
+      ];
 
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
