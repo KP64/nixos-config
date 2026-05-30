@@ -22,7 +22,7 @@ let
     fsync-store-paths = true;
     preallocate-contents = true;
     # NOTE: Really really expensive. https://github.com/NixOS/nix/issues/1218#issuecomment-277990880
-    # sync-before-registering = true;
+    sync-before-registering = true;
     use-xdg-base-directories = true;
   };
 in

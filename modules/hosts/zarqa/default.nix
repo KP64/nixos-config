@@ -1,4 +1,7 @@
 { den, inputs, ... }:
+let
+  inherit (inputs) nixos-raspberrypi;
+in
 {
   den = {
     hosts.aarch64-linux.zarqa = {
@@ -6,7 +9,7 @@
         { modules, ... }:
         inputs.nixpkgs.lib.nixosSystem {
           inherit modules;
-          specialArgs = { inherit (inputs) nixos-raspberrypi; };
+          specialArgs = { inherit nixos-raspberrypi; };
         };
 
       users.kg = { };
@@ -21,9 +24,6 @@
       ];
       nixos =
         { config, ... }:
-        let
-          inherit (inputs) nixos-raspberrypi;
-        in
         {
           imports = [
             inputs.nix-invisible.modules.nixos.host-zarqa
