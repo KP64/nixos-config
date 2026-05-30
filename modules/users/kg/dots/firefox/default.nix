@@ -137,20 +137,8 @@ toplevel@{
                       url = "https://corrode.dev/";
                     }
                     {
-                      name = "Microslop Patterns";
-                      url = "https://microsoft.github.io/RustTraining/rust-patterns-book/";
-                    }
-                    {
-                      name = "Microslop Async";
-                      url = "https://microsoft.github.io/RustTraining/async-book/";
-                    }
-                    {
-                      name = "Microslop Type-Driven Correctness";
-                      url = "https://microsoft.github.io/RustTraining/type-driven-correctness-book/";
-                    }
-                    {
-                      name = "Microslop Engineering";
-                      url = "https://microsoft.github.io/RustTraining/engineering-book/";
+                      name = "Microslop Rust Training";
+                      url = "https://microsoft.github.io/RustTraining";
                     }
                   ];
                 }
