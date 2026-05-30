@@ -26,14 +26,6 @@ toplevel@{ den, ... }:
         staticIPv4 = "192.168.2.220";
         staticIPv6 = "fdef:fa6a:4724:1::220";
 
-        services.resolved.dnsDelegates.homelab.Delegate = {
-          DNS = with zarqaCfg; [
-            staticIPv4
-            staticIPv6
-          ];
-          Domains = [ config.networking.domain ];
-        };
-
         systemd.network = {
           enable = true;
           networks."10-wlp130s0f0" = {
