@@ -48,6 +48,11 @@
           services.xserver.xkb.layout = "de";
           boot = {
             kernelPackages = pkgs.linuxPackages_zen;
+            measuredPcrs = [
+              0
+              4
+              7
+            ];
             binfmt = {
               preferStaticEmulators = true;
               emulatedSystems = [ "aarch64-linux" ];
