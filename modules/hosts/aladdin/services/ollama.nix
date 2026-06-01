@@ -21,9 +21,9 @@
       {
         services.ollama = {
           enable = true;
-          syncModels = true;
           host = "[${config.staticIPv6}]";
           openFirewall = true;
+          syncModels = true;
           loadModels = [
             "embeddinggemma:300m"
             "glm-ocr:q8_0"
