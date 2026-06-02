@@ -310,6 +310,18 @@
                   run = ''piper -- ${lib.getExe pkgs.hexyl} --border=none --terminal-width=$w "$1"'';
                 }
               ];
+
+              prepend_fetchers =
+                map
+                  (url: {
+                    inherit url;
+                    run = "git";
+                    group = "git";
+                  })
+                  [
+                    "*"
+                    "*/"
+                  ];
             };
 
           opener.extract = map (attrs: attrs // { desc = "Extract here with ouch"; }) [
