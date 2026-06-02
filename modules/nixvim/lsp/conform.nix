@@ -46,18 +46,15 @@
 
     keymaps =
       map
-        (
-          { mode, desc }:
-          {
-            inherit mode;
-            key = "<leader>cf";
-            action = "<cmd>lua require('conform').format { async = true }<cr>";
-            options = {
-              silent = true;
-              inherit desc;
-            };
-          }
-        )
+        ({ mode, desc }: {
+          inherit mode;
+          key = "<leader>cf";
+          action = "<cmd>lua require('conform').format { async = true }<cr>";
+          options = {
+            silent = true;
+            inherit desc;
+          };
+        })
         [
           {
             mode = "n";

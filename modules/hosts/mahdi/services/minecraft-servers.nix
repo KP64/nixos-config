@@ -1,5 +1,4 @@
-{ moduleWithSystem, inputs, ... }:
-{
+{ moduleWithSystem, inputs, ... }: {
   den.aspects.mahdi.nixos = moduleWithSystem (
     {
       config,

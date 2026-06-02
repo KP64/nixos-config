@@ -1,50 +1,48 @@
 {
-  den.aspects.customLib.nixos =
-    { lib, ... }:
-    {
-      nix-lib.lib.securityHeader = {
-        mkCSP = {
-          type = with lib.types; functionTo nonEmptyStr;
-          fn =
-            policyAttr:
-            policyAttr
-            |> lib.mapAttrsToList (
-              policy: value:
-              let
-                prefixes = map (prefix: "${prefix}:") [
-                  "https"
-                  "data"
-                  "blob"
-                ];
-                processPolicyValue =
-                  val: if (builtins.any (prefix: lib.hasPrefix prefix val) prefixes) then val else "'${val}'";
-                pv =
-                  if (builtins.isList value) then
-                    lib.concatMapStringsSep " " processPolicyValue value
-                  else
-                    processPolicyValue value;
-              in
-              "${policy} ${pv};"
-            )
-            |> builtins.concatStringsSep " ";
-          description = ''
-            Generate a string with values of the
-            Content-Security-Policy http header.
-          '';
-        };
+  den.aspects.customLib.nixos = { lib, ... }: {
+    nix-lib.lib.securityHeader = {
+      mkCSP = {
+        type = with lib.types; functionTo nonEmptyStr;
+        fn =
+          policyAttr:
+          policyAttr
+          |> lib.mapAttrsToList (
+            policy: value:
+            let
+              prefixes = map (prefix: "${prefix}:") [
+                "https"
+                "data"
+                "blob"
+              ];
+              processPolicyValue =
+                val: if (builtins.any (prefix: lib.hasPrefix prefix val) prefixes) then val else "'${val}'";
+              pv =
+                if (builtins.isList value) then
+                  lib.concatMapStringsSep " " processPolicyValue value
+                else
+                  processPolicyValue value;
+            in
+            "${policy} ${pv};"
+          )
+          |> builtins.concatStringsSep " ";
+        description = ''
+          Generate a string with values of the
+          Content-Security-Policy http header.
+        '';
+      };
 
-        mkPP = {
-          type = with lib.types; functionTo nonEmptyStr;
-          fn =
-            policies:
-            policies
-            |> lib.mapAttrsToList (directive: value: "${directive}=${value}")
-            |> builtins.concatStringsSep ", ";
-          description = ''
-            Generate a string with values of the
-            Permission-Policy http header.
-          '';
-        };
+      mkPP = {
+        type = with lib.types; functionTo nonEmptyStr;
+        fn =
+          policies:
+          policies
+          |> lib.mapAttrsToList (directive: value: "${directive}=${value}")
+          |> builtins.concatStringsSep ", ";
+        description = ''
+          Generate a string with values of the
+          Permission-Policy http header.
+        '';
       };
     };
+  };
 }

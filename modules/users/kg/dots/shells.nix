@@ -1,35 +1,33 @@
 {
-  den.aspects.kg._.shells.homeManager =
-    { lib, pkgs, ... }:
-    {
-      programs = {
-        carapace.enable = true;
+  den.aspects.kg._.shells.homeManager = { lib, pkgs, ... }: {
+    programs = {
+      carapace.enable = true;
 
-        nushell = {
-          enable = true;
+      nushell = {
+        enable = true;
 
-          plugins = with pkgs.nushellPlugins; [
-            formats
-            gstat
-            polars
-            query
-          ];
+        plugins = with pkgs.nushellPlugins; [
+          formats
+          gstat
+          polars
+          query
+        ];
 
-          settings = {
-            show_banner = false;
-            edit_mode = "vi";
-          };
-
-          extraConfig =
-            let
-              nuScriptsDir = builtins.path { path = "${pkgs.nu_scripts}/share/nu_scripts"; };
-            in
-            lib.concatLines
-            <| map (cmd: "use ${nuScriptsDir}/aliases/${cmd}/${cmd}-aliases.nu *") [
-              "bat"
-              "git"
-            ];
+        settings = {
+          show_banner = false;
+          edit_mode = "vi";
         };
+
+        extraConfig =
+          let
+            nuScriptsDir = builtins.path { path = "${pkgs.nu_scripts}/share/nu_scripts"; };
+          in
+          lib.concatLines
+          <| map (cmd: "use ${nuScriptsDir}/aliases/${cmd}/${cmd}-aliases.nu *") [
+            "bat"
+            "git"
+          ];
       };
     };
+  };
 }

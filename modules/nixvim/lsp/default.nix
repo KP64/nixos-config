@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   flake.modules.nixvim.lsp = {
     imports = with config.flake.modules.nixvim; [
       blink

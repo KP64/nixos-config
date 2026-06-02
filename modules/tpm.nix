@@ -10,11 +10,7 @@
     };
 
     _.to-users = {
-      user =
-        { config, ... }:
-        {
-          extraGroups = [ config.security.tpm2.tssGroup ];
-        };
+      user = { config, ... }: { extraGroups = [ config.security.tpm2.tssGroup ]; };
       homeManager.services.ssh-tpm-agent.enable = true;
     };
   };

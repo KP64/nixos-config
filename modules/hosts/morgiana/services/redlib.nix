@@ -1,5 +1,4 @@
-{ moduleWithSystem, ... }:
-{
+{ moduleWithSystem, ... }: {
   den.aspects.morgiana.nixos = moduleWithSystem (
     { config, ... }:
     nixos@{ lib, ... }:

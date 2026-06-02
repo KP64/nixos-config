@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.aladdin = {
     includes = [
       (den.batteries.unfree [

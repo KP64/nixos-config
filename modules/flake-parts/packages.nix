@@ -1,5 +1,4 @@
-{ inputs, self, ... }:
-{
+{ inputs, self, ... }: {
   flake-file.inputs.pkgs-by-name-for-flake-parts = {
     type = "github";
     owner = "drupol";

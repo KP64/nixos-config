@@ -1,5 +1,4 @@
-{ den, inputs, ... }:
-{
+{ den, inputs, ... }: {
   flake-file.inputs.nix-lib = {
     type = "github";
     owner = "Dauliac";

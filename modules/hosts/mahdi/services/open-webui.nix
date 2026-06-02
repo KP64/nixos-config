@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.mahdi = {
     includes = [ (den.batteries.unfree [ "open-webui" ]) ];
 

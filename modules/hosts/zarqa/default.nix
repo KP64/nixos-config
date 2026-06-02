@@ -22,31 +22,29 @@ in
         ssh
         time
       ];
-      nixos =
-        { config, ... }:
-        {
-          imports = [
-            inputs.nix-invisible.modules.nixos.host-zarqa
-          ]
-          ++ (with nixos-raspberrypi.lib; [
-            inject-overlays
-            inject-overlays-global
-          ])
-          ++ (with nixos-raspberrypi.nixosModules; [
-            nixpkgs-rpi
-            raspberry-pi-3.base
-          ]);
+      nixos = { config, ... }: {
+        imports = [
+          inputs.nix-invisible.modules.nixos.host-zarqa
+        ]
+        ++ (with nixos-raspberrypi.lib; [
+          inject-overlays
+          inject-overlays-global
+        ])
+        ++ (with nixos-raspberrypi.nixosModules; [
+          nixpkgs-rpi
+          raspberry-pi-3.base
+        ]);
 
-          home-manager.users.kg.home = { inherit (config.system) stateVersion; };
+        home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
-          system.stateVersion = "26.05";
-          hardware.facter.reportPath = ./facter.json;
+        system.stateVersion = "26.05";
+        hardware.facter.reportPath = ./facter.json;
 
-          console.keyMap = "de";
+        console.keyMap = "de";
 
-          sops.defaultSopsFile = ./secrets.yaml;
-          users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
-        };
+        sops.defaultSopsFile = ./secrets.yaml;
+        users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
+      };
     };
   };
 }

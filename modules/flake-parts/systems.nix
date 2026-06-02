@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   /*
     Every system this flake supports
     and for which `perSystem` will run.
