@@ -73,10 +73,6 @@
         };
       })
       {
-
-        # TODO: Upgrade to 4.6.0
-        #         - Set HOSTNAME to Unix Path
-        #         - Remove selfmanaged package
         services.zipline = {
           enable = true;
           environmentFiles = [ config.sops.templates."zipline.env".path ];

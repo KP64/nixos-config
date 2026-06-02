@@ -17,6 +17,7 @@ in
 
       catppuccin = {
         enable = true;
+        autoEnable = true;
         cache.enable = true;
         inherit accent;
         cursors = {
@@ -37,6 +38,7 @@ in
 
         catppuccin = {
           enable = true;
+          autoEnable = true;
           cache.enable = osConfig == null;
           inherit accent;
           firefox.force = true;
