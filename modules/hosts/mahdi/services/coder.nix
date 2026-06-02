@@ -31,7 +31,10 @@
           # TODO: Use rootless docker or switch to podman
           virtualisation.docker = {
             enable = true;
-            autoPrune.enable = true;
+            autoPrune = {
+              enable = true;
+              allVolumes.enable = true;
+            };
           };
           # Doesn't have permission to access the socket otherway
           users.users.coder.extraGroups = lib.optional config.virtualisation.docker.enable config.users.groups.docker.name;

@@ -187,21 +187,26 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                         |> map (nsdomain: "${nsdomain}.${zone}.");
                       A = [ staticIPv4 ];
                       AAAA = [ staticIPv6 ];
-                      # TODO: Find a better way for this.
-                      #       Use virtualHosts of reverse proxy with recursiveUpdate?
                       subdomains =
                         let
                           inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
+
+                          getServices =
+                            hostCfg:
+                            hostCfg
+                            |> (hostCfg: hostCfg.services.nginx.virtualHosts // hostCfg.services.caddy.virtualHosts)
+                            |> builtins.attrNames
+                            |> map (lib.removeSuffix ".${zone}");
                         in
                         {
                           ns = { inherit A AAAA; };
                         }
                         # Zarqa Services
-                        // lib.genAttrs [ "atuin" "dumb" "overflow" ] (_: {
+                        // lib.genAttrs (getServices nixos.config) (_: {
                           inherit A AAAA;
                         })
                         # Morgiana Services
-                        // lib.genAttrs [ "anki" "bentopdf" "redlib" "searxng" ] (_: {
+                        // lib.genAttrs (getServices morgiana.config) (_: {
                           A = [ morgiana.config.staticIPv4 ];
                           AAAA = [ morgiana.config.staticIPv6 ];
                         })

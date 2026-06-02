@@ -16,6 +16,10 @@
           acmeRoot = null;
           onlySSL = true;
           kTLS = true;
+          extraConfig = # nginx
+            ''
+              client_max_body_size 512M;
+            '';
           locations."/" = {
             proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
             extraConfig = # nginx
@@ -63,7 +67,6 @@
 
         networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
-        # NOTE: Either podman or Docker needed for runners
         virtualisation.podman = {
           enable = true;
           autoPrune.enable = true;
@@ -96,8 +99,8 @@
           package = pkgs.forgejo; # Newest version ;)
           lfs.enable = true;
           dump.enable = true;
+          # TODO: Database Password
           # database.passwordFile = "";
-          # secrets = { };
           settings = {
             server = {
               HTTP_PORT = 36031;

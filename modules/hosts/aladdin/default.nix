@@ -62,7 +62,6 @@
 
         users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
-        # TODO: Secure the ports opened by localsend and ausweisapp
         programs =
           let
             inherit (config.lib.hm) anyHmUser;
@@ -72,7 +71,10 @@
               enable = true;
               openFirewall = true;
             };
-            localsend.enable = true;
+            localsend = {
+              enable = true;
+              openFirewall = true;
+            };
             thunar.enable = true;
             trippy.enable = anyHmUser (hmUserCfg: hmUserCfg.programs.trippy.enable);
           };
