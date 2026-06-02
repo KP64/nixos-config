@@ -8,13 +8,16 @@ toplevel@{ lib, inputs, ... }:
   flake-file = {
     description = "KP64's Overengineered Nix Flake";
 
-    # TODO: Extend to HomeConfigurations
     nixConfig =
       let
         getSettings =
           includedSettings:
-          toplevel.config.flake.nixosConfigurations
-          |> builtins.attrValues
+          (with toplevel.config.flake; [
+            nixosConfigurations
+            homeConfigurations
+          ])
+          |> map builtins.attrValues
+          |> lib.flatten
           |> map (cfg: cfg.config.nix.settings)
           |> map (lib.filterAttrs (setting: _: builtins.elem setting includedSettings))
           |> lib.foldAttrs (
