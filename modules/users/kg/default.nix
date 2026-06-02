@@ -84,8 +84,6 @@ toplevel@{ den, inputs, ... }:
             shellAliases.c = "clear";
             packages =
               (with pkgs; [
-                bluetui
-                caligula
                 igrep
                 systemctl-tui
               ])
@@ -96,6 +94,8 @@ toplevel@{ den, inputs, ... }:
                 (
                   with pkgs;
                   [
+                    bluetui
+                    caligula
                     manga-tui
                     signal-desktop
                     yubioath-flutter
