@@ -24,7 +24,15 @@ toplevel@{ inputs, ... }:
       };
 
       getRelativePath =
-        paths: paths |> map (p: p |> toString |> builtins.match ".*(modules/.*)" |> builtins.head);
+        paths:
+        paths
+        |> map (
+          p:
+          p
+          |> toString
+          |> builtins.match ".*(modules/.*)"
+          |> builtins.head
+        );
 
       getSecretsPaths =
         secrets:

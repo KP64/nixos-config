@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   flake-file.inputs.home-manager = {
     type = "github";
     owner = "nix-community";

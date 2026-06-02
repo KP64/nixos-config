@@ -1,5 +1,4 @@
-{ config, inputs, ... }:
-{
+{ config, inputs, ... }: {
   # TODO: Migrate to aspects
   flake-file.inputs = {
     neovim-nightly-overlay = {
@@ -22,55 +21,53 @@
     checks.enable = true;
   };
 
-  perSystem =
-    { system, lib, ... }:
-    {
-      nixvimConfigurations.default = inputs.nixvim.lib.evalNixvim {
-        inherit system;
-        modules =
-          (with config.flake.modules.nixvim; [
-            base
-            lsp
-            navigation
-            ui
+  perSystem = { system, lib, ... }: {
+    nixvimConfigurations.default = inputs.nixvim.lib.evalNixvim {
+      inherit system;
+      modules =
+        (with config.flake.modules.nixvim; [
+          base
+          lsp
+          navigation
+          ui
 
-            comments
-            git
-            leetcode
-            markdown
-            movement
-            no-neck-pain
-            tex
-            treesitter
-            trouble
-            which-key
-            zen
-          ])
-          ++ lib.singleton {
-            colorschemes.catppuccin.enable = true;
-            neovim-dashboard = [
-              "                             ██  ██                                         "
-              "                                                                            "
-              "                ██           ██████                                         "
-              "                ██           ██  ██            ██  ██████  ██  ██           "
-              "                ██    ██     ██████            ██  ██  ██  ██  ██           "
-              "        ██  ██  ██    ██         ██  ██████    ██  ██████  ██  ██           "
-              "        ██  ██  ███████████████████  ██  ██    ██   ████   ██  ██           "
-              "        ██  ██████                   ████████████████████████  ██           "
-              "        ██            ██  █████      ██                                     "
-              "        ██                   ██  ██████  ████████████████████████████  ██   "
-              "        ██                   ██                                    ██  ██   "
-              "        ██████████  ██████   ██  ██  ██████    ██  ██████  ██  ██  ██  ██   "
-              "   ██   ██  ██  ██  ██  ██   ██  ██  ██  ██    ██  ██  ██          ██  ██   "
-              "   ██   ██  ██████  ██████   ██  ██  ██████    ██  ██████  ██████  ██  ██   "
-              "   ██   ██      ██   ████    ██  ██      ██    ██      ██  ██  ██  ██  ██   "
-              "   ███████  ██  ███████████████  ██  ██████    ██   ██ ██  ██████████  ██   "
-              "            ██                                 ██   ██ ██      ██           "
-              "            █████████████████████████████████████   █████████████           "
-              "                                                                            "
-              "                                                                            "
-            ];
-          };
-      };
+          comments
+          git
+          leetcode
+          markdown
+          movement
+          no-neck-pain
+          tex
+          treesitter
+          trouble
+          which-key
+          zen
+        ])
+        ++ lib.singleton {
+          colorschemes.catppuccin.enable = true;
+          neovim-dashboard = [
+            "                             ██  ██                                         "
+            "                                                                            "
+            "                ██           ██████                                         "
+            "                ██           ██  ██            ██  ██████  ██  ██           "
+            "                ██    ██     ██████            ██  ██  ██  ██  ██           "
+            "        ██  ██  ██    ██         ██  ██████    ██  ██████  ██  ██           "
+            "        ██  ██  ███████████████████  ██  ██    ██   ████   ██  ██           "
+            "        ██  ██████                   ████████████████████████  ██           "
+            "        ██            ██  █████      ██                                     "
+            "        ██                   ██  ██████  ████████████████████████████  ██   "
+            "        ██                   ██                                    ██  ██   "
+            "        ██████████  ██████   ██  ██  ██████    ██  ██████  ██  ██  ██  ██   "
+            "   ██   ██  ██  ██  ██  ██   ██  ██  ██  ██    ██  ██  ██          ██  ██   "
+            "   ██   ██  ██████  ██████   ██  ██  ██████    ██  ██████  ██████  ██  ██   "
+            "   ██   ██      ██   ████    ██  ██      ██    ██      ██  ██  ██  ██  ██   "
+            "   ███████  ██  ███████████████  ██  ██████    ██   ██ ██  ██████████  ██   "
+            "            ██                                 ██   ██ ██      ██           "
+            "            █████████████████████████████████████   █████████████           "
+            "                                                                            "
+            "                                                                            "
+          ];
+        };
     };
+  };
 }

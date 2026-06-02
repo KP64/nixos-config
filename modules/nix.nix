@@ -35,19 +35,17 @@ in
   };
 
   den.default = {
-    nixos =
-      { pkgs, ... }:
-      {
-        inherit nixpkgs;
-        nix = {
-          package = pkgs.nixVersions.latest;
-          settings = commonSettings // {
-            trusted-users = [ "@wheel" ];
-          };
-          optimise.automatic = true;
-          channel.enable = false;
+    nixos = { pkgs, ... }: {
+      inherit nixpkgs;
+      nix = {
+        package = pkgs.nixVersions.latest;
+        settings = commonSettings // {
+          trusted-users = [ "@wheel" ];
         };
+        optimise.automatic = true;
+        channel.enable = false;
       };
+    };
 
     homeManager =
       {

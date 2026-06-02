@@ -1,5 +1,4 @@
-{ inputs, self, ... }:
-{
+{ inputs, self, ... }: {
   flake-file.inputs.nix-topology = {
     type = "github";
     owner = "oddlama";

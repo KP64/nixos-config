@@ -1,15 +1,13 @@
 {
-  den.aspects.boot._.efi.nixos =
-    { lib, ... }:
-    {
-      services.fwupd.enable = lib.mkDefault true;
+  den.aspects.boot._.efi.nixos = { lib, ... }: {
+    services.fwupd.enable = lib.mkDefault true;
 
-      boot.loader = {
-        efi.canTouchEfiVariables = true;
-        systemd-boot = {
-          enable = true;
-          editor = false;
-        };
+    boot.loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        editor = false;
       };
     };
+  };
 }

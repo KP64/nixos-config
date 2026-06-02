@@ -3,27 +3,25 @@
   #       If the DNS strictly needs DoT and DNSSEC and there is no RTC then
   #       no time can be fetched. Without the correct time
   #       DoT and DNSSEC fail causing a deadlock.
-  den.aspects.time.nixos =
-    { lib, ... }:
-    {
-      services.ntpd-rs = {
-        enable = true;
-        useNetworkingTimeServers = lib.mkDefault false;
-        settings.source =
-          map
-            (address: {
-              # We only care about nts servers ;D
-              # (if we exclude the nixos pool that is)
-              mode = "nts";
-              inherit address;
-            })
-            (
-              [
-                "nts.netnod.se"
-                "time.cloudflare.com"
-              ]
-              ++ (builtins.genList (i: "ptbtime${toString (i + 1)}.ptb.de") 4)
-            );
-      };
+  den.aspects.time.nixos = { lib, ... }: {
+    services.ntpd-rs = {
+      enable = true;
+      useNetworkingTimeServers = lib.mkDefault false;
+      settings.source =
+        map
+          (address: {
+            # We only care about nts servers ;D
+            # (if we exclude the nixos pool that is)
+            mode = "nts";
+            inherit address;
+          })
+          (
+            [
+              "nts.netnod.se"
+              "time.cloudflare.com"
+            ]
+            ++ (builtins.genList (i: "ptbtime${toString (i + 1)}.ptb.de") 4)
+          );
     };
+  };
 }

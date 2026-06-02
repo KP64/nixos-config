@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   flake-file.inputs.harmonia = {
     type = "github";
     owner = "nix-community";

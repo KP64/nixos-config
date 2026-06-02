@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   flake-file.inputs.sops-nix = {
     type = "github";
     owner = "Mic92";

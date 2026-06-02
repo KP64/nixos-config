@@ -16,10 +16,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
     # TODO: remove once niri is upstreamed to home-manager
     #       Also sync HM-Package with host pkg
     _.to-hosts.nixos = moduleWithSystem (
-      { inputs', ... }:
-      {
-        programs.niri.package = inputs'.niri-flake.packages.niri-unstable;
-      }
+      { inputs', ... }: { programs.niri.package = inputs'.niri-flake.packages.niri-unstable; }
     );
 
     # NOTE: Don't forget to install wireplumber on the device
