@@ -1,7 +1,10 @@
 toplevel@{ den, ... }:
 {
   den.aspects.aladdin = {
-    includes = [ den.aspects.ip ];
+    includes = with den.aspects; [
+      ip
+      wifi
+    ];
 
     nixos =
       { config, lib, ... }:
@@ -9,21 +12,11 @@ toplevel@{ den, ... }:
         zarqaCfg = toplevel.config.flake.nixosConfigurations.zarqa.config;
       in
       {
-        sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
-
         networking = {
           inherit (zarqaCfg.networking) domain;
           # Let systemd configure everything
           useDHCP = false;
           dhcpcd.enable = false;
-
-          wireless = {
-            enable = true;
-            secretsFile = config.sops.secrets."wireless.env".path;
-            fallbackToWPA2 = false;
-            scanOnLowSignal = false;
-            networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
-          };
         };
 
         staticIPv4 = "192.168.2.221";
