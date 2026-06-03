@@ -43,7 +43,7 @@ toplevel@{ self, ... }:
         httpPort = null;
         openFirewall = true;
         enableReload = false;
-        environmentFile = config.sops.secrets."caddy.env".path;
+        environmentFile = config.sops.templates."caddy.env".path;
         globalConfig = # caddy
           ''
             admin off
