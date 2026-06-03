@@ -1,4 +1,5 @@
-toplevel: {
+toplevel@{ self, ... }:
+{
   den.aspects.zarqa.nixos =
     {
       config,
@@ -7,8 +8,28 @@ toplevel: {
       ...
     }:
     {
-      sops.secrets = lib.mkIf config.services.caddy.enable {
-        "caddy.env".owner = config.services.caddy.user;
+      sops = lib.mkIf config.services.caddy.enable {
+        secrets =
+          let
+            sopsFile = "${self}/secrets/porkbun.yaml";
+          in
+          {
+            porkbun_api_key = {
+              inherit sopsFile;
+              key = "api_key";
+            };
+            porkbun_secret_api_key = {
+              inherit sopsFile;
+              key = "secret_api_key";
+            };
+          };
+        templates."caddy.env" = {
+          owner = config.services.caddy.user;
+          content = ''
+            PORKBUN_API_KEY=${config.sops.placeholder.porkbun_api_key}
+            PORKBUN_SECRET_API_KEY=${config.sops.placeholder.porkbun_secret_api_key}
+          '';
+        };
       };
 
       services.caddy = {
