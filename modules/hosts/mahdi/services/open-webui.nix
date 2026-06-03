@@ -1,4 +1,5 @@
-{ den, ... }: {
+toplevel@{ den, ... }:
+{
   den.aspects.mahdi = {
     includes = [ (den.batteries.unfree [ "open-webui" ]) ];
 
@@ -154,10 +155,23 @@
                 ENABLE_RAG_WEB_SEARCH = "True";
                 WEB_SEARCH_ENGINE = "duckduckgo";
               }
-              // (lib.optionalAttrs config.services.searx.enable {
-                WEB_SEARCH_ENGINE = "searxng";
-                SEARXNG_QUERY_URL = "${config.services.searx.settings.server.base_url}/search?q=<query>";
-              });
+              // (
+                let
+                  searxInstances =
+                    toplevel.config.flake.nixosConfigurations
+                    |> builtins.attrValues
+                    |> map (cfg: cfg.config)
+                    |> builtins.filter (cfg: cfg.services.searx.enable)
+                    |> map (cfg: cfg.services.searx.settings.server.base_url);
+                in
+                if searxInstances == [ ] then
+                  builtins.warn "No SearXNG instance is available for ${config.networking.hostName}'s Open-Webui" { }
+                else
+                  {
+                    WEB_SEARCH_ENGINE = "searxng";
+                    SEARXNG_QUERY_URL = "${builtins.head searxInstances}/search?q=<query>";
+                  }
+              );
           };
         }
       ];
