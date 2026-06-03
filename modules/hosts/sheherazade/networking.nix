@@ -1,21 +1,16 @@
 toplevel@{ den, ... }:
 {
   den.aspects.sheherazade = {
-    includes = [ den.aspects.ip ];
-    nixos = { config, lib, ... }: {
-      sops.secrets."wireless.env".owner = config.users.users.wpa_supplicant.name;
+    includes = with den.aspects; [
+      ip
+      wifi
+    ];
 
+    nixos = { config, lib, ... }: {
       networking = {
         inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         useDHCP = false;
         dhcpcd.enable = false;
-        wireless = {
-          enable = true;
-          secretsFile = config.sops.secrets."wireless.env".path;
-          fallbackToWPA2 = false;
-          scanOnLowSignal = false;
-          networks.Home-5GHz.pskRaw = "ext:HOME_WIFI_PASSWORD";
-        };
       };
 
       # We don't care which interface is online here

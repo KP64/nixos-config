@@ -25,12 +25,18 @@ toplevel@{ inputs, ... }:
 
       getRelativePath =
         paths:
+        let
+          relevantDirectories = [
+            "secrets"
+            "modules"
+          ];
+        in
         paths
         |> map (
           p:
           p
           |> toString
-          |> builtins.match ".*(modules/.*)"
+          |> builtins.match ".*((${builtins.concatStringsSep "|" relevantDirectories})/.*)"
           |> builtins.head
         );
 
