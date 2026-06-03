@@ -58,8 +58,6 @@
 
         home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
-        sops.defaultSopsFile = ./secrets.yaml;
-
         users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
         programs =
