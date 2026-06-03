@@ -22,15 +22,13 @@ in
         time
       ];
       nixos = { config, ... }: {
-        imports =
-          (with nixos-raspberrypi.lib; [
-            inject-overlays
-            inject-overlays-global
-          ])
-          ++ (with nixos-raspberrypi.nixosModules; [
-            nixpkgs-rpi
-            raspberry-pi-4.base
-          ]);
+        imports = [
+          nixos-raspberrypi.lib.inject-overlays
+        ]
+        ++ (with nixos-raspberrypi.nixosModules; [
+          nixpkgs-rpi
+          raspberry-pi-4.base
+        ]);
 
         home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
