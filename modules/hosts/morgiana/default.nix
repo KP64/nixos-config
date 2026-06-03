@@ -24,12 +24,8 @@ in
       nixos = { config, ... }: {
         imports = [
           inputs.nix-invisible.modules.nixos.host-morgiana
+          nixos-raspberrypi.lib.inject-overlays
         ]
-        ++ (with nixos-raspberrypi.lib; [
-          inject-overlays
-          # TODO: Inject when packages aren't broken
-          # inject-overlays-global
-        ])
         ++ (with nixos-raspberrypi.nixosModules; [
           nixpkgs-rpi
           raspberry-pi-4.base
