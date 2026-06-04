@@ -154,6 +154,7 @@ toplevel@{ inputs, ... }:
                   "noice"
                   "HAE" # LTT Channel ID
                   "ba" # Part of zarqa's IPv6 address
+                  "ND" # navidrome.env sops content
                 ];
                 files.extend-exclude = facterFiles;
               }

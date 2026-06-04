@@ -9,11 +9,11 @@
     lib.mkMerge [
       (lib.mkIf config.services.zipline.enable {
         sops = {
-          secrets."zipline/core-secret" = { };
+          secrets."zipline/core" = { };
           templates."zipline.env" = {
             restartUnits = [ config.systemd.services.zipline.name ];
             content = ''
-              CORE_SECRET=${config.sops.placeholder."zipline/core-secret"}
+              CORE_SECRET=${config.sops.placeholder."zipline/core"}
               OAUTH_OIDC_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/zipline"}
             '';
           };

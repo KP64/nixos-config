@@ -7,9 +7,15 @@
     in
     lib.mkMerge [
       (lib.mkIf config.services.navidrome.enable {
-        sops.secrets."navidrome.env" = {
-          restartUnits = [ config.systemd.services.navidrome.name ];
-          owner = config.users.users.navidrome.name;
+        sops = {
+          secrets."navidrome/encryption-key" = { };
+          templates."navidrome.env" = {
+            restartUnits = [ config.systemd.services.navidrome.name ];
+            owner = config.users.users.navidrome.name;
+            content = ''
+              ND_PASSWORDENCRYPTIONKEY=${config.sops.placeholder."navidrome/encryption-key"}
+            '';
+          };
         };
 
         services.nginx.virtualHosts.${domain} = {
@@ -54,7 +60,7 @@
       {
         services.navidrome = {
           enable = true;
-          environmentFile = config.sops.secrets."navidrome.env".path;
+          environmentFile = config.sops.templates."navidrome.env".path;
           settings = {
             Address = "[::1]";
             BaseUrl = "https://${domain}";
