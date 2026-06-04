@@ -7,7 +7,10 @@
     in
     lib.mkMerge [
       (lib.mkIf config.services.navidrome.enable {
-        sops.secrets."navidrome.env".owner = config.users.users.navidrome.name;
+        sops.secrets."navidrome.env" = {
+          restartUnits = [ config.systemd.services.navidrome.name ];
+          owner = config.users.users.navidrome.name;
+        };
 
         services.nginx.virtualHosts.${domain} = {
           enableACME = true;

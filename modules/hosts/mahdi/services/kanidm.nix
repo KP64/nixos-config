@@ -13,16 +13,17 @@ toplevel: {
       sops.secrets =
         let
           owner = config.users.users.kanidm.name;
+          restartUnits = [ config.systemd.services.kanidm.name ];
         in
         {
-          "kanidm/admin-password" = { inherit owner; };
-          "kanidm/idm-admin-password" = { inherit owner; };
-          "kanidm/oauth2/coder" = { inherit owner; };
-          "kanidm/oauth2/karakeep" = { inherit owner; };
-          "kanidm/oauth2/open-webui" = { inherit owner; };
-          "kanidm/oauth2/opengist" = { inherit owner; };
-          "kanidm/oauth2/zipline" = { inherit owner; };
-          "kanidm/oauth2/vaultwarden" = { inherit owner; };
+          "kanidm/admin-password" = { inherit owner restartUnits; };
+          "kanidm/idm-admin-password" = { inherit owner restartUnits; };
+          "kanidm/oauth2/coder" = { inherit owner restartUnits; };
+          "kanidm/oauth2/karakeep" = { inherit owner restartUnits; };
+          "kanidm/oauth2/open-webui" = { inherit owner restartUnits; };
+          "kanidm/oauth2/opengist" = { inherit owner restartUnits; };
+          "kanidm/oauth2/zipline" = { inherit owner restartUnits; };
+          "kanidm/oauth2/vaultwarden" = { inherit owner restartUnits; };
         };
 
       services.nginx.virtualHosts.${cfg.server.settings.domain} = {

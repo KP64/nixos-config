@@ -9,7 +9,9 @@ toplevel: {
 
       config = lib.mkMerge [
         (lib.mkIf config.services.anonymousoverflow.enable {
-          sops.secrets."anonymousoverflow.env" = { };
+          sops.secrets."anonymousoverflow.env".restartUnits = [
+            config.systemd.services.anonymousoverflow.name
+          ];
 
           services.caddy.virtualHosts."overflow.${config.networking.domain}".extraConfig = # caddy
             ''

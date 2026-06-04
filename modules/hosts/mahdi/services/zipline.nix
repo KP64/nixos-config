@@ -10,10 +10,13 @@
       (lib.mkIf config.services.zipline.enable {
         sops = {
           secrets."zipline/core-secret" = { };
-          templates."zipline.env".content = ''
-            CORE_SECRET=${config.sops.placeholder."zipline/core-secret"}
-            OAUTH_OIDC_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/zipline"}
-          '';
+          templates."zipline.env" = {
+            restartUnits = [ config.systemd.services.zipline.name ];
+            content = ''
+              CORE_SECRET=${config.sops.placeholder."zipline/core-secret"}
+              OAUTH_OIDC_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/zipline"}
+            '';
+          };
         };
 
         services.nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {

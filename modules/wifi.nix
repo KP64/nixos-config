@@ -4,6 +4,7 @@
       secrets.wifi-password = {
         sopsFile = "${self}/secrets/home-wifi.yaml";
         key = "password";
+        restartUnits = [ config.systemd.services.wpa_supplicant.name ];
       };
       templates."wireless.env" = {
         owner = config.users.users.wpa_supplicant.name;

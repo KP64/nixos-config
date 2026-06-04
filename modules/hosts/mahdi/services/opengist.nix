@@ -10,9 +10,12 @@ toplevel: {
 
       config = lib.mkMerge [
         (lib.mkIf config.services.opengist.enable {
-          sops.templates."opengist.env".content = ''
-            OG_OIDC_SECRET=${config.sops.placeholder."kanidm/oauth2/opengist"}
-          '';
+          sops.templates."opengist.env" = {
+            restartUnits = [ config.systemd.services.opengist.name ];
+            content = ''
+              OG_OIDC_SECRET=${config.sops.placeholder."kanidm/oauth2/opengist"}
+            '';
+          };
 
           networking.firewall.allowedTCPPorts = [ config.services.opengist.environment.OG_SSH_PORT ];
 

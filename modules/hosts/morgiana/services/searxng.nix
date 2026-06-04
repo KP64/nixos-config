@@ -6,7 +6,17 @@
     in
     lib.mkMerge [
       (lib.mkIf config.services.searx.enable {
-        sops.secrets.searxng.owner = config.users.users.searx.name;
+        sops.secrets.searxng = {
+          owner = config.users.users.searx.name;
+          restartUnits = [
+            (
+              if config.services.searx.configureUwsgi then
+                config.systemd.services.uwsgi.name
+              else
+                config.systemd.services.searx.name
+            )
+          ];
+        };
 
         services.caddy.virtualHosts.${config.services.searx.domain}.extraConfig = # caddy
           ''
