@@ -53,7 +53,7 @@
       imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
       sops = {
-        secrets."minecraft/velocity-forwarding-secret" = { };
+        secrets."minecraft/velocity-forwarding" = { };
         templates."minecraft-server.env" = {
           owner = nixos.config.users.users.minecraft.name;
           restartUnits =
@@ -66,8 +66,8 @@
               inherit (nixos.config) sops;
             in
             ''
-              VELOCITY_FORWARDING_SECRET=${sops.placeholder."minecraft/velocity-forwarding-secret"}
-              FABRIC_PROXY_SECRET=${sops.placeholder."minecraft/velocity-forwarding-secret"}
+              VELOCITY_FORWARDING_SECRET=${sops.placeholder."minecraft/velocity-forwarding"}
+              FABRIC_PROXY_SECRET=${sops.placeholder."minecraft/velocity-forwarding"}
             '';
         };
       };

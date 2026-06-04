@@ -9,9 +9,15 @@ toplevel: {
 
       config = lib.mkMerge [
         (lib.mkIf config.services.anonymousoverflow.enable {
-          sops.secrets."anonymousoverflow.env".restartUnits = [
-            config.systemd.services.anonymousoverflow.name
-          ];
+          sops = {
+            secrets."anonymousoverflow/jwt" = { };
+            templates."anonymousoverflow.env" = {
+              restartUnits = [ config.systemd.services.anonymousoverflow.name ];
+              content = ''
+                JWT_SIGNING_SECRET=${config.sops.placeholder."anonymousoverflow/jwt"}
+              '';
+            };
+          };
 
           services.caddy.virtualHosts."overflow.${config.networking.domain}".extraConfig = # caddy
             ''
@@ -51,7 +57,7 @@ toplevel: {
           services.anonymousoverflow = {
             enable = true;
             appUrl = "https://overflow.${config.networking.domain}";
-            environmentFile = config.sops.secrets."anonymousoverflow.env".path;
+            environmentFile = config.sops.templates."anonymousoverflow.env".path;
           };
         }
       ];

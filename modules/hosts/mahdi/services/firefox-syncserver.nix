@@ -8,9 +8,19 @@
     }:
     lib.mkMerge [
       (lib.mkIf config.services.firefox-syncserver.enable {
-        sops.secrets."firefox-syncserver.env".restartUnits = [
-          config.systemd.services.firefox-syncserver.name
-        ];
+        sops = {
+          secrets = {
+            "firefox-sync/master" = { };
+            "firefox-sync/metrics" = { };
+          };
+          templates."firefox-syncserver.env" = {
+            restartUnits = [ config.systemd.services.firefox-syncserver.name ];
+            content = ''
+              SYNC_MASTER_SECRET=${config.sops.placeholder."firefox-sync/master"}
+              SYNC_TOKENSERVER__FXA_METRICS_HASH_SECRET=${config.sops.placeholder."firefox-sync/metrics"}
+            '';
+          };
+        };
         services = {
           mysql.package = pkgs.mariadb;
 
@@ -27,7 +37,7 @@
       {
         services.firefox-syncserver = {
           enable = true;
-          secrets = config.sops.secrets."firefox-syncserver.env".path;
+          secrets = config.sops.templates."firefox-syncserver.env".path;
           singleNode = {
             enable = true;
             hostname = "firefox-sync.${config.networking.domain}";
