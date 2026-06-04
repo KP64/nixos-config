@@ -56,6 +56,11 @@
         secrets."minecraft/velocity-forwarding-secret" = { };
         templates."minecraft-server.env" = {
           owner = nixos.config.users.users.minecraft.name;
+          restartUnits =
+            nixos.config.systemd.services
+            |> builtins.attrValues
+            |> map (service: service.name)
+            |> builtins.filter (lib.hasPrefix "minecraft-server-");
           content =
             let
               inherit (nixos.config) sops;

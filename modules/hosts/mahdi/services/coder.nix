@@ -24,9 +24,12 @@
       in
       lib.mkMerge [
         (lib.mkIf config.services.coder.enable {
-          sops.templates."coder.env".content = ''
-            CODER_OIDC_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/coder"}
-          '';
+          sops.templates."coder.env" = {
+            restartUnits = [ config.systemd.services.coder.name ];
+            content = ''
+              CODER_OIDC_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/coder"}
+            '';
+          };
 
           # TODO: Use rootless docker or switch to podman
           virtualisation.docker = {

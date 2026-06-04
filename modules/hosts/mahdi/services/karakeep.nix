@@ -12,9 +12,12 @@
     in
     lib.mkMerge [
       (lib.mkIf config.services.karakeep.enable {
-        sops.templates."karakeep.env".content = ''
-          OAUTH_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/karakeep"}
-        '';
+        sops.templates."karakeep.env" = {
+          restartUnits = [ config.systemd.services.karakeep.name ];
+          content = ''
+            OAUTH_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/karakeep"}
+          '';
+        };
 
         services.nginx.virtualHosts.${domain} = {
           enableACME = true;

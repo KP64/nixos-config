@@ -24,6 +24,7 @@
           };
         templates."caddy.env" = {
           owner = config.services.caddy.user;
+          restartUnits = [ config.systemd.services.caddy.name ];
           content = ''
             PORKBUN_API_KEY=${config.sops.placeholder.porkbun_api_key}
             PORKBUN_SECRET_API_KEY=${config.sops.placeholder.porkbun_secret_api_key}

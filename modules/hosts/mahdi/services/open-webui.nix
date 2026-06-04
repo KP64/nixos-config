@@ -11,9 +11,12 @@ toplevel@{ den, ... }:
       in
       lib.mkMerge [
         (lib.mkIf config.services.open-webui.enable {
-          sops.templates."open-webui.env".content = ''
-            OAUTH_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/open-webui"}
-          '';
+          sops.templates."open-webui.env" = {
+            restartUnits = [ config.systemd.services.open-webui.name ];
+            content = ''
+              OAUTH_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/open-webui"}
+            '';
+          };
 
           services.nginx.virtualHosts.${domain} = {
             enableACME = true;

@@ -8,7 +8,9 @@
     }:
     lib.mkMerge [
       (lib.mkIf config.services.firefox-syncserver.enable {
-        sops.secrets."firefox-syncserver.env" = { };
+        sops.secrets."firefox-syncserver.env".restartUnits = [
+          config.systemd.services.firefox-syncserver.name
+        ];
         services = {
           mysql.package = pkgs.mariadb;
 

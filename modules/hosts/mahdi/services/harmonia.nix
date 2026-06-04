@@ -19,7 +19,7 @@
 
       config = lib.mkMerge [
         (lib.mkIf config.services.harmonia-dev.cache.enable {
-          sops.secrets.harmonia-key = { };
+          sops.secrets.harmonia-key.restartUnits = [ config.systemd.services.harmonia-dev.name ];
 
           services.nginx.virtualHosts."cache.${config.networking.domain}" = {
             enableACME = true;
