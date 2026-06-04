@@ -7,15 +7,11 @@ toplevel@{ den, ... }:
     ];
 
     nixos = { config, lib, ... }: {
-
       networking = {
         inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         useDHCP = false;
         dhcpcd.enable = false;
       };
-
-      systemd.network.wait-online.anyInterface = true;
-      boot.initrd.systemd.network.wait-online.anyInterface = true;
 
       staticIPv4 = "192.168.2.212";
       staticIPv6 = "fdef:fa6a:4724:1::212";
