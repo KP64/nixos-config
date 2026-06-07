@@ -1,5 +1,5 @@
 { self, ... }: {
-  den.aspects.wifi.nixos = { config, ... }: {
+  den.aspects.networking._.wifi.nixos = { config, ... }: {
     sops = {
       secrets.wifi-password = {
         sopsFile = "${self}/secrets/home-wifi.yaml";

@@ -1,5 +1,5 @@
 {
-  den.aspects.ip.nixos = { lib, ... }: {
+  den.aspects.networking._.ip.nixos = { lib, ... }: {
     options = {
       staticIPv4 = lib.mkOption {
         readOnly = true;
