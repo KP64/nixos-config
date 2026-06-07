@@ -1,5 +1,5 @@
 {
-  den.aspects.rpi-rtc.nixos =
+  den.aspects.rpi._.rtc.nixos =
     {
       config,
       lib,

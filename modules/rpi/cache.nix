@@ -8,7 +8,7 @@ let
   };
 in
 {
-  den.aspects.rpi-cache = {
+  den.aspects.rpi._.cache = {
     nixos = { inherit nix; };
     homeManager =
       {
