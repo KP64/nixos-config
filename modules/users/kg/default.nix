@@ -9,7 +9,8 @@ toplevel@{ den, inputs, ... }:
       ++ (with den.aspects; [
         catppuccin
         ssh
-        vcs
+        vcs._.git
+        vcs._.jujutsu
       ])
       ++ (with den.aspects.kg._; [
         atuin
