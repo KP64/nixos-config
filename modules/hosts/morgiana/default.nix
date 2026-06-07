@@ -20,6 +20,7 @@ in
         rpi-cache
         rpi-rtc
         ssh
+        time
       ];
       nixos = { config, ... }: {
         imports = [

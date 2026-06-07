@@ -54,6 +54,10 @@
                 api_key {env.PORKBUN_API_KEY}
                 api_secret_key {env.PORKBUN_SECRET_API_KEY}
             }
+            servers {
+                trusted_proxies static private_ranges
+                trusted_proxies_strict
+            }
           '';
       };
     };

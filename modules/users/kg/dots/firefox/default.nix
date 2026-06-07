@@ -41,7 +41,7 @@ toplevel@{
       { config, lib, ... }:
       let
         inherit (toplevel.config.lib.flake.util) getAsset toFlattenedByDots;
-        inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
+        inherit (toplevel.config.flake.nixosConfigurations) morgiana;
         inherit (config.lib.firefox) hideEngines;
       in
       {
@@ -65,7 +65,7 @@ toplevel@{
                 # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
                 extensions.autoDisableScopes = 0;
                 dom.security.https_only_mode = true;
-                identity.sync.tokenserver.uri = "${mahdi.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
+                identity.sync.tokenserver.uri = "${morgiana.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
                 general.autoScroll = true;
                 sidebar.verticalTabs = true;
                 browser = {

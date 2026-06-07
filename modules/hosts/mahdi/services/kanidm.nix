@@ -18,7 +18,6 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner restartUnits; };
           "kanidm/idm-admin-password" = { inherit owner restartUnits; };
-          "kanidm/oauth2/coder" = { inherit owner restartUnits; };
           "kanidm/oauth2/karakeep" = { inherit owner restartUnits; };
           "kanidm/oauth2/open-webui" = { inherit owner restartUnits; };
           "kanidm/oauth2/opengist" = { inherit owner restartUnits; };
@@ -74,9 +73,6 @@ toplevel: {
             kg = {
               displayName = "kg";
               groups = [
-                "coder.access"
-                "coder.admins"
-
                 "forgejo.access"
                 "forgejo.admins"
 
@@ -105,15 +101,11 @@ toplevel: {
             };
             jehnsen = {
               displayName = "jehnsen";
-              groups = [
-                "coder.access"
-                "forgejo.access"
-              ];
+              groups = [ "forgejo.access" ];
             };
             urmom = {
               displayName = "urmom";
               groups = [
-                "coder.access"
                 "forgejo.access"
                 "open-webui.access"
               ];
@@ -121,7 +113,6 @@ toplevel: {
             vx = {
               displayName = "vx";
               groups = [
-                "coder.access"
                 "forgejo.access"
                 "open-webui.access"
                 "vaultwarden.access"
@@ -131,9 +122,6 @@ toplevel: {
           };
 
           groups = {
-            "coder.access" = { };
-            "coder.admins" = { };
-
             "forgejo.access" = { };
             "forgejo.admins" = { };
 
@@ -161,23 +149,6 @@ toplevel: {
               inherit (toplevel.config.lib.flake.util) getAsset;
             in
             {
-              coder = {
-                displayName = "coder";
-                imageFile = getAsset {
-                  file = "coder.svg";
-                  type = "icons";
-                  sha256 = "sha256-jUEadSgtU/hRpx21aZsI+k2iuKsHGTo1RV5B/TP511g=";
-                };
-                basicSecretFile = config.sops.secrets."kanidm/oauth2/coder".path;
-                originUrl = "${config.services.coder.accessUrl}/api/v2/users/oidc/callback";
-                originLanding = config.services.coder.accessUrl;
-                preferShortUsername = true;
-                scopeMaps."coder.access" = [
-                  "email"
-                  "openid"
-                  "profile"
-                ];
-              };
               forgejo = {
                 displayName = "forgejo";
                 imageFile = getAsset {

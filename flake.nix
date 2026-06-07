@@ -172,12 +172,6 @@
       inputs.flake-compat.follows = "";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-coder = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      ref = "pull/483203/head";
-    };
     nixvim = {
       type = "github";
       owner = "nix-community";

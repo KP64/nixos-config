@@ -178,7 +178,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                       SOA = {
                         nameServer = builtins.head NS;
                         adminEmail = nixos.config.invisible.email;
-                        serial = 2026040900;
+                        serial = 2026060700;
                       };
                       NS =
                         subdomains
@@ -192,31 +192,26 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                           inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
 
                           getServices =
-                            hostCfg:
-                            hostCfg
-                            |> (hostCfg: hostCfg.services.nginx.virtualHosts // hostCfg.services.caddy.virtualHosts)
+                            host:
+                            host
+                            |> (host: host.config.services.nginx.virtualHosts // host.config.services.caddy.virtualHosts)
                             |> builtins.attrNames
                             |> map (lib.removeSuffix ".${zone}");
                         in
                         {
                           ns = { inherit A AAAA; };
                         }
-                        # Zarqa Services
-                        // lib.genAttrs (getServices nixos.config) (_: {
+                        // lib.genAttrs (getServices nixos) (_: {
                           inherit A AAAA;
                         })
-                        # Morgiana Services
-                        // lib.genAttrs (getServices morgiana.config) (_: {
+                        // lib.genAttrs (getServices morgiana) (_: {
                           A = [ morgiana.config.staticIPv4 ];
                           AAAA = [ morgiana.config.staticIPv6 ];
                         })
-                        # Mahdi Services (for now wildcard as a default)
-                        // {
-                          "*" = {
-                            A = [ mahdi.config.staticIPv4 ];
-                            AAAA = [ mahdi.config.staticIPv6 ];
-                          };
-                        };
+                        // lib.genAttrs (getServices mahdi) (_: {
+                          A = [ mahdi.config.staticIPv4 ];
+                          AAAA = [ mahdi.config.staticIPv6 ];
+                        });
                     };
                   }
                 ];

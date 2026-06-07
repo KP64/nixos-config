@@ -1,9 +1,6 @@
 { den, ... }: {
   den.aspects.zarqa = {
-    includes = with den.aspects; [
-      ip
-      wifi
-    ];
+    includes = [ den.aspects.ip ];
 
     nixos = { config, ... }: {
       networking = {
@@ -17,8 +14,8 @@
 
       systemd.network = {
         enable = true;
-        networks."10-wlan0" = {
-          name = "wlan0";
+        networks."10-enu1u1u1" = {
+          name = "enu1u1u1";
           address = [
             "${config.staticIPv4}/24"
             "${config.staticIPv6}/64"
