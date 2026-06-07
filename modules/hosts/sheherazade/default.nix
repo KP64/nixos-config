@@ -18,6 +18,7 @@ in
     aspects.sheherazade = {
       includes = with den.aspects; [
         rpi._.cache
+        rpi._.fs._ext4
         ssh
         time
       ];
