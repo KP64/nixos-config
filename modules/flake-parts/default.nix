@@ -44,7 +44,10 @@ toplevel@{ lib, inputs, ... }:
               throw "Cannot merge values of type ${builtins.typeOf acc} and ${builtins.typeOf item}"
           ) null;
       in
-      getSettings [
+      {
+        accept-flake-config = true;
+      }
+      // getSettings [
         "auto-optimise-store"
         "fsync-store-paths"
         "preallocate-contents"
