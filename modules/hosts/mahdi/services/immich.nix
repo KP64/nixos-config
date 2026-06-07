@@ -32,12 +32,11 @@
           )
         );
 
-        # TODO: Check that this assertion works
         assertions = [
           {
             assertion =
               (config.services.immich.enable && config.hardware.graphics.enable)
-              -> (config.services.immich.accelerationDevice != [ ]);
+              -> (config.services.immich.accelerationDevices != [ ]);
             message = ''
               You already have graphics. Allow immich to use them.
               To allow all graphics devices set accelerationDevice to null.
