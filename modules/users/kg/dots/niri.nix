@@ -156,7 +156,14 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                   default-window-height = { };
                 }
                 {
-                  matches = [ { app-id = "^Minecraft\*"; } ];
+                  matches =
+                    let
+                      ids = [
+                        "Minecraft"
+                        "steam_app"
+                      ];
+                    in
+                    [ { app-id = "^(${builtins.concatStringsSep "|" ids})\*$"; } ];
                   variable-refresh-rate = true;
                   open-on-output = lib.mkIf (host.name == aladdin) "DP-3";
                 }
