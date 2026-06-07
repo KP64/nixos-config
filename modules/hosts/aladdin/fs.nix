@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.aladdin = {
     includes = [ den.aspects.fs._.btrfs ];
     disko = {
