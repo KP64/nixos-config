@@ -40,6 +40,7 @@
                     img-src = [
                       "self"
                       "data:"
+                      "blob:"
                     ];
                   }
                 }" always;

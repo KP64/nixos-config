@@ -1,5 +1,5 @@
 {
-  den.aspects.mahdi.nixos =
+  den.aspects.morgiana.nixos =
     {
       config,
       lib,
@@ -24,14 +24,10 @@
         services = {
           mysql.package = pkgs.mariadb;
 
-          nginx.virtualHosts.${config.services.firefox-syncserver.singleNode.hostname} =
-            lib.mkIf config.services.firefox-syncserver.singleNode.enableNginx
-              {
-                forceSSL = lib.mkForce false;
-                onlySSL = true;
-                acmeRoot = null;
-                kTLS = true;
-              };
+          caddy.virtualHosts.${config.services.firefox-syncserver.singleNode.hostname}.extraConfig = # caddy
+            ''
+              reverse_proxy http://127.0.0.1:${toString config.services.firefox-syncserver.settings.port}
+            '';
         };
       })
       {
@@ -42,7 +38,6 @@
             enable = true;
             hostname = "firefox-sync.${config.networking.domain}";
             enableTLS = true;
-            enableNginx = true;
           };
         };
       }

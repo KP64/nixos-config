@@ -39,7 +39,6 @@ toplevel@{ self, ... }:
           plugins = [ "github.com/caddy-dns/porkbun@v0.3.1" ];
           hash = "sha256-BKUsUoBE1IjnD9Xu8kTVkbRqqk2qvNtFDD/pvVkfRmI=";
         };
-
         inherit (config.invisible) email;
         httpPort = null;
         openFirewall = true;
