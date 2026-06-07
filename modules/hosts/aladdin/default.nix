@@ -10,7 +10,8 @@
           boot._.secure
           catppuccin
           desktop
-          gaming
+          gaming._.steam
+          gaming._.lutris
           nvidia
           obs-studio
           ssh
