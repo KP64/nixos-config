@@ -12,7 +12,7 @@
         auto-timezone
         catppuccin
         boot._.efi
-        rpi-cache
+        rpi._.cache
         ssh
         time
         nvidia._.cache

@@ -1,6 +1,6 @@
 { den, ... }: {
   den.aspects.zarqa = {
-    includes = [ den.aspects.ip ];
+    includes = [ den.aspects.networking._.ip ];
 
     nixos = { config, ... }: {
       networking = {

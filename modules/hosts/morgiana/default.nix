@@ -17,8 +17,8 @@ in
 
     aspects.morgiana = {
       includes = with den.aspects; [
-        rpi-cache
-        rpi-rtc
+        rpi._.cache
+        rpi._.rtc
         ssh
         time
       ];
