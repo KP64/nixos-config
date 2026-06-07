@@ -8,6 +8,16 @@ toplevel@{ lib, inputs, ... }:
   flake-file = {
     description = "KP64's Overengineered Nix Flake";
 
+    inputs = {
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+      flake-file.url = "github:denful/flake-file";
+      den = {
+        type = "github";
+        owner = "denful";
+        repo = "den";
+      };
+    };
+
     nixConfig =
       let
         getSettings =
@@ -51,15 +61,5 @@ toplevel@{ lib, inputs, ... }:
         "lint-short-path-literals"
         "lint-url-literals"
       ];
-
-    inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      flake-file.url = "github:denful/flake-file";
-      den = {
-        type = "github";
-        owner = "denful";
-        repo = "den";
-      };
-    };
   };
 }
