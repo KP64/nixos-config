@@ -53,17 +53,15 @@ toplevel: {
       };
 
       config = lib.mkIf cfg.enable {
-        topology = lib.mkIf (config ? topology) {
-          self.services.opengist = {
-            name = "Opengist";
-            icon = toplevel.config.lib.flake.util.getAsset {
-              file = "opengist.svg";
-              type = "icons";
-              sha256 = "sha256-5BzhYqlg1OK1T+kPRtwH8KV0e5obj/jm3DLb+Cgl150=";
-            };
-            details.listen = lib.mkIf cfg.openFirewall {
-              text = "http://${cfg.environment.OG_HTTP_HOST}:${toString cfg.environment.OG_HTTP_PORT}";
-            };
+        topology.self.services.opengist = {
+          name = "Opengist";
+          icon = toplevel.config.lib.flake.util.getAsset {
+            file = "opengist.svg";
+            type = "icons";
+            sha256 = "sha256-5BzhYqlg1OK1T+kPRtwH8KV0e5obj/jm3DLb+Cgl150=";
+          };
+          details.listen = lib.mkIf cfg.openFirewall {
+            text = "http://${cfg.environment.OG_HTTP_HOST}:${toString cfg.environment.OG_HTTP_PORT}";
           };
         };
 

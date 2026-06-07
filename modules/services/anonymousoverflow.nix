@@ -43,16 +43,14 @@ toplevel@{ moduleWithSystem, ... }:
       };
 
       config = lib.mkIf cfg.enable {
-        topology = lib.mkIf (nixos.config ? topology) {
-          self.services.anonymousoverflow = {
-            name = "Anonymousoverflow";
-            icon = toplevel.config.lib.flake.util.getAsset {
-              file = "anonymousoverflow.svg";
-              type = "icons";
-              sha256 = "sha256-FN4TlOb9HXBunP3hP3QvkUM8hci/Qw811Wt8aP4U6dE=";
-            };
-            details.listen = lib.mkIf cfg.openFirewall { text = "http://${cfg.host}:${toString cfg.port}"; };
+        topology.self.services.anonymousoverflow = {
+          name = "Anonymousoverflow";
+          icon = toplevel.config.lib.flake.util.getAsset {
+            file = "anonymousoverflow.svg";
+            type = "icons";
+            sha256 = "sha256-FN4TlOb9HXBunP3hP3QvkUM8hci/Qw811Wt8aP4U6dE=";
           };
+          details.listen = lib.mkIf cfg.openFirewall { text = "http://${cfg.host}:${toString cfg.port}"; };
         };
 
         networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
