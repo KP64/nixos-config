@@ -1,58 +1,24 @@
-{
-  config,
-  self,
-  lib,
-  ...
-}:
-{
+{ self, lib, ... }: {
   nix-lib.lib.util = {
-    appendLastWithFullPath = {
+    toFlattenedByDots = {
       type = with lib.types; functionTo (attrsOf anything);
       fn =
         attrs:
-        lib.mapAttrsRecursiveCond builtins.isAttrs (name: value: {
-          ${builtins.concatStringsSep "." name} = value;
-        }) attrs;
-      description = ''
-        Recurses the attrsets until the name-value-pair is not an attrset
-        Then appends on it the concatenated paths (names)
-      '';
-    };
-
-    toFlattenedByDots =
-      let
-        inherit (config.lib.flake.util) appendLastWithFullPath collectLastEntries;
-      in
-      {
-        type = with lib.types; functionTo (attrsOf anything);
-        fn = attrs: attrs |> appendLastWithFullPath |> collectLastEntries;
-        description = ''
-          Converts an Attribute Set to another set
-          where each key is separated by a dot.
-        '';
-      };
-
-    collectLastEntries = {
-      type = with lib.types; functionTo (attrsOf anything);
-      fn =
-        attrs:
-        rec {
+        let
           flatten =
-            set:
-            let
-              processAttr = name: value: if builtins.isAttrs value then flatten value else { "${name}" = value; };
-            in
+            prefix: attrs:
             lib.foldlAttrs (
               acc: name: value:
-              acc // processAttr name value
-            ) { } set;
-
-          result = flatten attrs;
-        }
-        .result;
+              let
+                key = if prefix == "" then name else "${prefix}.${name}";
+              in
+              acc // (if builtins.isAttrs value then flatten key value else { ${key} = value; })
+            ) { } attrs;
+        in
+        flatten "" attrs;
       description = ''
-        Takes the last entry of each (nested) attrset
-        and collects them into a new set
+        Converts an Attribute Set to another set
+        where each key is separated by a dot.
       '';
     };
 

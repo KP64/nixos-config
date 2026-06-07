@@ -30,9 +30,11 @@ toplevel: {
           toplevel.config.flake.nixosConfigurations
           |> builtins.attrValues
           |> map (host: host.config)
-          |> builtins.filter (nixosCfg: nixosCfg.networking.hostName != config.networking.hostName)
           |> builtins.filter (
-            nixosCfg: nixosCfg.services.ollama.enable && nixosCfg.services.ollama.openFirewall
+            nixosCfg:
+            nixosCfg.networking.hostName != config.networking.hostName
+            && nixosCfg.services.ollama.enable
+            && nixosCfg.services.ollama.openFirewall
           )
           |> map (
             nixosCfg:
