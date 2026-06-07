@@ -1,9 +1,4 @@
-{
-  inputs,
-  den,
-  ...
-}:
-{
+{ inputs, den, ... }: {
   flake-file.inputs.disko = {
     type = "github";
     owner = "nix-community";

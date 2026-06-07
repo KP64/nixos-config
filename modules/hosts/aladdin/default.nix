@@ -61,22 +61,17 @@
 
         users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
 
-        programs =
-          let
-            inherit (config.lib.hm) anyHmUser;
-          in
-          {
-            ausweisapp = {
-              enable = true;
-              openFirewall = true;
-            };
-            localsend = {
-              enable = true;
-              openFirewall = true;
-            };
-            thunar.enable = true;
-            trippy.enable = anyHmUser (hmUserCfg: hmUserCfg.programs.trippy.enable);
+        programs = {
+          ausweisapp = {
+            enable = true;
+            openFirewall = true;
           };
+          localsend = {
+            enable = true;
+            openFirewall = true;
+          };
+          thunar.enable = true;
+        };
       };
     };
   };
