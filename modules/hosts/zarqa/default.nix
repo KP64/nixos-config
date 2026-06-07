@@ -17,8 +17,8 @@ in
 
     aspects.zarqa = {
       includes = with den.aspects; [
-        rpi-cache
-        rpi-rtc
+        rpi._.cache
+        rpi._.rtc
         ssh
         time
       ];

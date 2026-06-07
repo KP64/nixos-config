@@ -17,7 +17,7 @@ in
 
     aspects.sheherazade = {
       includes = with den.aspects; [
-        rpi-cache
+        rpi._.cache
         ssh
         time
       ];

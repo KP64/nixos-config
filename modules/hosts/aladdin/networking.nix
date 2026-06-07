@@ -1,7 +1,7 @@
 toplevel@{ den, ... }:
 {
   den.aspects.aladdin = {
-    includes = with den.aspects; [
+    includes = with den.aspects.networking._; [
       ip
       wifi
     ];
