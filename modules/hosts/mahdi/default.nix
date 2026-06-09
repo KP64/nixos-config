@@ -9,6 +9,7 @@
 
     aspects.mahdi = {
       includes = with den.aspects; [
+        antivirus
         auto-timezone
         catppuccin
         boot._.efi

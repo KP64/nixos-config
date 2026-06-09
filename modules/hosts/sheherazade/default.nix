@@ -17,6 +17,7 @@ in
 
     aspects.sheherazade = {
       includes = with den.aspects; [
+        antivirus
         rpi._.cache
         rpi._.fs._ext4
         ssh
