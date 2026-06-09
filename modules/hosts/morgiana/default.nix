@@ -17,6 +17,7 @@ in
 
     aspects.morgiana = {
       includes = with den.aspects; [
+        antivirus
         rpi._.cache
         rpi._.rtc
         rpi._.fs._ext4
