@@ -26,7 +26,7 @@ toplevel@{ den, ... }:
           enable = true;
           package = pkgs.caddy.withPlugins {
             plugins = [ "github.com/caddy-dns/porkbun@v0.3.1" ];
-            hash = "sha256-BKUsUoBE1IjnD9Xu8kTVkbRqqk2qvNtFDD/pvVkfRmI=";
+            hash = "sha256-MlKX2obWac+jP4j9UHFMxsY/DRaqw9JCVAdI7erhFwo=";
           };
           inherit (config.invisible) email;
           httpPort = null;
