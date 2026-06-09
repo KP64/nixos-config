@@ -65,6 +65,7 @@
             Address = "[::1]";
             BaseUrl = "https://${domain}";
             SearchFullString = true;
+            EnableSharing = true;
           };
         };
       }

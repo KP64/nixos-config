@@ -1,26 +1,24 @@
 {
   den.aspects.desktop = {
-    nixos =
-      { config, lib, ... }:
-      {
-        services.displayManager.sddm = {
-          enable = true;
-          wayland.enable = true;
-        };
-
-        environment.pathsToLink =
-          let
-            portalActivated = config.lib.hm.anyHmUser (hmUserCfg: hmUserCfg.xdg.portal.enable);
-          in
-          lib.optionals (config.home-manager.useUserPackages && portalActivated) (
-            map (d: "/share/${d}") [
-              "applications"
-              "xdg-desktop-portal"
-            ]
-          );
-
-        qt.enable = true;
+    nixos = { config, lib, ... }: {
+      services.displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
       };
+
+      environment.pathsToLink =
+        let
+          portalActivated = config.lib.hm.anyHmUser (hmUserCfg: hmUserCfg.xdg.portal.enable);
+        in
+        lib.optionals (config.home-manager.useUserPackages && portalActivated) (
+          map (d: "/share/${d}") [
+            "applications"
+            "xdg-desktop-portal"
+          ]
+        );
+
+      qt.enable = true;
+    };
 
     homeManager = {
       gtk.enable = true;
