@@ -100,8 +100,6 @@
           package = pkgs.forgejo; # Newest version ;)
           lfs.enable = true;
           dump.enable = true;
-          # TODO: Database Password
-          # database.passwordFile = "";
           settings = {
             server = {
               HTTP_PORT = 36031;
