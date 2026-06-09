@@ -2,9 +2,6 @@
   den.aspects.desktop = {
     nixos =
       { config, lib, ... }:
-      let
-        inherit (config.lib.hm) anyHmUser;
-      in
       {
         services.displayManager.sddm = {
           enable = true;
@@ -13,7 +10,7 @@
 
         environment.pathsToLink =
           let
-            portalActivated = anyHmUser (hmUserCfg: hmUserCfg.xdg.portal.enable);
+            portalActivated = config.lib.hm.anyHmUser (hmUserCfg: hmUserCfg.xdg.portal.enable);
           in
           lib.optionals (config.home-manager.useUserPackages && portalActivated) (
             map (d: "/share/${d}") [
@@ -21,8 +18,6 @@
               "xdg-desktop-portal"
             ]
           );
-
-        programs.niri.enable = anyHmUser (hmUserCfg: hmUserCfg.programs.niri.enable or false);
 
         qt.enable = true;
       };
