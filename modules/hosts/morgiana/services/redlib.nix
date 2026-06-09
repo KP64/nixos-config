@@ -11,7 +11,7 @@
         caddy.virtualHosts.${domain} = lib.mkIf nixos.config.services.redlib.enable {
           extraConfig = # caddy
             ''
-              reverse_proxy http://[::1]:${toString nixos.config.services.redlib.port}
+              reverse_proxy http://${nixos.config.services.redlib.address}:${toString nixos.config.services.redlib.port}
               header {
                   Permissions-Policy "${
                     mkPP {

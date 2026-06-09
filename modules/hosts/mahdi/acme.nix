@@ -1,34 +1,30 @@
-{ self, ... }: {
-  den.aspects.mahdi.nixos = { config, ... }: {
-    sops.secrets =
-      let
-        owner = config.users.users.acme.name;
-        sopsFile = "${self}/secrets/porkbun.yaml";
-      in
-      {
-        porkbun_api_key = {
-          inherit sopsFile owner;
-          key = "api_key";
+{ den, ... }: {
+  den.aspects.mahdi = {
+    includes = [ den.aspects.secrets._.porkbun ];
+    nixos = { config, ... }: {
+      sops.secrets =
+        let
+          owner = config.users.users.acme.name;
+        in
+        {
+          "porkbun/api_key" = { inherit owner; };
+          "porkbun/secret_api_key" = { inherit owner; };
         };
-        porkbun_secret_api_key = {
-          inherit sopsFile owner;
-          key = "secret_api_key";
-        };
-      };
 
-    security.acme = {
-      acceptTerms = true;
-      defaults = {
-        inherit (config.invisible) email;
-        dnsProvider = "porkbun";
-        credentialFiles =
-          let
-            inherit (config.sops) secrets;
-          in
-          {
-            PORKBUN_API_KEY_FILE = secrets.porkbun_api_key.path;
-            PORKBUN_SECRET_API_KEY_FILE = secrets.porkbun_secret_api_key.path;
-          };
+      security.acme = {
+        acceptTerms = true;
+        defaults = {
+          inherit (config.invisible) email;
+          dnsProvider = "porkbun";
+          credentialFiles =
+            let
+              inherit (config.sops) secrets;
+            in
+            {
+              PORKBUN_API_KEY_FILE = secrets."porkbun/api_key".path;
+              PORKBUN_SECRET_API_KEY_FILE = secrets."porkbun/secret_api_key".path;
+            };
+        };
       };
     };
   };
