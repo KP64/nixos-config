@@ -25,7 +25,7 @@
           anki
           kitty
           niri
-          noctalia-shell
+          noctalia
           prismlauncher
           thunderbird
           ttyper
