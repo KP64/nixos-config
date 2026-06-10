@@ -60,6 +60,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               clipboard.disable-primary = true; # Disables middle click paste
               gestures.hot-corners.enable = false;
               hotkey-overlay.skip-at-startup = true;
+              debug.honor-xdg-activation-with-invalid-serial = { };
               overview = {
                 backdrop-color = "#11111b";
                 workspace-shadow.enable = false;
@@ -131,6 +132,12 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               ];
               window-rules = [
                 {
+                  matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
+                  open-floating = true;
+                  default-column-width.fixed = 1080;
+                  default-window-height.fixed = 920;
+                }
+                {
                   draw-border-with-background = false;
                   clip-to-geometry = true;
                   geometry-corner-radius =
@@ -173,8 +180,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                   open-on-output = lib.mkIf (host.name == aladdin) "DP-3";
                 }
               ];
-              spawn-at-startup = lib.optional (config.programs.noctalia-shell.enable or false) {
-                command = [ "noctalia-shell" ];
+              spawn-at-startup = lib.optional (config.programs.noctalia.enable or false) {
+                command = [ "noctalia" ];
               };
               binds =
                 let
@@ -182,20 +189,19 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 in
                 (
                   let
-                    noctaliaIpcCall = [
-                      "noctalia-shell"
-                      "ipc"
-                      "call"
+                    noctaliaMsg = [
+                      "noctalia"
+                      "msg"
                     ];
                   in
-                  lib.optionalAttrs (config.programs.noctalia-shell.enable or false) {
-                    "Mod+Ctrl+Shift+Alt+L".action.spawn = noctaliaIpcCall ++ [
-                      "lockScreen"
+                  lib.optionalAttrs (config.programs.noctalia.enable or false) {
+                    "Mod+Ctrl+Shift+Alt+L".action.spawn = noctaliaMsg ++ [
+                      "session"
                       "lock"
                     ];
-                    "Mod+Space".action.spawn = noctaliaIpcCall ++ [
+                    "Mod+Space".action.spawn = noctaliaMsg ++ [
+                      "panel-toggle"
                       "launcher"
-                      "toggle"
                     ];
                   }
                 )

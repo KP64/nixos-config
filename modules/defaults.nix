@@ -34,10 +34,7 @@
       nixos = {
         imports = [ inputs.nix-invisible.modules.nixos.invisibility ];
 
-        boot = {
-          tmp.cleanOnBoot = true;
-          initrd.systemd.enable = true;
-        };
+        boot.tmp.cleanOnBoot = true;
         documentation.enable = false;
         environment.defaultPackages = [ ];
         networking.nftables = {
