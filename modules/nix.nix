@@ -63,7 +63,7 @@ in
             inherit nixpkgs;
 
             # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 is merged
-            home.packages = config.nix.package;
+            home.packages = [ config.nix.package ];
 
             nix = {
               package = pkgs.nixVersions.latest;
