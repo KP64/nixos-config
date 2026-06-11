@@ -11,6 +11,7 @@ toplevel@{ lib, inputs, ... }:
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
       flake-file.url = "github:denful/flake-file";
+      # TODO: revert to denful repo once fix is merged
       den = {
         type = "github";
         owner = "KP64";
