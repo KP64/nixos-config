@@ -17,6 +17,7 @@ in
 
     aspects.morgiana = {
       includes = with den.aspects; [
+        auto-timezone
         antivirus
         rpi._.cache
         rpi._.rtc
