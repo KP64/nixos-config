@@ -53,9 +53,8 @@
     };
     den = {
       type = "github";
-      owner = "KP64";
+      owner = "denful";
       repo = "den";
-      ref = "fix/standalone-hm-unfree-battery";
     };
     disko = {
       type = "github";
