@@ -197,18 +197,27 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                             |> (host: host.config.services.nginx.virtualHosts // host.config.services.caddy.virtualHosts)
                             |> builtins.attrNames
                             |> map (lib.removeSuffix ".${zone}");
+
+                          mahdiServices = getServices mahdi;
+                          morgianaServices = getServices morgiana;
+
+                          services =
+                            nixos
+                            |> getServices
+                            |> builtins.filter (service: !builtins.elem service mahdiServices)
+                            |> builtins.filter (service: !builtins.elem service morgianaServices);
                         in
                         {
                           ns = { inherit A AAAA; };
                         }
-                        // lib.genAttrs (getServices nixos) (_: {
+                        // lib.genAttrs services (_: {
                           inherit A AAAA;
                         })
-                        // lib.genAttrs (getServices morgiana) (_: {
+                        // lib.genAttrs morgianaServices (_: {
                           A = [ morgiana.config.staticIPv4 ];
                           AAAA = [ morgiana.config.staticIPv6 ];
                         })
-                        // lib.genAttrs (getServices mahdi) (_: {
+                        // lib.genAttrs mahdiServices (_: {
                           A = [ mahdi.config.staticIPv4 ];
                           AAAA = [ mahdi.config.staticIPv6 ];
                         });
