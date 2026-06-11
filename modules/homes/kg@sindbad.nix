@@ -54,6 +54,7 @@ toplevel@{ den, ... }:
 
           homeManager = {
             targets.genericLinux.enable = true;
+            programs.home-manager.enable = true;
             home.stateVersion = "26.05";
           };
         }
