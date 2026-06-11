@@ -2,6 +2,9 @@
   "version": 1,
   "system": "aarch64-linux",
   "virtualisation": "none",
+  "uefi": {
+    "supported": false
+  },
   "hardware": {
     "bridge": [
       {
@@ -564,7 +567,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.12.34 xhci-hcd",
+          "name": "Linux 6.18.34 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -574,11 +577,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.12",
+          "name": "6.18",
           "value": 0
         },
         "serial": "0000:01:00.0",
-        "model": "Linux 6.12.34 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.18.34 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -622,7 +625,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0002d0612dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0618dc09dsc00dp01ic09isc00ip00in00"
       },
       {
         "index": 35,
@@ -722,7 +725,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.12.34 xhci-hcd",
+          "name": "Linux 6.18.34 xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -732,11 +735,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.12",
+          "name": "6.18",
           "value": 0
         },
         "serial": "0000:01:00.0",
-        "model": "Linux 6.12.34 xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.18.34 xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -770,7 +773,7 @@
         "driver_module": "usbcore",
         "drivers": ["hub"],
         "driver_modules": ["usbcore"],
-        "module_alias": "usb:v1D6Bp0003d0612dc09dsc00dp03ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0003d0618dc09dsc00dp03ic09isc00ip00in00"
       }
     ],
     "keyboard": [
@@ -816,7 +819,7 @@
         "sysfs_id": "/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb1/1-1/1-1.4/1-1.4:1.0",
         "sysfs_bus_id": "1-1.4:1.0",
         "unix_device_names": [
-          "/dev/input/by-id/usb-_Raspberry_Pi_Internal_Keyboard-event-kbd",
+          "/dev/input/by-id/platform-noserial-event-kbd",
           "/dev/input/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.4:1.0-event-kbd",
           "/dev/input/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usbv2-0:1.4:1.0-event-kbd",
           "/dev/input/event0"
@@ -986,7 +989,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 98
+            "address": 101
           },
           {
             "type": "phwaddr",
@@ -1113,57 +1116,6 @@
     "network_interface": [
       {
         "index": 37,
-        "attached_to": 0,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": ["lo"]
-      },
-      {
-        "index": 38,
-        "attached_to": 10,
-        "class_list": ["network_interface"],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "000a",
-          "name": "WLAN",
-          "value": 10
-        },
-        "model": "WLAN network interface",
-        "sysfs_id": "/class/net/wlan0",
-        "sysfs_device_link": "/devices/platform/soc/fe300000.mmcnr/mmc_host/mmc1/mmc1:0001/mmc1:0001:1",
-        "unix_device_names": ["wlan0"],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 98
-          },
-          {
-            "type": "phwaddr",
-            "address": 101
-          }
-        ],
-        "driver": "brcmfmac",
-        "driver_module": "brcmfmac",
-        "drivers": ["brcmfmac"],
-        "driver_modules": ["brcmfmac", "brcmfmac", "brcmfmac"]
-      },
-      {
-        "index": 39,
         "attached_to": 12,
         "class_list": ["network_interface"],
         "base_class": {
@@ -1192,6 +1144,57 @@
         ],
         "driver": "bcmgenet",
         "drivers": ["bcmgenet"]
+      },
+      {
+        "index": 38,
+        "attached_to": 10,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "000a",
+          "name": "WLAN",
+          "value": 10
+        },
+        "model": "WLAN network interface",
+        "sysfs_id": "/class/net/wlan0",
+        "sysfs_device_link": "/devices/platform/soc/fe300000.mmcnr/mmc_host/mmc1/mmc1:0001/mmc1:0001:1",
+        "unix_device_names": ["wlan0"],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 101
+          },
+          {
+            "type": "phwaddr",
+            "address": 101
+          }
+        ],
+        "driver": "brcmfmac",
+        "driver_module": "brcmfmac",
+        "drivers": ["brcmfmac"],
+        "driver_modules": ["brcmfmac", "brcmfmac", "brcmfmac"]
+      },
+      {
+        "index": 39,
+        "attached_to": 0,
+        "class_list": ["network_interface"],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": ["lo"]
       }
     ],
     "system": {},
@@ -1320,7 +1323,7 @@
         "sysfs_id": "/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb1/1-1/1-1.4/1-1.4:1.1",
         "sysfs_bus_id": "1-1.4:1.1",
         "unix_device_names": [
-          "/dev/input/by-id/usb-_Raspberry_Pi_Internal_Keyboard-event-if01",
+          "/dev/input/by-id/platform--event-if01",
           "/dev/input/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.4:1.1-event",
           "/dev/input/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usbv2-0:1.4:1.1-event",
           "/dev/input/event1"
