@@ -109,8 +109,8 @@ toplevel@{ self, inputs, ... }:
             };
             directory = builtins.path {
               name = "Wallpapers";
-              path = "${self}/assets/wallpapers/catppuccin";
-              sha256 = "sha256-Afbn4MWV8dtipIC2gdTlCN+gus9e5f8ijE8b4bwd6e4=";
+              path = "${self}/assets/wallpapers";
+              sha256 = "sha256-0opPoQ00aV7p10UX0osqm9UoHbwldN8aULYDWyxObSA=";
             };
           };
         };
