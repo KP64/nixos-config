@@ -84,15 +84,16 @@
     },
     "den": {
       "locked": {
-        "lastModified": 1781132765,
-        "narHash": "sha256-QHZtVwVAAaHvl6Q2ZIr34SqtB82/IJa6JEJkeRNS4Mo=",
-        "owner": "denful",
+        "lastModified": 1781184892,
+        "narHash": "sha256-KiKrFB3VVxKo0U/2icNe9QzYmXKtddc7cbXYJbheEI4=",
+        "owner": "KP64",
         "repo": "den",
-        "rev": "f5e79c37d9528917d69217f355a6a1294f31486c",
+        "rev": "71b764c5a9b1444586126d81bd0015315e962402",
         "type": "github"
       },
       "original": {
-        "owner": "denful",
+        "owner": "KP64",
+        "ref": "fix/standalone-hm-unfree-battery",
         "repo": "den",
         "type": "github"
       }
