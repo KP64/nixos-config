@@ -13,8 +13,9 @@ toplevel@{ lib, inputs, ... }:
       flake-file.url = "github:denful/flake-file";
       den = {
         type = "github";
-        owner = "denful";
+        owner = "KP64";
         repo = "den";
+        ref = "fix/standalone-hm-unfree-battery";
       };
     };
 
