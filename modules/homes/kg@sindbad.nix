@@ -1,4 +1,4 @@
-toplevel@{ den, ... }:
+toplevel@{ den, lib, ... }:
 {
   perSystem.topology.modules = [
     (
@@ -32,15 +32,15 @@ toplevel@{ den, ... }:
     )
   ];
 
-  den = {
-    homes.x86_64-linux."kg@sindbad" = { };
-    aspects.kg.includes = [
-      (den.lib.policy.when ({ host, ... }: host.name == "sindbad") (
-        _:
-        den.lib.policy.include {
-          includes = [
-            den.aspects.desktop
-          ]
+  den =
+    let
+      hostName = "sindbad";
+    in
+    {
+      homes.x86_64-linux."kg@${hostName}" = { };
+      aspects.kg = { host, ... }: {
+        includes = lib.optionals (host.name == hostName) (
+          [ den.aspects.desktop ]
           ++ (with den.aspects.kg._; [
             anki
             firefox
@@ -50,15 +50,14 @@ toplevel@{ den, ... }:
             noctalia
             thunderbird
             ttyper
-          ]);
+          ])
+        );
 
-          homeManager = {
-            targets.genericLinux.enable = true;
-            programs.home-manager.enable = true;
-            home.stateVersion = "26.05";
-          };
-        }
-      ))
-    ];
-  };
+        homeManager = lib.mkIf (host.name == hostName) {
+          targets.genericLinux.enable = true;
+          programs.home-manager.enable = true;
+          home.stateVersion = "26.05";
+        };
+      };
+    };
 }
