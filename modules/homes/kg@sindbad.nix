@@ -34,30 +34,30 @@ toplevel@{ den, ... }:
 
   den = {
     homes.x86_64-linux."kg@sindbad" = { };
-    aspects.kg = {
-      includes =
-        (with den.aspects.kg._; [
-          anki
-          firefox
-          glance
-          kitty
-          niri
-          noctalia
-          thunderbird
-          ttyper
-        ])
-        ++ [
-          den.aspects.desktop
-          (den.lib.policy.when ({ host, ... }: host.name == "sindbad") (
-            _:
-            den.lib.policy.include {
-              homeManager = {
-                targets.genericLinux.enable = true;
-                home.stateVersion = "26.05";
-              };
-            }
-          ))
-        ];
-    };
+    aspects.kg.includes = [
+      (den.lib.policy.when ({ host, ... }: host.name == "sindbad") (
+        _:
+        den.lib.policy.include {
+          includes = [
+            den.aspects.desktop
+          ]
+          ++ (with den.aspects.kg._; [
+            anki
+            firefox
+            glance
+            kitty
+            niri
+            noctalia
+            thunderbird
+            ttyper
+          ]);
+
+          homeManager = {
+            targets.genericLinux.enable = true;
+            home.stateVersion = "26.05";
+          };
+        }
+      ))
+    ];
   };
 }
