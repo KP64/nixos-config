@@ -3,7 +3,6 @@ toplevel@{ self, ... }:
   perSystem.files.file.".envrc".text =
     let
       inherit (toplevel.config.lib.flake.util) getRelativePath;
-
     in
     # bash
     ''
