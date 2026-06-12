@@ -198,7 +198,7 @@
         ++ (builtins.genList (
           n:
           let
-            steps = n + 1 |> toString;
+            steps = toString (n + 1);
           in
           {
             on = steps;

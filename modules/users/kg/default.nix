@@ -47,8 +47,7 @@ toplevel@{ den, inputs, ... }:
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets.kg_password.path;
         description = with config.home-manager.users.kg.invisible; "${firstName} ${lastName}";
-        openssh.authorizedKeys.keyFiles =
-          map (key: ./keys/${key}) <| builtins.attrNames <| builtins.readDir ./keys;
+        openssh.authorizedKeys.keyFiles = lib.fileset.toList ./keys;
         extraGroups =
           (map (group: group.name) (
             with config.users.groups;
