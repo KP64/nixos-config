@@ -239,7 +239,6 @@ toplevel: {
                   sha256 = "sha256-5BzhYqlg1OK1T+kPRtwH8KV0e5obj/jm3DLb+Cgl150=";
                 };
                 basicSecretFile = config.sops.secrets."kanidm/oauth2/opengist".path;
-                allowInsecureClientDisablePkce = true;
                 originUrl = "${config.services.opengist.environment.OG_EXTERNAL_URL}/oauth/openid-connect/callback";
                 originLanding = config.services.opengist.environment.OG_EXTERNAL_URL;
                 preferShortUsername = true;

@@ -1,19 +1,20 @@
-toplevel: {
-  flake.modules.nixos.opengist =
-    {
-      config,
+toplevel@{ moduleWithSystem, ... }:
+{
+  flake.modules.nixos.opengist = moduleWithSystem (
+    { config, ... }:
+    nixos@{
       lib,
       pkgs,
       ...
     }:
     let
-      cfg = config.services.opengist;
+      cfg = nixos.config.services.opengist;
     in
     {
       options.services.opengist = {
         enable = lib.mkEnableOption "Opengist";
 
-        package = lib.mkPackageOption pkgs "opengist" { };
+        package = lib.mkPackageOption config.packages "opengist" { };
 
         openFirewall = lib.mkOption {
           type = lib.types.bool;
@@ -133,5 +134,6 @@ toplevel: {
             };
         };
       };
-    };
+    }
+  );
 }
