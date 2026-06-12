@@ -2,11 +2,7 @@ toplevel@{ moduleWithSystem, ... }:
 {
   flake.modules.nixos.opengist = moduleWithSystem (
     { config, ... }:
-    nixos@{
-      lib,
-      pkgs,
-      ...
-    }:
+    nixos@{ lib, pkgs, ... }:
     let
       cfg = nixos.config.services.opengist;
     in
