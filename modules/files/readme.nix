@@ -8,8 +8,9 @@ toplevel@{ self, ... }:
       # TODO: More Hardware infos when Facter supports RAM and GPU detection
       hostCfgs =
         toplevel.config.flake.nixosConfigurations
-        |> builtins.mapAttrs (
-          _: host:
+        |> builtins.attrValues
+        |> map (
+          host:
           let
             counts =
               host.config.hardware.facter.report.hardware.cpu
@@ -25,8 +26,7 @@ toplevel@{ self, ... }:
               |> builtins.attrValues
               |> builtins.concatStringsSep ", ";
           }
-        )
-        |> builtins.attrValues;
+        );
 
       headers = [
         "Name"
