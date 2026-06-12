@@ -1,10 +1,12 @@
 # Nix Config
 
 <div align="center">
-  ![GitHub Repo stars](https://img.shields.io/github/stars/KP64/nixos-config?style=for-the-badge&logo=starship&logoColor=%23cad3f5&labelColor=%23181825&color=%2311111B&link=https%3A%2F%2Fgithub.com%2FKP64%2Fnixos-config)
-  ![GitHub repo size](https://img.shields.io/github/repo-size/KP64/nixos-config?style=for-the-badge&logo=github&logoColor=%23cad3f5&labelColor=%23181825&color=%2311111B&link=github.com%2FKP64%2Fnixos-config)
-  ![Static Badge](https://img.shields.io/badge/nixos-unstable-blue?style=for-the-badge&logo=nixos&logoColor=%23cad3f5&labelColor=%23181825&color=%2311111B&link=https%3A%2F%2Fgithub.com%2FKP64%2Fnixos-config)
-  ![Static Badge](https://img.shields.io/badge/unlicense-%2311111b?style=for-the-badge&logo=unlicense&logoColor=%23cdd6f4&labelColor=%23181825)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/KP64/nixos-config?style=for-the-badge&logo=starship&logoColor=%23cad3f5&labelColor=%23181825&color=%2311111B&link=https%3A%2F%2Fgithub.com%2FKP64%2Fnixos-config)
+![GitHub repo size](https://img.shields.io/github/repo-size/KP64/nixos-config?style=for-the-badge&logo=github&logoColor=%23cad3f5&labelColor=%23181825&color=%2311111B&link=github.com%2FKP64%2Fnixos-config)
+![Static Badge](https://img.shields.io/badge/nixos-unstable-blue?style=for-the-badge&logo=nixos&logoColor=%23cad3f5&labelColor=%23181825&color=%2311111B&link=https%3A%2F%2Fgithub.com%2FKP64%2Fnixos-config)
+![Static Badge](https://img.shields.io/badge/unlicense-%2311111b?style=for-the-badge&logo=unlicense&logoColor=%23cdd6f4&labelColor=%23181825)
+
 </div>
 
 ## 📝 About
@@ -22,6 +24,10 @@ Don't believe me? Look at the ["License"](UNLICENSE) :D
 |    [morgiana](modules/hosts/morgiana)    |                 ARM Limited                 | aarch64-linux |
 | [sheherazade](modules/hosts/sheherazade) |                 ARM Limited                 | aarch64-linux |
 |       [zarqa](modules/hosts/zarqa)       |                 ARM Limited                 | aarch64-linux |
+
+> [!Note]
+> Some hosts like `sindbad` are not managed by Nix and therefore not added here.
+> The users on these hosts are managed via standalone Home-Manager.
 
 ## Gallery
 
