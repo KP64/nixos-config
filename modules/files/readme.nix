@@ -5,6 +5,7 @@ toplevel@{ self, ... }:
     let
       inherit (toplevel.config.lib.flake.util) getRelativePath;
 
+      # TODO: More Hardware infos when Facter supports RAM and GPU detection
       hostCfgs =
         toplevel.config.flake.nixosConfigurations
         |> builtins.mapAttrs (
@@ -18,7 +19,7 @@ toplevel@{ self, ... }:
           {
             name = host.config.networking.hostName;
             arch = host.config.hardware.facter.report.system;
-            hardware =
+            cpu =
               counts
               |> builtins.mapAttrs (cpu: num: if num == 1 then cpu else "${toString num}x${cpu}")
               |> builtins.attrValues
@@ -29,7 +30,7 @@ toplevel@{ self, ... }:
 
       headers = [
         "Name"
-        "Hardware"
+        "CPU"
         "Arch"
       ];
       mkCfgHosts =

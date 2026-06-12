@@ -17,7 +17,7 @@ Don't believe me? Look at the ["License"](UNLICENSE) :D
 
 ## Hosts
 
-|                   Name                   |                  Hardware                   |     Arch      |
+|                   Name                   |                     CPU                     |     Arch      |
 | :--------------------------------------: | :-----------------------------------------: | :-----------: |
 |     [aladdin](modules/hosts/aladdin)     |   AMD Ryzen 7 2700X Eight-Core Processor    | x86_64-linux  |
 |       [mahdi](modules/hosts/mahdi)       | 2xIntel(R) Xeon(R) CPU E5-2698 v3 @ 2.30GHz | x86_64-linux  |
