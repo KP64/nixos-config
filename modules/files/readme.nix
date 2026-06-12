@@ -110,17 +110,12 @@ toplevel@{ self, ... }:
         '';
     in
     {
-      files.file."README.md".source =
-        pkgs.runCommand "formatted-readme.md" { nativeBuildInputs = [ pkgs.prettier ]; }
-          ''
-            cat > input.md <<'EOF'
-            ${readme}
-            EOF
+      files.file."README.md".source = pkgs.runCommand "formatted-readme.md" { } ''
+        cat > input.md <<'EOF'
+        ${readme}
+        EOF
 
-            prettier \
-              --parser markdown \
-              input.md \
-              > "$out"
-          '';
+        ${lib.getExe pkgs.prettier} --parser markdown input.md > "$out"
+      '';
     };
 }
