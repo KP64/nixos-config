@@ -32,7 +32,7 @@
         ]);
 
       nixos = { config, pkgs, ... }: {
-        system.stateVersion = "26.05";
+        system.stateVersion = "26.11";
         hardware = {
           facter.reportPath = ./facter.json;
           bluetooth.settings.General = {

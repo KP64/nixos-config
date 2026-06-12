@@ -56,7 +56,7 @@ toplevel@{ den, lib, ... }:
         homeManager = lib.mkIf (host.name == hostName) {
           targets.genericLinux.enable = true;
           programs.home-manager.enable = true;
-          home.stateVersion = "26.05";
+          home.stateVersion = "26.11";
         };
       };
     };
