@@ -12,7 +12,7 @@ toplevel@{ inputs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };
 
-      inherit (toplevel.config.lib.flake.util) mapIfAvailable;
+      inherit (toplevel.config.lib.flake.util) mapIfAvailable getRelativePath;
 
       getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
       nixosConfigs = getConfigs toplevel.config.flake.nixosConfigurations;
@@ -23,30 +23,13 @@ toplevel@{ inputs, ... }:
         extraAccess = [ "secrets" ];
       };
 
-      getRelativePath =
-        paths:
-        let
-          relevantDirectories = [
-            "secrets"
-            "modules"
-          ];
-        in
-        paths
-        |> map (
-          p:
-          p
-          |> toString
-          |> builtins.match ".*((${builtins.concatStringsSep "|" relevantDirectories})/.*)"
-          |> builtins.head
-        );
-
       getSecretsPaths =
         secrets:
         secrets
         |> map builtins.attrValues
         |> lib.flatten
         |> map (secret: secret.sopsFile)
-        |> getRelativePath;
+        |> map getRelativePath;
 
       nixosUserHmConfigs =
         nixosConfigs
@@ -61,7 +44,7 @@ toplevel@{ inputs, ... }:
         nixosConfigs
         |> map (c: c.hardware.facter.reportPath)
         |> builtins.filter (p: p != null)
-        |> getRelativePath;
+        |> map getRelativePath;
 
       hostSopsFiles = nixosConfigs |> mapCfgToSecrets |> getSecretsPaths;
       getHmUserSopsFiles = hmConfig: hmConfig |> mapCfgToSecrets |> getSecretsPaths;

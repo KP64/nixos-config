@@ -68,6 +68,16 @@
       repo = "dns.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    files = {
+      type = "github";
+      owner = "mightyiam";
+      repo = "files";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";

@@ -13,7 +13,7 @@ toplevel: {
             type = "topology";
             sha256 = "sha256-aS3wAebz8cZrF7Vov3wT/Q69AD/tmrC2EIrrZGimGA0=";
           };
-          info = "DELL Poweredge R730";
+          info = with config.hardware.facter.report.smbios.system; "${manufacturer} ${product}";
         };
         interfaces.wlp130s0f0 = {
           physicalConnections = [ (mkConnection "router" "wifi") ];

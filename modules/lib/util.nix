@@ -41,6 +41,29 @@
       '';
     };
 
+    getRelativePath = {
+      type = with lib.types; functionTo nonEmptyStr;
+      fn =
+        path:
+        let
+          relevantDirectories =
+            self
+            |> builtins.readDir
+            |> lib.filterAttrs (_: v: v == "directory")
+            |> builtins.attrNames;
+        in
+        lib.throwIfNot (builtins.pathExists path) "The path ${toString path} does not exist" (
+          path
+          |> toString
+          |> builtins.match ".*((${builtins.concatStringsSep "|" relevantDirectories})/.*)"
+          |> builtins.head
+        );
+      description = ''
+        Returns the specified path relative to the root directory.
+        If the path doesn't exist an error is thrown.
+      '';
+    };
+
     mapIfAvailable = {
       type = with lib.types; functionTo <| listOf <| attrsOf anything;
       fn =
