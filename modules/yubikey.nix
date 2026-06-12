@@ -8,7 +8,7 @@
     }:
     let
       normal = "normal";
-      strict = "stirct";
+      strict = "strict";
     in
     {
       options.yubi = lib.mkOption {
