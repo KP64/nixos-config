@@ -81,7 +81,7 @@
       })
 
       {
-        # NOTE: When running forgejo for the first time run this command:
+        # NOTE: When starting forgejo for the first time run this command:
         # sudo -u forgejo \
         #   <forgejo binary of systemd service> \
         #   --config <forgejo statedir>/custom/conf/app.ini \
@@ -89,7 +89,7 @@
         #   --provider=openidConnect \
         #   --name=kanidm \
         #   --key=forgejo \
-        #   --secret=bogus \
+        #   --secret=<forgejo secret from kanidm> \
         #   --auto-discover-url=https://idm.srvd.space/oauth2/openid/forgejo/.well-known/openid-configuration \
         #   --scopes="openid email profile"
         #

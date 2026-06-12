@@ -18,6 +18,7 @@ toplevel: {
         {
           "kanidm/admin-password" = { inherit owner restartUnits; };
           "kanidm/idm-admin-password" = { inherit owner restartUnits; };
+          "kanidm/oauth2/forgejo" = { inherit owner restartUnits; };
           "kanidm/oauth2/karakeep" = { inherit owner restartUnits; };
           "kanidm/oauth2/open-webui" = { inherit owner restartUnits; };
           "kanidm/oauth2/opengist" = { inherit owner restartUnits; };
@@ -156,7 +157,7 @@ toplevel: {
                   type = "icons";
                   sha256 = "sha256-OIP5UvHrWweyDQqNtDILGKvWTJQ2BxaiyRDbYzRTawg=";
                 };
-                public = true;
+                basicSecretFile = config.sops.secrets."kanidm/oauth2/forgejo".path;
                 originUrl = "${config.services.forgejo.settings.server.ROOT_URL}/user/oauth2/kanidm/callback";
                 originLanding = "${config.services.forgejo.settings.server.ROOT_URL}/user/login";
                 preferShortUsername = true;
