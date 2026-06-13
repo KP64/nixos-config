@@ -48,7 +48,7 @@ toplevel@{ den, ... }:
               inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
 
               proxyServices =
-                vhosts:
+                ipv6: vhosts:
                 vhosts
                 |> lib.filterAttrs (n: _: lib.hasSuffix ".${config.networking.domain}" n)
                 |> lib.mapAttrs' (
@@ -56,17 +56,21 @@ toplevel@{ den, ... }:
                     name = vhostDomain;
                     value.extraConfig = # caddy
                       ''
-                        reverse_proxy https://${vhostDomain}
+                        reverse_proxy https://[${ipv6}] {
+                            transport http {
+                                tls_server_name ${vhostDomain}
+                            }
+                        }
                       '';
                   }
                 );
             in
             lib.mkMerge [
               (lib.mkIf mahdi.config.services.nginx.enable (
-                proxyServices mahdi.config.services.nginx.virtualHosts
+                proxyServices mahdi.config.staticIPv6 mahdi.config.services.nginx.virtualHosts
               ))
               (lib.mkIf morgiana.config.services.caddy.enable (
-                proxyServices morgiana.config.services.caddy.virtualHosts
+                proxyServices morgiana.config.staticIPv6 morgiana.config.services.caddy.virtualHosts
               ))
             ];
         };

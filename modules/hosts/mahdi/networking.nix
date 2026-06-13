@@ -25,7 +25,6 @@ toplevel@{ den, ... }:
           enable = true;
           networks."10-wlp130s0f0" = {
             name = "wlp130s0f0";
-            linkConfig.RequiredForOnline = "routable";
             address = [
               "${config.staticIPv4}/24"
               "${config.staticIPv6}/64"

@@ -5,6 +5,7 @@
     repo = "files";
     inputs = {
       flake-parts.follows = "flake-parts";
+      make-shell.inputs.flake-compat.follows = "";
       import-tree.follows = "import-tree";
       nixpkgs.follows = "nixpkgs";
     };

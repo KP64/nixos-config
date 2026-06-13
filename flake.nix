@@ -62,12 +62,6 @@
       repo = "disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dns = {
-      type = "github";
-      owner = "kirelagin";
-      repo = "dns.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     files = {
       type = "github";
       owner = "mightyiam";
@@ -75,6 +69,7 @@
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
+        make-shell.inputs.flake-compat.follows = "";
         nixpkgs.follows = "nixpkgs";
       };
     };
