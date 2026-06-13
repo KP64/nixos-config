@@ -16,7 +16,7 @@ def main [topology_type?: string]: nothing -> nothing {
         | error make --unspanned $"No such topology. Should be either ($in)"
     }
 
-    uname | nom build .#topology.($in.machine)-($in.kernel-name | str downcase).config.output
+    uname | nom build .#topology.($in.machine)-($in.kernel-name | str downcase).config.output --accept-flake-config
     if ($chosen | is-not-empty) {
         kitten icat result/($chosen).svg
     }

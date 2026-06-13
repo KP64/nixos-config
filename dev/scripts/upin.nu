@@ -20,5 +20,5 @@ def main [...inputs_to_update: string]: nothing -> nothing {
     | each { error make --unspanned $"There is no input named (ansi yellow)($in)(ansi reset)" }
 
     gum confirm "Update?"
-    nix flake update ...(if $selection == $all_inputs { [] } else { $selection })
+    nix flake update --accept-flake-config ...(if $selection == $all_inputs { [] } else { $selection })
 }
