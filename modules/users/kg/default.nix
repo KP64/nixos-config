@@ -87,6 +87,7 @@ toplevel@{ den, inputs, ... }:
             ++ (lib.optionals
               (builtins.elem host.name [
                 toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName
+                "sindbad"
               ])
               (
                 with pkgs;
