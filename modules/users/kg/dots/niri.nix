@@ -102,7 +102,10 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 in
                 builtins.getAttr host.name {
                   sindbad = {
-                    eDP-1.focus-at-startup = true;
+                    eDP-1 = {
+                      focus-at-startup = true;
+                      scale = 1.0;
+                    };
                   };
                   ${aladdin} = {
                     DP-3 = {
