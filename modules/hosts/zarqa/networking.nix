@@ -9,8 +9,8 @@
         dhcpcd.enable = false;
       };
 
-      staticIPv4 = "192.168.2.201";
-      staticIPv6 = "fdef:fa6a:4724:1::201";
+      staticIPv4 = "192.168.178.201";
+      staticIPv6 = "fd57:36cf:1d6b:0::201";
 
       systemd.network = {
         enable = true;
@@ -20,7 +20,7 @@
             "${config.staticIPv4}/24"
             "${config.staticIPv6}/64"
           ];
-          gateway = [ "192.168.2.1" ];
+          gateway = [ "192.168.178.1" ];
           dns =
             map (qdns: "${qdns}#dns.quad9.net") [
               "9.9.9.9"

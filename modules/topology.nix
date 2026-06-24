@@ -24,26 +24,43 @@
       in
       {
         nodes = {
-          internet = topologyLib.mkInternet { connections = topologyLib.mkConnectionRev "router" "WAN1"; };
-          router = topologyLib.mkRouter "Speedport" {
-            info = "Smart 4";
+          internet = topologyLib.mkInternet { };
+          modem = {
+            name = "DSL-Modem";
+            deviceType = "device";
+            interfaces = {
+              DSL.physicalConnections = [ (topologyLib.mkConnection "internet" "*") ];
+              p1 = { };
+              p2 = { };
+            };
+            hardware = {
+              info = "DreyTek Vigor167";
+              image = builtins.path {
+                path = "${self}/assets/topology/vigor167.png";
+                recursive = false;
+                sha256 = "sha256-XaP99vGadXkLyXhVEkBm6bkn3o8Zux1ht2m3CQA5q1Y=";
+              };
+            };
+          };
+          router = topologyLib.mkRouter "Router" {
+            info = "Fritz!Box 4630";
             image = builtins.path {
-              path = "${self}/assets/topology/speedport.png";
+              path = "${self}/assets/topology/fritzbox4630.png";
               recursive = false;
-              sha256 = "sha256-c7E+g1uS4xYwEtYjFnU5/Bt6IQ907ioPEfSm49YOxJk=";
+              sha256 = "sha256-um6RhXg6JJEztd17p6YLwGPxPXJkllvpq/SKD9im5WM=";
             };
             interfaceGroups = [
+              [ "WAN" ]
               [ "wifi" ]
-              [ "Link/LAN1" ]
-              (builtins.genList (i: "LAN${toString (i + 2)}") 3)
-              [ "WAN1" ]
+              (builtins.genList (i: "LAN${toString (i + 1)}") 3)
             ];
+            connections.WAN = topologyLib.mkConnection "modem" "p2";
           };
         };
         networks.home = {
           name = "Home Network";
-          cidrv4 = "192.168.2.0/24";
-          cidrv6 = "fdef:fa6a:4724:1::/64";
+          cidrv4 = "192.168.178.0/24";
+          cidrv6 = "fd57:36cf:1d6b:0::/64";
         };
       }
     )

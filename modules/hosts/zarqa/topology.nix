@@ -16,7 +16,7 @@ toplevel: {
           info = "Raspberry Pi 3 Model B+";
         };
         interfaces.enu1u1u1 = {
-          physicalConnections = [ (mkConnection "router" "LAN3") ];
+          physicalConnections = [ (mkConnection "router" "LAN2") ];
           network = "home";
         };
       };
