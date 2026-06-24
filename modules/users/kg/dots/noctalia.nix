@@ -77,7 +77,7 @@ toplevel@{ self, inputs, ... }:
           notification.layer = "overlay";
           osd = {
             orientation = "vertical";
-            position = "center_right";
+            position_vertical = "center_right";
           };
           shell = {
             avatar_path = builtins.path {
