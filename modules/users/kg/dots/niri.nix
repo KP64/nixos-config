@@ -175,7 +175,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                         "steam_app"
                       ];
                     in
-                    [ { app-id = "^(${builtins.concatStringsSep "|" ids})\*$"; } ];
+                    lib.forEach ids (id: {
+                      app-id = "${id}*";
+                    });
                   variable-refresh-rate = true;
                   open-on-output = lib.mkIf (host.name == aladdin) "DP-3";
                 }
