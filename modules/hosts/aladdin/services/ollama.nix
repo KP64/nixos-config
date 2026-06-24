@@ -20,7 +20,7 @@
       {
         services.ollama = {
           enable = true;
-          host = "[${config.staticIPv6}]";
+          host = "[::]";
           openFirewall = true;
           syncModels = true;
           loadModels = [
