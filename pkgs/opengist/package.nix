@@ -18,8 +18,8 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "thomiceli";
     repo = "opengist";
-    rev = "66f2793f8b9df5f0a529036edf1203354a492fdf";
-    hash = "sha256-pepvH1L0FQBoKthbZdLegk0/BhOsrQCBChFgj3eQJHs=";
+    rev = "cac21689cf1a523d4b67b78feb02996d589667bc";
+    hash = "sha256-RyhSYy0cjRDJrSGZcKUsr5qzEBVknDRAQXXwIUGdYcc=";
   };
 
   frontend = buildNpmPackage {
@@ -41,7 +41,7 @@ buildGoModule (finalAttrs: {
 
   patches = [ ./downgrade-go.patch ];
 
-  vendorHash = "sha256-K3CflR5o0N3ffIb6cmyNJbvyUppcB0q2JQ/RVYGW+BU=";
+  vendorHash = "sha256-gYtbQGXX1Dg4DQafEiVqqlWgsFk/WchSc8eMW9/c7r4=";
 
   tags = [ "fs_embed" ];
 
