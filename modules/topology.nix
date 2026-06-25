@@ -60,7 +60,7 @@
         networks.home = {
           name = "Home Network";
           cidrv4 = "192.168.178.0/24";
-          cidrv6 = "fd57:36cf:1d6b:0::/64";
+          cidrv6 = "fd34:683f:dc06:0::/64";
         };
       }
     )

@@ -6,7 +6,7 @@ toplevel@{ den, ... }:
       wifi
     ];
 
-    nixos = { config, lib, ... }: {
+    nixos = { config, ... }: {
       networking = {
         inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         useDHCP = false;
@@ -14,16 +14,13 @@ toplevel@{ den, ... }:
       };
 
       staticIPv4 = "192.168.178.224";
-      staticIPv6 = "fd57:36cf:1d6b:0::224";
+      staticIPv6 = "fd34:683f:dc06:0::224";
 
       systemd.network = {
         enable = true;
         networks."10-wlan0" = {
           name = "wlan0";
-          address = [
-            "${config.staticIPv4}/24"
-            "${config.staticIPv6}/64"
-          ];
+          address = [ "${config.staticIPv4}/24" ];
           gateway = [ "192.168.178.1" ];
           dns =
             map (qdns: "${qdns}#dns.quad9.net") [
@@ -38,16 +35,16 @@ toplevel@{ den, ... }:
               "2606:4700:4700::1111"
               "2606:4700:4700::1001"
             ];
-          networkConfig =
-            let
-              inherit (lib) boolToYesNo;
-            in
-            {
-              DNSSEC = boolToYesNo true;
-              DNSOverTLS = boolToYesNo true;
-              MulticastDNS = boolToYesNo true;
-              LLMNR = boolToYesNo false;
-            };
+          networkConfig = {
+            ipv6AcceptRA = true;
+            DNSOverTLS = true;
+            DNSSEC = true;
+            LLMNR = false;
+            MulticastDNS = true;
+          };
+          ipv6AcceptRAConfig = {
+            Token = "static:::224";
+          };
         };
       };
     };
