@@ -3,6 +3,9 @@
     type = "github";
     owner = "nvmd";
     repo = "nixos-raspberrypi";
-    inputs.flake-compat.follows = "";
+    inputs = {
+      flake-compat.follows = "";
+      nixpkgs.follows = "nixpkgs";
+    };
   };
 }

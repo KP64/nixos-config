@@ -62,6 +62,12 @@
       repo = "disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dns = {
+      type = "github";
+      owner = "kirelagin";
+      repo = "dns.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     files = {
       type = "github";
       owner = "mightyiam";
@@ -175,7 +181,10 @@
       type = "github";
       owner = "nvmd";
       repo = "nixos-raspberrypi";
-      inputs.flake-compat.follows = "";
+      inputs = {
+        flake-compat.follows = "";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixvim = {
