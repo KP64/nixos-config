@@ -36,7 +36,7 @@ toplevel@{ den, ... }:
               "2606:4700:4700::1001"
             ];
           networkConfig = {
-            ipv6AcceptRA = true;
+            IPv6AcceptRA = true;
             DNSOverTLS = true;
             DNSSEC = true;
             LLMNR = false;
