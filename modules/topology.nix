@@ -30,8 +30,8 @@
             deviceType = "device";
             interfaces = {
               DSL.physicalConnections = [ (topologyLib.mkConnection "internet" "*") ];
-              p1 = { };
-              p2 = { };
+              P1 = { };
+              P2 = { };
             };
             hardware = {
               info = "DreyTek Vigor167";
@@ -54,7 +54,7 @@
               [ "wifi" ]
               (builtins.genList (i: "LAN${toString (i + 1)}") 3)
             ];
-            connections.WAN = topologyLib.mkConnection "modem" "p2";
+            connections.WAN = topologyLib.mkConnection "modem" "P2";
           };
         };
         networks.home = {

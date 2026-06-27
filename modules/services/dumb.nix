@@ -30,7 +30,7 @@ toplevel@{ moduleWithSystem, ... }:
             type = "icons";
             sha256 = "sha256-Nq+L1pdwKrnxIihF/o/1j7wTUdQ98TnVPPYh9PLW0Mo=";
           };
-          details.listen = lib.mkIf cfg.openFirewall { text = "http://[::1]:${toString cfg.port}"; };
+          details.listen = lib.mkIf cfg.openFirewall { text = "http://[::]:${toString cfg.port}"; };
         };
 
         networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;

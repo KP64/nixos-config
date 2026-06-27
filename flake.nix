@@ -79,9 +79,15 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    flake-file.url = "github:denful/flake-file";
+    flake-file = {
+      type = "github";
+      owner = "denful";
+      repo = "flake-file";
+    };
     flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+      type = "github";
+      owner = "hercules-ci";
+      repo = "flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     harmonia = {
@@ -99,7 +105,11 @@
       repo = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    import-tree.url = "github:vic/import-tree";
+    import-tree = {
+      type = "github";
+      owner = "denful";
+      repo = "import-tree";
+    };
     lanzaboote = {
       type = "github";
       owner = "nix-community";
@@ -186,7 +196,12 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-unstable";
+    };
     nixvim = {
       type = "github";
       owner = "nix-community";

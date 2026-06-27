@@ -5,6 +5,7 @@
   ...
 }:
 {
+  # TODO: Make this a full form when https://github.com/denful/flake-file/issues/121 closes.
   # NOTE: Shallow Cloning because .git directory could leak.
   flake-file.inputs.nix-invisible = {
     url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";

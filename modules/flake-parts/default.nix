@@ -9,12 +9,32 @@ toplevel@{ lib, inputs, ... }:
     description = "KP64's Overengineered Nix Flake";
 
     inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      flake-file.url = "github:denful/flake-file";
       den = {
         type = "github";
         owner = "denful";
         repo = "den";
+      };
+      flake-file = lib.mkForce {
+        type = "github";
+        owner = "denful";
+        repo = "flake-file";
+      };
+      flake-parts = lib.mkForce {
+        type = "github";
+        owner = "hercules-ci";
+        repo = "flake-parts";
+        inputs.nixpkgs-lib.follows = "nixpkgs";
+      };
+      nixpkgs = lib.mkForce {
+        type = "github";
+        owner = "NixOS";
+        repo = "nixpkgs";
+        ref = "nixos-unstable";
+      };
+      import-tree = lib.mkForce {
+        type = "github";
+        owner = "denful";
+        repo = "import-tree";
       };
     };
 

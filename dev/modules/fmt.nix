@@ -79,9 +79,7 @@ toplevel@{ inputs, ... }:
               includes = [ "*.svg" ];
             };
             nufmt = {
-              command = lib.getExe' (inputs'.nufmt.packages.default.overrideAttrs (
-                _: _: { doCheck = false; }
-              )) "nufmt";
+              command = lib.getExe' inputs'.nufmt.packages.default "nufmt";
               includes = [ "*.nu" ];
             };
           };
@@ -132,11 +130,9 @@ toplevel@{ inputs, ... }:
               tomlFormat.generate "typos" {
                 default.extend-words = lib.flip lib.genAttrs (w: w) [
                   "enew"
-                  "ede"
                   "facter"
                   "noice"
                   "HAE" # LTT Channel ID
-                  "ba" # Part of zarqa's IPv6 address
                   "ND" # navidrome.env sops content
                 ];
                 files.extend-exclude = facterFiles;

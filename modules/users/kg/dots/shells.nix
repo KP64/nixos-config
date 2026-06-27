@@ -18,20 +18,23 @@
           edit_mode = "vi";
         };
 
-        extraConfig =
-          lib.concatLines
-          <|
-            map
-              (
-                cmd:
-                "use ${
-                  builtins.path { path = "${pkgs.nu_scripts}/share/nu_scripts/aliases/${cmd}/${cmd}-aliases.nu"; }
-                } *"
-              )
-              [
-                "bat"
-                "git"
-              ];
+        extraConfig = lib.concatLines (
+          map
+            (
+              cmd:
+              "use ${
+                builtins.path {
+                  name = "${cmd}-aliases.nu";
+                  path = "${pkgs.nu_scripts}/share/nu_scripts/aliases/${cmd}/${cmd}-aliases.nu";
+                  recursive = false;
+                }
+              } *"
+            )
+            [
+              "bat"
+              "git"
+            ]
+        );
       };
     };
   };
