@@ -5,6 +5,7 @@ toplevel@{ den, inputs, ... }:
       (with den.batteries; [
         primary-user
         (user-shell "bash")
+        (unfree [ "PlantsVsZombiesSetup.exe" ])
       ])
       ++ (with den.aspects; [
         catppuccin
@@ -97,6 +98,7 @@ toplevel@{ den, inputs, ... }:
                   manga-tui
                   signal-desktop
                   yubioath-flutter
+                  pvz-portable
                 ]
               )
             );
