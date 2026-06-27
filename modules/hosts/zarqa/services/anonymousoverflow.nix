@@ -3,6 +3,7 @@ toplevel: {
     { config, lib, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;
+      domain = "overflow.${config.networking.domain}";
     in
     {
       imports = [ toplevel.config.flake.modules.nixos.anonymousoverflow ];
@@ -19,7 +20,7 @@ toplevel: {
             };
           };
 
-          services.caddy.virtualHosts."overflow.${config.networking.domain}".extraConfig = # caddy
+          services.caddy.virtualHosts.${domain}.extraConfig = # caddy
             ''
               reverse_proxy http://[::1]:${toString config.services.anonymousoverflow.port}
               header {
@@ -56,7 +57,7 @@ toplevel: {
         {
           services.anonymousoverflow = {
             enable = true;
-            appUrl = "https://overflow.${config.networking.domain}";
+            appUrl = "https://${domain}";
             environmentFile = config.sops.templates."anonymousoverflow.env".path;
           };
         }

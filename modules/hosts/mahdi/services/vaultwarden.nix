@@ -30,7 +30,7 @@
       {
         services.vaultwarden = {
           enable = true;
-          domain = "vaultwarden.${config.networking.domain}";
+          domain = "vault.${config.networking.domain}";
           configureNginx = true;
           environmentFile = config.sops.templates."vaultwarden.env".path;
           config =

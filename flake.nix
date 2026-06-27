@@ -62,12 +62,6 @@
       repo = "disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dns = {
-      type = "github";
-      owner = "kirelagin";
-      repo = "dns.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     files = {
       type = "github";
       owner = "mightyiam";

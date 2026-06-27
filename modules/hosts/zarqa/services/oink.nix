@@ -2,12 +2,12 @@
   den.aspects.zarqa = {
     includes = [ den.aspects.secrets._.porkbun ];
 
-    nixos = { config, ... }: {
+    nixos = { config, lib, ... }: {
       sops.secrets =
         let
           restartUnits = [ config.systemd.services.oink.name ];
         in
-        {
+        lib.mkIf config.services.oink.enable {
           "porkbun/api_key" = { inherit restartUnits; };
           "porkbun/secret_api_key" = { inherit restartUnits; };
         };

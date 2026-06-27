@@ -104,7 +104,7 @@
             server = {
               HTTP_PORT = 36031;
               PROTOCOL = "http+unix";
-              DOMAIN = "forgejo.${config.networking.domain}";
+              DOMAIN = "git.${config.networking.domain}";
               ROOT_URL = "https://${config.services.forgejo.settings.server.DOMAIN}";
 
               START_SSH_SERVER = true; # Needed because isn't started by default.

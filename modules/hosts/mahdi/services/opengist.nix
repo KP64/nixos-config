@@ -2,7 +2,7 @@ toplevel: {
   den.aspects.mahdi.nixos =
     { config, lib, ... }:
     let
-      domain = "opengist.${config.networking.domain}";
+      domain = "gist.${config.networking.domain}";
       inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     {

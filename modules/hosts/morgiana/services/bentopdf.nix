@@ -7,7 +7,7 @@
     {
       services.bentopdf = {
         enable = true;
-        domain = "bentopdf.${config.networking.domain}";
+        domain = "pdf.${config.networking.domain}";
         caddy = {
           enable = true;
           virtualHost.extraConfig = # caddy

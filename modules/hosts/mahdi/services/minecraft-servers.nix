@@ -80,7 +80,7 @@
           Proxy = {
             enable = true;
             openFirewall = true;
-            package = mcPkgs.velocity-server;
+            package = mcPkgs.velocityServers.velocity-3_5_0-SNAPSHOT-build_598;
             # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
             jvmOpts = [
               "-Xms2G"

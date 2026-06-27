@@ -66,9 +66,7 @@ toplevel@{ den, ... }:
                     ];
                     script-src-elem = [
                       "self"
-                      "sha256-9gJa8HX5fxL20iHmcB3pPeL9aisX1u3DgyyDVbW0DzA="
-                      "sha256-e5upz+ajlUzXq8dkQMw0X452BxAZJtUQAb25V2OiOfM="
-                      "sha256-IwbGmoRaOLT2V3cavVXQBCapN9X3Jy2mX1vd0rYDIHI="
+                      "unsafe-inline"
                     ];
                   }
                 }" always;

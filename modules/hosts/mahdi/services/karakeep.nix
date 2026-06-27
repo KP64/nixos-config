@@ -44,6 +44,7 @@
                     script-src = [
                       "self"
                       "unsafe-inline"
+                      "unsafe-eval"
                     ];
                     connect-src = "self";
                   }

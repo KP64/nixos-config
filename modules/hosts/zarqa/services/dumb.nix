@@ -12,7 +12,6 @@ toplevel: {
           extraConfig = # caddy
             ''
               reverse_proxy http://[::1]:${toString config.services.dumb.port}
-
               header {
                   Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
                   X-Frame-Options DENY

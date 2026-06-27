@@ -50,6 +50,7 @@
                       "self"
                       "data:"
                     ];
+                    frame-src = [ "blob:" ];
                   }
                 }" always;
                 add_header X-Frame-Options SAMEORIGIN always;

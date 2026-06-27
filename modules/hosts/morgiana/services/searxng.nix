@@ -71,7 +71,7 @@
       {
         services.searx = {
           enable = true;
-          domain = "searxng.${config.networking.domain}";
+          domain = "search.${config.networking.domain}";
           redisCreateLocally = true; # Needed for Rate-Limit & bot protection
           configureUwsgi = true;
           uwsgiConfig.http = ":8888";
