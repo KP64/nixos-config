@@ -6,12 +6,10 @@
   '';
 
   inputs = {
-    # TODO: Unpin once systems.elaborate when https://github.com/nix-community/nixvim/issues/4426 is closed
     nixpkgs = {
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      rev = "3e41b24abd260e8f71dbe2f5737d24122f972158";
     };
     treefmt-nix = {
       type = "github";
