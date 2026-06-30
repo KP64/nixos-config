@@ -51,7 +51,11 @@ toplevel: {
 
         client = {
           enable = true;
-          settings.uri = config.services.kanidm.server.settings.origin;
+          settings = {
+            uri = config.services.kanidm.server.settings.origin;
+            verify_ca = true;
+            verify_hostnames = true;
+          };
         };
 
         server = {
