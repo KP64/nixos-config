@@ -39,8 +39,6 @@ buildGoModule (finalAttrs: {
     npmDepsHash = "sha256-Ci25S0kgT5C46xTzNTs0kn8QEvYqJuj/yU33Ymfci68=";
   };
 
-  patches = [ ./downgrade-go.patch ];
-
   vendorHash = "sha256-gYtbQGXX1Dg4DQafEiVqqlWgsFk/WchSc8eMW9/c7r4=";
 
   tags = [ "fs_embed" ];
