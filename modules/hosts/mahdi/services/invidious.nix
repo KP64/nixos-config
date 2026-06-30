@@ -34,6 +34,7 @@
             port = 3031;
             domain = "yt.${config.networking.domain}";
             nginx.enable = true;
+            serviceScale = 6;
             settings = {
               invidious_companion = [ { private_url = "http://${companionAddr}/companion"; } ];
               invidious_companion_key = companionKey;
