@@ -17,7 +17,6 @@
     networking.wireless = {
       enable = true;
       secretsFile = config.sops.templates."wireless.env".path;
-      fallbackToWPA2 = false;
       scanOnLowSignal = false;
       networks."FRITZ!Box 4630 QX-5GHz".pskRaw = "ext:HOME_WIFI_PASSWORD";
     };
