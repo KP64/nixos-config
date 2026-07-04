@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.mahdi = {
     # TODO: Remove once karakeep is updated
     includes = [ (den.batteries.insecure [ "pnpm-9.15.9" ]) ];

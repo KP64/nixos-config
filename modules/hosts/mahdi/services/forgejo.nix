@@ -1,6 +1,9 @@
 { den, ... }: {
   den.aspects.mahdi = {
-    includes = [ den.aspects.virtualisation._.podman ];
+    includes = with den.aspects; [
+      virtualisation._.podman
+      dyndns
+    ];
 
     nixos =
       {
@@ -14,67 +17,76 @@
       in
       lib.mkMerge [
         (lib.mkIf config.services.forgejo.enable {
-          services.nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
-            enableACME = true;
-            acmeRoot = null;
-            onlySSL = true;
-            kTLS = true;
-            extraConfig = # nginx
-              ''
-                client_max_body_size 512M;
-              '';
-            locations."/" = {
-              proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
-              extraConfig = # nginx
-                ''
-                  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                  add_header Content-Security-Policy "${
-                    mkCSP {
-                      default-src = "none";
-                      connect-src = "self";
-                      style-src = [
-                        "self"
-                        "unsafe-inline"
-                      ];
-                      script-src = [
-                        "self"
-                        "unsafe-inline"
-                      ];
-                      img-src = [
-                        "self"
-                        "data:"
-                        "blob:"
-                      ];
-                    }
-                  }" always;
-                  add_header X-Content-Type-Options nosniff always;
-                  add_header Referrer-Policy no-referrer always;
-                  add_header Permissions-Policy "${
-                    mkPP {
-                      camera = "()";
-                      microphone = "()";
-                      geolocation = "()";
-                      usb = "()";
-                      bluetooth = "()";
-                      payment = "()";
-                      accelerometer = "()";
-                      gyroscope = "()";
-                      magnetometer = "()";
-                      midi = "()";
-                      serial = "()";
-                      hid = "()";
-                    }
-                  }" always;
-                '';
-            };
-          };
-
           networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
-          # TODO: Add Runners
-          services.gitea-actions-runner = {
-            package = pkgs.forgejo-runner;
-            instances = { };
+          services = {
+            oink.domains = [
+              {
+                inherit (config.networking) domain;
+                subdomain = "git";
+              }
+            ];
+
+            nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
+              enableACME = true;
+              acmeRoot = null;
+              onlySSL = true;
+              kTLS = true;
+              extraConfig = # nginx
+                ''
+                  client_max_body_size 512M;
+                '';
+              locations."/" = {
+                proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
+                extraConfig = # nginx
+                  ''
+                    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+                    add_header Content-Security-Policy "${
+                      mkCSP {
+                        default-src = "none";
+                        connect-src = "self";
+                        style-src = [
+                          "self"
+                          "unsafe-inline"
+                        ];
+                        script-src = [
+                          "self"
+                          "unsafe-inline"
+                        ];
+                        img-src = [
+                          "self"
+                          "data:"
+                          "blob:"
+                        ];
+                      }
+                    }" always;
+                    add_header X-Content-Type-Options nosniff always;
+                    add_header Referrer-Policy no-referrer always;
+                    add_header Permissions-Policy "${
+                      mkPP {
+                        camera = "()";
+                        microphone = "()";
+                        geolocation = "()";
+                        usb = "()";
+                        bluetooth = "()";
+                        payment = "()";
+                        accelerometer = "()";
+                        gyroscope = "()";
+                        magnetometer = "()";
+                        midi = "()";
+                        serial = "()";
+                        hid = "()";
+                      }
+                    }" always;
+                  '';
+              };
+            };
+
+            # TODO: Add Runners
+            gitea-actions-runner = {
+              package = pkgs.forgejo-runner;
+              instances = { };
+            };
           };
         })
 
