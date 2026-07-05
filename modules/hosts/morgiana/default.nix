@@ -35,6 +35,8 @@ in
           raspberry-pi-4.base
         ]);
 
+        boot.loader.raspberry-pi.bootloader = "kernel";
+
         home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
         system.stateVersion = "26.11";
