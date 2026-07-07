@@ -189,6 +189,17 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    nixos-raspberrypi-no-console = {
+      type = "github";
+      owner = "KP64";
+      repo = "nixos-raspberrypi";
+      inputs = {
+        argononed.follows = "nixos-raspberrypi/argononed";
+        flake-compat.follows = "nixos-raspberrypi/flake-compat";
+        nixos-images.follows = "nixos-raspberrypi/nixos-images";
+        nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
+      };
+    };
     nixpkgs = {
       type = "github";
       owner = "NixOS";

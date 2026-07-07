@@ -667,6 +667,39 @@
         "type": "github"
       }
     },
+    "nixos-raspberrypi-no-console": {
+      "inputs": {
+        "argononed": [
+          "nixos-raspberrypi",
+          "argononed"
+        ],
+        "flake-compat": [
+          "nixos-raspberrypi",
+          "flake-compat"
+        ],
+        "nixos-images": [
+          "nixos-raspberrypi",
+          "nixos-images"
+        ],
+        "nixpkgs": [
+          "nixos-raspberrypi",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783248474,
+        "narHash": "sha256-qtq4wb/4/ia7N/UA3gw1g3Lcs9yvbx0AvSxOnju7e2o=",
+        "owner": "KP64",
+        "repo": "nixos-raspberrypi",
+        "rev": "48815a0b7c4a3de933f3b25bd454df9ae9476fce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KP64",
+        "repo": "nixos-raspberrypi",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1782918843,
@@ -830,6 +863,7 @@
         "nix-minecraft": "nix-minecraft",
         "nix-topology": "nix-topology",
         "nixos-raspberrypi": "nixos-raspberrypi",
+        "nixos-raspberrypi-no-console": "nixos-raspberrypi-no-console",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
         "noctalia": "noctalia",
