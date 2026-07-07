@@ -1,5 +1,5 @@
 { den, ... }: {
-  den.aspects.mahdi = {
+  den.aspects.acme = {
     includes = [ den.aspects.secrets._.porkbun ];
     nixos = { config, ... }: {
       sops.secrets =

@@ -64,8 +64,8 @@ toplevel: {
             origin = "https://${config.services.kanidm.server.settings.domain}";
             domain = "idm.${config.networking.domain}";
             online_backup.versions = 7; # Number of backups
-            tls_key = "/run/credentials/kanidm.service/key.pem";
-            tls_chain = "/run/credentials/kanidm.service/fullchain.pem";
+            tls_key = "/run/credentials/${config.systemd.services.kanidm.name}/key.pem";
+            tls_chain = "/run/credentials/${config.systemd.services.kanidm.name}/fullchain.pem";
           };
         };
         provision = {

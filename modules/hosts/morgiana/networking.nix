@@ -6,15 +6,16 @@ toplevel@{ den, ... }:
       wifi
     ];
 
-    nixos = { config, lib, ... }: {
+    nixos = { config, ... }: {
       networking = {
         inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         useDHCP = false;
         dhcpcd.enable = false;
-        # TODO: Revert to 5GHz once https://github.com/nvmd/nixos-raspberrypi/issues/87 is closed.
-        #       Seems like the issue stems from the Pi's network card. This may never be resolved.
-        wireless.networks = lib.mkForce { "FRITZ!Box 4630 QX".pskRaw = "ext:HOME_WIFI_PASSWORD"; };
       };
+
+      # TODO: Revert to 5GHz once https://github.com/nvmd/nixos-raspberrypi/issues/87 is closed.
+      #       Seems like the issue stems from the Pi's network card. This may never be resolved.
+      wifiSSID = "FRITZ!Box 4630 QX";
 
       staticIPv4 = "192.168.178.212";
       staticIPv6 = "fd34:683f:dc06:0::212";

@@ -1,95 +1,155 @@
+{ den, ... }:
 {
-  den.aspects.morgiana.nixos =
-    { config, lib, ... }:
-    let
-      ppsDevice = "pps0";
-      ppsPath = "/dev/${ppsDevice}";
+  den.aspects.morgiana = {
+    includes = with den.aspects; [
+      acme
+      dyndns
+    ];
 
-      gpsDevice = "ttyAMA0";
-      gpsSocket = "chrony.${gpsDevice}.sock";
-      gpsSocketPath = "/run/${config.systemd.services.ntpd-rs.serviceConfig.RuntimeDirectory}/${gpsSocket}";
-    in
-    {
-      hardware.raspberry-pi.config.all = {
-        options.init_uart_baud = {
-          enable = true;
-          value = 9600;
-        };
-        dt-overlays = {
-          "disable-bt" = {
+    nixos =
+      { config, lib, ... }:
+      let
+        ppsDevice = "pps0";
+        ppsPath = "/dev/${ppsDevice}";
+
+        gpsDevice = "ttyAMA0";
+        gpsSocket = "chrony.${gpsDevice}.sock";
+        gpsSocketPath = "/run/${config.systemd.services.ntpd-rs.serviceConfig.RuntimeDirectory}/${gpsSocket}";
+
+        ntsPort = 4460;
+        ntpPort = 123;
+
+        subdomain = "nts";
+        ntsDomain = "${subdomain}.${config.networking.domain}";
+      in
+      {
+        hardware.raspberry-pi.config.all = {
+          options.init_uart_baud = {
             enable = true;
-            params = { };
+            value = 9600;
           };
-          "pps-gpio,gpiopin=4" = {
-            enable = true;
-            params = { };
+          dt-overlays = {
+            "disable-bt" = {
+              enable = true;
+              params = { };
+            };
+            "pps-gpio,gpiopin=4" = {
+              enable = true;
+              params = { };
+            };
           };
         };
-      };
 
-      boot.kernelModules = [ "pps-gpio" ];
+        boot.kernelModules = [ "pps-gpio" ];
 
-      users = {
-        users.ntpd-rs = {
-          isSystemUser = true;
-          group = config.users.groups.ntpd-rs.name;
+        users = {
+          users.ntpd-rs = {
+            isSystemUser = true;
+            group = config.users.groups.ntpd-rs.name;
+          };
+          groups.ntpd-rs = { };
         };
-        groups.ntpd-rs = { };
-      };
 
-      systemd.services = {
-        gpsd.after = [ config.systemd.services.ntpd-rs-socket-shim.name ];
+        security.acme.certs.${ntsDomain} = { };
 
-        ntpd-rs.serviceConfig = {
-          # NOTE: ntpd-rs already comes with a service file that declares a static User and Group.
-          #       The nixos Module tries to override it with DynamicUser unsuccessfully causing breakage.
-          DynamicUser = lib.mkForce false;
-          RuntimeDirectory = "ntpd-rs";
+        systemd.services = {
+          gpsd = {
+            bindsTo = [ config.systemd.services.ntpd-rs.name ];
+            after = map (service: service.name) (
+              with config.systemd.services;
+              [
+                ntpd-rs
+                ntpd-rs-socket-shim
+              ]
+            );
+          };
+
+          ntpd-rs = {
+            wants = [ config.systemd.services."acme-${ntsDomain}".name ];
+            after = [ config.systemd.services."acme-${ntsDomain}".name ];
+            serviceConfig = {
+              # NOTE: ntpd-rs already comes with a service file that declares a static User and Group.
+              #       The nixos Module tries to override it with DynamicUser unsuccessfully causing breakage.
+              DynamicUser = lib.mkForce false;
+              RuntimeDirectory = "ntpd-rs";
+              LoadCredential =
+                map (cred: "${cred}:${config.security.acme.certs.${ntsDomain}.directory}/${cred}")
+                  [
+                    "key.pem"
+                    "fullchain.pem"
+                  ];
+            };
+          };
+          ntpd-rs-socket-shim = {
+            after = [ config.systemd.services.ntpd-rs.name ];
+            requires = [ config.systemd.services.ntpd-rs.name ];
+            wantedBy = [ config.systemd.services.gpsd.name ];
+            enableStrictShellChecks = true;
+            serviceConfig.Type = "oneshot";
+            script = ''
+              ln -sf ${gpsSocketPath} /run/${gpsSocket}
+            '';
+          };
         };
-        ntpd-rs-socket-shim = {
-          after = [ config.systemd.services.ntpd-rs.name ];
-          requires = [ config.systemd.services.ntpd-rs.name ];
-          wantedBy = [ config.systemd.services.gpsd.name ];
-          enableStrictShellChecks = true;
-          serviceConfig.Type = "oneshot";
-          script = ''
-            ln -sf ${gpsSocketPath} /run/${gpsSocket}
+
+        networking.firewall = {
+          allowedTCPPorts = [ ntsPort ];
+          allowedUDPPorts = [ ntpPort ];
+        };
+
+        services = {
+          oink.domains = [
+            {
+              inherit (config.networking) domain;
+              inherit subdomain;
+            }
+          ];
+
+          udev.extraRules = ''
+            KERNEL=="${ppsDevice}", GROUP="${config.users.users.ntpd-rs.group}", MODE="0640"
           '';
-        };
-      };
 
-      services = {
-        udev.extraRules = ''
-          KERNEL=="${ppsDevice}", GROUP="${config.users.users.ntpd-rs.group}", MODE="0640"
-        '';
-
-        ntpd-rs = {
-          enable = true;
-          useNetworkingTimeServers = false;
-          settings = {
-            synchronization.minimum-agreeing-sources = 1;
-            source = [
-              {
-                mode = "sock";
-                path = gpsSocketPath;
-                precision = 0.001;
-              }
-              {
-                mode = "pps";
-                path = ppsPath;
-                precision = 0.0000001;
-              }
+          ntpd-rs = {
+            enable = true;
+            useNetworkingTimeServers = false;
+            settings = {
+              synchronization.minimum-agreeing-sources = 1;
+              nts-ke-server = [
+                {
+                  listen = "[::]:4460";
+                  certificate-chain-path = "/run/credentials/${config.systemd.services.ntpd-rs.name}/fullchain.pem";
+                  private-key-path = "/run/credentials/${config.systemd.services.ntpd-rs.name}/key.pem";
+                }
+              ];
+              server = [
+                {
+                  listen = "[::]:123";
+                  require-nts = "deny";
+                }
+              ];
+              source = [
+                {
+                  mode = "sock";
+                  path = gpsSocketPath;
+                  precision = 0.001;
+                }
+                {
+                  mode = "pps";
+                  path = ppsPath;
+                  precision = 0.0000001;
+                }
+              ];
+            };
+          };
+          gpsd = {
+            enable = true;
+            nowait = true;
+            devices = [
+              "/dev/${gpsDevice}"
+              ppsPath
             ];
           };
         };
-        gpsd = {
-          enable = true;
-          nowait = true;
-          devices = [
-            "/dev/${gpsDevice}"
-            ppsPath
-          ];
-        };
       };
-    };
+  };
 }
