@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.morgiana = {
     includes = with den.aspects; [
       acme
