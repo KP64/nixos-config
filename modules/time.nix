@@ -7,25 +7,22 @@
     services.ntpd-rs = {
       enable = true;
       useNetworkingTimeServers = lib.mkDefault false;
-      settings = {
-        synchronization.minimum-agreeing-sources = 1;
-        source =
-          map
-            (address: {
-              # We only care about nts servers ;D
-              # (if we exclude the nixos pool that is)
-              mode = "nts";
-              inherit address;
-            })
-            (
-              [
-                "nts.${config.networking.domain}"
-                "nts.netnod.se"
-                "time.cloudflare.com"
-              ]
-              ++ (builtins.genList (i: "ptbtime${toString (i + 1)}.ptb.de") 4)
-            );
-      };
+      settings.source =
+        map
+          (address: {
+            # We only care about nts servers ;D
+            # (if we exclude the nixos pool that is)
+            mode = "nts";
+            inherit address;
+          })
+          (
+            [
+              "nts.${config.networking.domain}"
+              "nts.netnod.se"
+              "time.cloudflare.com"
+            ]
+            ++ (builtins.genList (i: "ptbtime${toString (i + 1)}.ptb.de") 4)
+          );
     };
   };
 }
