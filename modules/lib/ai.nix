@@ -36,14 +36,7 @@ toplevel: {
             && nixosCfg.services.ollama.enable
             && nixosCfg.services.ollama.openFirewall
           )
-          |> map (
-            nixosCfg:
-            let
-              usesIPv6 = lib.hasInfix ":" nixosCfg.services.ollama.host;
-              ip = if usesIPv6 then "[${nixosCfg.staticIPv6}]" else nixosCfg.staticIPv4;
-            in
-            "http://${ip}:${toString nixosCfg.services.ollama.port}"
-          );
+          |> map (nixosCfg: "http://[${nixosCfg.staticIPv6}]:${toString nixosCfg.services.ollama.port}");
         description = ''
           Return a list Ollama IPs of every host
           configured in this config except for the

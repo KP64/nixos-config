@@ -27,11 +27,6 @@
         services.nginx = {
           enable = true;
 
-          defaultListenAddresses = [
-            config.staticIPv4
-          ]
-          ++ lib.optional config.networking.enableIPv6 "[${config.staticIPv6}]";
-
           package = pkgs.nginxMainline;
           enableQuicBPF = true;
 

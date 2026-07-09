@@ -25,10 +25,14 @@ toplevel@{ den, ... }:
           };
 
           services.oink.domains = [
-            { inherit (config.networking) domain; }
+            {
+              inherit (config.networking) domain;
+              skipIPv4 = true;
+            }
             {
               inherit (config.networking) domain;
               subdomain = "*";
+              skipIPv4 = true;
             }
           ];
         })

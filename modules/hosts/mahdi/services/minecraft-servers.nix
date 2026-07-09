@@ -68,6 +68,7 @@
           |> map (serverDomain: {
             inherit (nixos.config.networking) domain;
             subdomain = "${serverDomain}.mc";
+            skipIPv4 = true;
           });
 
         sops = {

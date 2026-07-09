@@ -24,6 +24,8 @@
       gtk.enable = true;
       qt.enable = true;
 
+      home.pointerCursor.enable = true;
+
       xdg = {
         enable = true;
         autostart.enable = true;

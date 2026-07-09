@@ -27,10 +27,11 @@ toplevel@{
     includes = [
       (den.batteries.unfree [
         "libcublas"
+        "libcufft"
         "libcurand"
         "libcusparse"
+        "libnpp"
         "libnvjitlink"
-        "libcufft"
         "cudnn"
         "cuda_nvrtc"
       ])

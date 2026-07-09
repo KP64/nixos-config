@@ -24,6 +24,7 @@
               {
                 inherit (config.networking) domain;
                 subdomain = "git";
+                skipIPv4 = true;
               }
             ];
 

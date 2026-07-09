@@ -1,5 +1,8 @@
+{ den, ... }:
 {
   den.aspects.morgiana = {
+    includes = [ den.aspects.dyndns ];
+
     _.to-users = { user, ... }: {
       nixos = { config, lib, ... }: {
         users.users.${user.name}.extraGroups =
@@ -18,38 +21,51 @@
     };
 
     nixos = { config, ... }: {
-      services.tor = {
-        enable = true;
-        openFirewall = true;
-        controlSocket.enable = true;
-        settings = {
-          # NOTE: This and the "tor" group are needed for the control Socket
-          CookieAuthFileGroupReadable = true;
-          DataDirectoryGroupReadable = true;
+      services =
+        let
+          subdomain = "tor";
+        in
+        {
+          # TODO: Skip IPv4 when Tor supports IPv6 only in Relays
+          oink.domains = [
+            {
+              inherit (config.networking) domain;
+              inherit subdomain;
+            }
+          ];
 
-          # NOTE: IPv4 address or FQDN that resolves to one
-          Address = config.networking.domain;
+          tor = {
+            enable = true;
+            openFirewall = true;
+            controlSocket.enable = true;
+            settings = {
+              # NOTE: This and the "tor" group are needed for the control Socket
+              CookieAuthFileGroupReadable = true;
+              DataDirectoryGroupReadable = true;
 
-          Nickname = "Torrifics";
-          # Specifically created for this.
-          ContactInfo = "torrifics@proton.me";
+              Address = "${subdomain}.${config.networking.domain}";
 
-          SocksPort = 0;
-          ORPort = [ 9001 ];
-          CookieAuthentication = true;
+              Nickname = "Torrifics";
+              # Specifically created for this.
+              ContactInfo = "torrifics@proton.me";
 
-          ProtocolWarnings = true;
-          HardwareAccel = 1;
+              SocksPort = 0;
+              ORPort = [ 9001 ];
+              CookieAuthentication = true;
 
-          # I hate my country's ISP internet plans...
-          RelayBandwidthRate = "3 MB";
-          RelayBandwidthBurst = "4 MB";
+              ProtocolWarnings = true;
+              HardwareAccel = 1;
+
+              # I hate my country's ISP internet plans...
+              RelayBandwidthRate = "3 MB";
+              RelayBandwidthBurst = "4 MB";
+            };
+            relay = {
+              enable = true;
+              role = "relay";
+            };
+          };
         };
-        relay = {
-          enable = true;
-          role = "relay";
-        };
-      };
     };
   };
 }

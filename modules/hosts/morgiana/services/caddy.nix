@@ -37,7 +37,6 @@
               admin off
               persist_config off
               skip_install_trust
-              default_bind ${config.staticIPv4} [${config.staticIPv6}]
               acme_dns porkbun {
                   api_key {env.PORKBUN_API_KEY}
                   api_secret_key {env.PORKBUN_SECRET_API_KEY}

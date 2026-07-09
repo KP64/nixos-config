@@ -26,7 +26,7 @@
         };
       };
 
-      # TODO: Temporary. Remove once confident in the Security aspect.
+      # TODO: Replace with crowdsec?
       services.fail2ban = {
         enable = true;
         bantime-increment = {

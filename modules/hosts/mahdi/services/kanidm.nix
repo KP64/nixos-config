@@ -61,6 +61,7 @@ toplevel: {
         server = {
           enable = true;
           settings = {
+            bindaddress = "[::1]:8443";
             origin = "https://${config.services.kanidm.server.settings.domain}";
             domain = "idm.${config.networking.domain}";
             online_backup.versions = 7; # Number of backups

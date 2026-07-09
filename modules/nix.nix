@@ -15,8 +15,9 @@ let
     substituters = [ "https://nix-community.cachix.org" ];
     trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
 
+    # TODO: Set to fatal when nixpkgs fixes their stuff.
     lint-absolute-path-literals = "warn";
-    lint-short-path-literals = "warn";
+    lint-short-path-literals = "fatal";
     lint-url-literals = "fatal";
 
     fsync-store-paths = true;
