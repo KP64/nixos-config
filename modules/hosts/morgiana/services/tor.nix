@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.morgiana = {
     includes = [ den.aspects.dyndns ];
 
