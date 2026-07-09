@@ -11,7 +11,6 @@ toplevel@{ den, ... }:
         inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
         useDHCP = false;
         dhcpcd.enable = false;
-        tempAddresses = "disabled";
       };
 
       # TODO: Revert to 5GHz once https://github.com/nvmd/nixos-raspberrypi/issues/87 is closed.

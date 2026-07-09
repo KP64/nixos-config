@@ -17,27 +17,20 @@
       }:
       nixos@{ lib, ... }:
       let
+        subdomain = "mc";
+
         velocityPort = 25565;
         mcPkgs = inputs'.nix-minecraft.legacyPackages;
-
         mcLib = config.lib.minecraft;
 
         commonMods = {
           FABRIC_API = {
-            url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/fm7UYECV/fabric-api-0.145.4%2B26.1.2.jar";
-            sha512 = "ffd5ef62a745f76cd2e5481252cb7bc67006c809b4f436827d05ea22c01d19279e94a3b24df3d57e127af1cd08440b5de6a92a4ea8f39b2dcbbe1681275564c3";
+            url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Kr4WG5mG/fabric-api-0.154.2%2B26.2.jar";
+            sha512 = "7cedad862e8105a7de8db090c0707c25a14a9472654090861dcf490f834862c3212723e762f6f797a0e4683104f4b3a20d3692fb29d7b5c0af437613283d34db";
           };
           FABRIC_PROXY_LITE = {
             url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/CsEpiziv/FabricProxy-Lite-2.12.0.jar";
             sha512 = "b479c3ed1fe83929cad40e5c925ae2702da879b88a0271a24266cd21ecc037953f347cbe61ac7b7334e087544ee2ce5bf1f041fc3e64f50474404ad564c146f7";
-          };
-          FERRITE_CORE = {
-            url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar";
-            sha512 = "d81fa97e11784c19d42f89c2f433831d007603dd7193cee45fa177e4a6a9c52b384b198586e04a0f7f63cd996fed713322578bde9a8db57e1188854ae5cbe584";
-          };
-          LITHIUM = {
-            url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/kHXOBNih/lithium-fabric-0.23.0%2Bmc26.1.1.jar";
-            sha512 = "9d7e92ea2af7d024cfe09bfc7eacf236e551da024f4ddeb3a20d88b01bc3620ee1c5a3355299c9dbfcc76406fb0b8e121a989651e6a73c8c2632290f84db8448";
           };
         };
 
@@ -61,15 +54,23 @@
       {
         imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
 
-        services.oink.domains =
+        services.oink.domains = [
+          {
+            inherit (nixos.config.networking) domain;
+            inherit subdomain;
+            skipIPv4 = true;
+          }
+        ]
+        ++ (
           nixos.config.services.minecraft-servers.servers.Proxy.symlinks."velocity.toml".value.servers
           |> builtins.attrNames
           |> builtins.filter (a: a != "try")
           |> map (serverDomain: {
             inherit (nixos.config.networking) domain;
-            subdomain = "${serverDomain}.mc";
+            subdomain = "${serverDomain}.${subdomain}";
             skipIPv4 = true;
-          });
+          })
+        );
 
         sops = {
           secrets."minecraft/velocity-forwarding" = { };
@@ -99,7 +100,7 @@
             Proxy = {
               enable = true;
               openFirewall = true;
-              package = mcPkgs.velocityServers.velocity-3_5_0-SNAPSHOT-build_598;
+              package = mcPkgs.velocityServers.velocity-3_5_0-SNAPSHOT-build_607;
               # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
               jvmOpts = [
                 "-Xms2G"
@@ -127,7 +128,7 @@
                     };
                 in
                 {
-                  config-version = "2.7";
+                  config-version = "2.8";
 
                   bind = "[::]:${toString velocityPort}";
                   motd = "<rainbow>Hello Minecraft Enthusiasts!</rainbow>";
@@ -135,23 +136,33 @@
                   show-max-players = 500;
                   online-mode = true;
                   force-key-authentication = true;
-                  prevent-client-proxy-connections = true;
+                  prevent-client-proxy-connections = false;
 
                   player-info-forwarding-mode = "modern";
                   forwarding-secret-file = "forwarding.secret";
 
                   announce-forge = false;
                   kick-existing-players = true;
-                  ping-passthrough = "mods";
+                  ping-passthrough = "DISABLED";
                   sample-players-in-ping = false;
-                  enable-player-address-logging = false;
+                  enable-player-address-logging = true;
+                  packet-limiter = {
+                    interval = 7;
+                    packets-per-second = -1;
+                    bytes-per-second = -1;
+                    decompressed-bytes-per-second = 5242880;
+                  };
 
                   inherit servers;
                   forced-hosts =
                     servers
                     |> lib.filterAttrs (n: _: n != "try")
-                    |> lib.mapAttrs' (n: _: lib.nameValuePair "${n}.${nixos.config.networking.domain}" [ n ]);
-
+                    |> lib.mapAttrs' (
+                      n: _: {
+                        name = "${n}.${subdomain}.${nixos.config.networking.domain}";
+                        value = [ n ];
+                      }
+                    );
                   advanced = {
                     compression-threshold = 256;
                     compression-level = -1;
@@ -186,7 +197,7 @@
 
             Survival = {
               enable = true;
-              package = mcPkgs.minecraftServers.fabric-26_1_1.override {
+              package = mcPkgs.minecraftServers.fabric-26_2.override {
                 jre_headless = pkgs.openjdk25_headless;
               };
               jvmOpts = [
@@ -213,7 +224,7 @@
             };
             Creative = {
               enable = true;
-              package = mcPkgs.minecraftServers.fabric-26_1_1.override {
+              package = mcPkgs.minecraftServers.fabric-26_2.override {
                 jre_headless = pkgs.openjdk25_headless;
               };
               jvmOpts = [

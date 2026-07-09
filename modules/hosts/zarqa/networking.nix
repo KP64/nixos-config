@@ -7,7 +7,6 @@
         domain = "srvd.space";
         useDHCP = false;
         dhcpcd.enable = false;
-        tempAddresses = "disabled";
       };
 
       staticIPv6 = "fd34:683f:dc06:0::201";
