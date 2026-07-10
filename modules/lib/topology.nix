@@ -1,5 +1,4 @@
-{ config, moduleWithSystem, ... }:
-{
+{ config, moduleWithSystem, ... }: {
   den.aspects.customLib.nixos = moduleWithSystem (
     { system, ... }: { lib, ... }: {
       nix-lib.lib.topology.getHomeCidr = {
