@@ -16,7 +16,6 @@ toplevel@{ den, ... }:
           inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
           useDHCP = false;
           dhcpcd.enable = false;
-          tempAddresses = "disabled";
         };
 
         staticIPv6 = "${config.lib.topology.getHomeCidr}::${addr}";
