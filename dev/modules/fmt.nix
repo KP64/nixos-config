@@ -56,28 +56,32 @@ toplevel@{ inputs, ... }:
             (getHmUserSopsFiles nixosUserHmConfigs) ++ (getHmUserSopsFiles hmConfigs) ++ hostSopsFiles
           );
           formatter = {
-            svg-optimizer = {
-              command =
-                pkgs.writers.writeNuBin "svg-optimizer" # nu
-                  ''
-                    def main [...files: string]: nothing -> nothing {
-                        for file in $files {
-                            let tmp = mktemp
+            svg-optimizer =
+              let
+                filetype = "svg";
+              in
+              {
+                command =
+                  pkgs.writers.writeNuBin "svg-optimizer" # nu
+                    ''
+                      def main [...files: string]: nothing -> nothing {
+                          for file in $files {
+                              let tmp = mktemp --suffix .${filetype}
 
-                            ${lib.getExe pkgs.scour} --enable-viewboxing -i $file -o $tmp
-                            ${lib.getExe pkgs.svgo} --multipass -i $tmp -o $tmp
+                              ${lib.getExe pkgs.scour} --enable-viewboxing -i $file -o $tmp
+                              ${lib.getExe pkgs.svgo} --multipass -i $tmp -o $tmp
 
-                            let is_changed = (${lib.getExe' pkgs.uutils-diffutils "cmp"} $file $tmp | complete | get exit_code) != 0
-                            if $is_changed {
-                                mv $tmp $file
-                            } else {
-                                rm $tmp
-                            }
-                        }
-                    }
-                  '';
-              includes = [ "*.svg" ];
-            };
+                              let is_changed = (${lib.getExe' pkgs.uutils-diffutils "cmp"} $file $tmp | complete | get exit_code) != 0
+                              if $is_changed {
+                                  mv -f $tmp $file
+                              } else {
+                                  rm -p$tmp
+                              }
+                          }
+                      }
+                    '';
+                includes = [ "*.${filetype}" ];
+              };
             nufmt = {
               command = lib.getExe' inputs'.nufmt.packages.default "nufmt";
               includes = [ "*.nu" ];
