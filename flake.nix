@@ -19,7 +19,7 @@
     ];
     fsync-store-paths = true;
     lint-absolute-path-literals = "warn";
-    lint-short-path-literals = "warn";
+    lint-short-path-literals = "fatal";
     lint-url-literals = "fatal";
     preallocate-contents = true;
     substituters = [
