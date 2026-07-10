@@ -197,9 +197,7 @@
 
             Survival = {
               enable = true;
-              package = mcPkgs.minecraftServers.fabric-26_2.override {
-                jre_headless = pkgs.openjdk25_headless;
-              };
+              package = mcPkgs.minecraftServers.fabric-26_2.override { jre_headless = pkgs.openjdk25_headless; };
               jvmOpts = [
                 "-Xms8G"
                 "-Xmx8G"
@@ -224,9 +222,7 @@
             };
             Creative = {
               enable = true;
-              package = mcPkgs.minecraftServers.fabric-26_2.override {
-                jre_headless = pkgs.openjdk25_headless;
-              };
+              package = mcPkgs.minecraftServers.fabric-26_2.override { jre_headless = pkgs.openjdk25_headless; };
               jvmOpts = [
                 "-Xms8G"
                 "-Xmx8G"
