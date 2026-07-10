@@ -75,7 +75,7 @@ toplevel@{ inputs, ... }:
                               if $is_changed {
                                   mv -f $tmp $file
                               } else {
-                                  rm -p$tmp
+                                  rm -p $tmp
                               }
                           }
                       }

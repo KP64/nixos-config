@@ -1,13 +1,17 @@
-toplevel@{ self, ... }:
-{
+{ config, self, ... }: {
   perSystem =
-    { lib, pkgs, ... }:
+    {
+      system,
+      lib,
+      pkgs,
+      ...
+    }:
     let
-      inherit (toplevel.config.lib.flake.util) getRelativePath;
+      inherit (config.lib.flake.util) getRelativePath;
 
       # TODO: More Hardware infos when Facter supports RAM and GPU detection
       hostCfgs =
-        toplevel.config.flake.nixosConfigurations
+        config.flake.nixosConfigurations
         |> builtins.attrValues
         |> map (
           host:
@@ -103,6 +107,7 @@ toplevel@{ self, ... }:
           </details>
 
           ## 🌐 Network Topology
+
           ![Main](${getRelativePath "${self}/assets/topology/main.svg"})
 
           ![Net](${getRelativePath "${self}/assets/topology/network.svg"})
@@ -114,7 +119,9 @@ toplevel@{ self, ... }:
         ${readme}
         EOF
 
-        ${lib.getExe pkgs.prettier} --parser markdown input.md > "$out"
+        ${lib.getExe config.flake.formatter.${system}} --no-cache --tree-root-file input.md
+
+        cat input.md > "$out"
       '';
     };
 }
