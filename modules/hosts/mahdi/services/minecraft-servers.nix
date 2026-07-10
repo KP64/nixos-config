@@ -9,13 +9,13 @@
     includes = [ den.aspects.dyndns ];
 
     nixos = moduleWithSystem (
+      { inputs', ... }:
       {
         config,
-        inputs',
+        lib,
         pkgs,
         ...
       }:
-      nixos@{ lib, ... }:
       let
         subdomain = "mc";
 
@@ -56,17 +56,17 @@
 
         services.oink.domains = [
           {
-            inherit (nixos.config.networking) domain;
+            inherit (config.networking) domain;
             inherit subdomain;
             skipIPv4 = true;
           }
         ]
         ++ (
-          nixos.config.services.minecraft-servers.servers.Proxy.symlinks."velocity.toml".value.servers
+          config.services.minecraft-servers.servers.Proxy.symlinks."velocity.toml".value.servers
           |> builtins.attrNames
           |> builtins.filter (a: a != "try")
           |> map (serverDomain: {
-            inherit (nixos.config.networking) domain;
+            inherit (config.networking) domain;
             subdomain = "${serverDomain}.${subdomain}";
             skipIPv4 = true;
           })
@@ -75,15 +75,15 @@
         sops = {
           secrets."minecraft/velocity-forwarding" = { };
           templates."minecraft-server.env" = {
-            owner = nixos.config.users.users.minecraft.name;
+            owner = config.users.users.minecraft.name;
             restartUnits =
-              nixos.config.systemd.services
+              config.systemd.services
               |> builtins.attrValues
               |> map (service: service.name)
               |> builtins.filter (lib.hasPrefix "minecraft-server-");
             content =
               let
-                inherit (nixos.config) sops;
+                inherit (config) sops;
               in
               ''
                 VELOCITY_FORWARDING_SECRET=${sops.placeholder."minecraft/velocity-forwarding"}
@@ -95,7 +95,7 @@
         services.minecraft-servers = {
           enable = true;
           eula = true;
-          environmentFile = nixos.config.sops.templates."minecraft-server.env".path;
+          environmentFile = config.sops.templates."minecraft-server.env".path;
           servers = {
             Proxy = {
               enable = true;
@@ -116,7 +116,7 @@
                 let
                   servers =
                     let
-                      inherit (nixos.config.services.minecraft-servers.servers) Creative Survival;
+                      inherit (config.services.minecraft-servers.servers) Creative Survival;
                     in
                     {
                       survival = "[${Survival.serverProperties.server-ip}]:${toString Survival.serverProperties.server-port}";
@@ -159,7 +159,7 @@
                     |> lib.filterAttrs (n: _: n != "try")
                     |> lib.mapAttrs' (
                       n: _: {
-                        name = "${n}.${subdomain}.${nixos.config.networking.domain}";
+                        name = "${n}.${subdomain}.${config.networking.domain}";
                         value = [ n ];
                       }
                     );
