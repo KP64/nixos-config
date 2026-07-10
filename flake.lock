@@ -147,15 +147,15 @@
     },
     "flake-file": {
       "locked": {
-        "lastModified": 1781217157,
-        "narHash": "sha256-N3q/SP2Ropk336e9KSgLh7kpROY6P70dprYdbPIfd5c=",
-        "owner": "denful",
+        "lastModified": 1783703797,
+        "narHash": "sha256-srM+PTqxfyvbQ0BevsOtP8vQv/Ox6OMtY4DktoDxLKg=",
+        "owner": "KP64",
         "repo": "flake-file",
-        "rev": "ce63eaf7ebfe04a176653f66385a7f0a36380cee",
+        "rev": "bfd682b318448967c11afe568ca18fef26e61381",
         "type": "github"
       },
       "original": {
-        "owner": "denful",
+        "owner": "KP64",
         "repo": "flake-file",
         "type": "github"
       }

@@ -63,7 +63,8 @@ in
           (lib.mkIf (osConfig == null) {
             inherit nixpkgs;
 
-            # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 is merged
+            # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 or
+            #       https://github.com/nix-community/home-manager/pull/9582 is merged
             home.packages = [ config.nix.package ];
 
             nix = {

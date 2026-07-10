@@ -74,7 +74,7 @@
     };
     flake-file = {
       type = "github";
-      owner = "denful";
+      owner = "KP64";
       repo = "flake-file";
     };
     flake-parts = {
@@ -139,7 +139,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-invisible = {
-      url = "git+ssh://git@github.com/KP64/nix-invisible?shallow=1";
+      type = "git";
+      url = "ssh://git@github.com/KP64/nix-invisible";
+      shallow = true;
       inputs = {
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";

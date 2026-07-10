@@ -20,7 +20,9 @@
             allowedUDPPorts = ssl;
           };
 
-        # TODO: Enable ECH. DNS HTTPS Resource is prerequisite though.
+        # TODO: Enable ECH
+        #        - DNS HTTPS Resource is prerequisite though
+        #        - One wildcard subdomain???
         # NOTE: Amazing Websites:
         #  - https://securityheaders.com/
         #  - https://www.ssllabs.com/

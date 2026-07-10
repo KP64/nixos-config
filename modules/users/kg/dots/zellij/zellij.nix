@@ -1,11 +1,9 @@
 {
   den.aspects.kg._.zellij.homeManager = { config, lib, ... }: {
-    # TODO: Reenable Integrations once Zellij has better (kitty) SSH support.
     programs = {
-      # nushell.configFile.text = builtins.readFile ./start_zellij.nu;
+      nushell.configFile.text = builtins.readFile ./start_zellij.nu;
       zellij = {
         enable = true;
-        # exitShellOnExit = true;
         settings = {
           default_shell = lib.mkIf config.programs.nushell.enable "nu";
           show_startup_tips = false;
