@@ -1,7 +1,7 @@
 toplevel@{ self, ... }:
 {
   perSystem =
-    { lib, ... }:
+    { lib, pkgs, ... }:
     let
       inherit (toplevel.config.lib.flake.util) getRelativePath;
 
@@ -67,10 +67,7 @@ toplevel@{ self, ... }:
         in
         lib.concatMapStringsSep "\n" (row: "|${lib.concatStringsSep "|" row}|") rows;
 
-    in
-    {
-      files.file."README.md".text =
-        # html
+      readme = # html
         ''
           # Nix Config
 
@@ -110,5 +107,14 @@ toplevel@{ self, ... }:
 
           ![Net](${getRelativePath "${self}/assets/topology/network.svg"})
         '';
+    in
+    {
+      files.file."README.md".source = pkgs.runCommand "formatted-readme.md" { } ''
+        cat > input.md <<'EOF'
+        ${readme}
+        EOF
+
+        ${lib.getExe pkgs.prettier} --parser markdown input.md > "$out"
+      '';
     };
 }
