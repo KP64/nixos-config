@@ -63,20 +63,5 @@
         If the path doesn't exist an error is thrown.
       '';
     };
-
-    mapIfAvailable = {
-      type = with lib.types; functionTo <| listOf <| attrsOf anything;
-      fn =
-        {
-          needs,
-          extraAccess ? [ ],
-        }:
-        arr:
-        arr |> lib.filter (builtins.hasAttr needs) |> map (lib.getAttrFromPath ([ needs ] ++ extraAccess));
-      description = ''
-        Filters an array of attrsets containing the needed
-        attribute and maps to subattributes via extraAccess
-      '';
-    };
   };
 }

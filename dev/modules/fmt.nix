@@ -12,31 +12,15 @@ toplevel@{ inputs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };
 
-      inherit (toplevel.config.lib.flake.util) mapIfAvailable getRelativePath;
+      inherit (toplevel.config.lib.flake.util) getRelativePath;
 
       getConfigs = toplevelConfig: toplevelConfig |> builtins.attrValues |> map (topconf: topconf.config);
       nixosConfigs = getConfigs toplevel.config.flake.nixosConfigurations;
       hmConfigs = getConfigs toplevel.config.flake.homeConfigurations;
 
-      mapCfgToSecrets = mapIfAvailable {
-        needs = "sops";
-        extraAccess = [ "secrets" ];
-      };
-
-      getSecretsPaths =
-        secrets:
-        secrets
-        |> map builtins.attrValues
-        |> lib.flatten
-        |> map (secret: secret.sopsFile)
-        |> map getRelativePath;
-
       nixosUserHmConfigs =
         nixosConfigs
-        |> mapIfAvailable {
-          needs = "home-manager";
-          extraAccess = [ "users" ];
-        }
+        |> map (cfg: cfg.home-manager.users)
         |> map builtins.attrValues
         |> lib.flatten;
 
@@ -46,14 +30,21 @@ toplevel@{ inputs, ... }:
         |> builtins.filter (p: p != null)
         |> map getRelativePath;
 
-      hostSopsFiles = nixosConfigs |> mapCfgToSecrets |> getSecretsPaths;
-      getHmUserSopsFiles = hmConfig: hmConfig |> mapCfgToSecrets |> getSecretsPaths;
+      getSecretsPaths =
+        secrets:
+        secrets
+        |> map builtins.attrValues
+        |> lib.flatten
+        |> map (secret: secret.sopsFile)
+        |> map getRelativePath;
+
+      getSopsFiles = cfg: cfg |> map (cfg: cfg.sops.secrets) |> getSecretsPaths;
     in
     {
       treefmt = {
         settings = {
           global.excludes = lib.unique (
-            (getHmUserSopsFiles nixosUserHmConfigs) ++ (getHmUserSopsFiles hmConfigs) ++ hostSopsFiles
+            (getSopsFiles nixosConfigs) ++ (getSopsFiles nixosUserHmConfigs) ++ (getSopsFiles hmConfigs)
           );
           formatter = {
             svg-optimizer =
@@ -62,7 +53,7 @@ toplevel@{ inputs, ... }:
               in
               {
                 command =
-                  pkgs.writers.writeNuBin "svg-optimizer" # nu
+                  pkgs.writers.writeNuBin "${filetype}-optimizer" # nu
                     ''
                       def main [...files: string]: nothing -> nothing {
                           for file in $files {
@@ -83,7 +74,7 @@ toplevel@{ inputs, ... }:
                 includes = [ "*.${filetype}" ];
               };
             nufmt = {
-              command = lib.getExe' inputs'.nufmt.packages.default "nufmt";
+              command = inputs'.nufmt.packages.default;
               includes = [ "*.nu" ];
             };
           };
@@ -112,8 +103,6 @@ toplevel@{ inputs, ... }:
           # [T] TOML
           taplo.enable = true;
           toml-sort.enable = true;
-
-          qmlformat.enable = true;
 
           # 🪐 Lua
           stylua = {
