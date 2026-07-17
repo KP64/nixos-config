@@ -97,10 +97,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 size = 32;
               };
               outputs =
-                let
-                  outputCfg = config.programs.niri.settings.outputs;
-                in
-                builtins.getAttr host.name {
+                {
                   sindbad = {
                     eDP-1 = {
                       focus-at-startup = true;
@@ -122,11 +119,12 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                       };
                     };
                     HDMI-A-1.position = {
-                      x = outputCfg.DP-3.mode.width;
+                      x = config.programs.niri.settings.outputs.DP-3.mode.width;
                       y = 500;
                     };
                   };
-                };
+                }
+                .${host.name};
               layer-rules = [
                 {
                   matches = [ { namespace = "^notifications$"; } ];
@@ -343,17 +341,21 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                   <| lib.mapCartesianProduct (
                     { key, cmd }:
                     let
-                      direction = builtins.getAttr key {
-                        H = "left";
-                        J = "down";
-                        K = "up";
-                        L = "right";
-                      };
-                      combination = builtins.getAttr cmd {
-                        focus-monitor = "Ctrl";
-                        move-column-to-monitor = "Shift+Alt";
-                        move-workspace-to-monitor = "Shift+Ctrl";
-                      };
+                      direction =
+                        {
+                          H = "left";
+                          J = "down";
+                          K = "up";
+                          L = "right";
+                        }
+                        .${key};
+                      combination =
+                        {
+                          focus-monitor = "Ctrl";
+                          move-column-to-monitor = "Shift+Alt";
+                          move-workspace-to-monitor = "Shift+Ctrl";
+                        }
+                        .${cmd};
                     in
                     lib.nameValuePair "Mod+${combination}+${key}" { action."${cmd}-${direction}" = { }; }
                   )
