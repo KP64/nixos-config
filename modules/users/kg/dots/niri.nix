@@ -17,6 +17,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
     #       Also sync HM-Package with host pkg
     nixos = moduleWithSystem (
       { inputs', ... }: {
+        # TODO: This is the default but is set true by the niri flake.
+        fonts.enableDefaultPackages = false;
+
         programs.niri = {
           enable = true;
           package = inputs'.niri-flake.packages.niri-unstable;

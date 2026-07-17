@@ -44,6 +44,7 @@ toplevel@{ den, lib, ... }:
           ++ (with den.aspects.kg._; [
             anki
             firefox
+            fonts
             glance
             kitty
             niri

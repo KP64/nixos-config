@@ -20,9 +20,10 @@
           yubikey
         ])
         ++ (with den.aspects.kg._; [
-          firefox
-          glance
           anki
+          firefox
+          fonts
+          glance
           kitty
           niri
           noctalia
