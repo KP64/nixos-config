@@ -95,8 +95,11 @@ toplevel@{ den, inputs, ... }:
                 [
                   bluetui
                   caligula
+                  gnome-obfuscate
                   manga-tui
+                  nyancat
                   signal-desktop
+                  switcheroo
                   yubioath-flutter
                   pvz-portable
                 ]
