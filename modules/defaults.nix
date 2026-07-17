@@ -39,9 +39,12 @@
         boot.tmp.cleanOnBoot = true;
         documentation.enable = false;
         environment.defaultPackages = [ ];
-        networking.nftables = {
-          enable = true;
-          flattenRulesetFile = true;
+        networking = {
+          firewall.pingLimit = "10/second burst 20 packets";
+          nftables = {
+            enable = true;
+            flattenRulesetFile = true;
+          };
         };
         security = {
           polkit.enable = true;
