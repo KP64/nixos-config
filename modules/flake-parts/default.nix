@@ -14,10 +14,9 @@ toplevel@{ lib, inputs, ... }:
         owner = "denful";
         repo = "den";
       };
-      # TODO: Revert to denful when https://github.com/denful/flake-file/pull/123 is merged
       flake-file = lib.mkForce {
         type = "github";
-        owner = "KP64";
+        owner = "denful";
         repo = "flake-file";
       };
       flake-parts = lib.mkForce {

@@ -9,7 +9,6 @@
     let
       inherit (config.lib.flake.util) getRelativePath;
 
-      # TODO: More Hardware infos when Facter supports RAM and GPU detection
       hostCfgs =
         config.flake.nixosConfigurations
         |> builtins.attrValues

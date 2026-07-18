@@ -1,21 +1,28 @@
+toplevel@{ moduleWithSystem, ... }:
 {
-  den.aspects.morgiana.nixos =
+  den.aspects.morgiana.nixos = moduleWithSystem (
+    { system, ... }:
     { config, lib, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     lib.mkMerge [
       (lib.mkIf config.services.searx.enable {
-        sops.secrets.searxng = {
-          owner = config.users.users.searx.name;
-          restartUnits = [
-            (
-              if config.services.searx.configureUwsgi then
-                config.systemd.services.uwsgi.name
-              else
-                config.systemd.services.searx.name
-            )
-          ];
+        sops = {
+          secrets.searxng = { };
+          templates."searxng.env" = {
+            restartUnits = [
+              (
+                if config.services.searx.configureUwsgi then
+                  config.systemd.services.uwsgi.name
+                else
+                  config.systemd.services.searx.name
+              )
+            ];
+            content = ''
+              SEARX_SECRET_KEY=${config.sops.placeholder.searxng}
+            '';
+          };
         };
 
         services.caddy.virtualHosts.${config.services.searx.domain}.extraConfig = # caddy
@@ -72,44 +79,45 @@
         services.searx = {
           enable = true;
           domain = "search.${config.networking.domain}";
+          environmentFile = config.sops.templates."searxng.env".path;
           redisCreateLocally = true; # Needed for Rate-Limit & bot protection
           configureUwsgi = true;
           uwsgiConfig.http = ":8888";
 
-          limiterSettings.botdetection = {
-            ipv4_prefix = 32;
-            ipv6_prefix = 48;
-            trusted_proxies = [
-              "127.0.0.0/8"
-              "::1"
-            ];
-            ip_limit = {
-              filter_link_local = true;
-              link_token = true;
-            };
-            ip_lists = {
-              pass_searxng_org = true;
-              pass_ip = [
-                "fd00::/8"
-                "fe80::/10"
+          limiterSettings.botdetection =
+            let
+              homeNet = toplevel.config.flake.topology.${system}.config.networks.home.cidrv6;
+            in
+            {
+              ipv4_prefix = 32;
+              ipv6_prefix = 48;
+              trusted_proxies = [
+                "127.0.0.0/8"
+                "::1"
+                homeNet
               ];
+              ip_lists = {
+                pass_searxng_org = true;
+                pass_ip = [
+                  homeNet
+                  "fe80::/10"
+                ];
+              };
             };
-          };
 
           settings = {
-            # Just enable all formats because why not ;)
             search.formats = [
               "html"
-              "csv"
-              "rss"
               # NOTE: JSON is needed for Open-Webui
               "json"
             ];
 
             server = {
               base_url = "https://${config.services.searx.domain}";
-              secret_key = config.sops.secrets.searxng.path;
+              secret_key = "$SEARX_SECRET_KEY";
+              limiter = true;
               public_instance = true;
+              http_protocol_version = "1.1"; # 1.0 is default for whatever reason
             };
 
             engines = lib.mapAttrsToList (name: value: { inherit name; } // value) {
@@ -140,5 +148,6 @@
           };
         };
       }
-    ];
+    ]
+  );
 }

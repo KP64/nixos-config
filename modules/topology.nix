@@ -59,7 +59,7 @@
         };
         networks.home = {
           name = "Home Network";
-          cidrv6 = "fd34:683f:dc06:0::/64";
+          cidrv6 = "fd34:683f:dc06::/64";
         };
       }
     )

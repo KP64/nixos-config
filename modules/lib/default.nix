@@ -4,15 +4,8 @@
     owner = "Dauliac";
     repo = "nix-lib";
     inputs = {
-      devour-flake.follows = "";
       flake-parts.follows = "flake-parts";
-      get-flake.follows = "";
-      import-tree.follows = "import-tree";
-      nix-unit.inputs = {
-        nix-github-actions.follows = "";
-        treefmt-nix.follows = "";
-      };
-      nixpkgs.follows = "nixpkgs";
+      nixpkgs-lib.follows = "nixpkgs";
     };
   };
 

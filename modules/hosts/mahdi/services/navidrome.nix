@@ -46,9 +46,7 @@
                       ];
                       script-src = [
                         "self"
-                        "sha256-xSeM4KqaCDYri0x+qM3/gC2RT+sHB01M6fIdJmqCDTo="
-                        "sha256-x9njtfYtQUbhPPG3DuGW3h7LR8QYubKi1PM5k75yvMc="
-                        "sha256-cQAlZ0rCfvTvwkBMk76Apoga7ITKHNbW/SPTdOxDM1A="
+                        "unsafe-inline"
                       ];
                       connect-src = "self";
                     }

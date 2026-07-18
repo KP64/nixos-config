@@ -6,7 +6,7 @@
     in
     {
       topology.self = {
-        hardware.info = "Ryzen 7 2700X";
+        hardware.info = (builtins.head config.hardware.facter.report.hardware.cpu).model_name;
         interfaces.wlp6s0 = {
           physicalConnections = [ (mkConnection "router" "wifi") ];
           network = "home";
