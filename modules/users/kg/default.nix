@@ -13,6 +13,7 @@ toplevel@{ den, inputs, ... }:
         trippy
         vcs._.git
         vcs._.jujutsu
+        yubikey
       ])
       ++ (with den.aspects.kg._; [
         atuin
@@ -43,6 +44,13 @@ toplevel@{ den, inputs, ... }:
             inherit sopsFile;
           };
         };
+
+      yubi.mappings.kg = [
+        # 5 Type A
+        ":RZgKw7D6wIsCJxDZi0Nzhq06+lq+/WxbtxSziVpwsUHlePCvvoivUqXMB2QHGVmxvPFzUSxOinNakd5Bxa/I2w==,y5bw+xpm49Fb012rbCO6k9hlzcsLvzA0FKjqX68dxizYIHFw/gJavZnT9SPA5jauuyPsOEE2iMYeZ9KiQe6L4g==,es256,+presence"
+        # 5 Type C
+        ":yVHdK9qjRwBI0ljQpJNdsDSlAKatmvMFiB5H5RaWjgebzGEiTEp5dDtOk2EqnxWB48uL0F1sQAXwd/mHO9Syyw==,6FxqcIXEjnh/KA6Bjy5BhrFl8jMnsLpJ+Ph0s1XhuyQ0FJXewL3l0b0EXQ7DudMsAy7Vy0pRatsG3+AdGmMnjw==,es256,+presence"
+      ];
 
       users.users.kg = {
         isNormalUser = true;

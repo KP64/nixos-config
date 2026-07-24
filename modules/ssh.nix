@@ -36,15 +36,16 @@
       };
     };
 
-    homeManager = { pkgs, ... }: {
-      home.packages = [ pkgs.openssh ];
-
+    homeManager = {
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
       };
 
-      services.ssh-agent.enable = true;
+      services.gpg-agent = {
+        enable = true;
+        enableSshSupport = true;
+      };
     };
   };
 }

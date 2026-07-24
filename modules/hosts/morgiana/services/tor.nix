@@ -25,7 +25,7 @@
           subdomain = "tor";
         in
         {
-          # TODO: Skip IPv4 when Tor supports IPv6 only in Relays
+          # NOTE: TOR Relays don't support IPv6 Only yet
           oink.domains = [
             {
               inherit (config.networking) domain;

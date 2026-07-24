@@ -17,7 +17,6 @@
           ssh
           time
           tpm
-          yubikey
         ])
         ++ (with den.aspects.kg._; [
           anki

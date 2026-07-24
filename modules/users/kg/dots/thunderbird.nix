@@ -7,8 +7,6 @@ toplevel: {
       inherit (toplevel.config.lib.flake.util) toFlattenedByDots;
     in
     {
-      programs.gpg.enable = true;
-
       accounts.email.accounts.${username} = {
         primary = true;
         address = config.invisible.email;
