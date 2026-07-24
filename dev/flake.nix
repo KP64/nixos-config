@@ -10,22 +10,13 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
+      ref = "nixpkgs-unstable";
     };
     treefmt-nix = {
       type = "github";
       owner = "numtide";
       repo = "treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # TODO: Remove once nufmt is back in treefmt-nix
-    nufmt = {
-      type = "github";
-      owner = "nushell";
-      repo = "nufmt";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "treefmt-nix";
-      };
     };
   };
 

@@ -3,12 +3,7 @@ toplevel@{ inputs, ... }:
   imports = [ inputs.treefmt-nix.flakeModule ];
 
   perSystem =
-    {
-      lib,
-      pkgs,
-      inputs',
-      ...
-    }:
+    { lib, pkgs, ... }:
     let
       tomlFormat = pkgs.formats.toml { };
 
@@ -73,8 +68,11 @@ toplevel@{ inputs, ... }:
                     '';
                 includes = [ "*.${filetype}" ];
               };
+            # TODO: Remove once nufmt is back in treefmt-nix
+            #        - https://github.com/numtide/treefmt-nix/pull/489
+            #        - https://github.com/numtide/treefmt-nix/pull/510
             nufmt = {
-              command = inputs'.nufmt.packages.default;
+              command = pkgs.nufmt;
               includes = [ "*.nu" ];
             };
           };
