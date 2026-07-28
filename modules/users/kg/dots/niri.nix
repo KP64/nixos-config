@@ -1,85 +1,59 @@
-toplevel@{ moduleWithSystem, inputs, ... }:
-{
-  flake-file.inputs.niri-flake = {
-    type = "github";
-    owner = "sodiboo";
-    repo = "niri-flake";
-    inputs = {
-      # I don't care what nixpkgs is used. Just use one for both.
-      # The size of the lockfile takes precedence at this point.
-      nixpkgs.follows = "nixpkgs";
-      nixpkgs-stable.follows = "nixpkgs";
-    };
-  };
-
+toplevel: {
   den.aspects.kg._.niri = {
-    # TODO: remove once niri is upstreamed to home-manager
-    #       Also sync HM-Package with host pkg
-    nixos = moduleWithSystem (
-      { inputs', ... }: {
-        # NOTE: This is the default but is set true by the niri flake.
-        fonts.enableDefaultPackages = false;
-
-        programs.niri = {
-          enable = true;
-          package = inputs'.niri-flake.packages.niri-unstable;
-        };
-      }
-    );
+    nixos.programs.niri.enable = true;
 
     # NOTE: Don't forget to install wireplumber on the device
     #       Reason: without it volume keybinds won't work
     homeManager =
       { host, ... }:
-      moduleWithSystem (
-        { inputs', ... }:
-        {
-          config,
-          lib,
-          pkgs,
-          ...
-        }:
-        let
-          inherit (inputs'.niri-flake.packages) niri-unstable xwayland-satellite-unstable;
+      {
+        osConfig ? null,
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
+      let
+        # this is only done like that to generate eval errors should
+        # these hosts not be available anymore.
+        aladdin = toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName;
+      in
+      {
+        services.playerctld.enable = true;
 
-          # this is only done like that to generate eval errors should
-          # these hosts not be available anymore.
-          aladdin = toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName;
-        in
-        {
-          imports = [ inputs.niri-flake.homeModules.niri ];
+        home.packages = [ pkgs.wl-clipboard-rs ];
 
-          services.playerctld.enable = true;
-
-          home.packages = [ pkgs.wl-clipboard-rs ];
-
-          programs.niri = {
+        wayland.windowManager.niri =
+          (lib.optionalAttrs (osConfig != null) {
+            package = null;
+            portalPackage = null;
+            systemd.enable = false;
+          })
+          // {
             enable = true;
-            package = niri-unstable;
+            xwaylandSatellitePackage = null;
             settings = {
-              xwayland-satellite.path = lib.getExe xwayland-satellite-unstable;
-              prefer-no-csd = true;
+              prefer-no-csd = { };
               environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";
-              clipboard.disable-primary = true; # Disables middle click paste
-              gestures.hot-corners.enable = false;
-              hotkey-overlay.skip-at-startup = true;
+              clipboard.disable-primary = { }; # Disables middle click paste
+              gestures.hot-corners.off = { };
+              hotkey-overlay.skip-at-startup = { };
               debug.honor-xdg-activation-with-invalid-serial = { };
               overview = {
                 backdrop-color = "#11111b";
-                workspace-shadow.enable = false;
+                workspace-shadow.off = { };
               };
               layout = {
-                always-center-single-column = true;
+                always-center-single-column = { };
                 gaps = 8;
                 border = {
-                  enable = true;
                   width = 2;
-                  active.color = "#9399b2"; # Catppuccin Mocha Overlay 2
-                  inactive.color = "#11111b"; # Catppuccin Mocha Crust
-                  urgent.color = "#74c7ec"; # Catppuccin Mocha Sapphire
+                  active-color = "#9399b2"; # Catppuccin Mocha Overlay 2
+                  inactive-color = "#11111b"; # Catppuccin Mocha Crust
+                  urgent-color = "#74c7ec"; # Catppuccin Mocha Sapphire
                 };
-                focus-ring.enable = false;
-                preset-column-widths = map (proportion: { inherit proportion; }) [
+                focus-ring.off = { };
+                preset-column-widths._children = map (proportion: { inherit proportion; }) [
                   (1.0 / 4.0)
                   (1.0 / 3.0)
                   (1.0 / 2.0)
@@ -89,106 +63,118 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 default-column-width.proportion = 1.0 / 3.0;
               };
               input = {
-                keyboard.xkb = {
-                  layout = "de";
-                  options = "caps:escape";
+                keyboard = {
+                  xkb = {
+                    layout = "de";
+                    model = "";
+                    rules = "";
+                    variant = "";
+                    options = "caps:escape";
+                  };
+                  repeat-delay = 600;
+                  repeat-rate = 25;
+                  track-layout = "global";
                 };
-                mouse.scroll-button-lock = true;
+                touchpad = {
+                  tap = { };
+                  natural-scroll = { };
+                };
+                mouse.scroll-button-lock = { };
               };
-              cursor = {
-                hide-after-inactive-ms = 1000;
-                size = 32;
-              };
-              outputs =
-                {
-                  sindbad = {
-                    eDP-1 = {
-                      focus-at-startup = true;
-                      scale = 1.0;
-                    };
-                  };
-                  ${aladdin} = {
-                    DP-3 = {
-                      focus-at-startup = true;
-                      variable-refresh-rate = "on-demand";
-                      position = {
-                        x = 0;
-                        y = 0;
-                      };
-                      mode = {
-                        width = 1920;
-                        height = 1080;
-                        refresh = 239.757;
+              _children =
+                (
+                  {
+                    sindbad = {
+                      eDP-1 = {
+                        focus-at-startup = { };
+                        scale = 1.0;
                       };
                     };
-                    HDMI-A-1.position = {
-                      x = config.programs.niri.settings.outputs.DP-3.mode.width;
-                      y = 500;
+                    ${aladdin} = {
+                      DP-3 = {
+                        focus-at-startup = { };
+                        transform = "normal";
+                        variable-refresh-rate._props.on-demand = true;
+                        position._props = {
+                          x = 0;
+                          y = 0;
+                        };
+                        mode = "1920x1080@239.757";
+                      };
+                      HDMI-A-1 = {
+                        transform = "normal";
+                        position._props = {
+                          x = 1920;
+                          y = 500;
+                        };
+                      };
                     };
-                  };
-                }
-                .${host.name};
-              layer-rules = [
-                {
-                  matches = [ { namespace = "^notifications$"; } ];
-                  block-out-from = "screencast";
-                }
-              ];
-              window-rules = [
-                {
-                  matches = [ { app-id = "dev.noctalia.Noctalia.Settings"; } ];
-                  open-floating = true;
-                  default-column-width.fixed = 1080;
-                  default-window-height.fixed = 920;
-                }
-                {
-                  draw-border-with-background = false;
-                  clip-to-geometry = true;
-                  geometry-corner-radius =
-                    let
-                      radius = 8.0;
-                    in
-                    {
-                      top-left = radius;
-                      top-right = radius;
-                      bottom-left = radius;
-                      bottom-right = radius;
+                  }
+                  |> builtins.getAttr host.name
+                  |> lib.mapAttrsToList (
+                    outputName: arguments: {
+                      output = {
+                        _args = [ outputName ];
+                      }
+                      // arguments;
+                    }
+                  )
+                )
+                ++ [
+                  {
+                    layer-rule = {
+                      match._props.namespace = "^notifications$";
+                      block-out-from = "screencast";
                     };
-                }
-                {
-                  matches = [ { app-id = "^firefox$"; } ];
-                  open-maximized = true;
-                }
-                {
-                  matches = lib.singleton {
-                    app-id = "^firefox$";
-                    title = "^Picture-in-Picture$";
-                  };
-                  open-floating = true;
-                }
-                {
-                  matches = [ { app-id = "^kitty$"; } ];
-                  default-column-width.proportion = 1.0 / 2.0;
-                  default-window-height = { };
-                }
-                {
-                  matches =
-                    let
-                      ids = [
-                        "Minecraft"
-                        "steam_app"
-                      ];
-                    in
-                    lib.forEach ids (id: {
-                      app-id = "${id}*";
-                    });
-                  variable-refresh-rate = true;
-                  open-on-output = lib.mkIf (host.name == aladdin) "DP-3";
-                }
-              ];
-              spawn-at-startup = lib.optional (config.programs.noctalia.enable or false) {
-                command = [ "noctalia" ];
-              };
+                  }
+                  {
+                    window-rule = {
+                      draw-border-with-background = false;
+                      clip-to-geometry = true;
+                      geometry-corner-radius = builtins.genList (_: 8.0) 4;
+                    };
+                  }
+                  {
+                    window-rule = {
+                      match._props.app-id = "^firefox$";
+                      open-maximized = true;
+                    };
+                  }
+                  {
+                    window-rule = {
+                      match._props = {
+                        app-id = "^firefox$";
+                        title = "^Picture-in-Picture$";
+                      };
+                      open-floating = true;
+                    };
+                  }
+                  {
+                    window-rule = {
+                      match._props.app-id = "^kitty$";
+                      default-column-width.proportion = 1.0 / 2.0;
+                      default-window-height = { };
+                    };
+                  }
+                  {
+                    window-rule = {
+                      _children =
+                        let
+                          ids = [
+                            "Minecraft"
+                            "steam_app"
+                          ];
+                        in
+                        lib.forEach ids (id: {
+                          match._props.app-id = "${id}*";
+                        });
+                      variable-refresh-rate = true;
+                      open-on-output = lib.mkIf (host.name == aladdin) "DP-3";
+                    };
+                  }
+                ];
+              spawn-at-startup = lib.optional (config.programs.noctalia.enable or false) "noctalia";
+
               binds =
                 let
                   brightnessctl = lib.getExe pkgs.brightnessctl;
@@ -201,11 +187,11 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     ];
                   in
                   lib.optionalAttrs (config.programs.noctalia.enable or false) {
-                    "Mod+Ctrl+Shift+Alt+L".action.spawn = noctaliaMsg ++ [
+                    "Mod+Ctrl+Shift+Alt+L".spawn = noctaliaMsg ++ [
                       "session"
                       "lock"
                     ];
-                    "Mod+Space".action.spawn = noctaliaMsg ++ [
+                    "Mod+Space".spawn = noctaliaMsg ++ [
                       "panel-toggle"
                       "launcher"
                     ];
@@ -213,59 +199,59 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 )
                 // {
                   "Mod+T" = {
-                    repeat = false;
-                    action.spawn = "kitty";
+                    _props.repeat = false;
+                    spawn = [ "kitty" ];
                   };
                   "Mod+Q" = {
-                    repeat = false;
-                    action.spawn = [
+                    _props.repeat = false;
+                    spawn = [
                       "kitten"
                       "quick-access-terminal"
                     ];
                   };
 
-                  "Mod+B".action.spawn = "firefox";
-                  "Mod+BackSpace".action.close-window = { };
-                  "Mod+C".action.center-column = { };
-                  "Mod+Ctrl+C".action.center-visible-columns = { };
+                  "Mod+B".spawn = [ "firefox" ];
+                  "Mod+BackSpace".close-window = { };
+                  "Mod+C".center-column = { };
+                  "Mod+Ctrl+C".center-visible-columns = { };
 
-                  "Mod+R".action.switch-preset-column-width = { };
-                  "Mod+Shift+R".action.switch-preset-window-height = { };
-                  "Mod+Ctrl+R".action.reset-window-height = { };
+                  "Mod+R".switch-preset-column-width = { };
+                  "Mod+Shift+R".switch-preset-window-height = { };
+                  "Mod+Ctrl+R".reset-window-height = { };
 
-                  "Mod+O".action.toggle-overview = { };
-                  "Mod+M".action.quit = { };
-                  "Mod+Ctrl+Shift+M".action.quit.skip-confirmation = true;
+                  "Mod+O".toggle-overview = { };
+                  "Mod+M".quit = { };
+                  "Mod+Ctrl+Shift+M".quit._props.skip-confirmation = true;
 
-                  "Mod+P".action.screenshot.show-pointer = false;
-                  "Mod+Alt+P".action.screenshot-screen.show-pointer = false;
-                  "Mod+Shift+P".action.screenshot-window = { };
+                  "Mod+P".screenshot._props.show-pointer = false;
+                  "Mod+Alt+P".screenshot-screen._props.show-pointer = false;
+                  "Mod+Shift+P".screenshot-window = { };
 
-                  "Mod+H".action.focus-column-left = { };
-                  "Mod+J".action.focus-window-or-workspace-down = { };
-                  "Mod+K".action.focus-window-or-workspace-up = { };
-                  "Mod+L".action.focus-column-right = { };
+                  "Mod+H".focus-column-left = { };
+                  "Mod+J".focus-window-or-workspace-down = { };
+                  "Mod+K".focus-window-or-workspace-up = { };
+                  "Mod+L".focus-column-right = { };
 
-                  "Mod+Shift+H".action.move-column-left = { };
-                  "Mod+Shift+J".action.move-window-down-or-to-workspace-down = { };
-                  "Mod+Shift+K".action.move-window-up-or-to-workspace-up = { };
-                  "Mod+Shift+L".action.move-column-right = { };
+                  "Mod+Shift+H".move-column-left = { };
+                  "Mod+Shift+J".move-window-down-or-to-workspace-down = { };
+                  "Mod+Shift+K".move-window-up-or-to-workspace-up = { };
+                  "Mod+Shift+L".move-column-right = { };
 
-                  "Mod+Minus".action.set-column-width = "-10%";
-                  "Mod+Plus".action.set-column-width = "+10%";
-                  "Mod+Ctrl+Minus".action.set-window-height = "-10%";
-                  "Mod+Ctrl+Plus".action.set-window-height = "+10%";
+                  "Mod+Minus".set-column-width = "-10%";
+                  "Mod+Plus".set-column-width = "+10%";
+                  "Mod+Ctrl+Minus".set-window-height = "-10%";
+                  "Mod+Ctrl+Plus".set-window-height = "+10%";
 
-                  "Mod+F".action.maximize-column = { };
-                  "Mod+Shift+F".action.fullscreen-window = { };
-                  "Mod+Ctrl+F".action.expand-column-to-available-width = { };
+                  "Mod+F".maximize-column = { };
+                  "Mod+Shift+F".fullscreen-window = { };
+                  "Mod+Ctrl+F".expand-column-to-available-width = { };
 
-                  "Mod+V".action.toggle-window-floating = { };
-                  "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = { };
+                  "Mod+V".toggle-window-floating = { };
+                  "Mod+Shift+V".switch-focus-between-floating-and-tiling = { };
 
                   XF86AudioMute = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "wpctl"
                       "set-mute"
                       "@DEFAULT_AUDIO_SINK@"
@@ -273,8 +259,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     ];
                   };
                   XF86AudioMicMute = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "wpctl"
                       "set-mute"
                       "@DEFAULT_AUDIO_SOURCE@"
@@ -282,8 +268,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     ];
                   };
                   XF86AudioRaiseVolume = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "wpctl"
                       "set-volume"
                       "-l"
@@ -293,8 +279,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     ];
                   };
                   XF86AudioLowerVolume = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "wpctl"
                       "set-volume"
                       "@DEFAULT_AUDIO_SINK@"
@@ -302,38 +288,38 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     ];
                   };
                   XF86MonBrightnessUp = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       brightnessctl
                       "set"
                       "5%+"
                     ];
                   };
                   XF86MonBrightnessDown = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       brightnessctl
                       "set"
                       "5%-"
                     ];
                   };
                   XF86AudioPlay = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "playerctl"
                       "play-pause"
                     ];
                   };
                   XF86AudioPrev = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "playerctl"
                       "previous"
                     ];
                   };
                   XF86AudioNext = {
-                    allow-when-locked = true;
-                    action.spawn = [
+                    _props.allow-when-locked = true;
+                    spawn = [
                       "playerctl"
                       "next"
                     ];
@@ -360,7 +346,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                         }
                         .${cmd};
                     in
-                    lib.nameValuePair "Mod+${combination}+${key}" { action."${cmd}-${direction}" = { }; }
+                    lib.nameValuePair "Mod+${combination}+${key}" { "${cmd}-${direction}" = { }; }
                   )
                   <| {
                     key = [
@@ -384,8 +370,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                       wp = i + 1;
                     in
                     [
-                      (lib.nameValuePair "Mod+${toString wp}" { action.focus-workspace = wp; })
-                      (lib.nameValuePair "Mod+Ctrl+${toString wp}" { action.move-column-to-workspace = wp; })
+                      (lib.nameValuePair "Mod+${toString wp}" { focus-workspace = wp; })
+                      (lib.nameValuePair "Mod+Ctrl+${toString wp}" { move-column-to-workspace = wp; })
                     ]
                   )
                   |> lib.flatten
@@ -393,7 +379,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 );
             };
           };
-        }
-      );
+      };
   };
 }

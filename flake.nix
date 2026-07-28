@@ -123,15 +123,6 @@
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
     };
-    niri-flake = {
-      type = "github";
-      owner = "sodiboo";
-      repo = "niri-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
-      };
-    };
     nix-index-database = {
       type = "github";
       owner = "nix-community";

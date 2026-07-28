@@ -42,7 +42,7 @@ in
           inherit accent;
           firefox.force = true;
           cursors = {
-            enable = config.programs.niri.enable or false;
+            enable = config.wayland.windowManager.niri.enable;
             accent = cursorAccent;
           };
           thunderbird.profile = config.home.username;
