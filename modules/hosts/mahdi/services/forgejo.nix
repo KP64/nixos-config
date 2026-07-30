@@ -1,9 +1,6 @@
 { den, ... }: {
   den.aspects.mahdi = {
-    includes = with den.aspects; [
-      virtualisation._.podman
-      dyndns
-    ];
+    includes = [ den.aspects.virtualisation._.podman ];
 
     nixos =
       {
@@ -20,14 +17,6 @@
           networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
           services = {
-            oink.domains = [
-              {
-                inherit (config.networking) domain;
-                subdomain = "git";
-                skipIPv4 = true;
-              }
-            ];
-
             nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
               enableACME = true;
               acmeRoot = null;

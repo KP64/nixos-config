@@ -13,6 +13,14 @@ toplevel@{ den, ... }:
         pkgs,
         ...
       }:
+      let
+        inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
+        torORPort = builtins.head morgiana.config.services.tor.settings.ORPort;
+        forgejoSSHPort = mahdi.config.services.forgejo.settings.server.SSH_PORT;
+        opengistSSHPort = mahdi.config.services.opengist.environment.OG_SSH_PORT;
+        ntsPort = 4460;
+        minecraftPort = 25565;
+      in
       lib.mkMerge [
         (lib.mkIf config.services.caddy.enable {
           sops.templates."caddy.env" = {
@@ -25,18 +33,75 @@ toplevel@{ den, ... }:
           };
 
           services.oink.domains = [
-            {
-              inherit (config.networking) domain;
-              skipIPv4 = true;
-            }
+            { inherit (config.networking) domain; }
             {
               inherit (config.networking) domain;
               subdomain = "*";
-              skipIPv4 = true;
             }
           ];
         })
         {
+          boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+          networking.firewall.allowedTCPPorts = [
+            torORPort
+            ntsPort
+            forgejoSSHPort
+            opengistSSHPort
+            minecraftPort
+          ];
+          services.haproxy = {
+            enable = true;
+            config = ''
+              global
+                ssl-mode-async
+                # TODO: Enable this
+                # zero-warning
+
+                harden.reject-privileged-ports.tcp on
+                harden.reject-privileged-ports.quic on
+
+                httpclient.ssl.verify required
+                ssl-default-bind-options force-tlsv13
+
+              defaults
+                mode tcp
+                option tcplog
+                option dontlognull
+                option clitcpka
+                option srvtcpka
+
+              frontend tor-in
+                bind [::]:${toString torORPort} v4v6
+                default_backend tor-out
+              backend tor-out
+                server tor [${morgiana.config.staticIPv6}]:${toString torORPort} check
+
+              frontend nts-in
+                bind [::]:${toString ntsPort} v4v6
+                default_backend nts-out
+              backend nts-out
+                server nts [${morgiana.config.staticIPv6}]:${toString ntsPort} check
+
+              frontend forgejo-in
+                bind [::]:${toString forgejoSSHPort} v4v6
+                default_backend forgejo-out
+              backend forgejo-out
+                server forgejo [${mahdi.config.staticIPv6}]:${toString forgejoSSHPort} check
+
+              frontend opengist-in
+                bind [::]:${toString opengistSSHPort} v4v6
+                default_backend opengist-out
+              backend opengist-out
+                server opengist [${mahdi.config.staticIPv6}]:${toString opengistSSHPort} check
+
+              frontend minecraft-in
+                bind [::]:${toString minecraftPort} v4v6
+                default_backend minecraft-out
+              backend minecraft-out
+                server minecraft [${mahdi.config.staticIPv6}]:${toString minecraftPort} check
+            '';
+          };
+
           services.caddy = {
             enable = true;
             package = pkgs.caddy.withPlugins {
@@ -65,11 +130,9 @@ toplevel@{ den, ... }:
                 proxyServices =
                   ipv6: vhosts:
                   vhosts
-                  |> lib.filterAttrs (n: _: lib.hasSuffix ".${config.networking.domain}" n)
-                  |> lib.mapAttrs' (
+                  |> builtins.mapAttrs (
                     vhostDomain: _: {
-                      name = vhostDomain;
-                      value.extraConfig = # caddy
+                      extraConfig = # caddy
                         ''
                           reverse_proxy https://[${ipv6}] {
                               header_up Host {host}

@@ -40,9 +40,7 @@ in
       inherit nixpkgs;
       nix = {
         package = pkgs.nixVersions.latest;
-        settings = commonSettings // {
-          trusted-users = [ "@wheel" ];
-        };
+        settings = commonSettings;
         optimise.automatic = true;
         channel.enable = false;
       };

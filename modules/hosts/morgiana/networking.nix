@@ -22,12 +22,13 @@ toplevel@{ den, ... }:
         #       Seems like the issue stems from the Pi's network card. This may never be resolved.
         wifiSSID = "FRITZ!Box 4630 QX";
 
-        staticIPv6 = "${config.lib.topology.getHomeCidr}::${addr}";
+        staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
         systemd.network = {
           enable = true;
           networks."10-wlan0" = {
             name = "wlan0";
+            DHCP = "ipv4";
             dns =
               map (qdns: "${qdns}#dns.quad9.net") [
                 "9.9.9.9"
@@ -42,7 +43,6 @@ toplevel@{ den, ... }:
                 "2606:4700:4700::1001"
               ];
             networkConfig = {
-              DHCP = "ipv4";
               IPv6AcceptRA = true;
               IPv6PrivacyExtensions = false;
               DNSOverTLS = true;

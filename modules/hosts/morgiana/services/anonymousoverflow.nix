@@ -1,5 +1,5 @@
 toplevel: {
-  den.aspects.zarqa.nixos =
+  den.aspects.morgiana.nixos =
     { config, lib, ... }:
     let
       inherit (config.lib.securityHeader) mkCSP mkPP;

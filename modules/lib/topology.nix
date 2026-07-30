@@ -1,7 +1,7 @@
 { config, moduleWithSystem, ... }: {
   den.aspects.customLib.nixos = moduleWithSystem (
     { system, ... }: { lib, ... }: {
-      nix-lib.lib.topology.getHomeCidr = {
+      nix-lib.lib.topology.getHomeCidr6 = {
         type = with lib.types; functionTo nonEmptyStr;
         fn =
           config.flake.topology.${system}.config.networks.home.cidrv6
