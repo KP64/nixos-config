@@ -1,8 +1,4 @@
-{
-  moduleWithSystem,
-  inputs,
-  ...
-}:
+toplevel@{ moduleWithSystem, inputs, ... }:
 {
   den.aspects.mahdi.nixos = moduleWithSystem (
     { inputs', ... }:
@@ -14,6 +10,12 @@
     }:
     let
       subdomain = "mc";
+
+      mcIcon = toplevel.config.lib.flake.util.getAsset {
+        file = "minecraft.png";
+        type = "icons";
+        sha256 = "sha256-4/ScuncshJEfL6rFjBDC042ftXT2jXWC/5mqGZFpi/I=";
+      };
 
       velocityPort = 25565;
       mcPkgs = inputs'.nix-minecraft.legacyPackages;
@@ -90,87 +92,90 @@
               "-XX:+AlwaysPreTouch"
               "-XX:MaxInlineLevel=15"
             ];
-            symlinks."velocity.toml".value =
-              let
-                servers =
-                  let
-                    inherit (config.services.minecraft-servers.servers) Creative Survival;
-                  in
-                  {
-                    survival = "[${Survival.serverProperties.server-ip}]:${toString Survival.serverProperties.server-port}";
-                    creative = "[${Creative.serverProperties.server-ip}]:${toString Creative.serverProperties.server-port}";
-                    try = [
-                      "creative"
-                      "survival"
-                    ];
+            symlinks = {
+              "server-icon.png" = mcIcon;
+              "velocity.toml".value =
+                let
+                  servers =
+                    let
+                      inherit (config.services.minecraft-servers.servers) Creative Survival;
+                    in
+                    {
+                      survival = "[${Survival.serverProperties.server-ip}]:${toString Survival.serverProperties.server-port}";
+                      creative = "[${Creative.serverProperties.server-ip}]:${toString Creative.serverProperties.server-port}";
+                      try = [
+                        "creative"
+                        "survival"
+                      ];
+                    };
+                in
+                {
+                  config-version = "2.8";
+
+                  bind = "[::]:${toString velocityPort}";
+                  motd = "<rainbow>Hello Minecraft Enthusiasts!</rainbow>";
+
+                  show-max-players = 500;
+                  online-mode = true;
+                  force-key-authentication = true;
+                  prevent-client-proxy-connections = false;
+
+                  player-info-forwarding-mode = "modern";
+                  forwarding-secret-file = "forwarding.secret";
+
+                  announce-forge = false;
+                  kick-existing-players = true;
+                  ping-passthrough = "DISABLED";
+                  sample-players-in-ping = false;
+                  enable-player-address-logging = true;
+                  packet-limiter = {
+                    interval = 7;
+                    packets-per-second = -1;
+                    bytes-per-second = -1;
+                    decompressed-bytes-per-second = 5242880;
                   };
-              in
-              {
-                config-version = "2.8";
 
-                bind = "[::]:${toString velocityPort}";
-                motd = "<rainbow>Hello Minecraft Enthusiasts!</rainbow>";
+                  inherit servers;
+                  forced-hosts =
+                    servers
+                    |> lib.filterAttrs (n: _: n != "try")
+                    |> lib.mapAttrs' (
+                      n: _: {
+                        name = "${n}.${subdomain}.${config.networking.domain}";
+                        value = [ n ];
+                      }
+                    );
+                  advanced = {
+                    compression-threshold = 256;
+                    compression-level = -1;
+                    login-ratelimit = 3000;
+                    connection-timeout = 5000;
+                    read-timeout = 30000;
+                    haproxy-protocol = false;
+                    tcp-fast-open = pkgs.stdenv.isLinux;
+                    bungee-plugin-message-channel = true;
+                    show-ping-requests = true;
+                    failover-on-unexpected-server-disconnect = true;
+                    announce-proxy-commands = true;
+                    log-command-executions = true;
+                    log-player-connections = true;
+                    accepts-transfers = false;
+                    enable-reuse-port = with pkgs.stdenv; isLinux || isDarwin;
+                    command-rate-limit = 50;
+                    forward-commands-if-rate-limited = true;
+                    kick-after-rate-limited-commands = 0;
+                    tab-complete-rate-limit = 10;
+                    kick-after-rate-limited-tab-completes = 0;
+                  };
 
-                show-max-players = 500;
-                online-mode = true;
-                force-key-authentication = true;
-                prevent-client-proxy-connections = false;
-
-                player-info-forwarding-mode = "modern";
-                forwarding-secret-file = "forwarding.secret";
-
-                announce-forge = false;
-                kick-existing-players = true;
-                ping-passthrough = "DISABLED";
-                sample-players-in-ping = false;
-                enable-player-address-logging = true;
-                packet-limiter = {
-                  interval = 7;
-                  packets-per-second = -1;
-                  bytes-per-second = -1;
-                  decompressed-bytes-per-second = 5242880;
+                  query = {
+                    enabled = false;
+                    port = velocityPort;
+                    map = "Velocity";
+                    show-plugins = false;
+                  };
                 };
-
-                inherit servers;
-                forced-hosts =
-                  servers
-                  |> lib.filterAttrs (n: _: n != "try")
-                  |> lib.mapAttrs' (
-                    n: _: {
-                      name = "${n}.${subdomain}.${config.networking.domain}";
-                      value = [ n ];
-                    }
-                  );
-                advanced = {
-                  compression-threshold = 256;
-                  compression-level = -1;
-                  login-ratelimit = 3000;
-                  connection-timeout = 5000;
-                  read-timeout = 30000;
-                  haproxy-protocol = false;
-                  tcp-fast-open = pkgs.stdenv.isLinux;
-                  bungee-plugin-message-channel = true;
-                  show-ping-requests = true;
-                  failover-on-unexpected-server-disconnect = true;
-                  announce-proxy-commands = true;
-                  log-command-executions = true;
-                  log-player-connections = true;
-                  accepts-transfers = false;
-                  enable-reuse-port = with pkgs.stdenv; isLinux || isDarwin;
-                  command-rate-limit = 50;
-                  forward-commands-if-rate-limited = true;
-                  kick-after-rate-limited-commands = 0;
-                  tab-complete-rate-limit = 10;
-                  kick-after-rate-limited-tab-completes = 0;
-                };
-
-                query = {
-                  enabled = false;
-                  port = velocityPort;
-                  map = "Velocity";
-                  show-plugins = false;
-                };
-              };
+            };
           };
 
           Survival = {
