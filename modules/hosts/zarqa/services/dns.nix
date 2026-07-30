@@ -1,4 +1,4 @@
-{
+toplevel: {
   den.aspects.zarqa.nixos =
     {
       config,
@@ -15,14 +15,33 @@
         allowedUDPPorts = [ dnsPort ];
       };
 
+      boot.kernel.sysctl = toplevel.config.lib.flake.util.toFlattenedByDots {
+        net = {
+          core = {
+            rmem_max = 8388608;
+            wmem_max = 8388608;
+          };
+          ipv4.tcp_max_syn_backlog = 256;
+        };
+      };
+
       services = {
         resolved.enable = false;
         unbound = {
           enable = true;
+          # TODO: Remove
+          localControlSocketPath = "/run/unbound/unbound.ctl";
+          # NOTE: If keys rotate before nixpkgs can catch up by updating dns-root-data
+          #       DNSSEC validation could fail. Enable this and remove `trust-anchor-file`
+          #       from settings should that ever happen. The way it currently is,
+          #       is technically more reproducible.
+          enableRootTrustAnchor = false;
           settings = {
             server = {
               port = 5353;
-              num-threads = 4;
+              # NOTE: This is badly named. Apparently
+              #       it should be the CPU core count
+              num-threads = 2;
               prefer-ip6 = true;
               access-control = [
                 "127.0.0.0/8 allow"
@@ -32,6 +51,7 @@
                 "0.0.0.0/0 refuse"
                 "::0/0 refuse"
               ];
+              trust-anchor-file = "${pkgs.dns-root-data}/root.key";
               root-hints = "${pkgs.dns-root-data}/root.hints";
 
               harden-referral-path = true;
@@ -63,12 +83,25 @@
               log-servfail = true;
               val-log-level = 1;
 
+              # TODO: Remove
+              extended-statistics = true;
+
               prefetch = true;
               prefetch-key = true;
 
               hide-identity = true;
               hide-version = true;
               hide-http-user-agent = true;
+
+              rrset-cache-size = "100m";
+              msg-cache-size = "50m";
+
+              # Possible because of libevent
+              outgoing-range = 8192;
+              num-queries-per-thread = 4096;
+
+              so-rcvbuf = "8m";
+              so-sndbuf = "8m";
             };
           };
         };
