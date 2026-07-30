@@ -47,6 +47,7 @@
               captcha_enabled = true;
               banner = "Happy Selfhosting";
               use_pubsub_feeds = true;
+              disable_abusable_api = true;
             };
           };
         }

@@ -101,7 +101,6 @@
             {
               inherit (config.networking) domain;
               inherit subdomain;
-              skipIPv4 = true;
             }
           ];
 

@@ -1,20 +1,21 @@
-toplevel: {
-  den.aspects.zarqa.nixos =
+{
+  den.aspects.morgiana.nixos =
     { config, lib, ... }:
     let
-      inherit (config.lib.securityHeader) mkPP;
+      inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     {
-      imports = [ toplevel.config.flake.modules.nixos.dumb ];
-
       services = {
-        caddy.virtualHosts."dumb.${config.networking.domain}" = lib.mkIf config.services.dumb.enable {
+        caddy.virtualHosts."atuin.${config.networking.domain}" = lib.mkIf config.services.atuin.enable {
           extraConfig = # caddy
             ''
-              reverse_proxy http://[::1]:${toString config.services.dumb.port}
+              reverse_proxy http://[${config.services.atuin.host}]:${toString config.services.atuin.port}
               header {
                   Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-                  X-Frame-Options DENY
+                  Content-Security-Policy "${mkCSP { default-src = "none"; }}"
+                  X-Frame-Options SAMEORIGIN
+                  X-Content-Type-Options nosniff
+                  Referrer-Policy no-referrer
                   Permissions-Policy "${
                     mkPP {
                       camera = "()";
@@ -34,7 +35,13 @@ toplevel: {
               }
             '';
         };
-        dumb.enable = true;
+
+        atuin = {
+          enable = true;
+          host = "::1";
+          port = 33196;
+          openRegistration = true;
+        };
       };
     };
 }

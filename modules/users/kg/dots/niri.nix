@@ -31,7 +31,6 @@ toplevel: {
           })
           // {
             enable = true;
-            xwaylandSatellitePackage = null;
             settings = {
               prefer-no-csd = { };
               environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";

@@ -40,7 +40,7 @@
                 default = { };
                 type = with lib.types; attrsOf (nonEmptyListOf nonEmptyStr);
                 example = {
-                  "kg" = [
+                  kg = [
                     ":RZgKw7D6wIsCJxDZi0Nzhq06+lq+/WxbtxSziVpwsUHlePCvvoivUqXMB2QHGVmxvPFzUSxOinNakd5Bxa/I2w==,y5bw+xpm49Fb012rbCO6k9hlzcsLvzA0FKjqX68dxizYIHFw/gJavZnT9SPA5jauuyPsOEE2iMYeZ9KiQe6L4g==,es256,+presence"
                   ];
                 };
