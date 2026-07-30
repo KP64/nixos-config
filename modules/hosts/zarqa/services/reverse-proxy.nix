@@ -17,7 +17,7 @@ toplevel@{ den, ... }:
         inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
         torORPort = builtins.head morgiana.config.services.tor.settings.ORPort;
         forgejoSSHPort = mahdi.config.services.forgejo.settings.server.SSH_PORT;
-        opengistSSHPort = mahdi.config.services.opengist.environment.OG_SSH_PORT;
+        inherit (mahdi.config.services.opengist.environment) OG_SSH_PORT;
         ntsPort = 4460;
         minecraftPort = 25565;
       in
@@ -41,12 +41,11 @@ toplevel@{ den, ... }:
           ];
         })
         {
-          boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
           networking.firewall.allowedTCPPorts = [
             torORPort
             ntsPort
             forgejoSSHPort
-            opengistSSHPort
+            OG_SSH_PORT
             minecraftPort
           ];
           services.haproxy = {
@@ -89,10 +88,10 @@ toplevel@{ den, ... }:
                 server forgejo [${mahdi.config.staticIPv6}]:${toString forgejoSSHPort} check
 
               frontend opengist-in
-                bind [::]:${toString opengistSSHPort} v4v6
+                bind [::]:${toString OG_SSH_PORT} v4v6
                 default_backend opengist-out
               backend opengist-out
-                server opengist [${mahdi.config.staticIPv6}]:${toString opengistSSHPort} check
+                server opengist [${mahdi.config.staticIPv6}]:${toString OG_SSH_PORT} check
 
               frontend minecraft-in
                 bind [::]:${toString minecraftPort} v4v6
