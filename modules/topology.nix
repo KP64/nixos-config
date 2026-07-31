@@ -3,6 +3,8 @@
     type = "github";
     owner = "oddlama";
     repo = "nix-topology";
+    # TODO: Remove when the PR lands.
+    ref = "pull/162/head";
     inputs = {
       flake-parts.follows = "flake-parts";
       nixpkgs.follows = "nixpkgs";
