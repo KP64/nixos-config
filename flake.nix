@@ -161,6 +161,7 @@
       type = "github";
       owner = "oddlama";
       repo = "nix-topology";
+      ref = "pull/162/head";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
