@@ -188,6 +188,7 @@ toplevel: {
               "aliexpress"
               "amazon_streaming"
               "amino"
+              "apple_streaming"
               "betano"
               "betfair"
               "betway"
@@ -259,6 +260,7 @@ toplevel: {
               "slack"
               "snapchat"
               "soundcloud"
+              "telegram"
               "temu"
               "tidal"
               "tiktok"
@@ -275,6 +277,7 @@ toplevel: {
               "weibo"
               "wizz"
               "xiaohongshu"
+              "yy"
               "zhihu"
             ];
           };
