@@ -111,43 +111,34 @@
           ntpd-rs = {
             enable = true;
             useNetworkingTimeServers = false;
-            settings =
-              let
-                accept-ntp-versions = [
-                  4
-                  5
-                ];
-              in
-              {
-                synchronization.minimum-agreeing-sources = 1;
-                nts-ke-server = [
-                  {
-                    listen = "[::]:${toString ntsPort}";
-                    certificate-chain-path = "/run/credentials/${config.systemd.services.ntpd-rs.name}/fullchain.pem";
-                    private-key-path = "/run/credentials/${config.systemd.services.ntpd-rs.name}/key.pem";
-                    inherit accept-ntp-versions;
-                  }
-                ];
-                server = [
-                  {
-                    listen = "[::]:${toString ntpPort}";
-                    require-nts = "deny";
-                    inherit accept-ntp-versions;
-                  }
-                ];
-                source = [
-                  {
-                    mode = "sock";
-                    path = gpsSocketPath;
-                    precision = 0.001;
-                  }
-                  {
-                    mode = "pps";
-                    path = ppsPath;
-                    precision = 0.0000001;
-                  }
-                ];
-              };
+            settings = {
+              synchronization.minimum-agreeing-sources = 1;
+              nts-ke-server = [
+                {
+                  listen = "[::]:${toString ntsPort}";
+                  certificate-chain-path = "/run/credentials/${config.systemd.services.ntpd-rs.name}/fullchain.pem";
+                  private-key-path = "/run/credentials/${config.systemd.services.ntpd-rs.name}/key.pem";
+                }
+              ];
+              server = [
+                {
+                  listen = "[::]:${toString ntpPort}";
+                  require-nts = "deny";
+                }
+              ];
+              source = [
+                {
+                  mode = "sock";
+                  path = gpsSocketPath;
+                  precision = 0.001;
+                }
+                {
+                  mode = "pps";
+                  path = ppsPath;
+                  precision = 0.0000001;
+                }
+              ];
+            };
           };
           gpsd = {
             enable = true;
