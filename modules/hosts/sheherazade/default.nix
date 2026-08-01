@@ -19,6 +19,7 @@ in
       includes = with den.aspects; [
         auto-timezone
         rpi._.cache
+        rpi._.rtc
         rpi._.fs._ext4
         ssh
         time
