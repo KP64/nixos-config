@@ -93,7 +93,7 @@
           #   --auto-discover-url=https://idm.srvd.space/oauth2/openid/forgejo/.well-known/openid-configuration \
           #   --scopes="openid email profile"
           #
-          # To Check that it worked here is the sanity check command:
+          # NOTE: To Check that it worked here is the sanity check command:
           # sudo -u forgejo <forgejo binary of systemd service> admin auth list --config <forgejo statedir>/custom/conf/app.ini
           services.forgejo = {
             enable = true;

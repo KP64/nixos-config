@@ -1,4 +1,4 @@
-{ den, inputs, ... }: {
+{ den, ... }: {
   # TODO: TOR Redirection links.
   #        - When someone visits one of my websites via TOR, that is available
   #          via an .onion address let crowdsec TOR Blocklist redirect to a
@@ -20,8 +20,6 @@
       ];
 
       nixos = { config, ... }: {
-        imports = [ inputs.nix-invisible.modules.nixos.host-mahdi ];
-
         home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
         sops.defaultSopsFile = ./secrets.yaml;

@@ -34,7 +34,10 @@
       homeManager.imports = [ inputs.nix-invisible.modules.homeManager.invisibility ];
 
       nixos = {
-        imports = [ inputs.nix-invisible.modules.nixos.invisibility ];
+        imports = with inputs.nix-invisible.modules.nixos; [
+          invisibility
+          homelab
+        ];
 
         boot.tmp.cleanOnBoot = true;
         documentation.enable = false;

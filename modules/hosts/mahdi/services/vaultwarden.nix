@@ -1,53 +1,58 @@
+toplevel@{ den, ... }:
 {
-  den.aspects.mahdi.nixos =
-    { config, lib, ... }:
-    lib.mkMerge [
-      (lib.mkIf config.services.vaultwarden.enable {
-        sops = {
-          secrets."vaultwarden/admin-token" = { };
-          templates."vaultwarden.env" = {
-            owner = config.users.users.vaultwarden.name;
-            restartUnits = [ config.systemd.services.vaultwarden.name ];
-            content = ''
-              ADMIN_TOKEN=${config.sops.placeholder."vaultwarden/admin-token"}
-              SSO_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/vaultwarden"}
-            '';
-          };
-        };
+  den.aspects.mahdi = {
+    includes = [ den.aspects.secrets._.oauth ];
 
-        services.nginx.virtualHosts.${config.services.vaultwarden.domain} = {
-          enableACME = true;
-          acmeRoot = null;
-          forceSSL = lib.mkForce false; # This is configured by `configureNginx`
-          onlySSL = true;
-          kTLS = true;
-          extraConfig = # nginx
-            ''
-              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-            '';
-        };
-      })
-      {
-        services.vaultwarden = {
-          enable = true;
-          domain = "vault.${config.networking.domain}";
-          configureNginx = true;
-          environmentFile = config.sops.templates."vaultwarden.env".path;
-          config =
-            let
-              SSO_CLIENT_ID = "vaultwarden";
-            in
-            {
-              LOGIN_RATELIMIT_SECONDS = 60;
-              LOGIN_RATELIMIT_MAX_BURST = 10;
-
-              SSO_ENABLED = true;
-              SSO_ONLY = true;
-              SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION = true;
-              SSO_AUTHORITY = "${config.services.kanidm.server.settings.origin}/oauth2/openid/${SSO_CLIENT_ID}";
-              inherit SSO_CLIENT_ID;
+    nixos =
+      { config, lib, ... }:
+      lib.mkMerge [
+        (lib.mkIf config.services.vaultwarden.enable {
+          sops = {
+            secrets."vaultwarden/admin-token" = { };
+            templates."vaultwarden.env" = {
+              owner = config.users.users.vaultwarden.name;
+              restartUnits = [ config.systemd.services.vaultwarden.name ];
+              content = ''
+                ADMIN_TOKEN=${config.sops.placeholder."vaultwarden/admin-token"}
+                SSO_CLIENT_SECRET=${config.sops.placeholder."kanidm/oauth2/vaultwarden"}
+              '';
             };
-        };
-      }
-    ];
+          };
+
+          services.nginx.virtualHosts.${config.services.vaultwarden.domain} = {
+            enableACME = true;
+            acmeRoot = null;
+            forceSSL = lib.mkForce false; # This is configured by `configureNginx`
+            onlySSL = true;
+            kTLS = true;
+            extraConfig = # nginx
+              ''
+                add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+              '';
+          };
+        })
+        {
+          services.vaultwarden = {
+            enable = true;
+            domain = "vault.${config.networking.domain}";
+            configureNginx = true;
+            environmentFile = config.sops.templates."vaultwarden.env".path;
+            config =
+              let
+                SSO_CLIENT_ID = "vaultwarden";
+              in
+              {
+                LOGIN_RATELIMIT_SECONDS = 60;
+                LOGIN_RATELIMIT_MAX_BURST = 10;
+
+                SSO_ENABLED = true;
+                SSO_ONLY = true;
+                SSO_ALLOW_UNKNOWN_EMAIL_VERIFICATION = true;
+                SSO_AUTHORITY = "${toplevel.config.flake.nixosConfigurations.sheherazade.config.services.kanidm.server.settings.origin}/oauth2/openid/${SSO_CLIENT_ID}";
+                inherit SSO_CLIENT_ID;
+              };
+          };
+        }
+      ];
+  };
 }

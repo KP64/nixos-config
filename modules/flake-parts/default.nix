@@ -2,6 +2,8 @@ toplevel@{ lib, inputs, ... }:
 {
   imports = with inputs; [
     den.flakeModule
+    # TODO: Enable when https://github.com/denful/den/issues/632 is fixed
+    # den.flakeModules.strict
     flake-file.flakeModules.dendritic
   ];
 

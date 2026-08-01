@@ -26,7 +26,6 @@ in
       ];
       nixos = { config, ... }: {
         imports = [
-          inputs.nix-invisible.modules.nixos.host-zarqa
           nixos-raspberrypi.lib.inject-overlays
         ]
         ++ (with nixos-raspberrypi.nixosModules; [
