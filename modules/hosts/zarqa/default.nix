@@ -15,11 +15,11 @@ in
       users.kg = { };
     };
 
+    # TODO: Add RTC
     aspects.zarqa = {
       includes = with den.aspects; [
         auto-timezone
         rpi._.cache
-        rpi._.rtc
         rpi._.fs._ext4
         ssh
         time
