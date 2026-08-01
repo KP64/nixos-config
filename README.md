@@ -25,7 +25,7 @@ Don't believe me? Look at the ["License"](UNLICENSE) :D
 |       [zarqa](modules/hosts/zarqa)       |                 ARM Limited                 | aarch64-linux |
 
 > [!Note]
-> Some hosts like `sindbad` are not managed by Nix and therefore not added here.
+> Some hosts like `sindbad` are not NixOS and therefore not added here.
 > The users on these hosts are managed via standalone Home-Manager.
 
 ## Gallery

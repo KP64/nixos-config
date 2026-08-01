@@ -93,7 +93,7 @@
           ${mkCfgHosts}
 
           > [!Note]
-          > Some hosts like `sindbad` are not managed by Nix and therefore not added here.
+          > Some hosts like `sindbad` are not NixOS and therefore not added here.
           > The users on these hosts are managed via standalone Home-Manager.
 
           ## Gallery
