@@ -16,7 +16,7 @@ toplevel: {
           info = "Raspberry Pi 400";
         };
         interfaces.wlan0 = {
-          physicalConnections = [ (mkConnection "router" "wifi") ];
+          physicalConnections = [ (mkConnection "router" "LAN2") ];
           network = "home";
         };
       };

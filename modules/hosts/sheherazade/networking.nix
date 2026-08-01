@@ -1,10 +1,6 @@
-toplevel@{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.sheherazade = {
-    includes = with den.aspects.networking._; [
-      ip
-      wifi
-    ];
+    includes = [ den.aspects.networking._.ip ];
 
     nixos =
       { config, ... }:
@@ -13,18 +9,20 @@ toplevel@{ den, ... }:
       in
       {
         networking = {
-          inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
+          domain = "srvd.space";
           useDHCP = false;
           dhcpcd.enable = false;
         };
 
+        staticIPv4 = "${config.lib.topology.getHomeCidr4}.${addr}";
         staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
         systemd.network = {
           enable = true;
-          networks."10-wlan0" = {
-            name = "wlan0";
-            DHCP = "ipv4";
+          networks."10-end0" = {
+            name = "end0";
+            address = [ "${config.staticIPv4}/24" ];
+            gateway = [ "${config.lib.topology.getHomeCidr4}.1" ];
             networkConfig = {
               IPv6AcceptRA = true;
               IPv6PrivacyExtensions = false;

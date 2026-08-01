@@ -1,5 +1,5 @@
 toplevel: {
-  den.aspects.zarqa.nixos =
+  den.aspects.sheherazade.nixos =
     {
       config,
       lib,
@@ -173,9 +173,7 @@ toplevel: {
                     name = "Hagezi Multi Pro";
                   }
                   {
-                    # TODO: Switch Pi3 role in topology with another device.
-                    #       This is the medium version because the normal list is too big for the pi 3.
-                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/tif.medium.txt";
+                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/tif.txt";
                     name = "Hagezi Thread Intelligence Feeds";
                   }
                   {

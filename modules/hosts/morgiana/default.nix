@@ -35,7 +35,6 @@ in
       ];
       nixos = { config, ... }: {
         imports = [
-          inputs.nix-invisible.modules.nixos.host-morgiana
           nixos-raspberrypi-no-console.lib.inject-overlays
         ]
         ++ (with nixos-raspberrypi-no-console.nixosModules; [

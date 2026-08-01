@@ -13,7 +13,7 @@ toplevel@{ den, ... }:
       in
       {
         networking = {
-          inherit (toplevel.config.flake.nixosConfigurations.zarqa.config.networking) domain;
+          inherit (toplevel.config.flake.nixosConfigurations.sheherazade.config.networking) domain;
           useDHCP = false;
           dhcpcd.enable = false;
         };

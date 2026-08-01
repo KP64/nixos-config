@@ -82,11 +82,11 @@
     },
     "den": {
       "locked": {
-        "lastModified": 1785375368,
-        "narHash": "sha256-QECZhOol6Wqt+cU1pBPX6YGFDADeFVv+KjzPelvuh5Q=",
+        "lastModified": 1785531595,
+        "narHash": "sha256-ipFk5ANEHhemDusdTZeuxVyFysyALjj8rRgpcTsjD4Y=",
         "owner": "denful",
         "repo": "den",
-        "rev": "7f11ba1494052fd3ac52c1342915bcb52ba08f07",
+        "rev": "2040b61346a7215fd7b7f51d4a457544b6e597d0",
         "type": "github"
       },
       "original": {
@@ -421,10 +421,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1775905480,
-        "narHash": "sha256-WksDb0ef1cZDwl+XXC1W5BXWE2dpx47f1efht+uBXWU=",
+        "lastModified": 1785576685,
+        "narHash": "sha256-FpSbCn1DCXjHEsIAnhTlT4b28fxwtjw27Emnc4ySNI4=",
         "ref": "refs/heads/main",
-        "rev": "b6ef35e3194a717fd3e033f34afe0b22d812fe3d",
+        "rev": "9320153509090fdd6d6f04c1ea392bb4308e258e",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
