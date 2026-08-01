@@ -14,7 +14,6 @@
             # (if we exclude the nixos pool that is)
             mode = "nts";
             inherit address;
-            ntp-version = "auto";
           })
           (
             [
