@@ -6,7 +6,12 @@
     ];
 
     nixos =
-      { config, lib, ... }:
+      {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
       let
         ppsDevice = "pps0";
         ppsPath = "/dev/${ppsDevice}";
@@ -84,10 +89,12 @@
             requires = [ config.systemd.services.ntpd-rs.name ];
             wantedBy = [ config.systemd.services.gpsd.name ];
             enableStrictShellChecks = true;
-            serviceConfig.Type = "oneshot";
-            script = ''
-              ln -sf ${gpsSocketPath} /run/${gpsSocket}
-            '';
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = ''
+                ${lib.getExe' pkgs.uutils-coreutils-noprefix "ln"} -sf ${gpsSocketPath} /run/${gpsSocket}
+              '';
+            };
           };
         };
 

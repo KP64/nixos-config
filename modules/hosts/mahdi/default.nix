@@ -19,7 +19,7 @@
         nvidia._.cache
       ];
 
-      nixos = { config, ... }: {
+      nixos = { config, pkgs, ... }: {
         home-manager.users.kg.home = { inherit (config.system) stateVersion; };
 
         sops.defaultSopsFile = ./secrets.yaml;
@@ -30,9 +30,12 @@
 
         console.keyMap = config.services.xserver.xkb.layout;
 
-        boot.binfmt = {
-          preferStaticEmulators = true;
-          emulatedSystems = [ "aarch64-linux" ];
+        boot = {
+          kernelPackages = pkgs.linuxPackages_latest;
+          binfmt = {
+            preferStaticEmulators = true;
+            emulatedSystems = [ "aarch64-linux" ];
+          };
         };
 
         services = {

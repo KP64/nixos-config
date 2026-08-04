@@ -6,16 +6,19 @@
       pkgs,
       ...
     }:
+    let
+      file = ".envrc";
+    in
     {
-      files.file.".envrc".source =
+      files.file.${file}.source =
         let
           inherit (config.lib.flake.util) getRelativePath;
-          envrc =
+          content =
             # bash
             ''
               #!/usr/bin/env bash
 
-              # .envrc file is especially important for those
+              # ${file} file is especially important for those
               # that use direnv and by extension nix-direnv.
               # It is like a hot-reloading equivalent of "nix develop"
 
@@ -27,14 +30,14 @@
               fi
             '';
         in
-        pkgs.runCommand "formatted-envrc" { } ''
-          cat > .envrc <<'EOF'
-          ${envrc}
+        pkgs.runCommand "formatted-${file}" { } ''
+          cat > ${file} <<'EOF'
+          ${content}
           EOF
 
-          ${lib.getExe config.flake.formatter.${system}} --no-cache --tree-root-file .envrc
+          ${lib.getExe config.flake.formatter.${system}} --no-cache --tree-root-file ${file}
 
-          cat .envrc > "$out"
+          cat ${file} > "$out"
         '';
     };
 }

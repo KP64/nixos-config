@@ -70,7 +70,7 @@
     },
     "priviblur": ["https://pb.bloat.cat"],
     "twitch": {
-      "enabled": true,
+      "enabled": false,
       "redirectType": "main_frame",
       "unsupportedUrls": "bypass",
       "frontend": "safetwitch",

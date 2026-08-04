@@ -11,7 +11,7 @@ in
   };
 
   den.aspects.catppuccin = {
-    nixos = {
+    nixos = { config, ... }: {
       imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
       catppuccin = {
@@ -20,7 +20,7 @@ in
         cache.enable = true;
         inherit accent;
         cursors = {
-          enable = true;
+          enable = config.programs.niri.enable;
           accent = cursorAccent;
         };
       };

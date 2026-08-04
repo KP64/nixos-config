@@ -7,7 +7,7 @@
         defaults = {
           sopsFile = "${self}/secrets/oauth.yaml";
           owner = config.users.users.kanidm.name or null;
-          restartUnits = unit |> lib.toList;
+          restartUnits = lib.toList unit;
         };
       in
       {

@@ -112,7 +112,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 {
                   config-version = "2.8";
 
-                  bind = "[::]:${toString velocityPort}";
+                  bind = "[${config.staticIPv6}]:${toString velocityPort}";
                   motd = "<rainbow>Hello Minecraft Enthusiasts!</rainbow>";
 
                   show-max-players = 500;

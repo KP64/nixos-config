@@ -7,6 +7,7 @@
       ...
     }:
     let
+      file = "README.md";
       inherit (config.lib.flake.util) getRelativePath;
 
       hostCfgs =
@@ -113,14 +114,14 @@
         '';
     in
     {
-      files.file."README.md".source = pkgs.runCommand "formatted-readme.md" { } ''
-        cat > input.md <<'EOF'
+      files.file.${file}.source = pkgs.runCommand "formatted-${file}" { } ''
+        cat > ${file} <<'EOF'
         ${readme}
         EOF
 
-        ${lib.getExe config.flake.formatter.${system}} --no-cache --tree-root-file input.md
+        ${lib.getExe config.flake.formatter.${system}} --no-cache --tree-root-file ${file}
 
-        cat input.md > "$out"
+        cat ${file} > "$out"
       '';
     };
 }

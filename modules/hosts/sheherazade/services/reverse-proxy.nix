@@ -15,7 +15,6 @@ toplevel@{ den, ... }:
       }:
       let
         inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
-        torORPort = builtins.head morgiana.config.services.tor.settings.ORPort;
         forgejoSSHPort = mahdi.config.services.forgejo.settings.server.SSH_PORT;
         inherit (mahdi.config.services.opengist.environment) OG_SSH_PORT;
         ntsPort = 4460;
@@ -43,7 +42,6 @@ toplevel@{ den, ... }:
         {
           # TODO: Find a better way for HAProxy
           networking.firewall.allowedTCPPorts = [
-            torORPort
             ntsPort
             forgejoSSHPort
             OG_SSH_PORT
@@ -68,18 +66,9 @@ toplevel@{ den, ... }:
                 option clitcpka
                 option srvtcpka
 
-                timeout connect 5s
+                timeout connect 10s
                 timeout client 1h
                 timeout server 1h
-
-              frontend tor-in
-                bind [::]:${toString torORPort} v4v6
-                timeout client 24h
-                default_backend tor-out
-              backend tor-out
-                timeout server 24h
-                timeout tunnel 24h
-                server tor [${morgiana.config.staticIPv6}]:${toString torORPort} check
 
               frontend nts-in
                 bind [::]:${toString ntsPort} v4v6
@@ -123,7 +112,7 @@ toplevel@{ den, ... }:
             enable = true;
             package = pkgs.caddy.withPlugins {
               plugins = [ "github.com/caddy-dns/porkbun@v0.3.1" ];
-              hash = "sha256-JtzeWz9GdW/+1Qft5nU9diPkFQvPGxQkgR8n8w+ryoI=";
+              hash = "sha256-CjL8dMdnsiawaPiQGRvL3he4Ydd3nIbQs6tBWMwUbaw=";
             };
             inherit (config.invisible) email;
             httpPort = null;

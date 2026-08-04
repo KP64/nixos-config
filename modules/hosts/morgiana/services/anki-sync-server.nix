@@ -42,7 +42,18 @@
         #       and not the email as instructed. Unless the username is an email ofc...
         anki-sync-server = {
           enable = true;
-          users = config.lib.anki.genUsers;
+          users =
+            let
+              prefix = "anki/";
+            in
+            config.sops.secrets
+            |> lib.filterAttrs (name: _: lib.hasPrefix prefix name)
+            |> lib.mapAttrsToList (
+              name: secret: {
+                username = lib.removePrefix prefix name;
+                passwordFile = secret.path;
+              }
+            );
         };
       };
     };

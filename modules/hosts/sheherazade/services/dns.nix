@@ -41,7 +41,7 @@ toplevel: {
               port = 5353;
               # NOTE: This is badly named. Apparently
               #       it should be the CPU core count
-              num-threads = 2;
+              num-threads = 4;
               prefer-ip6 = true;
               access-control = [
                 "127.0.0.0/8 allow"

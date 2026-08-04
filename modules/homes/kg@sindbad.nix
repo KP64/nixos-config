@@ -15,7 +15,7 @@ toplevel@{ den, lib, ... }:
             type = "topology";
             sha256 = "sha256-76ibPfvW5G18NMH3WFV6yoDzgSV89XpIb9seMabt0BY=";
           };
-          interfaces."wlan0" = {
+          interfaces.wlan0 = {
             physicalConnections = [ (topologyLib.mkConnection "router" "wifi") ];
             network = "home";
           };
@@ -32,6 +32,7 @@ toplevel@{ den, lib, ... }:
     )
   ];
 
+  # TODO: Find a way to do this more elegant
   den =
     let
       hostName = "sindbad";

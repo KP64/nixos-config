@@ -13,16 +13,13 @@
     includes = [ den.aspects.boot._.efi ];
 
     homeManager = { pkgs, ... }: { home.packages = [ pkgs.sbctl ]; };
+
     nixos = { config, lib, ... }: {
       imports = [ inputs.lanzaboote.nixosModules.default ];
 
       options.boot.measuredPcrs = lib.mkOption {
         default = [ ];
-        type =
-          let
-            inherit (lib) types;
-          in
-          types.addCheck (types.listOf types.ints.unsigned) (builtins.all (x: x <= 7));
+        type = with lib.types; types.listOf (ints.between 0 15);
         example = [
           0
           4

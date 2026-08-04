@@ -4,13 +4,13 @@
       options.vcs.user = {
         name = lib.mkOption {
           readOnly = true;
-          description = "Your Git Username";
+          description = "Your VCS Username";
           type = lib.types.nonEmptyStr;
           example = "alice";
         };
         email = lib.mkOption {
           readOnly = true;
-          description = "Your Git Email";
+          description = "Your VCS Email";
           type = lib.types.nonEmptyStr;
           example = "example@gmail.com";
         };

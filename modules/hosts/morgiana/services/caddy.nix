@@ -25,7 +25,7 @@
           enable = true;
           package = pkgs.caddy.withPlugins {
             plugins = [ "github.com/caddy-dns/porkbun@v0.3.1" ];
-            hash = "sha256-JtzeWz9GdW/+1Qft5nU9diPkFQvPGxQkgR8n8w+ryoI=";
+            hash = "sha256-CjL8dMdnsiawaPiQGRvL3he4Ydd3nIbQs6tBWMwUbaw=";
           };
           inherit (config.invisible) email;
           httpPort = null;
@@ -37,6 +37,7 @@
               admin off
               persist_config off
               skip_install_trust
+              default_bind [${config.staticIPv6}]
               acme_dns porkbun {
                   api_key {env.PORKBUN_API_KEY}
                   api_secret_key {env.PORKBUN_SECRET_API_KEY}

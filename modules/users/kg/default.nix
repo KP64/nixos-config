@@ -17,7 +17,6 @@ in
         ++ (with den.aspects; [
           catppuccin
           ssh
-          trippy
           vcs._.git
           vcs._.jujutsu
           yubikey
@@ -115,11 +114,9 @@ in
                   [
                     bluetui
                     caligula
-                    gnome-obfuscate
                     manga-tui
                     nyancat
                     signal-desktop
-                    switcheroo
                     yubioath-flutter
                     pvz-portable
                   ]

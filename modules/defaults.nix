@@ -50,7 +50,6 @@
           };
         };
         security = {
-          polkit.enable = true;
           sudo-rs = {
             enable = true;
             execWheelOnly = true;
@@ -59,8 +58,8 @@
           protectKernelImage = true;
           forcePageTableIsolation = true;
         };
-        services.userborn.enable = true;
         system.tools.nixos-generate-config.enable = false;
+        services.userborn.enable = true;
         users.mutableUsers = false;
       };
     };
