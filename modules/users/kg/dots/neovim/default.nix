@@ -7,7 +7,6 @@ toplevel@{ inputs, ... }:
       enable = true;
       defaultEditor = true;
       vimdiffAlias = true;
-      nixpkgs.useGlobalPackages = true;
       imports = with toplevel.config.flake.modules.nixvim; [
         base
         lsp
