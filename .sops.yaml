@@ -1,10 +1,10 @@
 # TODO: Generate this file with the files project
 keys:
-  - &admin_kg_aladdin age1eaue774razcl2zc3sajxnfejxwg96crrjp5yph9ejkujg98q8vys84qtye
+  - &admin_kg_aladdin age18rg3styd6qwn7ufx0e2suv9pa5g6236y05c2vpgc7cxuk5ug73msq9dtnd
   - &admin_kg_mahdi age16xq27lvvv3j7pvkp0rk6jzljdhldevlrucnv906tuq0mfecvuq4q0pznww
   - &admin_kg_sindbad age1dgxc76ehxl0dygcrgh7kyqwfe6wyjx3m5wqj8pm5vt37c4j96g8qhle37c
 
-  - &host_aladdin age1fqfx839ndn4rrr88t0z3ykp0hwa3g2qfrnzrcu2uqclrydvysp5sh9kcx8
+  - &host_aladdin age19cc3n0sl50wgn7wzy2zs89l7x7fqxgf3n3jrsyx6s5k9v3ugl9mqyhhslr
   - &host_mahdi age1k6hkw62h3js987u666pj4y2ld3p8yvd38e8w8z3sgfc3tflyjq9sru0mf7
   - &host_morgiana age1qqlwzz2cpk5khpdsg28euquv0utnh6725g8acg5wtcfa8gj7n3aqu78fn0
   - &host_sheherazade age1e6dfklaegwy80s2273qpdpc3gex54vsu3f67gc85e9hnns0xnsxsnfhmkl
