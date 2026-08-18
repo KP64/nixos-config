@@ -152,7 +152,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     connection-timeout = 5000;
                     read-timeout = 30000;
                     haproxy-protocol = false;
-                    tcp-fast-open = pkgs.stdenv.isLinux;
+                    tcp-fast-open = pkgs.stdenvNoCC.hostPlatform.isLinux;
                     bungee-plugin-message-channel = true;
                     show-ping-requests = true;
                     failover-on-unexpected-server-disconnect = true;
@@ -160,7 +160,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     log-command-executions = true;
                     log-player-connections = true;
                     accepts-transfers = false;
-                    enable-reuse-port = with pkgs.stdenv; isLinux || isDarwin;
+                    enable-reuse-port = with pkgs.stdenvNoCC.hostPlatform; isLinux || isDarwin;
                     command-rate-limit = 50;
                     forward-commands-if-rate-limited = true;
                     kick-after-rate-limited-commands = 0;
