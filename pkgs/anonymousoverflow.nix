@@ -6,13 +6,13 @@
 
 buildGoModule (_: {
   pname = "anonymousoverflow";
-  version = "0-unstable-2026-06-19";
+  version = "0-unstable-2026-08-10";
 
   src = fetchFromGitHub {
     owner = "httpjamesm";
     repo = "AnonymousOverflow";
-    rev = "4b53d30dffa9d73fdc05b0201234cc9cb9926c23";
-    hash = "sha256-pYt4Fkh/t86AIJeFEx0P8U/GumWMXnknOn2wkXR6mf4=";
+    rev = "cbd3f66a5b6fe050428124deab9496bd1b930295";
+    hash = "sha256-dEoMf2RDvgF0U4lafkkecZh2aGcRs3XYroOervRXL5A=";
   };
 
   __structuredAttrs = true;
@@ -20,8 +20,6 @@ buildGoModule (_: {
   vendorHash = "sha256-P3kUGFJhj/pTNeVTwtg4IqhoHBH9rROfkr+ZsrUtmdo=";
 
   env.CGO_ENABLED = 0;
-
-  patches = [ ./embed-files.patch ];
 
   ldflags = [ "-s" ];
 
