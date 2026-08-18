@@ -8,7 +8,6 @@
 
   imports = [ inputs.disko.flakeModules.default ];
 
-  # TODO: Move RPI fs here.
   den = {
     classes.disko.description = "Forward Disko to nixos hosts and create standalone diskoConfigurations";
     schema.host.includes = [ den.policies.disko-to-host ];

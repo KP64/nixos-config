@@ -78,8 +78,7 @@ toplevel@{ den, ... }:
         })
         {
           services.karakeep = {
-            # TODO: Reenable once karakeep is updated/secure
-            #       and doesn't break meilisearch
+            # TODO: Reenable when coredump is fixed.
             # enable = true;
             browser = {
               port = 9222;

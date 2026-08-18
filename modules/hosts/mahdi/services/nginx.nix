@@ -20,7 +20,6 @@
             allowedUDPPorts = ssl;
           };
 
-        # TODO: Replace with Caddy for uniformity
         # NOTE: Amazing Websites:
         #  - https://securityheaders.com/
         #  - https://www.ssllabs.com/
