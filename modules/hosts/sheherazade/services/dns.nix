@@ -141,8 +141,6 @@ toplevel: {
               serve_plain_dns = true;
               hostsfile_enabled = true;
             };
-            # NOTE: Hagezi most abused TLDs blocked the Domain. This Unblocks it.
-            user_rules = [ "@@||${config.networking.domain}^" ];
             filters =
               lib.imap1
                 (
@@ -169,10 +167,6 @@ toplevel: {
                   {
                     url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/dyndns.txt";
                     name = "Hagezi DynDNS";
-                  }
-                  {
-                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/spam-tlds.txt";
-                    name = "Hagezi Most Abused TLDs";
                   }
                   {
                     url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adguard/dns-rebind-protection.txt";
