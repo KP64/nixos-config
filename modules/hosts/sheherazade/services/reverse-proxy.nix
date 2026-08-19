@@ -14,6 +14,8 @@ toplevel@{ den, ... }:
         ...
       }:
       let
+        inherit (config.lib.securityHeader) mkCSP mkPP;
+
         inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
         forgejoSSHPort = mahdi.config.services.forgejo.settings.server.SSH_PORT;
         inherit (mahdi.config.services.opengist.environment) OG_SSH_PORT;
@@ -107,7 +109,6 @@ toplevel@{ den, ... }:
             '';
           };
 
-          # TODO: Enable ECH
           services.caddy = {
             enable = true;
             package = pkgs.caddy.withPlugins {
@@ -124,6 +125,11 @@ toplevel@{ den, ... }:
                 admin off
                 persist_config off
                 skip_install_trust
+                dns porkbun {
+                    api_key {env.PORKBUN_API_KEY}
+                    api_secret_key {env.PORKBUN_SECRET_API_KEY}
+                }
+                ech ech.${config.networking.domain}
                 acme_dns porkbun {
                     api_key {env.PORKBUN_API_KEY}
                     api_secret_key {env.PORKBUN_SECRET_API_KEY}
@@ -151,6 +157,46 @@ toplevel@{ den, ... }:
                   );
               in
               lib.mkMerge [
+                {
+                  ${config.networking.domain}.extraConfig = # caddy
+                    ''
+                      respond "Welcome to the space that serves You!"
+                      header {
+                          Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                          Content-Security-Policy "${mkCSP { default-src = "none"; }}"
+                          X-Frame-Options DENY
+                          X-Content-Type-Options "nosniff"
+                          Referrer-Policy no-referrer
+                          Permissions-Policy "${
+                            mkPP {
+                              camera = "()";
+                              microphone = "()";
+                              geolocation = "()";
+                              usb = "()";
+                              bluetooth = "()";
+                              payment = "()";
+                              accelerometer = "()";
+                              gyroscope = "()";
+                              magnetometer = "()";
+                              midi = "()";
+                              serial = "()";
+                              hid = "()";
+                            }
+                          }"
+                      }
+                    '';
+                }
+                {
+                  "*.${config.networking.domain}".extraConfig = # caddy
+                    ''
+                      tls {
+                          dns porkbun {
+                              api_key {env.PORKBUN_API_KEY}
+                              api_secret_key {env.PORKBUN_SECRET_API_KEY}
+                          }
+                      }
+                    '';
+                }
                 (lib.mkIf mahdi.config.services.nginx.enable (
                   proxyServices mahdi.config.staticIPv6 mahdi.config.services.nginx.virtualHosts
                 ))
