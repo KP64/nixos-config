@@ -29,8 +29,6 @@ toplevel: {
         resolved.enable = false;
         unbound = {
           enable = true;
-          # TODO: Remove
-          localControlSocketPath = "/run/unbound/unbound.ctl";
           # NOTE: If keys rotate before nixpkgs can catch up by updating dns-root-data
           #       DNSSEC validation could fail. Enable this and remove `trust-anchor-file`
           #       from settings should that ever happen. The way it currently is,
@@ -78,13 +76,6 @@ toplevel: {
                 "127.0.0.0/8"
                 "::ffff:0:0/96"
               ];
-
-              verbosity = 1;
-              log-servfail = true;
-              val-log-level = 1;
-
-              # TODO: Remove
-              extended-statistics = true;
 
               prefetch = true;
               prefetch-key = true;
