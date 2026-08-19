@@ -251,7 +251,6 @@ toplevel@{
                 firefox-color
                 indie-wiki-buddy
                 libredirect
-                private-grammar-checker-harper
                 private-relay
                 refined-github
                 return-youtube-dislikes
@@ -367,12 +366,6 @@ toplevel@{
                     "<all_urls>"
                   ];
                 };
-                "harper@writewithharper.com".permissions = [
-                  "storage"
-                  "tabs"
-                  "<all_urls>"
-                  "https://docs.google.com/document/*"
-                ];
                 "private-relay@firefox.com".permissions = [
                   "<all_urls>"
                   "storage"
