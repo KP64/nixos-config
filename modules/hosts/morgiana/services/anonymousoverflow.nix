@@ -11,11 +11,15 @@ toplevel: {
       config = lib.mkMerge [
         (lib.mkIf config.services.anonymousoverflow.enable {
           sops = {
-            secrets."anonymousoverflow/jwt" = { };
+            secrets = {
+              "anonymousoverflow/api-key" = { };
+              "anonymousoverflow/jwt" = { };
+            };
             templates."anonymousoverflow.env" = {
               restartUnits = [ config.systemd.services.anonymousoverflow.name ];
               content = ''
                 JWT_SIGNING_SECRET=${config.sops.placeholder."anonymousoverflow/jwt"}
+                API_KEY=${config.sops.placeholder."anonymousoverflow/api-key"}
               '';
             };
           };

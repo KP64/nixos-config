@@ -65,6 +65,7 @@ toplevel@{ moduleWithSystem, ... }:
             HOST = cfg.host;
             PORT = toString cfg.port;
             APP_URL = cfg.appUrl;
+            SCRAPER = "api";
           };
 
           serviceConfig = {
