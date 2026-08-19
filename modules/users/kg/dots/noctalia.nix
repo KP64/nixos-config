@@ -23,6 +23,7 @@ toplevel@{ self, inputs, ... }:
         enable = true;
         systemd.enable = true;
         settings = {
+          config_version = 12;
           bar = {
             default = {
               capsule = true;
@@ -31,16 +32,7 @@ toplevel@{ self, inputs, ... }:
               position = "left";
             };
           };
-          desktop_widgets = {
-            grid = {
-              cell_size = 16;
-              major_interval = 4;
-              visible = true;
-            };
-            schema_version = 2;
-            widget = { };
-            widget_order = [ ];
-          };
+          desktop_widgets.enabled = false;
           idle = {
             behavior = {
               lock = {
@@ -66,14 +58,8 @@ toplevel@{ self, inputs, ... }:
             ];
           };
           location.auto_locate = true;
-          lockscreen_widgets = {
-            grid = {
-              cell_size = 16;
-              major_interval = 4;
-              visible = true;
-            };
-            schema_version = 2;
-          };
+          lockscreen.allow_empty_password = true;
+          lockscreen_widgets.enabled = false;
           notification.layer = "overlay";
           osd = {
             orientation = "vertical";
@@ -87,7 +73,7 @@ toplevel@{ self, inputs, ... }:
               sha256 = "sha256-Ah71B03bSn7MeHt/weKxp6aKoXxSre/ncXsCJ4MzLfg=";
             };
             launch_apps_as_systemd_services = true;
-            offline_mode = true;
+            offline_mode = false;
             panel = {
               open_near_click_control_center = true;
               open_near_click_session = true;
