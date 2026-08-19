@@ -141,6 +141,8 @@ toplevel: {
               serve_plain_dns = true;
               hostsfile_enabled = true;
             };
+            # NOTE: Hagezi most abused TLDs blocked the Domain. This Unblocks it.
+            user_rules = [ "@@||${config.networking.domain}^" ];
             filters =
               lib.imap1
                 (
