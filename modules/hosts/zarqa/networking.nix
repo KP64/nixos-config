@@ -18,8 +18,6 @@ toplevel@{ den, ... }:
           dhcpcd.enable = false;
         };
 
-        # TODO: Revert to 5GHz once https://github.com/nvmd/nixos-raspberrypi/issues/87 is closed.
-        #       Seems like the issue stems from the Pi's network card. This may never be resolved.
         wifiSSID = "FRITZ!Box 4630 QX";
 
         staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
