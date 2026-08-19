@@ -169,16 +169,32 @@ toplevel: {
                     name = "AdGuard DNS filter";
                   }
                   {
-                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt";
-                    name = "Hagezi Multi Pro";
+                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.plus.txt";
+                    name = "Hagezi Multi Pro++";
                   }
                   {
                     url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/tif.txt";
-                    name = "Hagezi Thread Intelligence Feeds";
+                    name = "Hagezi Threat Intelligence Feeds";
+                  }
+                  {
+                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/dyndns.txt";
+                    name = "Hagezi DynDNS";
+                  }
+                  {
+                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/spam-tlds.txt";
+                    name = "Hagezi Most Abused TLDs";
                   }
                   {
                     url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adguard/dns-rebind-protection.txt";
                     name = "Hagezi DNS Rebind Protection";
+                  }
+                  {
+                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/gambling.txt";
+                    name = "Hagezi Gambling";
+                  }
+                  {
+                    url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/nsfw.txt";
+                    name = "Hagezi NSFW";
                   }
                 ];
             filtering.blocked_services.ids = [
