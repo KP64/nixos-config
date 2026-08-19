@@ -122,10 +122,7 @@ toplevel: {
               port = dnsPort;
               anonymize_client_ip = false;
               refuse_any = true;
-              upstream_dns = map (addr: "${addr}:${toString config.services.unbound.settings.server.port}") [
-                "127.0.0.1"
-                "[::1]"
-              ];
+              upstream_dns = [ "[::1]:${toString config.services.unbound.settings.server.port}" ];
               bootstrap_dns = [
                 "9.9.9.9"
                 "149.112.112.112"
