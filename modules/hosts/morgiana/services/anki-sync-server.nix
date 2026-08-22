@@ -5,6 +5,8 @@
       inherit (config.lib.securityHeader) mkCSP mkPP;
     in
     {
+      sops.secrets."anki/urmom" = { };
+
       services = {
         caddy.virtualHosts."anki.${config.networking.domain}" =
           lib.mkIf config.services.anki-sync-server.enable
@@ -34,6 +36,9 @@
                           hid = "()";
                         }
                       }"
+                      Cross-Origin-Embedder-Policy require-corp
+                      Cross-Origin-Opener-Policy same-origin
+                      Cross-Origin-Resource-Policy same-origin
                   }
                 '';
             };

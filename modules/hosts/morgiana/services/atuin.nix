@@ -32,6 +32,10 @@
                       hid = "()";
                     }
                   }"
+                  Cross-Origin-Embedder-Policy require-corp
+                  Cross-Origin-Opener-Policy same-origin
+                  # cross-origin is needed or else an error is thrown
+                  Cross-Origin-Resource-Policy cross-origin
               }
             '';
         };

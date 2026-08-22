@@ -163,7 +163,12 @@ toplevel@{ den, ... }:
                       respond "Welcome to the space that serves You!"
                       header {
                           Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-                          Content-Security-Policy "${mkCSP { default-src = "none"; }}"
+                          Content-Security-Policy "${
+                            mkCSP {
+                              default-src = "none";
+                              img-src = "self";
+                            }
+                          }"
                           X-Frame-Options DENY
                           X-Content-Type-Options "nosniff"
                           Referrer-Policy no-referrer
@@ -183,6 +188,9 @@ toplevel@{ den, ... }:
                               hid = "()";
                             }
                           }"
+                          Cross-Origin-Embedder-Policy require-corp
+                          Cross-Origin-Opener-Policy same-origin
+                          Cross-Origin-Resource-Policy same-origin
                       }
                     '';
                 }

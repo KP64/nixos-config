@@ -53,6 +53,8 @@ toplevel@{ moduleWithSystem, ... }:
                     frame-ancestors = "none";
                     base-uri = "none";
                     form-action = "self";
+                    frame-src = "https:";
+                    media-src = "https:";
                   }
                 }"
                 X-Frame-Options SAMEORIGIN
@@ -72,6 +74,9 @@ toplevel@{ moduleWithSystem, ... }:
                     hid = "()";
                   }
                 }"
+                Cross-Origin-Embedder-Policy unsafe-none
+                Cross-Origin-Opener-Policy same-origin-allow-popups
+                Cross-Origin-Resource-Policy same-site
             }
           '';
       })

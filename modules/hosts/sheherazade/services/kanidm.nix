@@ -31,11 +31,16 @@ toplevel@{ den, ... }:
 
         services.caddy.virtualHosts.${cfg.server.settings.domain}.extraConfig = # caddy
           ''
+            header {
+                Cross-Origin-Embedder-Policy require-corp
+                Cross-Origin-Opener-Policy same-origin
+                Cross-Origin-Resource-Policy same-origin
+            }
             reverse_proxy ${cfg.provision.instanceUrl} {
-                 header_up Host {host}
-                 transport http {
-                     tls_server_name ${cfg.server.settings.domain}
-                 }
+                header_up Host {host}
+                transport http {
+                    tls_server_name ${cfg.server.settings.domain}
+                }
             }
           '';
 
