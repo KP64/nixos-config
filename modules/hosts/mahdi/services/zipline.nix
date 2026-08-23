@@ -98,13 +98,9 @@ toplevel@{ den, ... }:
                 CORE_PORT = 41355;
                 CORE_RETURN_HTTPS_URLS = boolToString true;
                 inherit CORE_DEFAULT_DOMAIN;
-                CORE_RETURN_TRUST_PROXY = boolToString true;
+                CORE_TRUST_PROXY = boolToString true;
 
                 CHUNKS_ENABLED = boolToString true;
-
-                MFA_PASSKEYS = boolToString true;
-                MFA_TOTP_ENABLED = boolToString true;
-                MFA_TOTP_ISSUER = "Zipline";
 
                 FEATURES_IMAGE_COMPRESSION = boolToString true;
                 FEATURES_ROBOTS_TXT = boolToString true;
@@ -120,8 +116,6 @@ toplevel@{ den, ... }:
 
                 FILES_ASSUME_MIMETYPES = boolToString true;
                 FILES_REMOVE_GPS_METADATA = boolToString true;
-
-                INVITES_ENABLED = boolToString true;
 
                 RATELIMIT_ENABLED = boolToString true;
                 RATELIMIT_ADMIN_BYPASS = boolToString true;
