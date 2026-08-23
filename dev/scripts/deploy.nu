@@ -41,14 +41,9 @@ def main [host: string, ip: string, --generate-hardware-report]: nothing -> noth
 
     let git_files = git ls-files | lines
 
-    ".sops.yaml"
-    | open
+    open .sops.yaml
     | get creation_rules
-    | where {|rule|
-        $rule.key_groups | any {|kg|
-            $kg.age | any {|k| $k == $age_pub }
-        }
-    }
+    | where {|rule| $rule.key_groups | any {|user| $age_pub in $user.age } }
     | get path_regex
     | par-each {|regex| $git_files | where {|f| $f =~ $regex } }
     | flatten
