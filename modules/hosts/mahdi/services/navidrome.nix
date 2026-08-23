@@ -32,6 +32,9 @@
               extraConfig = # nginx
                 ''
                   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+                  add_header Cross-Origin-Embedder-Policy require-corp always;
+                  add_header Cross-Origin-Opener-Policy same-origin always;
+                  add_header Cross-Origin-Resource-Policy same-origin always;
                   add_header Content-Security-Policy "${
                     mkCSP {
                       default-src = "none";

@@ -41,6 +41,7 @@ toplevel@{ den, ... }:
                           "self"
                           "https://www.gravatar.com"
                           "data:"
+                          "blob:"
                         ];
                         font-src = "self";
                         style-src = [
@@ -74,6 +75,9 @@ toplevel@{ den, ... }:
                         hid = "()";
                       }
                     }" always;
+                    add_header Cross-Origin-Embedder-Policy credentialless always;
+                    add_header Cross-Origin-Opener-Policy same-origin always;
+                    add_header Cross-Origin-Resource-Policy same-origin always;
                   '';
               };
             };
@@ -93,7 +97,7 @@ toplevel@{ den, ... }:
                   inherit OG_OIDC_CLIENT_KEY;
                   OG_OIDC_DISCOVERY_URL = "${toplevel.config.flake.nixosConfigurations.sheherazade.config.services.kanidm.server.settings.origin}/oauth2/openid/${OG_OIDC_CLIENT_KEY}/.well-known/openid-configuration";
                   OG_OIDC_GROUP_CLAIM_NAME = "groups";
-                  OG_OIDC_ADMIN_GROUP = "opengist.admins";
+                  OG_OIDC_ADMIN_GROUP = "admins";
                 };
             };
           }

@@ -224,16 +224,10 @@ toplevel@{ den, ... }:
                     "profile"
                   ];
                   claimMaps = {
-                    groups = {
-                      joinType = "array";
-                      valuesByGroup."open-webui.admins" = [ "admins" ];
-                    };
-                    roles = {
-                      joinType = "array";
-                      valuesByGroup = {
-                        "open-webui.admins" = [ "admin" ];
-                        "open-webui.access" = [ "user" ];
-                      };
+                    groups.valuesByGroup."open-webui.admins" = [ "admins" ];
+                    roles.valuesByGroup = {
+                      "open-webui.admins" = [ "admin" ];
+                      "open-webui.access" = [ "user" ];
                     };
                   };
                 };
@@ -254,6 +248,7 @@ toplevel@{ den, ... }:
                     "openid"
                     "profile"
                   ];
+                  claimMaps.groups.valuesByGroup."opengist.admins" = [ "admins" ];
                 };
                 vaultwarden = {
                   displayName = "vaultwarden";

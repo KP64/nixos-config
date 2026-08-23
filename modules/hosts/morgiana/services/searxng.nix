@@ -74,7 +74,7 @@ toplevel@{ moduleWithSystem, ... }:
                     hid = "()";
                   }
                 }"
-                Cross-Origin-Embedder-Policy unsafe-none
+                Cross-Origin-Embedder-Policy credentialless
                 Cross-Origin-Opener-Policy same-origin-allow-popups
                 Cross-Origin-Resource-Policy same-site
             }

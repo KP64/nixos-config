@@ -1,5 +1,4 @@
 { den, ... }: {
-  # TODO: Set CORS and other Security related stuff for Services
   den = {
     hosts.x86_64-linux.mahdi.users.kg = { };
 

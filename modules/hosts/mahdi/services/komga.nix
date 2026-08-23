@@ -22,19 +22,15 @@ toplevel@{ den, ... }:
                   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
                   add_header Content-Security-Policy "${
                     mkCSP {
-                      default-src = "none";
-                      font-src = "self";
-                      img-src = "self";
+                      default-src = "self";
                       style-src = [
                         "self"
                         "unsafe-inline"
                       ];
-                      script-src = "self";
                       script-src-elem = [
                         "self"
                         "sha256-gXksiB92wKm7zMDMFbEACh+/f5jBT8PucQAwK4VGinA="
                       ];
-                      connect-src = "self";
                     }
                   }" always; 
                   add_header X-Frame-Options SAMEORIGIN always;
@@ -56,6 +52,9 @@ toplevel@{ den, ... }:
                       hid = "()";
                     }
                   }" always;
+                  add_header Cross-Origin-Embedder-Policy require-corp always;
+                  add_header Cross-Origin-Opener-Policy same-origin always;
+                  add_header Cross-Origin-Resource-Policy same-origin always;
                 '';
             };
           };

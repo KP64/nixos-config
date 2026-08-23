@@ -18,14 +18,12 @@
             kTLS = true;
           };
 
-          virtualisation.oci-containers.containers = {
-            invidious-companion = {
-              image = "quay.io/invidious/invidious-companion:latest";
-              pull = "newer";
-              ports = [ "${companionAddr}:8282" ];
-              volumes = [ "companioncache:/var/tmp/youtubei.js:rw" ];
-              environment.SERVER_SECRET_KEY = companionKey;
-            };
+          virtualisation.oci-containers.containers.invidious-companion = {
+            image = "quay.io/invidious/invidious-companion:latest";
+            pull = "newer";
+            ports = [ "${companionAddr}:8282" ];
+            volumes = [ "companioncache:/var/tmp/youtubei.js:rw" ];
+            environment.SERVER_SECRET_KEY = companionKey;
           };
         })
         {

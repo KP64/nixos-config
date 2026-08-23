@@ -72,13 +72,17 @@ toplevel@{ den, ... }:
                       hid = "()";
                     }
                   }" always;
+                  # TODO: Add headers
+                  # add_header Cross-Origin-Embedder-Policy require-corp always;
+                  # add_header Cross-Origin-Opener-Policy same-origin always;
+                  # add_header Cross-Origin-Resource-Policy same-origin always;
                 '';
             };
           };
         })
         {
           services.karakeep = {
-            # TODO: Reenable when coredump is fixed.
+            # TODO: Enable when server parsing error is fixed
             # enable = true;
             browser = {
               port = 9222;
