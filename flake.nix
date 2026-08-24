@@ -199,12 +199,6 @@
       repo = "nixvim";
       inputs.flake-parts.follows = "flake-parts";
     };
-    noctalia = {
-      type = "github";
-      owner = "noctalia-dev";
-      repo = "noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nur = {
       type = "github";
       owner = "nix-community";

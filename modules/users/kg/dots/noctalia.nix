@@ -1,12 +1,5 @@
-toplevel@{ self, inputs, ... }:
+toplevel@{ self, ... }:
 {
-  flake-file.inputs.noctalia = {
-    type = "github";
-    owner = "noctalia-dev";
-    repo = "noctalia";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   den.aspects.kg._.noctalia.homeManager =
     {
       osConfig ? null,
@@ -17,8 +10,6 @@ toplevel@{ self, inputs, ... }:
       inherit (toplevel.config.lib.flake.util) getAsset;
     in
     {
-      imports = [ inputs.noctalia.homeModules.default ];
-
       programs.noctalia = {
         enable = true;
         systemd.enable = true;

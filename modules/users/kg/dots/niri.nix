@@ -172,7 +172,7 @@ toplevel: {
                     };
                   }
                 ];
-              spawn-at-startup = lib.optional (config.programs.noctalia.enable or false) "noctalia";
+              spawn-at-startup = lib.optional config.programs.noctalia.enable "noctalia";
 
               binds =
                 let
@@ -185,7 +185,7 @@ toplevel: {
                       "msg"
                     ];
                   in
-                  lib.optionalAttrs (config.programs.noctalia.enable or false) {
+                  lib.optionalAttrs config.programs.noctalia.enable {
                     "Mod+Ctrl+Shift+Alt+L".spawn = noctaliaMsg ++ [
                       "session"
                       "lock"
