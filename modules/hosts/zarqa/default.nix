@@ -15,7 +15,6 @@ in
       users.kg = { };
     };
 
-    # TODO: Add RTC
     aspects.zarqa = {
       includes = with den.aspects; [
         auto-timezone

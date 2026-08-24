@@ -81,12 +81,6 @@ toplevel@{ den, ... }:
                   "forgejo.access"
                   "forgejo.admins"
 
-                  "karakeep.access"
-                  "karakeep.admins"
-
-                  "komga.access"
-                  "komga.admins"
-
                   "open-webui.access"
                   "open-webui.admins"
 
@@ -130,12 +124,6 @@ toplevel@{ den, ... }:
               "forgejo.access" = { };
               "forgejo.admins" = { };
 
-              "karakeep.access" = { };
-              "karakeep.admins" = { };
-
-              "komga.access" = { };
-              "komga.admins" = { };
-
               "open-webui.access" = { };
               "open-webui.admins" = { };
 
@@ -170,41 +158,6 @@ toplevel@{ den, ... }:
                     "email"
                     "openid"
                     "profile"
-                  ];
-                };
-                karakeep = {
-                  displayName = "karakeep";
-                  imageFile = getAsset {
-                    file = "karakeep.svg";
-                    type = "icons";
-                    sha256 = "sha256-9MYbNA8a+/mKS3gut3xEJV5TPBtmXcE7Fo3mfx7F76U=";
-                  };
-                  basicSecretFile = config.sops.secrets."kanidm/oauth2/karakeep".path;
-                  enableLegacyCrypto = true; # Needed because karakeep doesn't support ES256
-                  originUrl = "${mahdi.config.services.karakeep.extraEnvironment.NEXTAUTH_URL}/api/auth/callback/custom";
-                  originLanding = mahdi.config.services.karakeep.extraEnvironment.NEXTAUTH_URL;
-                  preferShortUsername = true;
-                  scopeMaps."karakeep.access" = [
-                    "email"
-                    "openid"
-                    "profile"
-                  ];
-                };
-                komga = {
-                  displayName = "komga";
-                  imageFile = getAsset {
-                    file = "komga.svg";
-                    type = "icons";
-                    sha256 = "sha256-g9YjBj9+I6Uor4FRDiuQlygs7DkVWVmbjdtdLx87Pok=";
-                  };
-                  public = true;
-                  enableLegacyCrypto = true;
-                  originUrl = "https://komga.${config.networking.domain}/login/oauth2/code/${mahdi.config.services.komga.settings.spring.security.oauth2.client.registration.kanidm.provider}";
-                  originLanding = "https://komga.${config.networking.domain}";
-                  preferShortUsername = true;
-                  scopeMaps."komga.access" = [
-                    "email"
-                    "openid"
                   ];
                 };
                 open-webui = {

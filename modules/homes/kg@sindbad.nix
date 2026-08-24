@@ -1,4 +1,7 @@
 toplevel@{ den, lib, ... }:
+let
+  hostName = "sindbad";
+in
 {
   perSystem.topology.modules = [
     (
@@ -8,7 +11,7 @@ toplevel@{ den, lib, ... }:
         inherit (toplevel.config.lib.flake.util) getAsset;
       in
       {
-        nodes.sindbad = {
+        nodes.${hostName} = {
           deviceType = "device";
           deviceIcon = getAsset {
             file = "arch.svg";
@@ -33,33 +36,29 @@ toplevel@{ den, lib, ... }:
   ];
 
   # TODO: Find a way to do this more elegant
-  den =
-    let
-      hostName = "sindbad";
-    in
-    {
-      homes.x86_64-linux."kg@${hostName}" = { };
-      aspects.kg = { host, ... }: {
-        includes = lib.optionals (host.name == hostName) (
-          [ den.aspects.desktop ]
-          ++ (with den.aspects.kg._; [
-            anki
-            firefox
-            fonts
-            glance
-            kitty
-            niri
-            noctalia
-            thunderbird
-            ttyper
-          ])
-        );
+  den = {
+    homes.x86_64-linux."kg@${hostName}" = { };
+    aspects.kg = { host, ... }: {
+      includes = lib.optionals (host.name == hostName) (
+        [ den.aspects.desktop ]
+        ++ (with den.aspects.kg._; [
+          anki
+          firefox
+          fonts
+          glance
+          kitty
+          niri
+          noctalia
+          thunderbird
+          ttyper
+        ])
+      );
 
-        homeManager = lib.mkIf (host.name == hostName) {
-          targets.genericLinux.enable = true;
-          programs.home-manager.enable = true;
-          home.stateVersion = "26.11";
-        };
+      homeManager = lib.mkIf (host.name == hostName) {
+        targets.genericLinux.enable = true;
+        programs.home-manager.enable = true;
+        home.stateVersion = "26.11";
       };
     };
+  };
 }
