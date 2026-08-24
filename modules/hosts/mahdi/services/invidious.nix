@@ -4,9 +4,13 @@
 
     nixos =
       let
-        # SAFETY: This is only useful if someone has direct access to the companion.
-        companionKey = "Ailai5oong1Eiyoi";
-        companionAddr = "127.0.0.1:8282";
+        companion = rec {
+          # SAFETY: This is only useful if someone has direct access to the companion.
+          key = "Ailai5oong1Eiyoi";
+          port = "8282";
+          ip = "fd00:d:a5::2";
+          addr = "[${ip}]:${port}";
+        };
       in
       { config, lib, ... }:
       lib.mkMerge [
@@ -21,9 +25,13 @@
           virtualisation.oci-containers.containers.invidious-companion = {
             image = "quay.io/invidious/invidious-companion:latest";
             pull = "newer";
-            ports = [ "${companionAddr}:8282" ];
+            extraOptions = [ "--ip6=${companion.ip}" ];
             volumes = [ "companioncache:/var/tmp/youtubei.js:rw" ];
-            environment.SERVER_SECRET_KEY = companionKey;
+            environment = {
+              HOST = companion.ip;
+              PORT = companion.port;
+              SERVER_SECRET_KEY = companion.key;
+            };
           };
         })
         {
@@ -34,16 +42,15 @@
             nginx.enable = true;
             serviceScale = 6;
             settings = {
-              invidious_companion = [ { private_url = "http://${companionAddr}/companion"; } ];
-              invidious_companion_key = companionKey;
-              external_port = lib.mkForce 443;
+              invidious_companion = [ { private_url = "http://${companion.addr}/companion"; } ];
+              invidious_companion_key = companion.key;
+              external_port = lib.mkForce config.services.nginx.defaultSSLListenPort;
               https_only = lib.mkForce true;
               popular_enabled = false;
               statistics_enabled = true;
               registration_enabled = true;
               login_enabled = true;
               captcha_enabled = true;
-              banner = "Happy Selfhosting";
               use_pubsub_feeds = true;
               disable_abusable_api = true;
             };

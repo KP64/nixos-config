@@ -8,7 +8,16 @@
           enable = true;
           dockerCompat = with config.virtualisation.docker; !enable && !rootless.enable;
           autoPrune.enable = true;
-          defaultNetwork.settings.dns_enabled = true;
+          defaultNetwork.settings = {
+            dns_enabled = true;
+            ipv6_enabled = true;
+            subnets = [
+              {
+                gateway = "fd00:d:a5::1";
+                subnet = "fd00:d:a5::/64";
+              }
+            ];
+          };
         };
       };
     };
