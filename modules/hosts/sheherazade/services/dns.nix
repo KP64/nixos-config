@@ -140,6 +140,9 @@ toplevel: {
               use_http3_upstreams = true;
               serve_plain_dns = true;
               hostsfile_enabled = true;
+              # Unbound and systemd-resolved already cache the stuff.
+              # This made a lot of issues in regards to CNAMEs and stuff.
+              cache_enabled = false;
             };
             filters =
               lib.imap1

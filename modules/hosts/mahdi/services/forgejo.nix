@@ -14,6 +14,8 @@
       in
       lib.mkMerge [
         (lib.mkIf config.services.forgejo.enable {
+          sops.secrets."forgejo/runners/runner/default-connection" = { };
+
           networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
           services = {
@@ -75,8 +77,38 @@
               };
             };
 
-            # TODO: Add Runners
-            forgejo-runner.instances = { };
+            # NOTE: When starting forgejo for the first time run these commands:
+            # sudo -u forgejo \
+            #    <forgejo binary of systemd service> \
+            #    forgejo-cli actions generate-secret \
+            #    > ./runner-secret.txt
+            # sudo -u forgejo \
+            #    <forgejo binary of systemd service> \
+            #    --config <forgejo statedir>/custom/conf/app.ini \
+            #    forgejo-cli actions register \
+            #    --name <instance name> \
+            #    --secret-file ./runner-secret.txt
+            # rm ./runner-secret.txt
+            forgejo-runner.instances.runner = {
+              enable = true;
+              secrets.server.connections.default.token_url =
+                config.sops.secrets."forgejo/runners/runner/default-connection".path;
+              settings = {
+                # FIX: Weird DNS issue when resolving docker hub
+                container.network = config.virtualisation.podman.defaultNetwork.settings.name;
+                # WARNING: Native host execution can brick host if action is malicious
+                runner.labels = [
+                  "debian-latest:docker://debian:latest"
+                  "ubuntu-latest:docker://ubuntu:latest"
+                  "arch-latest:docker://archlinux:latest"
+                  "alpine-latest:docker://alpine:latest"
+                ];
+                server.connections.default = {
+                  url = config.services.forgejo.settings.server.ROOT_URL;
+                  uuid = "37666463-3966-6263-6365-633633343534";
+                };
+              };
+            };
           };
         })
 

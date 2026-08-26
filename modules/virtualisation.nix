@@ -9,6 +9,7 @@
           dockerCompat = with config.virtualisation.docker; !enable && !rootless.enable;
           autoPrune.enable = true;
           defaultNetwork.settings = {
+            name = "podman";
             dns_enabled = true;
             ipv6_enabled = true;
             subnets = [
