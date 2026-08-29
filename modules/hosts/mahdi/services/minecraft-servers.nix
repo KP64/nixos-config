@@ -21,14 +21,34 @@ toplevel@{ moduleWithSystem, inputs, ... }:
       mcPkgs = inputs'.nix-minecraft.legacyPackages;
       mcLib = config.lib.minecraft;
 
-      commonMods = {
-        FABRIC_API = {
-          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Kr4WG5mG/fabric-api-0.154.2%2B26.2.jar";
-          sha512 = "7cedad862e8105a7de8db090c0707c25a14a9472654090861dcf490f834862c3212723e762f6f797a0e4683104f4b3a20d3692fb29d7b5c0af437613283d34db";
+      default = {
+        package = mcPkgs.minecraftServers.fabric-26_2.override { jre_headless = pkgs.openjdk25_headless; };
+        jvmOpts = [
+          "-Xms8G"
+          "-Xmx8G"
+          "-XX:+UseZGC"
+          "-XX:+UseCompactObjectHeaders"
+        ];
+        serverProperties = {
+          server-ip = "::1";
+          snooper-enabled = false;
+          force-gamemode = true;
+          online-mode = true;
+          white-list = true;
+          enforce-whitelist = true;
+
+          simulation-distance = 16;
+          view-distance = 32;
         };
-        FABRIC_PROXY_LITE = {
-          url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/CsEpiziv/FabricProxy-Lite-2.12.0.jar";
-          sha512 = "b479c3ed1fe83929cad40e5c925ae2702da879b88a0271a24266cd21ecc037953f347cbe61ac7b7334e087544ee2ce5bf1f041fc3e64f50474404ad564c146f7";
+        mods = {
+          FABRIC_API = {
+            url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Kr4WG5mG/fabric-api-0.154.2%2B26.2.jar";
+            sha512 = "7cedad862e8105a7de8db090c0707c25a14a9472654090861dcf490f834862c3212723e762f6f797a0e4683104f4b3a20d3692fb29d7b5c0af437613283d34db";
+          };
+          FABRIC_PROXY_LITE = {
+            url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/CsEpiziv/FabricProxy-Lite-2.12.0.jar";
+            sha512 = "b479c3ed1fe83929cad40e5c925ae2702da879b88a0271a24266cd21ecc037953f347cbe61ac7b7334e087544ee2ce5bf1f041fc3e64f50474404ad564c146f7";
+          };
         };
       };
 
@@ -72,6 +92,13 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         };
       };
 
+      services.oink.domains = [
+        {
+          inherit (config.networking) domain;
+          subdomain = "mc";
+        }
+      ];
+
       services.minecraft-servers = {
         enable = true;
         eula = true;
@@ -98,14 +125,16 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 let
                   servers =
                     let
-                      inherit (config.services.minecraft-servers.servers) Creative Survival;
+                      inherit (config.services.minecraft-servers.servers) Creative Survival Hardcore;
                     in
                     {
                       survival = "[${Survival.serverProperties.server-ip}]:${toString Survival.serverProperties.server-port}";
                       creative = "[${Creative.serverProperties.server-ip}]:${toString Creative.serverProperties.server-port}";
+                      hardcore = "[${Hardcore.serverProperties.server-ip}]:${toString Hardcore.serverProperties.server-port}";
                       try = [
                         "creative"
                         "survival"
+                        "hardcore"
                       ];
                     };
                 in
@@ -177,56 +206,36 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 };
             };
           };
-
           Survival = {
             enable = true;
-            package = mcPkgs.minecraftServers.fabric-26_2.override { jre_headless = pkgs.openjdk25_headless; };
-            jvmOpts = [
-              "-Xms8G"
-              "-Xmx8G"
-              "-XX:+UseZGC"
-              "-XX:+UseCompactObjectHeaders"
-            ];
-            serverProperties = {
-              server-ip = "::1";
+            inherit (default) package jvmOpts;
+            serverProperties = default.serverProperties // {
               server-port = 25566;
               difficulty = "hard";
-              motd = "One Heck of a Server";
-              simulation-distance = 16;
-              view-distance = 32;
               gamemode = "survival";
-              force-gamemode = true;
-              online-mode = true;
-              white-list = true;
-              enforce-whitelist = true;
             };
             inherit operators whitelist;
-            symlinks.mods = mcLib.collectMods commonMods;
+            symlinks.mods = mcLib.collectMods default.mods;
           };
           Creative = {
             enable = true;
-            package = mcPkgs.minecraftServers.fabric-26_2.override { jre_headless = pkgs.openjdk25_headless; };
-            jvmOpts = [
-              "-Xms8G"
-              "-Xmx8G"
-              "-XX:+UseZGC"
-              "-XX:+UseCompactObjectHeaders"
-            ];
-            serverProperties = {
-              server-ip = "::1";
+            inherit (default) package jvmOpts;
+            serverProperties = default.serverProperties // {
               server-port = 25567;
-              difficulty = "hard";
-              motd = "One Heck of a Server";
-              simulation-distance = 16;
-              view-distance = 32;
               gamemode = "creative";
-              force-gamemode = true;
-              online-mode = true;
-              white-list = true;
-              enforce-whitelist = true;
             };
             inherit operators whitelist;
-            symlinks.mods = mcLib.collectMods commonMods;
+            symlinks.mods = mcLib.collectMods default.mods;
+          };
+          Hardcore = {
+            enable = true;
+            inherit (default) package jvmOpts;
+            serverProperties = default.serverProperties // {
+              server-port = 25568;
+              hardcore = true; # implies hard difficulty
+            };
+            inherit operators whitelist;
+            symlinks.mods = mcLib.collectMods default.mods;
           };
         };
       };
