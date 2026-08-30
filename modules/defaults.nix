@@ -58,7 +58,15 @@
           protectKernelImage = true;
           forcePageTableIsolation = true;
         };
-        system.tools.nixos-generate-config.enable = false;
+        system = {
+          # TODO: Enable when Sops-Nix works with that.
+          # etc.overlay = {
+          #   enable = true;
+          #   mutable = false;
+          # };
+          # nixos-init.enable = true;
+          tools.nixos-generate-config.enable = false;
+        };
         services.userborn.enable = true;
         users.mutableUsers = false;
       };
