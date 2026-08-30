@@ -16,14 +16,6 @@
     in
     {
       plugins = {
-        spider = {
-          enable = true;
-          keymaps = {
-            silent = true;
-            motions = lib.genAttrs [ "b" "e" "ge" "w" ] (name: name);
-          };
-        };
-
         nvim-surround = {
           enable = true;
           inherit lazyLoad;
