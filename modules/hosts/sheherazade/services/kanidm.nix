@@ -182,8 +182,8 @@ toplevel@{ den, ... }:
                     sha256 = "sha256-Nq0y/akf6l+UVsGxgzT6RbrX/uDAqWSQ85rAEF7JSL0=";
                   };
                   basicSecretFile = config.sops.secrets."kanidm/oauth2/oauth2-proxy".path;
-                  originUrl = mahdi.config.services.oauth2-proxy.redirectURL;
-                  originLanding = "https://${mahdi.config.services.oauth2-proxy.nginx.domain}";
+                  originUrl = config.services.oauth2-proxy.redirectURL;
+                  originLanding = "https://oauth2-proxy.${config.networking.domain}";
                   preferShortUsername = true;
                   scopeMaps."oauth2-proxy.access" = [
                     "email"

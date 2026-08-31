@@ -18,6 +18,8 @@
           };
         };
 
+        OAuthProxyProtectedSubDomains = [ "navidrome" ];
+
         services.nginx.virtualHosts.${domain} = {
           enableACME = true;
           acmeRoot = null;

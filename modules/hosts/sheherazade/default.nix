@@ -42,7 +42,9 @@ in
 
         console.keyMap = "de";
 
+        sops.defaultSopsFile = ./secrets.yaml;
         users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
+
       };
     };
   };
