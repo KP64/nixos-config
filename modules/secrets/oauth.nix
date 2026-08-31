@@ -14,6 +14,7 @@
         "kanidm/admin-password" = defaults;
         "kanidm/idm-admin-password" = defaults;
         "kanidm/oauth2/forgejo" = defaults;
+        "kanidm/oauth2/oauth2-proxy" = defaults;
         "kanidm/oauth2/open-webui" = defaults;
         "kanidm/oauth2/opengist" = defaults;
         "kanidm/oauth2/zipline" = defaults;
