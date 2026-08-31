@@ -1,5 +1,8 @@
-toplevel: {
-  den.aspects.sheherazade.nixos =
+toplevel@{ moduleWithSystem, ... }:
+{
+  # TODO: Split up in unbound and adguardhome
+  den.aspects.sheherazade.nixos = moduleWithSystem (
+    { system, ... }:
     {
       config,
       lib,
@@ -8,6 +11,7 @@ toplevel: {
     }:
     let
       dnsPort = 53;
+      inherit (toplevel.config.flake.topology.${system}.config) networks;
     in
     {
       networking.firewall = {
@@ -15,12 +19,43 @@ toplevel: {
         allowedUDPPorts = [ dnsPort ];
       };
 
+      services.caddy.virtualHosts."adguardhome.${config.networking.domain}".extraConfig = # caddy
+        ''
+          handle /oauth2/* {
+              reverse_proxy ${config.services.oauth2-proxy.httpAddress} {
+                  header_up X-Real-IP {remote_host}
+                  header_up X-Forwarded-Uri {uri}
+              }
+          }
+
+          handle {
+              forward_auth ${config.services.oauth2-proxy.httpAddress} {
+                  uri /oauth2/auth?allowed_groups=access_adguardhome
+
+                  header_up X-Real-IP {remote_host}
+
+                  copy_headers X-Auth-Request-User X-Auth-Request-Email
+
+                  @error status 401
+                  handle_response @error {
+                      redir * /oauth2/sign_in?rd={scheme}://{host}{uri}
+                  }
+              }
+              reverse_proxy http://${config.services.adguardhome.host}:${toString config.services.adguardhome.port}
+          }
+        '';
+
       boot.kernel.sysctl = toplevel.config.lib.flake.util.toFlattenedByDots {
         net = {
-          core = {
-            rmem_max = 8388608;
-            wmem_max = 8388608;
-          };
+          core =
+            let
+              mibibytes = num: 1024 * 1024 * num;
+            in
+            {
+              rmem_max = mibibytes 8;
+              wmem_max = mibibytes 8;
+            };
+          # TODO: Revert if default is higher.
           ipv4.tcp_max_syn_backlog = 256;
         };
       };
@@ -44,10 +79,10 @@ toplevel: {
               access-control = [
                 "127.0.0.0/8 allow"
                 "::1/128 allow"
-                "192.168.0.0/16 allow"
-                "fd00::/8 allow"
+                "${networks.home.cidrv4} allow"
+                "${networks.home.cidrv6} allow"
                 "0.0.0.0/0 refuse"
-                "::0/0 refuse"
+                "::/0 refuse"
               ];
               trust-anchor-file = "${pkgs.dns-root-data}/root.key";
               root-hints = "${pkgs.dns-root-data}/root.hints";
@@ -96,44 +131,43 @@ toplevel: {
             };
           };
         };
-        # TODO: Secure Web-Interface via oauth-proxy or similar!
-        #        - Add proxy VHost
-        #        - Close firewall port opening
         adguardhome = {
           enable = true;
-          host = "[::]";
+          host = "[::1]";
           port = 3353;
-          openFirewall = true;
           mutableSettings = false;
           settings = {
-            users = [
-              {
-                name = "kg";
-                password = "$2y$10$8E0.opIZU4a297PV0e7K3.pF4hIfvatJ8YL/DHz2P.uRr8SDs.k7a";
-              }
-            ];
             auth_attempts = 3;
             block_auth_min = 5;
             dns = {
+              port = dnsPort;
               bind_hosts = [
                 "0.0.0.0"
                 "::"
               ];
-              port = dnsPort;
-              anonymize_client_ip = false;
+              allowed_clients = [
+                "127.0.0.0/8"
+                "::1/128"
+              ]
+              ++ (with networks.home; [
+                cidrv4
+                cidrv6
+              ]);
+              anonymize_client_ip = true;
               refuse_any = true;
               upstream_dns = [ "[::1]:${toString config.services.unbound.settings.server.port}" ];
               bootstrap_dns = [
+                # Quad9
                 "9.9.9.9"
                 "149.112.112.112"
                 "2620:fe::fe"
                 "2620:fe::9"
-              ];
-              allowed_clients = [
-                "127.0.0.0/8"
-                "::1/128"
-                "192.168.0.0/16"
-                "fd00::/8"
+
+                # Cloudflare
+                "1.1.1.1"
+                "1.0.0.1"
+                "2606:4700:4700::1111"
+                "2606:4700:4700::1001"
               ];
               bootstrap_prefer_ipv6 = true;
               serve_http3 = true;
@@ -291,5 +325,6 @@ toplevel: {
           };
         };
       };
-    };
+    }
+  );
 }
