@@ -81,6 +81,9 @@ toplevel@{ den, ... }:
                   "forgejo.access"
                   "forgejo.admins"
 
+                  "oauth2-proxy.access"
+                  "oauth2-proxy.navidrome"
+
                   "open-webui.access"
                   "open-webui.admins"
 
@@ -96,16 +99,23 @@ toplevel@{ den, ... }:
               };
               ja = {
                 displayName = "ja";
-                groups = [ "open-webui.access" ];
+                groups = [
+                  "oauth2-proxy.access"
+                  "open-webui.access"
+                ];
               };
               jehnsen = {
                 displayName = "jehnsen";
-                groups = [ "forgejo.access" ];
+                groups = [
+                  "forgejo.access"
+                  "oauth2-proxy.access"
+                ];
               };
               urmom = {
                 displayName = "urmom";
                 groups = [
                   "forgejo.access"
+                  "oauth2-proxy.access"
                   "open-webui.access"
                 ];
               };
@@ -113,6 +123,7 @@ toplevel@{ den, ... }:
                 displayName = "vx";
                 groups = [
                   "forgejo.access"
+                  "oauth2-proxy.access"
                   "open-webui.access"
                   "vaultwarden.access"
                   "zipline.access"
@@ -123,6 +134,9 @@ toplevel@{ den, ... }:
             groups = {
               "forgejo.access" = { };
               "forgejo.admins" = { };
+
+              "oauth2-proxy.access" = { };
+              "oauth2-proxy.navidrome" = { };
 
               "open-webui.access" = { };
               "open-webui.admins" = { };
@@ -159,6 +173,26 @@ toplevel@{ den, ... }:
                     "openid"
                     "profile"
                   ];
+                };
+                oauth2-proxy = {
+                  displayName = "oauth2-proxy";
+                  imageFile = getAsset {
+                    file = "oauth2-proxy.svg";
+                    type = "icons";
+                    sha256 = "sha256-Nq0y/akf6l+UVsGxgzT6RbrX/uDAqWSQ85rAEF7JSL0=";
+                  };
+                  basicSecretFile = config.sops.secrets."kanidm/oauth2/oauth2-proxy".path;
+                  originUrl = mahdi.config.services.oauth2-proxy.redirectURL;
+                  originLanding = "https://${mahdi.config.services.oauth2-proxy.nginx.domain}";
+                  preferShortUsername = true;
+                  scopeMaps."oauth2-proxy.access" = [
+                    "email"
+                    "profile"
+                    "openid"
+                  ];
+                  claimMaps.groups.valuesByGroup = {
+                    "oauth2-proxy.navidrome" = [ "access_navidrome" ];
+                  };
                 };
                 open-webui = {
                   displayName = "open-webui";

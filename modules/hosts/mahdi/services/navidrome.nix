@@ -37,12 +37,12 @@
                   add_header Cross-Origin-Resource-Policy same-origin always;
                   add_header Content-Security-Policy "${
                     mkCSP {
-                      default-src = "none";
+                      default-src = "self";
                       img-src = [
                         "self"
                         "blob:"
+                        "data:"
                       ];
-                      media-src = "self";
                       style-src = [
                         "self"
                         "unsafe-inline"
@@ -51,7 +51,6 @@
                         "self"
                         "unsafe-inline"
                       ];
-                      connect-src = "self";
                     }
                   }" always; 
                 '';
