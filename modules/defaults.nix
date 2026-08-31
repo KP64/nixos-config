@@ -39,36 +39,44 @@
           homelab
         ];
 
-        boot.tmp.cleanOnBoot = true;
-        documentation.enable = false;
-        environment.defaultPackages = [ ];
-        networking = {
-          firewall.pingLimit = "10/second burst 20 packets";
-          nftables = {
-            enable = true;
-            flattenRulesetFile = true;
+        options.OAuthProxyProtectedSubDomains = lib.mkOption {
+          default = [ ];
+          type = lib.types.listOf lib.types.nonEmptyStr;
+          example = [ "navidrome" ];
+        };
+
+        config = {
+          boot.tmp.cleanOnBoot = true;
+          documentation.enable = false;
+          environment.defaultPackages = [ ];
+          networking = {
+            firewall.pingLimit = "10/second burst 20 packets";
+            nftables = {
+              enable = true;
+              flattenRulesetFile = true;
+            };
           };
-        };
-        security = {
-          sudo-rs = {
-            enable = true;
-            execWheelOnly = true;
+          security = {
+            sudo-rs = {
+              enable = true;
+              execWheelOnly = true;
+            };
+            lockKernelModules = true;
+            protectKernelImage = true;
+            forcePageTableIsolation = true;
           };
-          lockKernelModules = true;
-          protectKernelImage = true;
-          forcePageTableIsolation = true;
+          system = {
+            # TODO: Enable when Sops-Nix works with that.
+            # etc.overlay = {
+            #   enable = true;
+            #   mutable = false;
+            # };
+            # nixos-init.enable = true;
+            tools.nixos-generate-config.enable = false;
+          };
+          services.userborn.enable = true;
+          users.mutableUsers = false;
         };
-        system = {
-          # TODO: Enable when Sops-Nix works with that.
-          # etc.overlay = {
-          #   enable = true;
-          #   mutable = false;
-          # };
-          # nixos-init.enable = true;
-          tools.nixos-generate-config.enable = false;
-        };
-        services.userborn.enable = true;
-        users.mutableUsers = false;
       };
     };
   };
