@@ -11,8 +11,8 @@ buildGoModule (_: {
   src = fetchFromGitHub {
     owner = "httpjamesm";
     repo = "AnonymousOverflow";
-    rev = "cbd3f66a5b6fe050428124deab9496bd1b930295";
-    hash = "sha256-dEoMf2RDvgF0U4lafkkecZh2aGcRs3XYroOervRXL5A=";
+    rev = "937cfeefd6dcbab92ef572671f16d4d3be6abad3";
+    hash = "sha256-QhxvIgFGFLfLg4Oh+FjfzNajBYTmabDw0GMdVFvUMsw=";
   };
 
   __structuredAttrs = true;
