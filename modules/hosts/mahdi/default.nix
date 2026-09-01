@@ -35,9 +35,6 @@
 
         services = {
           xserver.xkb.layout = "de";
-          # This service is the "only" way to
-          # communicate with the TPM (v1.2) device
-          tcsd.enable = true;
           # Firmware is locked
           fwupd.enable = false;
         };

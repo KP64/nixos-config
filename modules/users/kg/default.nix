@@ -70,7 +70,6 @@ in
               video
             ]
           ))
-          ++ lib.optional config.services.tcsd.enable config.services.tcsd.group
           ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group;
       };
     };
