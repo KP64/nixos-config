@@ -203,30 +203,21 @@
 
         settings = {
           tasks.image_alloc = 1024 * 1024 * 1024; # 1024MB needed for large media(info) files
-          plugin =
-            let
-              mediainfo =
-                map
-                  (mime: {
-                    inherit mime;
-                    run = "mediainfo";
-                  })
-                  [
-                    "{audio,video,image}/*"
-                    "application/subrip"
-                    "application/postscript"
-                    "application/illustrator"
-                    "application/dvb.ait"
-                    "application/vnd.adobe.illustrator"
-                    "image/x-eps"
-                    "application/eps"
-                    "*.{ai,eps,ait}"
-                  ];
-            in
-            {
-              prepend_preloaders = mediainfo;
-
-              prepend_previewers = mediainfo ++ [
+          plugin = {
+            prepend_previewers =
+              (map
+                (mime: {
+                  inherit mime;
+                  run = "mediainfo";
+                })
+                [
+                  "{audio,video,image}/*"
+                  "application/{subrip,postscript,illustrator,dvb.ait,vnd.adobe.illustrator,eps}"
+                  "image/x-eps"
+                  "*.{ai,eps,ait}"
+                ]
+              )
+              ++ [
                 {
                   url = "*.{csv,md,rst,ipynb,json}";
                   run = "rich-preview";
@@ -236,25 +227,25 @@
                   run = "ouch --show-file-icons";
                 }
               ];
-              append_previewers = [
-                {
-                  url = "*";
-                  run = ''piper -- ${lib.getExe pkgs.hexyl} --border=none --terminal-width=$w "$1"'';
-                }
-              ];
+            append_previewers = [
+              {
+                url = "*";
+                run = ''piper -- ${lib.getExe pkgs.hexyl} --border=none --terminal-width=$w "$1"'';
+              }
+            ];
 
-              prepend_fetchers =
-                map
-                  (url: {
-                    inherit url;
-                    run = "git";
-                    group = "git";
-                  })
-                  [
-                    "*"
-                    "*/"
-                  ];
-            };
+            prepend_fetchers =
+              map
+                (url: {
+                  inherit url;
+                  run = "git";
+                  group = "git";
+                })
+                [
+                  "*"
+                  "*/"
+                ];
+          };
 
           opener.extract = map (attrs: attrs // { desc = "Extract here with ouch"; }) [
             {
