@@ -1,5 +1,5 @@
 { den, ... }: {
-  den.aspects.mahdi = {
+  den.aspects.morgiana = {
     includes = [ den.aspects.virtualisation._.podman ];
 
     nixos =

@@ -18,6 +18,8 @@ toplevel@{ moduleWithSystem, ... }:
         {
           enable = true;
 
+          httpAddress = "http://[::1]:4180";
+
           extraConfig = {
             code-challenge-method = "S256";
             cookie-samesite = "strict";
