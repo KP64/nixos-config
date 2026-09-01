@@ -25,13 +25,14 @@ toplevel@{ moduleWithSystem, ... }:
           };
         };
 
+        systemd.services.caddy.serviceConfig.SupplementaryGroups = [ config.users.groups.searx.name ];
         services.caddy.virtualHosts.${config.services.searx.domain}.extraConfig = # caddy
           ''
             handle_path /static/* {
                 root * ${config.services.searx.package}/share/static/
                 file_server
             }
-            reverse_proxy 127.0.0.1${config.services.searx.uwsgiConfig.http}
+            reverse_proxy unix/${config.services.searx.uwsgiConfig.http-socket}
 
             header {
                 Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
@@ -87,7 +88,10 @@ toplevel@{ moduleWithSystem, ... }:
           environmentFile = config.sops.templates."searxng.env".path;
           redisCreateLocally = true; # Needed for Rate-Limit & bot protection
           configureUwsgi = true;
-          uwsgiConfig.http = ":8888";
+          uwsgiConfig = {
+            http-socket = "/run/searx/searx.sock";
+            chmod-socket = "660";
+          };
 
           limiterSettings.botdetection =
             let
