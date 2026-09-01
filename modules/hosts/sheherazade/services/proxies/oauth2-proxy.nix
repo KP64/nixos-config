@@ -45,9 +45,7 @@ toplevel@{ moduleWithSystem, ... }:
           ];
         };
 
-      services.caddy.virtualHosts.
-
-      "oauth2-proxy.${config.networking.domain}".extraConfig = # caddy
+      services.caddy.virtualHosts."oauth2-proxy.${config.networking.domain}".extraConfig = # caddy
         ''
           header {
               Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"

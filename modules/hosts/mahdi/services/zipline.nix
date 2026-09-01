@@ -23,17 +23,12 @@ toplevel@{ den, ... }:
             };
           };
 
-          services.nginx.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN} = {
-            enableACME = true;
-            acmeRoot = null;
-            onlySSL = true;
-            kTLS = true;
-            locations."/" = {
-              proxyPass = "http://[${cfg.settings.CORE_HOSTNAME}]:${toString cfg.settings.CORE_PORT}";
-              extraConfig = # nginx
-                ''
-                  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                  add_header Content-Security-Policy "${
+          services.caddy.virtualHosts.${cfg.settings.CORE_DEFAULT_DOMAIN}.extraConfig = # caddy
+            ''
+              reverse_proxy http://[${cfg.settings.CORE_HOSTNAME}]:${toString cfg.settings.CORE_PORT}
+              header {
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Content-Security-Policy "${
                     mkCSP {
                       default-src = "none";
                       style-src = [
@@ -56,11 +51,11 @@ toplevel@{ den, ... }:
                       ];
                       frame-src = [ "blob:" ];
                     }
-                  }" always;
-                  add_header X-Frame-Options SAMEORIGIN always;
-                  add_header X-Content-Type-Options nosniff always;
-                  add_header Referrer-Policy no-referrer always;
-                  add_header Permissions-Policy "${
+                  }"
+                  X-Frame-Options SAMEORIGIN
+                  X-Content-Type-Options nosniff
+                  Referrer-Policy no-referrer
+                  Permissions-Policy "${
                     mkPP {
                       camera = "()";
                       microphone = "()";
@@ -75,13 +70,12 @@ toplevel@{ den, ... }:
                       serial = "()";
                       hid = "()";
                     }
-                  }" always;
-                  add_header Cross-Origin-Embedder-Policy require-corp always;
-                  add_header Cross-Origin-Opener-Policy same-origin always;
-                  add_header Cross-Origin-Resource-Policy same-origin always;
-                '';
-            };
-          };
+                  }"
+                  Cross-Origin-Embedder-Policy require-corp
+                  Cross-Origin-Opener-Policy same-origin
+                  Cross-Origin-Resource-Policy same-origin
+              }
+            '';
         })
         {
           services.zipline = {

@@ -10,7 +10,7 @@ toplevel@{ den, ... }:
       { config, lib, ... }:
       let
         domain = "open-webui.${config.networking.domain}";
-        inherit (config.lib.securityHeader) mkCSP mkPP;
+        inherit (config.lib.securityHeader) mkCSP;
       in
       lib.mkMerge [
         (lib.mkIf config.services.open-webui.enable {
@@ -21,76 +21,10 @@ toplevel@{ den, ... }:
             '';
           };
 
-          services.nginx.virtualHosts.${domain} = {
-            enableACME = true;
-            acmeRoot = null;
-            onlySSL = true;
-            kTLS = true;
-            locations =
-              let
-                inherit (config.services.open-webui) host port;
-                proxyPass = "http://[${host}]:${toString port}";
-              in
-              {
-                "/" = {
-                  proxyWebsockets = true;
-                  inherit proxyPass;
-                };
-                "~* ^/(api|oauth|callback|login|ws|websocket)" = {
-                  proxyWebsockets = true;
-                  inherit proxyPass;
-                  extraConfig = ''
-                    proxy_no_cache 1;
-                    proxy_cache_bypass 1;
-                    proxy_read_timeout 3600s;
-                    proxy_send_timeout 3600s;
-                    proxy_set_header Accept-Encoding "";
-                  '';
-                };
-              };
-            extraConfig = # nginx
-              ''
-                add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                add_header Content-Security-Policy "${
-                  mkCSP {
-                    default-src = "self";
-                    img-src = [
-                      "self"
-                      "data:"
-                    ];
-                    style-src = [
-                      "self"
-                      "unsafe-inline"
-                    ];
-                    script-src-elem = [
-                      "self"
-                      "unsafe-inline"
-                    ];
-                  }
-                }" always;
-                add_header X-Frame-Options SAMEORIGIN always;
-                add_header X-Content-Type-Options nosniff always;
-                add_header Referrer-Policy no-referrer always;
-                add_header Permissions-Policy "${
-                  mkPP {
-                    camera = "()";
-                    geolocation = "()";
-                    usb = "()";
-                    bluetooth = "()";
-                    payment = "()";
-                    accelerometer = "()";
-                    gyroscope = "()";
-                    magnetometer = "()";
-                    midi = "()";
-                    serial = "()";
-                    hid = "()";
-                  }
-                }" always;
-                add_header Cross-Origin-Embedder-Policy require-corp always;
-                add_header Cross-Origin-Opener-Policy same-origin always;
-                add_header Cross-Origin-Resource-Policy same-origin always;
-              '';
-          };
+          services.caddy.virtualHosts.${domain}.extraConfig = # caddy
+            ''
+              reverse_proxy http://[${config.services.open-webui.host}]:${toString config.services.open-webui.port}
+            '';
         })
         {
           services.open-webui = {
@@ -104,6 +38,31 @@ toplevel@{ den, ... }:
               in
               {
                 WEBUI_URL = "https://${domain}";
+
+                # Taken from https://docs.openwebui.com/getting-started/advanced-topics/hardening/#security-headers
+                HSTS = "max-age=31536000;includeSubDomains";
+                XFRAME_OPTIONS = "DENY";
+                XCONTENT_TYPE = "nosniff";
+                REFERRER_POLICY = "strict-origin-when-cross-origin";
+                PERMISSIONS_POLICY = "camera=(),microphone=(),geolocation=()";
+                CONTENT_SECURITY_POLICY = mkCSP {
+                  default-src = "self";
+                  img-src = [
+                    "self"
+                    "data:"
+                  ];
+                  style-src = [
+                    "self"
+                    "unsafe-inline"
+                  ];
+                  script-src-elem = [
+                    "self"
+                    "unsafe-inline"
+                  ];
+                };
+                CROSS_ORIGIN_EMBEDDER_POLICY = "require-corp";
+                CROSS_ORIGIN_OPENER_POLICY = "same-origin";
+                CROSS_ORIGIN_RESOURCE_POLICY = "same-origin";
 
                 OLLAMA_BASE_URLS =
                   let

@@ -19,21 +19,15 @@
           networking.firewall.allowedTCPPorts = [ config.services.forgejo.settings.server.SSH_PORT ];
 
           services = {
-            nginx.virtualHosts.${config.services.forgejo.settings.server.DOMAIN} = {
-              enableACME = true;
-              acmeRoot = null;
-              onlySSL = true;
-              kTLS = true;
-              extraConfig = # nginx
-                ''
-                  client_max_body_size 512M;
-                '';
-              locations."/" = {
-                proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
-                extraConfig = # nginx
-                  ''
-                    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                    add_header Content-Security-Policy "${
+            caddy.virtualHosts.${config.services.forgejo.settings.server.DOMAIN}.extraConfig = # caddy
+              ''
+                request_body {
+                    max_size 512MB
+                }
+                reverse_proxy unix/${config.services.forgejo.settings.server.HTTP_ADDR}
+                header {
+                    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                    Content-Security-Policy "${
                       mkCSP {
                         default-src = "none";
                         connect-src = "self";
@@ -51,10 +45,10 @@
                           "blob:"
                         ];
                       }
-                    }" always;
-                    add_header X-Content-Type-Options nosniff always;
-                    add_header Referrer-Policy no-referrer always;
-                    add_header Permissions-Policy "${
+                    }"
+                    X-Content-Type-Options nosniff
+                    Referrer-Policy no-referrer
+                    Permissions-Policy "${
                       mkPP {
                         camera = "()";
                         microphone = "()";
@@ -69,13 +63,12 @@
                         serial = "()";
                         hid = "()";
                       }
-                    }" always;
-                    add_header Cross-Origin-Embedder-Policy require-corp always;
-                    add_header Cross-Origin-Opener-Policy same-origin always;
-                    add_header Cross-Origin-Resource-Policy same-origin always;
-                  '';
-              };
-            };
+                    }"
+                    Cross-Origin-Embedder-Policy require-corp
+                    Cross-Origin-Opener-Policy same-origin
+                    Cross-Origin-Resource-Policy same-origin
+                }
+              '';
 
             # NOTE: When starting forgejo for the first time run these commands:
             # sudo -u forgejo \

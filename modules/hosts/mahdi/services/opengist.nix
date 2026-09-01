@@ -22,18 +22,13 @@ toplevel@{ den, ... }:
 
             networking.firewall.allowedTCPPorts = [ config.services.opengist.environment.OG_SSH_PORT ];
 
-            services.nginx.virtualHosts.${domain} = {
-              enableACME = true;
-              acmeRoot = null;
-              onlySSL = true;
-              kTLS = true;
-              locations."/" = {
-                proxyPass = "http://unix:${config.services.opengist.environment.OG_HTTP_HOST}";
-                extraConfig = # nginx
-                  ''
-                    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                    add_header Referrer-Policy no-referrer always;
-                    add_header Content-Security-Policy "${
+            services.caddy.virtualHosts.${domain}.extraConfig = # caddy
+              ''
+                reverse_proxy unix/${config.services.opengist.environment.OG_HTTP_HOST}
+                header {
+                    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                    Referrer-Policy no-referrer
+                    Content-Security-Policy "${
                       mkCSP {
                         default-src = "none";
                         connect-src = "self";
@@ -59,8 +54,8 @@ toplevel@{ den, ... }:
                           "unsafe-inline"
                         ];
                       }
-                    }";
-                    add_header Permissions-Policy "${
+                    }"
+                    Permissions-Policy "${
                       mkPP {
                         camera = "()";
                         geolocation = "()";
@@ -74,13 +69,12 @@ toplevel@{ den, ... }:
                         serial = "()";
                         hid = "()";
                       }
-                    }" always;
-                    add_header Cross-Origin-Embedder-Policy credentialless always;
-                    add_header Cross-Origin-Opener-Policy same-origin always;
-                    add_header Cross-Origin-Resource-Policy same-origin always;
-                  '';
-              };
-            };
+                    }"
+                    Cross-Origin-Embedder-Policy credentialless
+                    Cross-Origin-Opener-Policy same-origin
+                    Cross-Origin-Resource-Policy same-origin
+                }
+              '';
           })
           {
             services.opengist = {

@@ -15,12 +15,10 @@
       { config, lib, ... }:
       lib.mkMerge [
         (lib.mkIf config.services.invidious.enable {
-          services.nginx.virtualHosts.${config.services.invidious.domain} = {
-            acmeRoot = null;
-            forceSSL = lib.mkForce false;
-            onlySSL = true;
-            kTLS = true;
-          };
+          services.caddy.virtualHosts.${config.services.invidious.domain}.extraConfig = # caddy
+            ''
+              reverse_proxy http://[${config.services.invidious.address}]:${toString config.services.invidious.port}
+            '';
 
           virtualisation.oci-containers.containers.invidious-companion = {
             image = "quay.io/invidious/invidious-companion:latest";
@@ -39,13 +37,12 @@
             enable = true;
             port = 3031;
             domain = "yt.${config.networking.domain}";
-            nginx.enable = true;
-            serviceScale = 6;
+            address = "::1";
             settings = {
               invidious_companion = [ { private_url = "http://${companion.addr}/companion"; } ];
               invidious_companion_key = companion.key;
-              external_port = lib.mkForce config.services.nginx.defaultSSLListenPort;
-              https_only = lib.mkForce true;
+              external_port = config.services.caddy.httpsPort;
+              https_only = true;
               popular_enabled = false;
               statistics_enabled = true;
               registration_enabled = true;

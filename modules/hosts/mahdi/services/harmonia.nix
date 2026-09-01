@@ -21,27 +21,22 @@
         (lib.mkIf config.services.harmonia-dev.cache.enable {
           sops.secrets.harmonia-key.restartUnits = [ config.systemd.services.harmonia-dev.name ];
 
-          services.nginx.virtualHosts."cache.${config.networking.domain}" = {
-            enableACME = true;
-            acmeRoot = null;
-            onlySSL = true;
-            kTLS = true;
-            locations."/" = {
-              proxyPass = "http://${config.services.harmonia-dev.cache.settings.bind}";
-              extraConfig = # nginx
-                ''
-                  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                  add_header Content-Security-Policy "${
+          services.caddy.virtualHosts."cache.${config.networking.domain}".extraConfig = # caddy
+            ''
+              reverse_proxy unix/${lib.removePrefix "unix:" config.services.harmonia-dev.cache.settings.bind}
+              header {
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Content-Security-Policy "${
                     mkCSP {
                       default-src = "none";
                       img-src = "self";
                       style-src = "sha256-vH51d+jQVG4ixznlvoAz0qhElwpeG9xvknvU+YT7Tn8=";
                     }
-                  }" always;
-                  add_header X-Frame-Options SAMEORIGIN always;
-                  add_header X-Content-Type-Options nosniff always;
-                  add_header Referrer-Policy no-referrer always;
-                  add_header Permissions-Policy "${
+                  }"
+                  X-Frame-Options SAMEORIGIN
+                  X-Content-Type-Options nosniff
+                  Referrer-Policy no-referrer
+                  Permissions-Policy "${
                     mkPP {
                       camera = "()";
                       microphone = "()";
@@ -56,13 +51,12 @@
                       serial = "()";
                       hid = "()";
                     }
-                  }" always;
-                  add_header Cross-Origin-Embedder-Policy require-corp always;
-                  add_header Cross-Origin-Opener-Policy same-origin always;
-                  add_header Cross-Origin-Resource-Policy same-origin always;
-                '';
-            };
-          };
+                  }"
+                  Cross-Origin-Embedder-Policy require-corp
+                  Cross-Origin-Opener-Policy same-origin
+                  Cross-Origin-Resource-Policy same-origin
+              }
+            '';
         })
         {
           services.harmonia-dev = {

@@ -170,8 +170,8 @@ toplevel@{ den, ... }:
                       }
                     '';
                 }
-                (lib.mkIf mahdi.config.services.nginx.enable (
-                  proxyServices mahdi.config.staticIPv6 mahdi.config.services.nginx.virtualHosts
+                (lib.mkIf mahdi.config.services.caddy.enable (
+                  proxyServices mahdi.config.staticIPv6 mahdi.config.services.caddy.virtualHosts
                     mahdi.config.OAuthProxyProtectedSubDomains
                 ))
                 (lib.mkIf morgiana.config.services.caddy.enable (

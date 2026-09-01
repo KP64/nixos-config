@@ -19,31 +19,30 @@ toplevel@{ den, ... }:
             };
           };
 
-          services.nginx.virtualHosts.${config.services.vaultwarden.domain} = {
-            enableACME = true;
-            acmeRoot = null;
-            forceSSL = lib.mkForce false; # This is configured by `configureNginx`
-            onlySSL = true;
-            kTLS = true;
-            extraConfig = # nginx
-              ''
-                add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                add_header Cross-Origin-Embedder-Policy require-corp always;
-                add_header Cross-Origin-Opener-Policy same-origin always;
-              '';
-          };
+          services.caddy.virtualHosts.${config.services.vaultwarden.domain}.extraConfig = # caddy
+            ''
+              reverse_proxy http://[${config.services.vaultwarden.config.ROCKET_ADDRESS}]:${toString config.services.vaultwarden.config.ROCKET_PORT}
+              header {
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Cross-Origin-Embedder-Policy require-corp
+                  Cross-Origin-Opener-Policy same-origin
+              }
+            '';
         })
         {
           services.vaultwarden = {
             enable = true;
             domain = "vault.${config.networking.domain}";
-            configureNginx = true;
             environmentFile = config.sops.templates."vaultwarden.env".path;
             config =
               let
                 SSO_CLIENT_ID = "vaultwarden";
               in
               {
+                ENABLE_WEBSOCKET = true;
+                ROCKET_ADDRESS = "::1";
+                ROCKET_PORT = 8222;
+
                 LOGIN_RATELIMIT_SECONDS = 60;
                 LOGIN_RATELIMIT_MAX_BURST = 10;
 

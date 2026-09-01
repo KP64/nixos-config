@@ -20,44 +20,38 @@
 
         OAuthProxyProtectedSubDomains = [ "navidrome" ];
 
-        services.nginx.virtualHosts.${domain} = {
-          enableACME = true;
-          acmeRoot = null;
-          onlySSL = true;
-          kTLS = true;
-          locations."/" =
-            let
-              inherit (config.services.navidrome.settings) Address Port;
-            in
-            {
-              proxyPass = "http://${Address}:${toString Port}";
-              extraConfig = # nginx
-                ''
-                  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-                  add_header Cross-Origin-Embedder-Policy require-corp always;
-                  add_header Cross-Origin-Opener-Policy same-origin always;
-                  add_header Cross-Origin-Resource-Policy same-origin always;
-                  add_header Content-Security-Policy "${
-                    mkCSP {
-                      default-src = "self";
-                      img-src = [
-                        "self"
-                        "blob:"
-                        "data:"
-                      ];
-                      style-src = [
-                        "self"
-                        "unsafe-inline"
-                      ];
-                      script-src = [
-                        "self"
-                        "unsafe-inline"
-                      ];
-                    }
-                  }" always; 
-                '';
-            };
-        };
+        services.caddy.virtualHosts.${domain}.extraConfig =
+          let
+            inherit (config.services.navidrome.settings) Address Port;
+          in
+          # caddy
+          ''
+            reverse_proxy http://${Address}:${toString Port}
+            header {
+                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                Cross-Origin-Embedder-Policy require-corp
+                Cross-Origin-Opener-Policy same-origin
+                Cross-Origin-Resource-Policy same-origin
+                Content-Security-Policy "${
+                  mkCSP {
+                    default-src = "self";
+                    img-src = [
+                      "self"
+                      "blob:"
+                      "data:"
+                    ];
+                    style-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                    script-src = [
+                      "self"
+                      "unsafe-inline"
+                    ];
+                  }
+                }"
+            }
+          '';
       })
       {
         services.navidrome = {
