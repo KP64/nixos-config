@@ -13,7 +13,6 @@
           gaming._.steam
           gaming._.lutris
           nvidia
-          obs-studio
           ssh
           time
           tpm
