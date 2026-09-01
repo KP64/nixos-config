@@ -38,29 +38,27 @@
                 content = {
                   type = "btrfs";
                   extraArgs = [ "-f" ];
-                  subvolumes = {
-                    "@root" = {
-                      mountpoint = "/";
+                  subvolumes =
+                    let
                       mountOptions = [
                         "compress=zstd"
                         "noatime"
                       ];
+                    in
+                    {
+                      "@root" = {
+                        mountpoint = "/";
+                        inherit mountOptions;
+                      };
+                      "@home" = {
+                        mountpoint = "/home";
+                        inherit mountOptions;
+                      };
+                      "@nix" = {
+                        mountpoint = "/nix";
+                        inherit mountOptions;
+                      };
                     };
-                    "@home" = {
-                      mountpoint = "/home";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                    "@nix" = {
-                      mountpoint = "/nix";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
-                  };
                 };
               };
             };

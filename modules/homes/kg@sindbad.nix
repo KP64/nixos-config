@@ -35,30 +35,34 @@ in
     )
   ];
 
-  # TODO: Find a way to do this more elegant
   den = {
     homes.x86_64-linux."kg@${hostName}" = { };
-    aspects.kg = { host, ... }: {
-      includes = lib.optionals (host.name == hostName) (
-        [ den.aspects.desktop ]
-        ++ (with den.aspects.kg._; [
-          anki
-          firefox
-          fonts
-          glance
-          kitty
-          niri
-          noctalia
-          thunderbird
-          ttyper
-        ])
-      );
+    aspects.kg =
+      { host, ... }:
+      let
+        isHost = host.name == hostName;
+      in
+      {
+        includes = lib.optionals isHost (
+          [ den.aspects.desktop ]
+          ++ (with den.aspects.kg._; [
+            anki
+            firefox
+            fonts
+            glance
+            kitty
+            niri
+            noctalia
+            thunderbird
+            ttyper
+          ])
+        );
 
-      homeManager = lib.mkIf (host.name == hostName) {
-        targets.genericLinux.enable = true;
-        programs.home-manager.enable = true;
-        home.stateVersion = "26.11";
+        homeManager = lib.mkIf isHost {
+          targets.genericLinux.enable = true;
+          programs.home-manager.enable = true;
+          home.stateVersion = "26.11";
+        };
       };
-    };
   };
 }

@@ -87,7 +87,19 @@
 
           A wannabe size fits it all NixOS Configuration using flakes.
           It is encouraged to try, modify and break it all you like!
-          Don't believe me? Look at the ["License"](${baseNameOf "${self}/UNLICENSE"}) :D
+          Don't believe me? Look at the ["License"](${
+            # Makes sure the License file exists and is consistent.
+            # Edge case: file has "-" in the name.
+            builtins.path rec {
+              name = "UNLICENSE";
+              path = "${self}/${name}";
+              recursive = false;
+              sha256 = "sha256-tQZYOMusRS38hVum5uAxSBrSxoQG9w0h6tkyE3RlPmw=";
+            }
+            |> baseNameOf
+            |> lib.splitString "-"
+            |> lib.last
+          }) :D
 
           ## Hosts
 

@@ -87,7 +87,7 @@ toplevel@{ inputs, ... }:
             strict = true;
           };
 
-          # PNG
+          # 🖼️ PNG
           oxipng = {
             enable = true;
             opt = "max";

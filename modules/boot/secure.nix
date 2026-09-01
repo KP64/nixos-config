@@ -19,15 +19,14 @@
 
       options.boot.measuredPcrs = lib.mkOption {
         default = [ ];
-        type = with lib.types; types.listOf (ints.between 0 15);
+        type = with lib.types; listOf (ints.between 0 15);
         example = [
           0
           4
           7
         ];
         description = ''
-          PCRs owned by the firmware, i.e. PCRs 0–7 are described here just for convenience.
-          The authoriative description is in the TCG document.
+          PCRs owned by the firmware. The authoriative description is in the TCG document.
           https://uapi-group.org/specifications/specs/linux_tpm_pcr_registry/
         '';
       };

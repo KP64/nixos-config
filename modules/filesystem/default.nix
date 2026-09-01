@@ -9,7 +9,7 @@
   imports = [ inputs.disko.flakeModules.default ];
 
   den = {
-    classes.disko.description = "Forward Disko to nixos hosts and create standalone diskoConfigurations";
+    classes.disko.description = "Forward Disko to nixos hosts";
     schema.host.includes = [ den.policies.disko-to-host ];
     policies.disko-to-host =
       let
