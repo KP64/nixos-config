@@ -86,7 +86,6 @@ toplevel@{ den, ... }:
 
                   "oauth2-proxy.access"
                   "oauth2-proxy.navidrome"
-                  "oauth2-proxy.adguardhome"
 
                   "open-webui.access"
                   "open-webui.admins"
@@ -144,7 +143,6 @@ toplevel@{ den, ... }:
 
               "oauth2-proxy.access" = { };
               "oauth2-proxy.navidrome" = { };
-              "oauth2-proxy.adguardhome" = { };
 
               "open-webui.access" = { };
               "open-webui.admins" = { };
@@ -225,7 +223,6 @@ toplevel@{ den, ... }:
                   ];
                   claimMaps.groups.valuesByGroup = {
                     "oauth2-proxy.navidrome" = [ "access_navidrome" ];
-                    "oauth2-proxy.adguardhome" = [ "access_adguardhome" ];
                   };
                 };
                 open-webui = {

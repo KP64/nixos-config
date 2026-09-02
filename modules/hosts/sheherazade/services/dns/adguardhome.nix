@@ -8,42 +8,26 @@ toplevel@{ moduleWithSystem, ... }:
       dnsPort = 53;
     in
     {
-      services.caddy.virtualHosts."adguardhome.${config.networking.domain}".extraConfig = # caddy
-        ''
-          handle /oauth2/* {
-              reverse_proxy ${config.services.oauth2-proxy.httpAddress} {
-                  header_up X-Real-IP {remote_host}
-                  header_up X-Forwarded-Uri {uri}
-              }
-          }
-
-          handle {
-              forward_auth ${config.services.oauth2-proxy.httpAddress} {
-                  uri /oauth2/auth?allowed_groups=access_adguardhome
-
-                  header_up X-Real-IP {remote_host}
-
-                  copy_headers X-Auth-Request-User X-Auth-Request-Email
-
-                  @error status 401
-                  handle_response @error {
-                      redir * /oauth2/sign_in?rd={scheme}://{host}{uri}
-                  }
-              }
-              reverse_proxy http://${config.services.adguardhome.host}:${toString config.services.adguardhome.port}
-          }
-        '';
-
       networking.firewall = {
         allowedTCPPorts = [ dnsPort ];
         allowedUDPPorts = [ dnsPort ];
       };
+
+      # TODO: Make public via mTLS
+      #        - Close firewall
       services.adguardhome = {
         enable = true;
-        host = "[::1]";
+        host = "[${config.staticIPv6}]";
         port = 3353;
+        openFirewall = true;
         mutableSettings = false;
         settings = {
+          users = [
+            {
+              name = "kg";
+              password = "$2y$10$8E0.opIZU4a297PV0e7K3.pF4hIfvatJ8YL/DHz2P.uRr8SDs.k7a";
+            }
+          ];
           auth_attempts = 3;
           block_auth_min = 5;
           dns = {
