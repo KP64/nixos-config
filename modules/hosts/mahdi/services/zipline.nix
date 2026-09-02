@@ -27,7 +27,7 @@ toplevel@{ den, ... }:
             ''
               reverse_proxy http://[${cfg.settings.CORE_HOSTNAME}]:${toString cfg.settings.CORE_PORT}
               header {
-                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains"
                   Content-Security-Policy "${
                     mkCSP {
                       default-src = "none";

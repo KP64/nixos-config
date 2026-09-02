@@ -13,7 +13,7 @@ toplevel: {
             ''
               reverse_proxy http://[::1]:${toString config.services.dumb.port}
               header {
-                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains"
                   X-Frame-Options DENY
                   Permissions-Policy "${
                     mkPP {

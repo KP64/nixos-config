@@ -50,7 +50,7 @@ toplevel@{ moduleWithSystem, ... }:
       services.caddy.virtualHosts."oauth2-proxy.${config.networking.domain}".extraConfig = # caddy
         ''
           header {
-              Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+              Strict-Transport-Security "max-age=31536000; includeSubDomains"
               X-Frame-Options DENY
               X-Content-Type-Options nosniff
               Referrer-Policy no-referrer

@@ -35,7 +35,7 @@ toplevel@{ moduleWithSystem, ... }:
             reverse_proxy unix/${config.services.searx.uwsgiConfig.http-socket}
 
             header {
-                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                Strict-Transport-Security "max-age=31536000; includeSubDomains"
                 Content-Security-Policy "${
                   mkCSP {
                     default-src = "none";

@@ -25,7 +25,7 @@
             ''
               reverse_proxy unix/${lib.removePrefix "unix:" config.services.harmonia-dev.cache.settings.bind}
               header {
-                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains"
                   Content-Security-Policy "${
                     mkCSP {
                       default-src = "none";

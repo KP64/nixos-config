@@ -28,7 +28,7 @@ toplevel: {
             ''
               reverse_proxy http://[::1]:${toString config.services.anonymousoverflow.port}
               header {
-                  Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                  Strict-Transport-Security "max-age=31536000; includeSubDomains"
                   Referrer-Policy no-referrer
                   Content-Security-Policy "${
                     mkCSP {

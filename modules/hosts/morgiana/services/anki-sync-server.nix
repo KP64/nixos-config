@@ -15,7 +15,7 @@
                 ''
                   reverse_proxy http://[${config.services.anki-sync-server.address}]:${toString config.services.anki-sync-server.port}
                   header {
-                      Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                      Strict-Transport-Security "max-age=31536000; includeSubDomains"
                       Content-Security-Policy "${mkCSP { default-src = "none"; }}"
                       X-Frame-Options SAMEORIGIN
                       X-Content-Type-Options nosniff

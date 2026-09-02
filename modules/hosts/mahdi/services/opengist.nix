@@ -26,7 +26,7 @@ toplevel@{ den, ... }:
               ''
                 reverse_proxy unix/${config.services.opengist.environment.OG_HTTP_HOST}
                 header {
-                    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                    Strict-Transport-Security "max-age=31536000; includeSubDomains"
                     Referrer-Policy no-referrer
                     Content-Security-Policy "${
                       mkCSP {

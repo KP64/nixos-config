@@ -28,7 +28,7 @@
           ''
             reverse_proxy http://${Address}:${toString Port}
             header {
-                Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+                Strict-Transport-Security "max-age=31536000; includeSubDomains"
                 Cross-Origin-Embedder-Policy require-corp
                 Cross-Origin-Opener-Policy same-origin
                 Cross-Origin-Resource-Policy same-origin
