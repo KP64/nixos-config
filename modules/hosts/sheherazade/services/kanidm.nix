@@ -81,6 +81,9 @@ toplevel@{ den, ... }:
                   "forgejo.access"
                   "forgejo.admins"
 
+                  "immich.access"
+                  "immich.admins"
+
                   "oauth2-proxy.access"
                   "oauth2-proxy.navidrome"
                   "oauth2-proxy.adguardhome"
@@ -136,6 +139,9 @@ toplevel@{ den, ... }:
               "forgejo.access" = { };
               "forgejo.admins" = { };
 
+              "immich.access" = { };
+              "immich.admins" = { };
+
               "oauth2-proxy.access" = { };
               "oauth2-proxy.navidrome" = { };
               "oauth2-proxy.adguardhome" = { };
@@ -175,6 +181,31 @@ toplevel@{ den, ... }:
                     "openid"
                     "profile"
                   ];
+                };
+                immich = {
+                  displayName = "immich";
+                  imageFile = getAsset {
+                    file = "immich.svg";
+                    type = "icons";
+                    sha256 = "sha256-tDEKdAm+uP0odvpe2Z6taXjQdn3HUwsKbnReSutwX1I=";
+                  };
+                  basicSecretFile = config.sops.secrets."kanidm/oauth2/immich".path;
+                  originUrl = [
+                    "app.immich:///oauth-callback"
+                    "${mahdi.config.services.immich.settings.server.externalDomain}/auth/login"
+                    "${mahdi.config.services.immich.settings.server.externalDomain}/user-settings"
+                  ];
+                  originLanding = mahdi.config.services.immich.settings.server.externalDomain;
+                  preferShortUsername = true;
+                  scopeMaps."immich.access" = [
+                    "email"
+                    "openid"
+                    "profile"
+                  ];
+                  claimMaps.${mahdi.config.services.immich.settings.oauth.roleclaim}.valuesByGroup = {
+                    "immich.access" = [ "user" ];
+                    "immich.admins" = [ "admin" ];
+                  };
                 };
                 oauth2-proxy = {
                   displayName = "oauth2-proxy";
