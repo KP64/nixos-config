@@ -159,9 +159,9 @@
     };
     nix-topology = {
       type = "github";
-      owner = "oddlama";
+      owner = "KP64";
       repo = "nix-topology";
-      ref = "pull/162/head";
+      ref = "advanced";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";

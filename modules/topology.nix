@@ -1,10 +1,10 @@
 { inputs, self, ... }: {
+  # TODO: Revert to main repo when PRs are merged
   flake-file.inputs.nix-topology = {
     type = "github";
-    owner = "oddlama";
+    owner = "KP64";
     repo = "nix-topology";
-    # TODO: Remove when the PR lands.
-    ref = "pull/162/head";
+    ref = "advanced";
     inputs = {
       flake-parts.follows = "flake-parts";
       nixpkgs.follows = "nixpkgs";
