@@ -9,7 +9,6 @@ toplevel@{ moduleWithSystem, ... }:
     {
       sops.secrets."oauth2-proxy/cookie-secret" = lib.mkIf config.services.oauth2-proxy.enable { };
 
-      # TODO: Refactor everything about oauth2-proxy...
       services.oauth2-proxy =
         let
           inherit (config.services) kanidm;

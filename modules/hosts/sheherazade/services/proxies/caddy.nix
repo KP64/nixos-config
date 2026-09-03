@@ -67,56 +67,19 @@ toplevel@{ den, ... }:
                 inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
 
                 proxyServices =
-                  ipv6: vhosts: protectedSubDomains:
+                  ipv6: vhosts:
                   vhosts
                   |> builtins.mapAttrs (
                     vhostDomain: _: {
                       extraConfig = # caddy
-                        let
-                          subDomain = lib.removeSuffix ".${config.networking.domain}" vhostDomain;
-                        in
-                        if (builtins.elem subDomain protectedSubDomains) then
-                          # caddy
-                          ''
-                            handle /oauth2/* {
-                                reverse_proxy ${config.services.oauth2-proxy.httpAddress} {
-                                    header_up X-Real-IP {remote_host}
-                                    header_up X-Forwarded-Uri {uri}
-                                }
-                            }
-
-                            handle {
-                                forward_auth ${config.services.oauth2-proxy.httpAddress} {
-                                    uri /oauth2/auth?allowed_groups=access_${subDomain}
-
-                                    header_up X-Real-IP {remote_host}
-
-                                    copy_headers X-Auth-Request-User X-Auth-Request-Email
-
-                                    @error status 401
-                                    handle_response @error {
-                                        redir * /oauth2/sign_in?rd={scheme}://{host}{uri}
-                                    }
-                                }
-
-                                reverse_proxy https://[${ipv6}] {
-                                    header_up Host {host}
-                                    transport http {
-                                        tls_server_name ${vhostDomain}
-                                    }
-                                }
-                            }
-                          ''
-                        # caddy
-                        else
-                          ''
-                            reverse_proxy https://[${ipv6}] {
-                                header_up Host {host}
-                                transport http {
-                                    tls_server_name ${vhostDomain}
-                                }
-                            }
-                          '';
+                        ''
+                          reverse_proxy https://[${ipv6}] {
+                              header_up Host {host}
+                              transport http {
+                                  tls_server_name ${vhostDomain}
+                              }
+                          }
+                        '';
                     }
                   );
               in
@@ -172,11 +135,9 @@ toplevel@{ den, ... }:
                 }
                 (lib.mkIf mahdi.config.services.caddy.enable (
                   proxyServices mahdi.config.staticIPv6 mahdi.config.services.caddy.virtualHosts
-                    mahdi.config.OAuthProxyProtectedSubDomains
                 ))
                 (lib.mkIf morgiana.config.services.caddy.enable (
                   proxyServices morgiana.config.staticIPv6 morgiana.config.services.caddy.virtualHosts
-                    morgiana.config.OAuthProxyProtectedSubDomains
                 ))
               ];
           };

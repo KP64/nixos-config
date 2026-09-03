@@ -18,15 +18,34 @@
           };
         };
 
-        OAuthProxyProtectedSubDomains = [ "navidrome" ];
-
         services.caddy.virtualHosts.${domain}.extraConfig =
           let
             inherit (config.services.navidrome.settings) Address Port;
           in
           # caddy
           ''
-            reverse_proxy http://${Address}:${toString Port}
+            handle /oauth2/* {
+                reverse_proxy https://oauth2-proxy.${config.networking.domain} {
+                    header_up X-Real-IP {remote_host}
+                    header_up X-Forwarded-Uri {uri}
+                }
+            }
+
+            handle {
+                forward_auth https://oauth2-proxy.${config.networking.domain} {
+                    uri /oauth2/auth?allowed_groups=access_navidrome
+
+                    header_up X-Real-IP {remote_host}
+
+                    copy_headers X-Auth-Request-User X-Auth-Request-Email
+
+                    @error status 401
+                    handle_response @error {
+                        redir * /oauth2/sign_in?rd={scheme}://{host}{uri}
+                    }
+                }
+                reverse_proxy http://${Address}:${toString Port}
+            }
             header {
                 Strict-Transport-Security "max-age=31536000; includeSubDomains"
                 Cross-Origin-Embedder-Policy require-corp

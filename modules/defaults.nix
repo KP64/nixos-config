@@ -39,12 +39,6 @@
           homelab
         ];
 
-        options.OAuthProxyProtectedSubDomains = lib.mkOption {
-          default = [ ];
-          type = lib.types.listOf lib.types.nonEmptyStr;
-          example = [ "navidrome" ];
-        };
-
         config = {
           boot.tmp.cleanOnBoot = true;
           documentation.enable = false;
