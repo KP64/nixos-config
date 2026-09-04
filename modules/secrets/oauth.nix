@@ -13,13 +13,15 @@
       {
         "kanidm/admin-password" = defaults;
         "kanidm/idm-admin-password" = defaults;
-        "kanidm/oauth2/forgejo" = defaults;
-        "kanidm/oauth2/immich" = defaults;
-        "kanidm/oauth2/oauth2-proxy" = defaults;
-        "kanidm/oauth2/open-webui" = defaults;
-        "kanidm/oauth2/opengist" = defaults;
-        "kanidm/oauth2/zipline" = defaults;
-        "kanidm/oauth2/vaultwarden" = defaults;
-      };
+      }
+      // lib.genAttrs' [
+        "forgejo"
+        "immich"
+        "oauth2-proxy"
+        "open-webui"
+        "opengist"
+        "vaultwarden"
+        "zipline"
+      ] (service: lib.nameValuePair "kanidm/oauth2/${service}" defaults);
   };
 }
