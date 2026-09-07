@@ -51,8 +51,10 @@
                 gum
               ]
             ))
-            (writeCustomScript "attach" [ pkgs.tmux ])
-            (writeCustomScript "prefetch" [ inputs'.nix-minecraft.packages.nix-modrinth-prefetch ])
+            (writeCustomScript "minecraft" [
+              pkgs.tmux
+              inputs'.nix-minecraft.packages.nix-modrinth-prefetch
+            ])
             (writeCustomScript "deploy" (
               with pkgs;
               [
