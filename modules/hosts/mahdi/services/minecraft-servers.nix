@@ -92,13 +92,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         };
       };
 
-      services.oink.domains = [
-        {
-          inherit (config.networking) domain;
-          subdomain = "mc";
-        }
-      ];
-
       services.minecraft-servers = {
         enable = true;
         eula = true;
@@ -123,20 +116,12 @@ toplevel@{ moduleWithSystem, inputs, ... }:
               "server-icon.png" = mcIcon;
               "velocity.toml".value =
                 let
-                  servers =
-                    let
-                      inherit (config.services.minecraft-servers.servers) Creative Survival Hardcore;
-                    in
-                    {
-                      survival = "[${Survival.serverProperties.server-ip}]:${toString Survival.serverProperties.server-port}";
-                      creative = "[${Creative.serverProperties.server-ip}]:${toString Creative.serverProperties.server-port}";
-                      hardcore = "[${Hardcore.serverProperties.server-ip}]:${toString Hardcore.serverProperties.server-port}";
-                      try = [
-                        "creative"
-                        "survival"
-                        "hardcore"
-                      ];
-                    };
+                  backendServers =
+                    config.services.minecraft-servers.servers
+                    |> lib.filterAttrs (n: _: n != "Proxy")
+                    |> builtins.mapAttrs (
+                      _: v: "[${v.serverProperties.server-ip}]:${toString v.serverProperties.server-port}"
+                    );
                 in
                 {
                   config-version = "2.8";
@@ -164,10 +149,12 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     decompressed-bytes-per-second = 5242880;
                   };
 
-                  inherit servers;
+                  servers = backendServers // {
+                    try = builtins.attrNames backendServers;
+                  };
+
                   forced-hosts =
-                    servers
-                    |> lib.filterAttrs (n: _: n != "try")
+                    backendServers
                     |> lib.mapAttrs' (
                       n: _: {
                         name = "${n}.${subdomain}.${config.networking.domain}";
@@ -180,7 +167,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     login-ratelimit = 3000;
                     connection-timeout = 5000;
                     read-timeout = 30000;
-                    haproxy-protocol = false;
+                    haproxy-protocol = true;
                     tcp-fast-open = pkgs.stdenvNoCC.hostPlatform.isLinux;
                     bungee-plugin-message-channel = true;
                     show-ping-requests = true;

@@ -72,7 +72,7 @@ in
         backend minecraft-out
           timeout server 24h
           timeout tunnel 24h
-          server minecraft [${mahdi.config.staticIPv6}]:${toString minecraftPort} check
+          server minecraft [${mahdi.config.staticIPv6}]:${toString minecraftPort} check send-proxy-v2
       '';
     };
   };
