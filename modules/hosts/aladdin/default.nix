@@ -37,7 +37,6 @@
           bluetooth.settings.General = {
             FastConnectable = true;
             Privacy = "network/on";
-            SecureConnections = "only";
           };
         };
 
