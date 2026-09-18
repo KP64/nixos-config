@@ -13,8 +13,7 @@
       files.file.${file}.source =
         let
           inherit (config.lib.flake.util) getRelativePath;
-          content =
-            # bash
+          content = # bash
             ''
               #!/usr/bin/env bash
 

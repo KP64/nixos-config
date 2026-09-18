@@ -1,4 +1,4 @@
-def main [] {}
+def main [] { }
 
 # Connects to the console of a running minecraft server via tmux
 @example $"Connect to server named (ansi yellow)Survival(ansi reset)" {attach Survival}

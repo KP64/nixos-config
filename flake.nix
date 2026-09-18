@@ -1,4 +1,4 @@
-# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# DO-NOT-EDIT. This file was auto-generated using github:denful/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
   description = "KP64's Overengineered Nix Flake";
@@ -87,10 +87,7 @@
       type = "github";
       owner = "nix-community";
       repo = "harmonia";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = "";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       type = "github";
@@ -122,6 +119,12 @@
       type = "github";
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
+    };
+    nix-graph = {
+      type = "github";
+      owner = "AlexAntonik";
+      repo = "nix-graph";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
       type = "github";

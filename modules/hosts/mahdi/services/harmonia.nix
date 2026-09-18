@@ -3,10 +3,7 @@
     type = "github";
     owner = "nix-community";
     repo = "harmonia";
-    inputs = {
-      nixpkgs.follows = "nixpkgs";
-      treefmt-nix.follows = "";
-    };
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
   den.aspects.mahdi.nixos =

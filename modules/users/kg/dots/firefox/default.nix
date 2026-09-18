@@ -326,8 +326,9 @@ toplevel@{
                 # Return Youtube Dislike
                 "{762f9885-5a13-4abd-9c77-433dcd38b8fd}".permissions = [
                   "activeTab"
-                  "*://*.youtube.com/*"
+                  "identity"
                   "storage"
+                  "*://*.youtube.com/*"
                   "*://returnyoutubedislikeapi.com/*"
                 ];
                 "simple-translate@sienori".permissions = [

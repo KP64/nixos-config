@@ -1,4 +1,8 @@
-{ inputs, lib, ... }: {
+{ inputs, lib, ... }:
+let
+  devPartition = "dev";
+in
+{
   imports = [ inputs.flake-parts.flakeModules.partitions ];
 
   /*
@@ -9,15 +13,15 @@
     An example would be a development flake that handles
     everything about further developing this flake like formatters etc.
   */
-  partitions.dev =
+  partitions.${devPartition} =
     let
       devPath = ../../dev;
     in
     {
       extraInputsFlake = devPath;
-      module = { inherit (inputs.import-tree "${devPath}/modules") imports; };
+      module = inputs.import-tree (lib.path.append devPath "modules");
     };
 
   # Moving dev related stuff to the appropriate partition
-  partitionedAttrs = lib.genAttrs [ "checks" "devShells" "formatter" ] (_: "dev");
+  partitionedAttrs = lib.genAttrs [ "checks" "devShells" "formatter" ] (_: devPartition);
 }
