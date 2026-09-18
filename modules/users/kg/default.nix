@@ -1,9 +1,21 @@
-toplevel@{ den, inputs, ... }:
+toplevel@{
+  den,
+  inputs,
+  moduleWithSystem,
+  ...
+}:
 let
   user = "kg";
   nix.settings.trusted-users = [ user ];
 in
 {
+  flake-file.inputs.nix-graph = {
+    type = "github";
+    owner = "AlexAntonik";
+    repo = "nix-graph";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   den.aspects.${user} = { host, ... }: {
     includes =
       (with den.batteries; [
@@ -74,7 +86,8 @@ in
       };
     };
 
-    homeManager =
+    homeManager = moduleWithSystem (
+      { inputs', ... }:
       {
         osConfig ? null,
         config,
@@ -94,28 +107,30 @@ in
 
         home = {
           shellAliases.c = "clear";
-          packages =
-            (with pkgs; [
-              igrep
-              systemctl-tui
+          packages = [
+            inputs'.nix-graph.packages.default
+          ]
+          ++ (with pkgs; [
+            igrep
+            systemctl-tui
+          ])
+          ++ (lib.optionals
+            (builtins.elem host.name [
+              toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName
+              "sindbad"
             ])
-            ++ (lib.optionals
-              (builtins.elem host.name [
-                toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName
-                "sindbad"
-              ])
-              (
-                with pkgs;
-                [
-                  bluetui
-                  caligula
-                  manga-tui
-                  nyancat
-                  signal-desktop
-                  yubioath-flutter
-                ]
-              )
-            );
+            (
+              with pkgs;
+              [
+                bluetui
+                caligula
+                manga-tui
+                nyancat
+                signal-desktop
+                yubioath-flutter
+              ]
+            )
+          );
         };
 
         sops = {
@@ -128,7 +143,13 @@ in
         programs = {
           bat.enable = true;
           bottom.enable = true;
-          btop.enable = true;
+          btop = {
+            enable = true;
+            settings = {
+              vim_keys = true;
+              update_ms = 1000;
+            };
+          };
           cava.enable = true;
           fastfetch.enable = true;
           less.enable = true;
@@ -136,6 +157,7 @@ in
           ripgrep.enable = true;
           skim.enable = true;
         };
-      };
+      }
+    );
   };
 }
