@@ -40,7 +40,7 @@
         lanzaboote = {
           enable = true;
           pkiBundle = "/var/lib/sbctl";
-          configurationLimit = lib.mkIf config.boot.lanzaboote.measuredBoot.enable 8;
+          configurationLimit = lib.mkIf config.boot.lanzaboote.measuredBoot.enable 4;
           measuredBoot = {
             enable = config.boot.lanzaboote.measuredBoot.pcrs != [ ];
             pcrs = config.boot.measuredPcrs;

@@ -23,7 +23,6 @@
       networking.wireless = {
         enable = true;
         secretsFile = config.sops.templates."wireless.env".path;
-        scanOnLowSignal = false;
         networks.${config.wifiSSID}.pskRaw = "ext:HOME_WIFI_PASSWORD";
       };
     };

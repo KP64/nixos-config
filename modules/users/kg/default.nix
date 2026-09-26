@@ -71,7 +71,6 @@ in
       users.users.${user} = {
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets."${user}_password".path;
-        description = with config.home-manager.users.${user}.invisible; "${firstName} ${lastName}";
         openssh.authorizedKeys.keyFiles = lib.fileset.toList ./keys;
         extraGroups =
           (map (group: group.name) (

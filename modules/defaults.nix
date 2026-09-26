@@ -40,7 +40,11 @@
         ];
 
         config = {
-          boot.tmp.cleanOnBoot = true;
+          console.useXkbConfig = true;
+          boot = {
+            tmp.cleanOnBoot = true;
+            binfmt.preferStaticEmulators = true;
+          };
           documentation.enable = false;
           environment.defaultPackages = [ ];
           networking = {

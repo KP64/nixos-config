@@ -8,27 +8,20 @@
         addr = "224";
       in
       {
-        networking = {
-          domain = "srvd.space";
-          useDHCP = false;
-          dhcpcd.enable = false;
-        };
+        networking.domain = "srvd.space";
 
         staticIPv4 = "${config.lib.topology.getHomeCidr4}.${addr}";
         staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
-        systemd.network = {
-          enable = true;
-          networks."10-end0" = {
-            name = "end0";
-            address = [ "${config.staticIPv4}/24" ];
-            gateway = [ "${config.lib.topology.getHomeCidr4}.1" ];
-            networkConfig = {
-              IPv6AcceptRA = true;
-              IPv6PrivacyExtensions = false;
-            };
-            ipv6AcceptRAConfig.Token = "static:::${addr}";
+        systemd.network.networks."10-end0" = {
+          name = "end0";
+          address = [ "${config.staticIPv4}/24" ];
+          gateway = [ "${config.lib.topology.getHomeCidr4}.1" ];
+          networkConfig = {
+            IPv6AcceptRA = true;
+            IPv6PrivacyExtensions = false;
           };
+          ipv6AcceptRAConfig.Token = "static:::${addr}";
         };
       };
   };

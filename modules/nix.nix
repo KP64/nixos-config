@@ -92,7 +92,12 @@ in
                 enable = true;
                 clean = {
                   enable = true;
-                  extraArgs = "--keep 5";
+                  extraArgs = [
+                    "--keep"
+                    "5"
+                    "--keep-since"
+                    "4d"
+                  ];
                 };
                 flake = "${config.home.homeDirectory}/nixos-config";
               };
