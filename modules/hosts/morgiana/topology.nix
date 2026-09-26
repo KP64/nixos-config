@@ -11,7 +11,7 @@ toplevel: {
           image = getAsset {
             file = "rpi4.png";
             type = "topology";
-            sha256 = "sha256-TqpeMOAwZ903voIGQhLheQyt5mAqKPJJj0Zfe1kof7M=";
+            sha256 = "sha256-j5iz74ZciI00wOIwlR1sOpHnDVhnkDhPCQ/cK8GsxrU=";
           };
           info = "Raspberry Pi 4 Model B";
         };

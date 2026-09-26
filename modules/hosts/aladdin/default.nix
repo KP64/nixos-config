@@ -40,19 +40,17 @@
           };
         };
 
-        console.keyMap = config.services.xserver.xkb.layout;
         services.xserver.xkb.layout = "de";
         boot = {
+          loader.systemd-boot.memtest86.enable = true;
+
           kernelPackages = pkgs.linuxPackages_zen;
           measuredPcrs = [
             0
             4
             7
           ];
-          binfmt = {
-            preferStaticEmulators = true;
-            emulatedSystems = [ "aarch64-linux" ];
-          };
+          binfmt.emulatedSystems = [ "aarch64-linux" ];
         };
 
         home-manager.users.kg.home = { inherit (config.system) stateVersion; };

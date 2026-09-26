@@ -17,7 +17,6 @@ in
 
     aspects.zarqa = {
       includes = with den.aspects; [
-        auto-timezone
         rpi._.cache
         rpi._.fs._ext4
         ssh
@@ -38,8 +37,6 @@ in
 
         system.stateVersion = "26.11";
         hardware.facter.reportPath = ./facter.json;
-
-        console.keyMap = "de";
 
         sops.defaultSopsFile = ./secrets.yaml;
         users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;

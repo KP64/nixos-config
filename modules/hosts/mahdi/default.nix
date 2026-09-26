@@ -5,7 +5,6 @@
     aspects.mahdi = {
       includes = with den.aspects; [
         antivirus
-        auto-timezone
         catppuccin
         boot._.efi
         rpi._.cache
@@ -23,20 +22,9 @@
         system.stateVersion = "26.11";
         hardware.facter.reportPath = ./facter.json;
 
-        console.keyMap = config.services.xserver.xkb.layout;
-
         boot = {
           kernelPackages = pkgs.linuxPackages_latest;
-          binfmt = {
-            preferStaticEmulators = true;
-            emulatedSystems = [ "aarch64-linux" ];
-          };
-        };
-
-        services = {
-          xserver.xkb.layout = "de";
-          # Firmware is locked
-          fwupd.enable = false;
+          binfmt.emulatedSystems = [ "aarch64-linux" ];
         };
       };
     };

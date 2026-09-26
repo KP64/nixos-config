@@ -6,6 +6,8 @@
         wayland.enable = true;
       };
 
+      fonts.fontconfig.enable = true;
+
       environment.pathsToLink =
         let
           portalActivated = config.lib.hm.anyHmUser (hmUserCfg: hmUserCfg.xdg.portal.enable);
