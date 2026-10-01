@@ -88,7 +88,7 @@ in
     homeManager = moduleWithSystem (
       { inputs', ... }:
       {
-        osConfig ? null,
+        nixosConfig ? null,
         config,
         lib,
         pkgs,
@@ -97,7 +97,7 @@ in
       {
         imports = [ inputs.nix-invisible.modules.homeManager."user-${user}" ];
 
-        nix = lib.mkIf (osConfig == null) nix;
+        nix = lib.mkIf (nixosConfig == null) nix;
 
         vcs.user = {
           name = "KP64";

@@ -2,7 +2,7 @@ toplevel@{ self, ... }:
 {
   den.aspects.kg._.noctalia.homeManager =
     {
-      osConfig ? null,
+      nixosConfig ? null,
       config,
       ...
     }:
@@ -28,12 +28,12 @@ toplevel@{ self, ... }:
             behavior = {
               lock = {
                 action = "lock";
-                enabled = osConfig != null;
+                enabled = nixosConfig != null;
                 timeout = 600;
               };
               lock-and-suspend = {
                 action = "lock_and_suspend";
-                enabled = osConfig != null;
+                enabled = nixosConfig != null;
                 timeout = 900;
               };
               screen-off = {

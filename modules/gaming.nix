@@ -18,6 +18,7 @@
             gamemode.enable = true;
             gamescope = {
               enable = true;
+              enableWsi = true;
               capSysNice = true;
             };
             steam = {
@@ -53,7 +54,7 @@
           };
         homeManager =
           {
-            osConfig ? null,
+            nixosConfig ? null,
             pkgs,
             ...
           }:
@@ -63,7 +64,7 @@
               defaultWinePackage = pkgs.proton-ge-bin;
               winePackages = [ pkgs.wineWow64Packages.full ];
               protonPackages = [ pkgs.proton-ge-bin ];
-              steamPackage = osConfig.programs.steam.package or pkgs.steam;
+              steamPackage = nixosConfig.programs.steam.package or pkgs.steam;
             };
           };
       };

@@ -7,7 +7,7 @@ toplevel: {
     homeManager =
       { host, ... }:
       {
-        osConfig ? null,
+        nixosConfig ? null,
         config,
         lib,
         pkgs,
@@ -24,7 +24,7 @@ toplevel: {
         home.packages = [ pkgs.wl-clipboard-rs ];
 
         wayland.windowManager.niri =
-          (lib.optionalAttrs (osConfig != null) {
+          (lib.optionalAttrs (nixosConfig != null) {
             package = null;
             portalPackage = null;
             systemd.enable = false;
