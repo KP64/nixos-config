@@ -91,7 +91,7 @@
 
     homeManager =
       {
-        osConfig ? null,
+        nixosConfig ? null,
         config,
         pkgs,
         ...
@@ -102,7 +102,7 @@
           publicKeys = [ ];
           mutableKeys = false;
           mutableTrust = false;
-          scdaemonSettings.disable-ccid = osConfig.services.pcscd.enable or false;
+          scdaemonSettings.disable-ccid = nixosConfig.services.pcscd.enable or false;
         };
         services.gpg-agent = {
           enable = true;

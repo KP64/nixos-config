@@ -2,12 +2,12 @@
   # TODO: enableDefaultPackages = false;
   den.aspects.kg._.fonts.homeManager =
     {
-      osConfig ? null,
+      nixosConfig ? null,
       pkgs,
       ...
     }:
     {
-      fonts.fontconfig.enable = osConfig.fonts.fontconfig.enable or true;
+      fonts.fontconfig.enable = nixosConfig.fonts.fontconfig.enable or true;
 
       home.packages = with pkgs; [
         nerd-fonts.jetbrains-mono

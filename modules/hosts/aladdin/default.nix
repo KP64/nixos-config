@@ -43,6 +43,7 @@
         services.xserver.xkb.layout = "de";
         boot = {
           loader.systemd-boot.memtest86.enable = true;
+          plymouth.enable = true;
 
           kernelPackages = pkgs.linuxPackages_zen;
           measuredPcrs = [

@@ -40,18 +40,49 @@
         ];
 
         config = {
+          systemd = {
+            coredump.enable = false;
+            network.enable = true;
+          };
+
+          fonts.fontconfig.enable = lib.mkDefault false;
+
+          hardware.bluetooth.powerOnBoot = false;
+
           console.useXkbConfig = true;
           boot = {
+            loader = {
+              timeout = 0;
+              systemd-boot.bootCounting.enable = true;
+            };
             tmp.cleanOnBoot = true;
             binfmt.preferStaticEmulators = true;
+            bootspec.enableValidation = true;
           };
           documentation.enable = false;
-          environment.defaultPackages = [ ];
+          environment = {
+            defaultPackages = [ ];
+            stub-ld.enable = false;
+          };
           networking = {
-            firewall.pingLimit = "10/second burst 20 packets";
+            useDHCP = false;
+            dhcpcd.enable = false;
+
+            wireless = {
+              fallbackToWPA2 = false;
+              scanOnLowSignal = false;
+            };
+
+            firewall = {
+              pingLimit = "10/second burst 20 packets";
+              checkReversePath = "strict";
+              filterForward = true;
+              rejectPackets = true;
+            };
             nftables = {
               enable = true;
               flattenRulesetFile = true;
+              flushRuleset = true;
             };
           };
           security = {
@@ -62,6 +93,7 @@
             lockKernelModules = true;
             protectKernelImage = true;
             forcePageTableIsolation = true;
+            virtualisation.flushL1DataCache = "always";
           };
           system = {
             # TODO: Enable when Sops-Nix works with that.
@@ -72,7 +104,10 @@
             # nixos-init.enable = true;
             tools.nixos-generate-config.enable = false;
           };
-          services.userborn.enable = true;
+          services = {
+            journald.settings.Journal.Storage = "volatile";
+            userborn.enable = true;
+          };
           users.mutableUsers = false;
         };
       };

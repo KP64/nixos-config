@@ -48,7 +48,7 @@ in
 
     homeManager =
       {
-        osConfig ? null,
+        nixosConfig ? null,
         config,
         lib,
         pkgs,
@@ -58,7 +58,7 @@ in
         imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
         config = lib.mkMerge [
-          (lib.mkIf (osConfig == null) {
+          (lib.mkIf (nixosConfig == null) {
             inherit nixpkgs;
 
             # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 or
@@ -79,7 +79,7 @@ in
             };
           })
           {
-            nix.assumeXdg = osConfig != null && commonSettings.use-xdg-base-directories;
+            nix.assumeXdg = nixosConfig != null && commonSettings.use-xdg-base-directories;
 
             programs = {
               nix-index.enable = true;

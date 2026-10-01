@@ -11,6 +11,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
     let
       subdomain = "mc";
 
+      jre_headless = pkgs.jdk25_headless;
+
       mcIcon = toplevel.config.lib.flake.util.getAsset {
         file = "minecraft.png";
         type = "icons";
@@ -22,7 +24,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
       mcLib = config.lib.minecraft;
 
       default = {
-        package = mcPkgs.minecraftServers.fabric-26_2.override { jre_headless = pkgs.openjdk25_headless; };
+        package = mcPkgs.minecraftServers.fabric-26_3.override { inherit jre_headless; };
         jvmOpts = [
           "-Xms8G"
           "-Xmx8G"
@@ -42,8 +44,8 @@ toplevel@{ moduleWithSystem, inputs, ... }:
         };
         mods = {
           FABRIC_API = {
-            url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Kr4WG5mG/fabric-api-0.154.2%2B26.2.jar";
-            sha512 = "7cedad862e8105a7de8db090c0707c25a14a9472654090861dcf490f834862c3212723e762f6f797a0e4683104f4b3a20d3692fb29d7b5c0af437613283d34db";
+            url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar";
+            sha512 = "ed6b2586d6fde11fde8472f5a527c51e99b67026e46f94d4bfd85e7e28ce5ee299173ee16ad576ceb51f39f98d30a811086a6deb1a86a524859cc16e12da109d";
           };
           FABRIC_PROXY_LITE = {
             url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/CsEpiziv/FabricProxy-Lite-2.12.0.jar";
@@ -100,7 +102,9 @@ toplevel@{ moduleWithSystem, inputs, ... }:
           Proxy = {
             enable = true;
             openFirewall = true;
-            package = mcPkgs.velocityServers.velocity-3_5_0-SNAPSHOT-build_607;
+            package = mcPkgs.velocityServers.velocity-4_2_1-SNAPSHOT-build_36.override {
+              inherit jre_headless;
+            };
             # Recommended by https://docs.papermc.io/velocity/tuning/#tune-your-startup-flags
             jvmOpts = [
               "-Xms2G"
@@ -124,7 +128,7 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     );
                 in
                 {
-                  config-version = "2.8";
+                  config-version = "2.9";
 
                   bind = "[${config.staticIPv6}]:${toString velocityPort}";
                   motd = "<rainbow>Hello Minecraft Enthusiasts!</rainbow>";
@@ -139,7 +143,6 @@ toplevel@{ moduleWithSystem, inputs, ... }:
 
                   announce-forge = false;
                   kick-existing-players = true;
-                  ping-passthrough = "DISABLED";
                   sample-players-in-ping = false;
                   enable-player-address-logging = true;
                   packet-limiter = {
@@ -147,6 +150,13 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                     packets-per-second = -1;
                     bytes-per-second = -1;
                     decompressed-bytes-per-second = 5242880;
+                  };
+                  ping-passthrough = {
+                    version = false;
+                    players = false;
+                    description = false;
+                    favicon = false;
+                    modinfo = false;
                   };
 
                   servers = backendServers // {

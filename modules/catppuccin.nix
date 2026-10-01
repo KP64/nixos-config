@@ -28,7 +28,7 @@ in
 
     homeManager =
       {
-        osConfig ? null,
+        nixosConfig ? null,
         config,
         ...
       }:
@@ -38,7 +38,7 @@ in
         catppuccin = {
           enable = true;
           autoEnable = true;
-          cache.enable = osConfig == null;
+          cache.enable = nixosConfig == null;
           inherit accent;
           firefox.force = true;
           cursors = {

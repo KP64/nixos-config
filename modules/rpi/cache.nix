@@ -13,9 +13,9 @@ in
     homeManager =
       {
         lib,
-        osConfig ? null,
+        nixosConfig ? null,
         ...
       }:
-      lib.mkIf (osConfig == null) { inherit nix; };
+      lib.mkIf (nixosConfig == null) { inherit nix; };
   };
 }

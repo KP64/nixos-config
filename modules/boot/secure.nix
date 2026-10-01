@@ -41,6 +41,7 @@
           enable = true;
           pkiBundle = "/var/lib/sbctl";
           configurationLimit = lib.mkIf config.boot.lanzaboote.measuredBoot.enable 4;
+          bootCounting.initialTries = config.boot.loader.systemd-boot.bootCounting.tries;
           measuredBoot = {
             enable = config.boot.lanzaboote.measuredBoot.pcrs != [ ];
             pcrs = config.boot.measuredPcrs;
