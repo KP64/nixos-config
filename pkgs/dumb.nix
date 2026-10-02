@@ -3,38 +3,27 @@
   buildGoModule,
   fetchFromGitHub,
   esbuild,
-  stdenvNoCC,
+  templ,
 }:
-let
-  # nixpkgs templ is too new. Check fails.
-  # import newest yet compatible nixpkgs.
-  oldNixpkgs = fetchFromGitHub {
-    owner = "NixOS";
-    repo = "nixpkgs";
-    rev = "a19cd4ffb1f4b953a76f3ac29c6520d0b1877108";
-    hash = "sha256-ytHMMsgrwPIZz2xoQKKktb1p3EiUhkTTH1NxbtxaIMI=";
-  };
-  oldPkgs = import oldNixpkgs { inherit (stdenvNoCC.hostPlatform) system; };
-in
 buildGoModule (finalAttrs: {
   pname = "dumb";
-  version = "unstable-2026-03-14";
+  version = "unstable-2026-09-26";
 
   src = fetchFromGitHub {
     owner = "rramiachraf";
     repo = "dumb";
-    rev = "188d5f7e41e5fdafab88f30e1b2c3e558399b53d";
-    hash = "sha256-g+MBVqdPtG8ugBfYxjIrJgGcDnikzHgHnjcCYC5vx2Y=";
+    rev = "f5581074850bc31ed7df1ce96e8f428179bf0abb";
+    hash = "sha256-ajyMDzRlvAmQujcUEEQs7yffWVKrvgDZgLimTCT6eZI=";
   };
 
   __structuredAttrs = true;
 
   nativeBuildInputs = [
     esbuild
-    oldPkgs.templ
+    templ
   ];
 
-  vendorHash = "sha256-A9QjEYdjwcB690PVpm0NS5vjxpl12gKtrwIMZbS7ym0=";
+  vendorHash = "sha256-FobXK38l1dxCd0qDBynWhQtHVdx9rMtWRS94Jg99jQ4=";
 
   env.CGO_ENABLED = 0;
 
