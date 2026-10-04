@@ -51,6 +51,26 @@ toplevel@{ moduleWithSystem, inputs, ... }:
             url = "https://cdn.modrinth.com/data/8dI2tmqs/versions/CsEpiziv/FabricProxy-Lite-2.12.0.jar";
             sha512 = "b479c3ed1fe83929cad40e5c925ae2702da879b88a0271a24266cd21ecc037953f347cbe61ac7b7334e087544ee2ce5bf1f041fc3e64f50474404ad564c146f7";
           };
+          FERRITE_CORE = {
+            url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar";
+            sha512 = "d81fa97e11784c19d42f89c2f433831d007603dd7193cee45fa177e4a6a9c52b384b198586e04a0f7f63cd996fed713322578bde9a8db57e1188854ae5cbe584";
+          };
+          C2ME = {
+            url = "https://cdn.modrinth.com/data/VSNURh3q/versions/FXjQDzq7/c2me-fabric-mc26.3-0.4.2-alpha.0.89.jar";
+            sha512 = "b4fcf82bbe15bfa253e3ab6df4d6b64e800a2ccdb45d4ca2b8040da87f72033fed34f4f94016aac507596c78fddb18dba28c6642790181642cae46fae28b3a85";
+          };
+          CLUMPS = {
+            url = "https://cdn.modrinth.com/data/Wnxd13zP/versions/J4I1wxJZ/Clumps-fabric-26.3-26.3.2.jar";
+            sha512 = "8c166ae97e1999d0f213d0a181d6ef87b99648016c92c9aa1414d2c2e24364b12549569cd7e247a3d675df703ae6a8a88fc175d3f527818c710578408508c8ab";
+          };
+          KRYPTON = {
+            url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/UugdIYJw/krypton-0.3.2.jar";
+            sha512 = "d1d57ebd41395b75b01f130cd9503eb8d208212424a399ff9f367f50be8fbc1c6472442b33c686e777c3148f6a609520e8fb732c755157c358cb207fd4d1123a";
+          };
+          LITHIUM = {
+            url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/xS0Q8LSi/lithium-fabric-0.26.2%2Bmc26.3.jar";
+            sha512 = "4d7fee66132eedc71feab9390b92c95d7058edbdad0fecfac1d836a2950b97a7ca463afbede61c7ef361ce65e1f927ab9e89dde5bf2e0e0ce486afb5c5dbee40";
+          };
         };
       };
 
