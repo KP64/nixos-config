@@ -20,8 +20,8 @@ def "main prefetch" [...mod_ids: string]: nothing -> nothing {
 @example $"Reset the (ansi yellow)Hardcore(ansi reset) Server" {reset Hardcore}
 def "main reset" [server_to_reset: string]: nothing -> nothing {
     let systemd_name = $"minecraft-server-($server_to_reset)"
-    systemctl stop $systemd_name | complete
-    sudo rm -r /srv/minecraft/($server_to_reset)/world
-    systemctl start $systemd_name | complete
+    sudo systemctl stop $systemd_name | complete
+    sudo rm -rf /srv/minecraft/($server_to_reset)/world
+    sudo systemctl start $systemd_name | complete
     return
 }
