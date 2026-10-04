@@ -12,6 +12,8 @@ in
           specialArgs = { inherit nixos-raspberrypi; };
         };
 
+      isServer = true;
+
       users.kg = { };
     };
 

@@ -23,6 +23,8 @@ in
           specialArgs.nixos-raspberrypi = nixos-raspberrypi-no-console;
         };
 
+      isServer = true;
+
       users.kg = { };
     };
 

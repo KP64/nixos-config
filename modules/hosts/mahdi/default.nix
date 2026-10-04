@@ -1,6 +1,10 @@
 { den, ... }: {
   den = {
-    hosts.x86_64-linux.mahdi.users.kg = { };
+    hosts.x86_64-linux.mahdi = {
+      isServer = true;
+
+      users.kg = { };
+    };
 
     aspects.mahdi = {
       includes = with den.aspects; [

@@ -35,75 +35,83 @@ in
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.default = {
-    nixos = { pkgs, ... }: {
-      inherit nixpkgs;
-      nix = {
-        package = pkgs.nixVersions.latest;
-        settings = commonSettings;
-        optimise.automatic = true;
-        channel.enable = false;
+  den = {
+    schema.host = { lib, ... }: { options.isServer = lib.mkEnableOption "Machine is a Server"; };
+
+    default = {
+      nixos = { host, ... }: { lib, pkgs, ... }: {
+        inherit nixpkgs;
+        nix = {
+          daemonCPUSchedPolicy = if (!host.isServer) then "idle" else "batch";
+          daemonIOSchedClass = lib.mkIf (!host.isServer) "idle";
+          package = pkgs.nixVersions.latest;
+          settings = commonSettings // {
+            allowed-users = [ ];
+          };
+          optimise.automatic = true;
+          channel.enable = false;
+        };
       };
-    };
 
-    homeManager =
-      {
-        nixosConfig ? null,
-        config,
-        lib,
-        pkgs,
-        ...
-      }:
-      {
-        imports = [ inputs.nix-index-database.homeModules.nix-index ];
+      homeManager =
+        {
+          nixosConfig ? null,
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          imports = [ inputs.nix-index-database.homeModules.nix-index ];
 
-        config = lib.mkMerge [
-          (lib.mkIf (nixosConfig == null) {
-            inherit nixpkgs;
+          config = lib.mkMerge [
+            (lib.mkIf (nixosConfig == null) {
+              inherit nixpkgs;
 
-            # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 or
-            #       https://github.com/nix-community/home-manager/pull/9582 is merged
-            home.packages = [ config.nix.package ];
+              # TODO: Remove once: https://github.com/nix-community/home-manager/pull/5766 or
+              #       https://github.com/nix-community/home-manager/pull/9582 is merged
+              home.packages = [ config.nix.package ];
 
-            nix = {
-              package = pkgs.nixVersions.latest;
-              # NOTE: These settings are for the user. If you want to trust users
-              #       etc. you will have to manually edit the /etc/nix/nix.conf file
-              #       with root permissions.
-              settings = commonSettings // {
-                substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
-                trusted-public-keys = commonSettings.trusted-public-keys ++ [
-                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-                ];
-              };
-            };
-          })
-          {
-            nix.assumeXdg = nixosConfig != null && commonSettings.use-xdg-base-directories;
-
-            programs = {
-              nix-index.enable = true;
-              nix-index-database.comma.enable = true;
-              direnv = {
-                enable = true;
-                silent = true;
-              };
-              nh = {
-                enable = true;
-                clean = {
-                  enable = true;
-                  extraArgs = [
-                    "--keep"
-                    "5"
-                    "--keep-since"
-                    "4d"
+              nix = {
+                package = pkgs.nixVersions.latest;
+                # NOTE: These settings are for the user. If you want to trust users
+                #       etc. you will have to manually edit the /etc/nix/nix.conf file
+                #       with root permissions.
+                settings = commonSettings // {
+                  substituters = commonSettings.substituters ++ [ "https://cache.nixos.org/" ];
+                  trusted-public-keys = commonSettings.trusted-public-keys ++ [
+                    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
                   ];
                 };
-                flake = "${config.home.homeDirectory}/nixos-config";
               };
-            };
-          }
-        ];
-      };
+            })
+            {
+              nix.assumeXdg = nixosConfig != null && commonSettings.use-xdg-base-directories;
+
+              programs = {
+                nix-index.enable = true;
+                nix-index-database.comma.enable = true;
+                direnv = {
+                  enable = true;
+                  silent = true;
+                };
+                nh = {
+                  enable = true;
+                  clean = {
+                    enable = true;
+                    extraArgs = [
+                      "--keep"
+                      "5"
+                      "--keep-since"
+                      "4d"
+                    ];
+                  };
+                  flake = "${config.home.homeDirectory}/nixos-config";
+                };
+              };
+            }
+          ];
+        };
+    };
   };
 }
