@@ -18,8 +18,8 @@ toplevel@{ den, ... }:
 
         staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
-        systemd.network.networks."10-wlp6s0" = {
-          name = "wlp6s0";
+        systemd.network.networks."10-wlp7s0" = {
+          name = "wlp7s0";
           DHCP = "ipv4";
           networkConfig = {
             IPv6AcceptRA = true;
