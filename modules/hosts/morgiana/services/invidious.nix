@@ -7,9 +7,9 @@
         companion = rec {
           # SAFETY: This is only useful if someone has direct access to the companion.
           key = "Ailai5oong1Eiyoi";
-          port = "8282";
+          port = 8282;
           ip = "fd00:d:a5::2";
-          addr = "[${ip}]:${port}";
+          addr = "[${ip}]:${toString port}";
         };
       in
       { config, lib, ... }:
@@ -27,7 +27,7 @@
             volumes = [ "companioncache:/var/tmp/youtubei.js:rw" ];
             environment = {
               HOST = companion.ip;
-              PORT = companion.port;
+              PORT = toString companion.port;
               SERVER_SECRET_KEY = companion.key;
             };
           };
