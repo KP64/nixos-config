@@ -111,10 +111,15 @@ toplevel@{ inputs, ... }:
             };
           };
 
+          # JSON
+          json-sort.enable = true;
+
           # Multiple
           prettier.enable = true;
           typos = {
             enable = true;
+            # NOTE: This prevents easily unnoticeable false positives
+            autoFix = false;
             sort = true;
             isolated = true;
             configFile = toString (
