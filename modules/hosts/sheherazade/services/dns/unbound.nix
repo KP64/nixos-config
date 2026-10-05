@@ -2,40 +2,11 @@ toplevel@{ moduleWithSystem, ... }:
 {
   den.aspects.sheherazade.nixos = moduleWithSystem (
     { system, ... }:
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
+    { pkgs, ... }:
     let
       inherit (toplevel.config.flake.topology.${system}.config) networks;
     in
     {
-      boot.kernel.sysctl = toplevel.config.lib.flake.util.toFlattenedByDots {
-        net.core =
-          let
-            getRamAmount =
-              opt:
-              let
-                amountAndUnit = lib.splitStringBy (
-                  prev: curr:
-                  builtins.match "[0-9]" prev != null
-                  && builtins.match "[${lib.concatStrings <| builtins.attrNames <| multiplier}]" curr != null
-                ) true opt;
-                multiplier = rec {
-                  k = 1024; # KiB
-                  m = k * 1024; # MiB
-                };
-              in
-              (amountAndUnit |> builtins.head |> lib.toInt) * multiplier.${lib.last amountAndUnit};
-          in
-          {
-            rmem_max = getRamAmount config.services.unbound.settings.server.so-rcvbuf;
-            wmem_max = getRamAmount config.services.unbound.settings.server.so-sndbuf;
-          };
-      };
-
       services = {
         resolved.enable = false;
         unbound = {
@@ -97,13 +68,6 @@ toplevel@{ moduleWithSystem, ... }:
 
               rrset-cache-size = "100m";
               msg-cache-size = "50m";
-
-              # Possible because of libevent
-              outgoing-range = 8192;
-              num-queries-per-thread = 4096;
-
-              so-rcvbuf = "8m";
-              so-sndbuf = "8m";
             };
           };
         };
