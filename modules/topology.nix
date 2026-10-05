@@ -49,7 +49,7 @@ toplevel@{ inputs, ... }:
           router = topologyLib.mkRouter "Router" {
             info = "Fritz!Box 4630";
             image = getAsset {
-              name = "fritzbox4630.png";
+              file = "fritzbox4630.png";
               type = "topology";
               sha256 = "sha256-um6RhXg6JJEztd17p6YLwGPxPXJkllvpq/SKD9im5WM=";
             };
