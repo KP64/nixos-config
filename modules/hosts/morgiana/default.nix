@@ -3,6 +3,7 @@ let
   inherit (inputs) nixos-raspberrypi-no-console;
 in
 {
+  # TODO: Remove this and add patch to upstream repo.
   flake-file.inputs.nixos-raspberrypi-no-console = {
     inherit (toplevel.config.flake-file.inputs.nixos-raspberrypi) type repo;
     owner = "KP64";

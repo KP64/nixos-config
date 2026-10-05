@@ -45,6 +45,12 @@
           measuredBoot = {
             enable = config.boot.lanzaboote.measuredBoot.pcrs != [ ];
             pcrs = config.boot.measuredPcrs;
+            # TODO: Enable this automatically on devices that use LUKS with TPM
+            # autoCryptenroll = {
+            #   enable = true;
+            #   autoReboot = true;
+            #   device = "/dev/sda";
+            # };
           };
           autoGenerateKeys.enable = true;
           autoEnrollKeys = {
