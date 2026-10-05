@@ -6,7 +6,7 @@
 
 buildGoModule (_: {
   pname = "anonymousoverflow";
-  version = "0-unstable-2026-08-10";
+  version = "0-unstable-2026-08-25";
 
   src = fetchFromGitHub {
     owner = "httpjamesm";
