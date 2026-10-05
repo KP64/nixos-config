@@ -1,4 +1,4 @@
-toplevel@{ den, lib, ... }:
+toplevel@{ den, ... }:
 let
   hostName = "sindbad";
 in
