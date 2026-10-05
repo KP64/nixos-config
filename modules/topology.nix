@@ -1,4 +1,5 @@
-{ inputs, self, ... }: {
+toplevel@{ inputs, ... }:
+{
   # TODO: Revert to main repo when PRs are merged
   flake-file.inputs.nix-topology = {
     type = "github";
@@ -23,6 +24,7 @@
       { config, ... }:
       let
         topologyLib = config.lib.topology;
+        inherit (toplevel.config.lib.flake.util) getAsset;
       in
       {
         nodes = {
@@ -37,18 +39,18 @@
             };
             hardware = {
               info = "DreyTek Vigor167";
-              image = builtins.path {
-                path = "${self}/assets/topology/vigor167.png";
-                recursive = false;
+              image = getAsset {
+                file = "vigor167.png";
+                type = "topology";
                 sha256 = "sha256-XaP99vGadXkLyXhVEkBm6bkn3o8Zux1ht2m3CQA5q1Y=";
               };
             };
           };
           router = topologyLib.mkRouter "Router" {
             info = "Fritz!Box 4630";
-            image = builtins.path {
-              path = "${self}/assets/topology/fritzbox4630.png";
-              recursive = false;
+            image = getAsset {
+              name = "fritzbox4630.png";
+              type = "topology";
               sha256 = "sha256-um6RhXg6JJEztd17p6YLwGPxPXJkllvpq/SKD9im5WM=";
             };
             interfaceGroups = [
