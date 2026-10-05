@@ -48,6 +48,9 @@
           kernelPackages = pkgs.linuxPackages_zen;
           measuredPcrs = [
             0
+            1
+            2
+            3
             4
             7
           ];

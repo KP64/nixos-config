@@ -46,6 +46,7 @@
             enable = config.boot.lanzaboote.measuredBoot.pcrs != [ ];
             pcrs = config.boot.measuredPcrs;
             # TODO: Enable this automatically on devices that use LUKS with TPM
+            #       See https://github.com/nix-community/disko/pull/1280
             # autoCryptenroll = {
             #   enable = true;
             #   autoReboot = true;
