@@ -142,7 +142,12 @@ toplevel@{ moduleWithSystem, inputs, ... }:
                 let
                   backendServers =
                     config.services.minecraft-servers.servers
-                    |> lib.filterAttrs (n: _: n != "Proxy")
+                    |> lib.filterAttrs (
+                      _: v:
+                      # NOTE: Checking the derivation itself isn't enough as overriding (e.g. jre_headless) would invalidate the check.
+                      #       That's why checking the package name is easier and more robust.
+                      !(v.package |> lib.getName |> lib.hasInfix "velocity")
+                    )
                     |> builtins.mapAttrs (
                       _: v: "[${v.serverProperties.server-ip}]:${toString v.serverProperties.server-port}"
                     );
