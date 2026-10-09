@@ -5,8 +5,10 @@
 def main [topology_type?: string]: nothing -> nothing {
     const all_topology_types = ["main" "network"]
 
+    nom build .#topology.((uname).machine)-((uname).kernel-name | str lowercase).config.output --accept-flake-config
+
     let chosen = if ($topology_type | is-empty) {
-        null
+        return
     } else if $topology_type in $all_topology_types {
         $topology_type
     } else {
@@ -15,9 +17,5 @@ def main [topology_type?: string]: nothing -> nothing {
         | str join " or "
         | error make --unspanned $"No such topology. Should be either ($in)"
     }
-
-    nom build .#topology.((uname).machine)-((uname).kernel-name | str lowercase).config.output --accept-flake-config
-    if ($chosen | is-not-empty) {
-        kitten icat result/($chosen).svg
-    }
+    kitten icat result/($chosen).svg
 }

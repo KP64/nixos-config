@@ -12,18 +12,19 @@
 
         packages =
           let
-            prefixPath = packages: {
-              makeWrapperArgs = [
-                "--prefix"
-                "PATH"
-                ":"
-                (lib.makeBinPath packages)
-              ];
-            };
-
             writeCustomScript =
               name: packages:
-              pkgs.writers.writeNuBin name (if packages != [ ] then prefixPath packages else { }) (
+              let
+                prefixPath = packages: {
+                  makeWrapperArgs = [
+                    "--prefix"
+                    "PATH"
+                    ":"
+                    (lib.makeBinPath packages)
+                  ];
+                };
+              in
+              pkgs.writers.writeNuBin name (lib.optionalAttrs (packages != [ ]) (prefixPath packages)) (
                 builtins.readFile ../scripts/${name}.nu
               );
           in
@@ -51,6 +52,7 @@
                 gum
               ]
             ))
+            # TODO: Move this to minecraft aspect. Hosts without config but run MC benefit from this.
             (writeCustomScript "minecraft" [
               pkgs.tmux
               inputs'.nix-minecraft.packages.nix-modrinth-prefetch

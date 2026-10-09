@@ -1,8 +1,11 @@
 def main [] { }
 
+# TODO: Use the correct user and group from the respective options instead of full root sudo. (sudo -u and sudo -g)
+
 # Connects to the console of a running minecraft server via tmux
 @example $"Connect to server named (ansi yellow)Survival(ansi reset)" {attach Survival}
 def "main attach" [server_to_connect_to: string]: nothing -> nothing {
+    # TODO: Use the runDir of the option instead of /run/minecraft
     sudo tmux -S /run/minecraft/($server_to_connect_to).sock attach
 }
 
@@ -21,6 +24,7 @@ def "main prefetch" [...mod_ids: string]: nothing -> nothing {
 def "main reset" [server_to_reset: string]: nothing -> nothing {
     let systemd_name = $"minecraft-server-($server_to_reset)"
     sudo systemctl stop $systemd_name | complete
+    # TODO: Use dataDir option instead of /srv/minecraft
     sudo rm -rf /srv/minecraft/($server_to_reset)/world
     sudo systemctl start $systemd_name | complete
     return
