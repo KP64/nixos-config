@@ -1,5 +1,5 @@
 {
-  den.aspects.kg._.delta.homeManager = {
+  den.aspects.kg.homeManager = {
     programs.delta = {
       enable = true;
       enableGitIntegration = true;

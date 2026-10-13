@@ -409,26 +409,6 @@
         "type": "github"
       }
     },
-    "nix-graph": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790847311,
-        "narHash": "sha256-ozENFD/Sus/ntu/cE+SlkvCaQ/sdFhUQfwK2zoldAjU=",
-        "owner": "AlexAntonik",
-        "repo": "nix-graph",
-        "rev": "87bb7e07e7b21f133059a412bbc32ce28fea72e7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AlexAntonik",
-        "repo": "nix-graph",
-        "type": "github"
-      }
-    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -451,6 +431,9 @@
     },
     "nix-invisible": {
       "inputs": {
+        "den": [
+          "den"
+        ],
         "flake-parts": [
           "flake-parts"
         ],
@@ -462,10 +445,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1785576685,
-        "narHash": "sha256-FpSbCn1DCXjHEsIAnhTlT4b28fxwtjw27Emnc4ySNI4=",
+        "lastModified": 1791903513,
+        "narHash": "sha256-H9sPs28c/kWWl9Wx/ynTONZv2uGF6uiEXaFHSxs0AL8=",
         "ref": "refs/heads/main",
-        "rev": "9320153509090fdd6d6f04c1ea392bb4308e258e",
+        "rev": "d6a7b0e842d130d67573e9ed4142c665b4193317",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/KP64/nix-invisible"
@@ -763,7 +746,6 @@
         "lanzaboote": "lanzaboote",
         "musnix": "musnix",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nix-graph": "nix-graph",
         "nix-index-database": "nix-index-database",
         "nix-invisible": "nix-invisible",
         "nix-lib": "nix-lib",

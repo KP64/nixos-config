@@ -1,5 +1,5 @@
 {
-  den.aspects.kg._.neovim.homeManager = { lib, pkgs, ... }: {
+  den.aspects.kg.homeManager = { lib, pkgs, ... }: {
     programs.nixvim = {
       extraPackagesAfter = [ pkgs.graphviz ];
       lsp.servers.rust_analyzer.enable = lib.mkForce false;

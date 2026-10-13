@@ -1,12 +1,13 @@
 {
-  den.aspects.kg._.kitty.homeManager =
+  den.aspects.kg.homeManager =
     {
+      host,
       config,
       lib,
       pkgs,
       ...
     }:
-    {
+    lib.optionalAttrs host.isGraphical {
       programs.kitty = {
         enable = true;
         font = {

@@ -122,6 +122,7 @@ toplevel@{ inputs, ... }:
             autoFix = false;
             sort = true;
             isolated = true;
+            # TODO: Extend words from aspects themselves.
             configFile = toString (
               tomlFormat.generate "typos" {
                 default.extend-words = lib.flip lib.genAttrs (w: w) [

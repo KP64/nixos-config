@@ -1,6 +1,6 @@
 toplevel: {
-  den.aspects.kg._.niri = {
-    nixos.programs.niri.enable = true;
+  den.aspects.kg = {
+    nixos = { host, ... }: { programs.niri.enable = host.isGraphical; };
 
     # NOTE: Don't forget to install wireplumber on the device
     #       Reason: without it volume keybinds won't work
@@ -18,10 +18,16 @@ toplevel: {
         # these hosts not be available anymore.
         aladdin = toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName;
       in
-      {
+      lib.optionalAttrs host.isDesktop {
         services.playerctld.enable = true;
 
-        home.packages = [ pkgs.wl-clipboard-rs ];
+        home = {
+          packages = [ pkgs.wl-clipboard-rs ];
+          keyboard = {
+            layout = "de";
+            options = [ "caps:escape" ];
+          };
+        };
 
         wayland.windowManager.niri =
           (lib.optionalAttrs (nixosConfig != null) {
@@ -64,12 +70,11 @@ toplevel: {
               input = {
                 keyboard = {
                   xkb = {
-                    layout = "de";
-                    model = "";
-                    rules = "";
-                    variant = "";
-                    options = "caps:escape";
-                  };
+                    options = builtins.concatStringsSep "," config.home.keyboard.options;
+                  }
+                  // (lib.genAttrs [ "layout" "model" "variant" ] (
+                    opt: lib.mkIf (config.home.keyboard.${opt} != null) config.home.keyboard.${opt}
+                  ));
                   repeat-delay = 600;
                   repeat-rate = 25;
                   track-layout = "global";

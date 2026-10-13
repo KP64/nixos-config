@@ -8,55 +8,53 @@ let
   };
 in
 {
-  den.aspects.nvidia = {
-    includes = [
-      den.aspects.nvidia._.cache
-
-      (den.batteries.unfree [
-        "nvidia-x11"
-        "nvidia-settings"
-
-        "cuda_cccl"
-        "cuda_cudart"
-        "cuda_nvcc"
-      ])
-    ];
-
-    _.cache = {
-      nixos = { inherit nix; };
+  den = {
+    default = {
+      os = { inherit nix; };
       homeManager =
         {
           lib,
-          nixosConfig ? null,
+          osConfig ? null,
           ...
         }:
-        lib.mkIf (nixosConfig == null) { inherit nix; };
+        lib.mkIf (osConfig == null) { inherit nix; };
     };
 
-    homeManager =
-      {
-        lib,
-        nixosConfig ? null,
-        ...
-      }:
-      lib.mkIf (nixosConfig == null) { inherit nixpkgs; };
+    aspects.nvidia = {
+      includes = [
+        (den.batteries.unfree [
+          "nvidia-x11"
+          "nvidia-settings"
+          "cuda_cccl"
+          "cuda_cudart"
+          "cuda_nvcc"
+        ])
+      ];
 
-    nixos = {
-      inherit nixpkgs;
+      homeManager =
+        {
+          lib,
+          osConfig ? null,
+          ...
+        }:
+        lib.mkIf (osConfig == null) { inherit nixpkgs; };
 
-      services.xserver.videoDrivers = [ "nvidia" ];
+      os = { inherit nixpkgs; };
+      nixos = {
+        services.xserver.videoDrivers = [ "nvidia" ];
 
-      hardware = {
-        nvidia = {
-          open = true;
-          nvidiaPersistenced = true;
-          powerManagement.enable = true;
-          prime.allowExternalGpu = true;
-        };
-        nvidia-container-toolkit.enable = true;
-        graphics = {
-          enable = true;
-          enable32Bit = true;
+        hardware = {
+          nvidia = {
+            open = true;
+            nvidiaPersistenced = true;
+            powerManagement.enable = true;
+            prime.allowExternalGpu = true;
+          };
+          nvidia-container-toolkit.enable = true;
+          graphics = {
+            enable = true;
+            enable32Bit = true;
+          };
         };
       };
     };

@@ -1,77 +1,25 @@
 { den, ... }: {
   den = {
-    hosts.x86_64-linux.aladdin.users.kg = { };
+    hosts.aladdin = {
+      users.kg.isAdmin = true;
+
+      isGamingCapable = true;
+      isGraphical = true;
+      isServer = false;
+      isUsedInteractively = true;
+      hasTPM = true;
+    };
 
     aspects.aladdin = {
-      includes =
-        (with den.aspects; [
-          audio
-          auto-timezone
-          boot._.secure
-          catppuccin
-          desktop
-          gaming._.steam
-          gaming._.lutris
-          nvidia
-          ssh
-          time
-          tpm
-        ])
-        ++ (with den.aspects.kg._; [
-          anki
-          firefox
-          fonts
-          glance
-          kitty
-          niri
-          noctalia
-          prismlauncher
-          thunderbird
-          ttyper
-        ]);
+      includes = with den.aspects; [
+        boot._.secure
+        wifi
+        nvidia
+      ];
 
-      nixos = { config, pkgs, ... }: {
-        system.stateVersion = "26.11";
-        hardware = {
-          facter.reportPath = ./facter.json;
-          bluetooth.settings.General = {
-            FastConnectable = true;
-            Privacy = "network/on";
-          };
-        };
-
+      nixos = {
         services.xserver.xkb.layout = "de";
-        boot = {
-          loader.systemd-boot.memtest86.enable = true;
-          plymouth.enable = true;
-
-          kernelPackages = pkgs.linuxPackages_zen;
-          measuredPcrs = [
-            0
-            1
-            2
-            3
-            4
-            7
-          ];
-          binfmt.emulatedSystems = [ "aarch64-linux" ];
-        };
-
-        home-manager.users.kg.home = { inherit (config.system) stateVersion; };
-
-        users.users.root.hashedPasswordFile = config.sops.secrets.kg_password.path;
-
-        programs = {
-          ausweisapp = {
-            enable = true;
-            openFirewall = true;
-          };
-          localsend = {
-            enable = true;
-            openFirewall = true;
-          };
-          thunar.enable = true;
-        };
+        boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
       };
     };
   };

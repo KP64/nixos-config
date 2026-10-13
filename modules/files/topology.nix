@@ -20,10 +20,7 @@
             '';
         in
         builtins.listToAttrs
-        <| map (file: {
-          name = "assets/topology/${file}";
-          value.source = formatTopology file;
-        })
+        <| map (file: lib.nameValuePair "assets/topology/${file}" { source = formatTopology file; })
         <| [
           "main.svg"
           "network.svg"

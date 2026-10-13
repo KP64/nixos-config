@@ -1,16 +1,22 @@
 toplevel: {
   # TODO: Add email auth, encryption and signing
-  den.aspects.kg._.thunderbird.homeManager =
-    { config, ... }:
+  den.aspects.kg.homeManager =
+    {
+      host,
+      user,
+      config,
+      lib,
+      ...
+    }:
     let
       inherit (config.home) username;
       inherit (toplevel.config.lib.flake.util) toFlattenedByDots;
     in
-    {
+    lib.optionalAttrs host.isGraphical {
       accounts.email.accounts.${username} = {
         primary = true;
-        address = config.invisible.email;
-        realName = with config.invisible; "${firstName} ${lastName}";
+        address = user.email;
+        realName = with user; "${firstName} ${lastName}";
         userName = username;
         thunderbird.enable = true;
       };

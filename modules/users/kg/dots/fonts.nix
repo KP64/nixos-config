@@ -1,12 +1,14 @@
 {
   # TODO: enableDefaultPackages = false;
-  den.aspects.kg._.fonts.homeManager =
+  den.aspects.kg.homeManager =
     {
+      host,
       nixosConfig ? null,
       pkgs,
+      lib,
       ...
     }:
-    {
+    lib.optionalAttrs host.isGraphical {
       fonts.fontconfig.enable = nixosConfig.fonts.fontconfig.enable or true;
 
       home.packages = with pkgs; [

@@ -1,5 +1,5 @@
-toplevel: {
-  den.aspects.kg._.glance.homeManager = { config, lib, ... }: {
+{
+  den.aspects.kg.homeManager = { user, lib, ... }: {
     # The mkBefore is to "set" the default page
     services.glance.settings.pages = lib.mkBefore [
       {
@@ -69,7 +69,8 @@ toplevel: {
                     (subreddit: {
                       type = "reddit";
                       inherit subreddit;
-                      comments-url-template = "${toplevel.config.flake.nixosConfigurations.morgiana.config.services.redlib.settings.REDLIB_FULL_URL}/{POST-PATH}";
+                      # TODO: Replace
+                      comments-url-template = "https://redlib.srvd.space/{POST-PATH}";
                     })
                     [
                       "news"
@@ -85,7 +86,7 @@ toplevel: {
               {
                 type = "weather";
                 hour-format = "24h";
-                inherit (config.invisible) location;
+                inherit (user) location;
               }
               {
                 type = "markets";

@@ -1,50 +1,47 @@
-toplevel@{
-  den,
-  inputs,
-  moduleWithSystem,
-  ...
-}:
+toplevel@{ den, ... }:
 let
   user = "kg";
-  nix.settings.trusted-users = [ user ];
 in
 {
-  flake-file.inputs.nix-graph = {
-    type = "github";
-    owner = "AlexAntonik";
-    repo = "nix-graph";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
-  den.aspects.${user} = { host, ... }: {
+  den.aspects.${user} = { host, lib, ... }: {
     includes =
-      (with den.batteries; [
-        primary-user
-        (user-shell "bash")
-      ])
-      ++ (with den.aspects; [
+      (with den.aspects; [
         catppuccin
-        ssh
-        vcs._.git
-        vcs._.jujutsu
         yubikey
       ])
-      ++ (with den.aspects.${user}._; [
-        atuin
-        delta
-        fd
-        neovim
-        shells
-        starship
-        tealdeer
-        yazi
-        zellij
-        zoxide
+      ++ (with den.aspects.gaming._; [
+        steam
+        lutris
       ]);
 
-    nixos = { config, lib, ... }: {
-      inherit nix;
+    # TODO: Add necessary yubikeys to usbguard cfg
+    #       Allows yubikey users to auth on non interactive devices.
+    yubikeyMappings.${user} = [
+      # 5 Type A
+      ":RZgKw7D6wIsCJxDZi0Nzhq06+lq+/WxbtxSziVpwsUHlePCvvoivUqXMB2QHGVmxvPFzUSxOinNakd5Bxa/I2w==,y5bw+xpm49Fb012rbCO6k9hlzcsLvzA0FKjqX68dxizYIHFw/gJavZnT9SPA5jauuyPsOEE2iMYeZ9KiQe6L4g==,es256,+presence"
+      # 5 Type C
+      ":yVHdK9qjRwBI0ljQpJNdsDSlAKatmvMFiB5H5RaWjgebzGEiTEp5dDtOk2EqnxWB48uL0F1sQAXwd/mHO9Syyw==,6FxqcIXEjnh/KA6Bjy5BhrFl8jMnsLpJ+Ph0s1XhuyQ0FJXewL3l0b0EXQ7DudMsAy7Vy0pRatsG3+AdGmMnjw==,es256,+presence"
+    ];
 
+    # WARNING: Using "_" doesn't work here. Seems like a bug
+    # TODO: Open an Issue in den
+    provides.to-hosts.nixos =
+      { host, ... }:
+      toplevel.lib.optionalAttrs host.isDesktop {
+        programs = {
+          ausweisapp = {
+            enable = true;
+            openFirewall = true;
+          };
+          localsend = {
+            enable = true;
+            openFirewall = true;
+          };
+          thunar.enable = true;
+        };
+      };
+
+    nixos = { config, ... }: {
       sops.secrets =
         let
           sopsFile = ./secrets.yaml;
@@ -61,23 +58,15 @@ in
           };
         };
 
-      yubi.mappings.${user} = [
-        # 5 Type A
-        ":RZgKw7D6wIsCJxDZi0Nzhq06+lq+/WxbtxSziVpwsUHlePCvvoivUqXMB2QHGVmxvPFzUSxOinNakd5Bxa/I2w==,y5bw+xpm49Fb012rbCO6k9hlzcsLvzA0FKjqX68dxizYIHFw/gJavZnT9SPA5jauuyPsOEE2iMYeZ9KiQe6L4g==,es256,+presence"
-        # 5 Type C
-        ":yVHdK9qjRwBI0ljQpJNdsDSlAKatmvMFiB5H5RaWjgebzGEiTEp5dDtOk2EqnxWB48uL0F1sQAXwd/mHO9Syyw==,6FxqcIXEjnh/KA6Bjy5BhrFl8jMnsLpJ+Ph0s1XhuyQ0FJXewL3l0b0EXQ7DudMsAy7Vy0pRatsG3+AdGmMnjw==,es256,+presence"
-      ];
-
       users.users.${user} = {
-        isNormalUser = true;
         hashedPasswordFile = config.sops.secrets."${user}_password".path;
         openssh.authorizedKeys.keyFiles = lib.fileset.toList ./keys;
+        # TODO: Move to relevant aspects
         extraGroups =
           (map (group: group.name) (
             with config.users.groups;
             [
               input
-              audio
               video
             ]
           ))
@@ -85,34 +74,15 @@ in
       };
     };
 
-    homeManager = moduleWithSystem (
-      { inputs', ... }:
-      {
-        nixosConfig ? null,
-        config,
-        lib,
-        pkgs,
-        ...
-      }:
-      {
-        imports = [ inputs.nix-invisible.modules.homeManager."user-${user}" ];
-
-        nix = lib.mkIf (nixosConfig == null) nix;
-
-        vcs.user = {
-          name = "KP64";
-          inherit (config.invisible) email;
-        };
-
-        home = {
-          shellAliases.c = "clear";
-          packages = [
-            inputs'.nix-graph.packages.default
-          ]
-          ++ (with pkgs; [
+    homeManager = { config, pkgs, ... }: {
+      home = {
+        shellAliases.c = "clear";
+        packages =
+          (with pkgs; [
             igrep
             systemctl-tui
           ])
+          # TODO: Replace with host capabilities
           ++ (lib.optionals
             (builtins.elem host.name [
               toplevel.config.flake.nixosConfigurations.aladdin.config.networking.hostName
@@ -130,33 +100,32 @@ in
               ]
             )
           );
-        };
+      };
 
-        sops = {
-          defaultSopsFile = ./secrets.yaml;
-          age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
-        };
+      sops = {
+        defaultSopsFile = ./secrets.yaml;
+        age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+      };
 
-        services.pueue.enable = true;
+      services.pueue.enable = true;
 
-        programs = {
-          bat.enable = true;
-          bottom.enable = true;
-          btop = {
-            enable = true;
-            settings = {
-              vim_keys = true;
-              update_ms = 1000;
-            };
+      programs = {
+        bat.enable = true;
+        bottom.enable = true;
+        btop = {
+          enable = true;
+          settings = {
+            vim_keys = true;
+            update_ms = 1000;
           };
-          cava.enable = true;
-          fastfetch.enable = true;
-          less.enable = true;
-          pay-respects.enable = true;
-          ripgrep.enable = true;
-          skim.enable = true;
         };
-      }
-    );
+        cava.enable = true;
+        fastfetch.enable = true;
+        less.enable = true;
+        pay-respects.enable = true;
+        ripgrep.enable = true;
+        skim.enable = true;
+      };
+    };
   };
 }

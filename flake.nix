@@ -120,12 +120,6 @@
       owner = "nix-community";
       repo = "neovim-nightly-overlay";
     };
-    nix-graph = {
-      type = "github";
-      owner = "AlexAntonik";
-      repo = "nix-graph";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-index-database = {
       type = "github";
       owner = "nix-community";
@@ -137,6 +131,7 @@
       url = "ssh://git@github.com/KP64/nix-invisible";
       shallow = true;
       inputs = {
+        den.follows = "den";
         flake-parts.follows = "flake-parts";
         import-tree.follows = "import-tree";
         nixpkgs.follows = "nixpkgs";

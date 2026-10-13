@@ -1,4 +1,8 @@
-{ den, inputs, ... }: {
+{ inputs, ... }:
+let
+  nix-lib.enable = true;
+in
+{
   flake-file.inputs.nix-lib = {
     type = "github";
     owner = "Dauliac";
@@ -11,21 +15,17 @@
 
   imports = [ inputs.nix-lib.flakeModules.default ];
 
-  nix-lib.enable = true;
+  inherit nix-lib;
 
-  den = {
-    default.includes = [ den.aspects.customLib ];
+  den.default = {
+    nixos = {
+      imports = [ inputs.nix-lib.nixosModules.default ];
+      inherit nix-lib;
+    };
 
-    aspects.customLib = {
-      nixos = {
-        imports = [ inputs.nix-lib.nixosModules.default ];
-        nix-lib.enable = true;
-      };
-
-      homeManager = {
-        imports = [ inputs.nix-lib.homeModules.default ];
-        nix-lib.enable = true;
-      };
+    homeManager = {
+      imports = [ inputs.nix-lib.homeModules.default ];
+      inherit nix-lib;
     };
   };
 }

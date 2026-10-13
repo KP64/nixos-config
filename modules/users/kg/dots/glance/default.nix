@@ -1,7 +1,7 @@
 {
-  den.aspects.kg._.glance.homeManager = {
+  den.aspects.kg.homeManager = { config, ... }: {
     services.glance = {
-      enable = true;
+      enable = config.programs.firefox.enable;
       settings = {
         # Not necessary but nice for firefox
         server = {

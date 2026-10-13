@@ -1,5 +1,5 @@
 {
-  den.aspects.customLib.homeManager = { lib, ... }: {
+  den.default.homeManager = { lib, ... }: {
     nix-lib.lib.firefox.hideEngines = {
       type = with lib.types; functionTo (attrsOf anything);
       fn =

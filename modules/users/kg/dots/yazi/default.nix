@@ -1,5 +1,5 @@
 {
-  den.aspects.kg._.yazi.homeManager =
+  den.aspects.kg.homeManager =
     {
       config,
       lib,

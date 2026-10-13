@@ -9,7 +9,7 @@
     };
   };
 
-  den.aspects.customLib.nixos = { lib, pkgs, ... }: {
+  den.default.nixos = { lib, pkgs, ... }: {
     nix-lib.lib.minecraft = {
       collectMods = {
         type = with lib.types; functionTo package;

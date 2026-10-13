@@ -1,22 +1,17 @@
-toplevel@{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.mahdi = {
-    includes = with den.aspects.networking._; [
-      ip
-      wifi
-    ];
+    includes = [ den.aspects.static-ip ];
+    # TODO: Get correct addr
+    settings.static-ip.v6 = "bogus";
+    # staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
     nixos =
-      { config, ... }:
       let
         addr = "220";
       in
       {
-        networking = {
-          inherit (toplevel.config.flake.nixosConfigurations.sheherazade.config.networking) domain;
-        };
-
-        staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
+        # TODO: Replace
+        networking.domain = "srvd.space";
 
         systemd.network.networks."10-wlp130s0f0" = {
           name = "wlp130s0f0";

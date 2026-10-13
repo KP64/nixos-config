@@ -1,5 +1,5 @@
-toplevel: {
-  den.aspects.kg._.glance.homeManager = {
+{
+  den.aspects.kg.homeManager = {
     services.glance.settings.pages = [
       {
         name = "Tech";
@@ -93,43 +93,44 @@ toplevel: {
               }
             ];
           }
-          {
-            size = "small";
-            widgets = [
-              { type = "server-stats"; }
-              {
-                type = "monitor";
-                cache = "1m";
-                title = "Services";
-                sites =
-                  let
-                    inherit (toplevel.config.flake.nixosConfigurations) mahdi morgiana;
-                  in
-                  [
-                    {
-                      title = "Forgejo";
-                      url = mahdi.config.services.forgejo.settings.server.ROOT_URL;
-                      icon = "sh:forgejo";
-                    }
-                    {
-                      title = "Redlib";
-                      url = morgiana.config.services.redlib.settings.REDLIB_FULL_URL;
-                      icon = "sh:redlib";
-                    }
-                    {
-                      title = "SearXNG";
-                      url = morgiana.config.services.searx.settings.server.base_url;
-                      icon = "sh:searxng";
-                    }
-                    {
-                      title = "Open WebUI";
-                      url = mahdi.config.services.open-webui.environment.WEBUI_URL;
-                      icon = "sh:open-webui";
-                    }
-                  ];
-              }
-            ];
-          }
+          # TODO: Reenable
+          # {
+          #   size = "small";
+          #   widgets = [
+          #     { type = "server-stats"; }
+          #     {
+          #       type = "monitor";
+          #       cache = "1m";
+          #       title = "Services";
+          #       sites =
+          #         let
+          #           inherit (toplevel.config.flake.nixosConfigurations) mahdi;
+          #         in
+          #         [
+          #           {
+          #             title = "Forgejo";
+          #             url = mahdi.config.services.forgejo.settings.server.ROOT_URL;
+          #             icon = "sh:forgejo";
+          #           }
+          #           {
+          #             title = "Redlib";
+          #             url = morgiana.config.services.redlib.settings.REDLIB_FULL_URL;
+          #             icon = "sh:redlib";
+          #           }
+          #           {
+          #             title = "SearXNG";
+          #             url = morgiana.config.services.searx.settings.server.base_url;
+          #             icon = "sh:searxng";
+          #           }
+          #           {
+          #             title = "Open WebUI";
+          #             url = mahdi.config.services.open-webui.environment.WEBUI_URL;
+          #             icon = "sh:open-webui";
+          #           }
+          #         ];
+          #     }
+          #   ];
+          # }
         ];
       }
     ];

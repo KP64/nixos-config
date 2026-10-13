@@ -10,46 +10,48 @@ in
     repo = "nix";
   };
 
-  den.aspects.catppuccin = {
-    nixos = { config, ... }: {
-      imports = [ inputs.catppuccin.nixosModules.catppuccin ];
-
-      catppuccin = {
-        enable = true;
-        autoEnable = true;
-        cache.enable = true;
-        inherit accent;
-        cursors = {
-          enable = config.programs.niri.enable;
-          accent = cursorAccent;
-        };
-      };
-    };
-
-    homeManager =
-      {
-        nixosConfig ? null,
-        config,
-        ...
-      }:
-      {
-        imports = [ inputs.catppuccin.homeModules.catppuccin ];
+  den.aspects.catppuccin =
+    { host, lib, ... }:
+    lib.optionalAttrs host.isUsedInteractively {
+      nixos = { config, ... }: {
+        imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
         catppuccin = {
           enable = true;
           autoEnable = true;
-          cache.enable = nixosConfig == null;
+          cache.enable = true;
           inherit accent;
-          firefox.force = true;
           cursors = {
-            enable = config.wayland.windowManager.niri.enable;
+            inherit (config.programs.niri) enable;
             accent = cursorAccent;
           };
-          thunderbird.profile = config.home.username;
         };
-
-        gtk.colorScheme = "dark";
-        qt.style.name = "kvantum";
       };
-  };
+
+      homeManager =
+        {
+          nixosConfig ? null,
+          config,
+          ...
+        }:
+        {
+          imports = [ inputs.catppuccin.homeModules.catppuccin ];
+
+          catppuccin = {
+            enable = true;
+            autoEnable = true;
+            cache.enable = nixosConfig == null;
+            inherit accent;
+            firefox.force = true;
+            cursors = {
+              inherit (config.wayland.windowManager.niri) enable;
+              accent = cursorAccent;
+            };
+            thunderbird.profile = config.home.username;
+          };
+
+          gtk.colorScheme = "dark";
+          qt.style.name = "kvantum";
+        };
+    };
 }

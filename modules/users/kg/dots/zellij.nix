@@ -1,5 +1,5 @@
 {
-  den.aspects.kg._.zellij.homeManager = { config, lib, ... }: {
+  den.aspects.kg.homeManager = { config, lib, ... }: {
     programs.zellij = {
       enable = true;
       enableBashIntegration = config.programs.bash.enable;

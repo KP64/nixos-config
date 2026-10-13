@@ -1,5 +1,5 @@
-toplevel: {
-  den.aspects.kg._.atuin.homeManager = {
+{
+  den.aspects.kg.homeManager = {
     programs.atuin = {
       enable = true;
       forceOverwriteSettings = true;
@@ -10,7 +10,8 @@ toplevel: {
         style = "auto";
         update_check = false;
         enter_accept = true;
-        sync_address = "https://atuin.${toplevel.config.flake.nixosConfigurations.sheherazade.config.networking.domain}";
+        # TODO: Replace with homelab domain
+        sync_address = "https://atuin.srvd.space";
       };
     };
   };

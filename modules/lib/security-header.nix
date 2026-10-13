@@ -1,5 +1,5 @@
 {
-  den.aspects.customLib.nixos = { lib, ... }: {
+  den.default.nixos = { lib, ... }: {
     nix-lib.lib.securityHeader = {
       mkCSP = {
         type = with lib.types; functionTo nonEmptyStr;

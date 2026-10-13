@@ -1,5 +1,5 @@
 {
-  den.aspects.kg._.fd.homeManager = {
+  den.aspects.kg.homeManager = {
     programs.fd = {
       enable = true;
       hidden = true;

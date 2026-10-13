@@ -1,5 +1,5 @@
 {
-  den.aspects.kg._.prismlauncher.homeManager = {
-    programs.prismlauncher.enable = true;
+  den.aspects.kg.homeManager = { host, ... }: {
+    programs.prismlauncher.enable = host.isGamingCapable;
   };
 }

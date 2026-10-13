@@ -1,6 +1,6 @@
 toplevel@{ self, ... }:
 {
-  den.aspects.kg._.noctalia.homeManager =
+  den.aspects.kg.homeManager =
     {
       nixosConfig ? null,
       config,
@@ -11,7 +11,7 @@ toplevel@{ self, ... }:
     in
     {
       programs.noctalia = {
-        enable = true;
+        enable = config.wayland.windowManager.niri.enable;
         systemd.enable = true;
         settings = {
           config_version = 12;
