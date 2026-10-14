@@ -23,17 +23,16 @@ in
           inherit modules;
           specialArgs.nixos-raspberrypi = nixos-raspberrypi-no-console;
         };
+      users.kg.isAdmin = true;
 
       isServer = true;
 
-      users.kg = { };
     };
 
     aspects.morgiana = {
       includes = with den.aspects; [
         rpi._.cache
         rpi._.fs._ext4
-        ssh
       ];
       nixos = {
         imports = [

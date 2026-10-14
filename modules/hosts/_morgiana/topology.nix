@@ -1,8 +1,6 @@
 toplevel: {
   den.aspects.morgiana.nixos =
-    { config, ... }:
     let
-      inherit (config.lib.topology) mkConnection;
       inherit (toplevel.config.lib.flake.util) getAsset;
     in
     {
@@ -15,10 +13,7 @@ toplevel: {
           };
           info = "Raspberry Pi 4 Model B";
         };
-        interfaces.wlan0 = {
-          physicalConnections = [ (mkConnection "router" "wifi") ];
-          network = "home";
-        };
+        interfaces.wlan0.network = "home";
       };
     };
 }

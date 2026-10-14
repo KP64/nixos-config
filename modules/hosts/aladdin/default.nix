@@ -13,7 +13,6 @@
     aspects.aladdin = {
       includes = with den.aspects; [
         boot._.secure
-        wifi
         nvidia
       ];
 

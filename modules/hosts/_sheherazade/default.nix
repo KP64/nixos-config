@@ -12,9 +12,10 @@ in
           specialArgs = { inherit nixos-raspberrypi; };
         };
 
+      users.kg.isAdmin = true;
+
       isServer = true;
 
-      users.kg = { };
     };
 
     aspects.sheherazade = {
@@ -22,8 +23,6 @@ in
         rpi._.cache
         rpi._.rtc
         rpi._.fs._ext4
-        ssh
-        time
       ];
       nixos = {
         imports = [

@@ -56,7 +56,6 @@ toplevel@{ inputs, ... }:
             };
             interfaceGroups = [
               [ "WAN" ]
-              [ "wifi" ]
               (builtins.genList (i: "LAN${toString (i + 1)}") 3)
             ];
             connections.WAN = topologyLib.mkConnection "modem" "P2";

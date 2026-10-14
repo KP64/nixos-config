@@ -2,7 +2,7 @@ toplevel@{ den, ... }:
 {
   den.aspects.morgiana = {
     includes = with den.aspects.networking._; [
-      ip
+      static-ip
       wifi
     ];
 

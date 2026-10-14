@@ -12,17 +12,15 @@ in
           specialArgs = { inherit nixos-raspberrypi; };
         };
 
-      isServer = true;
+      users.kg.isAdmin = true;
 
-      users.kg = { };
+      isServer = true;
     };
 
     aspects.zarqa = {
       includes = with den.aspects; [
         rpi._.cache
         rpi._.fs._ext4
-        ssh
-        time
       ];
       nixos = {
         imports = [

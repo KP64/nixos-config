@@ -3,13 +3,11 @@ let
   hostName = "sindbad";
 in
 {
-  perSystem.topology.modules = [
-    (
-      { config, ... }:
-      let
-        topologyLib = config.lib.topology;
-        inherit (toplevel.config.lib.flake.util) getAsset;
-      in
+  perSystem.topology.modules =
+    let
+      inherit (toplevel.config.lib.flake.util) getAsset;
+    in
+    [
       {
         nodes.${hostName} = {
           deviceType = "device";
@@ -18,10 +16,7 @@ in
             type = "topology";
             sha256 = "sha256-76ibPfvW5G18NMH3WFV6yoDzgSV89XpIb9seMabt0BY=";
           };
-          interfaces.wlan0 = {
-            physicalConnections = [ (topologyLib.mkConnection "router" "wifi") ];
-            network = "home";
-          };
+          interfaces.wlan0.network = "home";
           hardware = {
             info = "Lenovo Yoga 370";
             image = getAsset {
@@ -32,8 +27,7 @@ in
           };
         };
       }
-    )
-  ];
+    ];
 
   den = {
     homes.x86_64-linux."kg@${hostName}" = {

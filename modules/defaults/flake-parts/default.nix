@@ -3,9 +3,18 @@ toplevel@{ lib, inputs, ... }:
   imports = with inputs; [
     den.flakeModule
     # TODO: Enable when https://github.com/denful/den/issues/632 is fixed
+    #       and remove the schema.*.isStrict declarations
     # den.flakeModules.strict
     flake-file.flakeModules.default
   ];
+
+  den.schema = {
+    host.isStrict = true;
+    user.isStrict = true;
+    home.isStrict = true;
+    # aspect.isStrict = true;
+    flake.isStrict = true;
+  };
 
   flake-file = {
     description = "KP64's Overengineered Nix Flake";

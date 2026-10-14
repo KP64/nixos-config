@@ -1,16 +1,10 @@
 {
-  den.aspects.aladdin.nixos =
-    { config, ... }:
-    let
-      inherit (config.lib.topology) mkConnection;
-    in
-    {
-      topology.self = {
-        hardware.info = (builtins.head config.hardware.facter.report.hardware.cpu).model_name;
-        interfaces.wlp6s0 = {
-          physicalConnections = [ (mkConnection "router" "wifi") ];
-          network = "home";
-        };
-      };
+  den.aspects.aladdin.nixos = { config, ... }: {
+    topology.self = {
+      hardware.info = (builtins.head config.hardware.facter.report.hardware.cpu).model_name;
+      # TODO: Interfaces can be out of sync. Check if it exists in host cfg.
+      #         if no -> abort evaluation
+      interfaces.wlp7s0.network = "home";
     };
+  };
 }

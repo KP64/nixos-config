@@ -4,18 +4,24 @@ let
 in
 {
   den.aspects.${user} = { host, lib, ... }: {
-    includes =
-      (with den.aspects; [
-        catppuccin
-        yubikey
-      ])
-      ++ (with den.aspects.gaming._; [
-        steam
-        lutris
-      ]);
+    includes = [
+      den.aspects.catppuccin
+    ]
+    ++ (with den.aspects.gaming._; [
+      steam
+      lutris
+    ]);
 
-    # TODO: Add necessary yubikeys to usbguard cfg
-    #       Allows yubikey users to auth on non interactive devices.
+    # TODO: Solidify yubikeys into a god struct that spans across aspects?
+    #         -> IDs, name, hash and interfaces would allow for dynamic udev and USBGuard rules.
+    # TODO: Check this works as intended.
+    additionalUSBGuardRules = [
+      # Yubikey 5 Type A
+      ''allow id 1050:0407 serial "" name "YubiKey OTP+FIDO+CCID" hash "2msOvGX5iCToX2LqCqPIO9H6KxlnnkuQgfKCOZkGzNg=" with-interface equals { 03:01:01 03:00:00 0b:00:00 } with-connect-type "hotplug"''
+      # Yubikey 5 Type C
+      ''allow id 1050:0407 serial "" name "YubiKey OTP+FIDO+CCID" hash "Q+A8QQReKclmBSaDIYja0w4Bx6ld2IU6wF7HFKdtJ3Q=" with-interface equals { 03:01:01 03:00:00 0b:00:00 } with-connect-type "hotplug"''
+    ];
+
     yubikeyMappings.${user} = [
       # 5 Type A
       ":RZgKw7D6wIsCJxDZi0Nzhq06+lq+/WxbtxSziVpwsUHlePCvvoivUqXMB2QHGVmxvPFzUSxOinNakd5Bxa/I2w==,y5bw+xpm49Fb012rbCO6k9hlzcsLvzA0FKjqX68dxizYIHFw/gJavZnT9SPA5jauuyPsOEE2iMYeZ9KiQe6L4g==,es256,+presence"

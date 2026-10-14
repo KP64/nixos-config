@@ -2,7 +2,6 @@ toplevel: {
   den.aspects.mahdi.nixos =
     { config, ... }:
     let
-      inherit (config.lib.topology) mkConnection;
       inherit (toplevel.config.lib.flake.util) getAsset;
     in
     {
@@ -15,10 +14,7 @@ toplevel: {
           };
           info = with config.hardware.facter.report.smbios.system; "${manufacturer} ${product}";
         };
-        interfaces.wlp130s0f0 = {
-          physicalConnections = [ (mkConnection "router" "wifi") ];
-          network = "home";
-        };
+        interfaces.wlp130s0f0.network = "home";
       };
     };
 }

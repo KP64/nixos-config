@@ -6,6 +6,7 @@
     ];
     schema.user.includes = [ den.policies.expose-yubikey-mappings ];
 
+    default.includes = [ den.aspects.yubikey ];
     aspects.yubikey = { lib, ... }: {
       settings.lockOnRemoval = lib.mkOption {
         default = true;
@@ -17,6 +18,7 @@
       nixos =
         {
           host,
+          config,
           pkgs,
           yubikeyMappings,
           ...
@@ -26,10 +28,8 @@
         in
         lib.mkMerge [
           {
-            programs.yubikey-manager.enable = true;
-            services.yubikey-agent.enable = true;
             security.pam.u2f = {
-              enable = true;
+              enable = mappings != { };
               control = "required";
               settings = {
                 cue = true;
@@ -44,16 +44,20 @@
               };
             };
           }
-          # Taken from: https://wiki.nixos.org/wiki/Yubikey#Locking_the_screen_when_a_Yubikey_is_unplugged
-          (lib.mkIf host.settings.yubikey.lockOnRemoval {
-            services.udev.extraRules = ''
-              ACTION=="remove",\
-               ENV{ID_BUS}=="usb",\
-               ENV{ID_MODEL_ID}=="0407",\
-               ENV{ID_VENDOR_ID}=="1050",\
-               ENV{ID_VENDOR}=="Yubico",\
-               RUN+="${lib.getExe' pkgs.systemd "loginctl"} lock-sessions"
-            '';
+          (lib.mkIf config.security.pam.u2f.enable {
+            programs.yubikey-manager.enable = true;
+            services = {
+              yubikey-agent.enable = true;
+              # Taken from: https://wiki.nixos.org/wiki/Yubikey#Locking_the_screen_when_a_Yubikey_is_unplugged
+              udev.extraRules = lib.mkIf host.settings.yubikey.lockOnRemoval ''
+                ACTION=="remove",\
+                 ENV{ID_BUS}=="usb",\
+                 ENV{ID_MODEL_ID}=="0407",\
+                 ENV{ID_VENDOR_ID}=="1050",\
+                 ENV{ID_VENDOR}=="Yubico",\
+                 RUN+="${lib.getExe' pkgs.systemd "loginctl"} lock-sessions"
+              '';
+            };
           })
         ];
 

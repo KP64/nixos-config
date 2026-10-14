@@ -1,6 +1,9 @@
 { den, ... }: {
   den.aspects.sheherazade = {
-    includes = [ den.aspects.networking._.ip ];
+    includes = with den.aspects; [
+      static-ip
+      wifi
+    ];
 
     nixos =
       { config, ... }:
