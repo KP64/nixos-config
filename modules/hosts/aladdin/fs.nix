@@ -1,6 +1,8 @@
 {
-  den.aspects.aladdin.nixos.disko = {
-    devices.disk.main = {
+  den.aspects.aladdin.nixos = {
+    services.btrfs.autoScrub.enable = true;
+
+    disko.devices.disk.main = {
       type = "disk";
       device = "/dev/sda";
       content = {
