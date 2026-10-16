@@ -31,8 +31,6 @@
           startAsUserService = true;
           useUserPackages = true;
           useGlobalPkgs = true;
-          overwriteBackup = true;
-          backupFileExtension = "hm-backup";
         };
 
         homeManager.home = defaults // {

@@ -28,6 +28,6 @@
       );
 
     default.includes = [ den.aspects.facter ];
-    aspects.facter = { host, ... }: { nixos.hardware = { inherit (host) facter; }; };
+    aspects.facter.nixos = { host, ... }: { hardware = { inherit (host) facter; }; };
   };
 }
