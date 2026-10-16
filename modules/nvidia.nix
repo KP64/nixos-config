@@ -25,9 +25,6 @@ in
         (den.batteries.unfree [
           "nvidia-x11"
           "nvidia-settings"
-          "cuda_cccl"
-          "cuda_cudart"
-          "cuda_nvcc"
         ])
       ];
 

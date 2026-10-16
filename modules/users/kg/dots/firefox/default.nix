@@ -1,4 +1,4 @@
-toplevel@{ den, inputs, ... }:
+toplevel@{ inputs, ... }:
 {
   flake-file.inputs = {
     better-fox = {
@@ -21,19 +21,6 @@ toplevel@{ den, inputs, ... }:
   den.aspects.kg =
     { host, ... }:
     toplevel.lib.optionalAttrs host.isGraphical {
-      includes = [
-        (den.batteries.unfree [
-          "libcublas"
-          "libcufft"
-          "libcurand"
-          "libcusparse"
-          "libnpp"
-          "libnvjitlink"
-          "cudnn"
-          "cuda_nvrtc"
-        ])
-      ];
-
       nixpkgs-overlays = _: [ inputs.nur.overlays.default ];
 
       homeManager =

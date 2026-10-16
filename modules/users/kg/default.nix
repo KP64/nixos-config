@@ -4,13 +4,29 @@ let
 in
 {
   den.aspects.${user} = { host, lib, ... }: {
-    includes = [
-      den.aspects.catppuccin
-    ]
-    ++ (with den.aspects.gaming._; [
-      steam
-      lutris
-    ]);
+    includes =
+      (with den; [
+        (batteries.unfree [
+          "cccl"
+          "cuda_crt"
+          "cuda_cudart"
+          "cuda_nvcc"
+          "cuda_nvrtc"
+          "cudnn"
+          "libcublas"
+          "libcufft"
+          "libcurand"
+          "libcusparse"
+          "libnpp"
+          "libnvjitlink"
+          "libnvvm"
+        ])
+        aspects.catppuccin
+      ])
+      ++ (with den.aspects.gaming._; [
+        steam
+        lutris
+      ]);
 
     # TODO: Solidify yubikeys into a god struct that spans across aspects?
     #         -> IDs, name, hash and interfaces would allow for dynamic udev and USBGuard rules.
