@@ -8,6 +8,8 @@
       isServer = false;
       isUsedInteractively = true;
       hasTPM = true;
+
+      settings.yubikey.lockOnRemoval = false;
     };
 
     aspects.aladdin = {

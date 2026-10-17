@@ -30,7 +30,6 @@
           {
             security.pam.u2f = {
               enable = mappings != { };
-              control = "required";
               settings = {
                 cue = true;
                 cue_prompt = "Touch security key to continue";
