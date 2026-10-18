@@ -99,6 +99,10 @@ in
     homeManager = { config, pkgs, ... }: {
       home = {
         shellAliases.c = "clear";
+        keyboard = {
+          layout = "de";
+          options = [ "caps:escape" ];
+        };
         packages =
           (with pkgs; [
             igrep

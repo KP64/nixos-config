@@ -21,13 +21,7 @@ toplevel: {
       lib.optionalAttrs host.isDesktop {
         services.playerctld.enable = true;
 
-        home = {
-          packages = [ pkgs.wl-clipboard-rs ];
-          keyboard = {
-            layout = "de";
-            options = [ "caps:escape" ];
-          };
-        };
+        home.packages = [ pkgs.wl-clipboard-rs ];
 
         wayland.windowManager.niri =
           (lib.optionalAttrs (nixosConfig != null) {
