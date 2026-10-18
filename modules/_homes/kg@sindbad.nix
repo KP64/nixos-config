@@ -1,5 +1,6 @@
 toplevel:
 let
+  userName = "kg";
   hostName = "sindbad";
 in
 {
@@ -30,13 +31,14 @@ in
     ];
 
   den = {
-    homes.x86_64-linux."kg@${hostName}" = {
+    # TODO: Try host aspect
+    homes.x86_64-linux."${userName}@${hostName}" = {
       isGamingCapable = true;
       isGraphical = true;
       isServer = false;
       isUsedInteractively = true;
     };
-    aspects."kg@${hostName}" = {
+    aspects."${userName}@${hostName}" = {
       homeManager = {
         targets.genericLinux.enable = true;
         programs.home-manager.enable = true;
