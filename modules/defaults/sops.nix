@@ -29,6 +29,13 @@
       users.users.root.hashedPasswordFile = config.sops.secrets.root_password.path;
     };
 
-    homeManager.imports = [ inputs.sops-nix.homeModules.default ];
+    homeManager = { config, ... }: {
+      imports = [ inputs.sops-nix.homeModules.default ];
+
+      sops = {
+        defaultSopsFile = "${self}/modules/users/${config.home.username}/secrets.yaml";
+        age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+      };
+    };
   };
 }
