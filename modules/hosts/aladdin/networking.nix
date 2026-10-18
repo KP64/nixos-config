@@ -6,10 +6,12 @@
         name = "wlp7s0";
         DHCP = "ipv4";
         networkConfig = {
-          IPv6AcceptRA = true;
           DNSSEC = true;
           LLMNR = false;
           MulticastDNS = true;
+
+          IPv6AcceptRA = true;
+          IPv6PrivacyExtensions = true;
         };
       };
     };
