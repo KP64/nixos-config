@@ -83,20 +83,17 @@ in
       users.users.${user} = {
         hashedPasswordFile = config.sops.secrets."${user}_password".path;
         openssh.authorizedKeys.keyFiles = lib.fileset.toList ./keys;
-        # TODO: Move to relevant aspects
-        extraGroups =
-          (map (group: group.name) (
-            with config.users.groups;
-            [
-              input
-              video
-            ]
-          ))
-          ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group;
+        extraGroups = map (group: group.name) (
+          with config.users.groups;
+          [
+            input
+            video
+          ]
+        );
       };
     };
 
-    homeManager = { config, pkgs, ... }: {
+    homeManager = { pkgs, ... }: {
       home = {
         shellAliases.c = "clear";
         keyboard = {

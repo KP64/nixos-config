@@ -1,7 +1,4 @@
 toplevel@{ den, inputs, ... }:
-let
-  inherit (inputs) nixos-raspberrypi-no-console;
-in
 {
   # TODO: Remove this and add patch to upstream repo.
   flake-file.inputs.nixos-raspberrypi-no-console = {
@@ -19,30 +16,22 @@ in
     hosts.aarch64-linux.morgiana = {
       instantiate =
         { modules, ... }:
-        inputs.nixpkgs.lib.nixosSystem {
+        inputs.nixos-raspberrypi-no-console.lib.nixosSystem {
           inherit modules;
-          specialArgs.nixos-raspberrypi = nixos-raspberrypi-no-console;
+          # Already taken care of
+          trustCaches = false;
         };
+
       users.kg.isAdmin = true;
 
       isServer = true;
-
+      settings.static-ip.v6 = "bogus";
     };
 
     aspects.morgiana = {
-      includes = with den.aspects; [
-        rpi._.cache
-        rpi._.fs._ext4
-      ];
+      includes = [ den.aspects.fs._.rpi._.ext4 ];
       nixos = {
-        imports = [
-          nixos-raspberrypi-no-console.lib.inject-overlays
-        ]
-        ++ (with nixos-raspberrypi-no-console.nixosModules; [
-          nixpkgs-rpi
-          raspberry-pi-4.base
-          raspberry-pi-4.display-vc4
-        ]);
+        imports = [ inputs.nixos-raspberrypi-no-console.nixosModules.raspberry-pi-4.base ];
 
         boot.loader.raspberry-pi.bootloader = "kernel";
       };

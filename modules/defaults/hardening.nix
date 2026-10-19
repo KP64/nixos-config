@@ -1,7 +1,7 @@
 {
   den.default.nixos = { lib, pkgs, ... }: {
-    # TODO: Harden kernel
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    # NOTE: less prioritized than mkDefault (1000) but more than mkOptionDefault (1500)
+    boot.kernelPackages = lib.mkOverride 1400 pkgs.linuxPackages_latest;
 
     hardware.bluetooth = {
       powerOnBoot = false;

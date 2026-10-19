@@ -4,9 +4,6 @@
       static-ip
       wifi
     ];
-    # TODO: Get correct addr
-    settings.static-ip.v6 = "bogus";
-    # staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
     nixos =
       let

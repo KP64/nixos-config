@@ -83,12 +83,6 @@
       repo = "flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    harmonia = {
-      type = "github";
-      owner = "nix-community";
-      repo = "harmonia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       type = "github";
       owner = "nix-community";

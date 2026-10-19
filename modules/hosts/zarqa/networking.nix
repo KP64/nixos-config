@@ -1,22 +1,17 @@
 { den, ... }: {
   den.aspects.zarqa = {
-    includes = with den.aspects.networking._; [
-      ip
+    includes = with den.aspects; [
+      static-ip
       wifi
     ];
 
     nixos =
-      { config, ... }:
       let
         addr = "201";
       in
       {
         # TODO: Replace
         networking.domain = "srvd.space";
-
-        wifiSSID = "FRITZ!Box 4630 QX";
-
-        staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
 
         systemd.network.networks."10-wlan0" = {
           name = "wlan0";

@@ -1,24 +1,16 @@
-toplevel@{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.morgiana = {
-    includes = with den.aspects.networking._; [
+    includes = with den.aspects; [
       static-ip
       wifi
     ];
 
     nixos =
-      { config, ... }:
       let
         addr = "212";
       in
       {
-        networking = {
-          inherit (toplevel.config.flake.nixosConfigurations.sheherazade.config.networking) domain;
-        };
-
-        wifiSSID = "FRITZ!Box 4630 QX";
-
-        staticIPv6 = "${config.lib.topology.getHomeCidr6}::${addr}";
+        networking.domain = "srvd.space";
 
         systemd.network.networks."10-wlan0" = {
           name = "wlan0";
