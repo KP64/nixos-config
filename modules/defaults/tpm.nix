@@ -1,13 +1,26 @@
-toplevel@{ den, ... }:
-{
-  den = {
-    schema.host.options.hasTPM = toplevel.lib.mkEnableOption "Machine has a TPM";
+{ lib, ... }: {
+  den.schema = {
+    host = {
+      options.hasTPM = lib.mkEnableOption "Machine has a TPM";
+      includes = [
+        (
+          { host, ... }:
+          lib.optionalAttrs host.hasTPM {
+            nixos = {
+              security.tpm2 = {
+                enable = true;
+                pkcs11.enable = true;
+                tctiEnvironment.enable = true;
+              };
+            };
+          }
+        )
+      ];
+    };
 
-    default = {
-      includes = [ den.aspects.tpm2 ];
-
-      _.to-users =
-        { user, lib, ... }:
+    user.includes = [
+      (
+        { user, ... }:
         lib.optionalAttrs user.isAdmin {
           user = { config, lib, ... }: {
             extraGroups = lib.optional config.security.tpm2.enable config.security.tpm2.tssGroup;
@@ -19,18 +32,8 @@ toplevel@{ den, ... }:
               ...
             }:
             lib.mkIf (nixosConfig.security.tpm2.enable or false) { services.ssh-tpm-agent.enable = true; };
-        };
-    };
-    aspects.tpm2 =
-      { host, lib, ... }:
-      lib.optionalAttrs host.hasTPM {
-        nixos = {
-          security.tpm2 = {
-            enable = true;
-            pkcs11.enable = true;
-            tctiEnvironment.enable = true;
-          };
-        };
-      };
+        }
+      )
+    ];
   };
 }

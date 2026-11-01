@@ -23,8 +23,8 @@
       nixos = { inherit nix; };
       homeManager =
         {
-          lib,
           nixosConfig ? null,
+          lib,
           ...
         }:
         lib.mkIf (nixosConfig == null) { inherit nix; };

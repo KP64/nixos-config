@@ -1,4 +1,4 @@
-toplevel@{ inputs, ... }:
+toplevel@{ inputs, lib, ... }:
 {
   flake-file.inputs = {
     better-fox = {
@@ -20,16 +20,11 @@ toplevel@{ inputs, ... }:
 
   den.aspects.kg =
     { host, ... }:
-    toplevel.lib.optionalAttrs host.isGraphical {
+    lib.optionalAttrs host.isGraphical {
       nixpkgs-overlays = _: [ inputs.nur.overlays.default ];
 
       homeManager =
-        {
-          config,
-          lib,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         let
           inherit (toplevel.config.lib.flake.util) getAsset toFlattenedByDots;
           # inherit (toplevel.config.flake.nixosConfigurations) morgiana;
@@ -41,44 +36,37 @@ toplevel@{ inputs, ... }:
             profiles.${config.home.username} = {
               extraConfig = builtins.readFile "${inputs.better-fox}/user.js";
 
-              settings =
-                toFlattenedByDots
-                <| lib.recursiveUpdate (
-                  lib.optionalAttrs config.services.glance.enable {
-                    browser.startup.homepage = "http://${config.services.glance.settings.server.host}:${toString config.services.glance.settings.server.port}";
-                  }
-                )
-                <| {
-                  network = {
-                    trr.mode = 5; # Off by choice -> Uses system DNS resolver
-                    proxy.type = 0; # Disable proxy
-                  };
-                  # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
-                  extensions.autoDisableScopes = 0;
-                  dom.security.https_only_mode = true;
-                  # TODO: Reenable
-                  # identity.sync.tokenserver.uri = "${morgiana.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
-                  general.autoScroll = true;
-                  sidebar.verticalTabs = true;
-                  browser = {
-                    newtabpage = {
-                      enabled = true;
-                      activity-stream = {
-                        showSearch = false;
-                        showSponsoredCheckboxes = false;
-                        showSponsoredTopSites = false;
-                        showSponsored = false;
-                        feeds = {
-                          topsites = false;
-                          section = {
-                            topstories = false;
-                            highlights = false;
-                          };
+              settings = toFlattenedByDots {
+                network = {
+                  trr.mode = 5; # Off by choice -> Uses system DNS resolver
+                  proxy.type = 0; # Disable proxy
+                };
+                # media.peerconnection.enabled = false; # Disable WebRTC -> prevents DNS leakage
+                extensions.autoDisableScopes = 0;
+                dom.security.https_only_mode = true;
+                # TODO: Reenable
+                # identity.sync.tokenserver.uri = "${morgiana.config.services.firefox-syncserver.singleNode.url}/1.0/sync/1.5";
+                general.autoScroll = true;
+                sidebar.verticalTabs = true;
+                browser = {
+                  newtabpage = {
+                    enabled = true;
+                    activity-stream = {
+                      showSearch = false;
+                      showSponsoredCheckboxes = false;
+                      showSponsoredTopSites = false;
+                      showSponsored = false;
+                      feeds = {
+                        topsites = false;
+                        section = {
+                          topstories = false;
+                          highlights = false;
                         };
                       };
                     };
                   };
                 };
+              };
 
               containersForce = true;
               bookmarks = {
@@ -349,6 +337,7 @@ toplevel@{ inputs, ... }:
                     "file:///*"
                   ];
                   "7esoorv3@alefvanoon.anonaddy.me" = {
+                    # TODO: Inline this and substitute necessary values from cfg
                     settings = lib.importJSON ./libredirect-settings.json;
                     permissions = [
                       "webRequest"

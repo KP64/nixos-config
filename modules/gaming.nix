@@ -1,11 +1,15 @@
-toplevel: {
+{ lib, ... }:
+let
+  cond = host: (host.isGamingCapable && host.isGraphical && host.isUsedInteractively);
+in
+{
   den = {
-    schema.host.options.isGamingCapable = toplevel.lib.mkEnableOption "Machine is for Gaming";
+    schema.host.options.isGamingCapable = lib.mkEnableOption "Machine can run Games";
 
-    aspects.gaming = { lib, ... }: {
+    aspects.gaming = {
       nixos =
         { host, pkgs, ... }:
-        lib.optionalAttrs host.isGamingCapable {
+        lib.optionalAttrs (cond host) {
           boot.kernelPackages = pkgs.linuxPackages_zen;
           # NOTE: Locking kernel prevents a controller's kernel module to load. (e.g. hid_playstation)
           security.lockKernelModules = lib.mkForce false;
@@ -14,7 +18,7 @@ toplevel: {
       _ = {
         steam =
           { host, den, ... }:
-          lib.optionalAttrs host.isGamingCapable {
+          lib.optionalAttrs (cond host) {
             includes = [
               den.aspects.gaming
               (den.batteries.unfree [
@@ -44,7 +48,7 @@ toplevel: {
 
         lutris =
           { host, den, ... }:
-          lib.optionalAttrs host.isGamingCapable {
+          lib.optionalAttrs (cond host) {
             includes = [ den.aspects.gaming ];
 
             # https://github.com/lutris/docs/blob/master/HowToEsync.md

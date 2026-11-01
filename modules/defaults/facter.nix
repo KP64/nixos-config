@@ -1,4 +1,4 @@
-{ den, lib, ... }: {
+{ lib, ... }: {
   den = {
     schema.host.options.facter.reportPath = lib.mkOption {
       readOnly = true;
@@ -27,7 +27,6 @@
         }
       );
 
-    default.includes = [ den.aspects.facter ];
-    aspects.facter.nixos = { host, ... }: { hardware = { inherit (host) facter; }; };
+    default.nixos = { host, ... }: { hardware = { inherit (host) facter; }; };
   };
 }

@@ -1,18 +1,12 @@
 { den, ... }: {
   den.aspects.mahdi = {
-    includes = with den.aspects; [
-      static-ip
-      wifi
-    ];
+    includes = [ den.aspects.wifi ];
 
     nixos =
       let
         addr = "220";
       in
       {
-        # TODO: Replace
-        networking.domain = "srvd.space";
-
         systemd.network.networks."10-wlp130s0f0" = {
           name = "wlp130s0f0";
           DHCP = "ipv4";

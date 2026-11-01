@@ -2,27 +2,33 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-  perl,
+  gitMinimal,
+  cmakeMinimal,
 }:
 
-# TODO: Remove this once redlib fixes their annoying issues
-rustPlatform.buildRustPackage (_: {
+# TODO: Remove once nixpkgs updates redlib
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "redlib";
-  version = "0-unstable-2025-12-04";
+  version = "0.40.0";
 
   src = fetchFromGitHub {
-    owner = "chowder";
+    owner = "redlib-org";
     repo = "redlib";
-    rev = "42fe41bc4c64690aa91cd1cfecec3bad3438354f";
-    hash = "sha256-iYH5WeQLitDA6unTJoR0+DYQWmTSQd0WRFfwRYvkVHI=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-qv7vIls9BwgwDQuKEQU72J10MpaMfcLvIGfzl628eNU=";
   };
 
   __structuredAttrs = true;
 
-  cargoHash = "sha256-/oSZR/VMYyDTA9b48EXll/FC7UwN0xhA9BtQVwrBoMk=";
+  cargoHash = "sha256-XgHXqH4EF8TEOI+cKJ0Z2j6QYRCwGgv8bmY8gZpPN9c=";
 
   doCheck = false;
-  nativeBuildInputs = [ perl ];
+
+  nativeBuildInputs = [
+    gitMinimal
+    cmakeMinimal
+    rustPlatform.bindgenHook
+  ];
 
   meta = {
     description = "Private front-end for Reddit";

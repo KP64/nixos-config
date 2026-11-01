@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "dumb";
-  version = "unstable-2026-09-26";
+  version = "unstable-2026-10-22";
 
   src = fetchFromGitHub {
     owner = "rramiachraf";
     repo = "dumb";
-    rev = "f5581074850bc31ed7df1ce96e8f428179bf0abb";
-    hash = "sha256-ajyMDzRlvAmQujcUEEQs7yffWVKrvgDZgLimTCT6eZI=";
+    rev = "1e8905c10741eec48742bacdbdda8040e585d8de";
+    hash = "sha256-pQuXC9l99VJqAbj/wO98X7UvFdYflzWcmV+x6vytf9s=";
   };
 
   __structuredAttrs = true;
@@ -23,7 +23,7 @@ buildGoModule (finalAttrs: {
     templ
   ];
 
-  vendorHash = "sha256-FobXK38l1dxCd0qDBynWhQtHVdx9rMtWRS94Jg99jQ4=";
+  vendorHash = "sha256-hAP1M8YBbAMgABKqJo+zlcanknth31KUBxbu4jg3IeE=";
 
   env.CGO_ENABLED = 0;
 

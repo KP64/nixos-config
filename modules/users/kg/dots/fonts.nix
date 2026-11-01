@@ -1,5 +1,4 @@
 {
-  # TODO: enableDefaultPackages = false;
   den.aspects.kg.homeManager =
     {
       host,

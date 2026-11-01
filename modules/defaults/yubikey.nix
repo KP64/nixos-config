@@ -1,10 +1,25 @@
 { den, ... }: {
   den = {
-    quirks.yubikeyMappings.description = "User yubikey U2F mappings";
-    policies.expose-yubikey-mappings = _: [
-      (den.lib.policy.pipe.from "yubikeyMappings" [ den.lib.policy.pipe.expose ])
-    ];
-    schema.user.includes = [ den.policies.expose-yubikey-mappings ];
+    quirks = {
+      yubikeys.description = "User's yubikeys";
+      u2fmappings.description = "User U2F Mappings";
+    };
+
+    policies.map-yubis-to-u2f =
+      { host, ... }:
+      let
+        currentHost = host.name;
+        inherit (den.lib.policy) pipe;
+      in
+      [
+        (pipe.from "yubikeys" [
+          (pipe.collectAll ({ user, host, ... }: host.name == currentHost && user != null))
+          pipe.withProvenance
+          (pipe.as "u2fmappings")
+        ])
+      ];
+
+    schema.host.includes = [ den.policies.map-yubis-to-u2f ];
 
     default.includes = [ den.aspects.yubikey ];
     aspects.yubikey = { lib, ... }: {
@@ -20,25 +35,29 @@
           host,
           config,
           pkgs,
-          yubikeyMappings,
+          u2fmappings,
           ...
         }:
         let
-          mappings = lib.mergeAttrsList yubikeyMappings;
+          grouped = lib.groupBy (entry: entry.source.user.name) u2fmappings;
+
+          mappings = lib.mapAttrsToList (
+            username: entries: username + lib.concatMapStrings (entry: entry.value.mapping) entries
+          ) grouped;
         in
         lib.mkMerge [
           {
             security.pam.u2f = {
-              enable = mappings != { };
+              enable = mappings != [ ];
               settings = {
                 cue = true;
+                control = "required";
                 cue_prompt = "Touch security key to continue";
                 origin = "pam://nixos-yubi";
                 authfile =
-                  lib.mkIf (mappings != { })
+                  lib.mkIf config.security.pam.u2f.enable
                   <| pkgs.writeText "u2f-mappings"
                   <| lib.concatLines
-                  <| lib.mapAttrsToList (n: v: n + lib.concatStrings v)
                   <| mappings;
               };
             };
@@ -48,30 +67,27 @@
             services = {
               yubikey-agent.enable = true;
               # Taken from: https://wiki.nixos.org/wiki/Yubikey#Locking_the_screen_when_a_Yubikey_is_unplugged
-              udev.extraRules = lib.mkIf host.settings.yubikey.lockOnRemoval ''
-                ACTION=="remove",\
-                 ENV{ID_BUS}=="usb",\
-                 ENV{ID_MODEL_ID}=="0407",\
-                 ENV{ID_VENDOR_ID}=="1050",\
-                 ENV{ID_VENDOR}=="Yubico",\
-                 RUN+="${lib.getExe' pkgs.systemd "loginctl"} lock-sessions"
-              '';
+              udev.extraRules =
+                let
+                  mkRule = { modelID, vendorID }: ''
+                    ACTION=="remove",\
+                     ENV{ID_BUS}=="usb",\
+                     ENV{ID_MODEL_ID}=="${modelID}",\
+                     ENV{ID_VENDOR_ID}=="${vendorID}",\
+                     ENV{ID_VENDOR}=="Yubico",\
+                     RUN+="${lib.getExe' pkgs.systemd "loginctl"} lock-sessions"
+                  '';
+
+                  rules =
+                    u2fmappings
+                    |> map (m: mkRule { inherit (m.value) modelID vendorID; })
+                    |> lib.unique
+                    |> lib.concatLines;
+                in
+                lib.mkIf host.settings.yubikey.lockOnRemoval rules;
             };
           })
         ];
-
-      homeManager =
-        {
-          nixosConfig ? null,
-          ...
-        }:
-        let
-          disableCCID = nixosConfig.services.pcscd.enable or false;
-        in
-        {
-          programs.gpg.scdaemonSettings = lib.mkIf disableCCID { disable-ccid = true; };
-          services.gpg-agent.enableScDaemon = !disableCCID;
-        };
     };
   };
 }

@@ -10,8 +10,8 @@
         style = "auto";
         update_check = false;
         enter_accept = true;
-        # TODO: Replace with homelab domain
-        sync_address = "https://atuin.srvd.space";
+        # TODO: Re-Add
+        # sync_address = "https://atuin.srvd.space";
       };
     };
   };

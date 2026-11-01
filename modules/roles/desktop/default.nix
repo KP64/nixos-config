@@ -1,9 +1,8 @@
-toplevel@{ den, ... }:
-{
+{ den, lib, ... }: {
   den = {
     schema.host = { config, ... }: {
-      options.isDesktop = toplevel.lib.mkOption {
-        type = toplevel.lib.types.bool;
+      options.isDesktop = lib.mkOption {
+        type = lib.types.bool;
         default = config.isUsedInteractively && config.isGraphical && !config.isServer;
         example = true;
         description = "Whether the machine is a Desktop";
@@ -11,7 +10,7 @@ toplevel@{ den, ... }:
     };
     default.includes = [ den.aspects.desktop ];
     aspects.desktop =
-      { host, lib, ... }:
+      { host, ... }:
       lib.optionalAttrs host.isDesktop {
         nixos = { config, lib, ... }: {
           services.displayManager.sddm = {

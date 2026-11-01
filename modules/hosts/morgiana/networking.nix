@@ -1,9 +1,6 @@
 { den, ... }: {
   den.aspects.morgiana = {
-    includes = with den.aspects; [
-      static-ip
-      wifi
-    ];
+    includes = [ den.aspects.wifi ];
 
     nixos =
       let

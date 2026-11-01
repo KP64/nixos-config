@@ -16,7 +16,6 @@ toplevel@{ inputs, ... }:
 
   den.default.nixos = {
     imports = [ inputs.nix-topology.nixosModules.default ];
-    # FIXME: Causes flake checks and topology builds to fail when a host doesn't enable OpenSSH
     topology.self.services.openssh.hidden = false;
   };
 

@@ -25,7 +25,6 @@ toplevel@{ den, inputs, ... }:
       users.kg.isAdmin = true;
 
       isServer = true;
-      settings.static-ip.v6 = "bogus";
     };
 
     aspects.morgiana = {

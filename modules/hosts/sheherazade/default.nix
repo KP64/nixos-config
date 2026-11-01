@@ -12,11 +12,6 @@
       users.kg.isAdmin = true;
 
       isServer = true;
-
-      settings.static-ip = {
-        v4 = "bogus";
-        v6 = "bogus";
-      };
     };
 
     aspects.sheherazade = {

@@ -12,7 +12,7 @@ in
 
   den.aspects.catppuccin =
     { host, lib, ... }:
-    lib.optionalAttrs host.isUsedInteractively {
+    lib.optionalAttrs (host.isUsedInteractively && !host.isServer) {
       nixos = { config, ... }: {
         imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 

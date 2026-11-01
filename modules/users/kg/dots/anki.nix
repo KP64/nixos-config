@@ -25,8 +25,8 @@
             {
               autoSync = true;
               syncMedia = true;
-              # TODO: Replace
-              url = "https://anki.srvd.space";
+              # TODO: Re-Add
+              # url = "https://anki.srvd.space";
               usernameFile = secrets."anki/username".path;
               keyFile = secrets."anki/sync_key".path;
             };

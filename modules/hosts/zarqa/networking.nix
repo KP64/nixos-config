@@ -1,18 +1,12 @@
 { den, ... }: {
   den.aspects.zarqa = {
-    includes = with den.aspects; [
-      static-ip
-      wifi
-    ];
+    includes = [ den.aspects.wifi ];
 
     nixos =
       let
         addr = "201";
       in
       {
-        # TODO: Replace
-        networking.domain = "srvd.space";
-
         systemd.network.networks."10-wlan0" = {
           name = "wlan0";
           DHCP = "ipv4";
