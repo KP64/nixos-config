@@ -7,6 +7,8 @@
       defaultEditor = true;
       vimdiffAlias = true;
 
+      imports = [ (inputs.import-tree ./_modules) ];
+
       colorschemes.catppuccin = {
         enable = true;
         lazyLoad.enable = true;
