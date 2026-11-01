@@ -337,7 +337,6 @@ toplevel@{ inputs, lib, ... }:
                     "file:///*"
                   ];
                   "7esoorv3@alefvanoon.anonaddy.me" = {
-                    # TODO: Inline this and substitute necessary values from cfg
                     settings = lib.importJSON ./libredirect-settings.json;
                     permissions = [
                       "webRequest"

@@ -1,5 +1,4 @@
 {
-  # TODO: Decide on better enable logic
   den.default.nixos =
     { config, lib, ... }:
     lib.mkIf config.services.coder.enable {

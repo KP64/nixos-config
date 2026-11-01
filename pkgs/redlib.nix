@@ -6,7 +6,7 @@
   cmakeMinimal,
 }:
 
-# TODO: Remove once nixpkgs updates redlib
+# TODO: Remove once nixpkgs updates redlib https://github.com/NixOS/nixpkgs/pull/520226
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "redlib";
   version = "0.40.0";
