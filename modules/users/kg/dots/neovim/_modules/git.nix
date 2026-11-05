@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   plugins = {
     fugitive.enable = true;
     gitsigns = {

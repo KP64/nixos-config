@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   extraPackagesAfter = [ pkgs.biber ];
 
   plugins = {

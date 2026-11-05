@@ -39,12 +39,7 @@ toplevel@{ lib, inputs, ... }:
         repo = "flake-parts";
         inputs.nixpkgs-lib.follows = "nixpkgs";
       };
-      nixpkgs = {
-        type = "github";
-        owner = "NixOS";
-        repo = "nixpkgs";
-        ref = "nixos-unstable";
-      };
+      nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
       import-tree = {
         type = "github";
         owner = "denful";

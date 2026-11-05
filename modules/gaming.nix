@@ -57,11 +57,11 @@ in
               let
                 NOFILE = 524288;
               in
-              {
+              { config, ... }: {
                 systemd.settings.Manager.DefaultLimitNOFILE = NOFILE;
                 security.pam.loginLimits = [
                   {
-                    domain = "@wheel";
+                    domain = "@${config.users.groups.users.name}";
                     type = "hard";
                     item = "nofile";
                     value = NOFILE;

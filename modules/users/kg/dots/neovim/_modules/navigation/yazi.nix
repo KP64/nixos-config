@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   plugins.yazi = {
     enable = true;
     lazyLoad.settings.event = "DeferredUIEnter";
@@ -11,9 +10,7 @@
   };
 
   # https://github.com/mikavilpas/yazi.nvim/issues/802
-  globals = lib.mkIf config.plugins.yazi.settings.open_for_directories {
-    loaded_netrwPlugin = 1;
-  };
+  globals = lib.mkIf config.plugins.yazi.settings.open_for_directories { loaded_netrwPlugin = 1; };
 
   keymaps = [
     {

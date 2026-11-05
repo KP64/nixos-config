@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   plugins.bufferline = {
     enable = true;
     settings.options.numbers = lib.nixvim.mkRaw ''

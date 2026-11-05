@@ -3,5 +3,7 @@
     define-user
     hostname
     flake-scope
+    inputs'
+    self'
   ];
 }

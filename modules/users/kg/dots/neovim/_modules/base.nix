@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   withNodeJs = true;
 
   viAlias = true;
