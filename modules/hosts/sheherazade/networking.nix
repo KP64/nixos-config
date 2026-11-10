@@ -1,7 +1,5 @@
-{ den, ... }: {
+{
   den.aspects.sheherazade = {
-    includes = [ den.aspects.wifi ];
-
     nixos =
       let
         addr = "224";

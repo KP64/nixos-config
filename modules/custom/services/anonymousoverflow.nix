@@ -34,7 +34,10 @@ toplevel@{ moduleWithSystem, ... }:
           example = "https://overflow.example.com";
         };
         environmentFile = lib.mkOption {
-          type = lib.types.path;
+          type = lib.types.pathWith {
+            inStore = false;
+            absolute = true;
+          };
           description = ''
             Path to the file containing the JWT_SIGNING_SECRET variable.
             To generate the variable run `openssl rand -base64 32`.

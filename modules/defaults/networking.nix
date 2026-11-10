@@ -1,5 +1,5 @@
 {
-  den.default.nixos = {
+  den.default.nixos = { config, ... }: {
     systemd.network.enable = true;
     networking = {
       useDHCP = false;
@@ -7,7 +7,7 @@
 
       wireless = {
         fallbackToWPA2 = false;
-        scanOnLowSignal = false;
+        scanOnLowSignal = 1 < (builtins.length (builtins.attrNames config.networking.wireless.networks));
       };
 
       firewall = {

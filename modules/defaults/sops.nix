@@ -34,6 +34,7 @@
 
       sops = {
         defaultSopsFile = "${self}/modules/users/${config.home.username}/secrets.yaml";
+        # TODO: Replace with age.sshKeyFile
         age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
       };
     };
