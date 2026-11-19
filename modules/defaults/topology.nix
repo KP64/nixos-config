@@ -1,11 +1,9 @@
 toplevel@{ inputs, ... }:
 {
-  # TODO: Revert to main repo when PRs are merged
   flake-file.inputs.nix-topology = {
     type = "github";
-    owner = "KP64";
+    owner = "oddlama";
     repo = "nix-topology";
-    ref = "advanced";
     inputs = {
       flake-parts.follows = "flake-parts";
       nixpkgs.follows = "nixpkgs";

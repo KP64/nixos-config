@@ -10,48 +10,55 @@ in
     repo = "nix";
   };
 
-  den.aspects.catppuccin =
-    { host, lib, ... }:
-    lib.optionalAttrs (host.isUsedInteractively && !host.isServer) {
-      nixos = { config, ... }: {
+  den = {
+    default = {
+      nixos = { config, lib, ... }: {
         imports = [ inputs.catppuccin.nixosModules.catppuccin ];
-
-        catppuccin = {
-          enable = true;
-          autoEnable = true;
-          cache.enable = true;
-          inherit accent;
-          cursors = {
-            inherit (config.programs.niri) enable;
-            accent = cursorAccent;
-          };
-        };
+        catppuccin.autoEnable = lib.mkDefault config.catppuccin.enable;
       };
+      homeManager = { config, lib, ... }: {
+        imports = [ inputs.catppuccin.homeModules.catppuccin ];
+        catppuccin.autoEnable = lib.mkDefault config.catppuccin.enable;
+      };
+    };
 
-      homeManager =
-        {
-          nixosConfig ? null,
-          config,
-          ...
-        }:
-        {
-          imports = [ inputs.catppuccin.homeModules.catppuccin ];
-
+    aspects.catppuccin =
+      { host, lib, ... }:
+      lib.optionalAttrs (host.isUsedInteractively && !host.isServer) {
+        nixos = { config, ... }: {
           catppuccin = {
             enable = true;
-            autoEnable = true;
-            cache.enable = nixosConfig == null;
+            cache.enable = true;
             inherit accent;
-            firefox.force = true;
             cursors = {
-              inherit (config.wayland.windowManager.niri) enable;
+              inherit (config.programs.niri) enable;
               accent = cursorAccent;
             };
-            thunderbird.profile = config.home.username;
           };
-
-          gtk.colorScheme = "dark";
-          qt.style.name = "kvantum";
         };
-    };
+
+        homeManager =
+          {
+            nixosConfig ? null,
+            config,
+            ...
+          }:
+          {
+            catppuccin = {
+              enable = true;
+              cache.enable = nixosConfig == null;
+              inherit accent;
+              firefox.force = true;
+              cursors = {
+                inherit (config.wayland.windowManager.niri) enable;
+                accent = cursorAccent;
+              };
+              thunderbird.profile = config.home.username;
+            };
+
+            gtk.colorScheme = "dark";
+            qt.style.name = "kvantum";
+          };
+      };
+  };
 }

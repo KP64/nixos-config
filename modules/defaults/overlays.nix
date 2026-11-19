@@ -2,9 +2,12 @@
   den = {
     quirks.nixpkgs-overlays.description = "nixpkgs overlays collected from aspects";
 
-    policies.project-user-overlays = _: [
-      (den.lib.policy.pipe.from "nixpkgs-overlays" [ den.lib.policy.pipe.expose ])
-    ];
+    policies.project-user-overlays =
+      _:
+      let
+        inherit (den.lib.policy) pipe;
+      in
+      [ (pipe.from "nixpkgs-overlays" [ pipe.expose ]) ];
     schema.user.includes = [ den.policies.project-user-overlays ];
 
     default.includes = [ den.aspects.nixpkgs-overlays ];

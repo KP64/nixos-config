@@ -11,31 +11,24 @@
       description = "The type of RTC the Pi has";
     };
 
-    nixos =
-      {
-        host,
-        user,
-        config,
-        ...
-      }:
-      {
-        users.users.${user.userName}.extraGroups = lib.optional (
-          user.isAdmin && config.hardware.i2c.enable
-        ) config.hardware.i2c.group;
+    provides.to-users.user = { config, user, ... }: {
+      extraGroups = lib.optional (user.isAdmin && config.hardware.i2c.enable) config.hardware.i2c.group;
+    };
 
-        hardware = {
-          i2c.enable = true;
-          raspberry-pi.config.all = {
-            dt-overlays."i2c-rtc,${host.settings.rtc.type}" = {
-              enable = true;
-              params = { };
-            };
-            base-dt-params.i2c_arm = {
-              enable = true;
-              value = "on";
-            };
+    nixos = { host, ... }: {
+      hardware = {
+        i2c.enable = true;
+        raspberry-pi.config.all = {
+          dt-overlays."i2c-rtc,${host.settings.rtc.type}" = {
+            enable = true;
+            params = { };
+          };
+          base-dt-params.i2c_arm = {
+            enable = true;
+            value = "on";
           };
         };
       };
+    };
   };
 }

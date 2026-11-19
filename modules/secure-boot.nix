@@ -31,8 +31,9 @@
       '';
     };
 
-    homeManager =
-      { user, pkgs, ... }: lib.optionalAttrs user.isAdmin { home.packages = [ pkgs.sbctl ]; };
+    provides.to-users.homeManager = { user, pkgs, ... }: {
+      home.packages = lib.optional user.isAdmin pkgs.sbctl;
+    };
 
     nixos = { host, config, ... }: {
       imports = [ inputs.lanzaboote.nixosModules.default ];
@@ -46,6 +47,7 @@
         lanzaboote = {
           enable = true;
           pkiBundle = "/var/lib/sbctl";
+          # TODO: Remove this as Systemd has support now.
           configurationLimit = lib.mkIf config.boot.lanzaboote.measuredBoot.enable 4;
           bootCounting.initialTries = config.boot.loader.systemd-boot.bootCounting.tries;
           measuredBoot = {
@@ -58,7 +60,8 @@
               autoReboot = true;
               # TODO: Make device a setting in the host aspect
               #        -> The device should then be used as the device in the disko config too
-              device = "/dev/sda";
+              device =
+                config.boot.initrd.luks.devices.${config.disko.devices.disk.main.content.partitions.luks.content.name}.device;
             };
           };
           autoGenerateKeys.enable = true;

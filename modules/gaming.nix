@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ den, lib, ... }:
 let
   cond = host: (host.isGamingCapable && host.isGraphical && host.isUsedInteractively);
 in
@@ -7,7 +7,7 @@ in
     schema.host.options.isGamingCapable = lib.mkEnableOption "Machine can run Games";
 
     aspects.gaming = {
-      nixos =
+      provides.to-hosts.nixos =
         { host, pkgs, ... }:
         lib.optionalAttrs (cond host) {
           boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -15,19 +15,19 @@ in
           security.lockKernelModules = lib.mkForce false;
         };
 
-      _ = {
+      provides = {
         steam =
-          { host, den, ... }:
+          { host, ... }:
           lib.optionalAttrs (cond host) {
-            includes = [
-              den.aspects.gaming
-              (den.batteries.unfree [
+            includes = with den; [
+              aspects.gaming
+              (batteries.unfree [
                 "steam"
                 "steam-unwrapped"
               ])
             ];
 
-            nixos = { pkgs, ... }: {
+            provides.to-hosts.nixos = { pkgs, ... }: {
               programs = {
                 gamemode.enable = true;
                 gamescope = {
@@ -47,13 +47,13 @@ in
           };
 
         lutris =
-          { host, den, ... }:
+          { host, ... }:
           lib.optionalAttrs (cond host) {
             includes = [ den.aspects.gaming ];
 
             # https://github.com/lutris/docs/blob/master/HowToEsync.md
             # https://wiki.nixos.org/wiki/Lutris#Using_Esync
-            nixos =
+            provides.to-hosts.nixos =
               let
                 NOFILE = 524288;
               in

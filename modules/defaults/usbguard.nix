@@ -39,13 +39,10 @@
           presentControllerPolicy = "apply-policy";
           restoreControllerDeviceState = true;
 
-          ruleFile =
-            let
-              hostCfg = ../hosts/${config.networking.hostName}/usbguard.cfg;
-            in
-            pkgs.writeText "usbguard-cfg" (
-              (builtins.readFile hostCfg) + (lib.concatLines <| lib.flatten <| adminYubikeyUSBGuardRules)
-            );
+          ruleFile = pkgs.writeText "usbguard-cfg" (
+            (builtins.readFile ../hosts/${config.networking.hostName}/usbguard.cfg)
+            + (lib.concatLines <| lib.flatten <| adminYubikeyUSBGuardRules)
+          );
         };
       };
   };

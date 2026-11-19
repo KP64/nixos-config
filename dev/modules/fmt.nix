@@ -38,7 +38,11 @@ toplevel@{ inputs, ... }:
     {
       treefmt = {
         settings = {
-          global.excludes = lib.unique (
+          global.excludes = [
+            # NOTE: Ignores udev rule files
+            "*.rules"
+          ]
+          ++ lib.unique (
             (getSopsFiles nixosConfigs) ++ (getSopsFiles nixosUserHmConfigs) ++ (getSopsFiles hmConfigs)
           );
           formatter = {
@@ -71,6 +75,7 @@ toplevel@{ inputs, ... }:
             # TODO: Remove once nufmt is back in treefmt-nix
             #        - https://github.com/numtide/treefmt-nix/pull/489
             #        - https://github.com/numtide/treefmt-nix/pull/510
+            #        - https://github.com/numtide/treefmt-nix/pull/554
             nufmt = {
               command = pkgs.nufmt;
               includes = [ "*.nu" ];
@@ -84,6 +89,7 @@ toplevel@{ inputs, ... }:
           nixf-diagnose.enable = true;
           nixfmt = {
             enable = true;
+            package = pkgs.nixfmt-rs;
             strict = true;
           };
 
@@ -95,7 +101,11 @@ toplevel@{ inputs, ... }:
           };
 
           # 🐚 Shell
-          shfmt.enable = true;
+          shfmt = {
+            enable = true;
+            indent_size = 2;
+            simplify = true;
+          };
           shellcheck.enable = true;
 
           # [T] TOML

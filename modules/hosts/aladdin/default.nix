@@ -15,6 +15,7 @@
     aspects.aladdin = {
       includes = with den.aspects; [
         boot._.secure
+        catppuccin
         nvidia
       ];
 

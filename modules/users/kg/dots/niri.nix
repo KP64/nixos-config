@@ -1,6 +1,6 @@
 toplevel: {
   den.aspects.kg = {
-    nixos = { host, ... }: { programs.niri.enable = host.isGraphical; };
+    provides.to-hosts.nixos = { host, ... }: { programs.niri.enable = host.isDesktop; };
 
     # NOTE: Don't forget to install wireplumber on the device
     #       Reason: without it volume keybinds won't work

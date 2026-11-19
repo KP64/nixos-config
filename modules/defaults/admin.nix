@@ -1,27 +1,28 @@
 { lib, ... }: {
-  den.schema.user = {
-    options.isAdmin = lib.mkEnableOption "User is an Admin";
+  den = {
+    schema.user.options.isAdmin = lib.mkEnableOption "User is an Admin";
 
-    includes = [
+    default.includes = [
       (
         { user, ... }:
+        let
+          nixSettings.settings.trusted-users = [ user.name ];
+        in
         lib.optionalAttrs user.isAdmin {
-          nixos = { config, ... }: {
-            nix.settings.trusted-users = [ user.name ];
-            users.users.${user.name} = {
-              isNormalUser = true;
-              extraGroups = [ config.users.groups.wheel.name ];
-            };
+          user = { config, ... }: {
+            isNormalUser = true;
+            extraGroups = [ config.users.groups.wheel.name ];
           };
+
+          nixos.nix = nixSettings;
 
           homeManager =
             {
               nixosConfig ? null,
-              lib,
               ...
             }:
             {
-              nix = lib.mkIf (nixosConfig == null) { settings.trusted-users = [ user.name ]; };
+              nix = lib.mkIf (nixosConfig == null) nixSettings;
             };
         }
       )

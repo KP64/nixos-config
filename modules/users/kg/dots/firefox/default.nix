@@ -396,9 +396,11 @@ toplevel@{ inputs, lib, ... }:
                     "activeTab"
                     "*://bitbucket.org/*"
                     "*://codeberg.org/*"
+                    "*://git.sr.ht/*"
                     "*://gitea.com/*"
                     "*://github.com/*"
                     "*://gitlab.com/*"
+                    "*://hg.sr.ht/*"
                     "*://tangled.org/*"
                   ];
                   "uBlock0@raymondhill.net" = {
@@ -427,6 +429,7 @@ toplevel@{ inputs, lib, ... }:
                       "dns"
                       "menus"
                       "privacy"
+                      "publicSuffix"
                       "storage"
                       "tabs"
                       "unlimitedStorage"

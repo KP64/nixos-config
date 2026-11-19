@@ -57,23 +57,19 @@ in
       }
     ];
 
-    provides.to-hosts.nixos =
-      { host, ... }:
-      lib.optionalAttrs host.isDesktop {
-        programs = {
-          ausweisapp = {
-            enable = true;
-            openFirewall = true;
-          };
-          localsend = {
-            enable = true;
-            openFirewall = true;
-          };
-          thunar.enable = true;
+    provides.to-hosts.nixos = { config, host, ... }: {
+      programs = lib.optionalAttrs host.isDesktop {
+        ausweisapp = {
+          enable = true;
+          openFirewall = true;
         };
+        localsend = {
+          enable = true;
+          openFirewall = true;
+        };
+        thunar.enable = true;
       };
 
-    nixos = { config, ... }: {
       sops.secrets =
         let
           sopsFile = ./secrets.yaml;
@@ -90,16 +86,23 @@ in
           };
         };
 
-      users.users.${user} = {
-        hashedPasswordFile = config.sops.secrets."${user}_password".path;
-        openssh.authorizedKeys.keyFiles = lib.fileset.toList ./keys;
-        extraGroups = map (group: group.name) (
-          with config.users.groups;
-          [
-            input
-            video
-          ]
-        );
+      # TODO: Dev group/role for users?
+      services.udev.extraRules = builtins.readFile ./69-probe-rs.rules;
+
+      users = {
+        groups.plugdev = { };
+        users.${user} = {
+          hashedPasswordFile = config.sops.secrets."${user}_password".path;
+          openssh.authorizedKeys.keyFiles = lib.fileset.toList ./keys;
+          extraGroups = map (group: group.name) (
+            with config.users.groups;
+            [
+              input
+              video
+              plugdev
+            ]
+          );
+        };
       };
     };
 
@@ -118,6 +121,10 @@ in
           ++ (lib.optionals host.isDesktop (
             with pkgs;
             [
+              # TODO: Remove when group is dissolved
+              whatsapp-electron
+
+              kicad
               bluetui
               caligula
               manga-tui

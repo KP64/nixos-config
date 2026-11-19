@@ -11,7 +11,7 @@ toplevel@{ self, ... }:
     in
     {
       programs.noctalia = {
-        enable = config.wayland.windowManager.niri.enable;
+        inherit (config.wayland.windowManager.niri) enable;
         systemd.enable = true;
         settings = {
           config_version = 12;

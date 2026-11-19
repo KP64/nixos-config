@@ -1,10 +1,4 @@
-{
-  den,
-  lib,
-  inputs,
-  ...
-}:
-{
+{ lib, inputs, ... }: {
   flake-file.inputs.home-manager = {
     type = "github";
     owner = "nix-community";
@@ -15,10 +9,7 @@
   imports = [ inputs.home-manager.flakeModules.home-manager ];
 
   den = {
-    schema.user = {
-      includes = [ den.batteries.host-aspects ];
-      classes = lib.mkDefault [ "homeManager" ];
-    };
+    schema.user.classes = lib.mkDefault [ "homeManager" ];
     default =
       let
         defaults = {
