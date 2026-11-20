@@ -21,7 +21,10 @@ buildGoModule (_: {
 
   env.CGO_ENABLED = 0;
 
-  ldflags = [ "-s" ];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = {
     description = "View StackOverflow in privacy and without the clutter";

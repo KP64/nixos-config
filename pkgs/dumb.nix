@@ -18,10 +18,21 @@ buildGoModule (finalAttrs: {
 
   __structuredAttrs = true;
 
-  nativeBuildInputs = [
-    esbuild
-    templ
-  ];
+  checkFlags =
+    let
+      # Tests rely on internet to connect to genius.
+      skippedTests = [
+        "TestAlbum"
+        "TestAnnotations"
+        "TestArticle"
+        "TestArtist"
+        "TestInstancesList"
+        "TestLyrics"
+        "TestImageProxy"
+        "TestSearch"
+      ];
+    in
+    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
 
   vendorHash = "sha256-hAP1M8YBbAMgABKqJo+zlcanknth31KUBxbu4jg3IeE=";
 
@@ -34,13 +45,15 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
+  nativeBuildInputs = [
+    esbuild
+    templ
+  ];
+
   preBuild = ''
     templ generate
     cat $src/style/*.css | esbuild --loader=css --minify > ./static/style.css
   '';
-
-  # Checks rely on internet.
-  doCheck = false;
 
   meta = {
     description = "Private alternative front-end for Genius";
