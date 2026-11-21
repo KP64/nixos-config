@@ -13,6 +13,7 @@
       enable = true;
       settings.max_lines = 7;
     };
+    # TODO: Check & add assignments
     treesitter-textobjects = {
       enable = true;
       settings = {

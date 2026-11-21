@@ -1,8 +1,6 @@
-{ pkgs, ... }: {
-  extraPackagesAfter = [ pkgs.biber ];
-
+{
   plugins = {
-    # Vimtex handles highlighting
+    # NOTE: Vimtex handles highlighting
     treesitter.highlight.disable = [ "latex" ];
 
     texpresso.enable = true;
