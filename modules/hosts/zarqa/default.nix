@@ -12,6 +12,9 @@
       users.kg.isAdmin = true;
 
       isServer = true;
+
+      # TODO: Add Cfg
+      usbguardCfg = [ ];
     };
 
     aspects.zarqa = {

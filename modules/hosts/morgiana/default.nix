@@ -25,6 +25,36 @@ toplevel@{ den, inputs, ... }:
       users.kg.isAdmin = true;
 
       isServer = true;
+
+      usbguardCfg = [
+        {
+          id = "1d6b:0002";
+          serial = "0000:01:00.0";
+          name = "xHCI Host Controller";
+          hash = "WLLK8WnDcOZsmC13ldzWRmahoyPD7Y+TLn1uJ4TB2GU=";
+          parent-hash = "MvRvALwPgwJIPJ4ZsIUCR65FuMV4N8+5Xl/ZylmE9z4=";
+          interfaces = [ "09:00:00" ];
+          connect-type = "";
+        }
+        {
+          id = "1d6b:0003";
+          serial = "0000:01:00.0";
+          name = "xHCI Host Controller";
+          hash = "boAZgaZDmSJy5CZ+Sxb27+UaJ9oJP414lq7qslVjPig=";
+          parent-hash = "MvRvALwPgwJIPJ4ZsIUCR65FuMV4N8+5Xl/ZylmE9z4=";
+          interfaces = [ "09:00:00" ];
+          connect-type = "";
+        }
+        {
+          id = "2109:3431";
+          serial = "";
+          name = "USB2.0 Hub";
+          hash = "/yzg/BjU0j0CTc2DYFSrSSr2JGwmQuhhAhpqcTsXZA4=";
+          parent-hash = "WLLK8WnDcOZsmC13ldzWRmahoyPD7Y+TLn1uJ4TB2GU=";
+          interfaces = [ "09:00:00" ];
+          connect-type = "unknown";
+        }
+      ];
     };
 
     aspects.morgiana = {
