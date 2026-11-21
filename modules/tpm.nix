@@ -1,24 +1,14 @@
 { lib, ... }: {
-  den.schema = {
-    host = {
-      options.hasTPM = lib.mkEnableOption "Machine has a TPM";
-      includes = [
-        (
-          { host, ... }:
-          lib.optionalAttrs host.hasTPM {
-            nixos = {
-              security.tpm2 = {
-                enable = true;
-                pkcs11.enable = true;
-                tctiEnvironment.enable = true;
-              };
-            };
-          }
-        )
-      ];
+  den = {
+    aspects.tpm.nixos = {
+      security.tpm2 = {
+        enable = true;
+        pkcs11.enable = true;
+        tctiEnvironment.enable = true;
+      };
     };
 
-    user.includes = [
+    schema.user.includes = [
       (
         { user, ... }:
         lib.optionalAttrs user.isAdmin {

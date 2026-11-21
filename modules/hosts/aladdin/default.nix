@@ -7,7 +7,6 @@
       isGraphical = true;
       isServer = false;
       isUsedInteractively = true;
-      hasTPM = true;
 
       settings.yubikey.lockOnRemoval = false;
     };
@@ -17,6 +16,7 @@
         boot._.secure
         catppuccin
         nvidia
+        tpm
       ];
 
       nixos = {
