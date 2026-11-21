@@ -337,7 +337,10 @@ toplevel@{ inputs, lib, ... }:
                     "file:///*"
                   ];
                   "7esoorv3@alefvanoon.anonaddy.me" = {
-                    settings = lib.importJSON ./libredirect-settings.json;
+                    settings = {
+                      pingCache = { };
+                      options = lib.importJSON ./libredirect-settings.json;
+                    };
                     permissions = [
                       "webRequest"
                       "webRequestBlocking"
