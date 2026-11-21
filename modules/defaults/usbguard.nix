@@ -94,13 +94,8 @@ in
       let
         hostRules =
           host.usbguardCfg
-          |> map (
-            device:
-            device
-            |> builtins.attrValues
-            |> builtins.filter (v: v != null)
-            |> toString
-          )
+          |> map (device: [ "allow" ] ++ (device |> builtins.attrValues |> builtins.filter (v: v != null)))
+          |> map toString
           |> lib.concatLines;
       in
       lib.mkIf (host.usbguardCfg != [ ]) {
