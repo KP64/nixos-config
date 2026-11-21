@@ -147,7 +147,7 @@ in
             update_ms = 1000;
           };
         };
-        cava.enable = true;
+        cava.enable = host.isDesktop;
         fastfetch.enable = true;
         less.enable = true;
         pay-respects.enable = true;
