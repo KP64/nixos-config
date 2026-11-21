@@ -10,11 +10,7 @@
       let
         hostsDir = ../hosts;
 
-        hosts =
-          hostsDir
-          |> builtins.readDir
-          |> builtins.attrNames
-          |> builtins.filter (name: !lib.hasPrefix "_" name);
+        hosts = hostsDir |> builtins.readDir |> builtins.attrNames;
       in
       lib.genAttrs hosts (
         name:
