@@ -7,8 +7,10 @@
 
   imports = [ inputs.pkgs-by-name-for-flake-parts.flakeModule ];
 
-  perSystem = {
+  perSystem = { config, ... }: {
     pkgsDirectory = "${self}/pkgs";
     pkgsFilterByPlatforms = true;
+
+    checks = config.packages;
   };
 }
