@@ -22,6 +22,8 @@
       virtualisation.flushL1DataCache = "always";
     };
 
+    systemd.enableStrictShellChecks = true;
+
     # TODO: Enable when Sops-Nix works with that.
     # system = {
     #   etc.overlay = {
