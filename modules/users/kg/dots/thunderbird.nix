@@ -26,9 +26,9 @@ toplevel: {
         profiles.${username} = {
           isDefault = true;
           withExternalGnupg = true;
-          search = {
+          search = rec {
             default = "ddg";
-            privateDefault = "ddg";
+            privateDefault = default;
             force = true;
           };
           settings = toFlattenedByDots {

@@ -34,8 +34,8 @@
                 } *"
               )
               {
-                "bat" = "sha256-5RGWZFjwaQvALsq68wNOMuG7YXHha+7SbhsXXCEEEzw=";
-                "git" = "sha256-o7UKYLbrVrq9FLGa9+jBs2WJLi17Qrklbs37RL3d8vE=";
+                bat = "sha256-5RGWZFjwaQvALsq68wNOMuG7YXHha+7SbhsXXCEEEzw=";
+                git = "sha256-59seq1CcS7tVz7L75KMVpxQZ+VgA9ZkxGlRi/XJYslw=";
               }
           );
         };

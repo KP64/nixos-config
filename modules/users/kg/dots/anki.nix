@@ -6,10 +6,14 @@
       lib,
       ...
     }:
+    let
+      usernameSecret = "anki/username";
+      syncKeySecret = "anki/sync_key";
+    in
     lib.optionalAttrs host.isGraphical {
       sops.secrets = {
-        "anki/username" = { };
-        "anki/sync_key" = { };
+        ${usernameSecret} = { };
+        ${syncKeySecret} = { };
       };
 
       programs.anki = {
@@ -27,8 +31,8 @@
               syncMedia = true;
               # TODO: Re-Add
               # url = "https://anki.srvd.space";
-              usernameFile = secrets."anki/username".path;
-              keyFile = secrets."anki/sync_key".path;
+              usernameFile = secrets.${usernameSecret}.path;
+              keyFile = secrets.${syncKeySecret}.path;
             };
         };
       };
