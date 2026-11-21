@@ -35,6 +35,7 @@
               )
               {
                 bat = "sha256-5RGWZFjwaQvALsq68wNOMuG7YXHha+7SbhsXXCEEEzw=";
+                docker = "sha256-sUlnS/jh7rUf3aDm30zpZXwmj9kz2aUD/wkr/YdnG7Q=";
                 git = "sha256-59seq1CcS7tVz7L75KMVpxQZ+VgA9ZkxGlRi/XJYslw=";
               }
           );
