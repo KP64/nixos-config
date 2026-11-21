@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-buildGoModule (_: {
+buildGoModule (finalAttrs: {
   pname = "anonymousoverflow";
-  version = "0-unstable-2026-08-25";
+  version = "1.14.1";
 
   src = fetchFromGitHub {
     owner = "httpjamesm";
     repo = "AnonymousOverflow";
-    rev = "937cfeefd6dcbab92ef572671f16d4d3be6abad3";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-QhxvIgFGFLfLg4Oh+FjfzNajBYTmabDw0GMdVFvUMsw=";
   };
 
