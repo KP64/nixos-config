@@ -21,6 +21,8 @@ toplevel: {
         thunderbird.enable = true;
       };
 
+      catppuccin.thunderbird.profile = username;
+
       programs.thunderbird = {
         enable = true;
         profiles.${username} = {

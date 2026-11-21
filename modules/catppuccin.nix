@@ -22,43 +22,40 @@ in
       };
     };
 
-    aspects.catppuccin =
-      { host, lib, ... }:
-      lib.optionalAttrs (host.isUsedInteractively && !host.isServer) {
-        nixos = { config, ... }: {
+    aspects.catppuccin = {
+      nixos = { config, ... }: {
+        catppuccin = {
+          enable = true;
+          cache.enable = true;
+          inherit accent;
+          cursors = {
+            inherit (config.programs.niri) enable;
+            accent = cursorAccent;
+          };
+        };
+      };
+
+      homeManager =
+        {
+          nixosConfig ? null,
+          config,
+          ...
+        }:
+        {
           catppuccin = {
             enable = true;
-            cache.enable = true;
+            cache.enable = nixosConfig == null;
             inherit accent;
+            firefox.force = true;
             cursors = {
-              inherit (config.programs.niri) enable;
+              inherit (config.wayland.windowManager.niri) enable;
               accent = cursorAccent;
             };
           };
+
+          gtk.colorScheme = "dark";
+          qt.style.name = "kvantum";
         };
-
-        homeManager =
-          {
-            nixosConfig ? null,
-            config,
-            ...
-          }:
-          {
-            catppuccin = {
-              enable = true;
-              cache.enable = nixosConfig == null;
-              inherit accent;
-              firefox.force = true;
-              cursors = {
-                inherit (config.wayland.windowManager.niri) enable;
-                accent = cursorAccent;
-              };
-              thunderbird.profile = config.home.username;
-            };
-
-            gtk.colorScheme = "dark";
-            qt.style.name = "kvantum";
-          };
-      };
+    };
   };
 }
