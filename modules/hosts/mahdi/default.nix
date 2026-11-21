@@ -4,11 +4,8 @@
       users.kg.isAdmin = true;
 
       isServer = true;
-    };
+      isConfigBuilder = true;
 
-    aspects.mahdi.nixos = {
-      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-      security.tpm2.enable = false;
     };
   };
 }

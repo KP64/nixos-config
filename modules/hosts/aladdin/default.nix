@@ -5,6 +5,7 @@
 
       isGamingCapable = true;
       isGraphical = true;
+      isConfigBuilder = true;
       isServer = false;
       isUsedInteractively = true;
 
@@ -19,10 +20,7 @@
         tpm
       ];
 
-      nixos = {
-        services.xserver.xkb.layout = "de";
-        boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-      };
+      nixos.services.xserver.xkb.layout = "de";
     };
   };
 }

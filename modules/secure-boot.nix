@@ -47,7 +47,7 @@
         lanzaboote = {
           enable = true;
           pkiBundle = "/var/lib/sbctl";
-          # TODO: Remove this as Systemd has support now.
+          # TODO: Systemd has support now. Remove when lanzaboote catches up.
           configurationLimit = lib.mkIf config.boot.lanzaboote.measuredBoot.enable 4;
           bootCounting.initialTries = config.boot.loader.systemd-boot.bootCounting.tries;
           measuredBoot = {
