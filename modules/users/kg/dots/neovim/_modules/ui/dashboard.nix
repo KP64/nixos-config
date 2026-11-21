@@ -17,7 +17,7 @@
 #   "  ██    ██  ██                                 ██   ██ ██      ██           "
 #   "  ████████  █████████████████████████████████████   █████████████           "
 #   "                                                                            "
-{ lib, ... }: {
+{ config, lib, ... }: {
   plugins.dashboard = {
     enable = true;
     settings.config = {
@@ -31,7 +31,13 @@
           group = "Label";
           key = "f";
         }
-      ];
+      ]
+      ++ lib.optional config.plugins.leetcode.enable {
+        action = "Leet";
+        desc = "Leetcode";
+        group = "Label";
+        key = "l";
+      };
       header = [
         "  ██  ██  ████████  ████████  ██  ██  ██  ██  "
         "  ██  ██  ██              ██  ██  ██          "
