@@ -1,6 +1,10 @@
+{ config, ... }:
 {
-  # Prevents everything to be folded on start
+  # Prevents everything from being folded on start
   opts.foldlevelstart = 99;
+
+  # Avoids conflicts with textobjects
+  globals.no_plugin_maps = true;
 
   plugins = {
     treesitter = {
@@ -9,24 +13,31 @@
       highlight.enable = true;
       indent.enable = true;
     };
+
     treesitter-context = {
-      enable = true;
-      settings.max_lines = 7;
+      inherit (config.plugins.treesitter) enable;
+      lazyLoad.settings.event = [
+        "BufReadPost"
+        "BufNewFile"
+      ];
+      settings.max_lines = 4;
     };
-    # TODO: Check & add assignments
+
+    # TODO: Add custom textobject keymaps
+    #        -> look at: https://github.com/khaneliman/khanelivim/blob/main/modules/nixvim/plugins/treesitter-textobjects/default.nix
     treesitter-textobjects = {
-      enable = true;
+      inherit (config.plugins.treesitter) enable;
       settings = {
-        lsp_interop = {
-          enable = true;
-          border = "rounded";
-        };
-        move.enable = true;
+        move.set_jumps = true;
         select = {
-          enable = true;
           lookahead = true;
+          include_surrounding_whitespace = false;
+          selection_modes = {
+            "@parameter.outer" = "v";
+            "@function.outer" = "V";
+            "@class.outer" = "<C-v>";
+          };
         };
-        swap.enable = true;
       };
     };
   };

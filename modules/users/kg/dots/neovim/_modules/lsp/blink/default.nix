@@ -1,6 +1,9 @@
 { lib, ... }:
 let
-  lazyLoad.settings.event = "InsertEnter";
+  lazyLoad.settings.event = [
+    "InsertEnter"
+    "CmdlineEnter"
+  ];
 
   mkRequire =
     func:

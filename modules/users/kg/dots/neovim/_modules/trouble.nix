@@ -1,7 +1,10 @@
+let
+  cmd = "Trouble";
+in
 {
   plugins.trouble = {
     enable = true;
-    lazyLoad.settings.cmd = "Trouble";
+    lazyLoad.settings.cmd = [ cmd ];
     settings = {
       auto_close = true;
       auto_refresh = true;
@@ -12,7 +15,7 @@
     {
       mode = "n";
       key = "<leader>xx";
-      action = "<cmd>Trouble diagnostics toggle<cr>";
+      action = "<CMD>${cmd} diagnostics toggle<CR>";
       options.desc = "Diagnostics (Trouble)";
     }
   ];

@@ -3,11 +3,7 @@
     enable = true;
     lazyLoad.settings = {
       cmd = [ "ConformInfo" ];
-      event = [
-        "BufWritePre"
-        "BufReadPre"
-        "BufNewFile"
-      ];
+      event = [ "BufWritePre" ];
     };
     autoInstall.enable = true;
     settings = {
