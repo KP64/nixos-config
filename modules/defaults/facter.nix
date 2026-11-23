@@ -10,7 +10,11 @@
       let
         hostsDir = ../hosts;
 
-        hosts = hostsDir |> builtins.readDir |> builtins.attrNames;
+        hosts =
+          hostsDir
+          |> builtins.readDir
+          |> lib.filterAttrs (_: t: t == "directory")
+          |> builtins.attrNames;
       in
       lib.genAttrs hosts (
         name:
