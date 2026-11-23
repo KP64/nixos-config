@@ -15,7 +15,6 @@
             IPv6PrivacyExtensions = false;
             DNSSEC = true;
             LLMNR = false;
-            MulticastDNS = true;
           };
           ipv6AcceptRAConfig.Token = [ "static:::${addr}" ];
         };

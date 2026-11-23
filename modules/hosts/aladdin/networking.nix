@@ -8,7 +8,6 @@
         networkConfig = {
           DNSSEC = true;
           LLMNR = false;
-          MulticastDNS = true;
 
           IPv6AcceptRA = true;
           IPv6PrivacyExtensions = true;
